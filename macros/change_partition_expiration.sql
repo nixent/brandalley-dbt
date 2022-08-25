@@ -12,3 +12,5 @@
         {% do run_query(sql) %}
     {% endfor %}
 {% endmacro %}
+
+--example run-operation : dbt run-operation change_partition_exp --args '{schema_pattern: streamkap, expiration_time_in_days: null}'
