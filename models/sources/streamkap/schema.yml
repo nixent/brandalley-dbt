@@ -1,0 +1,1753 @@
+version: 2
+
+sources:
+  - name: streamkap
+    description: ""
+    tables:
+      - name: admin_user
+        description: ""
+        columns:
+          - name: user_id
+            description: ""
+          - name: firstname
+            description: ""
+          - name: lastname
+            description: ""
+          - name: email
+            description: ""
+          - name: username
+            description: ""
+          - name: password
+            description: ""
+          - name: created
+            description: ""
+          - name: modified
+            description: ""
+          - name: logdate
+            description: ""
+          - name: lognum
+            description: ""
+          - name: reload_acl_flag
+            description: ""
+          - name: is_active
+            description: ""
+          - name: extra
+            description: ""
+          - name: rp_token
+            description: ""
+          - name: rp_token_created_at
+            description: ""
+          - name: failures_num
+            description: ""
+          - name: first_failure
+            description: ""
+          - name: lock_expires
+            description: ""
+          - name: token_login_enabled
+            description: ""
+          - name: login_token_secret
+            description: ""
+          - name: last_token_used
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_history
+        description: ""
+        columns:
+          - name: line_id
+            description: ""
+          - name: category_id
+            description: ""
+          - name: name
+            description: ""
+          - name: sale_start
+            description: ""
+          - name: sale_end
+            description: ""
+          - name: type
+            description: ""
+          - name: nego
+            description: ""
+          - name: delivery_info
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_set_id
+            description: ""
+          - name: type_id
+            description: ""
+          - name: sku
+            description: ""
+          - name: has_options
+            description: ""
+          - name: required_options
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_decimal
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_int
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_text
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_varchar
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_negotiation
+        description: ""
+        columns:
+          - name: negotiation_id
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: parent
+            description: ""
+          - name: sap_ref
+            description: ""
+          - name: type
+            description: ""
+          - name: supplier
+            description: ""
+          - name: currency
+            description: ""
+          - name: rate
+            description: ""
+          - name: cost
+            description: ""
+          - name: price
+            description: ""
+          - name: status
+            description: ""
+          - name: admin
+            description: ""
+          - name: date_import
+            description: ""
+          - name: date_reservation
+            description: ""
+          - name: date_pend_proc
+            description: ""
+          - name: date_proc_comp
+            description: ""
+          - name: date_comp_exported
+            description: ""
+          - name: date_due
+            description: ""
+          - name: sap_message
+            description: ""
+          - name: buyer
+            description: ""
+          - name: department
+            description: ""
+          - name: buyer_name
+            description: ""
+          - name: buyer_email
+            description: ""
+          - name: supplier_email
+            description: ""
+          - name: is_internal
+            description: ""
+          - name: email_allert
+            description: ""
+          - name: po_generate
+            description: ""
+          - name: validated
+            description: ""
+          - name: country_po
+            description: ""
+          - name: po_crossdock
+            description: ""
+          - name: imported_to_erp
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_reference
+        description: ""
+        columns:
+          - name: reference_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: reference
+            description: ""
+          - name: size
+            description: ""
+          - name: supplier_id
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_super_link
+        description: ""
+        columns:
+          - name: link_id
+            description: ""
+          - name: product_id
+            description: ""
+          - name: parent_id
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_supplier
+        description: ""
+        columns:
+          - name: supplier_id
+            description: ""
+          - name: name
+            description: ""
+          - name: sup_id
+            description: ""
+          - name: currency
+            description: ""
+          - name: status
+            description: ""
+          - name: in_wh_b
+            description: ""
+          - name: updated
+            description: ""
+          - name: supplier_export_process_id
+            description: ""
+          - name: imported_to_erp
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: cataloginventory_stock_item
+        description: ""
+        columns:
+          - name: item_id
+            description: ""
+          - name: product_id
+            description: ""
+          - name: stock_id
+            description: ""
+          - name: qty
+            description: ""
+          - name: min_qty
+            description: ""
+          - name: use_config_min_qty
+            description: ""
+          - name: is_qty_decimal
+            description: ""
+          - name: backorders
+            description: ""
+          - name: use_config_backorders
+            description: ""
+          - name: min_sale_qty
+            description: ""
+          - name: use_config_min_sale_qty
+            description: ""
+          - name: max_sale_qty
+            description: ""
+          - name: use_config_max_sale_qty
+            description: ""
+          - name: is_in_stock
+            description: ""
+          - name: low_stock_date
+            description: ""
+          - name: notify_stock_qty
+            description: ""
+          - name: use_config_notify_stock_qty
+            description: ""
+          - name: manage_stock
+            description: ""
+          - name: use_config_manage_stock
+            description: ""
+          - name: stock_status_changed_auto
+            description: ""
+          - name: use_config_qty_increments
+            description: ""
+          - name: qty_increments
+            description: ""
+          - name: use_config_enable_qty_inc
+            description: ""
+          - name: enable_qty_increments
+            description: ""
+          - name: is_decimal_divided
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: customer_address_entity_text
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: customer_address_entity_varchar
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: customer_entity
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_set_id
+            description: ""
+          - name: website_id
+            description: ""
+          - name: email
+            description: ""
+          - name: group_id
+            description: ""
+          - name: increment_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: is_active
+            description: ""
+          - name: disable_auto_group_change
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: customer_entity_datetime
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: customer_entity_int
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: customer_entity_text
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: customer_entity_varchar
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: eav_attribute_option_value
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: option_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: invent_referer
+        description: ""
+        columns:
+          - name: referer_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: entity_type
+            description: ""
+          - name: event_type
+            description: ""
+          - name: source
+            description: ""
+          - name: medium
+            description: ""
+          - name: term
+            description: ""
+          - name: content
+            description: ""
+          - name: campaign
+            description: ""
+          - name: gclid
+            description: ""
+          - name: device_category
+            description: ""
+          - name: operating_system
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: log_customer
+        description: ""
+        columns:
+          - name: log_id
+            description: ""
+          - name: visitor_id
+            description: ""
+          - name: customer_id
+            description: ""
+          - name: login_at
+            description: ""
+          - name: logout_at
+            description: ""
+          - name: store_id
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: newsletter_subscriber
+        description: ""
+        columns:
+          - name: subscriber_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: change_status_at
+            description: ""
+          - name: customer_id
+            description: ""
+          - name: subscriber_email
+            description: ""
+          - name: subscriber_status
+            description: ""
+          - name: subscriber_confirm_code
+            description: ""
+          - name: subscription_date
+            description: ""
+          - name: pure360_sync_status
+            description: ""
+          - name: emarsys_sync_status
+            description: ""
+          - name: subscriber_source
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_creditmemo
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: adjustment_positive
+            description: ""
+          - name: base_shipping_tax_amount
+            description: ""
+          - name: store_to_order_rate
+            description: ""
+          - name: base_discount_amount
+            description: ""
+          - name: base_to_order_rate
+            description: ""
+          - name: grand_total
+            description: ""
+          - name: base_adjustment_negative
+            description: ""
+          - name: base_subtotal_incl_tax
+            description: ""
+          - name: shipping_amount
+            description: ""
+          - name: subtotal_incl_tax
+            description: ""
+          - name: adjustment_negative
+            description: ""
+          - name: base_shipping_amount
+            description: ""
+          - name: store_to_base_rate
+            description: ""
+          - name: base_to_global_rate
+            description: ""
+          - name: base_adjustment
+            description: ""
+          - name: base_subtotal
+            description: ""
+          - name: discount_amount
+            description: ""
+          - name: subtotal
+            description: ""
+          - name: adjustment
+            description: ""
+          - name: base_grand_total
+            description: ""
+          - name: base_adjustment_positive
+            description: ""
+          - name: base_tax_amount
+            description: ""
+          - name: shipping_tax_amount
+            description: ""
+          - name: tax_amount
+            description: ""
+          - name: order_id
+            description: ""
+          - name: email_sent
+            description: ""
+          - name: creditmemo_status
+            description: ""
+          - name: state
+            description: ""
+          - name: shipping_address_id
+            description: ""
+          - name: billing_address_id
+            description: ""
+          - name: invoice_id
+            description: ""
+          - name: store_currency_code
+            description: ""
+          - name: order_currency_code
+            description: ""
+          - name: base_currency_code
+            description: ""
+          - name: global_currency_code
+            description: ""
+          - name: transaction_id
+            description: ""
+          - name: increment_id
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: hidden_tax_amount
+            description: ""
+          - name: base_hidden_tax_amount
+            description: ""
+          - name: shipping_hidden_tax_amount
+            description: ""
+          - name: base_shipping_hidden_tax_amnt
+            description: ""
+          - name: shipping_incl_tax
+            description: ""
+          - name: base_shipping_incl_tax
+            description: ""
+          - name: discount_description
+            description: ""
+          - name: base_customer_balance_amount
+            description: ""
+          - name: customer_balance_amount
+            description: ""
+          - name: bs_customer_bal_total_refunded
+            description: ""
+          - name: customer_bal_total_refunded
+            description: ""
+          - name: base_gift_cards_amount
+            description: ""
+          - name: gift_cards_amount
+            description: ""
+          - name: gw_base_price
+            description: ""
+          - name: gw_price
+            description: ""
+          - name: gw_items_base_price
+            description: ""
+          - name: gw_items_price
+            description: ""
+          - name: gw_card_base_price
+            description: ""
+          - name: gw_card_price
+            description: ""
+          - name: gw_base_tax_amount
+            description: ""
+          - name: gw_tax_amount
+            description: ""
+          - name: gw_items_base_tax_amount
+            description: ""
+          - name: gw_items_tax_amount
+            description: ""
+          - name: gw_card_base_tax_amount
+            description: ""
+          - name: gw_card_tax_amount
+            description: ""
+          - name: base_reward_currency_amount
+            description: ""
+          - name: reward_currency_amount
+            description: ""
+          - name: reward_points_balance
+            description: ""
+          - name: reward_points_balance_refund
+            description: ""
+          - name: refund_type_id
+            description: ""
+          - name: adjustment_reason_id
+            description: ""
+          - name: status_id
+            description: ""
+          - name: admin_user_id
+            description: ""
+          - name: approve_at
+            description: ""
+          - name: exported_to_sap
+            description: ""
+          - name: fee_type
+            description: ""
+          - name: flag
+            description: ""
+          - name: approved_by
+            description: ""
+          - name: canceled_at
+            description: ""
+          - name: is_batch
+            description: ""
+          - name: is_manual_account_refund
+            description: ""
+          - name: bank_name
+            description: ""
+          - name: account_number
+            description: ""
+          - name: sort_code
+            description: ""
+          - name: bank_account_name
+            description: ""
+          - name: from_wh_b
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: state
+            description: ""
+          - name: status
+            description: ""
+          - name: coupon_code
+            description: ""
+          - name: protect_code
+            description: ""
+          - name: shipping_description
+            description: ""
+          - name: is_virtual
+            description: ""
+          - name: store_id
+            description: ""
+          - name: customer_id
+            description: ""
+          - name: base_discount_amount
+            description: ""
+          - name: base_discount_canceled
+            description: ""
+          - name: base_discount_invoiced
+            description: ""
+          - name: base_discount_refunded
+            description: ""
+          - name: base_grand_total
+            description: ""
+          - name: base_shipping_amount
+            description: ""
+          - name: base_shipping_canceled
+            description: ""
+          - name: base_shipping_invoiced
+            description: ""
+          - name: base_shipping_refunded
+            description: ""
+          - name: base_shipping_tax_amount
+            description: ""
+          - name: base_shipping_tax_refunded
+            description: ""
+          - name: base_subtotal
+            description: ""
+          - name: base_subtotal_canceled
+            description: ""
+          - name: base_subtotal_invoiced
+            description: ""
+          - name: base_subtotal_refunded
+            description: ""
+          - name: base_tax_amount
+            description: ""
+          - name: base_tax_canceled
+            description: ""
+          - name: base_tax_invoiced
+            description: ""
+          - name: base_tax_refunded
+            description: ""
+          - name: base_to_global_rate
+            description: ""
+          - name: base_to_order_rate
+            description: ""
+          - name: base_total_canceled
+            description: ""
+          - name: base_total_invoiced
+            description: ""
+          - name: base_total_invoiced_cost
+            description: ""
+          - name: base_total_offline_refunded
+            description: ""
+          - name: base_total_online_refunded
+            description: ""
+          - name: base_total_paid
+            description: ""
+          - name: base_total_qty_ordered
+            description: ""
+          - name: base_total_refunded
+            description: ""
+          - name: discount_amount
+            description: ""
+          - name: discount_canceled
+            description: ""
+          - name: discount_invoiced
+            description: ""
+          - name: discount_refunded
+            description: ""
+          - name: grand_total
+            description: ""
+          - name: shipping_amount
+            description: ""
+          - name: shipping_canceled
+            description: ""
+          - name: shipping_invoiced
+            description: ""
+          - name: shipping_refunded
+            description: ""
+          - name: shipping_tax_amount
+            description: ""
+          - name: shipping_tax_refunded
+            description: ""
+          - name: store_to_base_rate
+            description: ""
+          - name: store_to_order_rate
+            description: ""
+          - name: subtotal
+            description: ""
+          - name: subtotal_canceled
+            description: ""
+          - name: subtotal_invoiced
+            description: ""
+          - name: subtotal_refunded
+            description: ""
+          - name: tax_amount
+            description: ""
+          - name: tax_canceled
+            description: ""
+          - name: tax_invoiced
+            description: ""
+          - name: tax_refunded
+            description: ""
+          - name: total_canceled
+            description: ""
+          - name: total_invoiced
+            description: ""
+          - name: total_offline_refunded
+            description: ""
+          - name: total_online_refunded
+            description: ""
+          - name: total_paid
+            description: ""
+          - name: total_qty_ordered
+            description: ""
+          - name: total_refunded
+            description: ""
+          - name: can_ship_partially
+            description: ""
+          - name: can_ship_partially_item
+            description: ""
+          - name: customer_is_guest
+            description: ""
+          - name: customer_note_notify
+            description: ""
+          - name: billing_address_id
+            description: ""
+          - name: customer_group_id
+            description: ""
+          - name: edit_increment
+            description: ""
+          - name: email_sent
+            description: ""
+          - name: forced_shipment_with_invoice
+            description: ""
+          - name: payment_auth_expiration
+            description: ""
+          - name: quote_address_id
+            description: ""
+          - name: quote_id
+            description: ""
+          - name: shipping_address_id
+            description: ""
+          - name: adjustment_negative
+            description: ""
+          - name: adjustment_positive
+            description: ""
+          - name: base_adjustment_negative
+            description: ""
+          - name: base_adjustment_positive
+            description: ""
+          - name: base_shipping_discount_amount
+            description: ""
+          - name: base_subtotal_incl_tax
+            description: ""
+          - name: base_total_due
+            description: ""
+          - name: payment_authorization_amount
+            description: ""
+          - name: shipping_discount_amount
+            description: ""
+          - name: subtotal_incl_tax
+            description: ""
+          - name: total_due
+            description: ""
+          - name: weight
+            description: ""
+          - name: customer_dob
+            description: ""
+          - name: increment_id
+            description: ""
+          - name: applied_rule_ids
+            description: ""
+          - name: base_currency_code
+            description: ""
+          - name: customer_email
+            description: ""
+          - name: customer_firstname
+            description: ""
+          - name: customer_lastname
+            description: ""
+          - name: customer_middlename
+            description: ""
+          - name: customer_prefix
+            description: ""
+          - name: customer_suffix
+            description: ""
+          - name: customer_taxvat
+            description: ""
+          - name: discount_description
+            description: ""
+          - name: ext_customer_id
+            description: ""
+          - name: ext_order_id
+            description: ""
+          - name: global_currency_code
+            description: ""
+          - name: hold_before_state
+            description: ""
+          - name: hold_before_status
+            description: ""
+          - name: order_currency_code
+            description: ""
+          - name: original_increment_id
+            description: ""
+          - name: relation_child_id
+            description: ""
+          - name: relation_child_real_id
+            description: ""
+          - name: relation_parent_id
+            description: ""
+          - name: relation_parent_real_id
+            description: ""
+          - name: remote_ip
+            description: ""
+          - name: shipping_method
+            description: ""
+          - name: store_currency_code
+            description: ""
+          - name: store_name
+            description: ""
+          - name: x_forwarded_for
+            description: ""
+          - name: customer_note
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: total_item_count
+            description: ""
+          - name: customer_gender
+            description: ""
+          - name: hidden_tax_amount
+            description: ""
+          - name: base_hidden_tax_amount
+            description: ""
+          - name: shipping_hidden_tax_amount
+            description: ""
+          - name: base_shipping_hidden_tax_amnt
+            description: ""
+          - name: hidden_tax_invoiced
+            description: ""
+          - name: base_hidden_tax_invoiced
+            description: ""
+          - name: hidden_tax_refunded
+            description: ""
+          - name: base_hidden_tax_refunded
+            description: ""
+          - name: shipping_incl_tax
+            description: ""
+          - name: base_shipping_incl_tax
+            description: ""
+          - name: coupon_rule_name
+            description: ""
+          - name: paypal_ipn_customer_notified
+            description: ""
+          - name: gift_message_id
+            description: ""
+          - name: base_customer_balance_amount
+            description: ""
+          - name: customer_balance_amount
+            description: ""
+          - name: base_customer_balance_invoiced
+            description: ""
+          - name: customer_balance_invoiced
+            description: ""
+          - name: base_customer_balance_refunded
+            description: ""
+          - name: customer_balance_refunded
+            description: ""
+          - name: bs_customer_bal_total_refunded
+            description: ""
+          - name: customer_bal_total_refunded
+            description: ""
+          - name: gift_cards
+            description: ""
+          - name: base_gift_cards_amount
+            description: ""
+          - name: gift_cards_amount
+            description: ""
+          - name: base_gift_cards_invoiced
+            description: ""
+          - name: gift_cards_invoiced
+            description: ""
+          - name: base_gift_cards_refunded
+            description: ""
+          - name: gift_cards_refunded
+            description: ""
+          - name: gw_id
+            description: ""
+          - name: gw_allow_gift_receipt
+            description: ""
+          - name: gw_add_card
+            description: ""
+          - name: gw_base_price
+            description: ""
+          - name: gw_price
+            description: ""
+          - name: gw_items_base_price
+            description: ""
+          - name: gw_items_price
+            description: ""
+          - name: gw_card_base_price
+            description: ""
+          - name: gw_card_price
+            description: ""
+          - name: gw_base_tax_amount
+            description: ""
+          - name: gw_tax_amount
+            description: ""
+          - name: gw_items_base_tax_amount
+            description: ""
+          - name: gw_items_tax_amount
+            description: ""
+          - name: gw_card_base_tax_amount
+            description: ""
+          - name: gw_card_tax_amount
+            description: ""
+          - name: gw_base_price_invoiced
+            description: ""
+          - name: gw_price_invoiced
+            description: ""
+          - name: gw_items_base_price_invoiced
+            description: ""
+          - name: gw_items_price_invoiced
+            description: ""
+          - name: gw_card_base_price_invoiced
+            description: ""
+          - name: gw_card_price_invoiced
+            description: ""
+          - name: gw_base_tax_amount_invoiced
+            description: ""
+          - name: gw_tax_amount_invoiced
+            description: ""
+          - name: gw_items_base_tax_invoiced
+            description: ""
+          - name: gw_items_tax_invoiced
+            description: ""
+          - name: gw_card_base_tax_invoiced
+            description: ""
+          - name: gw_card_tax_invoiced
+            description: ""
+          - name: gw_base_price_refunded
+            description: ""
+          - name: gw_price_refunded
+            description: ""
+          - name: gw_items_base_price_refunded
+            description: ""
+          - name: gw_items_price_refunded
+            description: ""
+          - name: gw_card_base_price_refunded
+            description: ""
+          - name: gw_card_price_refunded
+            description: ""
+          - name: gw_base_tax_amount_refunded
+            description: ""
+          - name: gw_tax_amount_refunded
+            description: ""
+          - name: gw_items_base_tax_refunded
+            description: ""
+          - name: gw_items_tax_refunded
+            description: ""
+          - name: gw_card_base_tax_refunded
+            description: ""
+          - name: gw_card_tax_refunded
+            description: ""
+          - name: reward_points_balance
+            description: ""
+          - name: base_reward_currency_amount
+            description: ""
+          - name: reward_currency_amount
+            description: ""
+          - name: base_rwrd_crrncy_amt_invoiced
+            description: ""
+          - name: rwrd_currency_amount_invoiced
+            description: ""
+          - name: base_rwrd_crrncy_amnt_refnded
+            description: ""
+          - name: rwrd_crrncy_amnt_refunded
+            description: ""
+          - name: reward_points_balance_refund
+            description: ""
+          - name: reward_points_balance_refunded
+            description: ""
+          - name: reward_salesrule_points
+            description: ""
+          - name: onestepcheckout_customercomment
+            description: ""
+          - name: onestepcheckout_customerfeedback
+            description: ""
+          - name: exported_to_mageorder
+            description: ""
+          - name: export_attempts
+            description: ""
+          - name: expected_delivery_date
+            description: ""
+          - name: expected_delivery_days
+            description: ""
+          - name: old_order_id
+            description: ""
+          - name: total_incl_pending_refunded
+            description: ""
+          - name: base_total_incl_pending_refunded
+            description: ""
+          - name: base_shipping_pending_refund
+            description: ""
+          - name: shipping_pending_refund
+            description: ""
+          - name: shipping_pending_refund_tax
+            description: ""
+          - name: base_shipping_pending_refund_tax
+            description: ""
+          - name: sales_product_type
+            description: ""
+          - name: third_party_order_id
+            description: ""
+          - name: base_free_shipping_amount
+            description: ""
+          - name: customerservice_contact
+            description: ""
+          - name: customerservice_contact_at
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order_address
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: parent_id
+            description: ""
+          - name: customer_address_id
+            description: ""
+          - name: quote_address_id
+            description: ""
+          - name: region_id
+            description: ""
+          - name: customer_id
+            description: ""
+          - name: fax
+            description: ""
+          - name: region
+            description: ""
+          - name: postcode
+            description: ""
+          - name: lastname
+            description: ""
+          - name: street
+            description: ""
+          - name: city
+            description: ""
+          - name: email
+            description: ""
+          - name: telephone
+            description: ""
+          - name: country_id
+            description: ""
+          - name: firstname
+            description: ""
+          - name: address_type
+            description: ""
+          - name: prefix
+            description: ""
+          - name: middlename
+            description: ""
+          - name: suffix
+            description: ""
+          - name: company
+            description: ""
+          - name: vat_id
+            description: ""
+          - name: vat_is_valid
+            description: ""
+          - name: vat_request_id
+            description: ""
+          - name: vat_request_date
+            description: ""
+          - name: vat_request_success
+            description: ""
+          - name: giftregistry_item_id
+            description: ""
+          - name: changed
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order_item
+        description: ""
+        columns:
+          - name: item_id
+            description: ""
+          - name: order_id
+            description: ""
+          - name: parent_item_id
+            description: ""
+          - name: quote_item_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: product_id
+            description: ""
+          - name: product_type
+            description: ""
+          - name: product_options
+            description: ""
+          - name: weight
+            description: ""
+          - name: is_virtual
+            description: ""
+          - name: sku
+            description: ""
+          - name: name
+            description: ""
+          - name: description
+            description: ""
+          - name: applied_rule_ids
+            description: ""
+          - name: additional_data
+            description: ""
+          - name: free_shipping
+            description: ""
+          - name: is_qty_decimal
+            description: ""
+          - name: no_discount
+            description: ""
+          - name: qty_backordered
+            description: ""
+          - name: qty_canceled
+            description: ""
+          - name: qty_invoiced
+            description: ""
+          - name: qty_ordered
+            description: ""
+          - name: qty_refunded
+            description: ""
+          - name: qty_shipped
+            description: ""
+          - name: base_cost
+            description: ""
+          - name: price
+            description: ""
+          - name: base_price
+            description: ""
+          - name: original_price
+            description: ""
+          - name: base_original_price
+            description: ""
+          - name: tax_percent
+            description: ""
+          - name: tax_amount
+            description: ""
+          - name: base_tax_amount
+            description: ""
+          - name: tax_invoiced
+            description: ""
+          - name: base_tax_invoiced
+            description: ""
+          - name: discount_percent
+            description: ""
+          - name: discount_amount
+            description: ""
+          - name: base_discount_amount
+            description: ""
+          - name: discount_invoiced
+            description: ""
+          - name: base_discount_invoiced
+            description: ""
+          - name: amount_refunded
+            description: ""
+          - name: base_amount_refunded
+            description: ""
+          - name: row_total
+            description: ""
+          - name: base_row_total
+            description: ""
+          - name: row_invoiced
+            description: ""
+          - name: base_row_invoiced
+            description: ""
+          - name: row_weight
+            description: ""
+          - name: base_tax_before_discount
+            description: ""
+          - name: tax_before_discount
+            description: ""
+          - name: ext_order_item_id
+            description: ""
+          - name: locked_do_invoice
+            description: ""
+          - name: locked_do_ship
+            description: ""
+          - name: price_incl_tax
+            description: ""
+          - name: base_price_incl_tax
+            description: ""
+          - name: row_total_incl_tax
+            description: ""
+          - name: base_row_total_incl_tax
+            description: ""
+          - name: hidden_tax_amount
+            description: ""
+          - name: base_hidden_tax_amount
+            description: ""
+          - name: hidden_tax_invoiced
+            description: ""
+          - name: base_hidden_tax_invoiced
+            description: ""
+          - name: hidden_tax_refunded
+            description: ""
+          - name: base_hidden_tax_refunded
+            description: ""
+          - name: is_nominal
+            description: ""
+          - name: tax_canceled
+            description: ""
+          - name: hidden_tax_canceled
+            description: ""
+          - name: tax_refunded
+            description: ""
+          - name: base_tax_refunded
+            description: ""
+          - name: discount_refunded
+            description: ""
+          - name: base_discount_refunded
+            description: ""
+          - name: gift_message_id
+            description: ""
+          - name: gift_message_available
+            description: ""
+          - name: base_weee_tax_applied_amount
+            description: ""
+          - name: base_weee_tax_applied_row_amnt
+            description: ""
+          - name: weee_tax_applied_amount
+            description: ""
+          - name: weee_tax_applied_row_amount
+            description: ""
+          - name: weee_tax_applied
+            description: ""
+          - name: weee_tax_disposition
+            description: ""
+          - name: weee_tax_row_disposition
+            description: ""
+          - name: base_weee_tax_disposition
+            description: ""
+          - name: base_weee_tax_row_disposition
+            description: ""
+          - name: event_id
+            description: ""
+          - name: giftregistry_item_id
+            description: ""
+          - name: gw_id
+            description: ""
+          - name: gw_base_price
+            description: ""
+          - name: gw_price
+            description: ""
+          - name: gw_base_tax_amount
+            description: ""
+          - name: gw_tax_amount
+            description: ""
+          - name: gw_base_price_invoiced
+            description: ""
+          - name: gw_price_invoiced
+            description: ""
+          - name: gw_base_tax_amount_invoiced
+            description: ""
+          - name: gw_tax_amount_invoiced
+            description: ""
+          - name: gw_base_price_refunded
+            description: ""
+          - name: gw_price_refunded
+            description: ""
+          - name: gw_base_tax_amount_refunded
+            description: ""
+          - name: gw_tax_amount_refunded
+            description: ""
+          - name: qty_returned
+            description: ""
+          - name: nego
+            description: ""
+          - name: qty_warehouse_sent
+            description: ""
+          - name: qty_out_of_stock
+            description: ""
+          - name: qty_backorder_reconciliation
+            description: ""
+          - name: dispatch_date
+            description: ""
+          - name: backorder_availability
+            description: ""
+          - name: out_of_stock_date
+            description: ""
+          - name: qty_reserved_by_tc
+            description: ""
+          - name: qty_refunded_hold
+            description: ""
+          - name: qty_returned_to_warehouse
+            description: ""
+          - name: sales_product_type
+            description: ""
+          - name: expected_delivery_consignment
+            description: ""
+          - name: qty_reserved_by_wh_b
+            description: ""
+          - name: qty_wh_b_sent
+            description: ""
+          - name: product_personalisation
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order_item_extra
+        description: ""
+        columns:
+          - name: line_id
+            description: ""
+          - name: order_item_id
+            description: ""
+          - name: category_id
+            description: ""
+          - name: type
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order_payment
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: parent_id
+            description: ""
+          - name: base_shipping_captured
+            description: ""
+          - name: shipping_captured
+            description: ""
+          - name: amount_refunded
+            description: ""
+          - name: base_amount_paid
+            description: ""
+          - name: amount_canceled
+            description: ""
+          - name: base_amount_authorized
+            description: ""
+          - name: base_amount_paid_online
+            description: ""
+          - name: base_amount_refunded_online
+            description: ""
+          - name: base_shipping_amount
+            description: ""
+          - name: shipping_amount
+            description: ""
+          - name: amount_paid
+            description: ""
+          - name: amount_authorized
+            description: ""
+          - name: base_amount_ordered
+            description: ""
+          - name: base_shipping_refunded
+            description: ""
+          - name: shipping_refunded
+            description: ""
+          - name: base_amount_refunded
+            description: ""
+          - name: amount_ordered
+            description: ""
+          - name: base_amount_canceled
+            description: ""
+          - name: quote_payment_id
+            description: ""
+          - name: additional_data
+            description: ""
+          - name: cc_exp_month
+            description: ""
+          - name: cc_ss_start_year
+            description: ""
+          - name: echeck_bank_name
+            description: ""
+          - name: method
+            description: ""
+          - name: cc_debug_request_body
+            description: ""
+          - name: cc_secure_verify
+            description: ""
+          - name: protection_eligibility
+            description: ""
+          - name: cc_approval
+            description: ""
+          - name: cc_last4
+            description: ""
+          - name: cc_status_description
+            description: ""
+          - name: echeck_type
+            description: ""
+          - name: cc_debug_response_serialized
+            description: ""
+          - name: cc_ss_start_month
+            description: ""
+          - name: echeck_account_type
+            description: ""
+          - name: last_trans_id
+            description: ""
+          - name: cc_cid_status
+            description: ""
+          - name: cc_owner
+            description: ""
+          - name: cc_type
+            description: ""
+          - name: po_number
+            description: ""
+          - name: cc_exp_year
+            description: ""
+          - name: cc_status
+            description: ""
+          - name: echeck_routing_number
+            description: ""
+          - name: account_status
+            description: ""
+          - name: anet_trans_method
+            description: ""
+          - name: cc_debug_response_body
+            description: ""
+          - name: cc_ss_issue
+            description: ""
+          - name: echeck_account_name
+            description: ""
+          - name: cc_avs_status
+            description: ""
+          - name: cc_number_enc
+            description: ""
+          - name: cc_trans_id
+            description: ""
+          - name: paybox_request_number
+            description: ""
+          - name: address_status
+            description: ""
+          - name: additional_information
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_shipment
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: total_weight
+            description: ""
+          - name: total_qty
+            description: ""
+          - name: email_sent
+            description: ""
+          - name: order_id
+            description: ""
+          - name: customer_id
+            description: ""
+          - name: shipping_address_id
+            description: ""
+          - name: billing_address_id
+            description: ""
+          - name: shipment_status
+            description: ""
+          - name: increment_id
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: packages
+            description: ""
+          - name: shipping_label
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_shipment_item
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: parent_id
+            description: ""
+          - name: row_total
+            description: ""
+          - name: price
+            description: ""
+          - name: weight
+            description: ""
+          - name: qty
+            description: ""
+          - name: product_id
+            description: ""
+          - name: order_item_id
+            description: ""
+          - name: additional_data
+            description: ""
+          - name: description
+            description: ""
+          - name: name
+            description: ""
+          - name: sku
+            description: ""
+          - name: sap_id
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: tax_class
+        description: ""
+        columns:
+          - name: class_id
+            description: ""
+          - name: class_name
+            description: ""
+          - name: class_type
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
