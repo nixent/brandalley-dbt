@@ -1,0 +1,1 @@
+SELECT * FROM streamkap.invent_referer
