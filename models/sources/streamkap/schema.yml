@@ -54,6 +54,66 @@ sources:
           - name: __deleted
             description: ""
 
+      - name: bacore_stock_return
+        description: ""
+        columns:
+          - name: id
+            description: ""
+          - name: order_item_number
+            description: ""
+          - name: sku
+            description: ""
+          - name: order_increment_id
+            description: ""
+          - name: qty
+            description: ""
+          - name: return_code
+            description: ""
+          - name: created_at
+            description: ""
+          - name: xml_created_at
+            description: ""
+          - name: exported_to_sap
+            description: ""
+          - name: wh_line_id
+            description: ""
+          - name: return_service
+            description: ""
+          - name: creditmemo_id
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_set_id
+            description: ""
+          - name: parent_id
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: path
+            description: ""
+          - name: position
+            description: ""
+          - name: level
+            description: ""
+          - name: children_count
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
       - name: catalog_category_entity_history
         description: ""
         columns:
@@ -72,6 +132,60 @@ sources:
           - name: nego
             description: ""
           - name: delivery_info
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_int
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_varchar
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_product
+        description: ""
+        columns:
+          - name: category_id
+            description: ""
+          - name: product_id
+            description: ""
+          - name: position
             description: ""
           - name: _streamkap_source_ts_ms
             description: ""
@@ -784,6 +898,88 @@ sources:
           - name: bank_account_name
             description: ""
           - name: from_wh_b
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_creditmemo_item
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: parent_id
+            description: ""
+          - name: base_price
+            description: ""
+          - name: tax_amount
+            description: ""
+          - name: base_row_total
+            description: ""
+          - name: discount_amount
+            description: ""
+          - name: row_total
+            description: ""
+          - name: base_discount_amount
+            description: ""
+          - name: price_incl_tax
+            description: ""
+          - name: base_tax_amount
+            description: ""
+          - name: base_price_incl_tax
+            description: ""
+          - name: qty
+            description: ""
+          - name: base_cost
+            description: ""
+          - name: price
+            description: ""
+          - name: base_row_total_incl_tax
+            description: ""
+          - name: row_total_incl_tax
+            description: ""
+          - name: product_id
+            description: ""
+          - name: order_item_id
+            description: ""
+          - name: additional_data
+            description: ""
+          - name: description
+            description: ""
+          - name: sku
+            description: ""
+          - name: name
+            description: ""
+          - name: hidden_tax_amount
+            description: ""
+          - name: base_hidden_tax_amount
+            description: ""
+          - name: weee_tax_disposition
+            description: ""
+          - name: weee_tax_row_disposition
+            description: ""
+          - name: base_weee_tax_disposition
+            description: ""
+          - name: base_weee_tax_row_disposition
+            description: ""
+          - name: weee_tax_applied
+            description: ""
+          - name: base_weee_tax_applied_amount
+            description: ""
+          - name: base_weee_tax_applied_row_amnt
+            description: ""
+          - name: weee_tax_applied_amount
+            description: ""
+          - name: weee_tax_applied_row_amount
+            description: ""
+          - name: refund_reason_id
+            description: ""
+          - name: customer_refund_request
+            description: ""
+          - name: exported_to_sap
+            description: ""
+          - name: qty_returned_to_warehouse
             description: ""
           - name: _streamkap_source_ts_ms
             description: ""

@@ -1,1 +1,0 @@
-SELECT * FROM streamkap.sales_flat_shipment_item

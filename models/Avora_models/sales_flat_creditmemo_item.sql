@@ -9,4 +9,4 @@ WHEN 3 THEN 'Material inappropriate' WHEN 4 THEN 'Item too small' WHEN 5 THEN 'I
 WHEN 7 THEN 'Arrived too late' WHEN 8 THEN 'Item not ordered' WHEN 9 THEN 'Supplier manufacturing defect' 
 WHEN 10 THEN 'Item broken or damaged' WHEN 11 THEN 'Customer not specified' WHEN 101 THEN 'Cancellation' WHEN 102 THEN 'Out of stock' 
 WHEN 103 THEN 'Lost' WHEN 104 THEN 'Returned to sender' ELSE 'NOT DEFINED' END as refund_reason 
-FROM streamkap.sales_flat_creditmemo_item cti inner join streamkap.sales_flat_creditmemo cm on cti.parent_id = cm.entity_id
+FROM {{ source('streamkap', 'sales_flat_creditmemo_item') }} cti inner join {{ source('streamkap', 'sales_flat_creditmemo') }} cm on cti.parent_id = cm.entity_id

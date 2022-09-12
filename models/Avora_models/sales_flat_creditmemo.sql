@@ -8,5 +8,5 @@ discount_description,base_customer_balance_amount,customer_balance_amount,bs_cus
 base_gift_cards_amount,gift_cards_amount,gw_base_price,gw_price,gw_items_base_price,gw_items_price,gw_card_base_price,gw_card_price,
 gw_base_tax_amount,gw_tax_amount,gw_items_base_tax_amount,gw_items_tax_amount,gw_card_base_tax_amount,gw_card_tax_amount,
 base_reward_currency_amount,reward_currency_amount,reward_points_balance,reward_points_balance_refund,refund_type_id,adjustment_reason_id,
-status_id,admin_user_id,case when approve_at ='0000-00-00 00:00:00' then null else approve_at END approve_at,exported_to_sap,fee_type,
-flag,approved_by,case when canceled_at ='0000-00-00 00:00:00' then null else canceled_at END canceled_at,is_batch FROM streamkap.sales_flat_creditmemo
+status_id,admin_user_id,approve_at,exported_to_sap,fee_type,
+flag,approved_by,canceled_at,is_batch FROM {{ source('streamkap', 'sales_flat_creditmemo') }}

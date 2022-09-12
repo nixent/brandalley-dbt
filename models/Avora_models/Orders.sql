@@ -32,13 +32,14 @@ SELECT sfo.increment_id,
        sfo.expected_delivery_days,
        sfo.created_at AS date_created,
        sfo.updated_at
-FROM streamkap.sales_flat_order sfo
-  LEFT JOIN streamkap.sales_flat_order_address sfoa ON sfoa.entity_id = sfo.shipping_address_id
-  LEFT JOIN streamkap.sales_flat_order_address sfoa_b ON sfoa_b.entity_id = sfo.billing_address_id
-  LEFT JOIN streamkap.sales_flat_order_payment sfop ON sfo.entity_id = sfop.parent_id
-  LEFT JOIN streamkap.customer_entity_datetime ced
+FROM {{ source('streamkap', 'sales_flat_order') }} sfo
+  LEFT JOIN {{ source('streamkap', 'sales_flat_order_address') }} sfoa ON sfoa.entity_id = sfo.shipping_address_id
+  LEFT JOIN {{ source('streamkap', 'sales_flat_order_address') }} sfoa_b ON sfoa_b.entity_id = sfo.billing_address_id
+  LEFT JOIN {{ source('streamkap', 'sales_flat_order_payment') }} sfop ON sfo.entity_id = sfop.parent_id
+  LEFT JOIN {{ source('streamkap', 'customer_entity_datetime') }} ced
          ON ced.entity_id = sfo.customer_id
         AND ced.attribute_id = 11
-        AND STR_TO_DATE (ced.value,'%Y-%m-%d') IS NOT NULL
+       -- AND STR_TO_DATE (ced.value,'%Y-%m-%d') IS NOT NULL
+        AND ced.value IS NOT NULL
 WHERE sfo.increment_id NOT LIKE '%-%'
 AND   (sfo.sales_product_type != 12 OR sfo.sales_product_type IS NULL)
