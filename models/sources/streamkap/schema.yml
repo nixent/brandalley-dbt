@@ -54,6 +54,66 @@ sources:
           - name: __deleted
             description: ""
 
+      - name: bacore_stock_return
+        description: ""
+        columns:
+          - name: id
+            description: ""
+          - name: order_item_number
+            description: ""
+          - name: sku
+            description: ""
+          - name: order_increment_id
+            description: ""
+          - name: qty
+            description: ""
+          - name: return_code
+            description: ""
+          - name: created_at
+            description: ""
+          - name: xml_created_at
+            description: ""
+          - name: exported_to_sap
+            description: ""
+          - name: wh_line_id
+            description: ""
+          - name: return_service
+            description: ""
+          - name: creditmemo_id
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity
+        description: ""
+        columns:
+          - name: entity_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_set_id
+            description: ""
+          - name: parent_id
+            description: ""
+          - name: created_at
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: path
+            description: ""
+          - name: position
+            description: ""
+          - name: level
+            description: ""
+          - name: children_count
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
       - name: catalog_category_entity_history
         description: ""
         columns:
@@ -72,6 +132,60 @@ sources:
           - name: nego
             description: ""
           - name: delivery_info
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_int
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_varchar
+        description: ""
+        columns:
+          - name: value_id
+            description: ""
+          - name: entity_type_id
+            description: ""
+          - name: attribute_id
+            description: ""
+          - name: store_id
+            description: ""
+          - name: entity_id
+            description: ""
+          - name: value
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_product
+        description: ""
+        columns:
+          - name: category_id
+            description: ""
+          - name: product_id
+            description: ""
+          - name: position
             description: ""
           - name: _streamkap_source_ts_ms
             description: ""
@@ -790,672 +904,56 @@ sources:
           - name: __deleted
             description: ""
 
-      - name: sales_flat_order
-        description: ""
-        columns:
-          - name: entity_id
-            description: ""
-          - name: state
-            description: ""
-          - name: status
-            description: ""
-          - name: coupon_code
-            description: ""
-          - name: protect_code
-            description: ""
-          - name: shipping_description
-            description: ""
-          - name: is_virtual
-            description: ""
-          - name: store_id
-            description: ""
-          - name: customer_id
-            description: ""
-          - name: base_discount_amount
-            description: ""
-          - name: base_discount_canceled
-            description: ""
-          - name: base_discount_invoiced
-            description: ""
-          - name: base_discount_refunded
-            description: ""
-          - name: base_grand_total
-            description: ""
-          - name: base_shipping_amount
-            description: ""
-          - name: base_shipping_canceled
-            description: ""
-          - name: base_shipping_invoiced
-            description: ""
-          - name: base_shipping_refunded
-            description: ""
-          - name: base_shipping_tax_amount
-            description: ""
-          - name: base_shipping_tax_refunded
-            description: ""
-          - name: base_subtotal
-            description: ""
-          - name: base_subtotal_canceled
-            description: ""
-          - name: base_subtotal_invoiced
-            description: ""
-          - name: base_subtotal_refunded
-            description: ""
-          - name: base_tax_amount
-            description: ""
-          - name: base_tax_canceled
-            description: ""
-          - name: base_tax_invoiced
-            description: ""
-          - name: base_tax_refunded
-            description: ""
-          - name: base_to_global_rate
-            description: ""
-          - name: base_to_order_rate
-            description: ""
-          - name: base_total_canceled
-            description: ""
-          - name: base_total_invoiced
-            description: ""
-          - name: base_total_invoiced_cost
-            description: ""
-          - name: base_total_offline_refunded
-            description: ""
-          - name: base_total_online_refunded
-            description: ""
-          - name: base_total_paid
-            description: ""
-          - name: base_total_qty_ordered
-            description: ""
-          - name: base_total_refunded
-            description: ""
-          - name: discount_amount
-            description: ""
-          - name: discount_canceled
-            description: ""
-          - name: discount_invoiced
-            description: ""
-          - name: discount_refunded
-            description: ""
-          - name: grand_total
-            description: ""
-          - name: shipping_amount
-            description: ""
-          - name: shipping_canceled
-            description: ""
-          - name: shipping_invoiced
-            description: ""
-          - name: shipping_refunded
-            description: ""
-          - name: shipping_tax_amount
-            description: ""
-          - name: shipping_tax_refunded
-            description: ""
-          - name: store_to_base_rate
-            description: ""
-          - name: store_to_order_rate
-            description: ""
-          - name: subtotal
-            description: ""
-          - name: subtotal_canceled
-            description: ""
-          - name: subtotal_invoiced
-            description: ""
-          - name: subtotal_refunded
-            description: ""
-          - name: tax_amount
-            description: ""
-          - name: tax_canceled
-            description: ""
-          - name: tax_invoiced
-            description: ""
-          - name: tax_refunded
-            description: ""
-          - name: total_canceled
-            description: ""
-          - name: total_invoiced
-            description: ""
-          - name: total_offline_refunded
-            description: ""
-          - name: total_online_refunded
-            description: ""
-          - name: total_paid
-            description: ""
-          - name: total_qty_ordered
-            description: ""
-          - name: total_refunded
-            description: ""
-          - name: can_ship_partially
-            description: ""
-          - name: can_ship_partially_item
-            description: ""
-          - name: customer_is_guest
-            description: ""
-          - name: customer_note_notify
-            description: ""
-          - name: billing_address_id
-            description: ""
-          - name: customer_group_id
-            description: ""
-          - name: edit_increment
-            description: ""
-          - name: email_sent
-            description: ""
-          - name: forced_shipment_with_invoice
-            description: ""
-          - name: payment_auth_expiration
-            description: ""
-          - name: quote_address_id
-            description: ""
-          - name: quote_id
-            description: ""
-          - name: shipping_address_id
-            description: ""
-          - name: adjustment_negative
-            description: ""
-          - name: adjustment_positive
-            description: ""
-          - name: base_adjustment_negative
-            description: ""
-          - name: base_adjustment_positive
-            description: ""
-          - name: base_shipping_discount_amount
-            description: ""
-          - name: base_subtotal_incl_tax
-            description: ""
-          - name: base_total_due
-            description: ""
-          - name: payment_authorization_amount
-            description: ""
-          - name: shipping_discount_amount
-            description: ""
-          - name: subtotal_incl_tax
-            description: ""
-          - name: total_due
-            description: ""
-          - name: weight
-            description: ""
-          - name: customer_dob
-            description: ""
-          - name: increment_id
-            description: ""
-          - name: applied_rule_ids
-            description: ""
-          - name: base_currency_code
-            description: ""
-          - name: customer_email
-            description: ""
-          - name: customer_firstname
-            description: ""
-          - name: customer_lastname
-            description: ""
-          - name: customer_middlename
-            description: ""
-          - name: customer_prefix
-            description: ""
-          - name: customer_suffix
-            description: ""
-          - name: customer_taxvat
-            description: ""
-          - name: discount_description
-            description: ""
-          - name: ext_customer_id
-            description: ""
-          - name: ext_order_id
-            description: ""
-          - name: global_currency_code
-            description: ""
-          - name: hold_before_state
-            description: ""
-          - name: hold_before_status
-            description: ""
-          - name: order_currency_code
-            description: ""
-          - name: original_increment_id
-            description: ""
-          - name: relation_child_id
-            description: ""
-          - name: relation_child_real_id
-            description: ""
-          - name: relation_parent_id
-            description: ""
-          - name: relation_parent_real_id
-            description: ""
-          - name: remote_ip
-            description: ""
-          - name: shipping_method
-            description: ""
-          - name: store_currency_code
-            description: ""
-          - name: store_name
-            description: ""
-          - name: x_forwarded_for
-            description: ""
-          - name: customer_note
-            description: ""
-          - name: created_at
-            description: ""
-          - name: updated_at
-            description: ""
-          - name: total_item_count
-            description: ""
-          - name: customer_gender
-            description: ""
-          - name: hidden_tax_amount
-            description: ""
-          - name: base_hidden_tax_amount
-            description: ""
-          - name: shipping_hidden_tax_amount
-            description: ""
-          - name: base_shipping_hidden_tax_amnt
-            description: ""
-          - name: hidden_tax_invoiced
-            description: ""
-          - name: base_hidden_tax_invoiced
-            description: ""
-          - name: hidden_tax_refunded
-            description: ""
-          - name: base_hidden_tax_refunded
-            description: ""
-          - name: shipping_incl_tax
-            description: ""
-          - name: base_shipping_incl_tax
-            description: ""
-          - name: coupon_rule_name
-            description: ""
-          - name: paypal_ipn_customer_notified
-            description: ""
-          - name: gift_message_id
-            description: ""
-          - name: base_customer_balance_amount
-            description: ""
-          - name: customer_balance_amount
-            description: ""
-          - name: base_customer_balance_invoiced
-            description: ""
-          - name: customer_balance_invoiced
-            description: ""
-          - name: base_customer_balance_refunded
-            description: ""
-          - name: customer_balance_refunded
-            description: ""
-          - name: bs_customer_bal_total_refunded
-            description: ""
-          - name: customer_bal_total_refunded
-            description: ""
-          - name: gift_cards
-            description: ""
-          - name: base_gift_cards_amount
-            description: ""
-          - name: gift_cards_amount
-            description: ""
-          - name: base_gift_cards_invoiced
-            description: ""
-          - name: gift_cards_invoiced
-            description: ""
-          - name: base_gift_cards_refunded
-            description: ""
-          - name: gift_cards_refunded
-            description: ""
-          - name: gw_id
-            description: ""
-          - name: gw_allow_gift_receipt
-            description: ""
-          - name: gw_add_card
-            description: ""
-          - name: gw_base_price
-            description: ""
-          - name: gw_price
-            description: ""
-          - name: gw_items_base_price
-            description: ""
-          - name: gw_items_price
-            description: ""
-          - name: gw_card_base_price
-            description: ""
-          - name: gw_card_price
-            description: ""
-          - name: gw_base_tax_amount
-            description: ""
-          - name: gw_tax_amount
-            description: ""
-          - name: gw_items_base_tax_amount
-            description: ""
-          - name: gw_items_tax_amount
-            description: ""
-          - name: gw_card_base_tax_amount
-            description: ""
-          - name: gw_card_tax_amount
-            description: ""
-          - name: gw_base_price_invoiced
-            description: ""
-          - name: gw_price_invoiced
-            description: ""
-          - name: gw_items_base_price_invoiced
-            description: ""
-          - name: gw_items_price_invoiced
-            description: ""
-          - name: gw_card_base_price_invoiced
-            description: ""
-          - name: gw_card_price_invoiced
-            description: ""
-          - name: gw_base_tax_amount_invoiced
-            description: ""
-          - name: gw_tax_amount_invoiced
-            description: ""
-          - name: gw_items_base_tax_invoiced
-            description: ""
-          - name: gw_items_tax_invoiced
-            description: ""
-          - name: gw_card_base_tax_invoiced
-            description: ""
-          - name: gw_card_tax_invoiced
-            description: ""
-          - name: gw_base_price_refunded
-            description: ""
-          - name: gw_price_refunded
-            description: ""
-          - name: gw_items_base_price_refunded
-            description: ""
-          - name: gw_items_price_refunded
-            description: ""
-          - name: gw_card_base_price_refunded
-            description: ""
-          - name: gw_card_price_refunded
-            description: ""
-          - name: gw_base_tax_amount_refunded
-            description: ""
-          - name: gw_tax_amount_refunded
-            description: ""
-          - name: gw_items_base_tax_refunded
-            description: ""
-          - name: gw_items_tax_refunded
-            description: ""
-          - name: gw_card_base_tax_refunded
-            description: ""
-          - name: gw_card_tax_refunded
-            description: ""
-          - name: reward_points_balance
-            description: ""
-          - name: base_reward_currency_amount
-            description: ""
-          - name: reward_currency_amount
-            description: ""
-          - name: base_rwrd_crrncy_amt_invoiced
-            description: ""
-          - name: rwrd_currency_amount_invoiced
-            description: ""
-          - name: base_rwrd_crrncy_amnt_refnded
-            description: ""
-          - name: rwrd_crrncy_amnt_refunded
-            description: ""
-          - name: reward_points_balance_refund
-            description: ""
-          - name: reward_points_balance_refunded
-            description: ""
-          - name: reward_salesrule_points
-            description: ""
-          - name: onestepcheckout_customercomment
-            description: ""
-          - name: onestepcheckout_customerfeedback
-            description: ""
-          - name: exported_to_mageorder
-            description: ""
-          - name: export_attempts
-            description: ""
-          - name: expected_delivery_date
-            description: ""
-          - name: expected_delivery_days
-            description: ""
-          - name: old_order_id
-            description: ""
-          - name: total_incl_pending_refunded
-            description: ""
-          - name: base_total_incl_pending_refunded
-            description: ""
-          - name: base_shipping_pending_refund
-            description: ""
-          - name: shipping_pending_refund
-            description: ""
-          - name: shipping_pending_refund_tax
-            description: ""
-          - name: base_shipping_pending_refund_tax
-            description: ""
-          - name: sales_product_type
-            description: ""
-          - name: third_party_order_id
-            description: ""
-          - name: base_free_shipping_amount
-            description: ""
-          - name: customerservice_contact
-            description: ""
-          - name: customerservice_contact_at
-            description: ""
-          - name: _streamkap_source_ts_ms
-            description: ""
-          - name: __deleted
-            description: ""
-
-      - name: sales_flat_order_address
+      - name: sales_flat_creditmemo_item
         description: ""
         columns:
           - name: entity_id
             description: ""
           - name: parent_id
             description: ""
-          - name: customer_address_id
+          - name: base_price
             description: ""
-          - name: quote_address_id
+          - name: tax_amount
             description: ""
-          - name: region_id
+          - name: base_row_total
             description: ""
-          - name: customer_id
+          - name: discount_amount
             description: ""
-          - name: fax
+          - name: row_total
             description: ""
-          - name: region
+          - name: base_discount_amount
             description: ""
-          - name: postcode
+          - name: price_incl_tax
             description: ""
-          - name: lastname
+          - name: base_tax_amount
             description: ""
-          - name: street
+          - name: base_price_incl_tax
             description: ""
-          - name: city
-            description: ""
-          - name: email
-            description: ""
-          - name: telephone
-            description: ""
-          - name: country_id
-            description: ""
-          - name: firstname
-            description: ""
-          - name: address_type
-            description: ""
-          - name: prefix
-            description: ""
-          - name: middlename
-            description: ""
-          - name: suffix
-            description: ""
-          - name: company
-            description: ""
-          - name: vat_id
-            description: ""
-          - name: vat_is_valid
-            description: ""
-          - name: vat_request_id
-            description: ""
-          - name: vat_request_date
-            description: ""
-          - name: vat_request_success
-            description: ""
-          - name: giftregistry_item_id
-            description: ""
-          - name: changed
-            description: ""
-          - name: _streamkap_source_ts_ms
-            description: ""
-          - name: __deleted
-            description: ""
-
-      - name: sales_flat_order_item
-        description: ""
-        columns:
-          - name: item_id
-            description: ""
-          - name: order_id
-            description: ""
-          - name: parent_item_id
-            description: ""
-          - name: quote_item_id
-            description: ""
-          - name: store_id
-            description: ""
-          - name: created_at
-            description: ""
-          - name: updated_at
-            description: ""
-          - name: product_id
-            description: ""
-          - name: product_type
-            description: ""
-          - name: product_options
-            description: ""
-          - name: weight
-            description: ""
-          - name: is_virtual
-            description: ""
-          - name: sku
-            description: ""
-          - name: name
-            description: ""
-          - name: description
-            description: ""
-          - name: applied_rule_ids
-            description: ""
-          - name: additional_data
-            description: ""
-          - name: free_shipping
-            description: ""
-          - name: is_qty_decimal
-            description: ""
-          - name: no_discount
-            description: ""
-          - name: qty_backordered
-            description: ""
-          - name: qty_canceled
-            description: ""
-          - name: qty_invoiced
-            description: ""
-          - name: qty_ordered
-            description: ""
-          - name: qty_refunded
-            description: ""
-          - name: qty_shipped
+          - name: qty
             description: ""
           - name: base_cost
             description: ""
           - name: price
             description: ""
-          - name: base_price
-            description: ""
-          - name: original_price
-            description: ""
-          - name: base_original_price
-            description: ""
-          - name: tax_percent
-            description: ""
-          - name: tax_amount
-            description: ""
-          - name: base_tax_amount
-            description: ""
-          - name: tax_invoiced
-            description: ""
-          - name: base_tax_invoiced
-            description: ""
-          - name: discount_percent
-            description: ""
-          - name: discount_amount
-            description: ""
-          - name: base_discount_amount
-            description: ""
-          - name: discount_invoiced
-            description: ""
-          - name: base_discount_invoiced
-            description: ""
-          - name: amount_refunded
-            description: ""
-          - name: base_amount_refunded
-            description: ""
-          - name: row_total
-            description: ""
-          - name: base_row_total
-            description: ""
-          - name: row_invoiced
-            description: ""
-          - name: base_row_invoiced
-            description: ""
-          - name: row_weight
-            description: ""
-          - name: base_tax_before_discount
-            description: ""
-          - name: tax_before_discount
-            description: ""
-          - name: ext_order_item_id
-            description: ""
-          - name: locked_do_invoice
-            description: ""
-          - name: locked_do_ship
-            description: ""
-          - name: price_incl_tax
-            description: ""
-          - name: base_price_incl_tax
+          - name: base_row_total_incl_tax
             description: ""
           - name: row_total_incl_tax
             description: ""
-          - name: base_row_total_incl_tax
+          - name: product_id
+            description: ""
+          - name: order_item_id
+            description: ""
+          - name: additional_data
+            description: ""
+          - name: description
+            description: ""
+          - name: sku
+            description: ""
+          - name: name
             description: ""
           - name: hidden_tax_amount
             description: ""
           - name: base_hidden_tax_amount
-            description: ""
-          - name: hidden_tax_invoiced
-            description: ""
-          - name: base_hidden_tax_invoiced
-            description: ""
-          - name: hidden_tax_refunded
-            description: ""
-          - name: base_hidden_tax_refunded
-            description: ""
-          - name: is_nominal
-            description: ""
-          - name: tax_canceled
-            description: ""
-          - name: hidden_tax_canceled
-            description: ""
-          - name: tax_refunded
-            description: ""
-          - name: base_tax_refunded
-            description: ""
-          - name: discount_refunded
-            description: ""
-          - name: base_discount_refunded
-            description: ""
-          - name: gift_message_id
-            description: ""
-          - name: gift_message_available
-            description: ""
-          - name: base_weee_tax_applied_amount
-            description: ""
-          - name: base_weee_tax_applied_row_amnt
-            description: ""
-          - name: weee_tax_applied_amount
-            description: ""
-          - name: weee_tax_applied_row_amount
-            description: ""
-          - name: weee_tax_applied
             description: ""
           - name: weee_tax_disposition
             description: ""
@@ -1465,288 +963,986 @@ sources:
             description: ""
           - name: base_weee_tax_row_disposition
             description: ""
-          - name: event_id
+          - name: weee_tax_applied
             description: ""
-          - name: giftregistry_item_id
+          - name: base_weee_tax_applied_amount
             description: ""
-          - name: gw_id
+          - name: base_weee_tax_applied_row_amnt
             description: ""
-          - name: gw_base_price
+          - name: weee_tax_applied_amount
             description: ""
-          - name: gw_price
+          - name: weee_tax_applied_row_amount
             description: ""
-          - name: gw_base_tax_amount
+          - name: refund_reason_id
             description: ""
-          - name: gw_tax_amount
+          - name: customer_refund_request
             description: ""
-          - name: gw_base_price_invoiced
-            description: ""
-          - name: gw_price_invoiced
-            description: ""
-          - name: gw_base_tax_amount_invoiced
-            description: ""
-          - name: gw_tax_amount_invoiced
-            description: ""
-          - name: gw_base_price_refunded
-            description: ""
-          - name: gw_price_refunded
-            description: ""
-          - name: gw_base_tax_amount_refunded
-            description: ""
-          - name: gw_tax_amount_refunded
-            description: ""
-          - name: qty_returned
-            description: ""
-          - name: nego
-            description: ""
-          - name: qty_warehouse_sent
-            description: ""
-          - name: qty_out_of_stock
-            description: ""
-          - name: qty_backorder_reconciliation
-            description: ""
-          - name: dispatch_date
-            description: ""
-          - name: backorder_availability
-            description: ""
-          - name: out_of_stock_date
-            description: ""
-          - name: qty_reserved_by_tc
-            description: ""
-          - name: qty_refunded_hold
+          - name: exported_to_sap
             description: ""
           - name: qty_returned_to_warehouse
             description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order
+        description: "Fact table for the weight, quantity, value, cost, price, tax, discount, refunds of orders by customer, store, address, created and updated date with hourly details and expected delivery date with daily details"
+        columns:
+          - name: entity_id
+            description: "Order id, primary key, integer"
+          - name: state
+            description: "State, nullable, varchar"
+          - name: status
+            description: "Status, nullable, varchar"
+          - name: coupon_code
+            description: "Coupon code, nullable, varchar"
+          - name: protect_code
+            description: "Protect code, nullable, varchar"
+          - name: shipping_description
+            description: "Shipping description, nullable, varchar"
+          - name: is_virtual
+            description: "Flag indicating if is a virtual order, nullable, integer"
+          - name: store_id
+            description: "Store id, foreign key, nullable, integer"
+          - name: customer_id
+            description: "Customer id, foreign key, nullable, integer"
+          - name: base_discount_amount
+            description: "Base discount amount, nullable, decimal"
+          - name: base_discount_canceled
+            description: "Base discount canceled, nullable, decimal"
+          - name: base_discount_invoiced
+            description: "Base discount invoiced, nullable, decimal"
+          - name: base_discount_refunded
+            description: "Base discount refunded, nullable, decimal"
+          - name: base_grand_total
+            description: "Base grand total, nullable, decimal"
+          - name: base_shipping_amount
+            description: "Base shipping amount, nullable, decimal"
+          - name: base_shipping_canceled
+            description: "Base shipping canceled, nullable, decimal"
+          - name: base_shipping_invoiced
+            description: "Base shipping invoiced, nullable, decimal"
+          - name: base_shipping_refunded
+            description: "Base shipping refunded, nullable, decimal"
+          - name: base_shipping_tax_amount
+            description: "Base shipping tax amount, nullable, decimal"
+          - name: base_shipping_tax_refunded
+            description: "Base shipping tax refunded, nullable, decimal"
+          - name: base_subtotal
+            description: "Base subtotal, nullable, decimal"
+          - name: base_subtotal_canceled
+            description: "Base subtotal canceled, nullable, decimal"
+          - name: base_subtotal_invoiced
+            description: "Base subtotal invoiced, nullable, decimal"
+          - name: base_subtotal_refunded
+            description: "Base subtotal refunded, nullable, decimal"
+          - name: base_tax_amount
+            description: "Base tax amount, nullable, decimal"
+          - name: base_tax_canceled
+            description: "Base tax canceled, nullable, decimal"
+          - name: base_tax_invoiced
+            description: "Base tax invoiced, nullable, decimal"
+          - name: base_tax_refunded
+            description: "Base tax refunded, nullable, decimal"
+          - name: base_to_global_rate
+            description: "Base to globale rate, nullable, decimal"
+          - name: base_to_order_rate
+            description: "Base to order rate, nullable, decimal"
+          - name: base_total_canceled
+            description: "Base total canceled, nullable, decimal"
+          - name: base_total_invoiced
+            description: "Base total invoiced, nullable, decimal"
+          - name: base_total_invoiced_cost
+            description: "Base total invoiced cost, nullable, decimal"
+          - name: base_total_offline_refunded
+            description: "Base total offline refunded, nullable, decimal"
+          - name: base_total_online_refunded
+            description: "Base total online refunded, nullable, decimal"
+          - name: base_total_paid
+            description: "Base total paid, nullable, decimal"
+          - name: base_total_qty_ordered
+            description: "Base total quantity ordered, nullable, decimal"
+          - name: base_total_refunded
+            description: "Base total refunded, nullable, decimal"
+          - name: discount_amount
+            description: "Discount amount, nullable, decimal"
+          - name: discount_canceled
+            description: "Discount canceled, nullable, decimal"
+          - name: discount_invoiced
+            description: "Discount invoiced, nullable, decimal"
+          - name: discount_refunded
+            description: "Discount refunded, nullable, decimal"
+          - name: grand_total
+            description: "Grand total, nullable, decimal"
+          - name: shipping_amount
+            description: "Shipping amount, nullable, decimal"
+          - name: shipping_canceled
+            description: "Shipping canceled, nullable, decimal"
+          - name: shipping_invoiced
+            description: "Shipping invoiced, nullable, decimal"
+          - name: shipping_refunded
+            description: "Shippung reufnded, nullable, decimal"
+          - name: shipping_tax_amount
+            description: "Shipping tax amount, nullable, decimal"
+          - name: shipping_tax_refunded
+            description: "Shipping tax refunded, nullable, decimal"
+          - name: store_to_base_rate
+            description: "Store to base rate, nullable, decimal"
+          - name: store_to_order_rate
+            description: "Store to order rate, nullable, decimal"
+          - name: subtotal
+            description: "Sub-total, nullable, decimal"
+          - name: subtotal_canceled
+            description: "Sub-total canceled, nullable, decimal"
+          - name: subtotal_invoiced
+            description: "Sub-total invoiced, nullable, decimal"
+          - name: subtotal_refunded
+            description: "Sub-total refunded, nullable, decimal"
+          - name: tax_amount
+            description: "Tax amount, nullable, decimal"
+          - name: tax_canceled
+            description: "Tax canceled, nullable, decimal"
+          - name: tax_invoiced
+            description: "Tax invoiced, nullable, decimal"
+          - name: tax_refunded
+            description: "Tax refunded, nullable, decimal"
+          - name: total_canceled
+            description: "Total canceled, nullable, decimal"
+          - name: total_invoiced
+            description: "Total invoiced, nullable, decimal"
+          - name: total_offline_refunded
+            description: "Total offline refunded, nullable, decimal"
+          - name: total_online_refunded
+            description: "Total online refunded, nullable, decimal"
+          - name: total_paid
+            description: "Total paid, nullable, decimal"
+          - name: total_qty_ordered
+            description: "Total quantity ordered, nullable, decimal"
+          - name: total_refunded
+            description: "Total refunded, nullable, decimal"
+          - name: can_ship_partially
+            description: "Flag indicating if the order can be shipped partially, nullable, integer"
+          - name: can_ship_partially_item
+            description: "Flag indicating if the quantity of this item can be shipped partially, nullable, integer"
+          - name: customer_is_guest
+            description: "Flag indicating if the customer of the order is a guest, nullable, integer"
+          - name: customer_note_notify
+            description: "Flag indicating if notify note for the customer must be left, nullable, integer"
+          - name: billing_address_id
+            description: "Id of the billing address, foreign key, nullable, integer"
+          - name: customer_group_id
+            description: "Id of the customer group, foreign key, nullable, integer"
+          - name: edit_increment
+            description: "Edit increment, nullable, integer"
+          - name: email_sent
+            description: "Flag indicating if an email was sent, nullable, integer"
+          - name: forced_shipment_with_invoice
+            description: "Flag indicating if the shipment was forced with an invoice, nullable, integer"
+          - name: payment_auth_expiration
+            description: "Flag indicating the payment auth expiration, nullable, integer"
+          - name: quote_address_id
+            description: "Quote address id, foreign key, nullable, integer"
+          - name: quote_id
+            description: "Quote id, foreign key, nullable, integer"
+          - name: shipping_address_id
+            description: "Shipping address id, foreign key, nullable, integer"
+          - name: adjustment_negative
+            description: "Adjustment negative, nullable, decimal"
+          - name: adjustment_positive
+            description: "Adjustment positive, nullable, decimal"
+          - name: base_adjustment_negative
+            description: "Base Adjustment negative, nullable, decimal"
+          - name: base_adjustment_positive
+            description: "Base adjustment positive, nullable, decimal"
+          - name: base_shipping_discount_amount
+            description: "Adjustment negative, nullable, decimal"
+          - name: base_subtotal_incl_tax
+            description: "Adjustment negative, nullable, decimal"
+          - name: base_total_due
+            description: "Adjustment negative, nullable, decimal"
+          - name: payment_authorization_amount
+            description: "Adjustment negative, nullable, decimal"
+          - name: shipping_discount_amount
+            description: "Adjustment negative, nullable, decimal"
+          - name: subtotal_incl_tax
+            description: "Adjustment negative, nullable, decimal"
+          - name: total_due
+            description: "Adjustment negative, nullable, decimal"
+          - name: weight
+            description: "Adjustment negative, nullable, decimal"
+          - name: customer_dob
+            description: "Date of birth of the customer of the order, nullable, datetime"
+          - name: increment_id
+            description: "Increment id, nullable, varchar"
+          - name: applied_rule_ids
+            description: "Applied rule ids, nullable, varchar"
+          - name: base_currency_code
+            description: "Base currency code, nullable, varchar"
+          - name: customer_email
+            description: "Email of the order's customer, nullable, varchar"
+          - name: customer_firstname
+            description: "First name of the order's customer, nullable, varchar"
+          - name: customer_lastname
+            description: "Last name of the order's customer, nullable, varchar"
+          - name: customer_middlename
+            description: "Middle name of the order's customer, nullable, varchar"
+          - name: customer_prefix
+            description: "Prefix of the order's customer, nullable, varchar"
+          - name: customer_suffix
+            description: "Suffic of the order's customer, nullable, varchar"
+          - name: customer_taxvat
+            description: "VAT tax of the order's customer, nullable, varchar"
+          - name: discount_description
+            description: "Description of the order's customer, nullable, varchar"
+          - name: ext_customer_id
+            description: "Ext customer id of the order's customer, nullable, varchar"
+          - name: ext_order_id
+            description: "Ext order id of the order's customer, nullable, varchar"
+          - name: global_currency_code
+            description: "Global currency code of the order's customer, nullable, varchar"
+          - name: hold_before_state
+            description: "Hold before state, nullable, varchar"
+          - name: hold_before_status
+            description: "Hold before status, nullable, varchar"
+          - name: order_currency_code
+            description: "Order currency code, nullable, varchar"
+          - name: original_increment_id
+            description: "Original increment id, nullable, varchar"
+          - name: relation_child_id
+            description: "Relaction child id, nullable, varchar"
+          - name: relation_child_real_id
+            description: "Relation child real id, nullable, varchar"
+          - name: relation_parent_id
+            description: "Relation parent id, nullable, varchar"
+          - name: relation_parent_real_id
+            description: "Relation parent real id, nullable, varchar"
+          - name: remote_ip
+            description: "Remote ip, nullable, varchar"
+          - name: shipping_method
+            description: "Shipping method, nullable, varchar"
+          - name: store_currency_code
+            description: "Store currency code, nullable, varchar"
+          - name: store_name
+            description: "Store name, nullable, varchar"
+          - name: x_forwarded_for
+            description: "X Fowarded for, nullable, varchar"
+          - name: customer_note
+            description: "Customer note, nullable, varchar"
+          - name: created_at
+            description: "Creation date of the order, nullable, timestamp"
+          - name: updated_at
+            description: "Update date of the order, nullable, timestamp"
+          - name: total_item_count
+            description: "Total item count, integer"
+          - name: customer_gender
+            description: "Gender of the customer, nullable, integer"
+          - name: hidden_tax_amount
+            description: "Hidden tax amount, nullable, decimal"
+          - name: base_hidden_tax_amount
+            description: "Base hidden tax amount, nullable, decimal"
+          - name: shipping_hidden_tax_amount
+            description: "Shipping hidden tax amount, nullable, decimal"
+          - name: base_shipping_hidden_tax_amnt
+            description: "Base shipping hidden tax amount, nullable, decimal"
+          - name: hidden_tax_invoiced
+            description: "Hidden tax invoiced, nullable, decimal"
+          - name: base_hidden_tax_invoiced
+            description: "Base hidden tax invoiced, nullable, decimal"
+          - name: hidden_tax_refunded
+            description: "Hidden tax refunded, nullable, decimal"
+          - name: base_hidden_tax_refunded
+            description: "Base hidden tax refunded, nullable, decimal"
+          - name: shipping_incl_tax
+            description: "Shipping including tax, nullable, decimal"
+          - name: base_shipping_incl_tax
+            description: "Base shipping including tax, nullable, decimal"
+          - name: coupon_rule_name
+            description: "Coupon rule name, nullable, varchar"
+          - name: paypal_ipn_customer_notified
+            description: "Flag Paypal IPN customer notified, nullable, integer"
+          - name: gift_message_id
+            description: "Gift Message Id, nullable, integer"
+          - name: base_customer_balance_amount
+            description: "Base customer balance Amount, nullable, decimal"
+          - name: customer_balance_amount
+            description: "Customer balance Amount, nullable, decimal"
+          - name: base_customer_balance_invoiced
+            description: "Base customer balance invoiced, nullable, decimal"
+          - name: customer_balance_invoiced
+            description: "Customer balance invoiced, nullable, decimal"
+          - name: base_customer_balance_refunded
+            description: "Base customer balance refunded, nullable, decimal"
+          - name: customer_balance_refunded
+            description: "Customer balance refunded, nullable, decimal"
+          - name: bs_customer_bal_total_refunded
+            description: "BS customer bal total redunded, nullable, decimal"
+          - name: customer_bal_total_refunded
+            description: "Customer bal total refunded, nullable, decimal"
+          - name: gift_cards
+            description: "Gift cards, nullable, varchar"
+          - name: base_gift_cards_amount
+            description: "Base gift cards amount, nullable, decimal"
+          - name: gift_cards_amount
+            description: "Gift cards amount, nullable, decimal"
+          - name: base_gift_cards_invoiced
+            description: "Base gift cards invoiced, nullable, decimal"
+          - name: gift_cards_invoiced
+            description: "Gift cards invoiced, nullable, decimal"
+          - name: base_gift_cards_refunded
+            description: "Base gift cards refunded, nullable, decimal"
+          - name: gift_cards_refunded
+            description: "Gift cards refunded, nullable, decimal"
+          - name: gw_id
+            description: "GW id, nullable, integer"
+          - name: gw_allow_gift_receipt
+            description: "GW allow gift receipt, nullable, integer"
+          - name: gw_add_card
+            description: "GW add card, nullable, integer"
+          - name: gw_base_price
+            description: "GW base price, nullable, decimal"
+          - name: gw_price
+            description: "GW price, nullable, decimal"
+          - name: gw_items_base_price
+            description: "GW items base price, nullable, decimal"
+          - name: gw_items_price
+            description: "GW items price, nullable, decimal"
+          - name: gw_card_base_price
+            description: "GW card base price, nullable, decimal"
+          - name: gw_card_price
+            description: "GW card price, nullable, decimal"
+          - name: gw_base_tax_amount
+            description: "GW base tax amount, nullable, decimal"
+          - name: gw_tax_amount
+            description: "GW tax amount, nullable, decimal"
+          - name: gw_items_base_tax_amount
+            description: "GW items base tax amount, nullable, decimal"
+          - name: gw_items_tax_amount
+            description: "GW items tax amount, nullable, decimal"
+          - name: gw_card_base_tax_amount
+            description: "GW card base tax amount, nullable, decimal"
+          - name: gw_card_tax_amount
+            description: "GW card tax amount, nullable, decimal"
+          - name: gw_base_price_invoiced
+            description: "GW base price invoiced, nullable, decimal"
+          - name: gw_price_invoiced
+            description: "GW price invoiced, nullable, decimal"
+          - name: gw_items_base_price_invoiced
+            description: "GW items base price invoiced, nullable, decimal"
+          - name: gw_items_price_invoiced
+            description: "GW items price invoiced, nullable, decimal"
+          - name: gw_card_base_price_invoiced
+            description: "GW card base price invoiced, nullable, decimal"
+          - name: gw_card_price_invoiced
+            description: "GW card price invoiced, nullable, decimal"
+          - name: gw_base_tax_amount_invoiced
+            description: "GW base tax amount invoiced, nullable, decimal"
+          - name: gw_tax_amount_invoiced
+            description: "GW tax amount invoiced, nullable, decimal"
+          - name: gw_items_base_tax_invoiced
+            description: "GW items base tax invoiced, nullable, decimal"
+          - name: gw_items_tax_invoiced
+            description: "GW items tax invoiced, nullable, decimal"
+          - name: gw_card_base_tax_invoiced
+            description: "GW card base tax invoiced, nullable, decimal"
+          - name: gw_card_tax_invoiced
+            description: "GW card tax invoiced, nullable, decimal"
+          - name: gw_base_price_refunded
+            description: "GW base price refunded, nullable, decimal"
+          - name: gw_price_refunded
+            description: "GW price refunded, nullable, decimal"
+          - name: gw_items_base_price_refunded
+            description: "GW items base price refunded, nullable, decimal"
+          - name: gw_items_price_refunded
+            description: "GW items price refunded, nullable, decimal"
+          - name: gw_card_base_price_refunded
+            description: "GW card base price refunded, nullable, decimal"
+          - name: gw_card_price_refunded
+            description: "GW card price refunded, nullable, decimal"
+          - name: gw_base_tax_amount_refunded
+            description: "GW base tax amount refunded, nullable, decimal"
+          - name: gw_tax_amount_refunded
+            description: "GW tax amount refunded, nullable, decimal"
+          - name: gw_items_base_tax_refunded
+            description: "GW items base tax refunded, nullable, decimal"
+          - name: gw_items_tax_refunded
+            description: "GW items tax refunded, nullable, decimal"
+          - name: gw_card_base_tax_refunded
+            description: "GW card base tax refunded, nullable, decimal"
+          - name: gw_card_tax_refunded
+            description: "GW card tax refunded, nullable, decimal"
+          - name: reward_points_balance
+            description: "Reward points balance, nullable, integer"
+          - name: base_reward_currency_amount
+            description: "Base reward currency amount, nullable, decimal"
+          - name: reward_currency_amount
+            description: "Reward currency amount, nullable, decimal"
+          - name: base_rwrd_crrncy_amt_invoiced
+            description: "Base reward currency amount invoiced, nullable, decimal"
+          - name: rwrd_currency_amount_invoiced
+            description: "Reward currency amount invoiced, nullable, decimal"
+          - name: base_rwrd_crrncy_amnt_refnded
+            description: "Base reward currency amount refunded, nullable, decimal"
+          - name: rwrd_crrncy_amnt_refunded
+            description: "Reward currency amount refunded, nullable, decimal"
+          - name: reward_points_balance_refund
+            description: "Reward points balance refund, nullable, integer"
+          - name: reward_points_balance_refunded
+            description: "Reward points balance refunded, nullable, integer"
+          - name: reward_salesrule_points
+            description: "Reward Salesrule points, nullable, integer"
+          - name: onestepcheckout_customercomment
+            description: "One step checkout customer comment, nullable, varchar"
+          - name: onestepcheckout_customerfeedback
+            description: "One step checkout customer feedback, nullable, varchar"
+          - name: exported_to_mageorder
+            description: "Exported to magorder, nullable, integer"
+          - name: export_attempts
+            description: "Export attempts, nullable, varchar"
+          - name: expected_delivery_date
+            description: "Expected delivery date, date"
+          - name: expected_delivery_days
+            description: "Expected delivery days, nullable, integer"
+          - name: old_order_id
+            description: "Old order id, nullable, varchar"
+          - name: total_incl_pending_refunded
+            description: "Total including pending refunded, decimal"
+          - name: base_total_incl_pending_refunded
+            description: "Base total including pending refunded, decimal"
+          - name: base_shipping_pending_refund
+            description: "Base shipping pending refund, decimal"
+          - name: shipping_pending_refund
+            description: "Shipping pending refunded, decimal"
+          - name: shipping_pending_refund_tax
+            description: "Shipping pending refund, decimal"
+          - name: base_shipping_pending_refund_tax
+            description: "Base shipping pending refund tax, decimal"
           - name: sales_product_type
+            description: "Sales product type, nullable, integer"
+          - name: third_party_order_id
+            description: "Third party order id, nullable, varchar"
+          - name: base_free_shipping_amount
+            description: "Base free shipping amount, decimal"
+          - name: customerservice_contact
+            description: "Customer service contact, bit"
+          - name: customerservice_contact_at
+            description: "Customer service contact at, nullable, timestamp"
+          - name: _streamkap_source_ts_ms
             description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order_address
+        description: "Dim table to get orders' address details, like fax, region, postcode, lastname, street, city, email, teledphone, name and company."
+        columns:
+          - name: entity_id
+            description: "Id of the order addresss, primiary key, integer"
+          - name: parent_id
+            description: "Parent id, foreign key, nullable, integer"
+          - name: customer_address_id
+            description: "Customer address id, foreign key, nullable, integer"
+          - name: quote_address_id
+            description: "Quote address id, foreign key, nullable, integer"
+          - name: region_id
+            description: "Region id, foreign key, nullable, integer"
+          - name: customer_id
+            description: "Customer id, foreign key, nullable, integer"
+          - name: fax
+            description: "Fax number, nullable, varchar"
+          - name: region
+            description: "Region, nullable, varchar"
+          - name: postcode
+            description: "Post code, nullable, varchar"
+          - name: lastname
+            description: "Last name, nullable, varchar"
+          - name: street
+            description: "Street, nullable, varchar"
+          - name: city
+            description: "City, nullable, varchar"
+          - name: email
+            description: "Email, nullable, varchar"
+          - name: telephone
+            description: "Telephone, nullable, varchar"
+          - name: country_id
+            description: "Country id, nullable, varchar"
+          - name: firstname
+            description: "First name, nullable, varchar"
+          - name: address_type
+            description: "Address type, nullable, varchar"
+          - name: prefix
+            description: "Prefix, nullable, varchar"
+          - name: middlename
+            description: "Middle name, nullable, varchar"
+          - name: suffix
+            description: "Suffix, nullable, varchar"
+          - name: company
+            description: "Company, nullable, varchar"
+          - name: vat_id
+            description: "VAT id, nullable, varchar"
+          - name: vat_is_valid
+            description: "Flag indicating if VAT is valid, nullable, integer"
+          - name: vat_request_id
+            description: "VAT Request id, nullable, varchar"
+          - name: vat_request_date
+            description: "VAT request date, nullable, varchar"
+          - name: vat_request_success
+            description: "Flag indicating if VAT request was a success, nullable, varchar"
+          - name: giftregistry_item_id
+            description: "Gift registry item id, foreign key, nullable, integer"
+          - name: changed
+            description: "Flag indicating if the address was changed, nullable, varchar"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: sales_flat_order_item
+        description: "Fact table for the weight, quantity, value, cost, price, tax, discount, refunds of order lines by order, item, product detail, negociation, created and updated date with hourly details, dispatch and out of stock date with daily details"
+        columns:
+          - name: item_id
+            description: "Id of the line order, primary key, integer"
+          - name: order_id
+            description: "Id of the order, foreign key, integer"
+          - name: parent_item_id
+            description: "Id of the parent item, foreign key, nullable, integer"
+          - name: quote_item_id
+            description: "Id of the quote item, foreign key, nullable, integer"
+          - name: store_id
+            description: "Id of the store, foreign key, nullable, integer"
+          - name: created_at
+            description: "Creation date of the order line, timestamp"
+          - name: updated_at
+            description: "Update date of the order line, timestamp"
+          - name: product_id
+            description: "Id of the product ordered, foreign key, nullable, integer"
+          - name: product_type
+            description: "Type of the product, nullable, varchar"
+          - name: product_options
+            description: "Options of the product, nullable, varchar"
+          - name: weight
+            description: "Weight of the order line, nullable, decimal"
+          - name: is_virtual
+            description: "Flag indicating virtual order line, nullable, integer"
+          - name: sku
+            description: "SKU ordered, nullable, varchar"
+          - name: name
+            description: "Name of the product, nullable, varchar"
+          - name: description
+            description: "Description of the product, nullable, varchar"
+          - name: applied_rule_ids
+            description: "Ids of the rules applied, nullable, varchar"
+          - name: additional_data
+            description: "Additional data, nullable, varchar"
+          - name: free_shipping
+            description: "Flag indicating free shipping, integer"
+          - name: is_qty_decimal
+            description: "Flag indicating if quantity can be decimal, nullable, integer"
+          - name: no_discount
+            description: "Flag indicating no discount, integer"
+          - name: qty_backordered
+            description: "Quantity back ordered, nullable, decimal"
+          - name: qty_canceled
+            description: "Quantity canceled, nullable, decimal"
+          - name: qty_invoiced
+            description: "Quantity invoiced, nullable, decimal"
+          - name: qty_ordered
+            description: "Quantity ordered, nullable, decimal"
+          - name: qty_refunded
+            description: "Quantity refunded, nullable, decimal"
+          - name: qty_shipped
+            description: "Quantity shipped, nullable, decimal"
+          - name: base_cost
+            description: "Base cost, nullable, decimal"
+          - name: price
+            description: "Price, decimal"
+          - name: base_price
+            description: "Base price, decimal"
+          - name: original_price
+            description: "Original price, nullable, decimal"
+          - name: base_original_price
+            description: "Base Original price, nullable, decimal"
+          - name: tax_percent
+            description: "Tax percent, nullable, decimal"
+          - name: tax_amount
+            description: "Tax amount, nullable, decimal"
+          - name: base_tax_amount
+            description: "Base Tax amount, nullable, decimal"
+          - name: tax_invoiced
+            description: "Tax invoiced, nullable, decimal"
+          - name: base_tax_invoiced
+            description: "Base tax invoiced, nullable, decimal"
+          - name: discount_percent
+            description: "Discount percent, nullable, decimal"
+          - name: discount_amount
+            description: "Discount amount, nullable, decimal"
+          - name: base_discount_amount
+            description: "Base discount amount, nullable, decimal"
+          - name: discount_invoiced
+            description: "Discount invoiced, nullable, decimal"
+          - name: base_discount_invoiced
+            description: "Base discount invoiced, nullable, decimal"
+          - name: amount_refunded
+            description: "Amount refunded, nullable, decimal"
+          - name: base_amount_refunded
+            description: "Base amount refunded, nullable, decimal"
+          - name: row_total
+            description: "Row total value, decimal"
+          - name: base_row_total
+            description: "Base row total value, decimal"
+          - name: row_invoiced
+            description: "Row value invoiced, decimal"
+          - name: base_row_invoiced
+            description: "Base row value invoiced, decimal"
+          - name: row_weight
+            description: "Weight of all items in the row, nullable, decimal"
+          - name: base_tax_before_discount
+            description: "Base tax before discount, nullable, decimal"
+          - name: tax_before_discount
+            description: "Tax before discount, nullable, decimal"
+          - name: ext_order_item_id
+            description: "External order item id, nullable, varchar"
+          - name: locked_do_invoice
+            description: "Locked DO invoice, nullable, integer"
+          - name: locked_do_ship
+            description: "Locked DO shipping, nullable, integer"
+          - name: price_incl_tax
+            description: "Price including tax, nullable, decimal"
+          - name: base_price_incl_tax
+            description: "Base price including tax, nullable, decimal"
+          - name: row_total_incl_tax
+            description: "Row total including tax, nullable, decimal"
+          - name: base_row_total_incl_tax
+            description: "Base row total including tax, nullable, decimal"
+          - name: hidden_tax_amount
+            description: "Hidden tax amount, nullable, decimal"
+          - name: base_hidden_tax_amount
+            description: "Base hidden tax amount, nullable, decimal"
+          - name: hidden_tax_invoiced
+            description: "Hidden tax invoiced, nullable, decimal"
+          - name: base_hidden_tax_invoiced
+            description: "Base hidden tax invoiced, nullable, decimal"
+          - name: hidden_tax_refunded
+            description: "Hidden tax refunded, nullable, decimal"
+          - name: base_hidden_tax_refunded
+            description: "Base hidden tax refunded, nullable, decimal"
+          - name: is_nominal
+            description: "Flag indicating if line is nominal, integer"
+          - name: tax_canceled
+            description: "Tax canceled value, nullable, decimal"
+          - name: hidden_tax_canceled
+            description: "Hidden tax canceled value, nullable, decimal"
+          - name: tax_refunded
+            description: "Tax refunded, nullable, decimal"
+          - name: base_tax_refunded
+            description: "Base tax refunded, nullable, decimal"
+          - name: discount_refunded
+            description: "Discount refunded, nullable, decimal"
+          - name: base_discount_refunded
+            description: "Base discount refunded, nullable, decimal"
+          - name: gift_message_id
+            description: "Gift message id, foreign key, nullable, integer"
+          - name: gift_message_available
+            description: "Flag if gift message is availabel, nullable, integer"
+          - name: base_weee_tax_applied_amount
+            description: "Base wee tax amount applied, nullable, decimal"
+          - name: base_weee_tax_applied_row_amnt
+            description: "Base wee tax amount applied on raw level, nullable, decimal"
+          - name: weee_tax_applied_amount
+            description: "Wee tax amount applied, nullable, decimal"
+          - name: weee_tax_applied_row_amount
+            description: "Wee tax row amount applied, nullable, decimal"
+          - name: weee_tax_applied
+            description: "Wee tax amount applied, nullable, decimal"
+          - name: weee_tax_disposition
+            description: "Wee tax disposition, nullable, decimal"
+          - name: weee_tax_row_disposition
+            description: "Wee tax row disposition, nullable, decimal"
+          - name: base_weee_tax_disposition
+            description: "Base wee tax disposition, nullable, decimal"
+          - name: base_weee_tax_row_disposition
+            description: "Base wee tax row disposition, nullable, decimal"
+          - name: event_id
+            description: "Event id, nullable, integer"
+          - name: giftregistry_item_id
+            description: "Giftregistry item id, nullable, integer"
+          - name: gw_id
+            description: "GW id, nullable, integer"
+          - name: gw_base_price
+            description: "GW base price, nullable, decimal"
+          - name: gw_price
+            description: "GW price, nullable, decimal"
+          - name: gw_base_tax_amount
+            description: "GW base tax amount, nullable, decimal"
+          - name: gw_tax_amount
+            description: "GW tax amount, nullable, decimal"
+          - name: gw_base_price_invoiced
+            description: "GW base price invoiced, nullable, decimal"
+          - name: gw_price_invoiced
+            description: "GW price invoiced, nullable, decimal"
+          - name: gw_base_tax_amount_invoiced
+            description: "GW base tax amount, nullable, decimal"
+          - name: gw_tax_amount_invoiced
+            description: "GW tax amount invoiced, nullable, decimal"
+          - name: gw_base_price_refunded
+            description: "GW base price refunded, nullable, decimal"
+          - name: gw_price_refunded
+            description: "GW price refunded, nullable, decimal"
+          - name: gw_base_tax_amount_refunded
+            description: "GW base tax amount refunded, nullable, decimal"
+          - name: gw_tax_amount_refunded
+            description: "GW tax amount refunded, nullable, decimal"
+          - name: qty_returned
+            description: "Quantity returned, decimal"
+          - name: nego
+            description: "Negociation number, nullable, integer"
+          - name: qty_warehouse_sent
+            description: "Quantity sent from warehouse, integer"
+          - name: qty_out_of_stock
+            description: "Quantity of items out of stock for the line, integer"
+          - name: qty_backorder_reconciliation
+            description: "Quantity for backorder reconciliation, integer"
+          - name: dispatch_date
+            description: "Date for dispatch, date"
+          - name: backorder_availability
+            description: "Backorder availability flag, integer"
+          - name: out_of_stock_date
+            description: "Date of out of stock notification, date"
+          - name: qty_reserved_by_tc
+            description: "Quantity reserved by Task Center, decimal"
+          - name: qty_refunded_hold
+            description: "Quantity to refunded on hold, integer"
+          - name: qty_returned_to_warehouse
+            description: "Quantity returned to warehouse, decimal"
+          - name: sales_product_type
+            description: "Sales product type, nullable, integere"
           - name: expected_delivery_consignment
-            description: ""
+            description: "Expected delivery consignment, nullable, varchar"
           - name: qty_reserved_by_wh_b
-            description: ""
+            description: "Quantity reserved by warehouse b, decimal"
           - name: qty_wh_b_sent
-            description: ""
+            description: "Quantity sent by warehouse b, decimal"
           - name: product_personalisation
-            description: ""
+            description: "Product personalisation, varchar"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
             description: ""
 
       - name: sales_flat_order_item_extra
-        description: ""
+        description: "Dim table to get type and category for order items"
         columns:
           - name: line_id
-            description: ""
+            description: "Line id, primary key, integer"
           - name: order_item_id
-            description: ""
+            description: "Order item id, foreign key, integer"
           - name: category_id
-            description: ""
+            description: "Cagegory id, foreign key, integer"
           - name: type
-            description: ""
+            description: "Type of the item, nullable, integer"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
             description: ""
 
       - name: sales_flat_order_payment
-        description: ""
+        description: "Fact table for the shipping fees, amount paid, refunded, authorized, paid online and refunded online, shipping refunded of order payments by payment details and methods"
         columns:
           - name: entity_id
-            description: ""
+            description: "Order payment id, primary key, integer"
           - name: parent_id
-            description: ""
+            description: "Order payment parent id, foreign key, integer"
           - name: base_shipping_captured
-            description: ""
+            description: "Base shipping fee value captured, nullable, decimal"
           - name: shipping_captured
-            description: ""
+            description: "Shipping fee value captured, nullable, decimal"
           - name: amount_refunded
-            description: ""
+            description: "Amount refunded, nullable, decimal"
           - name: base_amount_paid
-            description: ""
+            description: "Base amount paid, nullable, decimal"
           - name: amount_canceled
-            description: ""
+            description: "Amount cancelled, nullable, decimal"
           - name: base_amount_authorized
-            description: ""
+            description: "Base amount authorised, nullable, decimal"
           - name: base_amount_paid_online
-            description: ""
+            description: "Base amount paid online, nullable, decimal"
           - name: base_amount_refunded_online
-            description: ""
+            description: "Base amount refunded online, nullable, decimal"
           - name: base_shipping_amount
-            description: ""
+            description: "Base shipping amount, nullable, decimal"
           - name: shipping_amount
-            description: ""
+            description: "Shipping amount, nullable, decimal"
           - name: amount_paid
-            description: ""
+            description: "Amount paid, nullable, decimal"
           - name: amount_authorized
-            description: ""
+            description: "Amount authorised, nullable, decimal"
           - name: base_amount_ordered
-            description: ""
+            description: "Base amount ordered, nullable, decimal"
           - name: base_shipping_refunded
-            description: ""
+            description: "Base shipping fee refunded, nullable, decimal"
           - name: shipping_refunded
-            description: ""
+            description: "Shipping fee refunded, nullable, decimal"
           - name: base_amount_refunded
-            description: ""
+            description: "Base amount refunded, nullable, decimal"
           - name: amount_ordered
-            description: ""
+            description: "Base amount ordered, nullable, decimal"
           - name: base_amount_canceled
-            description: ""
+            description: "Base amount canceled, nullable, decimal"
           - name: quote_payment_id
-            description: ""
+            description: "Quote payment ID, foreign key, nullable, integer"
           - name: additional_data
-            description: ""
+            description: "Additional data, nullable, varchar"
           - name: cc_exp_month
-            description: ""
+            description: "Card exp month, nullable, varchar"
           - name: cc_ss_start_year
-            description: ""
+            description: "Card ss start year, nullable, varchar"
           - name: echeck_bank_name
-            description: ""
+            description: "Echeck bank name, nullable, varchar"
           - name: method
-            description: ""
+            description: "Method, nullable, varchar"
           - name: cc_debug_request_body
-            description: ""
+            description: "Card debug request body, nullable, varchar"
           - name: cc_secure_verify
-            description: ""
+            description: "Card secure verify, nullable, varchar"
           - name: protection_eligibility
-            description: ""
+            description: "Protection eligibility, nullable, varchar"
           - name: cc_approval
-            description: ""
+            description: "Card approval, nullable, varchar"
           - name: cc_last4
-            description: ""
+            description: "Card Last 4, nullable, varchar"
           - name: cc_status_description
-            description: ""
+            description: "Card status description nullable, varchar"
           - name: echeck_type
-            description: ""
+            description: "Echeck type, nullable, varchar"
           - name: cc_debug_response_serialized
-            description: ""
+            description: "Card debug response serialised, nullable, varchar"
           - name: cc_ss_start_month
-            description: ""
+            description: "Card ss start month, nullable, varchar"
           - name: echeck_account_type
-            description: ""
+            description: "Echeck account type, nullable, varchar"
           - name: last_trans_id
-            description: ""
+            description: "Last trans ID, nullable, varchar"
           - name: cc_cid_status
-            description: ""
+            description: "Card cid status, nullable, varchar"
           - name: cc_owner
-            description: ""
+            description: "Card owner, nullable, varchar"
           - name: cc_type
-            description: ""
+            description: "Card type, nullable, varchar"
           - name: po_number
-            description: ""
+            description: "PO number, nullable, varchar"
           - name: cc_exp_year
-            description: ""
+            description: "Card exp year, nullable, varchar"
           - name: cc_status
-            description: ""
+            description: "Card status, nullable, varchar"
           - name: echeck_routing_number
-            description: ""
+            description: "Echeck routing number, nullable, varchar"
           - name: account_status
-            description: ""
+            description: "Account status, nullable, varchar"
           - name: anet_trans_method
-            description: ""
+            description: "Anet trans method, nullable, varchar"
           - name: cc_debug_response_body
-            description: ""
+            description: "Card debug response body, nullable, varchar"
           - name: cc_ss_issue
-            description: ""
+            description: "Card ss issue, nullable, varchar"
           - name: echeck_account_name
-            description: ""
+            description: "Echeck account name, nullable, varchar"
           - name: cc_avs_status
-            description: ""
+            description: "Card avs status, nullable, varchar"
           - name: cc_number_enc
-            description: ""
+            description: "Card number enc, nullable, varchar"
           - name: cc_trans_id
-            description: ""
+            description: "Card Trans ID, nullable, varchar"
           - name: paybox_request_number
-            description: ""
+            description: "Paybox Request number, nullable, varchar"
           - name: address_status
-            description: ""
+            description: "Address status, nullable, varchar"
           - name: additional_information
-            description: ""
+            description: "Additional information, nullable, varchar"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
             description: ""
 
       - name: sales_flat_shipment
-        description: ""
+        description: "Fact table for total quantity, weight, number of packages of a shipment by order, customer, shipping address and billing address, created and updated date with hourly details. "
         columns:
           - name: entity_id
-            description: ""
+            description: "Shipment id, primary key, integer"
           - name: store_id
-            description: ""
+            description: "Store id, foreign key, nullable, integer"
           - name: total_weight
-            description: ""
+            description: "Total weight of the shipment, nullable, decimal"
           - name: total_qty
-            description: ""
+            description: "Total quantity of the shipment, nullable, decimal"
           - name: email_sent
-            description: ""
+            description: "Flag for email sent or not, nullable, integer"
           - name: order_id
-            description: ""
+            description: "Order ID linked to the shipment, foreign key, integer"
           - name: customer_id
-            description: ""
+            description: "Customer ID linked to the shipment, foreign key, nullable, integer"
           - name: shipping_address_id
-            description: ""
+            description: "Shipping Address ID linked to the shipment, foreign key, nullable, integer"
           - name: billing_address_id
-            description: ""
+            description: "Billing Address ID linked to the shipment, foreign key, nullable, integer"
           - name: shipment_status
-            description: ""
+            description: "Shipment Status value linked to the shipment, nullable, integer"
           - name: increment_id
-            description: ""
+            description: "Incement ID of the shipment, nullable, varchar"
           - name: created_at
-            description: ""
+            description: "Creation date of the shipment, nullable, timestamp"
           - name: updated_at
-            description: ""
+            description: "Last update date of the shipment, nullable, timestamp"
           - name: packages
-            description: ""
+            description: "Packed products in packages of the shipment, nullable, varchar"
           - name: shipping_label
-            description: ""
+            description: "Shipping label content, nullable, Blob"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
             description: ""
 
       - name: sales_flat_shipment_item
-        description: ""
+        description: "Fact table for quantity, price, and weight of an item shipped by product, order item and shipment."
         columns:
           - name: entity_id
-            description: ""
+            description: "Shipment item ID, primary key, integer"
           - name: parent_id
-            description: ""
+            description: "Shipment item ID of the parent, foreign key, integer"
           - name: row_total
-            description: ""
+            description: "Value total of a specific item for this shipment, nullable, decimal"
           - name: price
-            description: ""
+            description: "Price of a specific item for this shipment, nullable, decimal"
           - name: weight
-            description: ""
+            description: "Weight of a specific item for this shipment, nullable, decimal"
           - name: qty
-            description: ""
+            description: "Quantity to ship of a specific item , nullable, decimal"
           - name: product_id
-            description: ""
+            description: "Id of the product to ship, foreign key, nullable, decimal"
           - name: order_item_id
-            description: ""
+            description: "Id of the order item to ship, foreign key, nullable, decimal"
           - name: additional_data
-            description: ""
+            description: "Additional information about the shipment item, nullable, varchar"
           - name: description
-            description: ""
+            description: "Description about the shipment item, nullable, varchar"
           - name: name
-            description: ""
+            description: "Name of the product to ship, nullable, varchar"
           - name: sku
-            description: ""
+            description: "SKU of the product to ship, nullable, varchar"
           - name: sap_id
-            description: ""
+            description: "SAP shipment ID, nullable, integer"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
             description: ""
 
       - name: tax_class
-        description: ""
+        description: "Dim table to get tax class ID, name and type."
         columns:
           - name: class_id
-            description: ""
+            description: "Tax class id, integer, primary key"
           - name: class_name
-            description: ""
+            description: "Tax class name, varchar"
           - name: class_type
-            description: ""
+            description: "Tax class type, varchar"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
