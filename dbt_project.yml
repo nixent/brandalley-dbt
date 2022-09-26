@@ -34,3 +34,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
     Avora_models:
       +schema: magento
+    sources:
+        streamkap:
+            +schema: streamkap_staging
