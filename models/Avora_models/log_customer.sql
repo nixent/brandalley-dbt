@@ -1,1 +1,7 @@
-SELECT * FROM {{ source('streamkap', 'log_customer') }} 
+SELECT
+    *
+FROM
+    {{ source(
+        'streamkap',
+        'log_customer'
+    ) }}

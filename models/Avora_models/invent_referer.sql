@@ -1,1 +1,7 @@
-SELECT * FROM {{ source('streamkap', 'invent_referer') }} 
+SELECT
+    *
+FROM
+    {{ source(
+        'streamkap',
+        'invent_referer'
+    ) }}
