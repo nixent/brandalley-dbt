@@ -5,6 +5,60 @@ sources:
     description: ""
     tables:
       - name: catalog_product_negotiation_item
+        description: ""
+        columns:
+          - name: negotiation_item_id
+            description: ""
+          - name: negotiation_id
+            description: ""
+          - name: updated_at
+            description: ""
+          - name: product_id
+            description: ""
+          - name: product_parent_id
+            description: ""
+          - name: sku
+            description: ""
+          - name: parrent_sku
+            description: ""
+          - name: reference
+            description: ""
+          - name: name
+            description: ""
+          - name: size
+            description: ""
+          - name: brand
+            description: ""
+          - name: commodity_code
+            description: ""
+          - name: pack_size
+            description: ""
+          - name: cost
+            description: ""
+          - name: cost_gbp
+            description: ""
+          - name: rrp
+            description: ""
+          - name: price
+            description: ""
+          - name: tax_rate
+            description: ""
+          - name: tax_code
+            description: ""
+          - name: qty
+            description: ""
+          - name: ordered
+            description: ""
+          - name: to_order
+            description: ""
+          - name: qty_exported
+            description: ""
+          - name: imported_to_erp
+            description: ""
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
       - name: admin_user
         description: ""
         columns:
