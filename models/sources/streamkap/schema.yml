@@ -4,6 +4,7 @@ sources:
   - name: streamkap
     description: ""
     tables:
+      - name: catalog_product_negotiation_item
       - name: admin_user
         description: ""
         columns:
