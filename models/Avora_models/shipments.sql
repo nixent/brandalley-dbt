@@ -28,21 +28,21 @@ SELECT
     sfs.updated_at
 FROM
     {{ ref(
-        'sales_flat_shipment_item'
+        'stg__sales_flat_shipment_item'
     ) }}
     sfsi
     LEFT JOIN     {{ ref(
-        'sales_flat_shipment'
+        'stg__sales_flat_shipment'
     ) }}
     sfs
     ON sfsi.parent_id = sfs.entity_id
     LEFT JOIN     {{ ref(
-        'sales_flat_order'
+        'stg__sales_flat_order'
     ) }}
     sfo
     ON sfs.order_id = sfo.entity_id
     LEFT JOIN     {{ ref(
-        'sales_flat_order_address'
+        'stg__sales_flat_order_address'
     ) }}
     sfoa
     ON sfoa.entity_id = sfo.shipping_address_id

@@ -14,5 +14,5 @@ SELECT
     CAST(NULL AS DECIMAL(1)) AS maxdate
 FROM
     {{ ref(
-        'bacore_stock_return'
+        'stg__bacore_stock_return'
     ) }}

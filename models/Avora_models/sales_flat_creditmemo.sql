@@ -82,5 +82,5 @@ SELECT
     is_batch
 FROM
     {{ ref(
-        'sales_flat_creditmemo'
+        'stg__sales_flat_creditmemo'
     ) }}

@@ -58,11 +58,11 @@ SELECT
     END AS refund_reason
 FROM
     {{ ref(
-        'sales_flat_creditmemo_item'
+        'stg__sales_flat_creditmemo_item'
     ) }}
     cti
     INNER JOIN     {{ ref(
-        'sales_flat_creditmemo'
+        'stg__sales_flat_creditmemo'
     ) }}
     cm
     ON cti.parent_id = cm.entity_id

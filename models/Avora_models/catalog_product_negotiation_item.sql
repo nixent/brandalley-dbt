@@ -24,5 +24,5 @@ SELECT
     qty_exported
 FROM
     {{ ref(
-        'catalog_product_negotiation_item'
+        'stg__catalog_product_negotiation_item'
     ) }}

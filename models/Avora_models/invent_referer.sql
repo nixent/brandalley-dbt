@@ -2,5 +2,5 @@ SELECT
     *
 FROM
     {{ ref(
-        'invent_referer'
+        'stg__invent_referer'
     ) }}

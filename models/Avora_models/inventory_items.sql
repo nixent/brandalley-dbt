@@ -28,5 +28,5 @@ SELECT
     is_decimal_divided
 FROM
     {{ ref(
-        'cataloginventory_stock_item'
+        'stg__cataloginventory_stock_item'
     ) }}

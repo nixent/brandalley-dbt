@@ -4,16 +4,16 @@ SELECT
     ced.value AS DATE
 FROM
     {{ ref(
-        'customer_entity'
+        'stg__customer_entity'
     ) }}
     ce
     JOIN     {{ ref(
-        'customer_entity_int'
+        'stg__customer_entity_int'
     ) }}
     cei
     ON ce.entity_id = cei.entity_id
     JOIN     {{ ref(
-        'customer_entity_datetime'
+        'stg__customer_entity_datetime'
     ) }}
     ced
     ON ce.entity_id = ced.entity_id

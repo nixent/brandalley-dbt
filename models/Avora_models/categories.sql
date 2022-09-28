@@ -16,11 +16,11 @@ SELECT
     cce.updated_at
 FROM
     {{ ref(
-        'catalog_category_entity'
+        'stg__catalog_category_entity'
     ) }}
     cce
     LEFT JOIN     {{ ref(
-        'catalog_category_entity_varchar'
+        'stg__catalog_category_entity_varchar'
     ) }}
     ccev
     ON cce.entity_id = ccev.entity_id
@@ -28,14 +28,14 @@ FROM
     AND ccev.attribute_id = 41
     AND ccev.store_id = 0
     LEFT JOIN     {{ ref(
-        'catalog_category_entity_varchar'
+        'stg__catalog_category_entity_varchar'
     ) }}
     ccev_parent
     ON cce.parent_id = ccev_parent.entity_id
     AND ccev_parent.attribute_id = 41
     AND ccev_parent.store_id = 0
     LEFT JOIN     {{ ref(
-        'catalog_category_entity_int'
+        'stg__catalog_category_entity_int'
     ) }}
     ccei
     ON ccei.entity_id = cce.entity_id

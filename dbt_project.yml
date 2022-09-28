@@ -36,4 +36,4 @@ models:
       +schema: magento
     sources:
         streamkap:
-            +schema: streamkap_staging
+            +schema: streamkap_current

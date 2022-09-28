@@ -31,10 +31,10 @@ SELECT
     sfo.updated_at
 FROM
     {{ ref(
-        'sales_flat_creditmemo'
+        'stg__sales_flat_creditmemo'
     ) }} AS sfc
     INNER JOIN     {{ ref(
-        'sales_flat_order'
+        'stg__sales_flat_order'
     ) }} AS sfo
     ON sfo.entity_id = sfc.order_id
 WHERE

@@ -2,5 +2,5 @@ SELECT
     *
 FROM
     {{ ref(
-        'log_customer'
+        'stg__log_customer'
     ) }}

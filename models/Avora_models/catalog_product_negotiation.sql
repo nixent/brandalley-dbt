@@ -32,5 +32,5 @@ SELECT
     department
 FROM
     {{ ref(
-        'catalog_product_negotiation'
+        'stg__catalog_product_negotiation'
     ) }}

@@ -2,5 +2,5 @@ SELECT
     *
 FROM
     {{ ref(
-        'sales_flat_shipment_item'
+        'stg__sales_flat_shipment_item'
     ) }}
