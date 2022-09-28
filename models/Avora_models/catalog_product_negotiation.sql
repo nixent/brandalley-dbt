@@ -31,7 +31,6 @@ SELECT
     buyer,
     department
 FROM
-    {{ source(
-        'streamkap',
-        'catalog_product_negotiation'
+    {{ ref(
+        'stg__catalog_product_negotiation'
     ) }}

@@ -1,6 +1,6 @@
 SELECT
     SHA1(
-        CONCAT(IFNULL(cce.entity_id, '_'), IFNULL(cce.parent_id, '_'), IFNULL(ccei.entity_id, '_'))
+        CONCAT(IFNULL(cast(cce.entity_id as string), '_'), IFNULL(cast(cce.parent_id as string), '_'), IFNULL(cast(ccei.entity_id as string), '_'))
     ) AS u_unique_id,
     cce.entity_id category_id,
     cce.parent_id parent_category_id,
@@ -15,31 +15,27 @@ SELECT
     cce.level AS LEVEL,
     cce.updated_at
 FROM
-    {{ source(
-        'streamkap',
-        'catalog_category_entity'
+    {{ ref(
+        'stg__catalog_category_entity'
     ) }}
     cce
-    LEFT JOIN {{ source(
-        'streamkap',
-        'catalog_category_entity_varchar'
+    LEFT JOIN     {{ ref(
+        'stg__catalog_category_entity_varchar'
     ) }}
     ccev
     ON cce.entity_id = ccev.entity_id
     AND ccev.value IS NOT NULL
     AND ccev.attribute_id = 41
     AND ccev.store_id = 0
-    LEFT JOIN {{ source(
-        'streamkap',
-        'catalog_category_entity_varchar'
+    LEFT JOIN     {{ ref(
+        'stg__catalog_category_entity_varchar'
     ) }}
     ccev_parent
     ON cce.parent_id = ccev_parent.entity_id
     AND ccev_parent.attribute_id = 41
     AND ccev_parent.store_id = 0
-    LEFT JOIN {{ source(
-        'streamkap',
-        'catalog_category_entity_int'
+    LEFT JOIN     {{ ref(
+        'stg__catalog_category_entity_int'
     ) }}
     ccei
     ON ccei.entity_id = cce.entity_id

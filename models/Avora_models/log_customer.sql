@@ -1,7 +1,6 @@
 SELECT
     *
 FROM
-    {{ source(
-        'streamkap',
-        'log_customer'
+    {{ ref(
+        'stg__log_customer'
     ) }}
