@@ -1,6 +1,6 @@
 SELECT
     SHA1(
-        CONCAT(IFNULL(cce.entity_id, '_'), IFNULL(cce.parent_id, '_'), IFNULL(ccei.entity_id, '_'))
+        CONCAT(IFNULL(cast(cce.entity_id as string), '_'), IFNULL(cast(cce.parent_id as string), '_'), IFNULL(cast(ccei.entity_id as string), '_'))
     ) AS u_unique_id,
     cce.entity_id category_id,
     cce.parent_id parent_category_id,
