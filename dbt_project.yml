@@ -35,5 +35,5 @@ models:
     Avora_models:
       +schema: magento
     sources:
-        streamkap:
+        streamkap_current:
             +schema: streamkap_current
