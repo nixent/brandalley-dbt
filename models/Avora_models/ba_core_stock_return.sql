@@ -13,7 +13,6 @@ SELECT
     creditmemo_id,
     CAST(NULL AS DECIMAL(1)) AS maxdate
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'bacore_stock_return'
     ) }}

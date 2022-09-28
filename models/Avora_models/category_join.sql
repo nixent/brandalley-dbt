@@ -3,13 +3,11 @@ SELECT
     cp.category_id,
     p.updated_at
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'catalog_category_product'
     ) }}
     cp
-    INNER JOIN {{ source(
-        'streamkap',
+    INNER JOIN     {{ ref(
         'catalog_product_entity'
     ) }}
     p

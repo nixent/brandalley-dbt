@@ -1,7 +1,6 @@
 SELECT
     *
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'invent_referer'
     ) }}

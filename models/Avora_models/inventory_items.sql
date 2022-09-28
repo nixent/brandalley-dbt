@@ -27,7 +27,6 @@ SELECT
     enable_qty_increments,
     is_decimal_divided
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'cataloginventory_stock_item'
     ) }}

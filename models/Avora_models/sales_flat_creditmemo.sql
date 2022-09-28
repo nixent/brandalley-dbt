@@ -81,7 +81,6 @@ SELECT
     canceled_at,
     is_batch
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'sales_flat_creditmemo'
     ) }}

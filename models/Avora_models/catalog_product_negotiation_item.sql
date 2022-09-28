@@ -23,7 +23,6 @@ SELECT
     to_order,
     qty_exported
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'catalog_product_negotiation_item'
     ) }}

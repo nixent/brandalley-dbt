@@ -3,19 +3,16 @@ SELECT
     cei.value AS record_data_source,
     ced.value AS DATE
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'customer_entity'
     ) }}
     ce
-    JOIN {{ source(
-        'streamkap',
+    JOIN     {{ ref(
         'customer_entity_int'
     ) }}
     cei
     ON ce.entity_id = cei.entity_id
-    JOIN {{ source(
-        'streamkap',
+    JOIN     {{ ref(
         'customer_entity_datetime'
     ) }}
     ced

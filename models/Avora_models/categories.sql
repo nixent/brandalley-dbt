@@ -15,13 +15,11 @@ SELECT
     cce.level AS LEVEL,
     cce.updated_at
 FROM
-    {{ source(
-        'streamkap',
+    {{ ref(
         'catalog_category_entity'
     ) }}
     cce
-    LEFT JOIN {{ source(
-        'streamkap',
+    LEFT JOIN     {{ ref(
         'catalog_category_entity_varchar'
     ) }}
     ccev
@@ -29,16 +27,14 @@ FROM
     AND ccev.value IS NOT NULL
     AND ccev.attribute_id = 41
     AND ccev.store_id = 0
-    LEFT JOIN {{ source(
-        'streamkap',
+    LEFT JOIN     {{ ref(
         'catalog_category_entity_varchar'
     ) }}
     ccev_parent
     ON cce.parent_id = ccev_parent.entity_id
     AND ccev_parent.attribute_id = 41
     AND ccev_parent.store_id = 0
-    LEFT JOIN {{ source(
-        'streamkap',
+    LEFT JOIN     {{ ref(
         'catalog_category_entity_int'
     ) }}
     ccei
