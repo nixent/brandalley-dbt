@@ -1,4 +1,4 @@
-version: 2
+version: 3
 
 sources:
   - name: streamkap
@@ -64,47 +64,68 @@ sources:
         description: ""
         columns:
           - name: user_id
-            description: ""
+            data_type: <integer>
+            description: "primary key"
           - name: firstname
-            description: ""
+            data_type: <string>
+            description: "First name, nullable"
           - name: lastname
-            description: ""
+            data_type: <string>
+            description: "Last name, nullable"
           - name: email
-            description: ""
+            data_type: <string>
+            description: "Email, nullable"
           - name: username
-            description: ""
+            data_type: <string>
+            description: "User name, nullable"
           - name: password
-            description: ""
+            data_type: <string>
+            description: "Password, nullable"
           - name: created
-            description: ""
+            data_type: <timestamp>
+            description: "Creation date"
           - name: modified
-            description: ""
+            data_type: <timestamp>
+            description: "Modification date, nullable"
           - name: logdate
-            description: ""
+            data_type: <timestamp>
+            description: "Last Login Time, nullable"
           - name: lognum
-            description: ""
+            data_type: <integer>
+            description: "Login number"
           - name: reload_acl_flag
-            description: ""
+            data_type: <integer>
+            description: "Reload ACL"
           - name: is_active
-            description: ""
+            data_type: <integer>
+            description: "User is active"
           - name: extra
-            description: ""
+            data_type: <string>
+            description: "User extra data, nullable"
           - name: rp_token
-            description: ""
+            data_type: <string>
+            description: "Reset Password Link Token, nullable"
           - name: rp_token_created_at
-            description: ""
+            data_type: <timestamp>
+            description: "Reset Password Link Token Creation Date, nullable"
           - name: failures_num
-            description: ""
+            data_type: <integer>
+            description: "Failure Number, nullable"
           - name: first_failure
-            description: ""
+            data_type: <timestamp>
+            description: "First Failure Date, nullable"
           - name: lock_expires
-            description: ""
+            data_type: <timestamp>
+            description: "Expiration Lock Dates, nullable"
           - name: token_login_enabled
-            description: ""
+            data_type: <bit>
+            description: "Login enabled"
           - name: login_token_secret
-            description: ""
+            data_type: <string>
+            description: "Login token secret, nullable"
           - name: last_token_used
-            description: ""
+            data_type: <string>
+            description: "Last token used, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -114,29 +135,41 @@ sources:
         description: ""
         columns:
           - name: id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: order_item_number
-            description: ""
+            data_type: <integer>
+            description: "Order item number"
           - name: sku
-            description: ""
+            data_type: <string>
+            description: "SKU"
           - name: order_increment_id
-            description: ""
+            data_type: <integer>
+            description: "Order increment id"
           - name: qty
-            description: ""
+            data_type: <integer>
+            description: "Quantity"
           - name: return_code
-            description: ""
+            data_type: <integer>
+            description: "Return code"
           - name: created_at
-            description: ""
+            data_type: <timestamp>
+            description: "Created date"
           - name: xml_created_at
-            description: ""
+            data_type: <timestamp>
+            description: "Created date of the xml"
           - name: exported_to_sap
-            description: ""
+            data_type: <integer>
+            description: "Flag indicating if exported to SAP"
           - name: wh_line_id
-            description: ""
+            data_type: <string>
+            description: "Warehouse Line ID"
           - name: return_service
-            description: ""
+            data_type: <string>
+            description: "Return service"
           - name: creditmemo_id
-            description: ""
+            data_type: <integer>
+            description: "Credit memo Id"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -146,25 +179,35 @@ sources:
         description: ""
         columns:
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_set_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute set id"
           - name: parent_id
-            description: ""
+            data_type: <integer>
+            description: "Parent id"
           - name: created_at
-            description: ""
+            data_type: <timestamp>
+            description: "Creation time, nullable"
           - name: updated_at
-            description: ""
+            data_type: <timestamp>
+            description: "Update time, nullable"
           - name: path
-            description: ""
+            data_type: <string>
+            description: "Tree Path"
           - name: position
-            description: ""
+            data_type: <integer>
+            description: "Position"
           - name: level
-            description: ""
+            data_type: <integer>
+            description: "Tree level"
           - name: children_count
-            description: ""
+            data_type: <integer>
+            description: "Child count"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -174,21 +217,29 @@ sources:
         description: ""
         columns:
           - name: line_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: category_id
-            description: ""
+            data_type: <integer>
+            description: "Category id"
           - name: name
-            description: ""
+            data_type: <string>
+            description: "Name"
           - name: sale_start
-            description: ""
+            data_type: <timestamp>
+            description: "Sale start"
           - name: sale_end
-            description: ""
+            data_type: <timestamp>
+            description: "Sale end"
           - name: type
-            description: ""
+            data_type: <integer>
+            description: "Type"
           - name: nego
-            description: ""
+            data_type: <integer>
+            description: "Negociation number"
           - name: delivery_info
-            description: ""
+            data_type: <string>
+            description: "Delivery info"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -198,17 +249,23 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <integer>
+            description: "Value"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -218,17 +275,23 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <string>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -238,11 +301,14 @@ sources:
         description: ""
         columns:
           - name: category_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: product_id
-            description: ""
+            data_type: <integer>
+            description: "Product id"
           - name: position
-            description: ""
+            data_type: <integer>
+            description: "Position"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -252,23 +318,32 @@ sources:
         description: ""
         columns:
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_set_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute set id"
           - name: type_id
-            description: ""
+            data_type: <string>
+            description: "Type id"
           - name: sku
-            description: ""
+            data_type: <string>
+            description: "SKU, nullable"
           - name: has_options
-            description: ""
+            data_type: <integer>
+            description: "Has options"
           - name: required_options
-            description: ""
+            data_type: <integer>
+            description: "Required options"
           - name: created_at
-            description: ""
+            data_type: <timestamp>
+            description: "Creation time"
           - name: updated_at
-            description: ""
+            data_type: <timestamp>
+            description: "Update time"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -278,17 +353,23 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <decimal>
+            description: "Value"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -298,17 +379,23 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary id"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <string>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -318,17 +405,23 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <string>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -338,17 +431,23 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <string>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -358,67 +457,178 @@ sources:
         description: ""
         columns:
           - name: negotiation_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: updated_at
-            description: ""
+            data_type: <timestamp>
+            description: "Update time, nullable"
           - name: parent
-            description: ""
+            data_type: <integer>
+            description: "Parent, nullable"
           - name: sap_ref
-            description: ""
+            data_type: <integer>
+            description: "SAP ref"
           - name: type
-            description: ""
+            data_type: <integer>
+            description: "Type"
           - name: supplier
-            description: ""
+            data_type: <integer>
+            description: "Supplier"
           - name: currency
-            description: ""
+            data_type: <string>
+            description: "Currency"
           - name: rate
-            description: ""
+            data_type: <decimal>
+            description: "Rate"
           - name: cost
-            description: ""
+            data_type: <decimal>
+            description: "Cost"
           - name: price
-            description: ""
+            data_type: <decimal>
+            description: "Price"
           - name: status
-            description: ""
+            data_type: <integer>
+            description: "Status"
           - name: admin
-            description: ""
+            data_type: <integer>
+            description: "Admin"
           - name: date_import
-            description: ""
+            data_type: <timestamp>
+            description: "Date import"
           - name: date_reservation
-            description: ""
+            data_type: <timestamp>
+            description: "Date reservation"
           - name: date_pend_proc
-            description: ""
+            data_type: <timestamp>
+            description: "Date pend proc"
           - name: date_proc_comp
-            description: ""
+            data_type: <timestamp>
+            description: "Date proc comp"
           - name: date_comp_exported
-            description: ""
+            data_type: <timestamp>
+            description: "Date comp exported"
           - name: date_due
-            description: ""
+            data_type: <timestamp>
+            description: "Date due"
           - name: sap_message
-            description: ""
+            data_type: <varchar>
+            description: "SAP message, nullable"
           - name: buyer
-            description: ""
+            data_type: <integer>
+            description: "Buyer, nullable"
           - name: department
-            description: ""
+            data_type: <string>
+            description: "Department, nullable"
           - name: buyer_name
-            description: ""
+            data_type: <string>
+            description: "Buyer name, nullable"
           - name: buyer_email
-            description: ""
+            data_type: <string>
+            description: "Buyer email, nullable"
           - name: supplier_email
-            description: ""
+            data_type: <string>
+            description: "Supplier email, nullable"
           - name: is_internal
-            description: ""
+            data_type: <integer>
+            description: "Is internal, nullable"
           - name: email_allert
-            description: ""
+            data_type: <integer>
+            description: Email alert, nullable""
           - name: po_generate
-            description: ""
+            data_type: <integer>
+            description: "PO Generate, nullable"
           - name: validated
-            description: ""
+            data_type: <integer>
+            description: "Validated, nullable"
           - name: country_po
-            description: ""
+            data_type: <string>
+            description: "Country PO"
           - name: po_crossdock
-            description: ""
+            data_type: <bit>
+            description: "PO Crossdock"
           - name: imported_to_erp
+            data_type: <integer>
+            description: "Imported to erp"
+          - name: _streamkap_source_ts_ms
             description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_negotiation_item
+        description: ""
+        columns:
+          - name: negotiation_item_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: negotiation_id
+            data_type: <integer>
+            description: "Negotiation id"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "Update time, nullable"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: product_parent_id
+            data_type: <integer>
+            description: "Product parent id"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: parrent_sku
+            data_type: <string>
+            description: "Parent SKU"
+          - name: reference
+            data_type: <string>
+            description: "Reference"
+          - name: name
+            data_type: <string>
+            description: "Name"
+          - name: size
+            data_type: <integer>
+            description: "Size"
+          - name: brand
+            data_type: <integer>
+            description: "Brand"
+          - name: commodity_code
+            data_type: <string>
+            description: "Commodity code"
+          - name: pack_size
+            data_type: <integer>
+            description: "Pack size"
+          - name: cost
+            data_type: <decimal>
+            description: "Cost"
+          - name: cost_gbp
+            data_type: <decimal>
+            description: "Cost in GBP"
+          - name: rrp
+            data_type: <decimal>
+            description: "RRP"
+          - name: price
+            data_type: <decimal>
+            description: "Price"
+          - name: tax_rate
+            data_type: <decimal>
+            description: "Tax rate"
+          - name: tax_code
+            data_type: <string>
+            description: "Tax code"
+          - name: qty
+            data_type: <integer>
+            description: "Quantity"
+          - name: ordered
+            data_type: <integer>
+            description: "Ordered"
+          - name: to_order
+            data_type: <integer>
+            description: "To order"
+          - name: qty_exported
+            data_type: <integer>
+            description: "Quantity exported"
+          - name: imported_to_erp
+            data_type: <integer>
+            description: "Imported to erp"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -428,15 +638,20 @@ sources:
         description: ""
         columns:
           - name: reference_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: reference
-            description: ""
+            data_type: <string>
+            description: "Reference"
           - name: size
-            description: ""
+            data_type: <integer>
+            description: "Size"
           - name: supplier_id
-            description: ""
+            data_type: <integer>
+            description: "Supplier id"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -446,11 +661,14 @@ sources:
         description: ""
         columns:
           - name: link_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: product_id
-            description: ""
+            data_type: <integer>
+            description: "Product id"
           - name: parent_id
-            description: ""
+            data_type: <integer>
+            description: "Parent id"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -460,23 +678,32 @@ sources:
         description: ""
         columns:
           - name: supplier_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: name
-            description: ""
+            data_type: <string>
+            description: "Name"
           - name: sup_id
-            description: ""
+            data_type: <string>
+            description: "Sup id"
           - name: currency
-            description: ""
+            data_type: <string>
+            description: "Currency"
           - name: status
-            description: ""
+            data_type: <bit>
+            description: "Status"
           - name: in_wh_b
-            description: ""
+            data_type: <bit>
+            description: "In Warehouse b"
           - name: updated
-            description: ""
+            data_type: <bit>
+            description: "Updated flag"
           - name: supplier_export_process_id
-            description: ""
+            data_type: <string>
+            description: "Supplier export process id, nullable"
           - name: imported_to_erp
-            description: ""
+            data_type: <integer>
+            description: "Imported to erp"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -486,55 +713,80 @@ sources:
         description: ""
         columns:
           - name: item_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: product_id
-            description: ""
+            data_type: <integer>
+            description: "Product id"
           - name: stock_id
-            description: ""
+            data_type: <integer>
+            description: "Stock id"
           - name: qty
-            description: ""
+            data_type: <decimal>
+            description: "Quantity"
           - name: min_qty
-            description: ""
+            data_type: <decimal>
+            description: "Min Quantity"
           - name: use_config_min_qty
-            description: ""
+            data_type: <integer>
+            description: "Use config min quantity"
           - name: is_qty_decimal
-            description: ""
+            data_type: <integer>
+            description: "Is quantity decimal"
           - name: backorders
-            description: ""
+            data_type: <integer>
+            description: "Backorders"
           - name: use_config_backorders
-            description: ""
+            data_type: <integer>
+            description: "Use config backorders"
           - name: min_sale_qty
-            description: ""
+            data_type: <decimal>
+            description: "Min sale quantity"
           - name: use_config_min_sale_qty
-            description: ""
+            data_type: <integer>
+            description: "Use config min sale quantity"
           - name: max_sale_qty
-            description: ""
+            data_type: <decimal>
+            description: "Max sale quantity"
           - name: use_config_max_sale_qty
-            description: ""
+            data_type: <integer>
+            description: "Use config min sale quantity"
           - name: is_in_stock
-            description: ""
+            data_type: <integer>
+            description: "Is in stock"
           - name: low_stock_date
-            description: ""
+            data_type: <timestamp>
+            description: "Low stock date, nullable"
           - name: notify_stock_qty
-            description: ""
+            data_type: <decimal>
+            description: "Notify stock quantity, nullable"
           - name: use_config_notify_stock_qty
-            description: ""
+            data_type: <integer>
+            description: "Use config notify stock quantity"
           - name: manage_stock
-            description: ""
+            data_type: <integer>
+            description: "Manage stock"
           - name: use_config_manage_stock
-            description: ""
+            data_type: <integer>
+            description: "Use config manage stock"
           - name: stock_status_changed_auto
-            description: ""
+            data_type: <integer>
+            description: "Stock status changed auto"
           - name: use_config_qty_increments
-            description: ""
+            data_type: <integer>
+            description: "Use config quantity increments"
           - name: qty_increments
-            description: ""
+            data_type: <decimal>
+            description: "Quantity increments"
           - name: use_config_enable_qty_inc
-            description: ""
+            data_type: <integer>
+            description: "Use config enable quantity inc"
           - name: enable_qty_increments
-            description: ""
+            data_type: <integer>
+            description: "Enable quantoty increments"
           - name: is_decimal_divided
-            description: ""
+            data_type: <integer>
+            description: "Is decimal divided"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -544,15 +796,20 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <string>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -562,15 +819,20 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <varchar>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -580,29 +842,41 @@ sources:
         description: ""
         columns:
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_set_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute set id"
           - name: website_id
-            description: ""
+            data_type: <integer>
+            description: "Website id, nullable"
           - name: email
-            description: ""
+            data_type: <string>
+            description: "Email, nullable"
           - name: group_id
-            description: ""
+            data_type: <integer>
+            description: "Group id"
           - name: increment_id
-            description: ""
+            data_type: <string>
+            description: "Increment id, nullable"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id, nullable"
           - name: created_at
-            description: ""
+            data_type: <timestamp>
+            description: "Creation date"
           - name: updated_at
-            description: ""
+            data_type: <timestamp>
+            description: "Update date"
           - name: is_active
-            description: ""
+            data_type: <integer>
+            description: "Is active"
           - name: disable_auto_group_change
-            description: ""
+            data_type: <integer>
+            description: "Disable auto group change"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -612,15 +886,20 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity type id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <datetime>
+            description: "Value"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -630,15 +909,20 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <integer>
+            description: "Value"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -648,15 +932,20 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <string>
+            description: "Value"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -666,15 +955,20 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_type_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: attribute_id
-            description: ""
+            data_type: <integer>
+            description: "Attribute id"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: value
-            description: ""
+            data_type: <string>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -684,13 +978,17 @@ sources:
         description: ""
         columns:
           - name: value_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: option_id
-            description: ""
+            data_type: <integer>
+            description: "Option id"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: value
-            description: ""
+            data_type: <integer>
+            description: "Value, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -700,29 +998,41 @@ sources:
         description: ""
         columns:
           - name: referer_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Entity id"
           - name: entity_type
-            description: ""
+            data_type: <integer>
+            description: "Entity type"
           - name: event_type
-            description: ""
+            data_type: <integer>
+            description: "Event type"
           - name: source
-            description: ""
+            data_type: <string>
+            description: "Source"
           - name: medium
-            description: ""
+            data_type: <string>
+            description: "Medium"
           - name: term
-            description: ""
+            data_type: <string>
+            description: "Term"
           - name: content
-            description: ""
+            data_type: <string>
+            description: "Content"
           - name: campaign
-            description: ""
+            data_type: <string>
+            description: "Campaign"
           - name: gclid
-            description: ""
+            data_type: <string>
+            description: "Gclid"
           - name: device_category
-            description: ""
+            data_type: <integer>
+            description: "Device categoy, nullable"
           - name: operating_system
-            description: ""
+            data_type: <string>
+            description: "Operating system, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -732,17 +1042,23 @@ sources:
         description: ""
         columns:
           - name: log_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: visitor_id
-            description: ""
+            data_type: <integer>
+            description: "Visitor id, nullable"
           - name: customer_id
-            description: ""
+            data_type: <integer>
+            description: "Customer id"
           - name: login_at
-            description: ""
+            data_type: <timestamp>
+            description: "Login time"
           - name: logout_at
-            description: ""
+            data_type: <timestamp>
+            description: "Logout time, nullable"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -752,27 +1068,38 @@ sources:
         description: ""
         columns:
           - name: subscriber_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id, nullable"
           - name: change_status_at
-            description: ""
+            data_type: <timestamp>
+            description: "Change status at, nullable"
           - name: customer_id
-            description: ""
+            data_type: <integer>
+            description: "Customer id"
           - name: subscriber_email
-            description: ""
+            data_type: <string>
+            description: "Subscriber email, nullable"
           - name: subscriber_status
-            description: ""
+            data_type: <integer>
+            description: "Subscriber status"
           - name: subscriber_confirm_code
-            description: ""
+            data_type: <string>
+            description: "Subscriber confirm code, nullable"
           - name: subscription_date
-            description: ""
+            data_type: <datetime>
+            description: "Subscription date, nullable"
           - name: pure360_sync_status
-            description: ""
+            data_type: <integer>
+            description: "Pure360 Sync status, nullable"
           - name: emarsys_sync_status
-            description: ""
+            data_type: <integer>
+            description: "Emarsys sync status"
           - name: subscriber_source
-            description: ""
+            data_type: <integer>
+            description: "Subscriber source, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -782,179 +1109,266 @@ sources:
         description: ""
         columns:
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Primary Key"
           - name: store_id
-            description: ""
+            data_type: <integer>
+            description: "Store id, nullable"
           - name: adjustment_positive
-            description: ""
+            data_type: <decimal>
+            description: "Ajustment positive, nullable"
           - name: base_shipping_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base shipping tax amount, nullable"
           - name: store_to_order_rate
-            description: ""
+            data_type: <decimal>
+            description: "Store to order rate, nullable"
           - name: base_discount_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base discount amount, nullable"
           - name: base_to_order_rate
-            description: ""
+            data_type: <decimal>
+            description: "Base to order rate, nullable"
           - name: grand_total
-            description: ""
+            data_type: <decimal>
+            description: "Grand total, nullable"
           - name: base_adjustment_negative
-            description: ""
+            data_type: <decimal>
+            description: "Base adjustement negative, nullable"
           - name: base_subtotal_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Base subtotal incl. tax, nullable"
           - name: shipping_amount
-            description: ""
+            data_type: <decimal>
+            description: "Shipping amount, nullable"
           - name: subtotal_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Subtotal incl. tax, nullable"
           - name: adjustment_negative
-            description: ""
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: base_shipping_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base shipping amount, nullable"
           - name: store_to_base_rate
-            description: ""
+            data_type: <decimal>
+            description: "Store to base rate, nullable"
           - name: base_to_global_rate
-            description: ""
+            data_type: <decimal>
+            description: "Base to global rate, nullable"
           - name: base_adjustment
-            description: ""
+            data_type: <decimal>
+            description: "Base adjustment, nullable"
           - name: base_subtotal
-            description: ""
+            data_type: <decimal>
+            description: "Base subtotal, nullable"
           - name: discount_amount
-            description: ""
+            data_type: <decimal>
+            description: "Discount amount, nullable"
           - name: subtotal
-            description: ""
+            data_type: <decimal>
+            description: "Subtotal, nullable"
           - name: adjustment
-            description: ""
+            data_type: <decimal>
+            description: "Adjustment, nullable"
           - name: base_grand_total
-            description: ""
+            data_type: <decimal>
+            description: "Base grand total, nullable"
           - name: base_adjustment_positive
-            description: ""
+            data_type: <decimal>
+            description: "Base adjustment positive, nullable"
           - name: base_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base tax amount, nullable"
           - name: shipping_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Shipping tax amount, nullable"
           - name: tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Tax amount, nullable"
           - name: order_id
-            description: ""
+            data_type: <integer>
+            description: "Order id"
           - name: email_sent
-            description: ""
+            data_type: <integer>
+            description: "Email sent, nullable"
           - name: creditmemo_status
-            description: ""
+            data_type: <integer>
+            description: "Creditmemo status, nullable"
           - name: state
-            description: ""
+            data_type: <integer>
+            description: "State, nullable"
           - name: shipping_address_id
-            description: ""
+            data_type: <integer>
+            description: "Shipping address id, nullable"
           - name: billing_address_id
-            description: ""
+            data_type: <integer>
+            description: "Billing address id, nullable"
           - name: invoice_id
-            description: ""
+            data_type: <integer>
+            description: "Invoice id, nullable"
           - name: store_currency_code
-            description: ""
+            data_type: <string>
+            description: "Store currency code, nullable"
           - name: order_currency_code
-            description: ""
+            data_type: <string>
+            description: "Order currency code, nullable"
           - name: base_currency_code
-            description: ""
+            data_type: <string>
+            description: "Base currency code, nullable"
           - name: global_currency_code
-            description: ""
+            data_type: <string>
+            description: "Global currency code, nullable"
           - name: transaction_id
-            description: ""
+            data_type: <string>
+            description: "Transaction id, nullable"
           - name: increment_id
-            description: ""
+            data_type: <string>
+            description: "Increment id, nullable"
           - name: created_at
-            description: ""
+            data_type: <timestamp>
+            description: "Created at, nullable"
           - name: updated_at
-            description: ""
+            data_type: <timestamp>
+            description: "Updated at, nullable"
           - name: hidden_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Hidden tax amount, nullable"
           - name: base_hidden_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base hidden tax amount, nullable"
           - name: shipping_hidden_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Shipping hidden tax amount, nullable"
           - name: base_shipping_hidden_tax_amnt
-            description: ""
+            data_type: <decimal>
+            description: "Base shipping hidden tax amount, nullable"
           - name: shipping_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Shipping incl. tax, nullable"
           - name: base_shipping_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Base shipping incl. tax, nullable"
           - name: discount_description
-            description: ""
+            data_type: <string>
+            description: "Discount description, nullable"
           - name: base_customer_balance_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base customer balance amount, nullable"
           - name: customer_balance_amount
-            description: ""
+            data_type: <decimal>
+            description: "Customer balance amount, nullable"
           - name: bs_customer_bal_total_refunded
-            description: ""
+            data_type: <decimal>
+            description: "BS customer bal total refunded, nullable"
           - name: customer_bal_total_refunded
-            description: ""
+            data_type: <decimal>
+            description: "Customer bal total refunded, nullable"
           - name: base_gift_cards_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base gift cards amount, nullable"
           - name: gift_cards_amount
-            description: ""
+            data_type: <decimal>
+            description: "Gift cards amount, nullable"
           - name: gw_base_price
-            description: ""
+            data_type: <decimal>
+            description: "GW base price, nullable"
           - name: gw_price
-            description: ""
+            data_type: <decimal>
+            description: "GW price, nullable"
           - name: gw_items_base_price
-            description: ""
+            data_type: <decimal>
+            description: "GW items base price, nullable"
           - name: gw_items_price
-            description: ""
+            data_type: <decimal>
+            description: "GW items price, nullable"
           - name: gw_card_base_price
-            description: ""
+            data_type: <decimal>
+            description: "GW card base price, nullable"
           - name: gw_card_price
-            description: ""
+            data_type: <decimal>
+            description: "GW card price, nullable"
           - name: gw_base_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "GW Base tax amount, nullable"
           - name: gw_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "GW tax amount, nullable"
           - name: gw_items_base_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "GW items base tax amount, nullable"
           - name: gw_items_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "GW items tax amount, nullable"
           - name: gw_card_base_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "GW card base tax amount, nullable"
           - name: gw_card_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "GW card tax amount, nullable"
           - name: base_reward_currency_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base reward currency amount, nullable"
           - name: reward_currency_amount
-            description: ""
+            data_type: <decimal>
+            description: "Reward currency amount, nullable"
           - name: reward_points_balance
-            description: ""
+            data_type: <integer>
+            description: "Reward points balance, nullable"
           - name: reward_points_balance_refund
-            description: ""
+            data_type: <integer>
+            description: "Reward points balance refund, nullable"
           - name: refund_type_id
-            description: ""
+            data_type: <integer>
+            description: "Refund type id, nullable"
           - name: adjustment_reason_id
-            description: ""
+            data_type: <integer>
+            description: "Adjustement reason id, nullable"
           - name: status_id
-            description: ""
+            data_type: <integer>
+            description: "Status id, nullable"
           - name: admin_user_id
-            description: ""
+            data_type: <integer>
+            description: "Admin user id, nullable"
           - name: approve_at
-            description: ""
+            data_type: <datetime>
+            description: "Approve at, nullable"
           - name: exported_to_sap
-            description: ""
+            data_type: <integer>
+            description: "Exported to sap"
           - name: fee_type
-            description: ""
+            data_type: <integer>
+            description: "Fee type, nullable"
           - name: flag
-            description: ""
+            data_type: <integer>
+            description: "Flag"
           - name: approved_by
-            description: ""
+            data_type: <integer>
+            description: "Approved by, nullable"
           - name: canceled_at
-            description: ""
+            data_type: <datetime>
+            description: "Canceled at, nullable"
           - name: is_batch
-            description: ""
+            data_type: <integer>
+            description: "Is batch, nullable"
           - name: is_manual_account_refund
-            description: ""
+            data_type: <integer>
+            description: "Is manual account refund, nullable"
           - name: bank_name
-            description: ""
+            data_type: <string>
+            description: "Bank name, nullable"
           - name: account_number
-            description: ""
+            data_type: <string>
+            description: "Account number, nullable"
           - name: sort_code
-            description: ""
+            data_type: <string>
+            description: "Sort code, nullable"
           - name: bank_account_name
-            description: ""
+            data_type: <string>
+            description: "Bank account name, nullable"
           - name: from_wh_b
-            description: ""
+            data_type: <integer>
+            description: "From WH B, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -964,79 +1378,116 @@ sources:
         description: ""
         columns:
           - name: entity_id
-            description: ""
+            data_type: <integer>
+            description: "Primary key"
           - name: parent_id
-            description: ""
+            data_type: <integer>
+            description: "Parent id"
           - name: base_price
-            description: ""
+            data_type: <decimal>
+            description: "Base price, nullable"
           - name: tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Tax amount, nullable"
           - name: base_row_total
-            description: ""
+            data_type: <decimal>
+            description: "Base row total, nullable"
           - name: discount_amount
-            description: ""
+            data_type: <decimal>
+            description: "Discount amount, nullable"
           - name: row_total
-            description: ""
+            data_type: <decimal>
+            description: "Row total, nullable"
           - name: base_discount_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base discount amount, nullable"
           - name: price_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Price incl. tax, nullable"
           - name: base_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base tax amount, nullable"
           - name: base_price_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Base price incl tax, nullable"
           - name: qty
-            description: ""
+            data_type: <decimal>
+            description: "Quantity, nullable"
           - name: base_cost
-            description: ""
+            data_type: <decimal>
+            description: "Base cost, nullable"
           - name: price
-            description: ""
+            data_type: <decimal>
+            description: "Price, nullable"
           - name: base_row_total_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Base row total incl tax, nullable"
           - name: row_total_incl_tax
-            description: ""
+            data_type: <decimal>
+            description: "Row total incl tax, nullable"
           - name: product_id
-            description: ""
+            data_type: <integer>
+            description: "Product id, nullable"
           - name: order_item_id
-            description: ""
+            data_type: <integer>
+            description: "Order item id, nullable"
           - name: additional_data
-            description: ""
+            data_type: <string>
+            description: "Additional data, nullable"
           - name: description
-            description: ""
+            data_type: <string>
+            description: "Description, nullable"
           - name: sku
-            description: ""
+            data_type: <string>
+            description: "SKU, nullable"
           - name: name
-            description: ""
+            data_type: <string>
+            description: "Name, nullable"
           - name: hidden_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Hidden tax amount, nullable"
           - name: base_hidden_tax_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base hideen tax amount, nullable"
           - name: weee_tax_disposition
-            description: ""
+            data_type: <decimal>
+            description: "Weee Tax disposition, nullable"
           - name: weee_tax_row_disposition
-            description: ""
+            data_type: <decimal>
+            description: "Weee tax row disposition, nullable"
           - name: base_weee_tax_disposition
-            description: ""
+            data_type: <decimal>
+            description: "Base weee tax disposition, nullable"
           - name: base_weee_tax_row_disposition
-            description: ""
+            data_type: <decimal>
+            description: "Base weee tax row disposition, nullable"
           - name: weee_tax_applied
-            description: ""
+            data_type: <string>
+            description: "Weee tax applied, nullable"
           - name: base_weee_tax_applied_amount
-            description: ""
+            data_type: <decimal>
+            description: "Base weee tax applied amount, nullable"
           - name: base_weee_tax_applied_row_amnt
-            description: ""
+            data_type: <decimal>
+            description: "Base weee tax applied row amount, nullable"
           - name: weee_tax_applied_amount
-            description: ""
+            data_type: <decimal>
+            description: "Weee tax applied amount, nullable"
           - name: weee_tax_applied_row_amount
-            description: ""
+            data_type: <decimal>
+            description: "Weee tax applied row amount, nullable"
           - name: refund_reason_id
-            description: ""
+            data_type: <integer>
+            description: "Redund reason id, nullable"
           - name: customer_refund_request
-            description: ""
+            data_type: <string>
+            description: "Customer refund request, nullable"
           - name: exported_to_sap
-            description: ""
+            data_type: <integer>
+            description: "Exported to SAP"
           - name: qty_returned_to_warehouse
-            description: ""
+            data_type: <decimal>
+            description: "Quantity returned to warehouse"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -1046,443 +1497,662 @@ sources:
         description: "Fact table for the weight, quantity, value, cost, price, tax, discount, refunds of orders by customer, store, address, created and updated date with hourly details and expected delivery date with daily details"
         columns:
           - name: entity_id
-            description: "Order id, primary key, integer"
+            data_type: <integer>
+            description: "Order id, primary key"
           - name: state
-            description: "State, nullable, varchar"
+            data_type: <string>
+            description: "State, nullable"
           - name: status
-            description: "Status, nullable, varchar"
+            data_type: <string>
+            description: "Status, nullable"
           - name: coupon_code
-            description: "Coupon code, nullable, varchar"
+            data_type: <string>
+            description: "Coupon code, nullable"
           - name: protect_code
-            description: "Protect code, nullable, varchar"
+            data_type: <string>
+            description: "Protect code, nullable"
           - name: shipping_description
-            description: "Shipping description, nullable, varchar"
+            data_type: <string>
+            description: "Shipping description, nullable"
           - name: is_virtual
-            description: "Flag indicating if is a virtual order, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if is a virtual order, nullable"
           - name: store_id
-            description: "Store id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Store id, foreign key, nullable"
           - name: customer_id
-            description: "Customer id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Customer id, foreign key, nullable"
           - name: base_discount_amount
-            description: "Base discount amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base discount amount, nullable"
           - name: base_discount_canceled
-            description: "Base discount canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Base discount canceled, nullable"
           - name: base_discount_invoiced
-            description: "Base discount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base discount invoiced, nullable"
           - name: base_discount_refunded
-            description: "Base discount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base discount refunded, nullable"
           - name: base_grand_total
-            description: "Base grand total, nullable, decimal"
+            data_type: <decimal>
+            description: "Base grand total, nullable"
           - name: base_shipping_amount
-            description: "Base shipping amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping amount, nullable"
           - name: base_shipping_canceled
-            description: "Base shipping canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping canceled, nullable"
           - name: base_shipping_invoiced
-            description: "Base shipping invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping invoiced, nullable"
           - name: base_shipping_refunded
-            description: "Base shipping refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping refunded, nullable"
           - name: base_shipping_tax_amount
-            description: "Base shipping tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping tax amount, nullable"
           - name: base_shipping_tax_refunded
-            description: "Base shipping tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping tax refunded, nullable"
           - name: base_subtotal
-            description: "Base subtotal, nullable, decimal"
+            data_type: <decimal>
+            description: "Base subtotal, nullable"
           - name: base_subtotal_canceled
-            description: "Base subtotal canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Base subtotal canceled, nullable"
           - name: base_subtotal_invoiced
-            description: "Base subtotal invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base subtotal invoiced, nullable"
           - name: base_subtotal_refunded
-            description: "Base subtotal refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base subtotal refunded, nullable"
           - name: base_tax_amount
-            description: "Base tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base tax amount, nullable"
           - name: base_tax_canceled
-            description: "Base tax canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Base tax canceled, nullable"
           - name: base_tax_invoiced
-            description: "Base tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base tax invoiced, nullable"
           - name: base_tax_refunded
-            description: "Base tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base tax refunded, nullable"
           - name: base_to_global_rate
-            description: "Base to globale rate, nullable, decimal"
+            data_type: <decimal>
+            description: "Base to globale rate, nullable"
           - name: base_to_order_rate
-            description: "Base to order rate, nullable, decimal"
+            data_type: <decimal>
+            description: "Base to order rate, nullable"
           - name: base_total_canceled
-            description: "Base total canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total canceled, nullable"
           - name: base_total_invoiced
-            description: "Base total invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total invoiced, nullable"
           - name: base_total_invoiced_cost
-            description: "Base total invoiced cost, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total invoiced cost, nullable"
           - name: base_total_offline_refunded
-            description: "Base total offline refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total offline refunded, nullable"
           - name: base_total_online_refunded
-            description: "Base total online refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total online refunded, nullable"
           - name: base_total_paid
-            description: "Base total paid, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total paid, nullable"
           - name: base_total_qty_ordered
-            description: "Base total quantity ordered, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total quantity ordered, nullable"
           - name: base_total_refunded
-            description: "Base total refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base total refunded, nullable"
           - name: discount_amount
-            description: "Discount amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount amount, nullable"
           - name: discount_canceled
-            description: "Discount canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount canceled, nullable"
           - name: discount_invoiced
-            description: "Discount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount invoiced, nullable"
           - name: discount_refunded
-            description: "Discount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount refunded, nullable"
           - name: grand_total
-            description: "Grand total, nullable, decimal"
+            data_type: <decimal>
+            description: "Grand total, nullable"
           - name: shipping_amount
-            description: "Shipping amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping amount, nullable"
           - name: shipping_canceled
-            description: "Shipping canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping canceled, nullable"
           - name: shipping_invoiced
-            description: "Shipping invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping invoiced, nullable"
           - name: shipping_refunded
-            description: "Shippung reufnded, nullable, decimal"
+            data_type: <decimal>
+            description: "Shippung reufnded, nullable"
           - name: shipping_tax_amount
-            description: "Shipping tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping tax amount, nullable"
           - name: shipping_tax_refunded
-            description: "Shipping tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping tax refunded, nullable"
           - name: store_to_base_rate
-            description: "Store to base rate, nullable, decimal"
+            data_type: <decimal>
+            description: "Store to base rate, nullable"
           - name: store_to_order_rate
-            description: "Store to order rate, nullable, decimal"
+            data_type: <decimal>
+            description: "Store to order rate, nullable"
           - name: subtotal
-            description: "Sub-total, nullable, decimal"
+            data_type: <decimal>
+            description: "Sub-total, nullable"
           - name: subtotal_canceled
-            description: "Sub-total canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Sub-total canceled, nullable"
           - name: subtotal_invoiced
-            description: "Sub-total invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Sub-total invoiced, nullable"
           - name: subtotal_refunded
-            description: "Sub-total refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Sub-total refunded, nullable"
           - name: tax_amount
-            description: "Tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax amount, nullable"
           - name: tax_canceled
-            description: "Tax canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax canceled, nullable"
           - name: tax_invoiced
-            description: "Tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax invoiced, nullable"
           - name: tax_refunded
-            description: "Tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax refunded, nullable"
           - name: total_canceled
-            description: "Total canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Total canceled, nullable"
           - name: total_invoiced
-            description: "Total invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Total invoiced, nullable"
           - name: total_offline_refunded
-            description: "Total offline refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Total offline refunded, nullable"
           - name: total_online_refunded
-            description: "Total online refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Total online refunded, nullable"
           - name: total_paid
-            description: "Total paid, nullable, decimal"
+            data_type: <decimal>
+            description: "Total paid, nullable"
           - name: total_qty_ordered
-            description: "Total quantity ordered, nullable, decimal"
+            data_type: <decimal>
+            description: "Total quantity ordered, nullable"
           - name: total_refunded
-            description: "Total refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Total refunded, nullable"
           - name: can_ship_partially
-            description: "Flag indicating if the order can be shipped partially, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if the order can be shipped partially, nullable"
           - name: can_ship_partially_item
-            description: "Flag indicating if the quantity of this item can be shipped partially, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if the quantity of this item can be shipped partially, nullable"
           - name: customer_is_guest
-            description: "Flag indicating if the customer of the order is a guest, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if the customer of the order is a guest, nullable"
           - name: customer_note_notify
-            description: "Flag indicating if notify note for the customer must be left, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if notify note for the customer must be left, nullable"
           - name: billing_address_id
-            description: "Id of the billing address, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Id of the billing address, foreign key, nullable"
           - name: customer_group_id
-            description: "Id of the customer group, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Id of the customer group, foreign key, nullable"
           - name: edit_increment
-            description: "Edit increment, nullable, integer"
+            data_type: <integer>
+            description: "Edit increment, nullable"
           - name: email_sent
-            description: "Flag indicating if an email was sent, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if an email was sent, nullable"
           - name: forced_shipment_with_invoice
-            description: "Flag indicating if the shipment was forced with an invoice, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if the shipment was forced with an invoice, nullable"
           - name: payment_auth_expiration
-            description: "Flag indicating the payment auth expiration, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating the payment auth expiration, nullable"
           - name: quote_address_id
-            description: "Quote address id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Quote address id, foreign key, nullable"
           - name: quote_id
-            description: "Quote id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Quote id, foreign key, nullable"
           - name: shipping_address_id
-            description: "Shipping address id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Shipping address id, foreign key, nullable"
           - name: adjustment_negative
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: adjustment_positive
-            description: "Adjustment positive, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment positive, nullable"
           - name: base_adjustment_negative
-            description: "Base Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Base Adjustment negative, nullable"
           - name: base_adjustment_positive
-            description: "Base adjustment positive, nullable, decimal"
+            data_type: <decimal>
+            description: "Base adjustment positive, nullable"
           - name: base_shipping_discount_amount
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: base_subtotal_incl_tax
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: base_total_due
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: payment_authorization_amount
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: shipping_discount_amount
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: subtotal_incl_tax
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: total_due
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: weight
-            description: "Adjustment negative, nullable, decimal"
+            data_type: <decimal>
+            description: "Adjustment negative, nullable"
           - name: customer_dob
-            description: "Date of birth of the customer of the order, nullable, datetime"
+            data_type: <datetime>
+            description: "Date of birth of the customer of the order, nullable"
           - name: increment_id
-            description: "Increment id, nullable, varchar"
+            data_type: <string>
+            description: "Increment id, nullable"
           - name: applied_rule_ids
-            description: "Applied rule ids, nullable, varchar"
+            data_type: <string>
+            description: "Applied rule ids, nullable"
           - name: base_currency_code
-            description: "Base currency code, nullable, varchar"
+            data_type: <string>
+            description: "Base currency code, nullable"
           - name: customer_email
-            description: "Email of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Email of the order's customer, nullable"
           - name: customer_firstname
-            description: "First name of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "First name of the order's customer, nullable"
           - name: customer_lastname
-            description: "Last name of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Last name of the order's customer, nullable"
           - name: customer_middlename
-            description: "Middle name of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Middle name of the order's customer, nullable"
           - name: customer_prefix
-            description: "Prefix of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Prefix of the order's customer, nullable"
           - name: customer_suffix
-            description: "Suffic of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Suffic of the order's customer, nullable"
           - name: customer_taxvat
-            description: "VAT tax of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "VAT tax of the order's customer, nullable"
           - name: discount_description
-            description: "Description of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Description of the order's customer, nullable"
           - name: ext_customer_id
-            description: "Ext customer id of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Ext customer id of the order's customer, nullable"
           - name: ext_order_id
-            description: "Ext order id of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Ext order id of the order's customer, nullable"
           - name: global_currency_code
-            description: "Global currency code of the order's customer, nullable, varchar"
+            data_type: <string>
+            description: "Global currency code of the order's customer, nullable"
           - name: hold_before_state
-            description: "Hold before state, nullable, varchar"
+            data_type: <string>
+            description: "Hold before state, nullable"
           - name: hold_before_status
-            description: "Hold before status, nullable, varchar"
+            data_type: <string>
+            description: "Hold before status, nullable"
           - name: order_currency_code
-            description: "Order currency code, nullable, varchar"
+            data_type: <string>
+            description: "Order currency code, nullable"
           - name: original_increment_id
-            description: "Original increment id, nullable, varchar"
+            data_type: <string>
+            description: "Original increment id, nullable"
           - name: relation_child_id
-            description: "Relaction child id, nullable, varchar"
+            data_type: <string>
+            description: "Relaction child id, nullable"
           - name: relation_child_real_id
-            description: "Relation child real id, nullable, varchar"
+            data_type: <string>
+            description: "Relation child real id, nullable"
           - name: relation_parent_id
-            description: "Relation parent id, nullable, varchar"
+            data_type: <string>
+            description: "Relation parent id, nullable"
           - name: relation_parent_real_id
-            description: "Relation parent real id, nullable, varchar"
+            data_type: <string>
+            description: "Relation parent real id, nullable"
           - name: remote_ip
-            description: "Remote ip, nullable, varchar"
+            data_type: <string>
+            description: "Remote ip, nullable"
           - name: shipping_method
-            description: "Shipping method, nullable, varchar"
+            data_type: <string>
+            description: "Shipping method, nullable"
           - name: store_currency_code
-            description: "Store currency code, nullable, varchar"
+            data_type: <string>
+            description: "Store currency code, nullable"
           - name: store_name
-            description: "Store name, nullable, varchar"
+            data_type: <string>
+            description: "Store name, nullable"
           - name: x_forwarded_for
-            description: "X Fowarded for, nullable, varchar"
+            data_type: <string>
+            description: "X Fowarded for, nullable"
           - name: customer_note
-            description: "Customer note, nullable, varchar"
+            data_type: <string>
+            description: "Customer note, nullable"
           - name: created_at
-            description: "Creation date of the order, nullable, timestamp"
+            data_type: <timestamp>
+            description: "Creation date of the order, nullable"
           - name: updated_at
-            description: "Update date of the order, nullable, timestamp"
+            data_type: <timestamp>
+            description: "Update date of the order, nullable"
           - name: total_item_count
-            description: "Total item count, integer"
+            data_type: <integer>
+            description: "Total item count"
           - name: customer_gender
-            description: "Gender of the customer, nullable, integer"
+            data_type: <integer>
+            description: "Gender of the customer, nullable"
           - name: hidden_tax_amount
-            description: "Hidden tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Hidden tax amount, nullable"
           - name: base_hidden_tax_amount
-            description: "Base hidden tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base hidden tax amount, nullable"
           - name: shipping_hidden_tax_amount
-            description: "Shipping hidden tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping hidden tax amount, nullable"
           - name: base_shipping_hidden_tax_amnt
-            description: "Base shipping hidden tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping hidden tax amount, nullable"
           - name: hidden_tax_invoiced
-            description: "Hidden tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Hidden tax invoiced, nullable"
           - name: base_hidden_tax_invoiced
-            description: "Base hidden tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base hidden tax invoiced, nullable"
           - name: hidden_tax_refunded
-            description: "Hidden tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Hidden tax refunded, nullable"
           - name: base_hidden_tax_refunded
-            description: "Base hidden tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base hidden tax refunded, nullable"
           - name: shipping_incl_tax
-            description: "Shipping including tax, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping including tax, nullable"
           - name: base_shipping_incl_tax
-            description: "Base shipping including tax, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping including tax, nullable"
           - name: coupon_rule_name
-            description: "Coupon rule name, nullable, varchar"
+            data_type: <string>
+            description: "Coupon rule name, nullable"
           - name: paypal_ipn_customer_notified
-            description: "Flag Paypal IPN customer notified, nullable, integer"
+            data_type: <integer>
+            description: "Flag Paypal IPN customer notified, nullable"
           - name: gift_message_id
-            description: "Gift Message Id, nullable, integer"
+            data_type: <integer>
+            description: "Gift Message Id, nullable"
           - name: base_customer_balance_amount
-            description: "Base customer balance Amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base customer balance Amount, nullable"
           - name: customer_balance_amount
-            description: "Customer balance Amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Customer balance Amount, nullable"
           - name: base_customer_balance_invoiced
-            description: "Base customer balance invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base customer balance invoiced, nullable"
           - name: customer_balance_invoiced
-            description: "Customer balance invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Customer balance invoiced, nullable"
           - name: base_customer_balance_refunded
-            description: "Base customer balance refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base customer balance refunded, nullable"
           - name: customer_balance_refunded
-            description: "Customer balance refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Customer balance refunded, nullable"
           - name: bs_customer_bal_total_refunded
-            description: "BS customer bal total redunded, nullable, decimal"
+            data_type: <decimal>
+            description: "BS customer bal total redunded, nullable"
           - name: customer_bal_total_refunded
-            description: "Customer bal total refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Customer bal total refunded, nullable"
           - name: gift_cards
-            description: "Gift cards, nullable, varchar"
+            data_type: <string>
+            description: "Gift cards, nullable"
           - name: base_gift_cards_amount
-            description: "Base gift cards amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base gift cards amount, nullable"
           - name: gift_cards_amount
-            description: "Gift cards amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Gift cards amount, nullable"
           - name: base_gift_cards_invoiced
-            description: "Base gift cards invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base gift cards invoiced, nullable"
           - name: gift_cards_invoiced
-            description: "Gift cards invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Gift cards invoiced, nullable"
           - name: base_gift_cards_refunded
-            description: "Base gift cards refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base gift cards refunded, nullable"
           - name: gift_cards_refunded
-            description: "Gift cards refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Gift cards refunded, nullable"
           - name: gw_id
-            description: "GW id, nullable, integer"
+            data_type: <integer>
+            description: "GW id, nullable"
           - name: gw_allow_gift_receipt
-            description: "GW allow gift receipt, nullable, integer"
+            data_type: <integer>
+            description: "GW allow gift receipt, nullable"
           - name: gw_add_card
-            description: "GW add card, nullable, integer"
+            data_type: <integer>
+            description: "GW add card, nullable"
           - name: gw_base_price
-            description: "GW base price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base price, nullable"
           - name: gw_price
-            description: "GW price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW price, nullable"
           - name: gw_items_base_price
-            description: "GW items base price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items base price, nullable"
           - name: gw_items_price
-            description: "GW items price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items price, nullable"
           - name: gw_card_base_price
-            description: "GW card base price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card base price, nullable"
           - name: gw_card_price
-            description: "GW card price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card price, nullable"
           - name: gw_base_tax_amount
-            description: "GW base tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base tax amount, nullable"
           - name: gw_tax_amount
-            description: "GW tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW tax amount, nullable"
           - name: gw_items_base_tax_amount
-            description: "GW items base tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items base tax amount, nullable"
           - name: gw_items_tax_amount
-            description: "GW items tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items tax amount, nullable"
           - name: gw_card_base_tax_amount
-            description: "GW card base tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card base tax amount, nullable"
           - name: gw_card_tax_amount
-            description: "GW card tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card tax amount, nullable"
           - name: gw_base_price_invoiced
-            description: "GW base price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base price invoiced, nullable"
           - name: gw_price_invoiced
-            description: "GW price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW price invoiced, nullable"
           - name: gw_items_base_price_invoiced
-            description: "GW items base price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items base price invoiced, nullable"
           - name: gw_items_price_invoiced
-            description: "GW items price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items price invoiced, nullable"
           - name: gw_card_base_price_invoiced
-            description: "GW card base price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card base price invoiced, nullable"
           - name: gw_card_price_invoiced
-            description: "GW card price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card price invoiced, nullable"
           - name: gw_base_tax_amount_invoiced
-            description: "GW base tax amount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base tax amount invoiced, nullable"
           - name: gw_tax_amount_invoiced
-            description: "GW tax amount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW tax amount invoiced, nullable"
           - name: gw_items_base_tax_invoiced
-            description: "GW items base tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items base tax invoiced, nullable"
           - name: gw_items_tax_invoiced
-            description: "GW items tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items tax invoiced, nullable"
           - name: gw_card_base_tax_invoiced
-            description: "GW card base tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card base tax invoiced, nullable"
           - name: gw_card_tax_invoiced
-            description: "GW card tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card tax invoiced, nullable"
           - name: gw_base_price_refunded
-            description: "GW base price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base price refunded, nullable"
           - name: gw_price_refunded
-            description: "GW price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW price refunded, nullable"
           - name: gw_items_base_price_refunded
-            description: "GW items base price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items base price refunded, nullable"
           - name: gw_items_price_refunded
-            description: "GW items price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items price refunded, nullable"
           - name: gw_card_base_price_refunded
-            description: "GW card base price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card base price refunded, nullable"
           - name: gw_card_price_refunded
-            description: "GW card price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card price refunded, nullable"
           - name: gw_base_tax_amount_refunded
-            description: "GW base tax amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base tax amount refunded, nullable"
           - name: gw_tax_amount_refunded
-            description: "GW tax amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW tax amount refunded, nullable"
           - name: gw_items_base_tax_refunded
-            description: "GW items base tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items base tax refunded, nullable"
           - name: gw_items_tax_refunded
-            description: "GW items tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW items tax refunded, nullable"
           - name: gw_card_base_tax_refunded
-            description: "GW card base tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card base tax refunded, nullable"
           - name: gw_card_tax_refunded
-            description: "GW card tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW card tax refunded, nullable"
           - name: reward_points_balance
-            description: "Reward points balance, nullable, integer"
+            data_type: <integer>
+            description: "Reward points balance, nullable"
           - name: base_reward_currency_amount
-            description: "Base reward currency amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base reward currency amount, nullable"
           - name: reward_currency_amount
-            description: "Reward currency amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Reward currency amount, nullable"
           - name: base_rwrd_crrncy_amt_invoiced
-            description: "Base reward currency amount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base reward currency amount invoiced, nullable"
           - name: rwrd_currency_amount_invoiced
-            description: "Reward currency amount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Reward currency amount invoiced, nullable"
           - name: base_rwrd_crrncy_amnt_refnded
-            description: "Base reward currency amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base reward currency amount refunded, nullable"
           - name: rwrd_crrncy_amnt_refunded
-            description: "Reward currency amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Reward currency amount refunded, nullable"
           - name: reward_points_balance_refund
-            description: "Reward points balance refund, nullable, integer"
+            data_type: <integer>
+            description: "Reward points balance refund, nullable"
           - name: reward_points_balance_refunded
-            description: "Reward points balance refunded, nullable, integer"
+            data_type: <integer>
+            description: "Reward points balance refunded, nullable"
           - name: reward_salesrule_points
-            description: "Reward Salesrule points, nullable, integer"
+            data_type: <integer>
+            description: "Reward Salesrule points, nullable"
           - name: onestepcheckout_customercomment
-            description: "One step checkout customer comment, nullable, varchar"
+            data_type: <string>
+            description: "One step checkout customer comment, nullable"
           - name: onestepcheckout_customerfeedback
-            description: "One step checkout customer feedback, nullable, varchar"
+            data_type: <string>
+            description: "One step checkout customer feedback, nullable"
           - name: exported_to_mageorder
-            description: "Exported to magorder, nullable, integer"
+            data_type: <integer>
+            description: "Exported to magorder, nullable"
           - name: export_attempts
-            description: "Export attempts, nullable, varchar"
+            data_type: <string>
+            description: "Export attempts, nullable"
           - name: expected_delivery_date
-            description: "Expected delivery date, date"
+            data_type: <date>
+            description: "Expected delivery date"
           - name: expected_delivery_days
-            description: "Expected delivery days, nullable, integer"
+            data_type: <integer>
+            description: "Expected delivery days, nullable"
           - name: old_order_id
-            description: "Old order id, nullable, varchar"
+            data_type: <string>
+            description: "Old order id, nullable"
           - name: total_incl_pending_refunded
-            description: "Total including pending refunded, decimal"
+            data_type: <decimal>
+            description: "Total including pending refunded"
           - name: base_total_incl_pending_refunded
-            description: "Base total including pending refunded, decimal"
+            data_type: <decimal>
+            description: "Base total including pending refunded"
           - name: base_shipping_pending_refund
-            description: "Base shipping pending refund, decimal"
+            data_type: <decimal>
+            description: "Base shipping pending refund"
           - name: shipping_pending_refund
-            description: "Shipping pending refunded, decimal"
+            data_type: <decimal>
+            description: "Shipping pending refunded"
           - name: shipping_pending_refund_tax
-            description: "Shipping pending refund, decimal"
+            data_type: <decimal>
+            description: "Shipping pending refund"
           - name: base_shipping_pending_refund_tax
-            description: "Base shipping pending refund tax, decimal"
+            data_type: <decimal>
+            description: "Base shipping pending refund tax"
           - name: sales_product_type
+            data_type: <integer>
             description: "Sales product type, nullable, integer"
           - name: third_party_order_id
-            description: "Third party order id, nullable, varchar"
+            data_type: <string>
+            description: "Third party order id, nullable"
           - name: base_free_shipping_amount
-            description: "Base free shipping amount, decimal"
+            data_type: <decimal>
+            description: "Base free shipping amount"
           - name: customerservice_contact
-            description: "Customer service contact, bit"
+            data_type: <bit>
+            description: "Customer service contact"
           - name: customerservice_contact_at
-            description: "Customer service contact at, nullable, timestamp"
+            data_type: <timestamp>
+            description: "Customer service contact at, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -1492,61 +2162,89 @@ sources:
         description: "Dim table to get orders' address details, like fax, region, postcode, lastname, street, city, email, teledphone, name and company."
         columns:
           - name: entity_id
-            description: "Id of the order addresss, primiary key, integer"
+            data_type: <integer>
+            description: "Id of the order addresss, primiary key"
           - name: parent_id
-            description: "Parent id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Parent id, foreign key, nullable"
           - name: customer_address_id
-            description: "Customer address id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Customer address id, foreign key, nullable"
           - name: quote_address_id
-            description: "Quote address id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Quote address id, foreign key, nullable"
           - name: region_id
-            description: "Region id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Region id, foreign key, nullable"
           - name: customer_id
-            description: "Customer id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Customer id, foreign key, nullable"
           - name: fax
-            description: "Fax number, nullable, varchar"
+            data_type: <string>
+            description: "Fax number, nullable"
           - name: region
-            description: "Region, nullable, varchar"
+            data_type: <string>
+            description: "Region, nullable"
           - name: postcode
-            description: "Post code, nullable, varchar"
+            data_type: <string>
+            description: "Post code, nullable"
           - name: lastname
-            description: "Last name, nullable, varchar"
+            data_type: <string>
+            description: "Last name, nullable"
           - name: street
-            description: "Street, nullable, varchar"
+            data_type: <string>
+            description: "Street, nullable"
           - name: city
-            description: "City, nullable, varchar"
+            data_type: <string>
+            description: "City, nullable"
           - name: email
-            description: "Email, nullable, varchar"
+            data_type: <string>
+            description: "Email, nullable"
           - name: telephone
-            description: "Telephone, nullable, varchar"
+            data_type: <string>
+            description: "Telephone, nullable"
           - name: country_id
-            description: "Country id, nullable, varchar"
+            data_type: <string>
+            description: "Country id, nullable"
           - name: firstname
-            description: "First name, nullable, varchar"
+            data_type: <string>
+            description: "First name, nullable"
           - name: address_type
-            description: "Address type, nullable, varchar"
+            data_type: <string>
+            description: "Address type, nullable"
           - name: prefix
-            description: "Prefix, nullable, varchar"
+            data_type: <string>
+            description: "Prefix, nullable"
           - name: middlename
-            description: "Middle name, nullable, varchar"
+            data_type: <string>
+            description: "Middle name, nullable"
           - name: suffix
-            description: "Suffix, nullable, varchar"
+            data_type: <string>
+            description: "Suffix, nullable"
           - name: company
-            description: "Company, nullable, varchar"
+            data_type: <string>
+            description: "Company, nullable"
           - name: vat_id
-            description: "VAT id, nullable, varchar"
+            data_type: <string>
+            description: "VAT id, nullable"
           - name: vat_is_valid
-            description: "Flag indicating if VAT is valid, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if VAT is valid, nullable"
           - name: vat_request_id
-            description: "VAT Request id, nullable, varchar"
+            data_type: <string>
+            description: "VAT Request id, nullable"
           - name: vat_request_date
-            description: "VAT request date, nullable, varchar"
+            data_type: <string>
+            description: "VAT request date, nullable"
           - name: vat_request_success
-            description: "Flag indicating if VAT request was a success, nullable, varchar"
+            data_type: <string>
+            description: "Flag indicating if VAT request was a success, nullable"
           - name: giftregistry_item_id
-            description: "Gift registry item id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Gift registry item id, foreign key, nullable"
           - name: changed
-            description: "Flag indicating if the address was changed, nullable, varchar"
+            data_type: <string>
+            description: "Flag indicating if the address was changed, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -1556,229 +2254,341 @@ sources:
         description: "Fact table for the weight, quantity, value, cost, price, tax, discount, refunds of order lines by order, item, product detail, negociation, created and updated date with hourly details, dispatch and out of stock date with daily details"
         columns:
           - name: item_id
-            description: "Id of the line order, primary key, integer"
+            data_type: <integer>
+            description: "Id of the line order, primary key"
           - name: order_id
-            description: "Id of the order, foreign key, integer"
+            data_type: <integer>
+            description: "Id of the order, foreign key"
           - name: parent_item_id
-            description: "Id of the parent item, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Id of the parent item, foreign key, nullable"
           - name: quote_item_id
-            description: "Id of the quote item, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Id of the quote item, foreign key, nullable"
           - name: store_id
-            description: "Id of the store, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Id of the store, foreign key, nullable"
           - name: created_at
-            description: "Creation date of the order line, timestamp"
+            data_type: <timestamp>
+            description: "Creation date of the order line"
           - name: updated_at
-            description: "Update date of the order line, timestamp"
+            data_type: <timestamp>
+            description: "Update date of the order line"
           - name: product_id
-            description: "Id of the product ordered, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Id of the product ordered, foreign key, nullable"
           - name: product_type
-            description: "Type of the product, nullable, varchar"
+            data_type: <string>
+            description: "Type of the product, nullable"
           - name: product_options
-            description: "Options of the product, nullable, varchar"
+            data_type: <string>
+            description: "Options of the product, nullable"
           - name: weight
-            description: "Weight of the order line, nullable, decimal"
+            data_type: <decimal>
+            description: "Weight of the order line, nullable"
           - name: is_virtual
-            description: "Flag indicating virtual order line, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating virtual order line, nullable"
           - name: sku
-            description: "SKU ordered, nullable, varchar"
+            data_type: <string>
+            description: "SKU ordered, nullable"
           - name: name
-            description: "Name of the product, nullable, varchar"
+            data_type: <string>
+            description: "Name of the product, nullable"
           - name: description
-            description: "Description of the product, nullable, varchar"
+            data_type: <string>
+            description: "Description of the product, nullable"
           - name: applied_rule_ids
-            description: "Ids of the rules applied, nullable, varchar"
+            data_type: <string>
+            description: "Ids of the rules applied, nullable"
           - name: additional_data
-            description: "Additional data, nullable, varchar"
+            data_type: <string>
+            description: "Additional data, nullable"
           - name: free_shipping
-            description: "Flag indicating free shipping, integer"
+            data_type: <integer>
+            description: "Flag indicating free shipping"
           - name: is_qty_decimal
-            description: "Flag indicating if quantity can be decimal, nullable, integer"
+            data_type: <integer>
+            description: "Flag indicating if quantity can be decimal, nullable"
           - name: no_discount
-            description: "Flag indicating no discount, integer"
+            data_type: <integer>
+            description: "Flag indicating no discount"
           - name: qty_backordered
-            description: "Quantity back ordered, nullable, decimal"
+            data_type: <decimal>
+            description: "Quantity back ordered, nullable"
           - name: qty_canceled
-            description: "Quantity canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Quantity canceled, nullable"
           - name: qty_invoiced
-            description: "Quantity invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Quantity invoiced, nullable"
           - name: qty_ordered
-            description: "Quantity ordered, nullable, decimal"
+            data_type: <decimal>
+            description: "Quantity ordered, nullable"
           - name: qty_refunded
-            description: "Quantity refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Quantity refunded, nullable"
           - name: qty_shipped
-            description: "Quantity shipped, nullable, decimal"
+            data_type: <decimal>
+            description: "Quantity shipped, nullable"
           - name: base_cost
-            description: "Base cost, nullable, decimal"
+            data_type: <decimal>
+            description: "Base cost, nullable"
           - name: price
-            description: "Price, decimal"
+            data_type: <decimal>
+            description: "Price"
           - name: base_price
-            description: "Base price, decimal"
+            data_type: <decimal>
+            description: "Base price"
           - name: original_price
-            description: "Original price, nullable, decimal"
+            data_type: <decimal>
+            description: "Original price, nullable"
           - name: base_original_price
-            description: "Base Original price, nullable, decimal"
+            data_type: <decimal>
+            description: "Base Original price, nullable"
           - name: tax_percent
-            description: "Tax percent, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax percent, nullable"
           - name: tax_amount
-            description: "Tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax amount, nullable"
           - name: base_tax_amount
-            description: "Base Tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base Tax amount, nullable"
           - name: tax_invoiced
-            description: "Tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax invoiced, nullable"
           - name: base_tax_invoiced
-            description: "Base tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base tax invoiced, nullable"
           - name: discount_percent
-            description: "Discount percent, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount percent, nullable"
           - name: discount_amount
-            description: "Discount amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount amount, nullable"
           - name: base_discount_amount
-            description: "Base discount amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base discount amount, nullable"
           - name: discount_invoiced
-            description: "Discount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount invoiced, nullable"
           - name: base_discount_invoiced
-            description: "Base discount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base discount invoiced, nullable"
           - name: amount_refunded
-            description: "Amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Amount refunded, nullable"
           - name: base_amount_refunded
-            description: "Base amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount refunded, nullable"
           - name: row_total
-            description: "Row total value, decimal"
+            data_type: <decimal>
+            description: "Row total value"
           - name: base_row_total
-            description: "Base row total value, decimal"
+            data_type: <decimal>
+            description: "Base row total value"
           - name: row_invoiced
-            description: "Row value invoiced, decimal"
+            data_type: <decimal>
+            description: "Row value invoiced"
           - name: base_row_invoiced
-            description: "Base row value invoiced, decimal"
+            data_type: <decimal>
+            description: "Base row value invoiced"
           - name: row_weight
-            description: "Weight of all items in the row, nullable, decimal"
+            data_type: <decimal>
+            description: "Weight of all items in the row, nullable"
           - name: base_tax_before_discount
-            description: "Base tax before discount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base tax before discount, nullable"
           - name: tax_before_discount
-            description: "Tax before discount, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax before discount, nullable"
           - name: ext_order_item_id
-            description: "External order item id, nullable, varchar"
+            data_type: <string>
+            description: "External order item id, nullable"
           - name: locked_do_invoice
-            description: "Locked DO invoice, nullable, integer"
+            data_type: <integer>
+            description: "Locked DO invoice, nullable"
           - name: locked_do_ship
-            description: "Locked DO shipping, nullable, integer"
+            data_type: <integer>
+            description: "Locked DO shipping, nullable"
           - name: price_incl_tax
-            description: "Price including tax, nullable, decimal"
+            data_type: <decimal>
+            description: "Price including tax, nullable"
           - name: base_price_incl_tax
-            description: "Base price including tax, nullable, decimal"
+            data_type: <decimal>
+            description: "Base price including tax, nullable"
           - name: row_total_incl_tax
-            description: "Row total including tax, nullable, decimal"
+            data_type: <decimal>
+            description: "Row total including tax, nullable"
           - name: base_row_total_incl_tax
-            description: "Base row total including tax, nullable, decimal"
+            data_type: <decimal>
+            description: "Base row total including tax, nullable"
           - name: hidden_tax_amount
-            description: "Hidden tax amount, nullable, decimal"
+            data_type: <integer>
+            description: "Hidden tax amount, nullable"
           - name: base_hidden_tax_amount
-            description: "Base hidden tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base hidden tax amount, nullable"
           - name: hidden_tax_invoiced
-            description: "Hidden tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Hidden tax invoiced, nullable"
           - name: base_hidden_tax_invoiced
-            description: "Base hidden tax invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "Base hidden tax invoiced, nullable"
           - name: hidden_tax_refunded
-            description: "Hidden tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Hidden tax refunded, nullable"
           - name: base_hidden_tax_refunded
-            description: "Base hidden tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base hidden tax refunded, nullable"
           - name: is_nominal
-            description: "Flag indicating if line is nominal, integer"
+            data_type: <decimal>
+            description: "Flag indicating if line is nominal"
           - name: tax_canceled
-            description: "Tax canceled value, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax canceled value, nullable"
           - name: hidden_tax_canceled
-            description: "Hidden tax canceled value, nullable, decimal"
+            data_type: <decimal>
+            description: "Hidden tax canceled value, nullable"
           - name: tax_refunded
-            description: "Tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Tax refunded, nullable"
           - name: base_tax_refunded
-            description: "Base tax refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base tax refunded, nullable"
           - name: discount_refunded
-            description: "Discount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Discount refunded, nullable"
           - name: base_discount_refunded
-            description: "Base discount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base discount refunded, nullable"
           - name: gift_message_id
-            description: "Gift message id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Gift message id, foreign key, nullable"
           - name: gift_message_available
-            description: "Flag if gift message is availabel, nullable, integer"
+            data_type: <integer>
+            description: "Flag if gift message is availabel, nullable"
           - name: base_weee_tax_applied_amount
-            description: "Base wee tax amount applied, nullable, decimal"
+            data_type: <decimal>
+            description: "Base wee tax amount applied, nullable"
           - name: base_weee_tax_applied_row_amnt
-            description: "Base wee tax amount applied on raw level, nullable, decimal"
+            data_type: <decimal>
+            description: "Base wee tax amount applied on raw level, nullable"
           - name: weee_tax_applied_amount
-            description: "Wee tax amount applied, nullable, decimal"
+            data_type: <decimal>
+            description: "Wee tax amount applied, nullable"
           - name: weee_tax_applied_row_amount
-            description: "Wee tax row amount applied, nullable, decimal"
+            data_type: <decimal>
+            description: "Wee tax row amount applied, nullable"
           - name: weee_tax_applied
-            description: "Wee tax amount applied, nullable, decimal"
+            data_type: <decimal>
+            description: "Wee tax amount applied, nullable"
           - name: weee_tax_disposition
-            description: "Wee tax disposition, nullable, decimal"
+            data_type: <decimal>
+            description: "Wee tax disposition, nullable"
           - name: weee_tax_row_disposition
-            description: "Wee tax row disposition, nullable, decimal"
+            data_type: <decimal>
+            description: "Wee tax row disposition, nullable"
           - name: base_weee_tax_disposition
-            description: "Base wee tax disposition, nullable, decimal"
+            data_type: <decimal>
+            description: "Base wee tax disposition, nullable"
           - name: base_weee_tax_row_disposition
-            description: "Base wee tax row disposition, nullable, decimal"
+            data_type: <decimal>
+            description: "Base wee tax row disposition, nullable"
           - name: event_id
-            description: "Event id, nullable, integer"
+            data_type: <integer>
+            description: "Event id, nullable"
           - name: giftregistry_item_id
-            description: "Giftregistry item id, nullable, integer"
+            data_type: <integer>
+            description: "Giftregistry item id, nullable"
           - name: gw_id
-            description: "GW id, nullable, integer"
+            data_type: <integer>
+            description: "GW id, nullable"
           - name: gw_base_price
-            description: "GW base price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base price, nullable"
           - name: gw_price
-            description: "GW price, nullable, decimal"
+            data_type: <decimal>
+            description: "GW price, nullable"
           - name: gw_base_tax_amount
-            description: "GW base tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base tax amount, nullable"
           - name: gw_tax_amount
-            description: "GW tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW tax amount, nullable"
           - name: gw_base_price_invoiced
-            description: "GW base price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base price invoiced, nullable"
           - name: gw_price_invoiced
-            description: "GW price invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW price invoiced, nullable"
           - name: gw_base_tax_amount_invoiced
-            description: "GW base tax amount, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base tax amount, nullable"
           - name: gw_tax_amount_invoiced
-            description: "GW tax amount invoiced, nullable, decimal"
+            data_type: <decimal>
+            description: "GW tax amount invoiced, nullable"
           - name: gw_base_price_refunded
-            description: "GW base price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base price refunded, nullable"
           - name: gw_price_refunded
-            description: "GW price refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW price refunded, nullable"
           - name: gw_base_tax_amount_refunded
-            description: "GW base tax amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW base tax amount refunded, nullable"
           - name: gw_tax_amount_refunded
-            description: "GW tax amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "GW tax amount refunded, nullable"
           - name: qty_returned
-            description: "Quantity returned, decimal"
+            data_type: <decimal>
+            description: "Quantity returned"
           - name: nego
-            description: "Negociation number, nullable, integer"
+            data_type: <integer>
+            description: "Negociation number, nullable"
           - name: qty_warehouse_sent
-            description: "Quantity sent from warehouse, integer"
+            data_type: <integer>
+            description: "Quantity sent from warehouse"
           - name: qty_out_of_stock
-            description: "Quantity of items out of stock for the line, integer"
+            data_type: <integer>
+            description: "Quantity of items out of stock for the line"
           - name: qty_backorder_reconciliation
-            description: "Quantity for backorder reconciliation, integer"
+            data_type: <integer>
+            description: "Quantity for backorder reconciliation"
           - name: dispatch_date
-            description: "Date for dispatch, date"
+            data_type: <date>
+            description: "Date for dispatch"
           - name: backorder_availability
-            description: "Backorder availability flag, integer"
+            data_type: <integer>
+            description: "Backorder availability flag"
           - name: out_of_stock_date
-            description: "Date of out of stock notification, date"
+            data_type: <date>
+            description: "Date of out of stock notification"
           - name: qty_reserved_by_tc
-            description: "Quantity reserved by Task Center, decimal"
+            data_type: <decimal>
+            description: "Quantity reserved by Task Center"
           - name: qty_refunded_hold
-            description: "Quantity to refunded on hold, integer"
+            data_type: <integer>
+            description: "Quantity to refunded on hold"
           - name: qty_returned_to_warehouse
-            description: "Quantity returned to warehouse, decimal"
+            data_type: <decimal>
+            description: "Quantity returned to warehouse"
           - name: sales_product_type
-            description: "Sales product type, nullable, integere"
+            data_type: <integer>
+            description: "Sales product type, nullable"
           - name: expected_delivery_consignment
-            description: "Expected delivery consignment, nullable, varchar"
+            data_type: <string>
+            description: "Expected delivery consignment, nullable"
           - name: qty_reserved_by_wh_b
-            description: "Quantity reserved by warehouse b, decimal"
+            data_type: <decimal>
+            description: "Quantity reserved by warehouse b"
           - name: qty_wh_b_sent
-            description: "Quantity sent by warehouse b, decimal"
+            data_type: <decimal>
+            description: "Quantity sent by warehouse b"
           - name: product_personalisation
-            description: "Product personalisation, varchar"
+            data_type: <string>
+            description: "Product personalisation"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -1788,13 +2598,17 @@ sources:
         description: "Dim table to get type and category for order items"
         columns:
           - name: line_id
-            description: "Line id, primary key, integer"
+            data_type: <integer>
+            description: "Line id, primary key"
           - name: order_item_id
-            description: "Order item id, foreign key, integer"
+            data_type: <integer>
+            description: "Order item id, foreign key"
           - name: category_id
-            description: "Cagegory id, foreign key, integer"
+            data_type: <integer>
+            description: "Cagegory id, foreign key"
           - name: type
-            description: "Type of the item, nullable, integer"
+            data_type: <integer>
+            description: "Type of the item, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -1804,115 +2618,170 @@ sources:
         description: "Fact table for the shipping fees, amount paid, refunded, authorized, paid online and refunded online, shipping refunded of order payments by payment details and methods"
         columns:
           - name: entity_id
-            description: "Order payment id, primary key, integer"
+            data_type: <decimal>
+            description: "Order payment id, primary key"
           - name: parent_id
-            description: "Order payment parent id, foreign key, integer"
+            data_type: <decimal>
+            description: "Order payment parent id, foreign key"
           - name: base_shipping_captured
-            description: "Base shipping fee value captured, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping fee value captured, nullable"
           - name: shipping_captured
-            description: "Shipping fee value captured, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping fee value captured, nullable"
           - name: amount_refunded
-            description: "Amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Amount refunded, nullable"
           - name: base_amount_paid
-            description: "Base amount paid, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount paid, nullable"
           - name: amount_canceled
-            description: "Amount cancelled, nullable, decimal"
+            data_type: <decimal>
+            description: "Amount cancelled, nullable"
           - name: base_amount_authorized
-            description: "Base amount authorised, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount authorised, nullable"
           - name: base_amount_paid_online
-            description: "Base amount paid online, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount paid online, nullable"
           - name: base_amount_refunded_online
-            description: "Base amount refunded online, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount refunded online, nullable"
           - name: base_shipping_amount
-            description: "Base shipping amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping amount, nullable"
           - name: shipping_amount
-            description: "Shipping amount, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping amount, nullable"
           - name: amount_paid
-            description: "Amount paid, nullable, decimal"
+            data_type: <decimal>
+            description: "Amount paid, nullable"
           - name: amount_authorized
-            description: "Amount authorised, nullable, decimal"
+            data_type: <decimal>
+            description: "Amount authorised, nullable"
           - name: base_amount_ordered
-            description: "Base amount ordered, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount ordered, nullable"
           - name: base_shipping_refunded
-            description: "Base shipping fee refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base shipping fee refunded, nullable"
           - name: shipping_refunded
-            description: "Shipping fee refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Shipping fee refunded, nullable"
           - name: base_amount_refunded
-            description: "Base amount refunded, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount refunded, nullable"
           - name: amount_ordered
-            description: "Base amount ordered, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount ordered, nullable"
           - name: base_amount_canceled
-            description: "Base amount canceled, nullable, decimal"
+            data_type: <decimal>
+            description: "Base amount canceled, nullable"
           - name: quote_payment_id
-            description: "Quote payment ID, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Quote payment ID, foreign key, nullable"
           - name: additional_data
-            description: "Additional data, nullable, varchar"
+            data_type: <integer>
+            description: "Additional data, nullable"
           - name: cc_exp_month
-            description: "Card exp month, nullable, varchar"
+            data_type: <string>
+            description: "Card exp month, nullable"
           - name: cc_ss_start_year
-            description: "Card ss start year, nullable, varchar"
+            data_type: <string>
+            description: "Card ss start year, nullable"
           - name: echeck_bank_name
-            description: "Echeck bank name, nullable, varchar"
+            data_type: <string>
+            description: "Echeck bank name, nullable"
           - name: method
-            description: "Method, nullable, varchar"
+            data_type: <string>
+            description: "Method, nullable"
           - name: cc_debug_request_body
-            description: "Card debug request body, nullable, varchar"
+            data_type: <string>
+            description: "Card debug request body, nullable"
           - name: cc_secure_verify
-            description: "Card secure verify, nullable, varchar"
+            data_type: <string>
+            description: "Card secure verify, nullable"
           - name: protection_eligibility
-            description: "Protection eligibility, nullable, varchar"
+            data_type: <string>
+            description: "Protection eligibility, nullable"
           - name: cc_approval
-            description: "Card approval, nullable, varchar"
+            data_type: <string>
+            description: "Card approval, nullable"
           - name: cc_last4
-            description: "Card Last 4, nullable, varchar"
+            data_type: <string>
+            description: "Card Last 4, nullable"
           - name: cc_status_description
-            description: "Card status description nullable, varchar"
+            data_type: <string>
+            description: "Card status description nullable"
           - name: echeck_type
-            description: "Echeck type, nullable, varchar"
+            data_type: <string>
+            description: "Echeck type, nullable"
           - name: cc_debug_response_serialized
-            description: "Card debug response serialised, nullable, varchar"
+            data_type: <string>
+            description: "Card debug response serialised, nullable"
           - name: cc_ss_start_month
-            description: "Card ss start month, nullable, varchar"
+            data_type: <string>
+            description: "Card ss start month, nullable"
           - name: echeck_account_type
-            description: "Echeck account type, nullable, varchar"
+            data_type: <string>
+            description: "Echeck account type, nullable"
           - name: last_trans_id
-            description: "Last trans ID, nullable, varchar"
+            data_type: <string>
+            description: "Last trans ID, nullable"
           - name: cc_cid_status
-            description: "Card cid status, nullable, varchar"
+            data_type: <string>
+            description: "Card cid status, nullable"
           - name: cc_owner
-            description: "Card owner, nullable, varchar"
+            data_type: <string>
+            description: "Card owner, nullable"
           - name: cc_type
-            description: "Card type, nullable, varchar"
+            data_type: <string>
+            description: "Card type, nullable"
           - name: po_number
-            description: "PO number, nullable, varchar"
+            data_type: <string>
+            description: "PO number, nullable"
           - name: cc_exp_year
-            description: "Card exp year, nullable, varchar"
+            data_type: <string>
+            description: "Card exp year, nullable"
           - name: cc_status
-            description: "Card status, nullable, varchar"
+            data_type: <string>
+            description: "Card status, nullable"
           - name: echeck_routing_number
-            description: "Echeck routing number, nullable, varchar"
+            data_type: <string>
+            description: "Echeck routing number, nullable"
           - name: account_status
-            description: "Account status, nullable, varchar"
+            data_type: <string>
+            description: "Account status, nullable"
           - name: anet_trans_method
-            description: "Anet trans method, nullable, varchar"
+            data_type: <string>
+            description: "Anet trans method, nullable"
           - name: cc_debug_response_body
-            description: "Card debug response body, nullable, varchar"
+            data_type: <string>
+            description: "Card debug response body, nullable"
           - name: cc_ss_issue
-            description: "Card ss issue, nullable, varchar"
+            data_type: <string>
+            description: "Card ss issue, nullable"
           - name: echeck_account_name
-            description: "Echeck account name, nullable, varchar"
+            data_type: <string>
+            description: "Echeck account name, nullable"
           - name: cc_avs_status
-            description: "Card avs status, nullable, varchar"
+            data_type: <string>
+            description: "Card avs status, nullable"
           - name: cc_number_enc
-            description: "Card number enc, nullable, varchar"
+            data_type: <string>
+            description: "Card number enc, nullable"
           - name: cc_trans_id
-            description: "Card Trans ID, nullable, varchar"
+            data_type: <string>
+            description: "Card Trans ID, nullable"
           - name: paybox_request_number
-            description: "Paybox Request number, nullable, varchar"
+            data_type: <string>
+            description: "Paybox Request number, nullable"
           - name: address_status
-            description: "Address status, nullable, varchar"
+            data_type: <string>
+            description: "Address status, nullable"
           - name: additional_information
-            description: "Additional information, nullable, varchar"
+            data_type: <string>
+            description: "Additional information, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -1922,35 +2791,50 @@ sources:
         description: "Fact table for total quantity, weight, number of packages of a shipment by order, customer, shipping address and billing address, created and updated date with hourly details. "
         columns:
           - name: entity_id
-            description: "Shipment id, primary key, integer"
+            data_type: <integer>
+            description: "Shipment id, primary key"
           - name: store_id
-            description: "Store id, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Store id, foreign key, nullable"
           - name: total_weight
-            description: "Total weight of the shipment, nullable, decimal"
+            data_type: <decimal>
+            description: "Total weight of the shipment, nullable"
           - name: total_qty
-            description: "Total quantity of the shipment, nullable, decimal"
+            data_type: <decimal>
+            description: "Total quantity of the shipment, nullable"
           - name: email_sent
-            description: "Flag for email sent or not, nullable, integer"
+            data_type: <integer>
+            description: "Flag for email sent or not, nullable"
           - name: order_id
-            description: "Order ID linked to the shipment, foreign key, integer"
+            data_type: <integer>
+            description: "Order ID linked to the shipment, foreign key"
           - name: customer_id
-            description: "Customer ID linked to the shipment, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Customer ID linked to the shipment, foreign key, nullable"
           - name: shipping_address_id
-            description: "Shipping Address ID linked to the shipment, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Shipping Address ID linked to the shipment, foreign key, nullable"
           - name: billing_address_id
-            description: "Billing Address ID linked to the shipment, foreign key, nullable, integer"
+            data_type: <integer>
+            description: "Billing Address ID linked to the shipment, foreign key, nullable"
           - name: shipment_status
-            description: "Shipment Status value linked to the shipment, nullable, integer"
+            data_type: <integer>
+            description: "Shipment Status value linked to the shipment, nullable"
           - name: increment_id
-            description: "Incement ID of the shipment, nullable, varchar"
+            data_type: <string>
+            description: "Incement ID of the shipment, nullable"
           - name: created_at
-            description: "Creation date of the shipment, nullable, timestamp"
+            data_type: <timestamp>
+            description: "Creation date of the shipment, nullable"
           - name: updated_at
-            description: "Last update date of the shipment, nullable, timestamp"
+            data_type: <timestamp>
+            description: "Last update date of the shipment, nullable"
           - name: packages
-            description: "Packed products in packages of the shipment, nullable, varchar"
+            data_type: <string>
+            description: "Packed products in packages of the shipment, nullable"
           - name: shipping_label
-            description: "Shipping label content, nullable, Blob"
+            data_type: <string>
+            description: "Shipping label content, nullable"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted
@@ -1960,45 +2844,63 @@ sources:
         description: "Fact table for quantity, price, and weight of an item shipped by product, order item and shipment."
         columns:
           - name: entity_id
-            description: "Shipment item ID, primary key, integer"
+            data_type: <integer>
+            description: "Shipment item ID, primary key"
           - name: parent_id
-            description: "Shipment item ID of the parent, foreign key, integer"
+            data_type: <integer>
+            description: "Shipment item ID of the parent, foreign key"
           - name: row_total
-            description: "Value total of a specific item for this shipment, nullable, decimal"
+            data_type: <decimal>
+            description: "Value total of a specific item for this shipment, nullable"
           - name: price
-            description: "Price of a specific item for this shipment, nullable, decimal"
+            data_type: <decimal>
+            description: "Price of a specific item for this shipment, nullable"
           - name: weight
-            description: "Weight of a specific item for this shipment, nullable, decimal"
+            data_type: <decimal>
+            description: "Weight of a specific item for this shipment, nullable"
           - name: qty
-            description: "Quantity to ship of a specific item , nullable, decimal"
+            data_type: <decimal>
+            description: "Quantity to ship of a specific item , nullable"
           - name: product_id
-            description: "Id of the product to ship, foreign key, nullable, decimal"
+            data_type: <decimal>
+            description: "Id of the product to ship, foreign key, nullable"
           - name: order_item_id
-            description: "Id of the order item to ship, foreign key, nullable, decimal"
+            data_type: <decimal>
+            description: "Id of the order item to ship, foreign key, nullable"
           - name: additional_data
-            description: "Additional information about the shipment item, nullable, varchar"
+            data_type: <string>
+            description: "Additional information about the shipment item, nullable"
           - name: description
-            description: "Description about the shipment item, nullable, varchar"
+            data_type: <string>
+            description: "Description about the shipment item, nullable"
           - name: name
-            description: "Name of the product to ship, nullable, varchar"
+            data_type: <string>
+            description: "Name of the product to ship, nullable"
           - name: sku
-            description: "SKU of the product to ship, nullable, varchar"
+            data_type: <string>
+            description: "SKU of the product to ship, nullable"
           - name: sap_id
-            description: "SAP shipment ID, nullable, integer"
+            data_type: <integer>
+            description: "SAP shipment ID, nullable"
           - name: _streamkap_source_ts_ms
-            description: ""
+            data_type: <timestamp>
+            description: "Sync time from streamkap, nullable"
           - name: __deleted
-            description: ""
+            data_type: <string>
+            description: "Deleted flag, nullable"
 
       - name: tax_class
         description: "Dim table to get tax class ID, name and type."
         columns:
           - name: class_id
-            description: "Tax class id, integer, primary key"
+            data_type: <integer>
+            description: "Primary key"
           - name: class_name
-            description: "Tax class name, varchar"
+            data_type: <string>
+            description: "Tax class name"
           - name: class_type
-            description: "Tax class type, varchar"
+            data_type: <string>
+            description: "Tax class type"
           - name: _streamkap_source_ts_ms
             description: ""
           - name: __deleted

@@ -1,6 +1,6 @@
 SELECT
     SHA1(
-        CONCAT(IFNULL(cast(cce.entity_id as string), '_'), IFNULL(cast(cce.parent_id as string), '_'), IFNULL(cast(ccei.entity_id as string), '_'))
+        CONCAT(IFNULL(CAST(cce.entity_id AS STRING), '_'), IFNULL(CAST(cce.parent_id AS STRING), '_'), IFNULL(CAST(ccei.entity_id AS STRING), '_'))
     ) AS u_unique_id,
     cce.entity_id category_id,
     cce.parent_id parent_category_id,
@@ -19,7 +19,7 @@ FROM
         'stg__catalog_category_entity'
     ) }}
     cce
-    LEFT JOIN     {{ ref(
+    LEFT JOIN {{ ref(
         'stg__catalog_category_entity_varchar'
     ) }}
     ccev
@@ -27,14 +27,14 @@ FROM
     AND ccev.value IS NOT NULL
     AND ccev.attribute_id = 41
     AND ccev.store_id = 0
-    LEFT JOIN     {{ ref(
+    LEFT JOIN {{ ref(
         'stg__catalog_category_entity_varchar'
     ) }}
     ccev_parent
     ON cce.parent_id = ccev_parent.entity_id
     AND ccev_parent.attribute_id = 41
     AND ccev_parent.store_id = 0
-    LEFT JOIN     {{ ref(
+    LEFT JOIN {{ ref(
         'stg__catalog_category_entity_int'
     ) }}
     ccei
