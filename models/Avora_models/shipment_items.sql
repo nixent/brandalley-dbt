@@ -1,7 +1,6 @@
 SELECT
     *
 FROM
-    {{ source(
-        'streamkap',
-        'sales_flat_shipment_item'
+    {{ ref(
+        'stg__sales_flat_shipment_item'
     ) }}

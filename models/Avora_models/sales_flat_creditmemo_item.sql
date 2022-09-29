@@ -57,14 +57,12 @@ SELECT
         ELSE 'NOT DEFINED'
     END AS refund_reason
 FROM
-    {{ source(
-        'streamkap',
-        'sales_flat_creditmemo_item'
+    {{ ref(
+        'stg__sales_flat_creditmemo_item'
     ) }}
     cti
-    INNER JOIN {{ source(
-        'streamkap',
-        'sales_flat_creditmemo'
+    INNER JOIN     {{ ref(
+        'stg__sales_flat_creditmemo'
     ) }}
     cm
     ON cti.parent_id = cm.entity_id

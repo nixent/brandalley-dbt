@@ -27,26 +27,22 @@ SELECT
     ) shipment_date,
     sfs.updated_at
 FROM
-    {{ source(
-        'streamkap',
-        'sales_flat_shipment_item'
+    {{ ref(
+        'stg__sales_flat_shipment_item'
     ) }}
     sfsi
-    LEFT JOIN {{ source(
-        'streamkap',
-        'sales_flat_shipment'
+    LEFT JOIN     {{ ref(
+        'stg__sales_flat_shipment'
     ) }}
     sfs
     ON sfsi.parent_id = sfs.entity_id
-    LEFT JOIN {{ source(
-        'streamkap',
-        'sales_flat_order'
+    LEFT JOIN     {{ ref(
+        'stg__sales_flat_order'
     ) }}
     sfo
     ON sfs.order_id = sfo.entity_id
-    LEFT JOIN {{ source(
-        'streamkap',
-        'sales_flat_order_address'
+    LEFT JOIN     {{ ref(
+        'stg__sales_flat_order_address'
     ) }}
     sfoa
     ON sfoa.entity_id = sfo.shipping_address_id
