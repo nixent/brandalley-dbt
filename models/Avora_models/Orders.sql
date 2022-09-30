@@ -45,32 +45,27 @@ SELECT
        sfo.created_at AS date_created,
        sfo.updated_at
 FROM
-       {{ source(
-              'streamkap',
-              'sales_flat_order'
+       {{ ref(
+              'stg__sales_flat_order'
        ) }}
        sfo
-       LEFT JOIN {{ source(
-              'streamkap',
-              'sales_flat_order_address'
+       LEFT JOIN {{ ref(
+              'stg__sales_flat_order_address'
        ) }}
        sfoa
        ON sfoa.entity_id = sfo.shipping_address_id
-       LEFT JOIN {{ source(
-              'streamkap',
-              'sales_flat_order_address'
+       LEFT JOIN {{ ref(
+              'stg__sales_flat_order_address'
        ) }}
        sfoa_b
        ON sfoa_b.entity_id = sfo.billing_address_id
-       LEFT JOIN {{ source(
-              'streamkap',
-              'sales_flat_order_payment'
+       LEFT JOIN {{ ref(
+              'stg__sales_flat_order_payment'
        ) }}
        sfop
        ON sfo.entity_id = sfop.parent_id
-       LEFT JOIN {{ source(
-              'streamkap',
-              'customer_entity_datetime'
+       LEFT JOIN {{ ref(
+              'stg__customer_entity_datetime'
        ) }}
        ced
        ON ced.entity_id = sfo.customer_id
