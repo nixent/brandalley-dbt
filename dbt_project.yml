@@ -35,6 +35,8 @@ models:
   brandalley_dbt:
     Avora_models:
       +schema: magento
+      +tags:
+        - "lightdash"
     sources:
         streamkap_current:
             +schema: streamkap_current
