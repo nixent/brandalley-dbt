@@ -493,7 +493,7 @@ models:
       - name: updated_at
         description: "Update date of the order, nullable"
 
-  - name: orderlines
+  - name: OrderLines
     description: ""
     columns:
       - name: unique_id
@@ -649,7 +649,7 @@ models:
       - name: reference
         description: "Reference"
 
-  - name: orders
+  - name: Orders
     description: ""
     columns:
       - name: increment_id
