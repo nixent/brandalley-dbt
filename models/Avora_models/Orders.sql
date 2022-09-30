@@ -42,7 +42,7 @@ SELECT
        '' AS customer_age,
        sfo.expected_delivery_date,
        sfo.expected_delivery_days,
-       sfo.created_at AS date_created,
+       cast(sfo.created_at as timestamp) AS date_created,
        sfo.updated_at
 FROM
        {{ ref(
