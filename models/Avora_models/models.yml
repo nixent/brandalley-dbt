@@ -1,0 +1,1325 @@
+version: 2
+
+models:
+  - name: ba_core_stock_return
+    description: ""
+    columns:
+      - name: id
+        description: "Primary key"
+
+      - name: order_item_number
+        description: "Order item number"
+
+      - name: sku
+        description: "SKU"
+
+      - name: order_increment_id
+        description: "Order increment id"
+
+      - name: qty
+        description: "Quantity"
+
+      - name: return_code
+        description: "Return code"
+
+      - name: created_at
+        description: "Created date"
+
+      - name: xml_created_at
+        description: "Created date of the xml"
+
+      - name: exported_to_sap
+        description: "Flag indicating if exported to SAP"
+
+      - name: wh_line_id
+        description: "Warehouse Line ID"
+
+      - name: return_service
+        description: "Return service"
+
+      - name: creditmemo_id
+        description: "Credit memo Id"
+
+      - name: maxdate
+        description: ""
+
+  - name: catalog_product_negotiation_item
+    description: ""
+    columns:
+      - name: negotiation_item_id
+        description: "Primary key"
+
+      - name: negotiation_id
+        description: "Negotiation id"
+
+      - name: updated_at
+        description: "Update time, nullable"
+
+      - name: product_id
+        description: "Product id"
+
+      - name: product_parent_id
+        description: "Product parent id"
+
+      - name: sku
+        description: "SKU"
+
+      - name: parrent_sku
+        description: "Parent SKU"
+
+      - name: reference
+        description: "Reference"
+
+      - name: name
+        description: "Name"
+
+      - name: size
+        description: "Size"
+
+      - name: brand
+        description: "Brand"
+
+      - name: commodity_code
+        description: "Commodity code"
+
+      - name: pack_size
+        description: "Pack size"
+
+      - name: cost
+        description: "Cost"
+
+      - name: cost_gbp
+        description: "Cost in GBP"
+
+      - name: rrp
+        description: "RRP"
+
+      - name: price
+        description: "Price"
+
+      - name: tax_rate
+        description: "Tax rate"
+
+      - name: tax_code
+        description: "Tax code"
+
+      - name: qty
+        description: "Quantity"
+
+      - name: ordered
+        description: "Ordered"
+
+      - name: to_order
+        description: "To order"
+
+      - name: qty_exported
+        description: "Quantity exported"
+
+  - name: catalog_product_negotiation
+    description: ""
+    columns:
+      - name: negotiation_id
+        description: "Primary key"
+
+      - name: updated_at
+        description: "Update time, nullable"
+
+      - name: parent
+        description: "Parent, nullable"
+
+      - name: sap_ref
+        description: "SAP ref"
+
+      - name: type
+        description: "Type"
+
+      - name: supplier
+        description: "Supplier"
+
+      - name: currency
+        description: "Currency"
+
+      - name: rate
+        description: "Rate"
+
+      - name: cost
+        description: "Cost"
+
+      - name: price
+        description: "Price"
+
+      - name: status
+        description: "Status"
+
+      - name: admin
+        description: "Admin"
+
+      - name: date_import
+        description: "Date import"
+
+      - name: date_reservation
+        description: "Date reservation"
+
+      - name: date_pend_proc
+        description: "Date pend proc"
+
+      - name: date_proc_comp
+        description: "Date proc comp"
+
+      - name: date_comp_exported
+        description: "Date comp exported"
+
+      - name: date_due
+        description: "Date due"
+
+      - name: sap_message
+        description: "SAP message, nullable"
+
+      - name: buyer
+        description: "Buyer, nullable"
+
+      - name: department
+        description: "Department, nullable"
+
+  - name: categories
+    description: ""
+    columns:
+      - name: u_unique_id
+        description: ""
+
+      - name: category_id
+        description: ""
+
+      - name: parent_category_id
+        description: ""
+
+      - name: category_name
+        description: ""
+
+      - name: parent_category_name
+        description: ""
+
+      - name: active
+        description: ""
+
+      - name: path
+        description: "Tree Path"
+
+      - name: level
+        description: "Tree level"
+
+      - name: updated_at
+        description: "Update time, nullable"
+
+  - name: category_join
+    description: ""
+    columns:
+      - name: product_id
+        description: "Product id"
+
+      - name: category_id
+        description: "Primary key"
+
+      - name: updated_at
+        description: "Update time"
+
+  - name: customers_record_data_source
+    description: ""
+    columns:
+      - name: cst_id
+        description: ""
+
+      - name: record_data_source
+        description: ""
+
+      - name: date
+        description: ""
+
+  - name: customers
+    description: ""
+    columns:
+      - name: cst_id
+        description: ""
+
+      - name: customer_name
+        description: ""
+
+      - name: email
+        description: ""
+
+      - name: telephone
+        description: ""
+
+      - name: billing_street
+        description: ""
+
+      - name: billing_city
+        description: ""
+
+      - name: billing_postcode
+        description: ""
+
+      - name: b_region
+        description: ""
+
+      - name: billing_country
+        description: ""
+
+      - name: shipping_street
+        description: ""
+
+      - name: shipping_city
+        description: ""
+
+      - name: shipping_postcode
+        description: ""
+
+      - name: s_region
+        description: ""
+
+      - name: s_country
+        description: ""
+
+      - name: dt_cr
+        description: ""
+
+      - name: subscription
+        description: ""
+
+      - name: old_account_id
+        description: ""
+
+      - name: third_party
+        description: ""
+
+      - name: updated_at
+        description: ""
+
+      - name: achica_user
+        description: ""
+
+      - name: achica_migration_date
+        description: ""
+
+  - name: invent_referer
+    description: ""
+    columns:
+      - name: referer_id
+        description: "Primary key"
+
+      - name: entity_id
+        description: "Entity id"
+
+      - name: entity_type
+        description: "Entity type"
+
+      - name: event_type
+        description: "Event type"
+
+      - name: source
+        description: "Source"
+
+      - name: medium
+        description: "Medium"
+
+      - name: term
+        description: "Term"
+
+      - name: content
+        description: "Content"
+
+      - name: campaign
+        description: "Campaign"
+
+      - name: gclid
+        description: "Gclid"
+
+      - name: device_category
+        description: "Device categoy, nullable"
+
+      - name: operating_system
+        description: "Operating system, nullable"
+
+      - name: _streamkap_source_ts_ms
+        description: ""
+
+      - name: __deleted
+        description: ""
+
+  - name: inventory_items
+    description: ""
+    columns:
+      - name: item_id
+        description: "Primary key"
+
+      - name: product_id
+        description: "Product id"
+
+      - name: stock_id
+        description: "Stock id"
+
+      - name: qty
+        description: "Quantity"
+
+      - name: min_qty
+        description: "Min Quantity"
+
+      - name: use_config_min_qty
+        description: "Use config min quantity"
+
+      - name: is_qty_decimal
+        description: "Is quantity decimal"
+
+      - name: backorders
+        description: "Backorders"
+
+      - name: use_config_backorders
+        description: "Use config backorders"
+
+      - name: min_sale_qty
+        description: "Min sale quantity"
+
+      - name: use_config_min_sale_qty
+        description: "Use config min sale quantity"
+
+      - name: max_sale_qty
+        description: "Max sale quantity"
+
+      - name: use_config_max_sale_qty
+        description: "Use config min sale quantity"
+
+      - name: is_in_stock
+        description: "Is in stock"
+
+      - name: low_stock_date
+        description: "Low stock date, nullable"
+
+      - name: notify_stock_qty
+        description: "Notify stock quantity, nullable"
+
+      - name: use_config_notify_stock_qty
+        description: "Use config notify stock quantity"
+
+      - name: manage_stock
+        description: "Manage stock"
+
+      - name: use_config_manage_stock
+        description: "Use config manage stock"
+
+      - name: stock_status_changed_auto
+        description: "Stock status changed auto"
+
+      - name: use_config_qty_increments
+        description: "Use config quantity increments"
+
+      - name: qty_increments
+        description: "Quantity increments"
+
+      - name: use_config_enable_qty_inc
+        description: "Use config enable quantity inc"
+
+      - name: enable_qty_increments
+        description: "Enable quantoty increments"
+
+      - name: is_decimal_divided
+        description: "Is decimal divided"
+
+  - name: log_customer
+    description: ""
+    columns:
+      - name: log_id
+        description: "Primary key"
+
+      - name: visitor_id
+        description: "Visitor id, nullable"
+
+      - name: customer_id
+        description: "Customer id"
+
+      - name: login_at
+        description: "Login time"
+
+      - name: logout_at
+        description: "Logout time, nullable"
+
+      - name: store_id
+        description: "Store id"
+
+      - name: _streamkap_source_ts_ms
+        description: ""
+
+      - name: __deleted
+        description: ""
+
+  - name: memo_feed
+    description: ""
+    columns:
+      - name: u_unique_id
+        description: ""
+
+      - name: adminuserid
+        description: ""
+
+      - name: ordernumber
+        description: ""
+
+      - name: orderdate
+        description: ""
+
+      - name: dateofstockreturned
+        description: ""
+
+      - name: refund_type_id
+        description: "Refund type id, nullable"
+
+      - name: refund_status
+        description: ""
+
+      - name: creditmemodate
+        description: ""
+
+      - name: creditmemonumber
+        description: ""
+
+      - name: grandtotal
+        description: ""
+
+      - name: flag
+        description: "Flag"
+
+      - name: approvedat
+        description: ""
+
+      - name: updated_at
+        description: "Update date of the order, nullable"
+
+  - name: orderlines
+    description: ""
+    columns:
+      - name: unique_id
+        description: ""
+
+      - name: order_number
+        description: ""
+
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+
+      - name: order_item_id
+        description: "Order item id, foreign key"
+
+      - name: order_id
+        description: "Id of the order, foreign key"
+
+      - name: sku
+        description: "SKU, nullable"
+
+      - name: buyer
+        description: "Buyer, nullable"
+
+      - name: name
+        description: "Name"
+
+      - name: qty_canceled
+        description: "Quantity canceled, nullable"
+
+      - name: qty_ordered
+        description: "Quantity ordered, nullable"
+
+      - name: qty_invoiced
+        description: "Quantity invoiced, nullable"
+
+      - name: qty_refunded
+        description: "Quantity refunded, nullable"
+
+      - name: qty_shipped
+        description: "Quantity shipped, nullable"
+
+      - name: consignment_qty
+        description: ""
+
+      - name: warehouse_qty
+        description: ""
+
+      - name: order_placed_date
+        description: ""
+
+      - name: dispatch_due_date
+        description: ""
+
+      - name: product_cost_inc_vat
+        description: ""
+
+      - name: line_product_cost_inc_vat
+        description: ""
+
+      - name: product_cost_exc_vat
+        description: ""
+
+      - name: line_product_cost_exc_vat
+        description: ""
+
+      - name: flash_price_inc_vat
+        description: ""
+
+      - name: line_flash_price_inc_vat
+        description: ""
+
+      - name: flash_price_exc_vat
+        description: ""
+
+      - name: line_flash_price_exc_vat
+        description: ""
+
+      - name: line_discount_amount
+        description: ""
+
+      - name: margin_inc_discount_percentage
+        description: ""
+
+      - name: margin_inc_discount_value
+        description: ""
+
+      - name: margin_exc_discount_percentage
+        description: ""
+
+      - name: margin_exc_discount_value
+        description: ""
+
+      - name: line_total_refunded
+        description: ""
+
+      - name: shipping_refunded
+        description: "Shippung reufnded, nullable"
+
+      - name: category_path
+        description: ""
+
+      - name: product_type
+        description: "Type of the product, nullable"
+
+      - name: brand
+        description: ""
+
+      - name: supplier_id
+        description: "Supplier id"
+
+      - name: supplier_name
+        description: ""
+
+      - name: colour
+        description: ""
+
+      - name: size
+        description: "Size"
+
+      - name: nego
+        description: "Negociation number"
+
+      - name: category_name
+        description: ""
+
+      - name: department_type
+        description: ""
+
+      - name: updated_at
+        description: "Update time"
+
+      - name: created_at
+        description: "Creation time"
+
+      - name: month_created
+        description: ""
+
+      - name: order_status
+        description: ""
+
+      - name: tax_amount
+        description: "Tax amount, nullable"
+
+      - name: tax_percent
+        description: "Tax percent, nullable"
+
+      - name: rrp
+        description: ""
+
+      - name: parent_sku
+        description: ""
+
+      - name: reference
+        description: "Reference"
+
+  - name: orders
+    description: ""
+    columns:
+      - name: increment_id
+        description: ""
+
+      - name: magentoid
+        description: ""
+
+      - name: store_id
+        description: ""
+
+      - name: billing_address_id
+        description: ""
+
+      - name: shipping_address_id
+        description: ""
+
+      - name: subtotal_incl_tax
+        description: ""
+
+      - name: subtotal_excl_tax
+        description: ""
+
+      - name: total_discount_amount
+        description: ""
+
+      - name: shipping_discount_amount
+        description: ""
+
+      - name: total_tax
+        description: ""
+
+      - name: shipping_excl_tax
+        description: ""
+
+      - name: shipping_incl_tax
+        description: ""
+
+      - name: grand_total
+        description: ""
+
+      - name: total_paid
+        description: ""
+
+      - name: total_refunded
+        description: ""
+
+      - name: total_due
+        description: ""
+
+      - name: total_invoiced_cost
+        description: ""
+
+      - name: status
+        description: ""
+
+      - name: coupon_rule_name
+        description: ""
+
+      - name: coupon_code
+        description: ""
+
+      - name: method
+        description: ""
+
+      - name: shipping_method
+        description: ""
+
+      - name: shipping_description
+        description: ""
+
+      - name: customer_id
+        description: ""
+
+      - name: customer_name
+        description: ""
+
+      - name: email
+        description: ""
+
+      - name: customer_phone
+        description: ""
+
+      - name: delivery_address
+        description: ""
+
+      - name: delivery_postcode
+        description: ""
+
+      - name: customer_age
+        description: ""
+
+      - name: expected_delivery_date
+        description: ""
+
+      - name: expected_delivery_days
+        description: ""
+
+      - name: date_created
+        description: ""
+
+      - name: updated_at
+        description: ""
+
+  - name: products
+    description: ""
+    columns:
+      - name: u_unique_id
+        description: ""
+
+      - name: product_id
+        description: "Product id"
+
+      - name: dt_cr
+        description: ""
+
+      - name: variant_product_id
+        description: ""
+
+      - name: sku
+        description: "SKU, nullable"
+
+      - name: variant_sku
+        description: ""
+
+      - name: sap_product_id
+        description: ""
+
+      - name: name
+        description: "Name"
+
+      - name: description
+        description: ""
+
+      - name: brand
+        description: ""
+
+      - name: supplier
+        description: ""
+
+      - name: outlet_category
+        description: ""
+
+      - name: product_type
+        description: ""
+
+      - name: availability
+        description: ""
+
+      - name: outlet_price
+        description: ""
+
+      - name: color
+        description: ""
+
+      - name: size
+        description: ""
+
+      - name: stock
+        description: ""
+
+      - name: price
+        description: ""
+
+      - name: sale_price
+        description: ""
+
+      - name: cost
+        description: ""
+
+      - name: tax_class
+        description: ""
+
+      - name: updated_at
+        description: "Update time"
+
+      - name: supplier_id
+        description: "Primary key"
+
+      - name: supplier_name
+        description: ""
+
+  - name: sales_flat_creditmemo_item
+    description: ""
+    columns:
+      - name: entity_id
+        description: "Primary Key"
+
+      - name: parent_id
+        description: "Parent id"
+
+      - name: base_price
+        description: "Base price, nullable"
+
+      - name: tax_amount
+        description: "Tax amount, nullable"
+
+      - name: base_row_total
+        description: "Base row total, nullable"
+
+      - name: discount_amount
+        description: "Discount amount, nullable"
+
+      - name: row_total
+        description: "Row total, nullable"
+
+      - name: base_discount_amount
+        description: "Base discount amount, nullable"
+
+      - name: price_incl_tax
+        description: "Price incl. tax, nullable"
+
+      - name: base_tax_amount
+        description: "Base tax amount, nullable"
+
+      - name: base_price_incl_tax
+        description: "Base price incl tax, nullable"
+
+      - name: qty
+        description: "Quantity, nullable"
+
+      - name: base_cost
+        description: "Base cost, nullable"
+
+      - name: price
+        description: "Price, nullable"
+
+      - name: base_row_total_incl_tax
+        description: "Base row total incl tax, nullable"
+
+      - name: row_total_incl_tax
+        description: "Row total incl tax, nullable"
+
+      - name: product_id
+        description: "Product id, nullable"
+
+      - name: order_item_id
+        description: "Order item id, nullable"
+
+      - name: additional_data
+        description: "Additional data, nullable"
+
+      - name: description
+        description: "Description, nullable"
+
+      - name: sku
+        description: "SKU, nullable"
+
+      - name: name
+        description: "Name, nullable"
+
+      - name: hidden_tax_amount
+        description: "Hidden tax amount, nullable"
+
+      - name: base_hidden_tax_amount
+        description: "Base hidden tax amount, nullable"
+
+      - name: weee_tax_disposition
+        description: "Weee Tax disposition, nullable"
+
+      - name: weee_tax_row_disposition
+        description: "Weee tax row disposition, nullable"
+
+      - name: base_weee_tax_disposition
+        description: "Base weee tax disposition, nullable"
+
+      - name: base_weee_tax_row_disposition
+        description: "Base weee tax row disposition, nullable"
+
+      - name: weee_tax_applied
+        description: "Weee tax applied, nullable"
+
+      - name: base_weee_tax_applied_amount
+        description: "Base weee tax applied amount, nullable"
+
+      - name: base_weee_tax_applied_row_amnt
+        description: "Base weee tax applied row amount, nullable"
+
+      - name: weee_tax_applied_amount
+        description: "Weee tax applied amount, nullable"
+
+      - name: weee_tax_applied_row_amount
+        description: "Weee tax applied row amount, nullable"
+
+      - name: customer_refund_request
+        description: "Customer refund request, nullable"
+
+      - name: exported_to_sap
+        description: "Exported to sap"
+
+      - name: qty_returned_to_warehouse
+        description: "Quantity returned to warehouse"
+
+      - name: created_at
+        description: "Created at, nullable"
+
+      - name: updated_at
+        description: "Updated at, nullable"
+
+      - name: refund_reason
+        description: ""
+
+  - name: sales_flat_creditmemo
+    description: ""
+    columns:
+      - name: entity_id
+        description: "Primary Key"
+
+      - name: store_id
+        description: "Store id, nullable"
+
+      - name: adjustment_positive
+        description: "Ajustment positive, nullable"
+
+      - name: base_shipping_tax_amount
+        description: "Base shipping tax amount, nullable"
+
+      - name: store_to_order_rate
+        description: "Store to order rate, nullable"
+
+      - name: base_discount_amount
+        description: "Base discount amount, nullable"
+
+      - name: base_to_order_rate
+        description: "Base to order rate, nullable"
+
+      - name: grand_total
+        description: "Grand total, nullable"
+
+      - name: base_adjustment_negative
+        description: "Base adjustement negative, nullable"
+
+      - name: base_subtotal_incl_tax
+        description: "Base subtotal incl. tax, nullable"
+
+      - name: shipping_amount
+        description: "Shipping amount, nullable"
+
+      - name: subtotal_incl_tax
+        description: "Subtotal incl. tax, nullable"
+
+      - name: adjustment_negative
+        description: "Adjustment negative, nullable"
+
+      - name: base_shipping_amount
+        description: "Base shipping amount, nullable"
+
+      - name: store_to_base_rate
+        description: "Store to base rate, nullable"
+
+      - name: base_to_global_rate
+        description: "Base to global rate, nullable"
+
+      - name: base_adjustment
+        description: "Base adjustment, nullable"
+
+      - name: base_subtotal
+        description: "Base subtotal, nullable"
+
+      - name: discount_amount
+        description: "Discount amount, nullable"
+
+      - name: subtotal
+        description: "Subtotal, nullable"
+
+      - name: adjustment
+        description: "Adjustment, nullable"
+
+      - name: base_grand_total
+        description: "Base grand total, nullable"
+
+      - name: base_adjustment_positive
+        description: "Base adjustment positive, nullable"
+
+      - name: base_tax_amount
+        description: "Base tax amount, nullable"
+
+      - name: shipping_tax_amount
+        description: "Shipping tax amount, nullable"
+
+      - name: tax_amount
+        description: "Tax amount, nullable"
+
+      - name: order_id
+        description: "Order id"
+
+      - name: email_sent
+        description: "Email sent, nullable"
+
+      - name: creditmemo_status
+        description: "Creditmemo status, nullable"
+
+      - name: state
+        description: "State, nullable"
+
+      - name: shipping_address_id
+        description: "Shipping address id, nullable"
+
+      - name: billing_address_id
+        description: "Billing address id, nullable"
+
+      - name: invoice_id
+        description: "Invoice id, nullable"
+
+      - name: store_currency_code
+        description: "Store currency code, nullable"
+
+      - name: order_currency_code
+        description: "Order currency code, nullable"
+
+      - name: base_currency_code
+        description: "Base currency code, nullable"
+
+      - name: global_currency_code
+        description: "Global currency code, nullable"
+
+      - name: transaction_id
+        description: "Transaction id, nullable"
+
+      - name: increment_id
+        description: "Increment id, nullable"
+
+      - name: created_at
+        description: "Created at, nullable"
+
+      - name: updated_at
+        description: "Updated at, nullable"
+
+      - name: hidden_tax_amount
+        description: "Hidden tax amount, nullable"
+
+      - name: base_hidden_tax_amount
+        description: "Base hidden tax amount, nullable"
+
+      - name: shipping_hidden_tax_amount
+        description: "Shipping hidden tax amount, nullable"
+
+      - name: base_shipping_hidden_tax_amnt
+        description: "Base shipping hidden tax amount, nullable"
+
+      - name: shipping_incl_tax
+        description: "Shipping incl. tax, nullable"
+
+      - name: base_shipping_incl_tax
+        description: "Base shipping incl. tax, nullable"
+
+      - name: discount_description
+        description: "Discount description, nullable"
+
+      - name: base_customer_balance_amount
+        description: "Base customer balance amount, nullable"
+
+      - name: customer_balance_amount
+        description: "Customer balance amount, nullable"
+
+      - name: bs_customer_bal_total_refunded
+        description: "BS customer bal total refunded, nullable"
+
+      - name: customer_bal_total_refunded
+        description: "Customer bal total refunded, nullable"
+
+      - name: base_gift_cards_amount
+        description: "Base gift cards amount, nullable"
+
+      - name: gift_cards_amount
+        description: "Gift cards amount, nullable"
+
+      - name: gw_base_price
+        description: "GW base price, nullable"
+
+      - name: gw_price
+        description: "GW price, nullable"
+
+      - name: gw_items_base_price
+        description: "GW items base price, nullable"
+
+      - name: gw_items_price
+        description: "GW items price, nullable"
+
+      - name: gw_card_base_price
+        description: "GW card base price, nullable"
+
+      - name: gw_card_price
+        description: "GW card price, nullable"
+
+      - name: gw_base_tax_amount
+        description: "GW Base tax amount, nullable"
+
+      - name: gw_tax_amount
+        description: "GW tax amount, nullable"
+
+      - name: gw_items_base_tax_amount
+        description: "GW items base tax amount, nullable"
+
+      - name: gw_items_tax_amount
+        description: "GW items tax amount, nullable"
+
+      - name: gw_card_base_tax_amount
+        description: "GW card base tax amount, nullable"
+
+      - name: gw_card_tax_amount
+        description: "GW card tax amount, nullable"
+
+      - name: base_reward_currency_amount
+        description: "Base reward currency amount, nullable"
+
+      - name: reward_currency_amount
+        description: "Reward currency amount, nullable"
+
+      - name: reward_points_balance
+        description: "Reward points balance, nullable"
+
+      - name: reward_points_balance_refund
+        description: "Reward points balance refund, nullable"
+
+      - name: refund_type_id
+        description: "Refund type id, nullable"
+
+      - name: adjustment_reason_id
+        description: "Adjustement reason id, nullable"
+
+      - name: status_id
+        description: "Status id, nullable"
+
+      - name: admin_user_id
+        description: "Admin user id, nullable"
+
+      - name: approve_at
+        description: "Approve at, nullable"
+
+      - name: exported_to_sap
+        description: "Exported to sap"
+
+      - name: fee_type
+        description: "Fee type, nullable"
+
+      - name: flag
+        description: "Flag"
+
+      - name: approved_by
+        description: "Approved by, nullable"
+
+      - name: canceled_at
+        description: "Canceled at, nullable"
+
+      - name: is_batch
+        description: "Is batch, nullable"
+
+  - name: shipment_items
+    description: ""
+    columns:
+      - name: entity_id
+        description: "Shipment item ID, primary key"
+
+      - name: parent_id
+        description: "Shipment item ID of the parent, foreign key"
+
+      - name: row_total
+        description: "Value total of a specific item for this shipment, nullable"
+
+      - name: price
+        description: "Price of a specific item for this shipment, nullable"
+
+      - name: weight
+        description: "Weight of a specific item for this shipment, nullable"
+
+      - name: qty
+        description: "Quantity to ship of a specific item , nullable"
+
+      - name: product_id
+        description: "Id of the product to ship, foreign key, nullable"
+
+      - name: order_item_id
+        description: "Id of the order item to ship, foreign key, nullable"
+
+      - name: additional_data
+        description: "Additional information about the shipment item, nullable"
+
+      - name: description
+        description: "Description about the shipment item, nullable"
+
+      - name: name
+        description: "Name of the product to ship, nullable"
+
+      - name: sku
+        description: "SKU of the product to ship, nullable"
+
+      - name: sap_id
+        description: "SAP shipment ID, nullable"
+
+      - name: _streamkap_source_ts_ms
+        description: "Sync time from streamkap, nullable"
+
+      - name: __deleted
+        description: "Deleted flag, nullable"
+
+  - name: shipments
+    description: ""
+    columns:
+      - name: unique_id
+        description: ""
+
+      - name: product_id
+        description: "Id of the product to ship, foreign key, nullable"
+
+      - name: sku
+        description: "SKU of the product to ship, nullable"
+
+      - name: qty
+        description: "Quantity to ship of a specific item , nullable"
+
+      - name: weight
+        description: "Adjustment negative, nullable"
+
+      - name: order_id
+        description: "Order ID linked to the shipment, foreign key"
+
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+
+      - name: postcode
+        description: "Post code, nullable"
+
+      - name: shipment_id
+        description: ""
+
+      - name: order_date
+        description: ""
+
+      - name: shipment_date
+        description: ""
+
+      - name: updated_at
+        description: "Update date of the order, nullable"
+
+  - name: shipping
+    description: ""
+    columns:
+      - name: unique_id
+        description: ""
+
+      - name: product_id
+        description: "Id of the product to ship, foreign key, nullable"
+
+      - name: sku
+        description: "SKU of the product to ship, nullable"
+
+      - name: qty
+        description: "Quantity to ship of a specific item , nullable"
+
+      - name: weight
+        description: "Adjustment negative, nullable"
+
+      - name: order_id
+        description: "Order ID linked to the shipment, foreign key"
+
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+
+      - name: postcode
+        description: "Post code, nullable"
+
+      - name: shipment_id
+        description: ""
+
+      - name: order_date
+        description: ""
+
+      - name: shipment_date
+        description: ""
+
+      - name: updated_at
+        description: "Update date of the order, nullable"
