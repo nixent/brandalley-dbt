@@ -653,22 +653,22 @@ models:
     description: ""
     columns:
       - name: increment_id
-        description: ""
+        description: "Increment id, nullable"
 
       - name: magentoid
         description: ""
 
       - name: store_id
-        description: ""
+        description: "Store id, foreign key, nullable"
 
       - name: billing_address_id
-        description: ""
+        description: "Id of the billing address, foreign key, nullable"
 
       - name: shipping_address_id
-        description: ""
+        description: "Shipping address id, foreign key, nullable"
 
       - name: subtotal_incl_tax
-        description: ""
+        description: "Adjustment negative, nullable"
 
       - name: subtotal_excl_tax
         description: ""
@@ -677,7 +677,7 @@ models:
         description: ""
 
       - name: shipping_discount_amount
-        description: ""
+        description: "Adjustment negative, nullable"
 
       - name: total_tax
         description: ""
@@ -686,49 +686,49 @@ models:
         description: ""
 
       - name: shipping_incl_tax
-        description: ""
+        description: "Shipping including tax, nullable"
 
       - name: grand_total
-        description: ""
+        description: "Grand total, nullable"
 
       - name: total_paid
-        description: ""
+        description: "Total paid, nullable"
 
       - name: total_refunded
-        description: ""
+        description: "Total refunded, nullable"
 
       - name: total_due
-        description: ""
+        description: "Adjustment negative, nullable"
 
       - name: total_invoiced_cost
         description: ""
 
       - name: status
-        description: ""
+        description: "Status, nullable"
 
       - name: coupon_rule_name
-        description: ""
+        description: "Coupon rule name, nullable"
 
       - name: coupon_code
-        description: ""
+        description: "Coupon code, nullable"
 
       - name: method
-        description: ""
+        description: "Method, nullable"
 
       - name: shipping_method
-        description: ""
+        description: "Shipping method, nullable"
 
       - name: shipping_description
-        description: ""
+        description: "Shipping description, nullable"
 
       - name: customer_id
-        description: ""
+        description: "Customer id, foreign key, nullable"
 
       - name: customer_name
         description: ""
 
       - name: email
-        description: ""
+        description: "Email, nullable"
 
       - name: customer_phone
         description: ""
@@ -743,16 +743,17 @@ models:
         description: ""
 
       - name: expected_delivery_date
-        description: ""
+        description: "Expected delivery date"
 
       - name: expected_delivery_days
-        description: ""
+        description: "Expected delivery days, nullable"
 
       - name: date_created
         description: ""
 
       - name: updated_at
-        description: ""
+        description: "Update date of the order, nullable"
+
 
   - name: products
     description: ""
