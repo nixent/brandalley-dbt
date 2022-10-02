@@ -38,6 +38,6 @@ models:
       +tags:
         - "lightdash"
     sources:
-        streamkap_current:
-            +schema: streamkap_current
-            +post-hook: "delete {{this}} where __deleted = true"
+      streamkap_current:
+        +schema: streamkap_current
+        +post-hook: "delete {{this}} where __deleted = true"
