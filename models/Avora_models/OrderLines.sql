@@ -228,7 +228,7 @@ SELECT
               ELSE 'OUTLET'
        END AS department_type,
        sfo.updated_at,
-       sfo.created_at,
+       cast(sfo.created_at as timestamp) AS created_at,
        CAST(
               NULL AS datetime
        ) month_created,
