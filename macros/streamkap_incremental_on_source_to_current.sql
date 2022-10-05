@@ -21,7 +21,6 @@ FROM
     ) }}
 WHERE
     1 = 1
-
 {% if is_incremental() -%}
 AND _streamkap_source_ts_ms > (
     SELECT
@@ -32,9 +31,14 @@ AND _streamkap_source_ts_ms > (
         {{ this }}
 )
 {%- endif %}
-
 qualify ROW_NUMBER() over (
-    PARTITION BY {{ id_field }}
+    {%- if id_field is string %}
+    PARTITION BY 
+        {{ id_field }}
+    {%- else %}
+    PARTITION BY 
+        {{ id_field | join(', ') }}
+    {%- endif %}
     ORDER BY
         {{ time_field }} DESC
 ) = 1
