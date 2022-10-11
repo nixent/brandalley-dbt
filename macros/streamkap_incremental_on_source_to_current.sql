@@ -2,7 +2,7 @@
         source_name,
         source_schema = 'streamkap',
         id_field = 1,
-        time_field = '_streamkap_source_ts_ms', 
+        order_fields = ['_streamkap_ts_ms', '_streamkap_offset'],
         deleted_field='__deleted'
     ) -%}
 SELECT
@@ -39,7 +39,12 @@ qualify ROW_NUMBER() over (
     PARTITION BY 
         {{ id_field | join(', ') }}
     {%- endif %}
-    ORDER BY
-        {{ time_field }} DESC
+    {%- if order_fields is string %}
+    ORDER BY 
+        {{ order_fields }}
+    {%- else %}
+    ORDER BY 
+        {{ order_fields | join(' DESC, ') }} DESC
+    {%- endif %}
 ) = 1
 {%- endmacro -%}
