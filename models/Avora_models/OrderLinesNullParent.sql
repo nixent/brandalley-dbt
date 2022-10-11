@@ -53,7 +53,7 @@ else "Others" end as Category,
 sfo.status,
 sfo.customer_id,
 sfo.increment_id
-from streamkap.sales_flat_order sfo
-left join streamkap.customer_entity ce on ce.entity_id = sfo.customer_id 
-left join streamkap.sales_flat_order_item sfoi on sfo.entity_id = sfoi.order_id and sfoi.parent_item_id is null
-left join streamkap.catalog_product_entity_varchar cpev ON cpev.entity_id = sfoi.product_id and cpev.attribute_id = 205
+from {{ ref('stg__sales_flat_order') }} sfo
+left join {{ ref('stg__customer_entity') }} ce on ce.entity_id = sfo.customer_id
+left join {{ ref('stg__sales_flat_order_item') }} sfoi on sfo.entity_id = sfoi.order_id and sfoi.parent_item_id is null
+left join {{ ref('stg__catalog_product_entity_varchar') }} cpev ON cpev.entity_id = sfoi.product_id and cpev.attribute_id = 205
