@@ -708,7 +708,7 @@ models:
           metrics:
             total_revenue:
               label: 'Total revenue GBP (after vouchers)'
-              type: SUM
+              type: sum
               description: "Total revenue in GBP after taking vouchers into account"
               hidden: false
               round: 3
