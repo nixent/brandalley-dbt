@@ -711,7 +711,7 @@ models:
               type: sum
               description: "Total revenue in GBP after taking vouchers into account"
               hidden: false
-              round: -3
+              round: 0
               format: 'gbp'      
 
   - name: Orders
