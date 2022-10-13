@@ -1,3 +1,5 @@
+--not ideal but if you want to not use an offset field in addition to the required order time field, pass in an empty string
+
 {% macro streamkap_incremental_on_source_to_current(
         source_name,
         source_schema = 'streamkap',
@@ -7,7 +9,6 @@
         deleted_field='__deleted'
     ) -%}
 
---not ideal but if you want to not use an offset field in addition to the required order time field, pass in an empty string
 SELECT
     {{ dbt_utils.star(
         source(

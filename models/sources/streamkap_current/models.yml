@@ -243,10 +243,10 @@ models:
     columns:
       - name: category_id
         data_type: <integer>
-        description: "Primary key"
+        description: "Primary key, Category id"
       - name: product_id
         data_type: <integer>
-        description: "Product id"
+        description: "Primary key, Product id"
       - name: position
         data_type: <integer>
         description: "Position"
