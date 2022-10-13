@@ -7,7 +7,7 @@ sfoi.parent_item_id,
 brand_option.store_id,
 sfo.created_at,
 ns.subscriber_status,
-sum(sfoi.qty_invoiced),
+sum(sfoi.qty_invoiced) TOTAL_GBP,
 SUM((sfoi.qty_invoiced * sfoi2.base_price_incl_tax) - sfoi2.discount_amount) as TOTAL_GBP_after_vouchers
 
 FROM {{ ref('stg__sales_flat_order') }} sfo
