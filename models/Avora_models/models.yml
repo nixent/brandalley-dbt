@@ -4,7 +4,7 @@ models:
   - name: ba_core_stock_return
     description: ""
     meta:
-      hidden: false
+      hidden: true
     columns:
       - name: id
         description: "Primary key"
