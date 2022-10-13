@@ -2,9 +2,12 @@
         source_name,
         source_schema = 'streamkap',
         id_field = 1,
-        order_fields = ['_streamkap_ts_ms', '_streamkap_offset'],
+        order_time_field = '_streamkap_ts_ms',
+        order_offset_field = '_streamkap_offset',
         deleted_field='__deleted'
     ) -%}
+
+--not ideal but if you want to not use an offset field in addition to the required order time field, pass in an empty string
 SELECT
     {{ dbt_utils.star(
         source(
@@ -22,10 +25,10 @@ FROM
 WHERE
     1 = 1
 {% if is_incremental() -%}
-AND _streamkap_source_ts_ms > (
+AND {{order_time_field}} > (
     SELECT
         MAX(
-            {{ time_field }}
+            {{ order_time_field }}
         )
     FROM
         {{ this }}
@@ -39,12 +42,12 @@ qualify ROW_NUMBER() over (
     PARTITION BY 
         {{ id_field | join(', ') }}
     {%- endif %}
-    {%- if order_fields is string %}
+    {%- if order_offset_field == '' %}
     ORDER BY 
-        {{ order_fields }}
+        {{ order_time_field }}
     {%- else %}
     ORDER BY 
-        {{ order_fields | join(' DESC, ') }} DESC
+        {{ order_time_field }} DESC, {{order_offset_field}} DESC
     {%- endif %}
 ) = 1
 {%- endmacro -%}
