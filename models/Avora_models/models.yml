@@ -3,47 +3,84 @@ version: 2
 models:
   - name: ba_core_stock_return
     description: ""
-    meta:
-      hidden: true
     columns:
       - name: id
         description: "Primary key"
+        meta:
+          dimension:
+            hidden: true
 
       - name: order_item_number
         description: "Order item number"
+        meta:
+          dimension:
+            hidden: true
 
       - name: sku
         description: "SKU"
+        meta:
+          dimension:
+            hidden: false
 
       - name: order_increment_id
         description: "Order increment id"
+        meta:
+          dimension:
+            hidden: false
 
       - name: qty
         description: "Quantity"
+        meta:
+          dimension:
+            hidden: false
 
       - name: return_code
         description: "Return code"
+        meta:
+          dimension:
+            hidden: true
 
       - name: created_at
         description: "Created date"
+        meta:
+          dimension:
+            hidden: true
 
       - name: xml_created_at
         description: "Created date of the xml"
+        meta:
+          dimension:
+            hidden: true
 
       - name: exported_to_sap
         description: "Flag indicating if exported to SAP"
+        meta:
+          dimension:
+            hidden: true
 
       - name: wh_line_id
         description: "Warehouse Line ID"
+        meta:
+          dimension:
+            hidden: true
 
       - name: return_service
         description: "Return service"
+        meta:
+          dimension:
+            hidden: true
 
       - name: creditmemo_id
         description: "Credit memo Id"
+        meta:
+          dimension:
+            hidden: true
 
       - name: maxdate
         description: ""
+        meta:
+          dimension:
+            hidden: true
 
   - name: catalog_product_negotiation_item
     description: ""
@@ -497,12 +534,23 @@ models:
 
   - name: OrderLines
     description: ""
+    meta:
+      joins:
+        - join: ba_core_stock_return
+          sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id}
+        - join: sales_flat_creditmemo_item
+          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku}
+    
     columns:
       - name: unique_id
         description: ""
+        meta:
+          dimension:
+            hidden: true
+
 
       - name: order_number
-        description: ""
+        description: ""       
 
       - name: customer_id
         description: "Customer id, foreign key, nullable"
@@ -512,6 +560,10 @@ models:
 
       - name: order_id
         description: "Id of the order, foreign key"
+        meta:
+          metrics:
+            total_order_count:
+              type: count_distinct 
 
       - name: sku
         description: "SKU, nullable"
@@ -650,6 +702,17 @@ models:
 
       - name: reference
         description: "Reference"
+
+      - name: TOTAL_GBP_after_vouchers
+        meta:
+          metrics:
+            total_revenue:
+              label: 'Total revenue GBP (after vouchers)'
+              type: SUM
+              description: "Total revenue in GBP after taking vouchers into account"
+              hidden: false
+              round: 3
+              format: 'gbp'      
 
   - name: Orders
     description: ""
