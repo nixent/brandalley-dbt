@@ -823,6 +823,41 @@ models:
       - name: __deleted
         description: ""
 
+  - name: stg__customer_entity_extra
+    description: ""
+    columns:
+      - name: line_id
+        data_type: <integer>
+        description: "Primary key"
+      - name: customer_id
+        data_type: <integer>
+        description: "Customer id, Foreign key"
+      - name: number_transactions
+        data_type: <integer>
+        description: "Number of transactions"
+      - name: website_id
+        data_type: <integer>
+        description: "Website id, nullable"
+      - name: ltv
+        data_type: <decimal>
+        description: "LTV"
+      - name: ltvr
+        data_type: <decimal>
+        description: "LTVR"
+      - name: first_purchase
+        data_type: <timestamp>
+        description: "Time of first purchase, nullable"
+      - name: last_purchase
+        data_type: <timestamp>
+        description: "Time of last purchase, nullable"
+      - name: first_visit_at
+        data_type: <timestamp>
+        description: "Time of first visit, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
   - name: stg__customer_entity_datetime
     description: ""
     columns:
