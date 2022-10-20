@@ -279,6 +279,13 @@ models:
     columns:
       - name: cst_id
         description: ""
+        meta:
+          metrics:
+            members:
+              label: 'Members'
+              type: count_distinct
+              description: "Number of customers"
+              hidden: false    
 
       - name: customer_name
         description: ""
@@ -540,6 +547,12 @@ models:
           sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id}
         - join: sales_flat_creditmemo_item
           sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku}
+        - join: customers
+          sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
+        - join: orders
+          sql_on: ${OrderLines.order_number} = ${orders.increment_id}
+        - join: products
+          sql_on: ${OrderLines.sku} = ${products.variant_sku}
     
     columns:
       - name: unique_id
@@ -554,6 +567,14 @@ models:
 
       - name: customer_id
         description: "Customer id, foreign key, nullable"
+        meta:
+          metrics:
+            total_customers:
+              label: 'Total number of customers'
+              type: count_distinct
+              description: "Number of customers who ordered"
+              hidden: false
+              round: 0      
 
       - name: order_item_id
         description: "Order item id, foreign key"
@@ -576,24 +597,64 @@ models:
 
       - name: qty_canceled
         description: "Quantity canceled, nullable"
+        meta:
+          metrics:
+            qty_canceled:
+              label: 'Units quantity cancelled'
+              type: sum
+              description: "Number of units cancelled"
+              hidden: false
+              round: 0      
 
       - name: qty_ordered
         description: "Quantity ordered, nullable"
+        meta:
+          metrics:
+            qty_ordered:
+              label: 'Units quantity ordered'
+              type: sum
+              description: "Number of units ordered"
+              hidden: false
+              round: 0      
 
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
 
       - name: qty_refunded
         description: "Quantity refunded, nullable"
+        meta:
+          metrics:
+            qty_refunded:
+              label: 'Units quantity refundede'
+              type: sum
+              description: "Number of units refunded"
+              hidden: false
+              round: 0      
 
       - name: qty_shipped
         description: "Quantity shipped, nullable"
 
       - name: consignment_qty
         description: ""
+        meta:
+          metrics:
+            consignment_qty:
+              label: 'Consignment quantity'
+              type: sum
+              description: "Number of consignment units ordered"
+              hidden: false
+              round: 0      
 
       - name: warehouse_qty
         description: ""
+        meta:
+          metrics:
+            warehouse_qty:
+              label: 'Warehouse quantity'
+              type: sum
+              description: "Number of warehouse units ordered"
+              hidden: false
+              round: 0      
 
       - name: order_placed_date
         description: ""
@@ -603,42 +664,159 @@ models:
 
       - name: product_cost_inc_vat
         description: ""
+        meta:
+          metrics:
+            product_cost_inc_vat:
+              label: 'Cost of all units inc VAT'
+              type: sum
+              description: "Cost inc VAT for the full line of the order"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: line_product_cost_inc_vat
         description: ""
+        meta:
+          metrics:
+            line_product_cost_inc_vat:
+              label: 'Cost per unit inc VAT'
+              type: sum
+              description: "Cost inc VAT for 1 unit of the item"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: product_cost_exc_vat
         description: ""
+        meta:
+          metrics:
+            product_cost_exc_vat:
+              label: 'Cost of all units exc VAT'
+              type: sum
+              description: "Cost exc VAT for the full line of the order"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: line_product_cost_exc_vat
         description: ""
+        meta:
+          metrics:
+            line_product_cost_exc_vat:
+              label: 'Cost per unit exv VAT'
+              type: sum
+              description: "Cost inc ecv for 1 unit of the item"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: flash_price_inc_vat
         description: ""
+        meta:
+          metrics:
+            flash_price_inc_vat:
+              label: 'Flash price inc VAT per order line'
+              type: sum
+              description: "Flash price inc VAT for the full line of the order"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: line_flash_price_inc_vat
         description: ""
+        meta:
+          metrics:
+            line_flash_price_inc_vat:
+              label: 'Flash price inc VAT per unit'
+              type: sum
+              description: "Flash price inc VAT for 1 unit of the item"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: flash_price_exc_vat
         description: ""
+        meta:
+          metrics:
+            flash_price_exc_vat:
+              label: 'Flash price exc VAT per order line'
+              type: sum
+              description: "Flash price exc VAT for the full line of the order"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: line_flash_price_exc_vat
         description: ""
+        meta:
+          metrics:
+            line_flash_price_exc_vat:
+              label: 'Flash price exc VAT per unit'
+              type: sum
+              description: "Flash price exc VAT for 1 unit of the item"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: line_discount_amount
         description: ""
+        meta:
+          metrics:
+            line_discount_amount:
+              label: 'Discount amount inc VAT'
+              type: sum
+              description: "Amount of discount granted inc VAT"
+              hidden: false
+              round: 0
+              format: GBP      
 
       - name: margin_inc_discount_percentage
         description: ""
+        meta:
+          metrics:
+            margin_inc_discount_percentage:
+              label: 'Margin after discount in percentage'
+              type: sum
+              description: "Percentage of the margin after the discount is applied"
+              hidden: false
+              round: 0
+              format: Percent      
 
       - name: margin_inc_discount_value
         description: ""
+        meta:
+          metrics:
+            margin_inc_discount_value:
+              label: 'Margin after discount in GBP'
+              type: sum
+              description: "Value of the margin after the discount is applied"
+              hidden: false
+              round: 0
+              format: GBP      
 
       - name: margin_exc_discount_percentage
         description: ""
+        meta:
+          metrics:
+            margin_exc_discount_percentage:
+              label: 'Margin before discount in percentage'
+              type: sum
+              description: "Percentage of the margin before the discount is applied"
+              hidden: false
+              round: 0
+              format: Percent      
 
       - name: margin_exc_discount_value
         description: ""
+        meta:
+          metrics:
+            margin_exc_discount_value:
+              label: 'Margin before discount in GBP'
+              type: sum
+              description: "Value of the margin before the discount is applied"
+              hidden: false
+              round: 0
+              format: GBP      
 
       - name: line_total_refunded
         description: ""
@@ -707,9 +885,17 @@ models:
         meta:
           metrics:
             total_revenue:
-              label: 'Total revenue GBP (after vouchers)'
+              label: 'Total revenue GBP inc VAT (after vouchers)'
               type: sum
-              description: "Total revenue in GBP after taking vouchers into account"
+              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              hidden: false
+              round: 0
+              format: 'gbp'      
+            total_revenue_exc_vat:
+              label: 'Total revenue GBP exc VAT (after vouchers)'
+              type: sum
+              description: "Total revenue exc VAT in GBP after taking vouchers into account"
+              sql: "${total_revenue}-${tax_amount})"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -722,6 +908,9 @@ models:
 
       - name: magentoid
         description: ""
+        meta:
+          dimension:
+            hidden: true
 
       - name: store_id
         description: "Store id, foreign key, nullable"
@@ -749,9 +938,27 @@ models:
 
       - name: shipping_excl_tax
         description: ""
+        meta:
+          metrics:
+            total_revenue:
+              label: 'Total revenue GBP inc VAT (after vouchers)'
+              type: sum
+              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: shipping_incl_tax
         description: "Shipping including tax, nullable"
+        meta:
+          metrics:
+            total_revenue:
+              label: 'Total revenue GBP inc VAT (after vouchers)'
+              type: sum
+              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: grand_total
         description: "Grand total, nullable"

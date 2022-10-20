@@ -43,7 +43,8 @@ SELECT
        sfo.expected_delivery_date,
        sfo.expected_delivery_days,
        cast(sfo.created_at as timestamp) AS created_at,
-       sfo.updated_at
+       sfo.updated_at,
+       CASE WHEN sfo.status <> 'canceled' THEN row_number() OVER(  PARTITION BY sfo.customer_id, sfo.status <> 'canceled' ORDER BY sfo.increment_id) ELSE NULL END AS orderno
 FROM
        {{ ref(
               'stg__sales_flat_order'
