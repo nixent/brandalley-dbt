@@ -849,6 +849,8 @@ sources:
           - name: __deleted
             description: ""
 
+      - name: customer_entity_extra
+
       - name: customer_entity_int
         description: ""
         columns:
