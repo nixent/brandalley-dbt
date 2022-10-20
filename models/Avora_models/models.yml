@@ -279,6 +279,7 @@ models:
     columns:
       - name: cst_id
         description: ""
+        meta:
           metrics:
             members:
               label: 'Members'
@@ -663,6 +664,7 @@ models:
 
       - name: product_cost_inc_vat
         description: ""
+        meta:
           metrics:
             product_cost_inc_vat:
               label: 'Cost of all units inc VAT'
@@ -674,6 +676,7 @@ models:
 
       - name: line_product_cost_inc_vat
         description: ""
+        meta:
           metrics:
             line_product_cost_inc_vat:
               label: 'Cost per unit inc VAT'
@@ -685,6 +688,7 @@ models:
 
       - name: product_cost_exc_vat
         description: ""
+        meta:
           metrics:
             product_cost_exc_vat:
               label: 'Cost of all units exc VAT'
@@ -696,6 +700,7 @@ models:
 
       - name: line_product_cost_exc_vat
         description: ""
+        meta:
           metrics:
             line_product_cost_exc_vat:
               label: 'Cost per unit exv VAT'
@@ -707,6 +712,7 @@ models:
 
       - name: flash_price_inc_vat
         description: ""
+        meta:
           metrics:
             flash_price_inc_vat:
               label: 'Flash price inc VAT per order line'
@@ -730,6 +736,7 @@ models:
 
       - name: flash_price_exc_vat
         description: ""
+        meta:
           metrics:
             flash_price_exc_vat:
               label: 'Flash price exc VAT per order line'
@@ -765,6 +772,7 @@ models:
 
       - name: margin_inc_discount_percentage
         description: ""
+        meta:
           metrics:
             margin_inc_discount_percentage:
               label: 'Margin after discount in percentage'
@@ -776,6 +784,7 @@ models:
 
       - name: margin_inc_discount_value
         description: ""
+        meta:
           metrics:
             margin_inc_discount_value:
               label: 'Margin after discount in GBP'
@@ -787,6 +796,7 @@ models:
 
       - name: margin_exc_discount_percentage
         description: ""
+        meta:
           metrics:
             margin_exc_discount_percentage:
               label: 'Margin before discount in percentage'
@@ -798,6 +808,7 @@ models:
 
       - name: margin_exc_discount_value
         description: ""
+        meta:
           metrics:
             margin_exc_discount_value:
               label: 'Margin before discount in GBP'
@@ -927,6 +938,7 @@ models:
 
       - name: shipping_excl_tax
         description: ""
+        meta:
           metrics:
             total_revenue:
               label: 'Total revenue GBP inc VAT (after vouchers)'
@@ -938,6 +950,7 @@ models:
 
       - name: shipping_incl_tax
         description: "Shipping including tax, nullable"
+        meta:
           metrics:
             total_revenue:
               label: 'Total revenue GBP inc VAT (after vouchers)'
