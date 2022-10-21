@@ -598,8 +598,10 @@ models:
       - name: qty_canceled
         description: "Quantity canceled, nullable"
         meta:
+          dimension:
+            hidden: true
           metrics:
-            qty_canceled:
+            qty_canceled_metric:
               label: 'Units quantity cancelled'
               type: sum
               description: "Number of units cancelled"
@@ -609,8 +611,10 @@ models:
       - name: qty_ordered
         description: "Quantity ordered, nullable"
         meta:
+          dimension:
+            hidden: true
           metrics:
-            qty_ordered:
+            qty_ordered_metric:
               label: 'Units quantity ordered'
               type: sum
               description: "Number of units ordered"
@@ -619,13 +623,25 @@ models:
 
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_invoiced_metric:
+              label: 'Units quantity invoiced'
+              type: sum
+              description: "Number of units invoiced"
+              hidden: false
+              round: 0      
 
       - name: qty_refunded
         description: "Quantity refunded, nullable"
         meta:
+          dimension:
+            hidden: true
           metrics:
-            qty_refunded:
-              label: 'Units quantity refundede'
+            qty_refunded_metric:
+              label: 'Units quantity refunded'
               type: sum
               description: "Number of units refunded"
               hidden: false
@@ -637,8 +653,10 @@ models:
       - name: consignment_qty
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            consignment_qty:
+            consignment_qty_metric:
               label: 'Consignment quantity'
               type: sum
               description: "Number of consignment units ordered"
@@ -648,8 +666,10 @@ models:
       - name: warehouse_qty
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            warehouse_qty:
+            warehouse_qty_metric:
               label: 'Warehouse quantity'
               type: sum
               description: "Number of warehouse units ordered"
@@ -665,8 +685,10 @@ models:
       - name: product_cost_inc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            product_cost_inc_vat:
+            product_cost_inc_vat_metric:
               label: 'Cost of all units inc VAT'
               type: sum
               description: "Cost inc VAT for the full line of the order"
@@ -677,8 +699,10 @@ models:
       - name: line_product_cost_inc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            line_product_cost_inc_vat:
+            line_product_cost_inc_vat_metric:
               label: 'Cost per unit inc VAT'
               type: sum
               description: "Cost inc VAT for 1 unit of the item"
@@ -689,8 +713,10 @@ models:
       - name: product_cost_exc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            product_cost_exc_vat:
+            product_cost_exc_vat_metric:
               label: 'Cost of all units exc VAT'
               type: sum
               description: "Cost exc VAT for the full line of the order"
@@ -701,8 +727,10 @@ models:
       - name: line_product_cost_exc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            line_product_cost_exc_vat:
+            line_product_cost_exc_vat_metric:
               label: 'Cost per unit exv VAT'
               type: sum
               description: "Cost inc ecv for 1 unit of the item"
@@ -713,8 +741,10 @@ models:
       - name: flash_price_inc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            flash_price_inc_vat:
+            flash_price_inc_vat_metric:
               label: 'Flash price inc VAT per order line'
               type: sum
               description: "Flash price inc VAT for the full line of the order"
@@ -725,8 +755,10 @@ models:
       - name: line_flash_price_inc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            line_flash_price_inc_vat:
+            line_flash_price_inc_vat_metric:
               label: 'Flash price inc VAT per unit'
               type: sum
               description: "Flash price inc VAT for 1 unit of the item"
@@ -737,8 +769,10 @@ models:
       - name: flash_price_exc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            flash_price_exc_vat:
+            flash_price_exc_vat_metric:
               label: 'Flash price exc VAT per order line'
               type: sum
               description: "Flash price exc VAT for the full line of the order"
@@ -749,8 +783,10 @@ models:
       - name: line_flash_price_exc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            line_flash_price_exc_vat:
+            line_flash_price_exc_vat_metric:
               label: 'Flash price exc VAT per unit'
               type: sum
               description: "Flash price exc VAT for 1 unit of the item"
@@ -761,8 +797,10 @@ models:
       - name: line_discount_amount
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            line_discount_amount:
+            line_discount_amount_metric:
               label: 'Discount amount inc VAT'
               type: sum
               description: "Amount of discount granted inc VAT"
@@ -773,8 +811,10 @@ models:
       - name: margin_inc_discount_percentage
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            margin_inc_discount_percentage:
+            margin_inc_discount_percentage_metric:
               label: 'Margin after discount in percentage'
               type: sum
               description: "Percentage of the margin after the discount is applied"
@@ -785,8 +825,10 @@ models:
       - name: margin_inc_discount_value
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            margin_inc_discount_value:
+            margin_inc_discount_value_metric:
               label: 'Margin after discount in GBP'
               type: sum
               description: "Value of the margin after the discount is applied"
@@ -797,8 +839,10 @@ models:
       - name: margin_exc_discount_percentage
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            margin_exc_discount_percentage:
+            margin_exc_discount_percentage_metric:
               label: 'Margin before discount in percentage'
               type: sum
               description: "Percentage of the margin before the discount is applied"
@@ -809,8 +853,10 @@ models:
       - name: margin_exc_discount_value
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            margin_exc_discount_value:
+            margin_exc_discount_value_metric:
               label: 'Margin before discount in GBP'
               type: sum
               description: "Value of the margin before the discount is applied"
@@ -939,8 +985,10 @@ models:
       - name: shipping_excl_tax
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
-            total_revenue:
+            shipping_excl_tax_metric:
               label: 'Total revenue GBP inc VAT (after vouchers)'
               type: sum
               description: "Total revenue inc VAT in GBP after taking vouchers into account"
@@ -951,8 +999,10 @@ models:
       - name: shipping_incl_tax
         description: "Shipping including tax, nullable"
         meta:
+          dimension:
+            hidden: true
           metrics:
-            total_revenue:
+            shipping_incl_tax_metric:
               label: 'Total revenue GBP inc VAT (after vouchers)'
               type: sum
               description: "Total revenue inc VAT in GBP after taking vouchers into account"
