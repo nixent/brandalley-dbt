@@ -35,6 +35,8 @@ models:
       +schema: magento
       +tags:
         - "lightdash"
+    CRM:
+      +schema: crm
     sources:
       streamkap_current:
         +schema: streamkap_current
