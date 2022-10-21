@@ -36,7 +36,7 @@ models:
       +tags:
         - "lightdash"
     CRM:
-      +schema: crm
+      +schema: emarsys
     sources:
       streamkap_current:
         +schema: streamkap_current
