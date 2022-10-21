@@ -549,7 +549,7 @@ models:
           sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku}
         - join: customers
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
-        - join: orders
+        - join: Orders
           sql_on: ${OrderLines.order_number} = ${orders.increment_id}
         - join: products
           sql_on: ${OrderLines.sku} = ${products.variant_sku}
