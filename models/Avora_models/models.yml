@@ -806,7 +806,7 @@ models:
               description: "Amount of discount granted inc VAT"
               hidden: false
               round: 0
-              format: GBP      
+              format: 'gbp'      
 
       - name: margin_inc_discount_percentage
         description: ""
@@ -820,7 +820,7 @@ models:
               description: "Percentage of the margin after the discount is applied"
               hidden: false
               round: 0
-              format: Percent      
+              format: 'percent'
 
       - name: margin_inc_discount_value
         description: ""
@@ -834,7 +834,7 @@ models:
               description: "Value of the margin after the discount is applied"
               hidden: false
               round: 0
-              format: GBP      
+              format: 'gbp'      
 
       - name: margin_exc_discount_percentage
         description: ""
@@ -848,7 +848,7 @@ models:
               description: "Percentage of the margin before the discount is applied"
               hidden: false
               round: 0
-              format: Percent      
+              format: 'percent'      
 
       - name: margin_exc_discount_value
         description: ""
@@ -862,7 +862,7 @@ models:
               description: "Value of the margin before the discount is applied"
               hidden: false
               round: 0
-              format: GBP      
+              format: 'gbp'      
 
       - name: line_total_refunded
         description: ""
@@ -1072,6 +1072,10 @@ models:
 
       - name: date_created
         description: ""
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: updated_at
         description: "Update date of the order, nullable"
