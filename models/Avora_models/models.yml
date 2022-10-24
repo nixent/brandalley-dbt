@@ -1072,6 +1072,10 @@ models:
 
       - name: date_created
         description: ""
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: updated_at
         description: "Update date of the order, nullable"
