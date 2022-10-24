@@ -550,7 +550,7 @@ models:
         - join: customers
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
         - join: Orders
-          sql_on: ${OrderLines.order_number} = ${orders.increment_id}
+          sql_on: ${OrderLines.order_number} = ${Orders.increment_id}
         - join: products
           sql_on: ${OrderLines.sku} = ${products.variant_sku}
     
