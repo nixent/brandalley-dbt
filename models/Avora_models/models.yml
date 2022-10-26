@@ -999,9 +999,9 @@ models:
             hidden: true
           metrics:
             shipping_excl_tax_metric:
-              label: 'Total revenue GBP inc VAT (after vouchers)'
+              label: 'Shipping exc Tax'
               type: sum
-              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              description: "Shipping exc Tax"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -1013,9 +1013,9 @@ models:
             hidden: true
           metrics:
             shipping_incl_tax_metric:
-              label: 'Total revenue GBP inc VAT (after vouchers)'
+              label: 'Shipping inc Tax'
               type: sum
-              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              description: "Shipping inc Tax"
               hidden: false
               round: 0
               format: 'gbp'      
