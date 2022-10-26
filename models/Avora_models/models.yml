@@ -1058,11 +1058,10 @@ models:
         meta: 
           metrics:
             new_customers:
-            label: 'New Customers'
-            type: count_distinct
-            description: "Number of new customers"
-            sql: "IF(${orderno}=1, ${customer_id}, 0)"
-            hidden: false    
+              label: 'New Customers'
+              type: count_distinct
+              description: "Number of new customers"
+             hidden: false    
 
       - name: customer_name
         description: ""
