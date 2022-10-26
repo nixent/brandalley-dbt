@@ -284,7 +284,13 @@ models:
             members:
               label: 'Members'
               type: count_distinct
-              description: "Number of customers"
+              description: "Number of members"
+              hidden: false    
+            new_members:
+              label: 'New Members'
+              type: count_distinct
+              description: "Number of new members"
+              sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, 0)"
               hidden: false    
 
       - name: customer_name
@@ -1049,6 +1055,14 @@ models:
 
       - name: customer_id
         description: "Customer id, foreign key, nullable"
+        meta: 
+          metrics:
+            new_members:
+            label: 'New Customers'
+            type: count_distinct
+            description: "Number of new customers"
+            sql: "IF(${orderno}=1, ${customer_id}, 0)"
+            hidden: false    
 
       - name: customer_name
         description: ""
@@ -1079,6 +1093,9 @@ models:
 
       - name: updated_at
         description: "Update date of the order, nullable"
+
+      - name: orderno
+        description: "Order index placed by the client at Brandalley"
 
 
   - name: products
