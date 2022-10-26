@@ -1061,6 +1061,7 @@ models:
               label: 'New Customers'
               type: count_distinct
               description: "Number of new customers"
+              sql: "IF(${orderno}=1, ${customer_id}, 0)"
               hidden: false    
 
       - name: customer_name
