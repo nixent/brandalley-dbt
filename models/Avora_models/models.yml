@@ -1057,7 +1057,7 @@ models:
         description: "Customer id, foreign key, nullable"
         meta: 
           metrics:
-            new_members:
+            new_customers:
             label: 'New Customers'
             type: count_distinct
             description: "Number of new customers"
