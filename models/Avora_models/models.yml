@@ -1019,6 +1019,14 @@ models:
               hidden: false
               round: 0
               format: 'gbp'      
+            shipping_incl_tax_per_qty_metric:
+              label: 'Shipping inc Tax per unit'
+              type: sum
+              description: "Shipping inc Tax per unit"
+              sql: "${shipping_incl_tax}/${total_qty_ordered}"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: grand_total
         description: "Grand total, nullable"
@@ -1096,6 +1104,9 @@ models:
 
       - name: orderno
         description: "Order index placed by the client at Brandalley"
+
+      - name: total_qty_ordered
+        description: "Total quantity ordered"
 
 
   - name: products
