@@ -45,7 +45,7 @@ qualify ROW_NUMBER() over (
     {%- endif %}
     {%- if order_offset_field == '' %}
     ORDER BY 
-        {{ order_time_field }}
+        {{ order_time_field }} DESC
     {%- else %}
     ORDER BY 
         {{ order_time_field }} DESC, {{order_offset_field}} DESC
