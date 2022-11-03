@@ -1,8 +1,0 @@
-version: 2
-
-name: New Customers BQ
-source: google-big-query-5x13w
-type: table
-tableName: emarsys.new_customers
-isSchema: false
-primaryKey: entity_id
