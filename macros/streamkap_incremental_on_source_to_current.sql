@@ -2,8 +2,8 @@
 
 {% macro streamkap_incremental_on_source_to_current(
         source_name,
+        id_field,
         source_schema = 'streamkap',
-        id_field = 1,
         order_time_field = '_streamkap_ts_ms',
         order_offset_field = '_streamkap_offset',
         deleted_field='__deleted'
@@ -45,7 +45,7 @@ qualify ROW_NUMBER() over (
     {%- endif %}
     {%- if order_offset_field == '' %}
     ORDER BY 
-        {{ order_time_field }}
+        {{ order_time_field }} DESC
     {%- else %}
     ORDER BY 
         {{ order_time_field }} DESC, {{order_offset_field}} DESC
