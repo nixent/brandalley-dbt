@@ -992,6 +992,9 @@ models:
       - name: total_tax
         description: ""
 
+      - name: total_qty_ordered
+        description: "Total quantity ordered"
+
       - name: shipping_excl_tax
         description: ""
         meta:
@@ -1104,9 +1107,6 @@ models:
 
       - name: orderno
         description: "Order index placed by the client at Brandalley"
-
-      - name: total_qty_ordered
-        description: "Total quantity ordered"
 
 
   - name: products
