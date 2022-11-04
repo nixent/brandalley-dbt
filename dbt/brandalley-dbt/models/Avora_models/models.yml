@@ -655,6 +655,16 @@ models:
 
       - name: qty_shipped
         description: "Quantity shipped, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_shipped_metric:
+              label: 'Units quantity shipped'
+              type: sum
+              description: "Number of units shipped"
+              hidden: false
+              round: 0      
 
       - name: consignment_qty
         description: ""
