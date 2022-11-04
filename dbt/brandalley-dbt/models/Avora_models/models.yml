@@ -284,7 +284,13 @@ models:
             members:
               label: 'Members'
               type: count_distinct
-              description: "Number of customers"
+              description: "Number of members"
+              hidden: false    
+            new_members:
+              label: 'New Members'
+              type: count_distinct
+              description: "Number of new members"
+              sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, 0)"
               hidden: false    
 
       - name: customer_name
@@ -905,6 +911,10 @@ models:
 
       - name: created_at
         description: "Creation time"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: month_created
         description: ""
@@ -927,6 +937,9 @@ models:
       - name: reference
         description: "Reference"
 
+      - name: region
+        description: "Region"       
+
       - name: TOTAL_GBP_after_vouchers
         meta:
           metrics:
@@ -941,7 +954,7 @@ models:
               label: 'Total revenue GBP exc VAT (after vouchers)'
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
-              sql: "${TOTAL_GBP_after_vouchers}-${tax_amount})"
+              sql: "${TOTAL_GBP_after_vouchers}-${tax_amount}"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -982,6 +995,9 @@ models:
       - name: total_tax
         description: ""
 
+      - name: total_qty_ordered
+        description: "Total quantity ordered"
+
       - name: shipping_excl_tax
         description: ""
         meta:
@@ -989,9 +1005,9 @@ models:
             hidden: true
           metrics:
             shipping_excl_tax_metric:
-              label: 'Total revenue GBP inc VAT (after vouchers)'
+              label: 'Shipping exc Tax'
               type: sum
-              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              description: "Shipping exc Tax"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -1003,9 +1019,17 @@ models:
             hidden: true
           metrics:
             shipping_incl_tax_metric:
-              label: 'Total revenue GBP inc VAT (after vouchers)'
+              label: 'Shipping inc Tax'
               type: sum
-              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              description: "Shipping inc Tax"
+              hidden: false
+              round: 0
+              format: 'gbp'      
+            shipping_incl_tax_per_qty_metric:
+              label: 'Shipping inc Tax per unit'
+              type: sum
+              description: "Shipping inc Tax per unit"
+              sql: "${shipping_incl_tax}/${total_qty_ordered}"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -1045,6 +1069,14 @@ models:
 
       - name: customer_id
         description: "Customer id, foreign key, nullable"
+        meta: 
+          metrics:
+            new_customers:
+              label: 'New Customers'
+              type: count_distinct
+              description: "Number of new customers"
+              sql: "IF(${orderno}=1, ${customer_id}, 0)"
+              hidden: false    
 
       - name: customer_name
         description: ""
@@ -1072,13 +1104,12 @@ models:
 
       - name: date_created
         description: ""
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: updated_at
         description: "Update date of the order, nullable"
+
+      - name: orderno
+        description: "Order index placed by the client at Brandalley"
 
 
   - name: products
