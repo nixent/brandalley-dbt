@@ -937,6 +937,9 @@ models:
       - name: reference
         description: "Reference"
 
+      - name: region
+        description: "Region"       
+
       - name: TOTAL_GBP_after_vouchers
         meta:
           metrics:
