@@ -562,7 +562,7 @@ models:
         - join: shipment_items
           sql_on: ${OrderLines.sku} = ${shipment_items.sku}            
         - join: shipments
-          sql_on: ${OrderLines.order_id} = ${shipment_items.order_id}            
+          sql_on: ${OrderLines.order_id} = ${shipments.order_id}            
     columns:
       - name: unique_id
         description: ""
