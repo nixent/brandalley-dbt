@@ -1020,7 +1020,7 @@ models:
             hidden: true
           metrics:
             orders_total_tax:
-              label: 'Order's total tax amount''
+              label: 'Orders total tax amount'
               type: sum
               description: "Order's total tax amount"
               hidden: false
