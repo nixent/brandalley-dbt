@@ -1145,7 +1145,7 @@ models:
       - name: expected_delivery_days
         description: "Expected delivery days, nullable"
 
-      - name: date_created
+      - name: created_at
         description: ""
         meta:
           dimension:
