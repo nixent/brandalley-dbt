@@ -977,6 +977,14 @@ models:
     columns:
       - name: increment_id
         description: "Increment id, nullable"
+        meta:
+          metrics:
+            total_order_count:
+              label: 'Total number of orders'
+              type: count_distinct
+              description: "Number of orders"
+              hidden: false
+              round: 0      
 
       - name: magentoid
         description: ""
@@ -1007,6 +1015,17 @@ models:
 
       - name: total_tax
         description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            orders_total_tax:
+              label: 'Order's total tax amount''
+              type: sum
+              description: "Order's total tax amount"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: total_qty_ordered
         description: "Total quantity ordered"
