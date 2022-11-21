@@ -117,6 +117,7 @@ SELECT
        cps_supplier.sup_id AS supplier_id,
        cps_supplier.name AS supplier_name,
        eaov_color.value AS colour,
+       REPLACE(REPLACE(REPLACE(cpev_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS gender,
        IFNULL(
               eaov_size.value,
               eaov_size_child.value
@@ -236,6 +237,7 @@ SELECT
        sfoi_con.tax_amount,
        sfoi_con.tax_percent,
        cped_price.value AS rrp,
+       ce.created_at AS reg_date,
        case
        when sfoa.postcode LIKE 'AB%' THEN 'Scotland'
        when sfoa.postcode LIKE 'AL%' THEN 'East England'
@@ -381,6 +383,12 @@ FROM
        left join {{ ref(
            'stg__sales_flat_order_address'
        ) }} sfoa on sfoa.entity_id = sfo.billing_address_id
+       left join {{ ref(
+           'stg__sales_flat_order_address'
+       ) }} sfoa_shipping on sfoa.entity_id = sfo.shipping_address_id
+        LEFT JOIN    {{ ref(
+           'stg__customer_entity'
+       ) }} ce ON ce.entity_id = sfo.customer_id
        LEFT JOIN {{ ref(
            'stg__sales_flat_order_item'
        ) }}
@@ -535,7 +543,13 @@ FROM
        ) }}
        cpe
        ON cpe.entity_id = cpsl.parent_id
-       LEFT JOIN {{ ref(
+       LEFT JOIN
+        {{ ref(
+           'catalog_product_entity_varchar'
+       ) }} cpev_gender ON cpe.entity_id = cpev_gender.entity_id
+        AND cpev_gender.attribute_id = 180
+        AND cpev_gender.store_id = 0
+      LEFT JOIN {{ ref(
            'stg__catalog_product_entity_decimal'
        ) }}
        cped_price
