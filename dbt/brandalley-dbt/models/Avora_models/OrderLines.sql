@@ -545,7 +545,7 @@ FROM
        ON cpe.entity_id = cpsl.parent_id
        LEFT JOIN
         {{ ref(
-           'catalog_product_entity_varchar'
+           'stg__catalog_product_entity_varchar'
        ) }} cpev_gender ON cpe.entity_id = cpev_gender.entity_id
         AND cpev_gender.attribute_id = 180
         AND cpev_gender.store_id = 0
