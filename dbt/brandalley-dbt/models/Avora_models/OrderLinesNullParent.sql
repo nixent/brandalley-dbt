@@ -76,7 +76,6 @@ SELECT
     (qty_ordered -  qty_warehouse_sent - qty_wh_b_sent - sfoi.qty_refunded - sfoi.qty_refunded_hold - sfoi.qty_canceled) as qty_to_send,
     sfoi.price,
     sfoi.dispatch_date, 
-    sfo.status,
     CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
     sfop.method, 
     sfop.last_trans_id
