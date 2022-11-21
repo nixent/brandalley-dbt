@@ -23,7 +23,7 @@ LEFT JOIN {{ ref(
 LEFT JOIN {{ ref(
         'stg__eav_attribute_option_value') }} 
         eaov_pro_type 
-            ON eaov_pro_type.option_id = cpev_pro_type.value
+            ON CAST(eaov_pro_type.option_id as STRING) = cpev_pro_type.value
 left join {{ ref(
         'stg__catalog_product_entity_varchar') }} 
         cpev_barcode 

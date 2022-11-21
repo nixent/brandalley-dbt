@@ -35,7 +35,6 @@ SELECT
        sfo.shipping_description,
        sfo.customer_id,
        '' AS customer_name,
-       '' AS email,
        '' AS customer_phone,
        '' AS delivery_address,
        sfoa.postcode AS delivery_postcode,

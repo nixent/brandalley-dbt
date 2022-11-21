@@ -69,13 +69,13 @@ SELECT
     qty_ordered, 
     IFNULL(qty_backordered,0) as qty_backordered, 
     IFNULL(qty_warehouse_sent,0) as qty_warehouse_sent, 
-    sfoi.qty_backordered_reconciliation,
+    sfoi.qty_backorder_reconciliation,
     sfoi.qty_wh_b_sent, 
     sfoi.qty_reserved_by_wh_b,
     (sfoi.qty_refunded + sfoi.qty_refunded_hold + sfoi.qty_canceled) as qty_to_ignore,
     (qty_ordered -  qty_warehouse_sent - qty_wh_b_sent - sfoi.qty_refunded - sfoi.qty_refunded_hold - sfoi.qty_canceled) as qty_to_send,
     sfoi.price,
-    sfoi.dipatch_date, 
+    sfoi.dispatch_date, 
     sfo.status,
     CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
     sfop.method, 
@@ -93,7 +93,7 @@ FROM
     LEFT JOIN {{ ref('stg__catalog_product_negotiation') }}
     cpn
     ON cpn.negotiation_id = sfoi.nego 
-    and (cpn.type = null or cpn.type != 30)
+    and (cpn.type is null or cpn.type != 30)
     LEFT JOIN {{ ref('stg__catalog_product_entity_varchar') }}
     cpev
     ON cpev.entity_id = sfoi.product_id

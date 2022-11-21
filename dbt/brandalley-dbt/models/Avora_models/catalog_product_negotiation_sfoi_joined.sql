@@ -1,5 +1,7 @@
-SELECT cpn.date_comp_exported AS po_date, 
-cpn.negotiation_id, sfoi.sku, 
+SELECT 
+cpn.date_comp_exported AS po_date, 
+cpn.negotiation_id, 
+sfoi.sku, 
 sfo.increment_id AS order_id, 
 sfoi.qty_backordered AS consigment_ordered, 
 sfoi.created_at,
@@ -46,4 +48,3 @@ LEFT JOIN {{ ref(
         'stg__eav_attribute_option_value')
         }} 
         eaov ON cpei.value = eaov.option_id
-GROUP BY sfoi.product_id, sfoi.order_id
