@@ -23,6 +23,7 @@ SELECT
        ) total_refunded,
        sfo.total_due,
        sfo.base_total_invoiced_cost AS total_invoiced_cost,
+       sfo.base_grand_total,
        sfo.status,
        sfo.coupon_rule_name,
        sfo.coupon_code,
