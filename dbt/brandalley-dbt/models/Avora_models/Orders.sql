@@ -35,7 +35,6 @@ SELECT
        sfo.shipping_description,
        sfo.customer_id,
        '' AS customer_name,
-       '' AS email,
        '' AS customer_phone,
        '' AS delivery_address,
        sfoa.postcode AS delivery_postcode,
@@ -45,7 +44,12 @@ SELECT
        cast(sfo.created_at as timestamp) AS created_at,
        sfo.updated_at,
        CASE WHEN sfo.status <> 'canceled' THEN row_number() OVER(  PARTITION BY sfo.customer_id, sfo.status <> 'canceled' ORDER BY sfo.increment_id) ELSE NULL END AS orderno,
-       sfo.total_qty_ordered
+       sfo.total_qty_ordered,
+       ce.email,
+       sfo.customer_firstname,
+       sfo.customer_lastname,
+       cc_trans_id, 
+       additional_information
 FROM
        {{ ref(
               'stg__sales_flat_order'
@@ -73,6 +77,12 @@ FROM
        ON ced.entity_id = sfo.customer_id
        AND ced.attribute_id = 11 -- AND STR_TO_DATE (ced.value,'%Y-%m-%d') IS NOT NULL
        AND ced.value IS NOT NULL
+       LEFT JOIN {{ ref(
+              'stg__customer_entity'
+       ) }}
+       ce
+       ON ce.entity_id = sfo.customer_id
+
 WHERE
        sfo.increment_id NOT LIKE '%-%'
        AND (

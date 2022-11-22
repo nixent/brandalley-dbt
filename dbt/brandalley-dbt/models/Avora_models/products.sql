@@ -46,7 +46,8 @@ SELECT
     tc.class_name AS tax_class,
     cpe.updated_at,
     cps_supplier.sup_id AS supplier_id,
-    cps_supplier.name AS supplier_name
+    cps_supplier.name AS supplier_name,
+    eaov_gender.value AS gender
 FROM
     {{ ref(
         'stg__catalog_product_entity'
@@ -141,6 +142,19 @@ FROM
     eaov_color
     ON eaov_color.option_id = cpei_color.value
     AND eaov_color.store_id = 0
+    LEFT JOIN {{ ref(
+        'stg__catalog_product_entity_int'
+    ) }}
+    cpei_gender
+    ON cpei_gender.entity_id = cpe.entity_id
+    AND cpei_gender.attribute_id = 96
+    AND cpei_gender.store_id = 0
+    LEFT JOIN {{ ref(
+        'stg__eav_attribute_option_value'
+    ) }}
+    eaov_gender
+    ON eaov_gender.option_id = cpei_gender.value
+    AND eaov_gender.store_id = 0
     LEFT JOIN {{ ref(
         'stg__catalog_product_entity_int'
     ) }}

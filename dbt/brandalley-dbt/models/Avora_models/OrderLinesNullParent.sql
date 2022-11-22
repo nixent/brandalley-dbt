@@ -53,7 +53,32 @@ SELECT
     END AS category,
     sfo.status,
     sfo.customer_id,
-    sfo.increment_id
+    sfo.increment_id as order_id,
+    sfo.created_at,
+    sfoi.created_at as line_created_at,
+    CONCAT(sfoa_b.firstname," ", sfoa_b.lastname) as customer_name, 
+    sfoi.sku,
+    sfoi.item_id,
+    sfoi.qty_invoiced as qty, 
+    IFNULL(qty_reserved_by_tc,0) as qty_reserved, 
+    IFNULL(qty_canceled,0) as qty_canceled, 
+    IFNULL(qty_refunded,0) as qty_refunded, 
+    IFNULL(qty_shipped,0) as qty_shipped, 
+    IFNULL(qty_refunded_hold,0) as qty_refunded_hold, 
+    IFNULL(qty_out_of_stock,0) as qty_out_of_stock, 
+    qty_ordered, 
+    IFNULL(qty_backordered,0) as qty_backordered, 
+    IFNULL(qty_warehouse_sent,0) as qty_warehouse_sent, 
+    sfoi.qty_backorder_reconciliation,
+    sfoi.qty_wh_b_sent, 
+    sfoi.qty_reserved_by_wh_b,
+    (sfoi.qty_refunded + sfoi.qty_refunded_hold + sfoi.qty_canceled) as qty_to_ignore,
+    (qty_ordered -  qty_warehouse_sent - qty_wh_b_sent - sfoi.qty_refunded - sfoi.qty_refunded_hold - sfoi.qty_canceled) as qty_to_send,
+    sfoi.price,
+    sfoi.dispatch_date, 
+    CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
+    sfop.method, 
+    sfop.last_trans_id
 FROM
     {{ ref('stg__sales_flat_order') }}
     sfo
@@ -64,7 +89,20 @@ FROM
     sfoi
     ON sfo.entity_id = sfoi.order_id
     AND sfoi.parent_item_id IS NULL
+    LEFT JOIN {{ ref('stg__catalog_product_negotiation') }}
+    cpn
+    ON cpn.negotiation_id = sfoi.nego 
+    and (cpn.type is null or cpn.type != 30)
     LEFT JOIN {{ ref('stg__catalog_product_entity_varchar') }}
     cpev
     ON cpev.entity_id = sfoi.product_id
     AND cpev.attribute_id = 205
+    LEFT JOIN {{ ref('stg__sales_flat_order_address') }}
+    sfoa
+    ON sfoa.entity_id = sfo.shipping_address_id
+    LEFT JOIN {{ ref('stg__sales_flat_order_address') }}
+    sfoa_b
+    ON sfoa_b.entity_id = sfo.billing_address_id
+    LEFT JOIN {{ ref('stg__sales_flat_order_payment') }}
+    sfop
+    ON sfo.entity_id = sfop.parent_id

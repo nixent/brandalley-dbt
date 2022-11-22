@@ -559,7 +559,10 @@ models:
           sql_on: ${OrderLines.order_number} = ${Orders.increment_id}
         - join: products
           sql_on: ${OrderLines.sku} = ${products.variant_sku}
-    
+        - join: shipment_items
+          sql_on: ${OrderLines.sku} = ${shipment_items.sku}            
+        - join: shipments
+          sql_on: ${OrderLines.order_id} = ${shipments.order_id}            
     columns:
       - name: unique_id
         description: ""
@@ -655,6 +658,16 @@ models:
 
       - name: qty_shipped
         description: "Quantity shipped, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_shipped_metric:
+              label: 'Units quantity shipped'
+              type: sum
+              description: "Number of units shipped"
+              hidden: false
+              round: 0      
 
       - name: consignment_qty
         description: ""
@@ -964,6 +977,14 @@ models:
     columns:
       - name: increment_id
         description: "Increment id, nullable"
+        meta:
+          metrics:
+            total_order_count:
+              label: 'Total number of orders'
+              type: count_distinct
+              description: "Number of orders"
+              hidden: false
+              round: 0      
 
       - name: magentoid
         description: ""
@@ -994,6 +1015,17 @@ models:
 
       - name: total_tax
         description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            orders_total_tax:
+              label: 'Orders total tax amount'
+              type: sum
+              description: "Order's total tax amount"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: total_qty_ordered
         description: "Total quantity ordered"
@@ -1036,6 +1068,17 @@ models:
 
       - name: grand_total
         description: "Grand total, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            orders_grand_total:
+              label: 'Order grand total'
+              type: sum
+              description: "Order grand total"
+              hidden: false
+              round: 0
+              format: 'gbp'      
 
       - name: total_paid
         description: "Total paid, nullable"
@@ -1102,8 +1145,12 @@ models:
       - name: expected_delivery_days
         description: "Expected delivery days, nullable"
 
-      - name: date_created
+      - name: created_at
         description: ""
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: updated_at
         description: "Update date of the order, nullable"
@@ -1558,9 +1605,20 @@ models:
 
   - name: shipment_items
     description: ""
+    meta:
+      joins:
+        - join: shipments
+          sql_on: ${shipment_items.parent_id} = ${shipments.entity_id}
     columns:
       - name: entity_id
         description: "Shipment item ID, primary key"
+        meta: 
+          metrics:
+            no_shipments:
+              label: 'Number of shipments'
+              type: count_distinct
+              description: "Number of shipments"
+              hidden: false    
 
       - name: parent_id
         description: "Shipment item ID of the parent, foreign key"
@@ -1607,20 +1665,20 @@ models:
   - name: shipments
     description: ""
     columns:
-      - name: unique_id
-        description: ""
+      - name: entity_id
+        description: "Primary key"
 
-      - name: product_id
-        description: "Id of the product to ship, foreign key, nullable"
+      - name: store_id
+        description: "Id of the store, foreign key, nullable"
 
-      - name: sku
-        description: "SKU of the product to ship, nullable"
+      - name: total_weight
+        description: "Total weight, nullable"
 
-      - name: qty
-        description: "Quantity to ship of a specific item , nullable"
+      - name: total_qty
+        description: "Quantity to ship, nullable"
 
-      - name: weight
-        description: "Adjustment negative, nullable"
+      - name: email_sent
+        description: "Flag indicating if email was sent, nullable"
 
       - name: order_id
         description: "Order ID linked to the shipment, foreign key"
@@ -1628,20 +1686,26 @@ models:
       - name: customer_id
         description: "Customer id, foreign key, nullable"
 
-      - name: postcode
-        description: "Post code, nullable"
+      - name: shipping_address_id
+        description: "Shipping address id, foreign key"
 
-      - name: shipment_id
-        description: ""
+      - name: billing_address_id
+        description: "Billing address id, foreign key"
 
-      - name: order_date
-        description: ""
+      - name: shipment_status
+        description: "Shipment status, nullable"
 
-      - name: shipment_date
-        description: ""
+      - name: increment_id
+        description: "Increment id"
+
+      - name: created_at
+        description: "Created date of the shipment, nullable"
 
       - name: updated_at
-        description: "Update date of the order, nullable"
+        description: "Update date of the shipment, nullable"
+
+      - name: packages
+        description: "Number of packages, nullable"
 
   - name: shipping
     description: ""

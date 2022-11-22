@@ -117,6 +117,7 @@ SELECT
        cps_supplier.sup_id AS supplier_id,
        cps_supplier.name AS supplier_name,
        eaov_color.value AS colour,
+       REPLACE(REPLACE(REPLACE(cpev_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS gender,
        IFNULL(
               eaov_size.value,
               eaov_size_child.value
@@ -151,7 +152,7 @@ SELECT
                                    )
                             )
                             IN
-                            ('Handbags','Purses','Belts','Umbrellas','Hats','Face Coverings','Fashion Hair Accessories','Gloves','Scarves','Jewellery','Tech Accessories','Sunglasses','Travel','Watches','Cosmetics Cases','Bags','Cufflinks & Tie Clips','Ties & Pocket Squares','Wallets','Tech','Accessories','Ski Accessories'),
+                            ('handbags','purses','belts','umbrellas','hats','face coverings','fashion hair accessories','gloves','scarves','jewellery','tech accessories','sunglasses','travel','watches','cosmetics cases','bags','cufflinks & tie clips','ties & pocket squares','wallets','tech','accessories','ski accessories'),
                      'ACCESSORIES',
                      IF (
                                     LOWER(
@@ -161,7 +162,7 @@ SELECT
                                                  eaov_pt_sim.value
                                           )
                                     )
-                                   in ('Moisturisers','Cleansers','Anti-Ageing','Toners','Masks','Eye Care','Organic & Natural','Serums','Gift Sets','Treatments','Mens Skincare','Bath & Shower','Hand & Foot Care','Bronzers & Sun Care','Body Sculpting & Toning','Mens Bath & Body','Toothbrushes','Teeth Whitening','Face','Eyes','Lips','Makeup Sets','Nails','Makeup Removers','Womens Perfume','Mens Cologne','Shampoo & Conditioners','Hair Oils & Treatments','Hair Styling & Finishing','Hair Accessories','Personal Care Electricals','Mens Hair Care'),                            
+                                   in ('moisturisers','cleansers','anti-ageing','toners','masks','eye care','organic & natural','serums','gift sets','treatments','mens skincare','bath & shower','hand & foot care','bronzers & sun care','body sculpting & toning','mens bath & body','toothbrushes','teeth whitening','face','eyes','lips','makeup sets','nails','makeup removers','womens perfume','mens cologne','shampoo & conditioners','hair oils & treatments','hair styling & finishing','hair accessories','personal care electricals','mens hair care'),                            
                             'BEAUTY',
                             IF (
                                           LOWER(
@@ -171,7 +172,7 @@ SELECT
                                                         eaov_pt_sim.value
                                                  )
                                           )
-                                          in ('Ankle Boots','Long Boots','Flat Shoes','Heeled Shoes','Court Shoes','Espadrilles','Pumps','Flat Sandals','Flip Flops','Heeled Sandals','Slippers','Trainers','Boots','Casual Shoes','Formal Shoes','Sandals','Footwear'),
+                                          in ('ankle boots','long boots','flat shoes','heeled shoes','court shoes','espadrilles','pumps','flat sandals','flip flops','heeled sandals','slippers','trainers','boots','casual shoes','formal shoes','sandals','footwear'),
                                    
                                    'FOOTWEAR',
                                    IF (
@@ -182,7 +183,7 @@ SELECT
                                                                eaov_pt_sim.value
                                                         )
                                                  ) in
-                                                 ('Duvets & Pillows','Towels','Bathroom Accessories','Bathroom Fixtures','Bed Accessories','Bed Linen','Mattress Toppers & Protectors','Bath Mats','Beach Towels','Beds','Mattresses','Bookcases Shelving Units & Shelves','Sofas & Armchairs','Coffee Tables','Side Tables','Console Tables','Media Cabinets','Cabinets & Sideboards','Bar Chairs & Stools','Cots & Beds','Seats Tables & Loungers','Barbeque Accessories','Garden Tools','Outdoor Garden Lighting','Planters Pots & Ornaments','Lighting','Candles & Home Fragrance','Curtains & Blinds','Cushions & Throws','Rugs','Wall Art','Mirrors','Decorative Accessories','Stationery','Storage','Pet Care','Pots & Pans','Food Preparation','Utensils','Cooking & Baking','Kitchen Fixtures','Kitchen Storage','Tableware','Drinkware','Cutlery','Barware & Drinks Accessories','Electricals','Laundry & Ironing','Food & Drink','Decorations','Nutrition Supplements','Sports Equipment','Luggage & Suitcases','Backpacks & Holdalls','Travel Accessories','Alcohol','Chocolate & Sweets','Gift Hampers','Games & Puzzles','Baby & Toddler Toys','Childrens Toys','Clothing & Accessories','Gift Sets','Home Gifts','Garden Gifts','Trees','Lights','Bedding','Candles & Fragrance','Cards & Calendars','Home Decor','Wreaths & Garlands','Puddings Chocolates & Sweets','BBQs & Accessories','Outdoor Tableware & Serveware','Garden Furniture Sets','Garden Seating','Garden Tables','Sun Loungers & Swing Seats','Parasols & Accessories','Garden Sheds & Workshops','Summerhouses & Outbuildings','Gazebos Arbours & Arches','Garden Storage','Patio Heaters Fire Pits & Chimineas','Outdoor Wall & Security Lights','Dining Tables & Chairs','Portable & Party Lights','Solar Lights','Decorative Garden Accessories','Outdoor Cushions','Pots & Planters','Outdoor Lanterns','Gardening Tools','Outdoor Toys & Games','Drink'),
+                                                 ('duvets & pillows','towels','bathroom accessories','bathroom fixtures','bed accessories','bed linen','mattress toppers & protectors','bath mats','beach towels','beds','mattresses','bookcases shelving units & shelves','sofas & armchairs','coffee tables','side tables','console tables','media cabinets','cabinets & sideboards','bar chairs & stools','cots & beds','seats tables & loungers','barbeque accessories','garden tools','outdoor garden lighting','planters pots & ornaments','lighting','candles & home fragrance','curtains & blinds','cushions & throws','rugs','wall art','mirrors','decorative accessories','stationery','storage','pet care','pots & pans','food preparation','utensils','cooking & baking','kitchen fixtures','kitchen storage','tableware','drinkware','cutlery','barware & drinks accessories','electricals','laundry & ironing','food & drink','decorations','nutrition supplements','sports equipment','luggage & suitcases','backpacks & holdalls','travel accessories','alcohol','chocolate & sweets','gift hampers','games & puzzles','baby & toddler toys','childrens toys','clothing & accessories','gift sets','home gifts','garden gifts','trees','lights','bedding','candles & fragrance','cards & calendars','home decor','wreaths & garlands','puddings chocolates & sweets','bbqs & accessories','outdoor tableware & serveware','garden furniture sets','garden seating','garden tables','sun loungers & swing seats','parasols & accessories','garden sheds & workshops','summerhouses & outbuildings','gazebos arbours & arches','garden storage','patio heaters fire pits & chimineas','outdoor wall & security lights','dining tables & chairs','portable & party lights','solar lights','decorative garden accessories','outdoor cushions','pots & planters','outdoor lanterns','gardening tools','outdoor toys & games','drink'),
                                           'HOME',
                                           IF (
                                                         LOWER(
@@ -192,7 +193,7 @@ SELECT
                                                                       eaov_pt_sim.value
                                                                )
                                                         ) in
-                                                        ('Baby','Boys Clothing','Girls Clothing','Baby Shoes','Boys Shoes','Girls Shoes','Games & Puzzles','Baby & Toddler Toys','Childrens Toys','Childrens Books','Baby Gifts','Buggies & Travel','Nursery Accessories'),
+                                                        ('baby','boys clothing','girls clothing','baby shoes','boys shoes','girls shoes','games & puzzles','baby & toddler toys','childrens toys','childrens books','baby gifts','buggies & travel','nursery accessories'),
                                                  'KIDS',
                                                  IF (
                                                                LOWER(
@@ -202,7 +203,7 @@ SELECT
                                                                              eaov_pt_sim.value
                                                                       )
                                                                ) in
-                                                               ('Bras','Briefs','Bodies','Slips','Nightwear','Shapewear','Suspenders','Socks & Tights','Swimwear & Beachwear'),
+                                                               ('bras','briefs','bodies','slips','nightwear','shapewear','suspenders','socks & tights','swimwear & beachwear'),
                                                         'LINGERIE',
                                                         IF (
                                                                       LOWER(
@@ -212,7 +213,7 @@ SELECT
                                                                                     eaov_pt_sim.value
                                                                              )
                                                                       ) in
-                                                                      ('Activewear','Blouses & Tops','Coats','Jeans','Dresses','Jackets','Jumpsuits','Knitwear','Leather','Loungewear & Onesies','Maternity','Shorts','Skirts','Sweatshirts & Fleeces','Shirts','Polo Shirts','Suits','Swimwear','Trousers','T-Shirts & Vests','Nightwear','Shorts','Underwear & Socks','Sweatshirts & Hoodies','Team Merchandise','T-Shirts','Track Pants','Vests','Ski Jackets','Ski Trousers','Sports Bras','Outerwear','Leggings','Base Layers'),
+                                                                      ('activewear','blouses & tops','coats','jeans','dresses','jackets','jumpsuits','knitwear','leather','loungewear & onesies','maternity','shorts','skirts','sweatshirts & fleeces','shirts','polo shirts','suits','swimwear','trousers','t-shirts & vests','nightwear','shorts','underwear & socks','sweatshirts & hoodies','team merchandise','t-shirts','track pants','vests','ski jackets','ski trousers','sports bras','outerwear','leggings','base layers'),
                                                                'RTW',
                                                                'OUTLET'
                                                         )
@@ -236,6 +237,7 @@ SELECT
        sfoi_con.tax_amount,
        sfoi_con.tax_percent,
        cped_price.value AS rrp,
+       ce.created_at AS reg_date,
        case
        when sfoa.postcode LIKE 'AB%' THEN 'Scotland'
        when sfoa.postcode LIKE 'AL%' THEN 'East England'
@@ -381,6 +383,12 @@ FROM
        left join {{ ref(
            'stg__sales_flat_order_address'
        ) }} sfoa on sfoa.entity_id = sfo.billing_address_id
+       left join {{ ref(
+           'stg__sales_flat_order_address'
+       ) }} sfoa_shipping on sfoa.entity_id = sfo.shipping_address_id
+        LEFT JOIN    {{ ref(
+           'stg__customer_entity'
+       ) }} ce ON ce.entity_id = sfo.customer_id
        LEFT JOIN {{ ref(
            'stg__sales_flat_order_item'
        ) }}
@@ -535,7 +543,13 @@ FROM
        ) }}
        cpe
        ON cpe.entity_id = cpsl.parent_id
-       LEFT JOIN {{ ref(
+       LEFT JOIN
+        {{ ref(
+           'stg__catalog_product_entity_varchar'
+       ) }} cpev_gender ON cpe.entity_id = cpev_gender.entity_id
+        AND cpev_gender.attribute_id = 180
+        AND cpev_gender.store_id = 0
+      LEFT JOIN {{ ref(
            'stg__catalog_product_entity_decimal'
        ) }}
        cped_price
@@ -558,4 +572,4 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(52)}}
+{{dbt_utils.group_by(54)}}
