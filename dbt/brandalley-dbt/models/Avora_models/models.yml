@@ -1010,7 +1010,6 @@ models:
 
   - name: OrderLinesNullParent
     description: ""
-    meta:
     columns:
       - name: order_id
         description: "Id of the order"
@@ -1268,7 +1267,6 @@ models:
 
   - name: OrderLinesWithParent
     description: ""
-    meta:
     columns:
       - name: increment_id
         description: "Id of the order"
