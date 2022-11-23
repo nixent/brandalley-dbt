@@ -53,11 +53,14 @@ SELECT
     END AS category,
     sfo.status,
     sfo.customer_id,
+    sfo.entity_id as MagentoID,
+    sfo.customer_email,
     sfo.increment_id as order_id,
     TIMESTAMP(sfo.created_at),
     sfoi.created_at as line_created_at,
     CONCAT(sfoa_b.firstname," ", sfoa_b.lastname) as customer_name, 
     sfoi.sku,
+    sfoi.name,
     sfoi.item_id,
     sfoi.qty_invoiced as qty, 
     IFNULL(qty_reserved_by_tc,0) as qty_reserved, 
@@ -78,7 +81,8 @@ SELECT
     sfoi.dispatch_date, 
     CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
     sfop.method, 
-    sfop.last_trans_id
+    sfop.last_trans_id,
+    sfoi.nego
 FROM
     {{ ref('stg__sales_flat_order') }}
     sfo
