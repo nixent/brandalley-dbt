@@ -1077,7 +1077,7 @@ models:
               hidden: false
               round: 0      
 
-      - name: qty_invoiced
+      - name: qty
         description: "Quantity invoiced, nullable"
         meta:
           dimension:
@@ -1129,7 +1129,7 @@ models:
               hidden: false
               round: 0      
 
-      - name: qty_reserved_by_tc
+      - name: qty_reserved
         description: "Quantity shipped, nullable"
         meta:
           dimension:
