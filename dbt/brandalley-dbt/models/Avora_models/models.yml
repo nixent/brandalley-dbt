@@ -1520,6 +1520,14 @@ models:
       - name: orderno
         description: "Order index placed by the client at Brandalley"
 
+      - name: cc_trans_id
+        description: "CC Transaction Id"
+
+      - name: additional_information
+        description: "Additional information"
+
+      - name: base_grand_total
+        description: "Base Grand Total"
 
   - name: products
     description: ""
