@@ -1256,7 +1256,7 @@ models:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
-      - name: delivery address
+      - name: delivery_address
         description: "Address of delivery"
 
       - name: method
