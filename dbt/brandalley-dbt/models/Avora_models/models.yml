@@ -1527,6 +1527,7 @@ models:
         description: "Additional information"
 
       - name: base_grand_total
+        data_type: <decimal>
         description: "Base Grand Total"
 
   - name: products
@@ -1794,6 +1795,7 @@ models:
         description: "Adjustment, nullable"
 
       - name: base_grand_total
+        data_type: <decimal>
         description: "Base grand total, nullable"
 
       - name: base_adjustment_positive
