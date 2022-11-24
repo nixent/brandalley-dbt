@@ -263,7 +263,7 @@ models:
         - join: stg__catalog_product_entity_varchar
           sql_on: ${stg__catalog_product_entity_varchar.entity_id} = ${stg__catalog_product_entity.entity_id}
         - join: stg__eav_attribute_option_value
-          sql_on: ${stg__eav_attribute_option_value.option_id} = ${stg__catalog_product_entity_varchar.value}
+          sql_on: cast(${stg__eav_attribute_option_value.option_id} as string) = ${stg__catalog_product_entity_varchar.value}
     description: ""
     columns:
       - name: entity_id
