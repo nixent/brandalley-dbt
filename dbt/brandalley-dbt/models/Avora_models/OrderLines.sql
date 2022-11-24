@@ -369,7 +369,7 @@ SELECT
        sfo.customer_email, -- Cat 1
        sfoa.address_type, -- Cat 1  
        cpn.date_comp_exported,
-       sfoi.created_at > cpn.date_comp_exported as cpn_date_flag,
+       sfoi_sim.created_at > cpn.date_comp_exported as cpn_date_flag,
        MAX(
               cpe.sku
        ) AS parent_sku,
