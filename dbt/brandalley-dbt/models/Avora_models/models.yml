@@ -977,6 +977,16 @@ models:
       - name: tax_percent
         description: "Tax percent, nullable"
 
+      - name: date_comp_exported
+        description: "Catalog product negotiation date comp exported"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+
+      - name: cpn_date_flag
+        description: "sfoi.created_at greater than cpn.date_comp_exported"
+
       - name: rrp
         description: ""
 
@@ -1527,6 +1537,7 @@ models:
         description: "Additional information"
 
       - name: base_grand_total
+        data_type: <decimal>
         description: "Base Grand Total"
 
   - name: products
@@ -1794,6 +1805,7 @@ models:
         description: "Adjustment, nullable"
 
       - name: base_grand_total
+        data_type: <decimal>
         description: "Base grand total, nullable"
 
       - name: base_adjustment_positive

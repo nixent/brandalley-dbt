@@ -262,6 +262,8 @@ models:
           sql_on: ${stg__catalog_product_entity_decimal.entity_id} = ${stg__catalog_product_entity.entity_id}
         - join: stg__catalog_product_entity_varchar
           sql_on: ${stg__catalog_product_entity_varchar.entity_id} = ${stg__catalog_product_entity.entity_id}
+        - join: stg__eav_attribute_option_value
+          sql_on: cast(${stg__eav_attribute_option_value.option_id} as string) = ${stg__catalog_product_entity_varchar.value}
     description: ""
     columns:
       - name: entity_id
@@ -2887,6 +2889,44 @@ models:
       - name: class_type
         data_type: <string>
         description: "Tax class type"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg__stock_prism_grn_item
+    description: "Stock Prism GRN item"
+    columns:
+      - name: id
+        data_type: <integer>
+        description: "Primary key"
+      - name: grn_id
+        data_type: <integer>
+        description: "GRN Id"
+      - name: grn_item_id
+        data_type: <integer>
+        description: "GRN item id"
+      - name: unique_reference
+        data_type: <string>
+        description: "Unique reference"
+      - name: in_sap
+        data_type: <integer>
+        description: "In SAP flag"
+      - name: sku
+        data_type: <string>
+        description: "SKU"
+      - name: delivery_number
+        data_type: <string>
+        description: "Delivery number"
+      - name: delivery_date
+        data_type: <date>
+        description: "Delivery date"
+      - name: stock_type_ss
+        data_type: <string>
+        description: "Stock type ss"
+      - name: stock_type_qc
+        data_type: <string>
+        description: "Stock type qc"
       - name: _streamkap_source_ts_ms
         description: ""
       - name: __deleted

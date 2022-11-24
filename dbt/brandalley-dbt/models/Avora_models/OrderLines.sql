@@ -367,7 +367,9 @@ SELECT
        ELSE 'Ireland'
        END as Region, -- Cat 1
        sfo.customer_email, -- Cat 1
-       sfoa.address_type, -- Cat 1       
+       sfoa.address_type, -- Cat 1  
+       cpn.date_comp_exported,
+       sfoi_sim.created_at > cpn.date_comp_exported as cpn_date_flag,
        MAX(
               cpe.sku
        ) AS parent_sku,
@@ -572,4 +574,4 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(54)}}
+{{dbt_utils.group_by(56)}}
