@@ -2835,6 +2835,38 @@ sources:
             data_type: <string>
             description: "Deleted flag, nullable"
 
+      - name: stock_prism_grn_item
+        description: "Stock Prism GRN item"
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "Primary key"
+          - name: grn_id
+            data_type: <integer>
+            description: "GRN Id, nullable"
+          - name: grn_item_id
+            data_type: <integer>
+            description: "GRN item Id"
+          - name: unique_reference
+            data_type: <string>
+            description: "Unique Reference"
+          - name: in_sap
+            data_type: <integer>
+            description: "In SAP"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: delivery_number
+            data_type: <string>
+            description: "Delivery number"
+          - name: delivery_date
+            data_type: <date>
+            description: "Delivery date"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
       - name: tax_class
         description: "Dim table to get tax class ID, name and type."
         columns:

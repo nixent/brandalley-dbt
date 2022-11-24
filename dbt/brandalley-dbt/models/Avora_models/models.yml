@@ -220,6 +220,42 @@ models:
       - name: department
         description: "Department, nullable"
 
+  - name: catalog_product_negotiation_sfoi_joined
+    description: ""
+    columns:
+      - name: negotiation_id
+        description: "Primary key"
+
+      - name: po_date
+        description: "PO date"
+
+      - name: sku
+        description: "SKU"
+
+      - name: order_id
+        description: "order_id"
+
+      - name: consignment_ordered
+        description: "Qty of consignment units ordered"
+
+      - name: created_at
+        description: "Create date"
+
+      - name: brand
+        description: "Brand"
+
+      - name: name
+        description: "Name of the product"
+
+      - name: reference_ref
+        description: "Reference"
+
+      - name: supplier_id
+        description: "Supplier id"
+
+      - name: SAP ref
+        description: "SAP ref"
+
   - name: categories
     description: ""
     columns:
@@ -972,6 +1008,332 @@ models:
               round: 0
               format: 'gbp'      
 
+  - name: OrderLinesNullParent
+    description: ""
+    columns:
+      - name: order_id
+        description: "Id of the order"
+        meta:
+          metrics:
+            total_order_count_nullParent:
+              type: count_distinct 
+
+      - name: category
+        description: "Category of the order"       
+
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+        meta:
+          metrics:
+            total_customers:
+              label: 'Total number of customers'
+              type: count_distinct
+              description: "Number of customers who ordered"
+              hidden: false
+              round: 0      
+
+      - name: status
+        description: "Status of the order"
+
+      - name: created_at
+        description: "Creation date of the order"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+
+      - name: line_created_at
+        description: "Creation date of the order line"
+
+      - name: customer_name
+        description: "Name of the customer"
+
+      - name: sku
+        description: "SKU ordered"
+
+      - name: qty_canceled
+        description: "Quantity canceled, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_canceled_metric:
+              label: 'Units quantity cancelled'
+              type: sum
+              description: "Number of units cancelled"
+              hidden: false
+              round: 0      
+
+      - name: qty_ordered
+        description: "Quantity ordered, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_ordered_metric:
+              label: 'Units quantity ordered'
+              type: sum
+              description: "Number of units ordered"
+              hidden: false
+              round: 0      
+
+      - name: qty
+        description: "Quantity invoiced, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_invoiced_metric:
+              label: 'Units quantity invoiced'
+              type: sum
+              description: "Number of units invoiced"
+              hidden: false
+              round: 0      
+
+      - name: qty_refunded
+        description: "Quantity refunded, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_refunded_metric:
+              label: 'Units quantity refunded'
+              type: sum
+              description: "Number of units refunded"
+              hidden: false
+              round: 0      
+
+      - name: qty_refunded_hold
+        description: "Quantity refunded on hold, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_refunded_hold_metric:
+              label: 'Units quantity refund on hold'
+              type: sum
+              description: "Number of units refund on hold"
+              hidden: false
+              round: 0      
+
+      - name: qty_shipped
+        description: "Quantity shipped, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_shipped_metric:
+              label: 'Units quantity shipped'
+              type: sum
+              description: "Number of units shipped"
+              hidden: false
+              round: 0      
+
+      - name: qty_reserved
+        description: "Quantity shipped, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_reserved_by_tc_metric:
+              label: 'Units quantity reserved by tc'
+              type: sum
+              description: "Number of units reserved by tc"
+              hidden: false
+              round: 0      
+
+      - name: qty_out_of_stock
+        description: "Quantity out of stock, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_out_of_stock_metric:
+              label: 'Units quantity out of stock'
+              type: sum
+              description: "Number of units out of stock"
+              hidden: false
+              round: 0      
+
+      - name: qty_backordered
+        description: "Quantity backordered, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_backordered_metric:
+              label: 'Units quantity backordered'
+              type: sum
+              description: "Number of units backordered"
+              hidden: false
+              round: 0      
+
+      - name: qty_warehouse_sent
+        description: "Quantity sent from warehouse, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_warehouse_sent_metric:
+              label: 'Units quantity sent from warehouse'
+              type: sum
+              description: "Units quantity sent from warehouse"
+              hidden: false
+              round: 0      
+
+      - name: qty_backorder_reconciliation
+        description: "Quantity backorder reconciliation, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_backorder_reconciliation_metric:
+              label: 'Units quantity backorder reconciliation'
+              type: sum
+              description: "Units quantity backorder reconciliation"
+              hidden: false
+              round: 0      
+
+      - name: qty_wh_b_sent
+        description: "Quantity warehouse b sent, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_wh_b_sent_metric:
+              label: 'Units quantity warehouse b sent'
+              type: sum
+              description: "Units quantity warehouse b sent"
+              hidden: false
+              round: 0      
+
+      - name: qty_reserved_by_wh_b
+        description: "Quantity reserved by warehouse b, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_reserved_by_wh_b_metric:
+              label: 'Units quantity reserved by warehouse b'
+              type: sum
+              description: "Units quantity reserved by warehouse b"
+              hidden: false
+              round: 0      
+
+      - name: qty_to_ignore
+        description: "Quantity to ignore, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_to_ignore_metric:
+              label: 'Units quantity to ignore'
+              type: sum
+              description: "Units quantity to ignore"
+              hidden: false
+              round: 0      
+
+      - name: qty_to_send
+        description: "Quantity to send, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_to_send_metric:
+              label: 'Units quantity to send'
+              type: sum
+              description: "Units quantity to send"
+              hidden: false
+              round: 0      
+
+      - name: price
+        description: "Price of the unit"
+
+      - name: dipatch_date
+        description: "Dispatch date"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+
+      - name: delivery_address
+        description: "Address of delivery"
+
+      - name: method
+        description: "Method"
+
+      - name: last_trans_id
+        description: "Last transaction id"
+
+  - name: OrderLinesWithParent
+    description: ""
+    columns:
+      - name: increment_id
+        description: "Id of the order"
+        meta:
+          metrics:
+            total_order_count_nullParent:
+              type: count_distinct 
+
+      - name: brand
+        description: "Brand of the line ordered"       
+
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+        meta:
+          metrics:
+            total_customers:
+              label: 'Total number of customers'
+              type: count_distinct
+              description: "Number of customers who ordered"
+              hidden: false
+              round: 0      
+
+      - name: subscriber_status
+        description: "Status of the newsletter subscribment"
+
+      - name: created_at
+        description: "Creation date of the order"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+
+      - name: product_type
+        description: "Type of product ordered"
+
+      - name: parent_item_id
+        description: "Id of the parent item"
+
+      - name: store_id
+        description: "Brand store id"
+
+      - name: total_gbp
+        description: "Total value of the order before vouchers"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_gbp_metric:
+              label: 'Total value of the order before vouchers'
+              type: sum
+              description: "Total value of the order before vouchers"
+              hidden: false
+              round: 0      
+
+      - name: total_gbp_after_vouchers
+        description: "Total value of the order after vouchers"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_gbp_after_vouchers_metric:
+              label: 'Total value of the order after vouchers'
+              type: sum
+              description: "Total value of the order after vouchers"
+              hidden: false
+              round: 0      
+
   - name: Orders
     description: ""
     columns:
@@ -1158,6 +1520,14 @@ models:
       - name: orderno
         description: "Order index placed by the client at Brandalley"
 
+      - name: cc_trans_id
+        description: "CC Transaction Id"
+
+      - name: additional_information
+        description: "Additional information"
+
+      - name: base_grand_total
+        description: "Base Grand Total"
 
   - name: products
     description: ""

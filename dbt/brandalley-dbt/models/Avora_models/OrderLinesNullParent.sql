@@ -53,11 +53,14 @@ SELECT
     END AS category,
     sfo.status,
     sfo.customer_id,
+    sfo.entity_id as MagentoID,
+    sfo.customer_email,
     sfo.increment_id as order_id,
-    sfo.created_at,
+    TIMESTAMP(sfo.created_at) as created_at,
     sfoi.created_at as line_created_at,
     CONCAT(sfoa_b.firstname," ", sfoa_b.lastname) as customer_name, 
     sfoi.sku,
+    sfoi.name,
     sfoi.item_id,
     sfoi.qty_invoiced as qty, 
     IFNULL(qty_reserved_by_tc,0) as qty_reserved, 
@@ -73,12 +76,13 @@ SELECT
     sfoi.qty_wh_b_sent, 
     sfoi.qty_reserved_by_wh_b,
     (sfoi.qty_refunded + sfoi.qty_refunded_hold + sfoi.qty_canceled) as qty_to_ignore,
-    (qty_ordered -  qty_warehouse_sent - qty_wh_b_sent - sfoi.qty_refunded - sfoi.qty_refunded_hold - sfoi.qty_canceled) as qty_to_send,
+    (qty_ordered - qty_warehouse_sent - qty_wh_b_sent - sfoi.qty_refunded - sfoi.qty_refunded_hold - sfoi.qty_canceled) as qty_to_send,
     sfoi.price,
     sfoi.dispatch_date, 
     CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
     sfop.method, 
-    sfop.last_trans_id
+    sfop.last_trans_id,
+    sfoi.nego
 FROM
     {{ ref('stg__sales_flat_order') }}
     sfo
