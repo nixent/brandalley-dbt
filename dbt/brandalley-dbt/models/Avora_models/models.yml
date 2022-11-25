@@ -1054,6 +1054,9 @@ models:
       - name: status
         description: "Status of the order"
 
+      - name: item_id
+        description: "Item ID"
+
       - name: created_at
         description: "Creation date of the order"
         meta:
