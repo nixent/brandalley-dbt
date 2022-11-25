@@ -82,7 +82,8 @@ SELECT
     CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
     sfop.method, 
     sfop.last_trans_id,
-    sfoi.nego
+    sfoi.nego,
+    (sfoi.qty_backorder_reconciliation > 0  or sfoi.qty_reserved_by_wh_b > 0) as boreco_or_reswhb
 FROM
     {{ ref('stg__sales_flat_order') }}
     sfo

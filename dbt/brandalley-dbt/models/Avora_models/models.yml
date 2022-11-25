@@ -1284,6 +1284,21 @@ models:
       - name: last_trans_id
         description: "Last transaction id"
 
+      - name: MagentoID
+        description: "Magento Id"
+
+      - name: customer_email
+        description: "Email of the customer"
+
+      - name: name
+        description: "Product name"
+
+      - name: nego
+        description: "Negotiation number"
+
+      - name: boreco_or_reswhb
+        description: "Flag indicating if qty_backorder_reconciliation > 0  or qty_reserved_by_wh_b > 0"
+
   - name: OrderLinesWithParent
     description: ""
     columns:
