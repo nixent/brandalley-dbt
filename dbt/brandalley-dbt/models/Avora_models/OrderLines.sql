@@ -372,6 +372,7 @@ SELECT
        sfoi_sim.created_at > cpn.date_comp_exported as cpn_date_flag,
        sfoi_sim.qty_backordered,
        cpn.sap_ref,
+       cpn.status as cpn_status,
        MAX(
               cpe.sku
        ) AS parent_sku,
@@ -576,4 +577,4 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(58)}}
+{{dbt_utils.group_by(59)}}
