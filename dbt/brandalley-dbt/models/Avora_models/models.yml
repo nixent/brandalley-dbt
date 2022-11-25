@@ -1005,6 +1005,9 @@ models:
       - name: sap_ref
         description: "SAP Reference number"       
 
+      - name: cpn_status
+        description: "catalog_product_negotiation status"       
+
       - name: TOTAL_GBP_after_vouchers
         meta:
           metrics:
