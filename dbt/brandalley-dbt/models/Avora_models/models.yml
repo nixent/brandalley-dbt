@@ -1005,6 +1005,9 @@ models:
       - name: sap_ref
         description: "SAP Reference number"       
 
+      - name: cpn_status
+        description: "catalog_product_negotiation status"       
+
       - name: TOTAL_GBP_after_vouchers
         meta:
           metrics:
@@ -1050,6 +1053,9 @@ models:
 
       - name: status
         description: "Status of the order"
+
+      - name: item_id
+        description: "Item ID"
 
       - name: created_at
         description: "Creation date of the order"
@@ -1280,6 +1286,21 @@ models:
 
       - name: last_trans_id
         description: "Last transaction id"
+
+      - name: MagentoID
+        description: "Magento Id"
+
+      - name: customer_email
+        description: "Email of the customer"
+
+      - name: name
+        description: "Product name"
+
+      - name: nego
+        description: "Negotiation number"
+
+      - name: boreco_or_reswhb
+        description: "Flag indicating if qty_backorder_reconciliation > 0  or qty_reserved_by_wh_b > 0"
 
   - name: OrderLinesWithParent
     description: ""
@@ -1538,6 +1559,12 @@ models:
 
       - name: cc_trans_id
         description: "CC Transaction Id"
+
+      - name: customer_firstname
+        description: "Customer first name"
+
+      - name: customer_lastname
+        description: "Customer last name"
 
       - name: additional_information
         description: "Additional information"

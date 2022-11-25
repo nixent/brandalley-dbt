@@ -55,7 +55,7 @@ SELECT
     sfo.customer_id,
     sfo.entity_id as MagentoID,
     sfo.customer_email,
-    sfo.increment_id as order_id,
+    cast(sfo.increment_id as integer) as order_id,
     TIMESTAMP(sfo.created_at) as created_at,
     sfoi.created_at as line_created_at,
     CONCAT(sfoa_b.firstname," ", sfoa_b.lastname) as customer_name, 
@@ -82,7 +82,8 @@ SELECT
     CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
     sfop.method, 
     sfop.last_trans_id,
-    sfoi.nego
+    sfoi.nego,
+    (sfoi.qty_backorder_reconciliation > 0  or sfoi.qty_reserved_by_wh_b > 0) as boreco_or_reswhb
 FROM
     {{ ref('stg__sales_flat_order') }}
     sfo
