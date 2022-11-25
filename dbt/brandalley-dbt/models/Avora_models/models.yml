@@ -999,6 +999,12 @@ models:
       - name: region
         description: "Region"       
 
+      - name: qty_backordered
+        description: "Quantity backordered"       
+
+      - name: sap_ref
+        description: "SAP Reference number"       
+
       - name: TOTAL_GBP_after_vouchers
         meta:
           metrics:
