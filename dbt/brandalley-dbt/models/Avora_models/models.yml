@@ -1542,10 +1542,10 @@ models:
       - name: cc_trans_id
         description: "CC Transaction Id"
 
-      - name: customer_first_name
+      - name: customer_firstname
         description: "Customer first name"
 
-      - name: customer_last_name
+      - name: customer_lastname
         description: "Customer last name"
 
       - name: additional_information
