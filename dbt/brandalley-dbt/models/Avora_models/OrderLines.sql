@@ -368,7 +368,7 @@ SELECT
        END as Region, -- Cat 1
        sfo.customer_email, -- Cat 1
        sfoa.address_type, -- Cat 1  
-       cpn.date_comp_exported,
+       CAST(cpn.date_comp_exported as timestamp) as date_comp_exported,
        sfoi_sim.created_at > cpn.date_comp_exported as cpn_date_flag,
        sfoi_sim.qty_backordered,
        cpn.sap_ref,
