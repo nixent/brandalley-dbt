@@ -267,15 +267,9 @@ models:
       - name: category_id
         data_type: <integer>
         description: "Primary key, Category id"
-        tests: 
-          - unique
-          - not_null
       - name: product_id
         data_type: <integer>
         description: "Primary key, Product id"
-        tests: 
-          - unique
-          - not_null
       - name: position
         data_type: <integer>
         description: "Position"
@@ -1059,21 +1053,12 @@ models:
       - name: value_id
         data_type: <integer>
         description: "Primary key"
-        tests:
-          - unique 
-          - not_null
       - name: option_id
         data_type: <integer>
         description: "Option id"
-        tests: 
-          - unique
-          - not_null
       - name: store_id
         data_type: <integer>
         description: "Store id"
-        tests: 
-          - unique
-          - not_null
       - name: value
         data_type: <integer>
         description: "Value, nullable"
