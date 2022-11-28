@@ -1282,7 +1282,7 @@ models:
               round: 0      
 
       - name: qty_backorder_not_shipped
-        description: "Quantity of backorders not shiooed, nullable"
+        description: "Quantity of backorders not shipped, nullable"
         meta:
           dimension:
             hidden: true
