@@ -1281,6 +1281,19 @@ models:
               hidden: false
               round: 0      
 
+      - name: qty_backorder_not_shipped
+        description: "Quantity of backorders not shiooed, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_backorder_not_shipped_metric:
+              label: 'Units quantity of backorders not shipped'
+              type: sum
+              description: "Units quantity of backorders not shipped"
+              hidden: false
+              round: 0      
+
       - name: price
         description: "Price of the unit"
 
