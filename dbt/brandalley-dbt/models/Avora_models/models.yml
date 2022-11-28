@@ -1268,10 +1268,23 @@ models:
               hidden: false
               round: 0      
 
+      - name: qty_orders_due
+        description: "Quantity to send, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_orders_due_metric:
+              label: 'Units quantity of orders due'
+              type: sum
+              description: "Units quantity of orders due"
+              hidden: false
+              round: 0      
+
       - name: price
         description: "Price of the unit"
 
-      - name: dipatch_date
+      - name: dispatch_date
         description: "Dispatch date"
         meta:
           dimension:
