@@ -77,6 +77,7 @@ SELECT
     sfoi.qty_reserved_by_wh_b,
     (sfoi.qty_refunded + sfoi.qty_refunded_hold + sfoi.qty_canceled) as qty_to_ignore,
     (qty_ordered - qty_warehouse_sent - qty_wh_b_sent - sfoi.qty_refunded - sfoi.qty_refunded_hold - sfoi.qty_canceled) as qty_to_send,
+    (qty_ordered - qty_shipped - sfoi.qty_refunded - sfoi.qty_refunded_hold - sfoi.qty_canceled) as qty_orders_due,
     sfoi.price,
     sfoi.dispatch_date, 
     CONCAT(sfoa.city," ", sfoa.postcode, " ", sfoa.street) as delivery_address,
