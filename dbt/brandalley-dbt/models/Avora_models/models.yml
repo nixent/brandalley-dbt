@@ -1271,7 +1271,7 @@ models:
       - name: price
         description: "Price of the unit"
 
-      - name: dipatch_date
+      - name: dispatch_date
         description: "Dispatch date"
         meta:
           dimension:
