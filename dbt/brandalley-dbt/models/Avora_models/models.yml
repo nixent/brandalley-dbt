@@ -1399,6 +1399,10 @@ models:
 
   - name: Orders
     description: ""
+    meta:
+      joins:
+        - join: shipments
+          sql_on: ${Orders.magentoid} = ${shipments.order_id}
     columns:
       - name: increment_id
         description: "Increment id, nullable"
