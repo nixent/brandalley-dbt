@@ -2141,6 +2141,10 @@ models:
 
       - name: created_at
         description: "Created date of the shipment, nullable"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: updated_at
         description: "Update date of the shipment, nullable"
