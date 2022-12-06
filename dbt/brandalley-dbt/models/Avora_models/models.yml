@@ -598,7 +598,9 @@ models:
         - join: shipment_items
           sql_on: ${OrderLines.sku} = ${shipment_items.sku}            
         - join: shipments
-          sql_on: ${OrderLines.order_id} = ${shipments.order_id}            
+          sql_on: ${OrderLines.order_id} = ${shipments.order_id}
+        - join: catalog_product_negotiation_item
+          sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
     columns:
       - name: unique_id
         description: ""
@@ -744,9 +746,9 @@ models:
             hidden: true
           metrics:
             product_cost_inc_vat_metric:
-              label: 'Cost of all units inc VAT'
+              label: 'Cost of 1 unit inc VAT'
               type: sum
-              description: "Cost inc VAT for the full line of the order"
+              description: "Cost inc VAT for 1 unit of the order"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -758,9 +760,9 @@ models:
             hidden: true
           metrics:
             line_product_cost_inc_vat_metric:
-              label: 'Cost per unit inc VAT'
+              label: 'Cost of all units inc VAT'
               type: sum
-              description: "Cost inc VAT for 1 unit of the item"
+              description: "Cost inc VAT for all units of the item"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -772,9 +774,9 @@ models:
             hidden: true
           metrics:
             product_cost_exc_vat_metric:
-              label: 'Cost of all units exc VAT'
+              label: 'Cost of 1 unit exc VAT'
               type: sum
-              description: "Cost exc VAT for the full line of the order"
+              description: "Cost exc VAT for 1 unit"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -786,9 +788,9 @@ models:
             hidden: true
           metrics:
             line_product_cost_exc_vat_metric:
-              label: 'Cost per unit exv VAT'
+              label: 'Cost of all units exv VAT'
               type: sum
-              description: "Cost inc ecv for 1 unit of the item"
+              description: "Cost exc VAT for the full line of the order"
               hidden: false
               round: 0
               format: 'gbp'      
