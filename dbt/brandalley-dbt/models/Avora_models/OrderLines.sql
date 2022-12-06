@@ -390,7 +390,7 @@ FROM
        ) }} sfoa on sfoa.entity_id = sfo.billing_address_id
        left join {{ ref(
            'stg__sales_flat_order_address'
-       ) }} sfoa_shipping on sfoa.entity_id = sfo.shipping_address_id
+       ) }} sfoa_shipping on sfoa_shipping.entity_id = sfo.shipping_address_id
         LEFT JOIN    {{ ref(
            'stg__customer_entity'
        ) }} ce ON ce.entity_id = sfo.customer_id
