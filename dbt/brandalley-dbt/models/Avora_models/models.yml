@@ -679,6 +679,9 @@ models:
     columns:
       - name: unique_id
         description: ""
+        tests:
+          - unique
+          - not_null 
         meta:
           dimension:
             hidden: true
@@ -1431,12 +1434,12 @@ models:
 
   - name: OrderLinesWithParent
     description: ""
-    tests:
-      - unique
-      - not_null
     columns:
       - name: increment_id
         description: "Id of the order"
+        tests:
+          - unique
+          - not_null
         meta:
           metrics:
             total_order_count_nullParent:
