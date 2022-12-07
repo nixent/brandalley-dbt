@@ -87,9 +87,15 @@ models:
     columns:
       - name: negotiation_item_id
         description: "Primary key"
+        meta:
+          dimension:
+            format: id
 
       - name: negotiation_id
         description: "Negotiation id"
+        meta:
+          dimension:
+            format: id
 
       - name: updated_at
         description: "Update time, nullable"
@@ -159,7 +165,10 @@ models:
     columns:
       - name: negotiation_id
         description: "Primary key"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: updated_at
         description: "Update time, nullable"
 
@@ -225,7 +234,10 @@ models:
     columns:
       - name: negotiation_id
         description: "Primary key"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: po_date
         description: "PO date"
 
@@ -234,7 +246,10 @@ models:
 
       - name: order_id
         description: "order_id"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: consignment_ordered
         description: "Qty of consignment units ordered"
 
@@ -252,7 +267,10 @@ models:
 
       - name: supplier_id
         description: "Supplier id"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: SAP ref
         description: "SAP ref"
 
@@ -261,13 +279,22 @@ models:
     columns:
       - name: u_unique_id
         description: ""
-
+        meta:
+          dimension:
+            format: id
+            
       - name: category_id
         description: ""
-
+        meta:
+          dimension:
+            format: id
+            
       - name: parent_category_id
         description: ""
-
+        meta:
+          dimension:
+            format: id
+            
       - name: category_name
         description: ""
 
@@ -291,10 +318,16 @@ models:
     columns:
       - name: product_id
         description: "Product id"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: category_id
         description: "Primary key"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: updated_at
         description: "Update time"
 
@@ -303,7 +336,10 @@ models:
     columns:
       - name: cst_id
         description: ""
-
+        meta:
+          dimension:
+            format: id
+            
       - name: record_data_source
         description: ""
 
@@ -376,7 +412,10 @@ models:
 
       - name: old_account_id
         description: ""
-
+        meta:
+          dimension:
+            format: id
+            
       - name: third_party
         description: ""
 
@@ -394,10 +433,16 @@ models:
     columns:
       - name: referer_id
         description: "Primary key"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: entity_id
         description: "Entity id"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: entity_type
         description: "Entity type"
 
@@ -439,13 +484,22 @@ models:
     columns:
       - name: item_id
         description: "Primary key"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: product_id
         description: "Product id"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: stock_id
         description: "Stock id"
-
+        meta:
+          dimension:
+            format: id
+            
       - name: qty
         description: "Quantity"
 
@@ -517,12 +571,21 @@ models:
     columns:
       - name: log_id
         description: "Primary key"
+        meta:
+          dimension:
+            format: id
 
       - name: visitor_id
         description: "Visitor id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: customer_id
         description: "Customer id"
+        meta:
+          dimension:
+            format: id
 
       - name: login_at
         description: "Login time"
@@ -532,6 +595,9 @@ models:
 
       - name: store_id
         description: "Store id"
+        meta:
+          dimension:
+            format: id
 
       - name: _streamkap_source_ts_ms
         description: ""
@@ -544,9 +610,15 @@ models:
     columns:
       - name: u_unique_id
         description: ""
+        meta:
+          dimension:
+            format: id
 
       - name: adminuserid
         description: ""
+        meta:
+          dimension:
+            format: id
 
       - name: ordernumber
         description: ""
@@ -559,6 +631,9 @@ models:
 
       - name: refund_type_id
         description: "Refund type id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: refund_status
         description: ""
@@ -598,7 +673,9 @@ models:
         - join: shipment_items
           sql_on: ${OrderLines.sku} = ${shipment_items.sku}            
         - join: shipments
-          sql_on: ${OrderLines.order_id} = ${shipments.order_id}            
+          sql_on: ${OrderLines.order_id} = ${shipments.order_id}
+        - join: catalog_product_negotiation_item
+          sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
     columns:
       - name: unique_id
         description: ""
@@ -626,6 +703,9 @@ models:
 
       - name: order_item_id
         description: "Order item id, foreign key"
+        meta:
+          dimension:
+            format: id
 
       - name: order_id
         description: "Id of the order, foreign key"
@@ -747,9 +827,9 @@ models:
             hidden: true
           metrics:
             product_cost_inc_vat_metric:
-              label: 'Cost of all units inc VAT'
+              label: 'Cost of 1 unit inc VAT'
               type: sum
-              description: "Cost inc VAT for the full line of the order"
+              description: "Cost inc VAT for 1 unit of the order"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -761,9 +841,9 @@ models:
             hidden: true
           metrics:
             line_product_cost_inc_vat_metric:
-              label: 'Cost per unit inc VAT'
+              label: 'Cost of all units inc VAT'
               type: sum
-              description: "Cost inc VAT for 1 unit of the item"
+              description: "Cost inc VAT for all units of the item"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -775,9 +855,9 @@ models:
             hidden: true
           metrics:
             product_cost_exc_vat_metric:
-              label: 'Cost of all units exc VAT'
+              label: 'Cost of 1 unit exc VAT'
               type: sum
-              description: "Cost exc VAT for the full line of the order"
+              description: "Cost exc VAT for 1 unit"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -789,9 +869,9 @@ models:
             hidden: true
           metrics:
             line_product_cost_exc_vat_metric:
-              label: 'Cost per unit exv VAT'
+              label: 'Cost of all units exv VAT'
               type: sum
-              description: "Cost inc ecv for 1 unit of the item"
+              description: "Cost exc VAT for the full line of the order"
               hidden: false
               round: 0
               format: 'gbp'      
@@ -939,6 +1019,9 @@ models:
 
       - name: supplier_id
         description: "Supplier id"
+        meta:
+          dimension:
+            format: id
 
       - name: supplier_name
         description: ""
@@ -951,6 +1034,9 @@ models:
 
       - name: nego
         description: "Negociation number"
+        meta:
+          dimension:
+            format: id
 
       - name: category_name
         description: ""
@@ -1062,6 +1148,9 @@ models:
 
       - name: item_id
         description: "Item ID"
+        meta:
+          dimension:
+            format: id
 
       - name: created_at
         description: "Creation date of the order"
@@ -1318,9 +1407,15 @@ models:
 
       - name: last_trans_id
         description: "Last transaction id"
+        meta:
+          dimension:
+            format: id
 
       - name: MagentoID
         description: "Magento Id"
+        meta:
+          dimension:
+            format: id
 
       - name: customer_email
         description: "Email of the customer"
@@ -1330,6 +1425,9 @@ models:
 
       - name: nego
         description: "Negotiation number"
+        meta:
+          dimension:
+            format: id
 
       - name: boreco_or_reswhb
         description: "Flag indicating if qty_backorder_reconciliation > 0  or qty_reserved_by_wh_b > 0"
@@ -1376,9 +1474,15 @@ models:
 
       - name: parent_item_id
         description: "Id of the parent item"
+        meta:
+          dimension:
+            format: id
 
       - name: store_id
         description: "Brand store id"
+        meta:
+          dimension:
+            format: id
 
       - name: total_gbp
         description: "Total value of the order before vouchers"
@@ -1408,12 +1512,17 @@ models:
 
   - name: Orders
     description: ""
-    tests:
-      - not_null
-      - unique
+    meta:
+      joins:
+        - join: shipments
+          sql_on: ${Orders.magentoid} = ${shipments.order_id}
+
     columns:
       - name: increment_id
         description: "Increment id, nullable"
+        tests:
+          - not_null
+          - unique
         meta:
           metrics:
             total_order_count:
@@ -1431,12 +1540,21 @@ models:
 
       - name: store_id
         description: "Store id, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: billing_address_id
         description: "Id of the billing address, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: shipping_address_id
         description: "Shipping address id, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: subtotal_incl_tax
         description: "Adjustment negative, nullable"
@@ -1597,6 +1715,9 @@ models:
 
       - name: cc_trans_id
         description: "CC Transaction Id"
+        meta:
+          dimension:
+            format: id
 
       - name: customer_firstname
         description: "Customer first name"
@@ -1616,15 +1737,24 @@ models:
     columns:
       - name: u_unique_id
         description: ""
+        meta:
+          dimension:
+            format: id
 
       - name: product_id
         description: "Product id"
+        meta:
+          dimension:
+            format: id
 
       - name: dt_cr
         description: ""
 
       - name: variant_product_id
         description: ""
+        meta:
+          dimension:
+            format: id
 
       - name: sku
         description: "SKU, nullable"
@@ -1634,6 +1764,9 @@ models:
 
       - name: sap_product_id
         description: ""
+        meta:
+          dimension:
+            format: id
 
       - name: name
         description: "Name"
@@ -1685,6 +1818,9 @@ models:
 
       - name: supplier_id
         description: "Primary key"
+        meta:
+          dimension:
+            format: id
 
       - name: supplier_name
         description: ""
@@ -1694,9 +1830,15 @@ models:
     columns:
       - name: entity_id
         description: "Primary Key"
+        meta:
+          dimension:
+            format: id
 
       - name: parent_id
         description: "Parent id"
+        meta:
+          dimension:
+            format: id
 
       - name: base_price
         description: "Base price, nullable"
@@ -1742,9 +1884,15 @@ models:
 
       - name: product_id
         description: "Product id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: order_item_id
         description: "Order item id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: additional_data
         description: "Additional data, nullable"
@@ -1814,9 +1962,15 @@ models:
     columns:
       - name: entity_id
         description: "Primary Key"
+        meta:
+          dimension:
+            format: id
 
       - name: store_id
         description: "Store id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: adjustment_positive
         description: "Ajustment positive, nullable"
@@ -1893,6 +2047,9 @@ models:
 
       - name: order_id
         description: "Order id"
+        meta:
+          dimension:
+            format: id
 
       - name: email_sent
         description: "Email sent, nullable"
@@ -1905,12 +2062,21 @@ models:
 
       - name: shipping_address_id
         description: "Shipping address id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: billing_address_id
         description: "Billing address id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: invoice_id
         description: "Invoice id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: store_currency_code
         description: "Store currency code, nullable"
@@ -1926,9 +2092,15 @@ models:
 
       - name: transaction_id
         description: "Transaction id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: increment_id
         description: "Increment id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: created_at
         description: "Created at, nullable"
@@ -2031,9 +2203,15 @@ models:
 
       - name: status_id
         description: "Status id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: admin_user_id
         description: "Admin user id, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: approve_at
         description: "Approve at, nullable"
@@ -2075,6 +2253,9 @@ models:
 
       - name: parent_id
         description: "Shipment item ID of the parent, foreign key"
+        meta:
+          dimension:
+            format: id
 
       - name: row_total
         description: "Value total of a specific item for this shipment, nullable"
@@ -2090,9 +2271,15 @@ models:
 
       - name: product_id
         description: "Id of the product to ship, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: order_item_id
         description: "Id of the order item to ship, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: additional_data
         description: "Additional information about the shipment item, nullable"
@@ -2108,6 +2295,9 @@ models:
 
       - name: sap_id
         description: "SAP shipment ID, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: _streamkap_source_ts_ms
         description: "Sync time from streamkap, nullable"
@@ -2120,9 +2310,15 @@ models:
     columns:
       - name: entity_id
         description: "Primary key"
+        meta:
+          dimension:
+            format: id
 
       - name: store_id
         description: "Id of the store, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: total_weight
         description: "Total weight, nullable"
@@ -2135,24 +2331,43 @@ models:
 
       - name: order_id
         description: "Order ID linked to the shipment, foreign key"
+        meta:
+          dimension:
+            format: id
 
       - name: customer_id
         description: "Customer id, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: shipping_address_id
         description: "Shipping address id, foreign key"
+        meta:
+          dimension:
+            format: id
 
       - name: billing_address_id
         description: "Billing address id, foreign key"
+        meta:
+          dimension:
+            format: id
 
       - name: shipment_status
         description: "Shipment status, nullable"
 
       - name: increment_id
         description: "Increment id"
+        meta:
+          dimension:
+            format: id
 
       - name: created_at
         description: "Created date of the shipment, nullable"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: updated_at
         description: "Update date of the shipment, nullable"
@@ -2165,9 +2380,15 @@ models:
     columns:
       - name: unique_id
         description: ""
+        meta:
+          dimension:
+            format: id
 
       - name: product_id
         description: "Id of the product to ship, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: sku
         description: "SKU of the product to ship, nullable"
@@ -2180,15 +2401,24 @@ models:
 
       - name: order_id
         description: "Order ID linked to the shipment, foreign key"
+        meta:
+          dimension:
+            format: id
 
       - name: customer_id
         description: "Customer id, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
 
       - name: postcode
         description: "Post code, nullable"
 
       - name: shipment_id
         description: ""
+        meta:
+          dimension:
+            format: id
 
       - name: order_date
         description: ""

@@ -373,6 +373,7 @@ SELECT
        sfoi_sim.qty_backordered,
        cpn.sap_ref,
        cpn.status as cpn_status,
+       eaov_product_age.value as product_age,
        MAX(
               cpe.sku
        ) AS parent_sku,
@@ -483,6 +484,19 @@ FROM
        LEFT JOIN {{ ref(
            'stg__catalog_product_entity_int'
        ) }}
+       cpei_product_age
+       ON cpei_product_age.entity_id = sfoi_con.product_id
+       AND cpei_product_age.attribute_id = 213
+       AND cpei_product_age.store_id = 0
+       LEFT JOIN {{ ref(
+           'stg__eav_attribute_option_value'
+       ) }}
+       eaov_product_age
+       ON eaov_product_age.option_id = cpei_product_age.value
+       AND eaov_product_age.store_id = 0
+       LEFT JOIN {{ ref(
+           'stg__catalog_product_entity_int'
+       ) }}
        cpei_size
        ON cpei_size.entity_id = sfoi_con.product_id
        AND cpei_size.attribute_id = 177
@@ -577,4 +591,4 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(59)}}
+{{dbt_utils.group_by(60)}}
