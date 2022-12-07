@@ -602,6 +602,9 @@ models:
     columns:
       - name: unique_id
         description: ""
+        tests:
+          - unique 
+          - not_null
         meta:
           dimension:
             hidden: true
@@ -1032,6 +1035,9 @@ models:
     columns:
       - name: order_id
         description: "Id of the order"
+        tests:
+          - not_null
+          - unique
         meta:
           metrics:
             total_order_count_nullParent:
@@ -1330,6 +1336,9 @@ models:
 
   - name: OrderLinesWithParent
     description: ""
+    tests:
+      - unique
+      - not_null
     columns:
       - name: increment_id
         description: "Id of the order"
@@ -1399,6 +1408,9 @@ models:
 
   - name: Orders
     description: ""
+    tests:
+      - not_null
+      - unique
     columns:
       - name: increment_id
         description: "Increment id, nullable"
