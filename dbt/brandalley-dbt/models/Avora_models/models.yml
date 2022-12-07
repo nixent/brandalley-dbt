@@ -679,9 +679,6 @@ models:
     columns:
       - name: unique_id
         description: ""
-        tests:
-          - unique 
-          - not_null
         meta:
           dimension:
             hidden: true
