@@ -10,7 +10,7 @@ SELECT
     billing_address_id,
     shipment_status,
     increment_id,
-    created_at,
+    cast(created_at as timestamp) as created_at,
     updated_at,
     packages
 FROM
