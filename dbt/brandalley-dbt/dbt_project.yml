@@ -33,6 +33,7 @@ models:
   brandalley_dbt:
     Avora_models:
       +schema: magento
+      +materialized: table 
       +tags:
         - "lightdash"
     CRM:
