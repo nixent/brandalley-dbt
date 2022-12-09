@@ -8,5 +8,7 @@ models:
         data_type: <integer>
         description: "primary key"
         tests:
-          - unique
-          - not_null
+          - not_null:
+              config:
+                severity: warn
+                warn_if: "> 100"
