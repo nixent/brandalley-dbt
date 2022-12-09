@@ -2540,6 +2540,7 @@ models:
 
       - name: count_orderlines
         description: "Count of number of lines in orderlines"
+        meta:
           metrics:
             count_orderlines_kpi_metric:
               label: 'Count of number of lines in orderlines'
@@ -2550,6 +2551,7 @@ models:
 
       - name: count_orders
         description: "Count of number of lines in orders"
+        meta:
           metrics:
             count_orders_kpi_metric:
               label: 'Count of number of lines in orders'
@@ -2560,6 +2562,7 @@ models:
 
       - name: count_customers
         description: "Count of number of lines in customers"
+        meta:
           metrics:
             count_customers_kpi_metric:
               label: 'Count of number of lines in customer'
@@ -2570,6 +2573,7 @@ models:
 
       - name: qty_canceled
         description: "Quantity of units canceled"
+        meta:
           metrics:
             base_grand_total_kpi_metric:
               label: 'Base grand total'
@@ -2580,6 +2584,7 @@ models:
 
       - name: qty_ordered
         description: "Quantity ordered"
+        meta:
           metrics:
             qty_ordered_kpi_metric:
               label: 'Quantity ordered'
@@ -2590,6 +2595,7 @@ models:
 
       - name: qty_invoiced
         description: "Quantity invoiced"
+        meta:
           metrics:
             qty_invoiced_kpi_metric:
               label: 'Quantity invoiced'
@@ -2600,6 +2606,7 @@ models:
 
       - name: qty_refunded
         description: "Quantity refunded"
+        meta:
           metrics:
             qty_refunded_kpi_metric:
               label: 'Quantity refunded'
@@ -2610,6 +2617,7 @@ models:
 
       - name: qty_shipped
         description: "Quantity shipped"
+        meta:
           metrics:
             qty_shipped_kpi_metric:
               label: 'Quantity shipped'
@@ -2620,6 +2628,7 @@ models:
 
       - name: consignment_quantity
         description: "Consignment quantity"
+        meta:
           metrics:
             consignment_quantity_kpi_metric:
               label: 'Consignment quantity'
@@ -2630,6 +2639,7 @@ models:
 
       - name: warehouse_qty
         description: "Warehouse quantity"
+        meta:
           metrics:
             warehouse_qty_kpi_metric:
               label: 'Warehouse quantity'
@@ -2640,6 +2650,7 @@ models:
 
       - name: product_cost_inc_vat
         description: "Product cost inc VAT"
+        meta:
           metrics:
             product_cost_inc_vat_kpi_metric:
               label: 'Product cost inc VAT'
@@ -2651,6 +2662,7 @@ models:
 
       - name: product_cost_exc_vat
         description: "Product cost exc VAT"
+        meta:
           metrics:
             product_cost_exc_vat_kpi_metric:
               label: 'Product cost exc VAT'
@@ -2662,6 +2674,7 @@ models:
 
       - name: flash_price_inc_vat
         description: "Flash price inc VAT"
+        meta:
           metrics:
             flash_price_inc_vat_kpi_metric:
               label: 'Flash price inc VAT'
@@ -2673,6 +2686,7 @@ models:
 
       - name: shipping_refunded
         description: "Shipping refunded"
+        meta:
           metrics:
             shipping_refunded_kpi_metric:
               label: 'Shipping refunded'
@@ -2684,6 +2698,7 @@ models:
 
       - name: tax_amount
         description: "Tax amount"
+        meta:
           metrics:
             tax_amount_kpi_metric:
               label: 'Tax amount'
@@ -2695,6 +2710,7 @@ models:
 
       - name: qty_backordered
         description: "Quantity backordered"
+        meta:
           metrics:
             qty_backordered_kpi_metric:
               label: 'Quantity backordered'
@@ -2705,6 +2721,7 @@ models:
 
       - name: TOTAL_GBP_after_vouchers
         description: "Total revenue after vouchers"
+        meta:
           metrics:
             TOTAL_GBP_after_vouchers_kpi_metric:
               label: 'Total revenue after vouchers'
@@ -2716,6 +2733,7 @@ models:
 
       - name: total_discount_amount
         description: "Total discount amount"
+        meta:
           metrics:
             total_discount_amount_kpi_metric:
               label: 'Total discount amount'
@@ -2727,6 +2745,7 @@ models:
 
       - name: shipping_discount_amount
         description: "Shipping discount"
+        meta:
           metrics:
             shipping_discount_amount_kpi_metric:
               label: 'Shipping discount'
@@ -2738,6 +2757,7 @@ models:
 
       - name: shipping_excl_tax
         description: "Shipping exc tax"
+        meta:
           metrics:
             shipping_excl_tax_kpi_metric:
               label: 'Shipping exc tax'
@@ -2749,6 +2769,7 @@ models:
 
       - name: shipping_incl_tax
         description: "Shipping inc tax"
+        meta:
           metrics:
             shipping_incl_tax_kpi_metric:
               label: 'Shipping inc tax'
@@ -2760,6 +2781,7 @@ models:
 
       - name: total_paid
         description: "Total paid"
+        meta:
           metrics:
             base_grand_total_kpi_metric:
               label: 'Base grand total'
@@ -2771,6 +2793,7 @@ models:
 
       - name: total_refunded
         description: "Total refunded"
+        meta:
           metrics:
             total_refunded_kpi_metric:
               label: 'Total refunded'
@@ -2782,6 +2805,7 @@ models:
 
       - name: total_due
         description: "Total due"
+        meta:
           metrics:
             total_due_kpi_metric:
               label: 'Total due'
@@ -2793,6 +2817,7 @@ models:
 
       - name: total_invoiced_cost
         description: "Total invoiced cost"
+        meta:
           metrics:
             total_invoiced_cost_kpi_metric:
               label: 'Total invoiced cost'
@@ -2804,6 +2829,7 @@ models:
 
       - name: base_grand_total
         description: "Base grand total"
+        meta:
           metrics:
             base_grand_total_kpi_metric:
               label: 'Base grand total'
@@ -2815,6 +2841,7 @@ models:
 
       - name: grand_total
         description: "Grand total"
+        meta:
           metrics:
             grand_total_kpi_metric:
               label: 'Grand Total'
