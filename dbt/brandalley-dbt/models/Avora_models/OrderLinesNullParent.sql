@@ -55,7 +55,7 @@ SELECT
     sfo.customer_id,
     sfo.entity_id as MagentoID,
     sfo.customer_email,
-    cast(sfo.increment_id as integer) as order_id,
+    sfo.increment_id as order_id,
     TIMESTAMP(sfo.created_at) as created_at,
     sfoi.created_at as line_created_at,
     CONCAT(sfoa_b.firstname," ", sfoa_b.lastname) as customer_name, 

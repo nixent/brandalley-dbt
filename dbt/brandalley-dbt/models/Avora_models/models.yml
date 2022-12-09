@@ -869,7 +869,7 @@ models:
             hidden: true
           metrics:
             line_product_cost_exc_vat_metric:
-              label: 'Cost of all units exv VAT'
+              label: 'Cost of all units exc VAT'
               type: sum
               description: "Cost exc VAT for the full line of the order"
               hidden: false
