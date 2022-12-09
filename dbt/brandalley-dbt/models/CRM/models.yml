@@ -1,0 +1,12 @@
+version: 2 #gui this stays 2, its not our version it's the types of .yml files that dbt supports
+
+models:
+  - name: new_customers
+    description: "new customers being pushed to emarsys"
+    columns:
+      - name: entity_id
+        data_type: <integer>
+        description: "primary key"
+        tests:
+          - unique
+          - not_null
