@@ -2575,7 +2575,7 @@ models:
         description: "Quantity of units canceled"
         meta:
           metrics:
-            base_grand_total_kpi_metric:
+            qty_canceled_kpi_metric:
               label: 'Base grand total'
               type: sum
               description: "Base grand total"
