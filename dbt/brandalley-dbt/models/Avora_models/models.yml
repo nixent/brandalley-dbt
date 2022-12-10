@@ -680,8 +680,11 @@ models:
       - name: unique_id
         description: ""
         tests:
-          - unique
-          - not_null 
+          - not_null:
+              config:
+                severity: warn
+                warn_if: "> 100"
+
         meta:
           dimension:
             hidden: true
@@ -1122,8 +1125,11 @@ models:
       - name: order_id
         description: "Id of the order"
         tests:
-          - not_null
-          - unique
+          - not_null:
+              config: 
+                severity: warn
+                warn_if: ">100"
+  
         meta:
           metrics:
             total_order_count_nullParent:
@@ -1438,8 +1444,10 @@ models:
       - name: increment_id
         description: "Id of the order"
         tests:
-          - unique
-          - not_null
+          - not_null:
+              config:
+                severity: warn
+                warn_if: ">100"
         meta:
           metrics:
             total_order_count_nullParent:
@@ -1521,8 +1529,10 @@ models:
       - name: increment_id
         description: "Increment id, nullable"
         tests:
-          - not_null
-          - unique
+          - not_null:
+              config:
+                severity: warn
+                warn_if: ">100"
         meta:
           metrics:
             total_order_count:
