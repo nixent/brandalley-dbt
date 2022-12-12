@@ -2893,3 +2893,14 @@ models:
               description: "New members"
               hidden: false
               round: 0
+
+      - name: count_customers_orders
+        description: "Count of customers from the orders table"
+        meta:
+          metrics:
+            count_customers_orders_kpi_metric:
+              label: 'Count of customers from the orders table'
+              type: sum
+              description: "Count of customers from the orders table"
+              hidden: false
+              round: 0
