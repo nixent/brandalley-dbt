@@ -60,6 +60,6 @@ null as flash_price_inc_vat, null as flash_price_exc_vat, null as shipping_refun
 null as qty_backordered, null as TOTAL_GBP_after_vouchers, null as total_discount_amount,
 null as shipping_discount_amount, null as shipping_excl_tax, null as shipping_incl_tax, null as total_paid, null as total_refunded,
 null as total_due, null as total_invoiced_cost, null as base_grand_total, null as grand_total, null as new_orders, null as repeat_orders,
-if(achica_user is null and achica_user != 2, count(distinct cst_id), 0) as new_members
+if(achica_user is null OR achica_user != 2, count(distinct cst_id), 0) as new_members
 from {{ ref('customers') }}
 group by DATE(dt_cr), cst_id, email, achica_user, DATE(achica_migration_date)
