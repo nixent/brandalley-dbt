@@ -4,7 +4,8 @@ cast(null as string) as coupon_rule_name, cast(null as string) as coupon_code, c
 cast(null as string) as shipping_method, customer_id, cast(null as integer) as orderno, 
 customer_email as email,
 cast(null as integer) as achica_user, cast(null as date) as achica_migration_date,
-count(distinct order_item_id) count_orderlines, count(distinct order_id) count_orders, null as count_customers,
+count(distinct order_item_id) count_orderlines, null as count_orders, null as count_customers,
+null as count_customers_orders,
 sum(qty_canceled) as qty_canceled, sum(qty_ordered) as qty_ordered, sum(qty_invoiced) as qty_invoiced
 , sum(qty_refunded) as qty_refunded, sum(qty_shipped) as qty_shipped, sum(consignment_qty) as consignment_qty, 
 sum(warehouse_qty) as warehouse_qty, sum(product_cost_inc_vat) as product_cost_inc_vat, sum(product_cost_exc_vat) as product_cost_exc_vat, 
@@ -27,7 +28,8 @@ cast(null as string) as supplier_id, cast(null as string) as supplier_name, cast
 cast(null as string) as gender, cast(null as string) as size, cast(null as integer) as nego, cast(null as string) as category_name, 
 cast(null as string) as department_type, status as order_status, cast(null as string) as region, cast(null as string) as reference, increment_id as order_number, coupon_rule_name, coupon_code, method, shipping_method, customer_id, orderno, email,
 cast(null as integer) as achica_user, cast(null as date) as achica_migration_date,
-cast(null as integer) as count_orderlines, cast(null as integer) as count_orders, cast(null as integer) as count_customers,
+cast(null as integer) as count_orderlines, count(distinct increment_id) as count_orders, cast(null as integer) as count_customers,
+count(distinct customer_id) as count_customers_orders,
 cast(null as integer) as qty_canceled, cast(null as integer) as qty_ordered, cast(null as integer) as qty_invoiced, 
 cast(null as integer) as qty_refunded, cast(null as integer) as qty_shipped, cast(null as integer) as consignment_qty, 
 cast(null as integer) as warehouse_qty, cast(null as decimal) as product_cost_inc_vat, cast(null as decimal) as product_cost_exc_vat, 
@@ -54,12 +56,13 @@ null as coupon_rule_name, null as coupon_code, null as method, null as shipping_
 null as orderno, email,
 achica_user, DATE(achica_migration_date) as achica_migration_date,
 null as count_orderlines, null as count_orders, count(distinct cst_id) count_customers,
+null as count_customers_orders,
 null as qty_canceled, null as qty_ordered, null as qty_invoiced, null as qty_refunded, null as qty_shipped, 
 null as consignment_qty, null as warehouse_qty, null as product_cost_inc_vat, null as product_cost_exc_vat, 
 null as flash_price_inc_vat, null as flash_price_exc_vat, null as shipping_refunded, null as tax_amount, 
 null as qty_backordered, null as TOTAL_GBP_after_vouchers, null as total_discount_amount,
 null as shipping_discount_amount, null as shipping_excl_tax, null as shipping_incl_tax, null as total_paid, null as total_refunded,
 null as total_due, null as total_invoiced_cost, null as base_grand_total, null as grand_total, null as new_orders, null as repeat_orders,
-if(achica_user is null and achica_user != 2, count(distinct cst_id), 0) as new_members
+if(achica_user is null OR achica_user != 2, count(distinct cst_id), 0) as new_members
 from {{ ref('customers') }}
 group by DATE(dt_cr), cst_id, email, achica_user, DATE(achica_migration_date)
