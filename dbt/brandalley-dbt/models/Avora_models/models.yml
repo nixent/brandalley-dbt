@@ -2860,3 +2860,36 @@ models:
               hidden: false
               round: 0
               format: 'gbp'      
+
+      - name: new_orders
+        description: "New orders"
+        meta:
+          metrics:
+            new_orders_kpi_metric:
+              label: 'New orders'
+              type: sum
+              description: "New orders"
+              hidden: false
+              round: 0   
+
+      - name: repeat_orders
+        description: "Repeat orders"
+        meta:
+          metrics:
+            repeat_orders_kpi_metric:
+              label: 'Repeat orders'
+              type: sum
+              description: "Repeat orders"
+              hidden: false
+              round: 0
+
+      - name: new_members
+        description: "New members"
+        meta:
+          metrics:
+            new_members_kpi_metric:
+              label: 'New members'
+              type: sum
+              description: "New members"
+              hidden: false
+              round: 0

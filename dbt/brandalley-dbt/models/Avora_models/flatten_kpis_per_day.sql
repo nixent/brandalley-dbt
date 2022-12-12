@@ -37,7 +37,7 @@ sum(total_discount_amount) as total_discount_amount,
 sum(shipping_discount_amount) as shipping_discount_amount, sum(shipping_excl_tax) as shipping_excl_tax, 
 sum(shipping_incl_tax) as shipping_incl_tax, sum(total_paid) as total_paid, sum(total_refunded) as total_refunded,
 sum(total_due) as total_due, sum(total_invoiced_cost) as total_invoiced_cost, sum(base_grand_total) as base_grand_total,
-sum(grand_total) as grand_total, if(orderno=1, count(distinct order_id), 0) as new_orders, 
+sum(grand_total) as grand_total, if(orderno=1, count(distinct magentoID), 0) as new_orders, 
 if(orderno>1, count(distinct order_id), 0) as repeat_orders,
 null as new_members
 from {{ ref('Orders') }}
