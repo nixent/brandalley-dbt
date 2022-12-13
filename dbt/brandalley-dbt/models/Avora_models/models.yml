@@ -2441,6 +2441,10 @@ models:
 
   - name: flatten_kpis_per_day
     description: ""
+    meta:
+      joins:
+        - join: customers_record_data_sources
+          sql_on: ${flatten_kpis_per_day.customer_id} = ${customers_record_data_sources.cst_id}
     columns:
       - name: order_number
         description: "Id of the order"
