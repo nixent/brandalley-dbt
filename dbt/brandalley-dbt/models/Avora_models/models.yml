@@ -339,6 +339,7 @@ models:
         meta:
           dimension:
             format: id
+          metrics:
             new_members_customers_record:
               label: 'New Members from customers_record_data_source'
               type: count_distinct
