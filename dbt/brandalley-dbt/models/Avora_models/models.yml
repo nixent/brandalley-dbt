@@ -339,6 +339,11 @@ models:
         meta:
           dimension:
             format: id
+            new_members_customers_record:
+              label: 'New Members from customers_record_data_source'
+              type: count_distinct
+              description: "New Members from customers_record_data_source"
+              hidden: false    
             
       - name: record_data_source
         description: ""
@@ -2906,5 +2911,27 @@ models:
               label: 'Count of customers from the orders table'
               type: sum
               description: "Count of customers from the orders table"
+              hidden: false
+              round: 0
+
+      - name: new_orders_total_paid
+        description: "New orders total paid"
+        meta:
+          metrics:
+            new_orders_total_paid_kpi_metric:
+              label: 'New orders total paid'
+              type: sum
+              description: "Total paid from new customers"
+              hidden: false
+              round: 0   
+
+      - name: repeat_orders_total_paid
+        description: "Repeat orders total paid"
+        meta:
+          metrics:
+            repeat_orders_total_paid_kpi_metric:
+              label: 'Repeat orders total paid'
+              type: sum
+              description: "Total paid from Repeat orders"
               hidden: false
               round: 0

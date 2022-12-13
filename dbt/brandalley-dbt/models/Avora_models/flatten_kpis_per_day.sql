@@ -15,7 +15,8 @@ sum(TOTAL_GBP_after_vouchers) as TOTAL_GBP_after_vouchers, cast(null as integer)
 cast(null as integer) as shipping_discount_amount, cast(null as integer) as shipping_excl_tax, cast(null as integer) as shipping_incl_tax, 
 cast(null as integer) as total_paid, cast(null as integer) as total_refunded, cast(null as integer) as total_due, 
 cast(null as integer) as total_invoiced_cost, cast(null as integer) as base_grand_total, null as grand_total,
-null as new_orders, null as repeat_orders, null as new_members
+null as new_orders, null as repeat_orders, null as new_orders_total_paid, null as repeat_orders_total_paid, 
+null as new_members
 from {{ ref('OrderLines') }}
 group by DATE(created_at), sku, name, category_path, product_type, brand, supplier_id, supplier_name,
 colour, gender, size, nego, category_name, department_type, order_status, region, reference, order_number,
@@ -40,7 +41,8 @@ sum(shipping_discount_amount) as shipping_discount_amount, sum(shipping_excl_tax
 sum(shipping_incl_tax) as shipping_incl_tax, sum(total_paid) as total_paid, sum(total_refunded) as total_refunded,
 sum(total_due) as total_due, sum(total_invoiced_cost) as total_invoiced_cost, sum(base_grand_total) as base_grand_total,
 sum(grand_total) as grand_total, if(orderno=1, count(distinct magentoID), 0) as new_orders, 
-if(orderno>1, count(distinct magentoID), 0) as repeat_orders,
+if(orderno>1, count(distinct magentoID), 0) as repeat_orders, if(orderno=1, sum(total_paid), 0) as new_orders_total_paid, 
+if(orderno>1, sum(total_paid)), 0) as repeat_orders_total_paid,
 null as new_members
 from {{ ref('Orders') }}
 group by DATE(created_at), status, increment_id, coupon_rule_name, coupon_code, method, shipping_method, customer_id, 
@@ -63,6 +65,7 @@ null as flash_price_inc_vat, null as flash_price_exc_vat, null as shipping_refun
 null as qty_backordered, null as TOTAL_GBP_after_vouchers, null as total_discount_amount,
 null as shipping_discount_amount, null as shipping_excl_tax, null as shipping_incl_tax, null as total_paid, null as total_refunded,
 null as total_due, null as total_invoiced_cost, null as base_grand_total, null as grand_total, null as new_orders, null as repeat_orders,
+null as new_orders_total_paid, null as repeat_orders_total_paid,
 if(achica_user is null OR achica_user != 2, count(distinct cst_id), 0) as new_members
 from {{ ref('customers') }}
 group by DATE(dt_cr), cst_id, email, achica_user, DATE(achica_migration_date)
