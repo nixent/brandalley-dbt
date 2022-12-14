@@ -2555,7 +2555,7 @@ models:
       - name: achica_user
         description: "Flag achica user"
 
-      - name: achica_migration
+      - name: achica_migration_date
         description: "Achica migration date"
 
       - name: count_orderlines
