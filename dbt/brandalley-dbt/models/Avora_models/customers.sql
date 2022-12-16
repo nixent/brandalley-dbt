@@ -13,7 +13,7 @@ SELECT
        ca_s_30.value shipping_postcode,
        ca_s_28.value s_region,
        ca_s_27.value s_country,
-       ce.created_at AS dt_cr,
+       safe_cast(ce.created_at as TIMESTAMP) AS dt_cr,
        CASE
               ns.subscriber_status
               WHEN 1 THEN 'Opted'
