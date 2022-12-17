@@ -676,6 +676,8 @@ models:
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
+        - join: customers
+          sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
     columns:
       - name: unique_id
         description: ""
@@ -819,6 +821,14 @@ models:
 
       - name: order_placed_date
         description: ""
+        meta: 
+          dimension:
+            date_difference_between_months:
+              label: 'No of months since cohort start'
+              type: number
+              description: 'No of months since cohort start'
+              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${customers.created_at} AS DATETIME), MONTH )  "
+              group_label: 
 
       - name: dispatch_due_date
         description: ""
@@ -1440,6 +1450,10 @@ models:
 
   - name: OrderLinesWithParent
     description: ""
+    meta:
+      joins:
+        - join: stg__customer_entity
+          sq_on: ${OrderLinesWithParent.store_id} = ${stg__customer_entity.store_id}
     columns:
       - name: increment_id
         description: "Id of the order"

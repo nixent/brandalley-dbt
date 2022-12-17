@@ -47,7 +47,7 @@ group by DATE(created_at), status, increment_id, coupon_rule_name, coupon_code, 
 orderno, email
 
 UNION ALL
-select 'Customers' as entity, DATE(dt_cr) as date, cast(null as string) as sku, cast(null as string) as product_name, 
+select 'Customers' as entity, DATE(created_at) as date, cast(null as string) as sku, cast(null as string) as product_name, 
 cast(null as string) as category_path, cast(null as string) as product_type, cast(null as string) as brand, 
 cast(null as string) as supplier_id, cast(null as string) as supplier_name, cast(null as string) as colour, 
 cast(null as string) as gender, cast(null as string) as size, cast(null as integer) as nego, cast(null as string) as category_name, 
@@ -65,4 +65,4 @@ null as shipping_discount_amount, null as shipping_excl_tax, null as shipping_in
 null as total_due, null as total_invoiced_cost, null as base_grand_total, null as grand_total, null as new_orders, null as repeat_orders,
 if(achica_user is null OR achica_user != 2, count(distinct cst_id), 0) as new_members
 from {{ ref('customers') }}
-group by DATE(dt_cr), cst_id, email, achica_user, DATE(achica_migration_date)
+group by DATE(created_at), cst_id, email, achica_user, DATE(achica_migration_date)
