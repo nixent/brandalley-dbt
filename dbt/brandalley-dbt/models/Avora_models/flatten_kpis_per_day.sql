@@ -65,4 +65,4 @@ null as shipping_discount_amount, null as shipping_excl_tax, null as shipping_in
 null as total_due, null as total_invoiced_cost, null as base_grand_total, null as grand_total, null as new_orders, null as repeat_orders,
 if(achica_user is null OR achica_user != 2, count(distinct cst_id), 0) as new_members
 from {{ ref('customers') }}
-group by DATE(dt_cr), cst_id, email, achica_user, DATE(achica_migration_date)
+group by DATE(created_at), cst_id, email, achica_user, DATE(achica_migration_date)
