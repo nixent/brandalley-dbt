@@ -1127,7 +1127,20 @@ models:
               sql: "${TOTAL_GBP_after_vouchers}-${tax_amount}"
               hidden: false
               round: 0
-              format: 'gbp'      
+              format: 'gbp'   
+            average_order_value:
+              label: 'average order value (with VAT after discount)'   
+              type: 
+              description: 'average order value (including VAT after discount) '
+              sql: " ${total_revenue} / COUNT (${order_id}) "
+              hidden: false
+              round: 0
+              format: 'gbp'
+            average_order_value_exc_VAT:
+              label: ' average order value (excluding VAT after discount) '
+              type:
+              description: 'average order value (excluding VAT after discount)'
+              sql: " ${total_revenue_exc_vat} / COUNT(${order_id}) "
 
   - name: OrderLinesNullParent
     description: ""
