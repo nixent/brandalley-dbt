@@ -710,7 +710,7 @@ models:
               type: count_distinct
               description: "Number of customers who ordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: order_item_id
         description: "Order item id, foreign key"
@@ -745,7 +745,7 @@ models:
               type: sum
               description: "Number of units cancelled"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_ordered
         description: "Quantity ordered, nullable"
@@ -758,7 +758,7 @@ models:
               type: sum
               description: "Number of units ordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
@@ -771,7 +771,7 @@ models:
               type: sum
               description: "Number of units invoiced"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_refunded
         description: "Quantity refunded, nullable"
@@ -784,7 +784,7 @@ models:
               type: sum
               description: "Number of units refunded"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_shipped
         description: "Quantity shipped, nullable"
@@ -797,7 +797,7 @@ models:
               type: sum
               description: "Number of units shipped"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: consignment_qty
         description: ""
@@ -810,7 +810,7 @@ models:
               type: sum
               description: "Number of consignment units ordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: warehouse_qty
         description: ""
@@ -823,7 +823,7 @@ models:
               type: sum
               description: "Number of warehouse units ordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: order_placed_date
         description: ""
@@ -850,7 +850,7 @@ models:
               type: sum
               description: "Cost inc VAT for 1 unit of the order"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: line_product_cost_inc_vat
@@ -864,7 +864,7 @@ models:
               type: sum
               description: "Cost inc VAT for all units of the item"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: product_cost_exc_vat
@@ -878,7 +878,7 @@ models:
               type: sum
               description: "Cost exc VAT for 1 unit"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: line_product_cost_exc_vat
@@ -892,7 +892,7 @@ models:
               type: sum
               description: "Cost exc VAT for the full line of the order"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: flash_price_inc_vat
@@ -906,7 +906,7 @@ models:
               type: sum
               description: "Flash price inc VAT for the full line of the order"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: line_flash_price_inc_vat
@@ -920,7 +920,7 @@ models:
               type: sum
               description: "Flash price inc VAT for 1 unit of the item"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: flash_price_exc_vat
@@ -934,7 +934,7 @@ models:
               type: sum
               description: "Flash price exc VAT for the full line of the order"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: line_flash_price_exc_vat
@@ -948,7 +948,7 @@ models:
               type: sum
               description: "Flash price exc VAT for 1 unit of the item"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: line_discount_amount
@@ -962,7 +962,7 @@ models:
               type: sum
               description: "Amount of discount granted inc VAT"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: margin_inc_discount_percentage
@@ -976,7 +976,7 @@ models:
               type: sum
               description: "Percentage of the margin after the discount is applied"
               hidden: false
-              round: 0
+              round: 2
               format: 'percent'
 
       - name: margin_inc_discount_value
@@ -990,7 +990,7 @@ models:
               type: sum
               description: "Value of the margin after the discount is applied"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: margin_exc_discount_percentage
@@ -1004,7 +1004,7 @@ models:
               type: sum
               description: "Percentage of the margin before the discount is applied"
               hidden: false
-              round: 0
+              round: 2
               format: 'percent'      
 
       - name: margin_exc_discount_value
@@ -1018,7 +1018,7 @@ models:
               type: sum
               description: "Value of the margin before the discount is applied"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: line_total_refunded
@@ -1124,7 +1124,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in GBP after taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
             total_revenue_exc_vat:
               label: 'Total revenue GBP exc VAT (after vouchers)'
@@ -1132,13 +1132,14 @@ models:
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
               sql: "${TOTAL_GBP_after_vouchers}-${tax_amount}"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'   
             average_order_value:
               label: ' average order value (excluding VAT after discount) '
-              type:
+              type: sum
               description: 'average order value (excluding VAT after discount)'
               sql: " (${TOTAL_GBP_after_vouchers}-${tax_amount}) / COUNT(${order_id}) "
+              format: 'gbp'   
 
   - name: OrderLinesNullParent
     description: ""
@@ -1168,7 +1169,7 @@ models:
               type: count_distinct
               description: "Number of customers who ordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: status
         description: "Status of the order"
@@ -1206,7 +1207,7 @@ models:
               type: sum
               description: "Number of units cancelled"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_ordered
         description: "Quantity ordered, nullable"
@@ -1219,7 +1220,7 @@ models:
               type: sum
               description: "Number of units ordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty
         description: "Quantity invoiced, nullable"
@@ -1232,7 +1233,7 @@ models:
               type: sum
               description: "Number of units invoiced"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_refunded
         description: "Quantity refunded, nullable"
@@ -1245,7 +1246,7 @@ models:
               type: sum
               description: "Number of units refunded"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_refunded_hold
         description: "Quantity refunded on hold, nullable"
@@ -1258,7 +1259,7 @@ models:
               type: sum
               description: "Number of units refund on hold"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_shipped
         description: "Quantity shipped, nullable"
@@ -1271,7 +1272,7 @@ models:
               type: sum
               description: "Number of units shipped"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_reserved
         description: "Quantity shipped, nullable"
@@ -1284,7 +1285,7 @@ models:
               type: sum
               description: "Number of units reserved by tc"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_out_of_stock
         description: "Quantity out of stock, nullable"
@@ -1297,7 +1298,7 @@ models:
               type: sum
               description: "Number of units out of stock"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_backordered
         description: "Quantity backordered, nullable"
@@ -1310,7 +1311,7 @@ models:
               type: sum
               description: "Number of units backordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_warehouse_sent
         description: "Quantity sent from warehouse, nullable"
@@ -1323,7 +1324,7 @@ models:
               type: sum
               description: "Units quantity sent from warehouse"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_backorder_reconciliation
         description: "Quantity backorder reconciliation, nullable"
@@ -1336,7 +1337,7 @@ models:
               type: sum
               description: "Units quantity backorder reconciliation"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_wh_b_sent
         description: "Quantity warehouse b sent, nullable"
@@ -1349,7 +1350,7 @@ models:
               type: sum
               description: "Units quantity warehouse b sent"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_reserved_by_wh_b
         description: "Quantity reserved by warehouse b, nullable"
@@ -1362,7 +1363,7 @@ models:
               type: sum
               description: "Units quantity reserved by warehouse b"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_to_ignore
         description: "Quantity to ignore, nullable"
@@ -1375,7 +1376,7 @@ models:
               type: sum
               description: "Units quantity to ignore"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_to_send
         description: "Quantity to send, nullable"
@@ -1388,7 +1389,7 @@ models:
               type: sum
               description: "Units quantity to send"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_orders_due
         description: "Quantity to send, nullable"
@@ -1401,7 +1402,7 @@ models:
               type: sum
               description: "Units quantity of orders due"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: qty_backorder_not_shipped
         description: "Quantity of backorders not shipped, nullable"
@@ -1414,7 +1415,7 @@ models:
               type: sum
               description: "Units quantity of backorders not shipped"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: price
         description: "Price of the unit"
@@ -1490,7 +1491,7 @@ models:
               type: count_distinct
               description: "Number of customers who ordered"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: subscriber_status
         description: "Status of the newsletter subscribment"
@@ -1528,7 +1529,7 @@ models:
               type: sum
               description: "Total value of the order before vouchers"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: total_gbp_after_vouchers
         description: "Total value of the order after vouchers"
@@ -1541,7 +1542,7 @@ models:
               type: sum
               description: "Total value of the order after vouchers"
               hidden: false
-              round: 0      
+              round: 2      
 
   - name: Orders
     description: ""
@@ -1565,7 +1566,7 @@ models:
               type: count_distinct
               description: "Number of orders"
               hidden: false
-              round: 0      
+              round: 2      
 
       - name: magentoid
         description: ""
@@ -1614,7 +1615,7 @@ models:
               type: sum
               description: "Order's total tax amount"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: total_qty_ordered
@@ -1631,7 +1632,7 @@ models:
               type: sum
               description: "Shipping exc Tax"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: shipping_incl_tax
@@ -1645,7 +1646,7 @@ models:
               type: sum
               description: "Shipping inc Tax"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
             shipping_incl_tax_per_qty_metric:
               label: 'Shipping inc Tax per unit'
@@ -1653,7 +1654,7 @@ models:
               description: "Shipping inc Tax per unit"
               sql: "${shipping_incl_tax}/${total_qty_ordered}"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: grand_total
@@ -1667,7 +1668,7 @@ models:
               type: sum
               description: "Order grand total"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: total_paid
@@ -2586,7 +2587,7 @@ models:
               type: sum
               description: "Count of number of lines in orderlines"
               hidden: false
-              round: 0     
+              round: 2     
 
       - name: count_orders
         description: "Count of number of lines in orders"
@@ -2597,7 +2598,7 @@ models:
               type: sum
               description: "Count of number of lines in orders"
               hidden: false
-              round: 0    
+              round: 2    
 
       - name: count_customers
         description: "Count of number of lines in customers"
@@ -2608,7 +2609,7 @@ models:
               type: sum
               description: "Count of number of lines in customer"
               hidden: false
-              round: 0  
+              round: 2  
 
       - name: qty_canceled
         description: "Quantity of units canceled"
@@ -2619,7 +2620,7 @@ models:
               type: sum
               description: "Quantity of units canceled"
               hidden: false
-              round: 0  
+              round: 2  
 
       - name: qty_ordered
         description: "Quantity ordered"
@@ -2630,7 +2631,7 @@ models:
               type: sum
               description: "Quantity ordered"
               hidden: false
-              round: 0   
+              round: 2   
 
       - name: qty_invoiced
         description: "Quantity invoiced"
@@ -2641,7 +2642,7 @@ models:
               type: sum
               description: "Quantity invoiced"
               hidden: false
-              round: 0  
+              round: 2  
 
       - name: qty_refunded
         description: "Quantity refunded"
@@ -2652,7 +2653,7 @@ models:
               type: sum
               description: "Quantity refunded"
               hidden: false
-              round: 0   
+              round: 2   
 
       - name: qty_shipped
         description: "Quantity shipped"
@@ -2663,7 +2664,7 @@ models:
               type: sum
               description: "Quantity shipped"
               hidden: false
-              round: 0  
+              round: 2  
 
       - name: consignment_quantity
         description: "Consignment quantity"
@@ -2674,7 +2675,7 @@ models:
               type: sum
               description: "Consignment quantity"
               hidden: false
-              round: 0  
+              round: 2  
 
       - name: warehouse_qty
         description: "Warehouse quantity"
@@ -2685,7 +2686,7 @@ models:
               type: sum
               description: "Warehouse quantity"
               hidden: false
-              round: 0    
+              round: 2    
 
       - name: product_cost_inc_vat
         description: "Product cost inc VAT"
@@ -2696,7 +2697,7 @@ models:
               type: sum
               description: "Product cost inc VAT"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: product_cost_exc_vat
@@ -2708,7 +2709,7 @@ models:
               type: sum
               description: "Product cost exc VAT"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: flash_price_inc_vat
@@ -2720,7 +2721,7 @@ models:
               type: sum
               description: "Flash price inc VAT"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: shipping_refunded
@@ -2732,7 +2733,7 @@ models:
               type: sum
               description: "Shipping refunded"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: tax_amount
@@ -2744,7 +2745,7 @@ models:
               type: sum
               description: "Tax amount"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: qty_backordered
@@ -2756,7 +2757,7 @@ models:
               type: sum
               description: "Quantity backordered"
               hidden: false
-              round: 0    
+              round: 2    
 
       - name: TOTAL_GBP_after_vouchers
         description: "Total revenue after vouchers"
@@ -2767,7 +2768,7 @@ models:
               type: sum
               description: "Total revenue after vouchers"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: total_discount_amount
@@ -2779,7 +2780,7 @@ models:
               type: sum
               description: "Total discount amount"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: shipping_discount_amount
@@ -2791,7 +2792,7 @@ models:
               type: sum
               description: "Shipping discount"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: shipping_excl_tax
@@ -2803,7 +2804,7 @@ models:
               type: sum
               description: "Shipping exc tax"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: shipping_incl_tax
@@ -2815,7 +2816,7 @@ models:
               type: sum
               description: "Shipping inc tax"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: total_paid
@@ -2827,7 +2828,7 @@ models:
               type: sum
               description: "Base grand total"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: total_refunded
@@ -2839,7 +2840,7 @@ models:
               type: sum
               description: "Total refunded"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: total_due
@@ -2851,7 +2852,7 @@ models:
               type: sum
               description: "Total due"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: total_invoiced_cost
@@ -2863,7 +2864,7 @@ models:
               type: sum
               description: "Total invoiced cost"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: base_grand_total
@@ -2875,7 +2876,7 @@ models:
               type: sum
               description: "Base grand total"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: grand_total
@@ -2887,7 +2888,7 @@ models:
               type: sum
               description: "Grand total"
               hidden: false
-              round: 0
+              round: 2
               format: 'gbp'      
 
       - name: new_orders
@@ -2899,7 +2900,7 @@ models:
               type: sum
               description: "New orders"
               hidden: false
-              round: 0   
+              round: 2   
 
       - name: repeat_orders
         description: "Repeat orders"
@@ -2910,7 +2911,7 @@ models:
               type: sum
               description: "Repeat orders"
               hidden: false
-              round: 0
+              round: 2
 
       - name: new_members
         description: "New members"
@@ -2921,7 +2922,7 @@ models:
               type: sum
               description: "New members"
               hidden: false
-              round: 0
+              round: 2
 
       - name: count_customers_orders
         description: "Count of customers from the orders table"
@@ -2932,7 +2933,7 @@ models:
               type: sum
               description: "Count of customers from the orders table"
               hidden: false
-              round: 0
+              round: 2
 
       - name: new_orders_total_paid
         description: "New orders total paid"
@@ -2943,7 +2944,7 @@ models:
               type: sum
               description: "Total paid from new customers"
               hidden: false
-              round: 0   
+              round: 2   
 
       - name: repeat_orders_total_paid
         description: "Repeat orders total paid"
@@ -2954,4 +2955,4 @@ models:
               type: sum
               description: "Total paid from Repeat orders"
               hidden: false
-              round: 0
+              round: 2
