@@ -823,6 +823,8 @@ models:
         description: ""
         meta: 
           dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
             date_difference_between_months:
               label: 'No of months since cohort start'
               type: number
@@ -1130,7 +1132,7 @@ models:
               format: 'gbp'   
             average_order_value:
               label: ' average order value (excluding VAT after discount) '
-              type: average 
+              type: number 
               description: 'average order value (excluding VAT after discount)'
               sql: " ${total_revenue_exc_vat} / COUNT(${order_id}) "
 
