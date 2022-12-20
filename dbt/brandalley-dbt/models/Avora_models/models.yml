@@ -1138,7 +1138,7 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type:
               description: 'average order value (excluding VAT after discount)'
-              sql: " ${total_revenue_exc_vat} / COUNT(${order_id}) "
+              sql: " (${TOTAL_GBP_after_vouchers}-${tax_amount}) / COUNT(${order_id}) "
 
   - name: OrderLinesNullParent
     description: ""
@@ -1464,7 +1464,7 @@ models:
     meta:
       joins:
         - join: stg__customer_entity
-          sq_on: ${OrderLinesWithParent.store_id} = ${stg__customer_entity.store_id}
+          sql_on: ${OrderLinesWithParent.store_id} = ${stg__customer_entity.store_id}
     columns:
       - name: increment_id
         description: "Id of the order"
