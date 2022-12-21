@@ -1134,7 +1134,7 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type: number 
               description: 'average order value (excluding VAT after discount)'
-              sql: " ${total_revenue_exc_vat} / COUNT(${order_id}) "
+              sql: " ${total_revenue_exc_vat} / (${total_order_count}) "
 
   - name: OrderLinesNullParent
     description: ""
