@@ -827,7 +827,7 @@ models:
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
             date_difference_between_months:
               label: 'No of months since cohort start'
-              type: number
+              type: max
               description: 'No of months since cohort start'
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${customers.dt_cr} AS DATETIME), MONTH )  "
               group_label: 
@@ -1134,7 +1134,7 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type: number 
               description: 'average order value (excluding VAT after discount)'
-              sql: " ${total_revenue_exc_vat} / (${total_order_count}) "
+              sql: " ${total_revenue_exc_vat} / ${total_order_count} "
 
   - name: OrderLinesNullParent
     description: ""
