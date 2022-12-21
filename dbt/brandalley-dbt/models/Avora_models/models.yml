@@ -825,9 +825,10 @@ models:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+          metric:
             date_difference_between_months:
               label: 'No of months since cohort start'
-              type: max
+              type: number
               description: 'No of months since cohort start'
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${customers.dt_cr} AS DATETIME), MONTH )  "
               group_label: 
