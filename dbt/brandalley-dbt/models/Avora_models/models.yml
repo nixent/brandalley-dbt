@@ -827,6 +827,8 @@ models:
         description: ""
         meta: 
           dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
             date_difference_between_months:
               label: 'No of months since cohort start'
               type: number
