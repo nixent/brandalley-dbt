@@ -73,5 +73,7 @@ null as new_orders_total_paid, null as repeat_orders_total_paid,
 if(achica_user is null OR achica_user != 2, count(distinct c.cst_id), 0) as new_members
 from {{ ref('customers') }} c left outer join
 {{ ref('customers_record_data_source') }} crds on c.cst_id=crds.cst_id
-group by DATE(dt_cr), c.cst_id, email, achica_user, DATE(achica_migration_date)
+group by if(crds.date is not null, DATE(crds.date), 
+    if(achica_user is null OR achica_user != 2, DATE(achica_migration_date), DATE(dt_cr))
+), c.cst_id, email, achica_user, DATE(achica_migration_date)
 
