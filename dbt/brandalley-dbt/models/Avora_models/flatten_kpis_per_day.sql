@@ -58,7 +58,7 @@ cast(null as string) as category_path, cast(null as string) as product_type, cas
 cast(null as string) as supplier_id, cast(null as string) as supplier_name, cast(null as string) as colour, 
 cast(null as string) as gender, cast(null as string) as size, cast(null as integer) as nego, cast(null as string) as category_name, 
 cast(null as string) as department_type, cast(null as string) as order_status, cast(null as string) as region, cast(null as string) as reference, cast(null as string) as order_number,
-null as coupon_rule_name, null as coupon_code, null as method, null as shipping_method, cst_id as customer_id, 
+null as coupon_rule_name, null as coupon_code, null as method, null as shipping_method, c.cst_id as customer_id, 
 null as orderno, email,
 achica_user, DATE(achica_migration_date) as achica_migration_date,
 null as count_orderlines, null as count_orders, count(distinct c.cst_id) count_customers,
