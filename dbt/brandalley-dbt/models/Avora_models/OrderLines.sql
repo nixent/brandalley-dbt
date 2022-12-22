@@ -13,7 +13,7 @@ SELECT
                      IFNULL (CAST(eaov_size_child.option_id AS STRING), '_')
               )
        ) AS unique_id,
-       DATETIME_DIFF( safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), cust.dt_cr  ,  MONTH ) as months_since_cohort_start,
+       DATETIME_DIFF( safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), cust.dt_cr, MONTH ) as months_since_cohort_start,
        sfo.increment_id AS order_number,
        sfo.customer_id AS customer_id,
        sfoi_sim.item_id AS order_item_id,
