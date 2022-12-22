@@ -1143,9 +1143,11 @@ models:
               format: 'gbp'   
             average_order_value:
               label: ' average order value (excluding VAT after discount) '
-              type: sum
+              type: number
               description: 'average order value (excluding VAT after discount)'
-              sql: " ${total_revenue} - ${total_tax_amount}  /  ${total_orders_count} "
+              sql: " ${total_revenue}/${total_orders_count}"
+              round: 2
+              format: 'gbp'   
 
   - name: OrderLinesNullParent
     description: ""
