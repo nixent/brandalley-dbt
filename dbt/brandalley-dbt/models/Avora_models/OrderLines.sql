@@ -13,6 +13,7 @@ SELECT
                      IFNULL (CAST(eaov_size_child.option_id AS STRING), '_')
               )
        ) AS unique_id,
+       DATETIME_DIFF( cust.dt_cr, safe_cast(safe_cast(sfo.created_at as timestamp) as datetime) ,  MONTH ) as months_since_cohort_start,
        sfo.increment_id AS order_number,
        sfo.customer_id AS customer_id,
        sfoi_sim.item_id AS order_item_id,
@@ -414,6 +415,7 @@ SELECT
               cpr.reference
        ) AS REFERENCE,
        sum((sfoi_sim.qty_invoiced * sfoi_con.base_price_incl_tax) - sfoi_con.discount_amount) as TOTAL_GBP_after_vouchers -- Cat 1
+       
 FROM
        {{ ref(
            'stg__sales_flat_order'
@@ -618,10 +620,15 @@ FROM
        ) }}
        cpr
        ON cpe_ref.entity_id = cpr.entity_id
+       LEFT JOIN {{ ref(
+           'customers'
+       )}}
+       cust 
+       ON cust.cst_id = sfo.entity_id
 WHERE
        sfo.increment_id NOT LIKE '%-%'
        AND (
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(60)}}
+{{dbt_utils.group_by(61)}}

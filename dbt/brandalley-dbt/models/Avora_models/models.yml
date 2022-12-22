@@ -695,7 +695,13 @@ models:
         meta:
           dimension:
             hidden: true
-
+      
+      - name: months_since_cohort_start
+        description: " no of months since cohort began"
+        meta:
+          dimension:
+            type: number
+            
 
       - name: order_number
         description: ""       
