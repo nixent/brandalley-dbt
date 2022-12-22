@@ -722,7 +722,7 @@ models:
         meta:
           metrics:
             total_order_count:
-              type: count_distinct 
+              type: count_distinct
 
       - name: sku
         description: "SKU, nullable"
@@ -1144,7 +1144,7 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type: sum
               description: 'average order value (excluding VAT after discount)'
-              sql: "( ${total_revenue} - ${total_tax_amount} ) / ${total_order_count} "
+              sql: "( ${total_revenue} - ${total_tax_amount} ) / COUNT( DISTINCT ${order_id} ) "
 
   - name: OrderLinesNullParent
     description: ""
