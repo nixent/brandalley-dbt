@@ -408,7 +408,7 @@ models:
         description: ""
         meta:
           dimension:
-            sql: " CAST(${customers.dt_cr} AS DATETIME) "
+            sql: " CAST(${TABLE}.dt_cr AS DATETIME) "
 
       - name: subscription
         description: ""
