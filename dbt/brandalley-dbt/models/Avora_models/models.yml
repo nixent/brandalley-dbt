@@ -1078,6 +1078,10 @@ models:
 
       - name: tax_amount
         description: "Tax amount, nullable"
+        meta:
+          metrics:
+            total_tax_amount:
+              type: sum
 
       - name: tax_percent
         description: "Tax percent, nullable"
@@ -1135,7 +1139,7 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type: number 
               description: 'average order value (excluding VAT after discount)'
-              sql: "( ${total_revenue} - ${tax_amount} ) / ${total_order_count} "
+              sql: "( ${total_revenue} - ${total_tax_amount} ) / ${total_order_count} "
 
   - name: OrderLinesNullParent
     description: ""
