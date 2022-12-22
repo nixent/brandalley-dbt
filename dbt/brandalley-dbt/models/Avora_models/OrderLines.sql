@@ -152,7 +152,7 @@ SELECT
                                    )
                             )
                             IN
-                            ('handbags','purses','belts','umbrellas','hats','face coverings','fashion hair accessories','gloves','scarves','jewellery','tech accessories','sunglasses','travel','watches','cosmetics cases','bags','cufflinks & tie clips','ties & pocket squares','wallets','tech','accessories','ski accessories'),
+                            ('handbags','purses','belts','umbrellas','hats','face coverings','fashion hair accessories','gloves','scarves','jewellery','tech accessories','sunglasses','travel','watches','cosmetics cases','bags','cufflinks & tie clips','ties & pocket squares','wallets','tech','accessories','ski accessories','luggage & suitcases','backpacks & holdalls','travel accessories'),
                      'ACCESSORIES',
                      IF (
                                     LOWER(
@@ -162,7 +162,7 @@ SELECT
                                                  eaov_pt_sim.value
                                           )
                                     )
-                                   in ('moisturisers','cleansers','anti-ageing','toners','masks','eye care','organic & natural','serums','gift sets','treatments','mens skincare','bath & shower','hand & foot care','bronzers & sun care','body sculpting & toning','mens bath & body','toothbrushes','teeth whitening','face','eyes','lips','makeup sets','nails','makeup removers','womens perfume','mens cologne','shampoo & conditioners','hair oils & treatments','hair styling & finishing','hair accessories','personal care electricals','mens hair care'),                            
+                                   in ('moisturisers','cleansers','anti-ageing','toners','masks','eye care','organic & natural','serums','gift sets','treatments','mens skincare','bath & shower','hand & foot care','bronzers & sun care','body sculpting & toning','mens bath & body','toothbrushes','teeth whitening','face','eyes','lips','makeup sets','nails','makeup removers','womens perfume','mens cologne','shampoo & conditioners','hair oils & treatments','hair styling & finishing','hair accessories','personal care electricals','mens hair care','Skincare','Bodycare','Haircare','candles & home fragrance','candles & fragrance','gift sets'),                            
                             'BEAUTY',
                             IF (
                                           LOWER(
@@ -183,8 +183,8 @@ SELECT
                                                                eaov_pt_sim.value
                                                         )
                                                  ) in
-                                                 ('duvets & pillows','towels','bathroom accessories','bathroom fixtures','bed accessories','bed linen','mattress toppers & protectors','bath mats','beach towels','beds','mattresses','bookcases shelving units & shelves','sofas & armchairs','coffee tables','side tables','console tables','media cabinets','cabinets & sideboards','bar chairs & stools','cots & beds','seats tables & loungers','barbeque accessories','garden tools','outdoor garden lighting','planters pots & ornaments','lighting','candles & home fragrance','curtains & blinds','cushions & throws','rugs','wall art','mirrors','decorative accessories','stationery','storage','pet care','pots & pans','food preparation','utensils','cooking & baking','kitchen fixtures','kitchen storage','tableware','drinkware','cutlery','barware & drinks accessories','electricals','laundry & ironing','food & drink','decorations','nutrition supplements','sports equipment','luggage & suitcases','backpacks & holdalls','travel accessories','alcohol','chocolate & sweets','gift hampers','games & puzzles','baby & toddler toys','childrens toys','clothing & accessories','gift sets','home gifts','garden gifts','trees','lights','bedding','candles & fragrance','cards & calendars','home decor','wreaths & garlands','puddings chocolates & sweets','bbqs & accessories','outdoor tableware & serveware','garden furniture sets','garden seating','garden tables','sun loungers & swing seats','parasols & accessories','garden sheds & workshops','summerhouses & outbuildings','gazebos arbours & arches','garden storage','patio heaters fire pits & chimineas','outdoor wall & security lights','dining tables & chairs','portable & party lights','solar lights','decorative garden accessories','outdoor cushions','pots & planters','outdoor lanterns','gardening tools','outdoor toys & games','drink'),
-                                          'HOME',
+                                                 ('barbeque accessories','pots & pans','food preparation','utensils','cooking & baking','kitchen fixtures','kitchen storage','tableware','drinkware','cutlery','barware & drinks accessories','electricals','laundry & ironing','food & drink','nutrition supplements','alcohol','chocolate & sweets','gift hampers','puddings chocolates & sweets','bbqs & accessories','outdoor tableware & serveware','drink','Dining','Cookware/bakeware'),
+                                          'K&D',
                                           IF (
                                                         LOWER(
                                                                IF (
@@ -193,8 +193,8 @@ SELECT
                                                                       eaov_pt_sim.value
                                                                )
                                                         ) in
-                                                        ('baby','boys clothing','girls clothing','baby shoes','boys shoes','girls shoes','games & puzzles','baby & toddler toys','childrens toys','childrens books','baby gifts','buggies & travel','nursery accessories'),
-                                                 'KIDS',
+                                                        ('garden tools','outdoor garden lighting','planters pots & ornaments','curtains & blinds','cushions & throws','rugs','wall art','decorative accessories','stationery','storage','pet care','decorations','home gifts','garden gifts','trees','lights','cards & calendars','home decor','wreaths & garlands','outdoor wall & security lights','portable & party lights','solar lights','decorative garden accessories','outdoor cushions','pots & planters','outdoor lanterns','gardening tools','Cards & Crackers','Christmas Decorations','Gifts','Interior'),
+                                                 'DEC HOME',
                                                  IF (
                                                                LOWER(
                                                                       IF (
@@ -203,8 +203,8 @@ SELECT
                                                                              eaov_pt_sim.value
                                                                       )
                                                                ) in
-                                                               ('bras','briefs','bodies','slips','nightwear','shapewear','suspenders','socks & tights','swimwear & beachwear'),
-                                                        'LINGERIE',
+                                                               ('beds','mattresses','bookcases shelving units & shelves','sofas & armchairs','coffee tables','side tables','console tables','media cabinets','cabinets & sideboards','bar chairs & stools','cots & beds','seats tables & loungers','lighting','mirrors','garden furniture sets','garden seating','garden tables','sun loungers & swing seats','parasols & accessories','garden sheds & workshops','summerhouses & outbuildings','gazebos arbours & arches','garden storage','patio heaters fire pits & chimineas','dining tables & chairs'),
+                                                        'FURN',
                                                         IF (
                                                                       LOWER(
                                                                              IF (
@@ -213,9 +213,42 @@ SELECT
                                                                                     eaov_pt_sim.value
                                                                              )
                                                                       ) in
-                                                                      ('activewear','blouses & tops','coats','jeans','dresses','jackets','jumpsuits','knitwear','leather','loungewear & onesies','maternity','shorts','skirts','sweatshirts & fleeces','shirts','polo shirts','suits','swimwear','trousers','t-shirts & vests','nightwear','shorts','underwear & socks','sweatshirts & hoodies','team merchandise','t-shirts','track pants','vests','ski jackets','ski trousers','sports bras','outerwear','leggings','base layers'),
-                                                               'RTW',
-                                                               'OUTLET'
+                                                                      ('duvets & pillows','towels','bathroom accessories','bathroom fixtures','bed accessories','bed linen','mattress toppers & protectors','bath mats','beach towels','bedding','Bath Robes','Blankets','Bedroom','Bathroom'),
+                                                               'B&B',
+                                                               IF (
+                                                                            LOWER(
+                                                                                    IF (
+                                                                                            eaov_pt_con.value IS NOT NULL,
+                                                                                            eaov_pt_con.value,
+                                                                                            eaov_pt_sim.value
+                                                                                    )
+                                                                            ) in
+                                                                            ('baby','boys clothing','girls clothing','baby shoes','boys shoes','girls shoes','games & puzzles','baby & toddler toys','childrens toys','childrens books','baby gifts','buggies & travel','nursery accessories','Wooden Toys','Babygrows','Sleepsuits','Outdoor Play','Soft Toys','Boys','Girls Footwear','games & puzzles','baby & toddler toys','childrens toys','outdoor toys & games'),
+                                                                    'KIDS',
+                                                                        IF (
+                                                                                LOWER(
+                                                                                        IF (
+                                                                                                eaov_pt_con.value IS NOT NULL,
+                                                                                                eaov_pt_con.value,
+                                                                                                eaov_pt_sim.value
+                                                                                        )
+                                                                                ) in
+                                                                                ('bras','briefs','bodies','slips','nightwear','shapewear','suspenders','socks & tights','swimwear & beachwear','Underwear','Suspender belts','swimwear','nightwear','underwear & socks','activewear','sports bras','leggings','Sportswear/sports accessories','sports equipment'),
+                                                                            'LINGERIE',
+                                                                                IF (
+                                                                                        LOWER(
+                                                                                                IF (
+                                                                                                        eaov_pt_con.value IS NOT NULL,
+                                                                                                        eaov_pt_con.value,
+                                                                                                        eaov_pt_sim.value
+                                                                                                )
+                                                                                        ) in
+                                                                                        ('blouses & tops','coats','jeans','dresses','jackets','jumpsuits','knitwear','leather','loungewear & onesies','maternity','shorts','skirts','sweatshirts & fleeces','shirts','polo shirts','suits','trousers','t-shirts & vests','shorts','sweatshirts & hoodies','team merchandise','t-shirts','track pants','vests','ski jackets','ski trousers','outerwear','base layers','Tops/T-Shirts','Camisoles/tops','Blouses/shirts','Loungewear'),
+                                                                                    'RTW',
+                                                                                    'OUTLET'
+                                                                                )
+                                                                        )
+                                                               )
                                                         )
                                                  )
                                           )
