@@ -828,7 +828,7 @@ models:
               label: 'No of months since cohort start'
               type: max 
               description: 'No of months since cohort start'
-              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${customers.dt_cr} AS DATETIME), MONTH )  "
+              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  CAST(${customers.dt_cr} AS DATETIME), MONTH )  "
               group_label: 
 
       - name: dispatch_due_date
