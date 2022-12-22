@@ -412,6 +412,7 @@ models:
 
       - name: dt_cr
         description: ""
+          
 
       - name: subscription
         description: ""
@@ -829,11 +830,12 @@ models:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+          metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
-              type: max
+              type: max 
               description: 'No of months since cohort start'
-              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${customers.dt_cr} AS DATETIME), MONTH )  "
+              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  ${customers.dt_cr}, MONTH )  "
               group_label: 
 
       - name: dispatch_due_date
@@ -1081,6 +1083,10 @@ models:
 
       - name: tax_amount
         description: "Tax amount, nullable"
+        meta:
+          metrics:
+            total_tax_amount:
+              type: sum
 
       - name: tax_percent
         description: "Tax percent, nullable"
@@ -1138,7 +1144,7 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type: sum
               description: 'average order value (excluding VAT after discount)'
-              sql: " ${total_revenue_exc_vat} / ${total_order_count} "
+              sql: "( ${total_revenue} - ${total_tax_amount} ) / ${total_order_count} "
 
   - name: OrderLinesNullParent
     description: ""
