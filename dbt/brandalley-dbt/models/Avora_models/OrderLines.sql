@@ -43,7 +43,7 @@ SELECT
               sfoi_sim.qty_ordered,
               sfoi_sim.qty_ordered - sfoi_sim.qty_backordered
        ) AS warehouse_qty,
-       sfo.created_at AS order_placed_date,
+       safe_cast(sfo.created_at AS datetime) as order_placed_date,
        CASE
               WHEN sfoi_con.dispatch_date < CAST(
                      '2014-06-11' AS DATE
