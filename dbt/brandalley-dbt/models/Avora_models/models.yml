@@ -412,9 +412,7 @@ models:
 
       - name: dt_cr
         description: ""
-        meta:
-          dimension:
-            sql: " CAST(${TABLE}.dt_cr AS DATETIME) "
+          
 
       - name: subscription
         description: ""
@@ -832,7 +830,6 @@ models:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: " CAST(${TABLE}.order_placed_date AS DATETIME) "
           metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
