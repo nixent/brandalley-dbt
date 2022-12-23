@@ -14,6 +14,8 @@ SELECT
               )
        ) AS unique_id,
        DATETIME_DIFF( safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), MONTH ) as months_since_cohort_start,
+       DATETIME_DIFF( safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), YEAR ) as years_since_cohort_start,
+       DATETIME_DIFF( safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), QUARTER ) as quarters_since_cohort_start,
        sfo.increment_id AS order_number,
        sfo.customer_id AS customer_id,
        sfoi_sim.item_id AS order_item_id,
@@ -627,4 +629,4 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(61)}}
+{{dbt_utils.group_by(63)}}
