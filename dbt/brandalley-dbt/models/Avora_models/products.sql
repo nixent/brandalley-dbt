@@ -47,7 +47,8 @@ SELECT
     cpe.updated_at,
     cps_supplier.sup_id AS supplier_id,
     cps_supplier.name AS supplier_name,
-    eaov_gender.value AS gender
+    eaov_gender.value AS gender,
+    cpev_barcode.value AS barcode
 FROM
     {{ ref(
         'stg__catalog_product_entity'
@@ -253,3 +254,10 @@ FROM
     ) }}
     cps_supplier
     ON cpei_supplier.value = cps_supplier.supplier_id
+    LEFT JOIN     {{ ref(
+        'stg__catalog_product_entity_varchar'
+    ) }}
+    cpev_barcode
+    ON cpe.entity_id = cpev_name.entity_id
+    AND cpev_name.attribute_id = 252
+    AND cpev_name.store_id = 0

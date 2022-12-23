@@ -695,7 +695,13 @@ models:
         meta:
           dimension:
             hidden: true
-
+      
+      - name: months_since_cohort_start
+        description: " no of months since cohort began"
+        meta:
+          dimension:
+            type: number
+            
 
       - name: order_number
         description: ""       
@@ -721,8 +727,9 @@ models:
         description: "Id of the order, foreign key"
         meta:
           metrics:
-            total_order_count:
-              type: count_distinct 
+            total_orders_count:
+              label: 'Total number of orders'
+              type: count_distinct
 
       - name: sku
         description: "SKU, nullable"
@@ -1142,9 +1149,11 @@ models:
               format: 'gbp'   
             average_order_value:
               label: ' average order value (excluding VAT after discount) '
-              type: sum
+              type: number
               description: 'average order value (excluding VAT after discount)'
-              sql: "( ${total_revenue} - ${total_tax_amount} ) / ${total_order_count} "
+              sql: " ${total_revenue_exc_vat}/${total_orders_count}"
+              round: 2
+              format: 'gbp'   
 
   - name: OrderLinesNullParent
     description: ""
@@ -1864,6 +1873,9 @@ models:
             format: id
 
       - name: supplier_name
+        description: ""
+
+      - name: barcode
         description: ""
 
   - name: sales_flat_creditmemo_item
