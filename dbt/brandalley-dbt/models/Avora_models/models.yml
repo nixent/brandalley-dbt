@@ -1875,6 +1875,9 @@ models:
       - name: supplier_name
         description: ""
 
+      - name: barcode
+        description: ""
+
   - name: sales_flat_creditmemo_item
     description: ""
     columns:
