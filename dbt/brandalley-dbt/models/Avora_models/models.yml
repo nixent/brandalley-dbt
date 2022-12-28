@@ -721,6 +721,7 @@ models:
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta:
+          dimension:
             format: id
           metrics:
             total_customers:
