@@ -740,6 +740,7 @@ models:
       - name: order_id
         description: "Id of the order, foreign key"
         meta:
+          dimension:
             format: id
           metrics:
             total_orders_count:
