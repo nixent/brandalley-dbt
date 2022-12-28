@@ -37,10 +37,15 @@ SELECT
        sfoi_con.qty_refunded,
        sfoi_con.qty_shipped,
        IF (
-              sfoi_sim.qty_backordered IS NULL,
+              sfoi_sim.qty_backordered IS NULL OR cpn.type=30,
               0,
               sfoi_sim.qty_backordered
        ) AS consignment_qty,
+       IF (
+              sfoi_sim.qty_backordered IS NULL OR cpn.type!=30,
+              0,
+              sfoi_sim.qty_backordered
+       ) AS selffulfill_qty,
        IF (
               sfoi_sim.qty_backordered IS NULL,
               sfoi_sim.qty_ordered,
@@ -416,7 +421,20 @@ SELECT
        MAX(
               cpr.reference
        ) AS REFERENCE,
-       sum((sfoi_sim.qty_invoiced * sfoi_con.base_price_incl_tax) - sfoi_con.discount_amount) as TOTAL_GBP_after_vouchers -- Cat 1
+       sum((sfoi_sim.qty_invoiced * sfoi_con.base_price_incl_tax) - sfoi_con.discount_amount) as TOTAL_GBP_after_vouchers,
+       sum(sfoi_sim.qty_invoiced * sfoi_con.base_price_incl_tax) as TOTAL_GBP_before_vouchers,
+       sum((sfoi_sim.qty_invoiced * sfoi_con.base_price) - sfoi_con.discount_amount) as TOTAL_GBP_ex_tax_after_vouchers,
+       sum(sfoi_sim.qty_invoiced * sfoi_con.base_price) as TOTAL_GBP_ex_tax_before_vouchers,
+       sum(IF (
+              sfoi_sim.qty_backordered IS NULL OR cpn.type!=30,
+              0,
+              sfoi_sim.qty_backordered
+       ) * sfoi_con.base_price_incl_tax) AS selffulfill_totalGBP_inc_tax,
+       sum(IF (
+              sfoi_sim.qty_backordered IS NULL OR cpn.type!=30,
+              0,
+              sfoi_sim.qty_backordered
+       ) * sfoi_con.base_price) AS selffulfill_totalGBP_ex_tax,       
        
 FROM
        {{ ref(
@@ -629,4 +647,4 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(63)}}
+{{dbt_utils.group_by(64)}}
