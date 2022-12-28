@@ -2063,6 +2063,7 @@ models:
 
       - name: created_at
         description: "Created at, nullable"
+        meta:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
