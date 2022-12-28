@@ -709,6 +709,7 @@ models:
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta:
+            format: id
           metrics:
             total_customers:
               label: 'Total number of customers'
@@ -726,6 +727,7 @@ models:
       - name: order_id
         description: "Id of the order, foreign key"
         meta:
+            format: id
           metrics:
             total_orders_count:
               label: 'Total number of orders'
@@ -803,7 +805,7 @@ models:
               type: sum
               description: "Number of units shipped"
               hidden: false
-              round: 2      
+              round: 0      
 
       - name: consignment_qty
         description: ""
@@ -816,7 +818,20 @@ models:
               type: sum
               description: "Number of consignment units ordered"
               hidden: false
-              round: 2      
+              round: 20     
+
+      - name: selffulfill_qty
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            consignment_qty_metric:
+              label: 'Self-fulfill quantity'
+              type: sum
+              description: "Number of self-fulfill units ordered"
+              hidden: false
+              round: 0      
 
       - name: warehouse_qty
         description: ""
@@ -1110,7 +1125,13 @@ models:
 
       - name: rrp
         description: ""
-
+        meta:
+          dimension:    
+            type: number
+            label: 'RRP' 
+            description: 'Recommended Price'
+            round: 2
+            format: 'gbp'
       - name: parent_sku
         description: ""
 
@@ -1139,11 +1160,25 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
+
+      - name: TOTAL_GBP_before_vouchers
+        meta:
+          metrics:
+            total_revenue_before_vouchers:
+              label: 'Total revenue GBP inc VAT (before vouchers)'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: TOTAL_GBP_ex_vat_after_vouchers
+        meta:
+          metrics:
             total_revenue_exc_vat:
               label: 'Total revenue GBP exc VAT (after vouchers)'
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
-              sql: "${TOTAL_GBP_after_vouchers}-${tax_amount}"
               hidden: false
               round: 2
               format: 'gbp'   
@@ -1152,6 +1187,17 @@ models:
               type: number
               description: 'average order value (excluding VAT after discount)'
               sql: " ${total_revenue_exc_vat}/${total_orders_count}"
+              round: 2
+              format: 'gbp'   
+
+      - name: TOTAL_GBP_ex_vat_before_vouchers
+        meta:
+          metrics:
+            total_revenue_exc_vat_before_vouchers:
+              label: 'Total revenue GBP ex VAT (before vouchers)'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account"
+              hidden: false
               round: 2
               format: 'gbp'   
 
@@ -2003,6 +2049,9 @@ models:
 
       - name: created_at
         description: "Created at, nullable"
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: updated_at
         description: "Updated at, nullable"
