@@ -701,6 +701,18 @@ models:
         meta:
           dimension:
             type: number
+
+      - name: years_since_cohort_start
+        description: " no of years since cohort began" 
+        meta: 
+          dimension: 
+            type: number
+
+      - name : quarters_since_cohort_start
+        description: " no of quarters since cohort began"
+        meta:
+          dimension:
+            type: number
             
 
       - name: order_number
