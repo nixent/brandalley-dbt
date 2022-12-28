@@ -647,4 +647,4 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
-{{dbt_utils.group_by(65)}}
+{{dbt_utils.group_by(64)}}
