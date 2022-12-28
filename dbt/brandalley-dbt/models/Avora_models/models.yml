@@ -1215,6 +1215,28 @@ models:
               round: 2
               format: 'gbp'   
 
+      - name: selffulfill_totalGBP_inc_tax
+        meta:
+          metrics:
+            self_fulfill_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for SF orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for SF orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: selffulfill_totalGBP_ex_tax
+        meta:
+          metrics:
+            self_fulfill_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for SF order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for SF order"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
   - name: OrderLinesNullParent
     description: ""
     columns:
