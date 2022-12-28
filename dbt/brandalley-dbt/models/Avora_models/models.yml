@@ -840,7 +840,7 @@ models:
           dimension:
             hidden: true
           metrics:
-            consignment_qty_metric:
+            selfulfill_qty_metric:
               label: 'Self-fulfill quantity'
               type: sum
               description: "Number of self-fulfill units ordered"
