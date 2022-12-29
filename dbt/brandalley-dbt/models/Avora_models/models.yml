@@ -1186,10 +1186,10 @@ models:
               round: 2
               format: 'gbp'   
 
-      - name: TOTAL_GBP_ex_vat_after_vouchers
+      - name: TOTAL_GBP_ex_tax_after_vouchers
         meta:
           metrics:
-            total_revenue_exc_vat:
+            total_revenue_exc_tax:
               label: 'Total revenue GBP exc VAT (after vouchers)'
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
@@ -1204,10 +1204,10 @@ models:
               round: 2
               format: 'gbp'   
 
-      - name: TOTAL_GBP_ex_vat_before_vouchers
+      - name: TOTAL_GBP_ex_tax_before_vouchers
         meta:
           metrics:
-            total_revenue_exc_vat_before_vouchers:
+            total_revenue_exc_tax_before_vouchers:
               label: 'Total revenue GBP ex VAT (before vouchers)'
               type: sum
               description: "Total revenue ex VAT in GBP before taking vouchers into account"
