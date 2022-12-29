@@ -2690,7 +2690,7 @@ models:
               type: sum
               description: "Count of number of lines in orderlines"
               hidden: false
-              round: 2     
+              round: 0     
 
       - name: count_orders
         description: "Count of number of lines in orders"
@@ -2701,7 +2701,7 @@ models:
               type: sum
               description: "Count of number of lines in orders"
               hidden: false
-              round: 2    
+              round: 0    
 
       - name: count_customers
         description: "Count of number of lines in customers"
@@ -2712,7 +2712,7 @@ models:
               type: sum
               description: "Count of number of lines in customer"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: qty_canceled
         description: "Quantity of units canceled"
@@ -2723,7 +2723,7 @@ models:
               type: sum
               description: "Quantity of units canceled"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: qty_ordered
         description: "Quantity ordered"
@@ -2734,7 +2734,7 @@ models:
               type: sum
               description: "Quantity ordered"
               hidden: false
-              round: 2   
+              round: 0   
 
       - name: qty_invoiced
         description: "Quantity invoiced"
@@ -2745,7 +2745,7 @@ models:
               type: sum
               description: "Quantity invoiced"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: qty_refunded
         description: "Quantity refunded"
@@ -2778,7 +2778,7 @@ models:
               type: sum
               description: "Consignment quantity"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: warehouse_qty
         description: "Warehouse quantity"
@@ -2789,7 +2789,7 @@ models:
               type: sum
               description: "Warehouse quantity"
               hidden: false
-              round: 2    
+              round: 0    
 
       - name: product_cost_inc_vat
         description: "Product cost inc VAT"
