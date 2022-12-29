@@ -1995,6 +1995,8 @@ models:
 
       - name: price_incl_tax
         description: "Price incl. tax, nullable"
+        round: 2
+        format: 'gbp'      
 
       - name: base_tax_amount
         description: "Base tax amount, nullable"
