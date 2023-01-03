@@ -1186,10 +1186,10 @@ models:
               round: 2
               format: 'gbp'   
 
-      - name: TOTAL_GBP_ex_vat_after_vouchers
+      - name: TOTAL_GBP_ex_tax_after_vouchers
         meta:
           metrics:
-            total_revenue_exc_vat:
+            total_revenue_exc_tax:
               label: 'Total revenue GBP exc VAT (after vouchers)'
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
@@ -1200,17 +1200,39 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type: number
               description: 'average order value (excluding VAT after discount)'
-              sql: " ${total_revenue_exc_vat}/${total_orders_count}"
+              sql: " ${total_revenue_exc_tax}/${total_orders_count}"
               round: 2
               format: 'gbp'   
 
-      - name: TOTAL_GBP_ex_vat_before_vouchers
+      - name: TOTAL_GBP_ex_tax_before_vouchers
         meta:
           metrics:
-            total_revenue_exc_vat_before_vouchers:
+            total_revenue_exc_tax_before_vouchers:
               label: 'Total revenue GBP ex VAT (before vouchers)'
               type: sum
               description: "Total revenue ex VAT in GBP before taking vouchers into account"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: selffulfill_totalGBP_inc_tax
+        meta:
+          metrics:
+            self_fulfill_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for SF orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for SF orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: selffulfill_totalGBP_ex_tax
+        meta:
+          metrics:
+            self_fulfill_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for SF order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for SF order"
               hidden: false
               round: 2
               format: 'gbp'   
@@ -1973,6 +1995,8 @@ models:
 
       - name: price_incl_tax
         description: "Price incl. tax, nullable"
+        round: 2
+        format: 'gbp'      
 
       - name: base_tax_amount
         description: "Base tax amount, nullable"
@@ -2668,7 +2692,7 @@ models:
               type: sum
               description: "Count of number of lines in orderlines"
               hidden: false
-              round: 2     
+              round: 0     
 
       - name: count_orders
         description: "Count of number of lines in orders"
@@ -2679,7 +2703,7 @@ models:
               type: sum
               description: "Count of number of lines in orders"
               hidden: false
-              round: 2    
+              round: 0    
 
       - name: count_customers
         description: "Count of number of lines in customers"
@@ -2690,7 +2714,7 @@ models:
               type: sum
               description: "Count of number of lines in customer"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: qty_canceled
         description: "Quantity of units canceled"
@@ -2701,7 +2725,7 @@ models:
               type: sum
               description: "Quantity of units canceled"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: qty_ordered
         description: "Quantity ordered"
@@ -2712,7 +2736,7 @@ models:
               type: sum
               description: "Quantity ordered"
               hidden: false
-              round: 2   
+              round: 0   
 
       - name: qty_invoiced
         description: "Quantity invoiced"
@@ -2723,7 +2747,7 @@ models:
               type: sum
               description: "Quantity invoiced"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: qty_refunded
         description: "Quantity refunded"
@@ -2756,7 +2780,7 @@ models:
               type: sum
               description: "Consignment quantity"
               hidden: false
-              round: 2  
+              round: 0  
 
       - name: warehouse_qty
         description: "Warehouse quantity"
@@ -2767,7 +2791,7 @@ models:
               type: sum
               description: "Warehouse quantity"
               hidden: false
-              round: 2    
+              round: 0    
 
       - name: product_cost_inc_vat
         description: "Product cost inc VAT"
