@@ -435,7 +435,26 @@ SELECT
               0,
               sfoi_sim.qty_backordered
        ) * sfoi_con.base_price) AS selffulfill_totalGBP_ex_tax,       
-       
+       sum(IF (
+              sfoi_sim.qty_backordered IS NULL OR cpn.type=30,
+              0,
+              sfoi_sim.qty_backordered
+       ) * sfoi_con.base_price_incl_tax) AS consignment_totalGBP_inc_tax,
+       sum(IF (
+              sfoi_sim.qty_backordered IS NULL OR cpn.type=30,
+              0,
+              sfoi_sim.qty_backordered
+       ) * sfoi_con.base_price) AS consignment_totalGBP_ex_tax,       
+       sum(IF (
+              sfoi_sim.qty_backordered IS NULL,
+              sfoi_sim.qty_ordered,
+              sfoi_sim.qty_ordered - sfoi_sim.qty_backordered
+       ) * sfoi_con.base_price_incl_tax) AS warehouse_totalGBP_inc_tax,
+       sum(IF (
+              sfoi_sim.qty_backordered IS NULL,
+              sfoi_sim.qty_ordered,
+              sfoi_sim.qty_ordered - sfoi_sim.qty_backordered
+       ) * sfoi_con.base_price) AS warehouse_totalGBP_ex_tax
 FROM
        {{ ref(
            'stg__sales_flat_order'
