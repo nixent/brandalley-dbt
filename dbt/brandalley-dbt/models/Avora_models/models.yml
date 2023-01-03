@@ -1237,6 +1237,50 @@ models:
               round: 2
               format: 'gbp'   
 
+      - name: consignment_totalGBP_inc_tax
+        meta:
+          metrics:
+            consignment_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for consignment orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for consignment orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: consignment_totalGBP_ex_tax
+        meta:
+          metrics:
+            consignment_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for consignment order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for consignment order"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: warehouse_totalGBP_inc_tax
+        meta:
+          metrics:
+            warehouse_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for warehouse orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for warehouse orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: warehouse_totalGBP_ex_tax
+        meta:
+          metrics:
+            warehouse_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for warehouse order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
   - name: OrderLinesNullParent
     description: ""
     columns:
