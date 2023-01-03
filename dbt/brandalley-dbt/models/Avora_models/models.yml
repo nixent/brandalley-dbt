@@ -1682,7 +1682,10 @@ models:
               type: sum
               description: "Total value of the order after vouchers"
               hidden: false
-              round: 2      
+              round: 2   
+
+  - name: orderlineswithsequence
+    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
 
   - name: Orders
     description: ""
