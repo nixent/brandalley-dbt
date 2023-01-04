@@ -881,7 +881,7 @@ models:
               label: 
               type: number
               description:
-              sql: " DATE_DIFF( ${order_placed_date}, ${lag_date}, DAY ) "
+              sql: " DATETIME_DIFF( SAFE_CAST(${order_placed_date} AS DATETIME), SAFE_CAST(${lag_date} AS DATETIME), DAY ) "
             average_interval_between_orders_per_customer_and_order:
               label:
               type: number
