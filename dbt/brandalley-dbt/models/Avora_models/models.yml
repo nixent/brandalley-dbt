@@ -867,16 +867,6 @@ models:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
-            interval_between_orders:
-              label: " interval between orders"
-              type: number
-              description: "days between the current and last order"
-              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${lag_date} AS DATETIME), DAY ) "
-            
-            lag_date:
-              label: " lag_date "
-              type: date
-              sql: " LAG(${OrderLines.order_placed_date}) over (order by ${OrderLines.order_placed_date} ) "
           metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
@@ -889,7 +879,7 @@ models:
               label:
               type: number
               description:
-              sql: " AVG(${interval_between_orders} ) OVER (partition by ${OrderLines.customer_id}, ${OrderLines.order_id} ORDER BY ${OrderLines.order_placed_date}) "
+              sql: " AVG(${OrderLines.interval_between_orders} ) OVER (partition by ${OrderLines.customer_id}, ${OrderLines.order_id} ORDER BY ${OrderLines.order_placed_date}) "
 
       - name: dispatch_due_date
         description: ""
@@ -1297,6 +1287,11 @@ models:
               hidden: false
               round: 2
               format: 'gbp'   
+      
+      - name: lag_date
+
+      - name: interval_between_orders
+        description: " this column represents the interval (in seconds) between orders placed by customers "
 
   - name: OrderLinesNullParent
     description: ""
