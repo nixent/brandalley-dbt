@@ -879,12 +879,12 @@ models:
               sql: " LAG(${OrderLines.order_placed_date}) over (order by ${OrderLines.order_placed_date} ) "
             interval_between_orders:
               label: 
-              type: number
+              type: max
               description:
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${lag_date} AS DATETIME), DAY ) "
             average_interval_between_orders_per_customer_and_order:
               label:
-              type: number
+              type: max
               description:
               sql: " AVG(${interval_between_orders} ) OVER (partition by ${OrderLines.customer_id}, ${OrderLines.order_id} ORDER BY ${OrderLines.order_placed_date}) "
 
