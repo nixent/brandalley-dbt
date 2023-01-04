@@ -874,12 +874,6 @@ models:
               description: 'No of months since cohort start'
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  ${customers.dt_cr}, MONTH )  "
               group_label: 
-            
-            average_interval_between_orders_per_customer_and_order:
-              label:
-              type: number
-              description:
-              sql: " AVG(${OrderLines.interval_between_orders} ) OVER (partition by ${OrderLines.customer_id}, ${OrderLines.order_id} ORDER BY ${OrderLines.order_placed_date}) "
 
       - name: dispatch_due_date
         description: ""
