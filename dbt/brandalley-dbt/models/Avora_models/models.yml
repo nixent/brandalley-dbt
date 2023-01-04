@@ -876,17 +876,17 @@ models:
 
             lag_date:
               type: date
-              sql: " LAG(${order_placed_date}) over (order by ${order_placed_date} ) "
+              sql: " LAG(${OrderLines.order_placed_date}) over (order by ${OrderLines.order_placed_date} ) "
             interval_between_orders:
               label: 
               type: number
               description:
-              sql: " DATETIME_DIFF( SAFE_CAST(${order_placed_date} AS DATETIME), SAFE_CAST(${lag_date} AS DATETIME), DAY ) "
+              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${lag_date} AS DATETIME), DAY ) "
             average_interval_between_orders_per_customer_and_order:
               label:
               type: number
               description:
-              sql: " AVG(${interval_between_orders} ) OVER (partition by ${customer_id}, ${order_id} ORDER BY ${order_placed_date}) "
+              sql: " AVG(${interval_between_orders} ) OVER (partition by ${OrderLines.customer_id}, ${OrderLines.order_id} ORDER BY ${OrderLines.order_placed_date}) "
 
       - name: dispatch_due_date
         description: ""
