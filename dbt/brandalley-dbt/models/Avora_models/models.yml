@@ -867,13 +867,12 @@ models:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
-            interval_between_orders:
-              label: 
+              label: " interval between orders"
               type: number
               description: "days between the current and last order"
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${lag_date} AS DATETIME), DAY ) "
             
-            lag_date:
+              label: " lag_date "
               type: date
               sql: " LAG(${OrderLines.order_placed_date}) over (order by ${OrderLines.order_placed_date} ) "
           metrics:
