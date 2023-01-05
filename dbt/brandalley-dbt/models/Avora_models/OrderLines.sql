@@ -678,7 +678,7 @@ WHERE
 from cte
 ) , cte_two as (
     select *
-    , DATETIME_DIFF( SAFE_CAST(order_placed_date AS DATETIME), SAFE_CAST(lag_date AS DATETIME), SECOND) as interval_between_orders
+    , DATETIME_DIFF( SAFE_CAST(order_placed_date AS DATETIME), SAFE_CAST(lag_date AS DATETIME), MINUTE) as interval_between_orders
     from cte_one
 ) 
 
