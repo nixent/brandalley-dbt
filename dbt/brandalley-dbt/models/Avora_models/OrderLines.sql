@@ -683,7 +683,7 @@ from cte
 
 ) , cte_three as (
     SELECT *
-    , round(sum(interval_between_orders) over (partition by customer_id order by order_placed_date),0) as total_interval_between_orders_per_customer
+    , round(sum(interval_between_orders) over (partition by customer_id order by customer_id),0) as total_interval_between_orders_per_customer
     FROM cte_two 
 )
 
