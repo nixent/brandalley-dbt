@@ -680,7 +680,14 @@ from cte
     select *
     , DATETIME_DIFF( SAFE_CAST(order_placed_date AS DATETIME), SAFE_CAST(lag_date AS DATETIME), MINUTE) as interval_between_orders
     from cte_one
-) 
+
+) , cte_three as (
+    SELECT *
+    , round(avg(interval_between_orders) over (partition by customer_id order by order_placed_date),0) as average_interval_between_orders_per_customer
+    FROM cte_two
+      
+
+)
 
 select *
-from cte_two 
+from cte_three 
