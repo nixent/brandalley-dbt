@@ -1286,7 +1286,7 @@ models:
 
       - name: interval_between_orders
         description: " this column represents the interval (in seconds) between orders placed by customers "
-
+        
       - name: total_interval_between_orders_per_customer
         description: " the total sum of each individual customer representing the amount of time spent in-between orders"
 
