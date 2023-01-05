@@ -866,6 +866,7 @@ models:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+
           metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
@@ -1236,6 +1237,55 @@ models:
               hidden: false
               round: 2
               format: 'gbp'   
+
+      - name: consignment_totalGBP_inc_tax
+        meta:
+          metrics:
+            consignment_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for consignment orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for consignment orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: consignment_totalGBP_ex_tax
+        meta:
+          metrics:
+            consignment_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for consignment order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for consignment order"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: warehouse_totalGBP_inc_tax
+        meta:
+          metrics:
+            warehouse_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for warehouse orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for warehouse orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+
+      - name: warehouse_totalGBP_ex_tax
+        meta:
+          metrics:
+            warehouse_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for warehouse order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      
+      - name: lag_date
+
+      - name: interval_between_orders
+        description: " this column represents the interval (in seconds) between orders placed by customers "
 
   - name: OrderLinesNullParent
     description: ""
@@ -1638,7 +1688,10 @@ models:
               type: sum
               description: "Total value of the order after vouchers"
               hidden: false
-              round: 2      
+              round: 2   
+
+  - name: orderlineswithsequence
+    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
 
   - name: Orders
     description: ""

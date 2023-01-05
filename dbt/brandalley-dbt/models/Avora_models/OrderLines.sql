@@ -1,3 +1,4 @@
+with cte as (
 SELECT
        SHA1(
               CONCAT(
@@ -667,3 +668,19 @@ WHERE
               OR sfo.sales_product_type IS NULL
        )
 {{dbt_utils.group_by(64)}}
+
+
+)
+
+, cte_one as (
+    select *
+    , LAG(order_placed_date) over (order by order_placed_date ) as lag_date
+from cte
+) , cte_two as (
+    select *
+    , DATETIME_DIFF( SAFE_CAST(order_placed_date AS DATETIME), SAFE_CAST(lag_date AS DATETIME), SECOND) as interval_between_orders
+    from cte_one
+) 
+
+select *
+from cte_two 
