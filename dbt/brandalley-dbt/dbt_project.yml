@@ -40,5 +40,6 @@ models:
       +schema: emarsys
     sources:
       streamkap_current:
+        +database: datawarehouse-358408
         +schema: streamkap_current
         +post-hook: "delete {{this}} where __deleted = true"
