@@ -1287,8 +1287,14 @@ models:
       - name: interval_between_orders
         description: " this column represents the interval (in days) between orders placed by customers "
         
+        
       - name: total_interval_between_orders_per_customer
-        description: " the total sum of each individual customer representing the amount of time spent in-between orders"
+        description: "the total sum of each individual customer representing the amount of time spent in-between orders"
+        meta:
+          dimension:
+            type: number
+            label: 'total_interval_between_orders_per_customer'
+            hidden: false
 
   - name: OrderLinesNullParent
     description: ""
