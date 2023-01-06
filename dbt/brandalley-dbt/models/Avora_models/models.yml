@@ -1285,7 +1285,16 @@ models:
       - name: lag_date
 
       - name: interval_between_orders
-        description: " this column represents the interval (in seconds) between orders placed by customers "
+        description: " this column represents the interval (in days) between orders placed by customers "
+        
+        
+      - name: total_interval_between_orders_per_customer
+        description: "the total sum of each individual customer representing the amount of time spent in-between orders"
+        meta:
+          dimension:
+            type: number
+            label: 'total_interval_between_orders_per_customer'
+            hidden: false
 
   - name: OrderLinesNullParent
     description: ""
@@ -1692,7 +1701,27 @@ models:
 
   - name: orderlineswithsequence
     description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
+    columns:
+      - name: customer_id
+        meta:
+          dimension:
+            type: number
+            label: 'customer_id'
+            hidden: false
+      - name: number_of_orders_since_customer_started_ordering
+        meta:
+          dimension:      
+            label: 'number of orders customer made from first ever order'
+            type: number
+            description: 
+            hidden: false
+      - name: total_revenue_amount_per_customer
+        meta:
+          dimension:
+            label: " total revenue amount of each customer "
+            type: number
 
+              
   - name: Orders
     description: ""
     meta:

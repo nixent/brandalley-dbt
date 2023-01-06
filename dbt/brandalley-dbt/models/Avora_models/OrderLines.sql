@@ -678,9 +678,14 @@ WHERE
 from cte
 ) , cte_two as (
     select *
-    , DATETIME_DIFF( SAFE_CAST(order_placed_date AS DATETIME), SAFE_CAST(lag_date AS DATETIME), SECOND) as interval_between_orders
+    , DATETIME_DIFF( SAFE_CAST(order_placed_date AS DATETIME), SAFE_CAST(lag_date AS DATETIME), DAY) as interval_between_orders
     from cte_one
-) 
+
+) , cte_three as (
+    SELECT *
+    , round(sum(interval_between_orders) over (partition by customer_id order by customer_id),0) as total_interval_between_orders_per_customer
+    FROM cte_two 
+)
 
 select *
-from cte_two 
+from cte_three 
