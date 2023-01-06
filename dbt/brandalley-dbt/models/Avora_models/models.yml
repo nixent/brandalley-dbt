@@ -1695,7 +1695,22 @@ models:
 
   - name: orderlineswithsequence
     description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
+    meta:
+      dimension:
+        type: number
+        label: 'customer_id'
+        hidden: false
+      metrics:
+        number_of_orders_since_customer_started_ordering:
+          label: 'number of orders customer made from first ever order'
+          type: number
+          description: 
+          hidden: false
+        total_revenue_amount_per_customer:
+          label: " total revenue amount of each customer "
+          type: number
 
+              
   - name: Orders
     description: ""
     meta:
