@@ -1708,7 +1708,7 @@ models:
             type: number
             label: 'customer_id'
             hidden: false
-      - name: number_of_orders_since_customer_started_ordering
+      - name: no_of_orders_since_customer_started_ordering
         meta:
           dimension:      
             label: 'number of orders customer made from first ever order'
