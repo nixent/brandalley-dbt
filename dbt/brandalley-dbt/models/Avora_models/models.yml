@@ -1710,16 +1710,18 @@ models:
             hidden: false
       - name: no_of_orders_since_customer_started_ordering
         meta:
-          dimension:      
-            label: 'number of orders customer made from first ever order'
-            type: number
-            description: 
-            hidden: false
+          metrics: 
+            no_of_orders_since_customer_started_ordering:  
+              label: 'number of orders customer made from first ever order'
+              type: number
+              description: 
+              hidden: false
       - name: total_revenue_amount_per_customer
         meta:
-          dimension:
-            label: " total revenue amount of each customer "
-            type: number
+          metrics:
+            total_revenue_amount_per_customer:
+              label: " total revenue amount of each customer "
+              type: number
 
               
   - name: Orders
