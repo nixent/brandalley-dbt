@@ -353,7 +353,7 @@ models:
         description: ""
 
   - name: customers
-    description: ""
+    description: "" 
     columns:
       - name: cst_id
         description: ""
@@ -1701,13 +1701,21 @@ models:
 
   - name: orderlineswithsequence
     description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
+    meta:
+      joins:
+        - join: customers
+          sql_on: ${customers.cst_id} = ${orderlineswithsequence.customer_id}
+
+        - join: Orders
+          sql_on: ${Orders.customer_id} = ${orderlineswithsequence.customer_id}
+
+        - join: OrderLines
+          sql_on: ${OrderLines.customer_id}  = ${orderlineswithsequence.customer_id}
     columns:
       - name: customer_id
         meta:
           dimension:
-            type: number
-            label: 'customer_id'
-            hidden: false
+            format: id
       - name: no_of_orders_since_customer_started_ordering
         meta:
           dimension: 
@@ -1728,6 +1736,7 @@ models:
       joins:
         - join: shipments
           sql_on: ${Orders.magentoid} = ${shipments.order_id}
+        
 
     columns:
       - name: increment_id
