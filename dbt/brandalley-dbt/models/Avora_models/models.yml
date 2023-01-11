@@ -353,7 +353,7 @@ models:
         description: ""
 
   - name: customers
-    description: ""
+    description: "" 
     columns:
       - name: cst_id
         description: ""
@@ -746,6 +746,9 @@ models:
             total_orders_count:
               label: 'Total number of orders'
               type: count_distinct
+            quantity_items_in_order:
+              label: " Qty Items in Order "
+              type: count
 
       - name: sku
         description: "SKU, nullable"
@@ -1281,20 +1284,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'   
-      
-      - name: lag_date
-
-      - name: interval_between_orders
-        description: " this column represents the interval (in days) between orders placed by customers "
-        
-        
-      - name: total_interval_between_orders_per_customer
-        description: "the total sum of each individual customer representing the amount of time spent in-between orders"
-        meta:
-          dimension:
-            type: number
-            label: 'total_interval_between_orders_per_customer'
-            hidden: false
 
   - name: OrderLinesNullParent
     description: ""
@@ -1701,16 +1690,24 @@ models:
 
   - name: orderlineswithsequence
     description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
+    meta:
+      joins:
+        - join: customers
+          sql_on: ${customers.cst_id} = ${orderlineswithsequence.customer_id}
+
+        - join: Orders
+          sql_on: ${Orders.customer_id} = ${orderlineswithsequence.customer_id}
+
+        - join: OrderLines
+          sql_on: ${OrderLines.customer_id}  = ${orderlineswithsequence.customer_id}
     columns:
       - name: customer_id
         meta:
           dimension:
-            type: number
-            label: 'customer_id'
-            hidden: false
-      - name: number_of_orders_since_customer_started_ordering
+            format: id
+      - name: no_of_orders_since_customer_started_ordering
         meta:
-          dimension:      
+          dimension: 
             label: 'number of orders customer made from first ever order'
             type: number
             description: 
@@ -1728,6 +1725,7 @@ models:
       joins:
         - join: shipments
           sql_on: ${Orders.magentoid} = ${shipments.order_id}
+        
 
     columns:
       - name: increment_id
@@ -1945,6 +1943,12 @@ models:
       - name: base_grand_total
         data_type: <decimal>
         description: "Base Grand Total"
+
+      - name: interval_between_orders
+        description: " customer interval between orders (in days) "
+        meta:
+          dimension:
+            type: number
 
   - name: products
     description: ""

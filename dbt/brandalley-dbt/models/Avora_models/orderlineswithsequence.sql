@@ -12,4 +12,5 @@ with cte as (
 )
 
 SELECT *
-FROM cte 
+FROM cte
+
