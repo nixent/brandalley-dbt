@@ -1946,9 +1946,6 @@ models:
 
       - name: interval_between_orders
         description: " customer interval between orders (in days) "
-        meta:
-          dimension:
-            type: number
 
   - name: products
     description: ""
