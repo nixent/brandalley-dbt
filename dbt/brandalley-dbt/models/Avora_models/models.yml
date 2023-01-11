@@ -1946,6 +1946,14 @@ models:
 
       - name: interval_between_orders
         description: " customer interval between orders (in days) "
+      
+      - name: total_interval_between_orders_for_each_customer
+        description: " the total count of intervals between orders for each customer (in days)"
+        meta: 
+          dimension:
+            type: number
+
+     
 
   - name: products
     description: ""

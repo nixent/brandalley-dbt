@@ -1,3 +1,5 @@
+with cte as (
+
 SELECT
        sfo.increment_id,
        sfo.entity_id AS magentoID,
@@ -92,3 +94,8 @@ WHERE
               OR sfo.sales_product_type IS NULL
        )
 
+)
+
+SELECT *
+, sum(interval_between_orders) over (partition by customer_id order by created_at) as total_interval_between_orders_for_each_customer
+FROM cte 
