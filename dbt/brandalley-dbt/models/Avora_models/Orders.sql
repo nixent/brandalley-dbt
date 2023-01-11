@@ -51,7 +51,7 @@ SELECT
        sfo.customer_lastname,
        cc_trans_id, 
        additional_information,
-       TIMESTAMP_DIFF(cast(sfo.created_at as timestamp), lag(cast(sfo.created_at as timestamp)) over (partition by sfo.customer_id order by cast(sfo.created_at as timestamp)), day) as interval_between_orders
+       cast(TIMESTAMP_DIFF(cast(sfo.created_at as timestamp), lag(cast(sfo.created_at as timestamp)) over (partition by sfo.customer_id order by cast(sfo.created_at as timestamp)), day) as INTEGER) as interval_between_orders
 FROM
        {{ ref(
               'stg__sales_flat_order'
