@@ -2,6 +2,7 @@ version: 2 #gui this stays 2, its not our version it's the types of .yml files t
 
 sources:
   - name: streamkap
+    database: datawarehouse-358408
     description: ""
     tables:
       - name: admin_user
