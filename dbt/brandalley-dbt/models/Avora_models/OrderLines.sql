@@ -421,10 +421,10 @@ SELECT
        MAX(
               cpr.reference
        ) AS REFERENCE,
-       sum((sfoi_sim.qty_invoiced * sfoi_con.base_price_incl_tax) - sfoi_con.discount_amount) as TOTAL_GBP_after_vouchers,
-       sum(sfoi_sim.qty_invoiced * sfoi_con.base_price_incl_tax) as TOTAL_GBP_before_vouchers,
-       sum((sfoi_sim.qty_invoiced * sfoi_con.base_price) - sfoi_con.discount_amount) as TOTAL_GBP_ex_tax_after_vouchers,
-       sum(sfoi_sim.qty_invoiced * sfoi_con.base_price) as TOTAL_GBP_ex_tax_before_vouchers,
+       sum((sfoi_sim.qty_ordered * sfoi_con.original_price) - sfoi_con.discount_amount) as TOTAL_GBP_after_vouchers,
+       sum(sfoi_sim.qty_ordered * sfoi_con.original_price) as TOTAL_GBP_before_vouchers,
+       sum((sfoi_sim.qty_ordered * sfoi_con.original_price) - sfoi_con.discount_amount) as TOTAL_GBP_ex_tax_after_vouchers,
+       sum(sfoi_sim.qty_ordered * sfoi_con.original_price) as TOTAL_GBP_ex_tax_before_vouchers,
        sum(IF (
               sfoi_sim.qty_backordered IS NULL OR cpn.type!=30,
               0,

@@ -868,7 +868,7 @@ models:
         meta: 
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
           metrics:
             date_difference_between_months:
@@ -1946,9 +1946,14 @@ models:
 
       - name: interval_between_orders
         description: " customer interval between orders (in days) "
-        meta:
+      
+      - name: total_interval_between_orders_for_each_customer
+        description: " the total count of intervals between orders for each customer (in days)"
+        meta: 
           dimension:
             type: number
+
+     
 
   - name: products
     description: ""
