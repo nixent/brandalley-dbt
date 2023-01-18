@@ -26,7 +26,7 @@ FROM
 WHERE
     1 = 1
 {% if is_incremental() -%}
-AND {{order_time_field}} > (
+AND {{order_time_field}} >= (
     SELECT
         MAX(
             {{ order_time_field }}
