@@ -663,6 +663,13 @@ models:
       - name: updated_at
         description: "Update date of the order, nullable"
 
+  - name: order_summary
+    description: " an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
+    columns:
+      - name: Period
+      - name: Total_Orders
+      - name: Grand_Total
+      - name: AOV
   - name: OrderLines
     description: ""
     meta:
