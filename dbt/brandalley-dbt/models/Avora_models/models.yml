@@ -835,7 +835,7 @@ models:
               type: sum
               description: "Number of consignment units ordered"
               hidden: false
-              round: 20     
+              round: 0     
 
       - name: selffulfill_qty
         description: ""
