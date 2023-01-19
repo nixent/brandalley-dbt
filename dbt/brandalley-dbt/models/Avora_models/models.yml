@@ -886,9 +886,9 @@ models:
               group_label: 
             
             recency: 
-              label: " recency in terms of the last time a customer bought a product"
+              label: "Recency" 
               type: max
-              description:
+              description: "recency in terms of the last time a customer made an order"
               sql: " MAX(${OrderLines.order_placed_date}) over (partition by ${OrderLines.customer_id} order by ${OrderLines.order_id}) "
 
       - name: dispatch_due_date
