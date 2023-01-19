@@ -423,8 +423,8 @@ SELECT
        ) AS REFERENCE,
        sum((sfoi_sim.qty_ordered * sfoi_con.original_price) - sfoi_con.discount_amount) as TOTAL_GBP_after_vouchers,
        sum(sfoi_sim.qty_ordered * sfoi_con.original_price) as TOTAL_GBP_before_vouchers,
-       sum((sfoi_sim.qty_ordered * sfoi_con.original_price) - sfoi_con.discount_amount) as TOTAL_GBP_ex_tax_after_vouchers,
-       sum(sfoi_sim.qty_ordered * sfoi_con.original_price) as TOTAL_GBP_ex_tax_before_vouchers,
+       sum(sfoi_sim.qty_ordered * (sfoi_con.original_price /nullif((1 + (sfoi_con.tax_percent / 100.)),0)) - sfoi_con.discount_amount) as TOTAL_GBP_ex_tax_after_vouchers,
+       sum(sfoi_sim.qty_ordered * (sfoi_con.original_price /nullif((1 + (sfoi_con.tax_percent / 100.)),0))) as TOTAL_GBP_ex_tax_before_vouchers,
        sum(IF (
               sfoi_sim.qty_backordered IS NULL OR cpn.type!=30,
               0,

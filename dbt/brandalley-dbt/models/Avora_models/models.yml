@@ -663,6 +663,13 @@ models:
       - name: updated_at
         description: "Update date of the order, nullable"
 
+  - name: order_summary
+    description: " an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
+    columns:
+      - name: Period
+      - name: Total_Orders
+      - name: Grand_Total
+      - name: AOV
   - name: OrderLines
     description: ""
     meta:
@@ -729,7 +736,7 @@ models:
               type: count_distinct
               description: "Number of customers who ordered"
               hidden: false
-              round: 2      
+              round: 0      
 
       - name: order_item_id
         description: "Order item id, foreign key"
@@ -770,7 +777,7 @@ models:
               type: sum
               description: "Number of units cancelled"
               hidden: false
-              round: 2      
+              round: 0      
 
       - name: qty_ordered
         description: "Quantity ordered, nullable"
@@ -783,7 +790,7 @@ models:
               type: sum
               description: "Number of units ordered"
               hidden: false
-              round: 2      
+              round: 0      
 
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
@@ -796,7 +803,7 @@ models:
               type: sum
               description: "Number of units invoiced"
               hidden: false
-              round: 2      
+              round: 0      
 
       - name: qty_refunded
         description: "Quantity refunded, nullable"
@@ -809,7 +816,7 @@ models:
               type: sum
               description: "Number of units refunded"
               hidden: false
-              round: 2      
+              round: 0      
 
       - name: qty_shipped
         description: "Quantity shipped, nullable"
@@ -835,7 +842,7 @@ models:
               type: sum
               description: "Number of consignment units ordered"
               hidden: false
-              round: 20     
+              round: 0     
 
       - name: selffulfill_qty
         description: ""
@@ -861,7 +868,7 @@ models:
               type: sum
               description: "Number of warehouse units ordered"
               hidden: false
-              round: 2      
+              round: 0      
 
       - name: order_placed_date
         description: ""
@@ -877,6 +884,12 @@ models:
               description: 'No of months since cohort start'
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  ${customers.dt_cr}, MONTH )  "
               group_label: 
+            
+            recency: 
+              label: "Recency" 
+              type: max
+              description: "recency in terms of the last time a customer made an order"
+              sql: " MAX(${OrderLines.order_placed_date}) over (partition by ${OrderLines.customer_id} order by ${OrderLines.order_id}) "
 
       - name: dispatch_due_date
         description: ""
@@ -1113,7 +1126,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: month_created
         description: ""
