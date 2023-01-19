@@ -884,6 +884,12 @@ models:
               description: 'No of months since cohort start'
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  ${customers.dt_cr}, MONTH )  "
               group_label: 
+            
+            recency: 
+              label: " recency in terms of the last time a customer bought a product"
+              type: max
+              description:
+              sql: " MAX(${OrderLines.order_placed_date}) over (partition by ${OrderLines.customer_id} order by ${OrderLines.order_id}) "
 
       - name: dispatch_due_date
         description: ""
