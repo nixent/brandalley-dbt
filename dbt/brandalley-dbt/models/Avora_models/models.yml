@@ -2977,6 +2977,42 @@ models:
               round: 2
               format: 'gbp'      
 
+      - name: TOTAL_GBP_before_vouchers
+        description: "Total revenue before vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_after_vouchers_kpi_metric:
+              label: 'Total revenue before vouchers'
+              type: sum
+              description: "Total revenue before vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_ex_tax_after_vouchers
+        description: "Total revenue exc tax after vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_after_vouchers_kpi_metric:
+              label: 'Total revenue exc tax after vouchers'
+              type: sum
+              description: "Total revenue exc tax after vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_ex_tax_before_vouchers
+        description: "Total revenue exc tax before vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_after_vouchers_kpi_metric:
+              label: 'Total revenue exc tax before vouchers'
+              type: sum
+              description: "Total revenue exc tax before vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
       - name: total_discount_amount
         description: "Total discount amount"
         meta:
