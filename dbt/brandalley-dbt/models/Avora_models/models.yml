@@ -884,12 +884,6 @@ models:
               description: 'No of months since cohort start'
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  ${customers.dt_cr}, MONTH )  "
               group_label: 
-            
-            recency: 
-              label: "Recency" 
-              type: max
-              description: "recency in terms of the last time a customer made an order"
-              sql: " MAX(${OrderLines.order_placed_date}) over (partition by ${OrderLines.customer_id} order by ${OrderLines.order_id}) "
 
       - name: dispatch_due_date
         description: ""
@@ -1296,8 +1290,11 @@ models:
               description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
               hidden: false
               round: 2
-              format: 'gbp'   
+              format: 'gbp'  
 
+      - name: Recency 
+        description: "recency in terms of the last time a customer made an order"
+              
   - name: OrderLinesNullParent
     description: ""
     columns:

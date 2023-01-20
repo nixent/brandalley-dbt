@@ -1,3 +1,4 @@
+with cte as (
 SELECT
        SHA1(
               CONCAT(
@@ -667,3 +668,9 @@ WHERE
               OR sfo.sales_product_type IS NULL
        )
 {{dbt_utils.group_by(64)}}
+
+)
+
+SELECT *
+, MAX(order_placed_date) over (partition by customer_id order by order_id) as Recency
+FROM cte 
