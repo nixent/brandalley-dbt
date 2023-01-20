@@ -4,7 +4,8 @@
         source_name,
         id_field,
         source_schema = 'streamkap',
-        order_time_field = '_streamkap_ts_ms',
+        insert_time_field = '_streamkap_ts_ms',
+        order_time_field = '_streamkap_source_ts_ms',
         order_offset_field = '_streamkap_offset',
         deleted_field='__deleted'
     ) -%}
@@ -26,10 +27,10 @@ FROM
 WHERE
     1 = 1
 {% if is_incremental() -%}
-AND {{order_time_field}} >= (
+AND {{insert_time_field}} >= (
     SELECT
         MAX(
-            {{ order_time_field }}
+            {{ insert_time_field }}
         )
     FROM
         {{ this }}
