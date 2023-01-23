@@ -690,6 +690,8 @@ models:
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
+        - join: orderlineswithsequence
+          sql_on: ${OrderLines.customer_id}  = ${orderlineswithsequence.customer_id}
     columns:
       - name: unique_id
         description: ""
@@ -884,12 +886,6 @@ models:
               description: 'No of months since cohort start'
               sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  ${customers.dt_cr}, MONTH )  "
               group_label: 
-            
-            recency: 
-              label: "Recency" 
-              type: max
-              description: "recency in terms of the last time a customer made an order"
-              sql: " MAX(${OrderLines.order_placed_date}) over (partition by ${OrderLines.customer_id} order by ${OrderLines.order_id}) "
 
       - name: dispatch_due_date
         description: ""
@@ -1296,8 +1292,11 @@ models:
               description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
               hidden: false
               round: 2
-              format: 'gbp'   
+              format: 'gbp'  
 
+      - name: Recency 
+        description: "recency in terms of the last time a customer made an order"
+              
   - name: OrderLinesNullParent
     description: ""
     columns:
@@ -1702,17 +1701,7 @@ models:
               round: 2   
 
   - name: orderlineswithsequence
-    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
-    meta:
-      joins:
-        - join: customers
-          sql_on: ${customers.cst_id} = ${orderlineswithsequence.customer_id}
-
-        - join: Orders
-          sql_on: ${Orders.customer_id} = ${orderlineswithsequence.customer_id}
-
-        - join: OrderLines
-          sql_on: ${OrderLines.customer_id}  = ${orderlineswithsequence.customer_id}
+    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"       
     columns:
       - name: customer_id
         meta:
@@ -2976,6 +2965,42 @@ models:
               label: 'Total revenue after vouchers'
               type: sum
               description: "Total revenue after vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_before_vouchers
+        description: "Total revenue before vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_before_vouchers_kpi_metric:
+              label: 'Total revenue before vouchers'
+              type: sum
+              description: "Total revenue before vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_ex_tax_after_vouchers
+        description: "Total revenue exc tax after vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_ex_tax_after_vouchers_kpi_metric:
+              label: 'Total revenue exc tax after vouchers'
+              type: sum
+              description: "Total revenue exc tax after vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_ex_tax_before_vouchers
+        description: "Total revenue exc tax before vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_ex_tax_before_vouchers_kpi_metric:
+              label: 'Total revenue exc tax before vouchers'
+              type: sum
+              description: "Total revenue exc tax before vouchers"
               hidden: false
               round: 2
               format: 'gbp'      
