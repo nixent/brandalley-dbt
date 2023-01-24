@@ -749,8 +749,7 @@ models:
             order_item_id_count:
               label: 'count of order_item_id'
               type: count
-              sql: " COUNT(${order_item_id}) "
-              
+              sql: " COUNT(${order_item_id}) "   
 
       - name: order_id
         description: "Id of the order, foreign key"
