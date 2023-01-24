@@ -1707,6 +1707,12 @@ models:
         meta:
           dimension:
             format: id
+
+      - name: order_id
+        meta:
+          dimension:
+            format: id
+            
       - name: no_of_orders_since_customer_started_ordering
         meta:
           dimension: 
