@@ -762,6 +762,7 @@ models:
               type: count_distinct
             quantity_items_in_order:
               label: " Qty Items in Order "
+              type: count_distinct
               sql: " ${order_item_id_count} / ${total_orders_count} "
 
       - name: sku
