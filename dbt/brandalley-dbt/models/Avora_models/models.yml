@@ -691,7 +691,7 @@ models:
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
         - join: orderlineswithsequence
-          sql_on: ${OrderLines.customer_id}  = ${orderlineswithsequence.customer_id}
+          sql_on: ${OrderLines.order_id}  = ${orderlineswithsequence.order_id}
     columns:
       - name: unique_id
         description: ""
