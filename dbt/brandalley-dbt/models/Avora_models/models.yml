@@ -690,6 +690,8 @@ models:
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
+        - join: orderlineswithsequence
+          sql_on: ${OrderLines.order_item_id}  = ${orderlineswithsequence.order_id}
     columns:
       - name: unique_id
         description: ""
@@ -1699,17 +1701,7 @@ models:
               round: 2   
 
   - name: orderlineswithsequence
-    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"   
-    meta:
-      joins:
-        - join: customers
-          sql_on: ${customers.cst_id} = ${orderlineswithsequence.customer_id}
-
-        - join: Orders
-          sql_on: ${Orders.customer_id} = ${orderlineswithsequence.customer_id}
-
-        - join: OrderLines
-          sql_on: ${OrderLines.customer_id}  = ${orderlineswithsequence.customer_id}
+    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"       
     columns:
       - name: customer_id
         meta:
