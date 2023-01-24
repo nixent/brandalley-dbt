@@ -757,7 +757,8 @@ models:
               type: count_distinct
             quantity_items_in_order:
               label: " Qty Items in Order "
-              type: count
+              type: count_distinct 
+              sql: " COUNT(DISTINCT ${order_item_id}) / COUNT(DISTINCT ${order_id}) "
 
       - name: sku
         description: "SKU, nullable"
@@ -1712,7 +1713,7 @@ models:
         meta:
           dimension:
             format: id
-            
+
       - name: no_of_orders_since_customer_started_ordering
         meta:
           dimension: 
