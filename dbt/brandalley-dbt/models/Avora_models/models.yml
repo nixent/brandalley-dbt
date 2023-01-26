@@ -1768,7 +1768,7 @@ models:
               type: count_distinct
               description: "Number of new orders"
               hidden: false
-              sql: "IF($orderno=1, ${increment_id}, null)"
+              sql: "IF(${orderno}=1, ${increment_id}, null)"
               round: 0
 
       - name: magentoid
