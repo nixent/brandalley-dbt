@@ -2653,11 +2653,6 @@ models:
               sql: "1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0)"
               hidden: false
               round: 0    
-            
-      order_date, shipment_date, 1 + DATE_DIFF(date(shipment_date), date(order_date), DAY) -
-    2 * DATE_DIFF(date(shipment_date), date(order_date), WEEK) -
-    IF(EXTRACT(DAYOFWEEK FROM date(order_date)) = 1, 1, 0) -
-    IF(EXTRACT(DAYOFWEEK FROM date(order_date)) = 7, 1, 0)
 
   - name: shipping
     description: ""
