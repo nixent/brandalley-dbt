@@ -2692,7 +2692,7 @@ models:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-          metric:
+          metrics:
             days_to_delivery_exc_we:
               label: 'Days to delivery exc WE'
               type: sum
