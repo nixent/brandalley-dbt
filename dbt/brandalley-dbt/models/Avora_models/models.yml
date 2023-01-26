@@ -767,7 +767,7 @@ models:
             average_items_per_order:
               label: 'average items per order'
               type: number
-              sql: " ${sum_order_items} / ${total_orders_count} "
+              sql: " ${order_item_id} / ${total_orders_count} "
 
       - name: sku
         description: "SKU, nullable"
