@@ -689,7 +689,7 @@ models:
         - join: shipments
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: shipping
-          sql_on: ${OrderLines.order_id} = ${shipping.order_id} and ${products.product_id} = ${shipping.product_id}
+          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${products.product_id} = ${shipping.product_id}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
         - join: orderlineswithsequence
@@ -2697,7 +2697,7 @@ models:
               label: 'Days to delivery exc WE'
               type: sum
               description: "Number of days spent between the order date and the shipment date, excluding week-ends"
-              sql: "1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0)"
+              sql: "IF(${shipment_date} !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
               hidden: false
               round: 0    
 
