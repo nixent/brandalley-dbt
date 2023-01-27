@@ -746,7 +746,11 @@ models:
         description: "Order item id, foreign key"
         meta:
           dimension:
-            format: id         
+            format: id    
+          metrics:
+            sum_order_items:
+              label: 'sum of order item ids'
+              type: sum     
 
       - name: order_id
         description: "Id of the order, foreign key"
