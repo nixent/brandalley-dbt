@@ -2112,6 +2112,15 @@ models:
 
       - name: row_total
         description: "Row total, nullable"
+        meta: 
+          metrics:
+            creditmemo_row_total:
+              label: 'Row total'
+              type: sum
+              description: "Row total from credit memo"
+              hidden: false  
+              round: 2
+              format: 'gbp'     
 
       - name: base_discount_amount
         description: "Base discount amount, nullable"
