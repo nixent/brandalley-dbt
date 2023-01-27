@@ -4,7 +4,7 @@
         source_name,
         id_field,
         source_schema = 'streamkap',
-        insert_time_field = '_streamkap_ts_ms',
+        insert_time_field = '_streamkap_loaded_at_ts',
         order_time_field = '_streamkap_source_ts_ms',
         order_offset_field = '_streamkap_offset',
         deleted_field='__deleted'
