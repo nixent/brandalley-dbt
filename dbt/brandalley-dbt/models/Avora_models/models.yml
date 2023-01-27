@@ -750,12 +750,11 @@ models:
           metrics:
             order_item_id_count:
               label: 'count of order_item_id'
-              type: count
-              sql: " COUNT(${order_item_id}) "   
+              type: count  
             sum_order_items: 
               label: 'sum of order_item_id'
               type: sum
-              sql: " SUM(${order_item_id}) " 
+              
 
       - name: order_id
         description: "Id of the order, foreign key"
@@ -769,7 +768,7 @@ models:
             average_items_per_order:
               label: 'average items per order'
               type: number
-              sql: " ${sum_order_items} / ${total_orders_count} "
+              sql: " ${sum_order_items} / ${order_item_id_count} "
 
       - name: sku
         description: "SKU, nullable"
