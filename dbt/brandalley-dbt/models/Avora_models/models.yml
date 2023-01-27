@@ -746,16 +746,11 @@ models:
         description: "Order item id, foreign key"
         meta:
           dimension:
-            format: id
+            format: id    
           metrics:
-            order_item_id_count:
-              label: 'count of order_item_id'
-              type: count
-              sql: " COUNT(${order_item_id}) "   
-            sum_order_items: 
-              label: 'sum of order_item_id'
-              type: sum
-              sql: " SUM(${order_item_id}) " 
+            sum_order_items:
+              label: 'sum of order item ids'
+              type: sum     
 
       - name: order_id
         description: "Id of the order, foreign key"
@@ -766,10 +761,13 @@ models:
             total_orders_count:
               label: 'Total number of orders'
               type: count_distinct
+            count_of_order_ids:
+              label: ' count of order ids '
+              type: count
             average_items_per_order:
               label: 'average items per order'
               type: number
-              sql: " ${sum_order_items} / ${total_orders_count} "
+              sql: " ${sum_order_items} / ${count_of_order_ids})"
 
       - name: sku
         description: "SKU, nullable"
@@ -804,7 +802,14 @@ models:
               type: sum
               description: "Number of units ordered"
               hidden: false
-              round: 0      
+              round: 0  
+            average_qty_ordered_metric:
+              label: 'Average units quantity ordered'
+              type: average 
+              description: "Average number of units ordered"
+              hidden: false
+              round: 0
+                 
 
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
