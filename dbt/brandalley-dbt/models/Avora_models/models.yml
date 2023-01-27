@@ -804,7 +804,14 @@ models:
               type: sum
               description: "Number of units ordered"
               hidden: false
-              round: 0      
+              round: 0  
+            average_qty_ordered_metric:
+              label: 'Average units quantity ordered'
+              type: average 
+              description: "Average number of units ordered"
+              hidden: false
+              round: 0
+                 
 
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
