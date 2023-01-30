@@ -750,9 +750,9 @@ models:
           dimension:
             format: id    
           metrics:
-            sum_order_items:
-              label: 'sum of order item ids'
-              type: sum     
+            count_order_items:
+              label: 'count distinct of order item ids'
+              type: count_distinct     
 
       - name: order_id
         description: "Id of the order, foreign key"
@@ -763,10 +763,13 @@ models:
             total_orders_count:
               label: 'Total number of orders'
               type: count_distinct
+            sum_of_order_ids:
+              label: ' sum of order ids'
+              type: sum
             average_items_per_order:
               label: 'average items per order'
               type: number
-              sql: " ${sum_order_items} / ${total_orders_count}"
+              sql: " ${count_order_items} / ${total_orders_count} "
 
       - name: sku
         description: "SKU, nullable"
