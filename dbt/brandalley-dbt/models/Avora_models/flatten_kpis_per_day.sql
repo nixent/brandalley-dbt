@@ -8,7 +8,7 @@ count(distinct order_item_id) count_orderlines, null as count_orders, null as co
 null as count_customers_orders,
 sum(qty_canceled) as qty_canceled, sum(qty_ordered) as qty_ordered, sum(qty_invoiced) as qty_invoiced
 , sum(qty_refunded) as qty_refunded, sum(qty_shipped) as qty_shipped, sum(consignment_qty) as consignment_qty, 
-sum(warehouse_qty) as warehouse_qty, sum(product_cost_inc_vat) as product_cost_inc_vat, sum(product_cost_exc_vat) as product_cost_exc_vat, 
+sum(warehouse_qty) as warehouse_qty, sum(line_product_cost_inc_vat) as product_cost_inc_vat, sum(line_product_cost_exc_vat) as product_cost_exc_vat, 
 sum(flash_price_inc_vat) as flash_price_inc_vat, sum(flash_price_exc_vat) as flash_price_exc_vat, 
 sum(shipping_refunded) as shipping_refunded, sum(tax_amount) as tax_amount, sum(qty_backordered) as qty_backordered, 
 sum(TOTAL_GBP_after_vouchers) as TOTAL_GBP_after_vouchers, sum(TOTAL_GBP_before_vouchers) as TOTAL_GBP_before_vouchers, 
