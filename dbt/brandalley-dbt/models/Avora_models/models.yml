@@ -2093,6 +2093,13 @@ models:
         meta:
           dimension:
             format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Number of credit memo"
+              hidden: false   
+              round: 0 
 
       - name: parent_id
         description: "Parent id"
