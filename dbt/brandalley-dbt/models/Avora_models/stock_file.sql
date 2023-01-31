@@ -183,7 +183,7 @@ FROM
 		{{ ref(
 				'stg__catalog_product_negotiation'
 		) }}
-		cpn ON cpn.negotiation_id = cpev_nego.value
+		cpn ON CAST(cpn.negotiation_id AS STRING) = cpev_nego.value
         LEFT JOIN
         {{ ref(
                 'stg__admin_user'
