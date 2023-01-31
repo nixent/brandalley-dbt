@@ -1,13 +1,12 @@
-SELECT 
-    GROUP_CONCAT(category_id) AS parent_child_category_ids,
+    SELECT 
+    STRING_AGG(CAST(category_id AS STRING)) AS parent_child_category_ids,
     e.entity_id AS child_entity_id,
     e.sku AS child_sku,
-    COUNT(*),
     stock.min_qty,
     stock.qty,
     IFNULL(parent_relation.parent_id, e.entity_id) AS parent_id,
     parent_entity_relation.sku AS child_parent_sku,
-    image.value AS image,
+    image.value AS image_value,
     cpvn.value AS name,
     cpevsi.value,
     cpevsiv.sup_id AS suplier_id,
@@ -193,4 +192,32 @@ FROM
 WHERE
     (e.type_id = 'simple')
         AND (stock.qty > 0)
-GROUP BY e.entity_id
+group by 
+    e.entity_id,
+    e.sku,
+    stock.min_qty,
+    stock.qty,
+    IFNULL(parent_relation.parent_id, e.entity_id),
+    parent_entity_relation.sku,
+    image.value,
+    cpvn.value,
+    cpevsi.value,
+    cpevsiv.sup_id,
+    cpeib.value,
+    cpevcoorigin.value,
+    cpedcost.value,
+    cpev_parent_gender.value,
+    cpev_simple_gender.value,
+    cpev_simple_type.value,
+    cpev_parent_type.value,
+    cpei_size.value,
+    cpei_colour.value,
+    cpedprice.value,
+    cpedsprice.value,
+    cpedoprice.value,
+    cpev_outlet_category.value,
+    parent_relation_child.product_id,
+    cpev_barcode.value,
+    cpev_nego.value,
+    cpn.buyer,
+    CONCAT(au.firstname, ' ', au.lastname)
