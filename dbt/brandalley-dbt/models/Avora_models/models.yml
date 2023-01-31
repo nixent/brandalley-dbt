@@ -674,10 +674,12 @@ models:
     description: ""
     meta:
       joins:
+        - join: sales_flat_creditmemo
+          sql_on: ${OrderLines.order_id} = ${sales_flat_creditmemo.order_id}
         - join: ba_core_stock_return
           sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id}
         - join: sales_flat_creditmemo_item
-          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku}
+          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.parent_id}=${sales_flat_creditmemo.entity_id}
         - join: customers
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
         - join: Orders
@@ -688,6 +690,8 @@ models:
           sql_on: ${OrderLines.sku} = ${shipment_items.sku}            
         - join: shipments
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
+        - join: shipping
+          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${products.product_id} = ${shipping.product_id}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
         - join: orderlineswithsequence
@@ -744,7 +748,11 @@ models:
         description: "Order item id, foreign key"
         meta:
           dimension:
-            format: id
+            format: id    
+          metrics:
+            count_order_items:
+              label: 'count distinct of order item ids'
+              type: count_distinct     
 
       - name: order_id
         description: "Id of the order, foreign key"
@@ -755,9 +763,13 @@ models:
             total_orders_count:
               label: 'Total number of orders'
               type: count_distinct
-            quantity_items_in_order:
-              label: " Qty Items in Order "
-              type: count
+            sum_of_order_ids:
+              label: ' sum of order ids'
+              type: sum
+            average_items_per_order:
+              label: 'average items per order'
+              type: number
+              sql: " ${count_order_items} / ${total_orders_count} "
 
       - name: sku
         description: "SKU, nullable"
@@ -792,7 +804,14 @@ models:
               type: sum
               description: "Number of units ordered"
               hidden: false
-              round: 0      
+              round: 0  
+            average_qty_ordered_metric:
+              label: 'Average units quantity ordered'
+              type: average 
+              description: "Average number of units ordered"
+              hidden: false
+              round: 0
+                 
 
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
@@ -1712,7 +1731,7 @@ models:
         meta:
           dimension:
             format: id
-            
+
       - name: no_of_orders_since_customer_started_ordering
         meta:
           dimension: 
@@ -1750,7 +1769,14 @@ models:
               type: count_distinct
               description: "Number of orders"
               hidden: false
-              round: 2      
+              round: 0
+            total_new_order_count:
+              label: 'Total number of new orders'
+              type: count_distinct
+              description: "Number of new orders"
+              hidden: false
+              sql: "IF(${orderno}=1, ${increment_id}, null)"
+              round: 0
 
       - name: magentoid
         description: ""
@@ -2067,6 +2093,13 @@ models:
         meta:
           dimension:
             format: id
+          metrics:
+            count_item_refunds_metric:
+              label: 'Total number of item refunds'
+              type: count_distinct
+              description: "Number of credit memo per item"
+              hidden: false   
+              round: 0 
 
       - name: parent_id
         description: "Parent id"
@@ -2088,6 +2121,15 @@ models:
 
       - name: row_total
         description: "Row total, nullable"
+        meta: 
+          metrics:
+            creditmemo_row_total:
+              label: 'Row total'
+              type: sum
+              description: "Row total from credit memo"
+              hidden: false  
+              round: 2
+              format: 'gbp'     
 
       - name: base_discount_amount
         description: "Base discount amount, nullable"
@@ -2205,6 +2247,13 @@ models:
         meta:
           dimension:
             format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Number of credit memo"
+              hidden: false   
+              round: 0 
 
       - name: store_id
         description: "Store id, nullable"
@@ -2662,9 +2711,25 @@ models:
 
       - name: order_date
         description: ""
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
 
       - name: shipment_date
         description: ""
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+          metrics:
+            days_to_delivery_exc_we:
+              label: 'Days to delivery exc WE'
+              type: sum
+              description: "Number of days spent between the order date and the shipment date, excluding week-ends"
+              sql: "IF(${shipment_date} !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
+              hidden: false
+              round: 0    
 
       - name: updated_at
         description: "Update date of the order, nullable"
