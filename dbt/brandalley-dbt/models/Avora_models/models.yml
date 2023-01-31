@@ -2094,10 +2094,10 @@ models:
           dimension:
             format: id
           metrics:
-            count_refunds_metric:
-              label: 'Total number of refunds'
+            count_item_refunds_metric:
+              label: 'Total number of item refunds'
               type: count_distinct
-              description: "Number of credit memo"
+              description: "Number of credit memo per item"
               hidden: false   
               round: 0 
 
@@ -2247,6 +2247,13 @@ models:
         meta:
           dimension:
             format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Number of credit memo"
+              hidden: false   
+              round: 0 
 
       - name: store_id
         description: "Store id, nullable"
