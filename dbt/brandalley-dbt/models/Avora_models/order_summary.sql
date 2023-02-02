@@ -1,6 +1,4 @@
---SELECT * FROM cte_two 
---ELSE FORMAT_TIMESTAMP('%Y-%m-%d', TIMESTAMP(sfo.created_at), 'Europe/London')
---, 
+
 with cte_one as (
 
     SELECT  
