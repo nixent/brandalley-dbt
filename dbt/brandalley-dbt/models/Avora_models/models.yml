@@ -1752,7 +1752,8 @@ models:
       joins:
         - join: shipments
           sql_on: ${Orders.magentoid} = ${shipments.order_id}
-        
+        - join: stg__salesrule_coupon
+          sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
 
     columns:
       - name: increment_id
