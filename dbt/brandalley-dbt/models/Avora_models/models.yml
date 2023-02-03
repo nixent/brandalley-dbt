@@ -2085,6 +2085,18 @@ models:
       - name: barcode
         description: ""
 
+  - name: RFM
+    description: ' a table showing the Recency, Frequency & Monetary values per customer along with the average time between transactions and average order value per customer'
+    columns:
+      - name: customer_id
+        tests:
+          - unique 
+      - name: days_since_last_order
+      - name: total_orders_made
+      - name: total_money_spent
+      - name: average_time_between_transactions
+      - name: average_order_value
+
   - name: sales_flat_creditmemo_item
     description: ""
     columns:
@@ -3261,3 +3273,118 @@ models:
               description: "Total paid from Repeat orders"
               hidden: false
               round: 2
+
+  - name: stock_file
+    description: ""
+    columns:
+      - name: child_entity_id
+        description: "Primary Key"
+        meta:
+          dimension:
+            format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of entity id'
+              type: count_distinct
+              description: "Number of entity id"
+              hidden: false   
+              round: 0 
+
+      - name: child_sku
+        description: "child sku, nullable"
+
+      - name: min_qty
+        description: "Quantity min, nullable"
+
+      - name: qty
+        description: "Quantity, nullable"
+
+      - name: parent_id
+        description: "parent id, nullable"
+        meta:
+          dimension:
+            format: id
+
+      - name: child_parent_sku
+        description: "SKU from the child, nullable"
+
+      - name: image_value
+        description: "Image value, nullable"
+
+      - name: name
+        description: "name, nullable"
+
+      - name: value
+        description: "Base adjustement negative, nullable"
+
+      - name: suplier_id
+        description: "suplier id, nullable"
+        meta:
+          dimension:
+            format: id
+
+      - name: brand_id
+        description: "Brand id, nullable"
+        meta:
+          dimension:
+            format: id
+
+      - name: country_of_manufacture
+        description: "Country of manufacture, nullable"
+
+      - name: cost
+        description: "cost, nullable"
+
+      - name: parent_gender
+        description: "Parent gender, nullable"
+
+      - name: simple_gender
+        description: "Gender of the simple item, nullable"
+
+      - name: simple_product_type
+        description: "Simple product type, nullable"
+
+      - name: parent_product_type
+        description: "Parent product type, nullable"
+
+      - name: size
+        description: "Size, nullable"
+
+      - name: colour
+        description: "Colour, nullable"
+
+      - name: price
+        description: "Price, nullable"
+
+      - name: special_price
+        description: "Special price, nullable"
+
+      - name: outlet_price
+        description: "Outlet price, nullable"
+
+      - name: outlet_category
+        description: "Outlet category, nullable"
+
+      - name: child_id
+        description: "Child id, nullable"
+        meta:
+          dimension:
+            format: id
+
+      - name: canUseForWHSale
+        description: "Can use for warehouse sale flag, nullable"
+
+      - name: barcode
+        description: "Barcode, nullable"
+
+      - name: nego
+        description: "Nego number, nullable"
+
+      - name: buyer_id
+        description: "Buyer id, nullable"
+        meta:
+          dimension:
+            format: id
+
+      - name: buyer
+        description: "Buyer, nullable"
