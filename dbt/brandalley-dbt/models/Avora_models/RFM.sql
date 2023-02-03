@@ -24,7 +24,7 @@ WITH base_cte as (
     ----------------- an additionof the average_time_between_transactions field FROM Orders table
 
         SELECT 
-        b.customer_id as customers_id 
+        b.customer_id as customer_id 
         , days_since_last_order
         , total_orders_made
         , CONCAT('£ ',total_money_spent) as total_money_spent 
@@ -37,7 +37,7 @@ WITH base_cte as (
     ) , final as (
     ---------- final cte 
         SELECT 
-        customers_id 
+        two.customer_id 
         , days_since_last_order
         , total_orders_made
         , total_money_spent
@@ -45,7 +45,7 @@ WITH base_cte as (
         , one.average_order_value
         FROM cte_two as two
         LEFT JOIN cte_one as one
-        ON two.customers_id = one.customer_id
+        ON two.customer_id = one.customer_id
 
     )
 
