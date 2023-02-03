@@ -2884,3 +2884,47 @@ sources:
             description: ""
           - name: __deleted
             description: ""
+
+      - name: salesrule_coupon
+        description: "Coupon details"
+        columns:
+          - name: coupon_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: rule_id
+            data_type: <integer>
+            description: "Rule Id, nullable"
+          - name: code
+            data_type: <string>
+            description: "Code"
+          - name: usage_limit
+            data_type: <integer>
+            description: "Usage limit"
+          - name: usage_per_customer
+            data_type: <integer>
+            description: "Usage per customer"
+          - name: time_used
+            data_type: <integer>
+            description: "Number of times the coupon has been used"
+          - name: expiration_date
+            data_type: <string>
+            description: "Expiration date"
+          - name: is_primary
+            data_type: <integer>
+            description: "Is primary flag"
+          - name: created_at
+            data_type: <string>
+            description: "Created at"
+          - name: tyoe
+            data_type: <integer>
+            description: "Type"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: _streamkap_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+          - name: _streamkap_offset
+            description: ""
+          - name: _streamkap_loaded_at_ts
+            description: ""
