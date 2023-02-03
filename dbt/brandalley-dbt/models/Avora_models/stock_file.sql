@@ -209,6 +209,7 @@ group by
     cpvn.value,
     cpevsi.value,
     cpevsiv.sup_id,
+    eaov_brand.value,
     cpeib.value,
     cpevcoorigin.value,
     cpedcost.value,
