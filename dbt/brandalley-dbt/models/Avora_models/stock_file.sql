@@ -10,11 +10,11 @@
     cpvn.value AS name,
     cpevsi.value,
     cpevsiv.sup_id AS suplier_id,
-    cpeib.value AS brand_id,
+    eaov_brand.value AS brand,
     cpevcoorigin.value AS country_of_manufacture,
     cpedcost.value AS cost,
-    cpev_parent_gender.value AS parent_gender,
-    cpev_simple_gender.value AS simple_gender,
+    REPLACE(REPLACE(REPLACE(cpev_parent_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS parent_gender,
+    REPLACE(REPLACE(REPLACE(cpev_simple_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS simple_gender,
     cpev_simple_type.value AS simple_product_type,
     cpev_parent_type.value AS parent_product_type,
     cpei_size.value AS size,
@@ -85,6 +85,12 @@ FROM
 		) }}
 		cpeib ON cpeib.attribute_id = 178
         AND cpeib.entity_id = parent_relation.parent_id
+        LEFT JOIN {{ ref(
+           'stg__eav_attribute_option_value'
+        ) }}
+        eaov_brand
+        ON eaov_brand.option_id = cpeib.value
+        AND eaov_brand.store_id = 0
         LEFT JOIN
 		{{ ref(
 				'stg__catalog_product_entity_varchar'
