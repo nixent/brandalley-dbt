@@ -4,7 +4,7 @@
         source_name,
         id_field,
         source_schema = 'streamkap',
-        insert_time_field = '_streamkap_loaded_at_ts',
+        insert_time_field = '_streamkap_ts_ms',
         order_time_field = '_streamkap_source_ts_ms',
         order_offset_field = '_streamkap_offset',
         deleted_field='__deleted'
@@ -27,14 +27,14 @@ FROM
 WHERE
     1 = 1
 {% if is_incremental() -%}
-AND {{insert_time_field}} >= (
+AND {{insert_time_field}} >= ((
     SELECT
         MAX(
             {{ insert_time_field }}
         )
     FROM
         {{ this }}
-)
+) - 1000000)
 {%- endif %}
 qualify ROW_NUMBER() over (
     {%- if id_field is string %}
