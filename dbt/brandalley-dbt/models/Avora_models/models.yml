@@ -434,7 +434,9 @@ models:
 
       - name: achica_migration_date
         description: ""
-
+  - name: fake_data
+    columns: 
+      - name: order_sequence 
   - name: invent_referer
     description: ""
     columns:
