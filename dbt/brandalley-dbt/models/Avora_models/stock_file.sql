@@ -243,7 +243,7 @@ group by
     cpev_parent_gender.value,
     cpev_simple_gender.value,
     eaov_parent_type.value,
-    cpev_parent_type.value,
+    eaov_simple_type.value,
     eaov_size.value,
     eaov_color.value,
     cpedprice.value,
