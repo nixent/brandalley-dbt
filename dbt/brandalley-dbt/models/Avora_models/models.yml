@@ -1141,7 +1141,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
 
       - name: month_created
         description: ""
