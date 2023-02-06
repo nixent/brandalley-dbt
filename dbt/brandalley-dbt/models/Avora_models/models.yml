@@ -1779,11 +1779,11 @@ models:
               sql: "IF(${orderno}=1, ${increment_id}, null)"
               round: 0
 
-      - name: magentoid
+      - name: magentoID
         description: ""
         meta:
           dimension:
-            hidden: true
+            format: id
 
       - name: store_id
         description: "Store id, foreign key, nullable"
