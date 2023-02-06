@@ -15,10 +15,10 @@
     cpedcost.value AS cost,
     REPLACE(REPLACE(REPLACE(cpev_parent_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS parent_gender,
     REPLACE(REPLACE(REPLACE(cpev_simple_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS simple_gender,
-    cpev_simple_type.value AS simple_product_type,
-    cpev_parent_type.value AS parent_product_type,
-    cpei_size.value AS size,
-    cpei_colour.value AS colour,
+    eaov_simple_type.value AS simple_product_type,
+    eaov_parent_type.value AS parent_product_type,
+    eaov_size.value AS size,
+    eaov_color.value AS colour,
     cpedprice.value AS price,
     cpedsprice.value AS special_price,
     cpedoprice.value AS outlet_price,
@@ -121,24 +121,52 @@ FROM
 		) }}
 		cpev_simple_type ON cpev_simple_type.attribute_id = 179
         AND cpev_simple_type.entity_id = e.entity_id
+        LEFT JOIN {{ ref(
+            'stg__eav_attribute_option_value'
+        ) }}
+        eaov_simple_type
+        ON cpev_simple_type.value = CAST(
+                eaov_simple_type.option_id AS STRING
+        )
+        AND eaov_pt_con.store_id = 0
         LEFT JOIN
 		{{ ref(
 				'stg__catalog_product_entity_varchar'
 		) }}
 		cpev_parent_type ON cpev_parent_type.attribute_id = 179
         AND cpev_parent_type.entity_id = parent_relation.parent_id
+        LEFT JOIN {{ ref(
+            'stg__eav_attribute_option_value'
+        ) }}
+        eaov_parent_type
+        ON cpev_parent_type.value = CAST(
+                eaov_parent_type.option_id AS STRING
+        )
+        AND eaov_pt_con.store_id = 0
         LEFT JOIN
 		{{ ref(
 				'stg__catalog_product_entity_int'
 		) }}
 		cpei_size ON cpei_size.attribute_id = 177
         AND cpei_size.entity_id = e.entity_id
+        LEFT JOIN {{ ref(
+            'stg__eav_attribute_option_value'
+        ) }}
+        eaov_size
+        ON eaov_size.option_id = cpei_size.value
+        AND eaov_size.store_id = 0
         LEFT JOIN
 		{{ ref(
 				'stg__catalog_product_entity_int'
 		) }}
 		cpei_colour ON cpei_colour.attribute_id = 213
         AND cpei_colour.entity_id = e.entity_id
+        LEFT JOIN {{ ref(
+            'stg__eav_attribute_option_value'
+        ) }}
+        eaov_color
+        ON eaov_color.option_id = cpei_colour.value
+        AND eaov_color.store_id = 0
         LEFT JOIN
 		{{ ref(
 				'stg__catalog_product_entity_decimal'
