@@ -128,7 +128,7 @@ FROM
         ON cpev_simple_type.value = CAST(
                 eaov_simple_type.option_id AS STRING
         )
-        AND eaov_pt_con.store_id = 0
+        AND eaov_simple_type.store_id = 0
         LEFT JOIN
 		{{ ref(
 				'stg__catalog_product_entity_varchar'
@@ -142,7 +142,7 @@ FROM
         ON cpev_parent_type.value = CAST(
                 eaov_parent_type.option_id AS STRING
         )
-        AND eaov_pt_con.store_id = 0
+        AND eaov_simple_type.store_id = 0
         LEFT JOIN
 		{{ ref(
 				'stg__catalog_product_entity_int'
