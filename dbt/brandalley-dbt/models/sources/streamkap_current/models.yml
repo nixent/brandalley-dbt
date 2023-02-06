@@ -3083,12 +3083,20 @@ models:
       - name: expiration_date
         data_type: <string>
         description: "Expiration date"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: is_primary
         data_type: <integer>
         description: "Is primary flag"
       - name: created_at
         data_type: <string>
         description: "Created at"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: tyoe
         data_type: <integer>
         description: "Type"

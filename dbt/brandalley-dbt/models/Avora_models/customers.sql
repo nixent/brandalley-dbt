@@ -193,9 +193,9 @@ FROM
        ca_s_32
        ON cei_s.value = ca_s_32.entity_id
        AND ca_s_32.attribute_id = 32
-       LEFT JOIN {{ ref(
+       LEFT JOIN (select distinct customer_id, subscriber_status from {{ ref(
               'stg__newsletter_subscriber'
-       ) }}
+       ) }})
        ns
        ON ce.entity_id = ns.customer_id
        LEFT JOIN {{ ref(
