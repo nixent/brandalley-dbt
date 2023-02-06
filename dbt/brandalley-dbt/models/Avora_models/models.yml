@@ -3324,11 +3324,8 @@ models:
           dimension:
             format: id
 
-      - name: brand_id
-        description: "Brand id, nullable"
-        meta:
-          dimension:
-            format: id
+      - name: brand
+        description: "Brand, nullable"
 
       - name: country_of_manufacture
         description: "Country of manufacture, nullable"
