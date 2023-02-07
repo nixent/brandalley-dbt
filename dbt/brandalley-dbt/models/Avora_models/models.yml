@@ -313,6 +313,15 @@ models:
       - name: updated_at
         description: "Update time, nullable"
 
+  - name: customers_enriched
+    description: " table with a grain of one customer per row "
+    columns: 
+      - name: customer_id
+        meta:
+          dimension:
+            format: id
+
+      - name: cohort_ts
   - name: category_join
     description: ""
     columns:
@@ -1740,7 +1749,18 @@ models:
             description: 
             hidden: false
      
-      
+  - name: orders_enriched
+    columns:
+      - name: customers_id
+        meta:
+          dimension:
+            format: id
+      - name: order_id
+        meta:
+          dimension:
+            format: id
+            
+      - name: order_ts
 
               
   - name: Orders
