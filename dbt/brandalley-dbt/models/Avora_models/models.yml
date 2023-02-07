@@ -1313,9 +1313,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'  
-
-      - name: Recency 
-        description: "recency in terms of the last time a customer made an order"
               
   - name: OrderLinesNullParent
     description: ""
@@ -1723,12 +1720,23 @@ models:
   - name: orderlineswithsequence
     description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"       
     columns:
-      - name: order_sequence
+      - name: customer_id
         meta:
           dimension:
             format: id
 
-      - name: customers
+      - name: order_id
+        meta:
+          dimension:
+            format: id
+
+      - name: no_of_orders_since_customer_started_ordering
+        meta:
+          dimension: 
+            label: 'number of orders customer made from first ever order'
+            type: number
+            description: 
+            hidden: false
      
       
 
