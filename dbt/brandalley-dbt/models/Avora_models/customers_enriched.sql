@@ -6,5 +6,6 @@ WITH
   FROM {{ ref('OrderLines') }}
   GROUP BY 1 
   )
-
+  
   SELECT * FROM customers 
+  
