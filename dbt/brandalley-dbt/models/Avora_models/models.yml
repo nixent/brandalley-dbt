@@ -434,7 +434,6 @@ models:
 
       - name: achica_migration_date
         description: ""
-
   - name: invent_referer
     description: ""
     columns:
@@ -732,7 +731,7 @@ models:
         description: ""       
 
       - name: customer_id
-        description: "Customer id, foreign key, nullable"
+        description: "Customer id, foreign key, nullable" 
         meta:
           dimension:
             format: id
@@ -1312,9 +1311,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'  
-
-      - name: Recency 
-        description: "recency in terms of the last time a customer made an order"
               
   - name: OrderLinesNullParent
     description: ""
@@ -1739,11 +1735,8 @@ models:
             type: number
             description: 
             hidden: false
-      - name: total_revenue_amount_per_customer
-        meta:
-          dimension:
-            label: " total revenue amount of each customer "
-            type: number
+     
+      
 
               
   - name: Orders
