@@ -3097,7 +3097,7 @@ models:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
-      - name: tyoe
+      - name: type
         data_type: <integer>
         description: "Type"
       - name: _streamkap_source_ts_ms
