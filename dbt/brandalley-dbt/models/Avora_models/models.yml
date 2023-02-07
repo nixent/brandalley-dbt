@@ -731,9 +731,7 @@ models:
         description: ""       
 
       - name: customer_id
-        description: "Customer id, foreign key, nullable"
-        tests:
-          - unique 
+        description: "Customer id, foreign key, nullable" 
         meta:
           dimension:
             format: id
