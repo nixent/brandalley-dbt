@@ -434,9 +434,6 @@ models:
 
       - name: achica_migration_date
         description: ""
-  - name: fake_data
-    columns: 
-      - name: order_sequence 
   - name: invent_referer
     description: ""
     columns:
@@ -735,6 +732,8 @@ models:
 
       - name: customer_id
         description: "Customer id, foreign key, nullable"
+        tests:
+          - unique 
         meta:
           dimension:
             format: id
@@ -1724,28 +1723,14 @@ models:
   - name: orderlineswithsequence
     description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"       
     columns:
-      - name: customer_id
+      - name: order_sequence
         meta:
           dimension:
             format: id
 
-      - name: order_id
-        meta:
-          dimension:
-            format: id
-
-      - name: no_of_orders_since_customer_started_ordering
-        meta:
-          dimension: 
-            label: 'number of orders customer made from first ever order'
-            type: number
-            description: 
-            hidden: false
-      - name: total_revenue_amount_per_customer
-        meta:
-          dimension:
-            label: " total revenue amount of each customer "
-            type: number
+      - name: customers
+     
+      
 
               
   - name: Orders
