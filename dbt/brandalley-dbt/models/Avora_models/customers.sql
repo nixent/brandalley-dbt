@@ -193,12 +193,9 @@ FROM
        ca_s_32
        ON cei_s.value = ca_s_32.entity_id
        AND ca_s_32.attribute_id = 32
-       LEFT JOIN (select a.customer_id, a.subscriber_status from {{ ref(
+       LEFT JOIN (select distinct customer_id, subscriber_status from {{ ref(
               'stg__newsletter_subscriber'
-       ) }} a inner join
-       (select customer_id, max(subscriber_id) subscriber_id from {{ ref(
-              'stg__newsletter_subscriber'
-       ) }} group by customer_id) b on a.subscriber_id=b.subscriber_id)
+       ) }})
        ns
        ON ce.entity_id = ns.customer_id
        LEFT JOIN {{ ref(
