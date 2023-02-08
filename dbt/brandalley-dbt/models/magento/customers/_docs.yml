@@ -1,0 +1,115 @@
+version: 2
+
+models:
+  - name: customers_record_data_source
+    description: ""
+    columns:
+      - name: cst_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+          metrics:
+            new_members_customers_record:
+              label: 'New Members from customers_record_data_source'
+              type: count_distinct
+              description: "New Members from customers_record_data_source"
+              hidden: false    
+      - name: record_data_source
+        description: ""
+      - name: date
+        description: ""
+
+  - name: customers
+    description: "" 
+    columns:
+      - name: cst_id
+        description: ""
+        meta:
+          metrics:
+            members:
+              label: 'Members'
+              type: count_distinct
+              description: "Number of members"
+              hidden: false    
+            new_members:
+              label: 'New Members'
+              type: count_distinct
+              description: "Number of new members"
+              sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, 0)"
+              hidden: false    
+      - name: customer_name
+        description: ""
+      - name: email
+        description: ""
+      - name: telephone
+        description: ""
+      - name: billing_street
+        description: ""
+      - name: billing_city
+        description: ""
+      - name: billing_postcode
+        description: ""
+      - name: b_region
+        description: ""
+      - name: billing_country
+        description: ""
+      - name: shipping_street
+        description: ""
+      - name: shipping_city
+        description: ""
+      - name: shipping_postcode
+        description: ""
+      - name: s_region
+        description: ""
+      - name: s_country
+        description: ""
+      - name: dt_cr
+        description: ""
+      - name: subscription
+        description: ""
+      - name: old_account_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: third_party
+        description: ""
+      - name: updated_at
+        description: ""
+      - name: achica_user
+        description: ""
+      - name: achica_migration_date
+        description: ""
+
+  - name: log_customer
+    description: ""
+    columns:
+      - name: log_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+      - name: visitor_id
+        description: "Visitor id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: customer_id
+        description: "Customer id"
+        meta:
+          dimension:
+            format: id
+      - name: login_at
+        description: "Login time"
+      - name: logout_at
+        description: "Logout time, nullable"
+      - name: store_id
+        description: "Store id"
+        meta:
+          dimension:
+            format: id
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
