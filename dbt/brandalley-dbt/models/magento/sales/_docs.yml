@@ -1,6 +1,114 @@
 version: 2
 
 models:
+  - name: ba_core_stock_return
+    description: ""
+    columns:
+      - name: id
+        description: "Primary key"
+        meta:
+          dimension:
+            hidden: true
+      - name: order_item_number
+        description: "Order item number"
+        meta:
+          dimension:
+            hidden: true
+      - name: sku
+        description: "SKU"
+        meta:
+          dimension:
+            hidden: false
+      - name: order_increment_id
+        description: "Order increment id"
+        meta:
+          dimension:
+            hidden: false
+      - name: qty
+        description: "Quantity"
+        meta:
+          dimension:
+            hidden: false
+      - name: return_code
+        description: "Return code"
+        meta:
+          dimension:
+            hidden: true
+      - name: created_at
+        description: "Created date"
+        meta:
+          dimension:
+            hidden: true
+      - name: xml_created_at
+        description: "Created date of the xml"
+        meta:
+          dimension:
+            hidden: true
+      - name: exported_to_sap
+        description: "Flag indicating if exported to SAP"
+        meta:
+          dimension:
+            hidden: true
+      - name: wh_line_id
+        description: "Warehouse Line ID"
+        meta:
+          dimension:
+            hidden: true
+      - name: return_service
+        description: "Return service"
+        meta:
+          dimension:
+            hidden: true
+      - name: creditmemo_id
+        description: "Credit memo Id"
+        meta:
+          dimension:
+            hidden: true
+      - name: maxdate
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+
+  - name: memo_feed
+    description: ""
+    columns:
+      - name: u_unique_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: adminuserid
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: ordernumber
+        description: ""
+      - name: orderdate
+        description: ""
+      - name: dateofstockreturned
+        description: ""
+      - name: refund_type_id
+        description: "Refund type id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: refund_status
+        description: ""
+      - name: creditmemodate
+        description: ""
+      - name: creditmemonumber
+        description: ""
+      - name: grandtotal
+        description: ""
+      - name: flag
+        description: "Flag"
+      - name: approvedat
+        description: ""
+      - name: updated_at
+        description: "Update date of the order, nullable"
+
   - name: order_summary
     description: " an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
     columns:

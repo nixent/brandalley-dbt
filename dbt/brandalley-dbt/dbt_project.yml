@@ -28,7 +28,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   brandalley_dbt:
-    avora_models:
+    magento:
       +schema: magento
       +materialized: table 
       +tags:
