@@ -1,0 +1,6 @@
+version: 2 #gui this stays 2, its not our version it's the types of .yml files that dbt supports
+
+models:
+  - name: stg__admin_user
+    description: ""
+    columns:

@@ -1,0 +1,305 @@
+version: 2 #gui this stays 2, its not our version it's the types of .yml files that dbt supports
+
+sources:
+  - name: streamkap
+    database: datawarehouse-358408
+    description: ""
+    tables:
+      - name: admin_user
+        description: ""
+        columns:
+          - name: user_id
+            data_type: <integer>
+            description: "primary key"
+          - name: firstname
+            data_type: <string>
+            description: "First name, nullable"
+          - name: lastname
+            data_type: <string>
+            description: "Last name, nullable"
+          - name: email
+            data_type: <string>
+            description: "Email, nullable"
+          - name: username
+            data_type: <string>
+            description: "User name, nullable"
+          - name: password
+            data_type: <string>
+            description: "Password, nullable"
+          - name: created
+            data_type: <timestamp>
+            description: "Creation date"
+          - name: modified
+            data_type: <timestamp>
+            description: "Modification date, nullable"
+          - name: logdate
+            data_type: <timestamp>
+            description: "Last Login Time, nullable"
+          - name: lognum
+            data_type: <integer>
+            description: "Login number"
+          - name: reload_acl_flag
+            data_type: <integer>
+            description: "Reload ACL"
+          - name: is_active
+            data_type: <integer>
+            description: "User is active"
+          - name: extra
+            data_type: <string>
+            description: "User extra data, nullable"
+          - name: rp_token
+            data_type: <string>
+            description: "Reset Password Link Token, nullable"
+          - name: rp_token_created_at
+            data_type: <timestamp>
+            description: "Reset Password Link Token Creation Date, nullable"
+          - name: failures_num
+            data_type: <integer>
+            description: "Failure Number, nullable"
+          - name: first_failure
+            data_type: <timestamp>
+            description: "First Failure Date, nullable"
+          - name: lock_expires
+            data_type: <timestamp>
+            description: "Expiration Lock Dates, nullable"
+          - name: token_login_enabled
+            data_type: <bit>
+            description: "Login enabled"
+          - name: login_token_secret
+            data_type: <string>
+            description: "Login token secret, nullable"
+          - name: last_token_used
+            data_type: <string>
+            description: "Last token used, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: bacore_stock_return
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "Primary key"
+          - name: order_item_number
+            data_type: <integer>
+            description: "Order item number"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: order_increment_id
+            data_type: <integer>
+            description: "Order increment id"
+          - name: qty
+            data_type: <integer>
+            description: "Quantity"
+          - name: return_code
+            data_type: <integer>
+            description: "Return code"
+          - name: created_at
+            data_type: <timestamp>
+            description: "Created date"
+          - name: xml_created_at
+            data_type: <timestamp>
+            description: "Created date of the xml"
+          - name: exported_to_sap
+            data_type: <integer>
+            description: "Flag indicating if exported to SAP"
+          - name: wh_line_id
+            data_type: <string>
+            description: "Warehouse Line ID"
+          - name: return_service
+            data_type: <string>
+            description: "Return service"
+          - name: creditmemo_id
+            data_type: <integer>
+            description: "Credit memo Id"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+
+      - name: eav_attribute_option_value
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: option_id
+            data_type: <integer>
+            description: "Option id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: value
+            data_type: <integer>
+            description: "Value, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: invent_referer
+        description: ""
+        columns:
+          - name: referer_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: entity_type
+            data_type: <integer>
+            description: "Entity type"
+          - name: event_type
+            data_type: <integer>
+            description: "Event type"
+          - name: source
+            data_type: <string>
+            description: "Source"
+          - name: medium
+            data_type: <string>
+            description: "Medium"
+          - name: term
+            data_type: <string>
+            description: "Term"
+          - name: content
+            data_type: <string>
+            description: "Content"
+          - name: campaign
+            data_type: <string>
+            description: "Campaign"
+          - name: gclid
+            data_type: <string>
+            description: "Gclid"
+          - name: device_category
+            data_type: <integer>
+            description: "Device categoy, nullable"
+          - name: operating_system
+            data_type: <string>
+            description: "Operating system, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: log_customer
+        description: ""
+        columns:
+          - name: log_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: visitor_id
+            data_type: <integer>
+            description: "Visitor id, nullable"
+          - name: customer_id
+            data_type: <integer>
+            description: "Customer id"
+          - name: login_at
+            data_type: <timestamp>
+            description: "Login time"
+          - name: logout_at
+            data_type: <timestamp>
+            description: "Logout time, nullable"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: stock_prism_grn_item
+        description: "Stock Prism GRN item"
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "Primary key"
+          - name: grn_id
+            data_type: <integer>
+            description: "GRN Id, nullable"
+          - name: grn_item_id
+            data_type: <integer>
+            description: "GRN item Id"
+          - name: unique_reference
+            data_type: <string>
+            description: "Unique Reference"
+          - name: in_sap
+            data_type: <integer>
+            description: "In SAP"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: delivery_number
+            data_type: <string>
+            description: "Delivery number"
+          - name: delivery_date
+            data_type: <date>
+            description: "Delivery date"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: tax_class
+        description: "Dim table to get tax class ID, name and type."
+        columns:
+          - name: class_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: class_name
+            data_type: <string>
+            description: "Tax class name"
+          - name: class_type
+            data_type: <string>
+            description: "Tax class type"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: salesrule_coupon
+        description: "Coupon details"
+        columns:
+          - name: coupon_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: rule_id
+            data_type: <integer>
+            description: "Rule Id, nullable"
+          - name: code
+            data_type: <string>
+            description: "Code"
+          - name: usage_limit
+            data_type: <integer>
+            description: "Usage limit"
+          - name: usage_per_customer
+            data_type: <integer>
+            description: "Usage per customer"
+          - name: time_used
+            data_type: <integer>
+            description: "Number of times the coupon has been used"
+          - name: expiration_date
+            data_type: <string>
+            description: "Expiration date"
+          - name: is_primary
+            data_type: <integer>
+            description: "Is primary flag"
+          - name: created_at
+            data_type: <string>
+            description: "Created at"
+          - name: tyoe
+            data_type: <integer>
+            description: "Type"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: _streamkap_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+          - name: _streamkap_offset
+            description: ""
+          - name: _streamkap_loaded_at_ts
+            description: ""
