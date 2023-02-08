@@ -4,23 +4,23 @@ models:
   
   ## should this be in catalog with the file moved too? check schema before moving!
 
-  - name: category_join
-    description: ""
-    columns:
-      - name: product_id
-        description: "Product id"
-        meta:
-          dimension:
-            format: id
+  # - name: category_join
+  #   description: ""
+  #   columns:
+  #     - name: product_id
+  #       description: "Product id"
+  #       meta:
+  #         dimension:
+  #           format: id
             
-      - name: category_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
+  #     - name: category_id
+  #       description: "Primary key"
+  #       meta:
+  #         dimension:
+  #           format: id
             
-      - name: updated_at
-        description: "Update time"
+  #     - name: updated_at
+  #       description: "Update time"
 
 
   
