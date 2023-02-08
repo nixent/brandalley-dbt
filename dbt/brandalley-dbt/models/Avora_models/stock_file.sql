@@ -31,9 +31,9 @@
     cpev_nego.value AS nego,
     cpn.buyer AS buyer_id,
     CONCAT(au.firstname, ' ', au.lastname) AS buyer,
-    SPLIT(cpev_outlet_category, '>')[offset(0)] level_1, 
-    SPLIT(cpev_outlet_category, '>')[offset(1)] level_2, 
-    SPLIT(cpev_outlet_category, '>')[offset(2)] level_3
+    SPLIT(cpev_outlet_category.value, '>')[offset(0)] level_1, 
+    SPLIT(cpev_outlet_category.value, '>')[offset(1)] level_2, 
+    SPLIT(cpev_outlet_category.value, '>')[offset(2)] level_3
 FROM
 		{{ ref(
 				'stg__catalog_product_entity'
