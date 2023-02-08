@@ -1759,8 +1759,9 @@ models:
         meta:
           dimension:
             format: id
-            
-      - name: order_ts
+
+      - name: order_ts 
+      - name: order_sequence 
 
               
   - name: Orders

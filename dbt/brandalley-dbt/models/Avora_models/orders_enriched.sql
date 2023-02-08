@@ -10,4 +10,12 @@ WITH customers_orders AS (
     AND c.cohort_ts >= '2021-01-01'
   GROUP BY  1, 2 )
 
-  SELECT * FROM customers_orders 
+  , order_rank AS (
+  SELECT
+    customer_id,
+    order_id,
+    order_ts,
+    RANK() OVER (PARTITION BY customer_id ORDER BY order_ts) order_sequence
+  FROM customers_orders )
+
+  SELECT * FROM order_rank 
