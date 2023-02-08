@@ -321,7 +321,7 @@ models:
           dimension:
             format: id
 
-      - name: cohort_ts
+      - name: first_purchase_at
   - name: category_join
     description: ""
     columns:
