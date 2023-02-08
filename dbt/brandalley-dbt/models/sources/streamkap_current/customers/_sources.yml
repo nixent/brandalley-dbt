@@ -189,6 +189,32 @@ sources:
           - name: __deleted
             description: ""
 
+      - name: log_customer
+        description: ""
+        columns:
+          - name: log_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: visitor_id
+            data_type: <integer>
+            description: "Visitor id, nullable"
+          - name: customer_id
+            data_type: <integer>
+            description: "Customer id"
+          - name: login_at
+            data_type: <timestamp>
+            description: "Login time"
+          - name: logout_at
+            data_type: <timestamp>
+            description: "Logout time, nullable"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
       - name: newsletter_subscriber
         description: ""
         columns:
