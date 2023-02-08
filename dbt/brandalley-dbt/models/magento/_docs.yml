@@ -22,7 +22,6 @@ models:
       - name: updated_at
         description: "Update time"
 
-  
 
   
   - name: invent_referer

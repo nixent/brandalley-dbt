@@ -679,3 +679,89 @@ models:
         description: ""
       - name: __deleted
         description: ""
+
+  - name: stg__eav_attribute_option_value
+    description: ""
+    columns:
+      - name: composite_key
+        description: "composite primary key made from option_id and store_id using dbt_utils surrogate key"
+        tests: 
+          - unique
+          - not_null
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+      - name: option_id
+        data_type: <integer>
+        description: "Option id"
+      - name: store_id
+        data_type: <integer>
+        description: "Store id"
+      - name: value
+        data_type: <integer>
+        description: "Value, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg__stock_prism_grn_item
+    description: "Stock Prism GRN item"
+    columns:
+      - name: id
+        data_type: <integer>
+        description: "Primary key"
+        tests: 
+          - unique
+          - not_null
+      - name: grn_id
+        data_type: <integer>
+        description: "GRN Id"
+      - name: grn_item_id
+        data_type: <integer>
+        description: "GRN item id"
+      - name: unique_reference
+        data_type: <string>
+        description: "Unique reference"
+      - name: in_sap
+        data_type: <integer>
+        description: "In SAP flag"
+      - name: sku
+        data_type: <string>
+        description: "SKU"
+      - name: delivery_number
+        data_type: <string>
+        description: "Delivery number"
+      - name: delivery_date
+        data_type: <date>
+        description: "Delivery date"
+      - name: stock_type_ss
+        data_type: <string>
+        description: "Stock type ss"
+      - name: stock_type_qc
+        data_type: <string>
+        description: "Stock type qc"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg__tax_class
+    description: "Dim table to get tax class ID, name and type."
+    columns:
+      - name: class_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: class_name
+        data_type: <string>
+        description: "Tax class name"
+      - name: class_type
+        data_type: <string>
+        description: "Tax class type"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
