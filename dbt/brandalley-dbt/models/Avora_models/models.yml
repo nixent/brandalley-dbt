@@ -1242,7 +1242,7 @@ models:
               format: 'gbp'   
             average_order_value:
               label: ' average order value (excluding VAT after discount) '
-              type: number
+              type: number 
               description: 'average order value (excluding VAT after discount)'
               sql: " ${total_revenue_exc_tax}/${total_orders_count}"
               round: 2
@@ -1760,7 +1760,7 @@ models:
           dimension:
             format: id
 
-      - name: order_ts 
+      - name: order_at  
       - name: order_sequence 
 
               
