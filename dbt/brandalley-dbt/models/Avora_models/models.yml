@@ -3404,3 +3404,12 @@ models:
 
       - name: buyer
         description: "Buyer, nullable"
+
+      - name: level_1
+        description: "Level 1 of categories"
+
+      - name: level_2
+        description: "Level 2 of categories"
+
+      - name: level_3
+        description: "Level 3 of categories"
