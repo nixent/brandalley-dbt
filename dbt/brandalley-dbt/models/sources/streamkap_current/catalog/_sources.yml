@@ -1,0 +1,693 @@
+version: 2
+
+sources:
+  - name: streamkap
+    database: datawarehouse-358408
+    description: "Streamkap Current tables relating to Magento Catalog"
+    tables:
+      - name: catalog_category_entity
+        description: ""
+        columns:
+          - name: entity_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_set_id
+            data_type: <integer>
+            description: "Attribute set id"
+          - name: parent_id
+            data_type: <integer>
+            description: "Parent id"
+          - name: created_at
+            data_type: <timestamp>
+            description: "Creation time, nullable"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "Update time, nullable"
+          - name: path
+            data_type: <string>
+            description: "Tree Path"
+          - name: position
+            data_type: <integer>
+            description: "Position"
+          - name: level
+            data_type: <integer>
+            description: "Tree level"
+          - name: children_count
+            data_type: <integer>
+            description: "Child count"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_history
+        description: ""
+        columns:
+          - name: line_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: category_id
+            data_type: <integer>
+            description: "Category id"
+          - name: name
+            data_type: <string>
+            description: "Name"
+          - name: sale_start
+            data_type: <timestamp>
+            description: "Sale start"
+          - name: sale_end
+            data_type: <timestamp>
+            description: "Sale end"
+          - name: type
+            data_type: <integer>
+            description: "Type"
+          - name: nego
+            data_type: <integer>
+            description: "Negociation number"
+          - name: delivery_info
+            data_type: <string>
+            description: "Delivery info"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_int
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_id
+            data_type: <integer>
+            description: "Attribute id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: value
+            data_type: <integer>
+            description: "Value"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_entity_varchar
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_id
+            data_type: <integer>
+            description: "Attribute id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: value
+            data_type: <string>
+            description: "Value, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_category_product
+        description: ""
+        columns:
+          - name: category_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: position
+            data_type: <integer>
+            description: "Position"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity
+        description: ""
+        columns:
+          - name: entity_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_set_id
+            data_type: <integer>
+            description: "Attribute set id"
+          - name: type_id
+            data_type: <string>
+            description: "Type id"
+          - name: sku
+            data_type: <string>
+            description: "SKU, nullable"
+          - name: has_options
+            data_type: <integer>
+            description: "Has options"
+          - name: required_options
+            data_type: <integer>
+            description: "Required options"
+          - name: created_at
+            data_type: <timestamp>
+            description: "Creation time"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "Update time"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_decimal
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_id
+            data_type: <integer>
+            description: "Attribute id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: value
+            data_type: <decimal>
+            description: "Value"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_int
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary id"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_id
+            data_type: <integer>
+            description: "Attribute id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: value
+            data_type: <string>
+            description: "Value, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_text
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_id
+            data_type: <integer>
+            description: "Attribute id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: value
+            data_type: <string>
+            description: "Value, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_entity_varchar
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_id
+            data_type: <integer>
+            description: "Attribute id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: value
+            data_type: <string>
+            description: "Value, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_negotiation
+        description: ""
+        columns:
+          - name: negotiation_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "Update time, nullable"
+          - name: parent
+            data_type: <integer>
+            description: "Parent, nullable"
+          - name: sap_ref
+            data_type: <integer>
+            description: "SAP ref"
+          - name: type
+            data_type: <integer>
+            description: "Type"
+          - name: supplier
+            data_type: <integer>
+            description: "Supplier"
+          - name: currency
+            data_type: <string>
+            description: "Currency"
+          - name: rate
+            data_type: <decimal>
+            description: "Rate"
+          - name: cost
+            data_type: <decimal>
+            description: "Cost"
+          - name: price
+            data_type: <decimal>
+            description: "Price"
+          - name: status
+            data_type: <integer>
+            description: "Status"
+          - name: admin
+            data_type: <integer>
+            description: "Admin"
+          - name: date_import
+            data_type: <timestamp>
+            description: "Date import"
+          - name: date_reservation
+            data_type: <timestamp>
+            description: "Date reservation"
+          - name: date_pend_proc
+            data_type: <timestamp>
+            description: "Date pend proc"
+          - name: date_proc_comp
+            data_type: <timestamp>
+            description: "Date proc comp"
+          - name: date_comp_exported
+            data_type: <timestamp>
+            description: "Date comp exported"
+          - name: date_due
+            data_type: <timestamp>
+            description: "Date due"
+          - name: sap_message
+            data_type: <varchar>
+            description: "SAP message, nullable"
+          - name: buyer
+            data_type: <integer>
+            description: "Buyer, nullable"
+          - name: department
+            data_type: <string>
+            description: "Department, nullable"
+          - name: buyer_name
+            data_type: <string>
+            description: "Buyer name, nullable"
+          - name: buyer_email
+            data_type: <string>
+            description: "Buyer email, nullable"
+          - name: supplier_email
+            data_type: <string>
+            description: "Supplier email, nullable"
+          - name: is_internal
+            data_type: <integer>
+            description: "Is internal, nullable"
+          - name: email_allert
+            data_type: <integer>
+            description: Email alert, nullable""
+          - name: po_generate
+            data_type: <integer>
+            description: "PO Generate, nullable"
+          - name: validated
+            data_type: <integer>
+            description: "Validated, nullable"
+          - name: country_po
+            data_type: <string>
+            description: "Country PO"
+          - name: po_crossdock
+            data_type: <bit>
+            description: "PO Crossdock"
+          - name: imported_to_erp
+            data_type: <integer>
+            description: "Imported to erp"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_negotiation_item
+        description: ""
+        columns:
+          - name: negotiation_item_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: negotiation_id
+            data_type: <integer>
+            description: "Negotiation id"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "Update time, nullable"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: product_parent_id
+            data_type: <integer>
+            description: "Product parent id"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: parrent_sku
+            data_type: <string>
+            description: "Parent SKU"
+          - name: reference
+            data_type: <string>
+            description: "Reference"
+          - name: name
+            data_type: <string>
+            description: "Name"
+          - name: size
+            data_type: <integer>
+            description: "Size"
+          - name: brand
+            data_type: <integer>
+            description: "Brand"
+          - name: commodity_code
+            data_type: <string>
+            description: "Commodity code"
+          - name: pack_size
+            data_type: <integer>
+            description: "Pack size"
+          - name: cost
+            data_type: <decimal>
+            description: "Cost"
+          - name: cost_gbp
+            data_type: <decimal>
+            description: "Cost in GBP"
+          - name: rrp
+            data_type: <decimal>
+            description: "RRP"
+          - name: price
+            data_type: <decimal>
+            description: "Price"
+          - name: tax_rate
+            data_type: <decimal>
+            description: "Tax rate"
+          - name: tax_code
+            data_type: <string>
+            description: "Tax code"
+          - name: qty
+            data_type: <integer>
+            description: "Quantity"
+          - name: ordered
+            data_type: <integer>
+            description: "Ordered"
+          - name: to_order
+            data_type: <integer>
+            description: "To order"
+          - name: qty_exported
+            data_type: <integer>
+            description: "Quantity exported"
+          - name: imported_to_erp
+            data_type: <integer>
+            description: "Imported to erp"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_reference
+        description: ""
+        columns:
+          - name: reference_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_id
+            data_type: <integer>
+            description: "Entity id"
+          - name: reference
+            data_type: <string>
+            description: "Reference"
+          - name: size
+            data_type: <integer>
+            description: "Size"
+          - name: supplier_id
+            data_type: <integer>
+            description: "Supplier id"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_super_link
+        description: ""
+        columns:
+          - name: link_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: parent_id
+            data_type: <integer>
+            description: "Parent id"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: catalog_product_supplier
+        description: ""
+        columns:
+          - name: supplier_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: name
+            data_type: <string>
+            description: "Name"
+          - name: sup_id
+            data_type: <string>
+            description: "Sup id"
+          - name: currency
+            data_type: <string>
+            description: "Currency"
+          - name: status
+            data_type: <bit>
+            description: "Status"
+          - name: in_wh_b
+            data_type: <bit>
+            description: "In Warehouse b"
+          - name: updated
+            data_type: <bit>
+            description: "Updated flag"
+          - name: supplier_export_process_id
+            data_type: <string>
+            description: "Supplier export process id, nullable"
+          - name: imported_to_erp
+            data_type: <integer>
+            description: "Imported to erp"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: cataloginventory_stock_item
+        description: ""
+        columns:
+          - name: item_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: stock_id
+            data_type: <integer>
+            description: "Stock id"
+          - name: qty
+            data_type: <decimal>
+            description: "Quantity"
+          - name: min_qty
+            data_type: <decimal>
+            description: "Min Quantity"
+          - name: use_config_min_qty
+            data_type: <integer>
+            description: "Use config min quantity"
+          - name: is_qty_decimal
+            data_type: <integer>
+            description: "Is quantity decimal"
+          - name: backorders
+            data_type: <integer>
+            description: "Backorders"
+          - name: use_config_backorders
+            data_type: <integer>
+            description: "Use config backorders"
+          - name: min_sale_qty
+            data_type: <decimal>
+            description: "Min sale quantity"
+          - name: use_config_min_sale_qty
+            data_type: <integer>
+            description: "Use config min sale quantity"
+          - name: max_sale_qty
+            data_type: <decimal>
+            description: "Max sale quantity"
+          - name: use_config_max_sale_qty
+            data_type: <integer>
+            description: "Use config min sale quantity"
+          - name: is_in_stock
+            data_type: <integer>
+            description: "Is in stock"
+          - name: low_stock_date
+            data_type: <timestamp>
+            description: "Low stock date, nullable"
+          - name: notify_stock_qty
+            data_type: <decimal>
+            description: "Notify stock quantity, nullable"
+          - name: use_config_notify_stock_qty
+            data_type: <integer>
+            description: "Use config notify stock quantity"
+          - name: manage_stock
+            data_type: <integer>
+            description: "Manage stock"
+          - name: use_config_manage_stock
+            data_type: <integer>
+            description: "Use config manage stock"
+          - name: stock_status_changed_auto
+            data_type: <integer>
+            description: "Stock status changed auto"
+          - name: use_config_qty_increments
+            data_type: <integer>
+            description: "Use config quantity increments"
+          - name: qty_increments
+            data_type: <decimal>
+            description: "Quantity increments"
+          - name: use_config_enable_qty_inc
+            data_type: <integer>
+            description: "Use config enable quantity inc"
+          - name: enable_qty_increments
+            data_type: <integer>
+            description: "Enable quantoty increments"
+          - name: is_decimal_divided
+            data_type: <integer>
+            description: "Is decimal divided"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: eav_attribute_option_value
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: option_id
+            data_type: <integer>
+            description: "Option id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: value
+            data_type: <integer>
+            description: "Value, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: stock_prism_grn_item
+        description: "Stock Prism GRN item"
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "Primary key"
+          - name: grn_id
+            data_type: <integer>
+            description: "GRN Id, nullable"
+          - name: grn_item_id
+            data_type: <integer>
+            description: "GRN item Id"
+          - name: unique_reference
+            data_type: <string>
+            description: "Unique Reference"
+          - name: in_sap
+            data_type: <integer>
+            description: "In SAP"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: delivery_number
+            data_type: <string>
+            description: "Delivery number"
+          - name: delivery_date
+            data_type: <date>
+            description: "Delivery date"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      
+      - name: tax_class
+        description: "Dim table to get tax class ID, name and type."
+        columns:
+          - name: class_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: class_name
+            data_type: <string>
+            description: "Tax class name"
+          - name: class_type
+            data_type: <string>
+            description: "Tax class type"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""

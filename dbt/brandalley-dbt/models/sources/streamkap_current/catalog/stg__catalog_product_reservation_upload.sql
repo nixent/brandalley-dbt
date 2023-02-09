@@ -2,6 +2,7 @@
     materialized = 'incremental',
     unique_key = ['reservation_id', 'product_id'],
     cluster_by = ['reservation_id', 'product_id'],
+    enabled=false
 ) }}
 
 with streamkap_source as (

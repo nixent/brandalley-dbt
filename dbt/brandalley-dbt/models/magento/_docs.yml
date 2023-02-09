@@ -1,0 +1,710 @@
+version: 2
+
+models:
+  
+  ## should this be in catalog with the file moved too? check schema before moving!
+
+  # - name: category_join
+  #   description: ""
+  #   columns:
+  #     - name: product_id
+  #       description: "Product id"
+  #       meta:
+  #         dimension:
+  #           format: id
+            
+  #     - name: category_id
+  #       description: "Primary key"
+  #       meta:
+  #         dimension:
+  #           format: id
+            
+  #     - name: updated_at
+  #       description: "Update time"
+
+
+  
+  - name: invent_referer
+    description: ""
+    columns:
+      - name: referer_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+            
+      - name: entity_id
+        description: "Entity id"
+        meta:
+          dimension:
+            format: id
+            
+      - name: entity_type
+        description: "Entity type"
+
+      - name: event_type
+        description: "Event type"
+
+      - name: source
+        description: "Source"
+
+      - name: medium
+        description: "Medium"
+
+      - name: term
+        description: "Term"
+
+      - name: content
+        description: "Content"
+
+      - name: campaign
+        description: "Campaign"
+
+      - name: gclid
+        description: "Gclid"
+
+      - name: device_category
+        description: "Device categoy, nullable"
+
+      - name: operating_system
+        description: "Operating system, nullable"
+
+      - name: _streamkap_source_ts_ms
+        description: ""
+
+      - name: __deleted
+        description: ""
+
+  - name: inventory_items
+    description: ""
+    columns:
+      - name: item_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+            
+      - name: product_id
+        description: "Product id"
+        meta:
+          dimension:
+            format: id
+            
+      - name: stock_id
+        description: "Stock id"
+        meta:
+          dimension:
+            format: id
+            
+      - name: qty
+        description: "Quantity"
+
+      - name: min_qty
+        description: "Min Quantity"
+
+      - name: use_config_min_qty
+        description: "Use config min quantity"
+
+      - name: is_qty_decimal
+        description: "Is quantity decimal"
+
+      - name: backorders
+        description: "Backorders"
+
+      - name: use_config_backorders
+        description: "Use config backorders"
+
+      - name: min_sale_qty
+        description: "Min sale quantity"
+
+      - name: use_config_min_sale_qty
+        description: "Use config min sale quantity"
+
+      - name: max_sale_qty
+        description: "Max sale quantity"
+
+      - name: use_config_max_sale_qty
+        description: "Use config min sale quantity"
+
+      - name: is_in_stock
+        description: "Is in stock"
+
+      - name: low_stock_date
+        description: "Low stock date, nullable"
+
+      - name: notify_stock_qty
+        description: "Notify stock quantity, nullable"
+
+      - name: use_config_notify_stock_qty
+        description: "Use config notify stock quantity"
+
+      - name: manage_stock
+        description: "Manage stock"
+
+      - name: use_config_manage_stock
+        description: "Use config manage stock"
+
+      - name: stock_status_changed_auto
+        description: "Stock status changed auto"
+
+      - name: use_config_qty_increments
+        description: "Use config quantity increments"
+
+      - name: qty_increments
+        description: "Quantity increments"
+
+      - name: use_config_enable_qty_inc
+        description: "Use config enable quantity inc"
+
+      - name: enable_qty_increments
+        description: "Enable quantoty increments"
+
+      - name: is_decimal_divided
+        description: "Is decimal divided"
+
+  
+  
+
+  - name: RFM
+    description: ' a table showing the Recency, Frequency & Monetary values per customer along with the average time between transactions and average order value per customer'
+    columns:
+      - name: customer_id
+        tests:
+          - unique 
+      - name: days_since_last_order
+      - name: total_orders_made
+      - name: total_money_spent
+      - name: average_time_between_transactions
+      - name: average_order_value
+
+  
+
+  - name: flatten_kpis_per_day
+    description: ""
+    meta:
+      joins:
+        - join: customers_record_data_source
+          sql_on: ${flatten_kpis_per_day.customer_id} = ${customers_record_data_source.cst_id}
+    columns:
+      - name: order_number
+        description: "Id of the order"
+        meta:
+          dimension:
+            format: id
+
+      - name: product_name
+        description: "Name of the product"
+
+      - name: sku
+        description: "SKU of the product to ship, nullable"
+
+      - name: entity
+        description: "Entity the data is coming from"
+
+      - name: date
+        description: "Key date of each entity"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+
+      - name: nego
+        description: "Negociation number"
+        meta:
+          dimension:
+            format: id
+
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
+
+      - name: category_path
+        description: "Category tree details, nullable"
+
+      - name: product_type
+        description: "Type of product"
+
+      - name: brand
+        description: "Brand name"
+
+      - name: supplier_id
+        description: "ID of the supplier"
+
+      - name: supplier_name
+        description: "Name of the supplier, nullable"
+
+      - name: colour
+        description: "Colour of the product"
+
+      - name: gender
+        description: "Gender targeted by the product"
+
+      - name: size
+        description: "Size of the product"
+
+      - name: nego
+        description: "Negociation number"
+
+      - name: category_name
+        description: "Name of the category"
+
+      - name: department_type
+        description: "Department type"
+
+      - name: order_status
+        description: "Status of the order"
+
+      - name: region
+        description: "Region"
+
+      - name: reference
+        description: "Reference"
+
+      - name: order_number
+        description: "Order number"
+
+      - name: coupon_rule_name
+        description: "Coupon rule name"
+
+      - name: coupon_code
+        description: "Coupon code"
+
+      - name: method
+        description: "Method"
+
+      - name: shipping_method
+        description: "Shipping method"
+
+      - name: customer_id
+        description: "Customer id"
+
+      - name: orderno
+        description: "Order number"
+
+      - name: email
+        description: "Email"
+
+      - name: achica_user
+        description: "Flag achica user"
+
+      - name: achica_migration_date
+        description: "Achica migration date"
+
+      - name: count_orderlines
+        description: "Count of number of lines in orderlines"
+        meta:
+          metrics:
+            count_orderlines_kpi_metric:
+              label: 'Count of number of lines in orderlines'
+              type: sum
+              description: "Count of number of lines in orderlines"
+              hidden: false
+              round: 0     
+
+      - name: count_orders
+        description: "Count of number of lines in orders"
+        meta:
+          metrics:
+            count_orders_kpi_metric:
+              label: 'Count of number of lines in orders'
+              type: sum
+              description: "Count of number of lines in orders"
+              hidden: false
+              round: 0    
+
+      - name: count_customers
+        description: "Count of number of lines in customers"
+        meta:
+          metrics:
+            count_customers_kpi_metric:
+              label: 'Count of number of lines in customer'
+              type: sum
+              description: "Count of number of lines in customer"
+              hidden: false
+              round: 0  
+
+      - name: qty_canceled
+        description: "Quantity of units canceled"
+        meta:
+          metrics:
+            qty_canceled_kpi_metric:
+              label: 'Quantity of units canceled'
+              type: sum
+              description: "Quantity of units canceled"
+              hidden: false
+              round: 0  
+
+      - name: qty_ordered
+        description: "Quantity ordered"
+        meta:
+          metrics:
+            qty_ordered_kpi_metric:
+              label: 'Quantity ordered'
+              type: sum
+              description: "Quantity ordered"
+              hidden: false
+              round: 0   
+
+      - name: qty_invoiced
+        description: "Quantity invoiced"
+        meta:
+          metrics:
+            qty_invoiced_kpi_metric:
+              label: 'Quantity invoiced'
+              type: sum
+              description: "Quantity invoiced"
+              hidden: false
+              round: 0  
+
+      - name: qty_refunded
+        description: "Quantity refunded"
+        meta:
+          metrics:
+            qty_refunded_kpi_metric:
+              label: 'Quantity refunded'
+              type: sum
+              description: "Quantity refunded"
+              hidden: false
+              round: 2   
+
+      - name: qty_shipped
+        description: "Quantity shipped"
+        meta:
+          metrics:
+            qty_shipped_kpi_metric:
+              label: 'Quantity shipped'
+              type: sum
+              description: "Quantity shipped"
+              hidden: false
+              round: 2  
+
+      - name: consignment_quantity
+        description: "Consignment quantity"
+        meta:
+          metrics:
+            consignment_quantity_kpi_metric:
+              label: 'Consignment quantity'
+              type: sum
+              description: "Consignment quantity"
+              hidden: false
+              round: 0  
+
+      - name: warehouse_qty
+        description: "Warehouse quantity"
+        meta:
+          metrics:
+            warehouse_qty_kpi_metric:
+              label: 'Warehouse quantity'
+              type: sum
+              description: "Warehouse quantity"
+              hidden: false
+              round: 0    
+
+      - name: product_cost_inc_vat
+        description: "Product cost inc VAT"
+        meta:
+          metrics:
+            product_cost_inc_vat_kpi_metric:
+              label: 'Product cost inc VAT'
+              type: sum
+              description: "Product cost inc VAT"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: product_cost_exc_vat
+        description: "Product cost exc VAT"
+        meta:
+          metrics:
+            product_cost_exc_vat_kpi_metric:
+              label: 'Product cost exc VAT'
+              type: sum
+              description: "Product cost exc VAT"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: flash_price_inc_vat
+        description: "Flash price inc VAT"
+        meta:
+          metrics:
+            flash_price_inc_vat_kpi_metric:
+              label: 'Flash price inc VAT'
+              type: sum
+              description: "Flash price inc VAT"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: shipping_refunded
+        description: "Shipping refunded"
+        meta:
+          metrics:
+            shipping_refunded_kpi_metric:
+              label: 'Shipping refunded'
+              type: sum
+              description: "Shipping refunded"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: tax_amount
+        description: "Tax amount"
+        meta:
+          metrics:
+            tax_amount_kpi_metric:
+              label: 'Tax amount'
+              type: sum
+              description: "Tax amount"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: qty_backordered
+        description: "Quantity backordered"
+        meta:
+          metrics:
+            qty_backordered_kpi_metric:
+              label: 'Quantity backordered'
+              type: sum
+              description: "Quantity backordered"
+              hidden: false
+              round: 2    
+
+      - name: TOTAL_GBP_after_vouchers
+        description: "Total revenue after vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_after_vouchers_kpi_metric:
+              label: 'Total revenue after vouchers'
+              type: sum
+              description: "Total revenue after vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_before_vouchers
+        description: "Total revenue before vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_before_vouchers_kpi_metric:
+              label: 'Total revenue before vouchers'
+              type: sum
+              description: "Total revenue before vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_ex_tax_after_vouchers
+        description: "Total revenue exc tax after vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_ex_tax_after_vouchers_kpi_metric:
+              label: 'Total revenue exc tax after vouchers'
+              type: sum
+              description: "Total revenue exc tax after vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: TOTAL_GBP_ex_tax_before_vouchers
+        description: "Total revenue exc tax before vouchers"
+        meta:
+          metrics:
+            TOTAL_GBP_ex_tax_before_vouchers_kpi_metric:
+              label: 'Total revenue exc tax before vouchers'
+              type: sum
+              description: "Total revenue exc tax before vouchers"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: total_discount_amount
+        description: "Total discount amount"
+        meta:
+          metrics:
+            total_discount_amount_kpi_metric:
+              label: 'Total discount amount'
+              type: sum
+              description: "Total discount amount"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: shipping_discount_amount
+        description: "Shipping discount"
+        meta:
+          metrics:
+            shipping_discount_amount_kpi_metric:
+              label: 'Shipping discount'
+              type: sum
+              description: "Shipping discount"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: shipping_excl_tax
+        description: "Shipping exc tax"
+        meta:
+          metrics:
+            shipping_excl_tax_kpi_metric:
+              label: 'Shipping exc tax'
+              type: sum
+              description: "Shipping exc tax"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: shipping_incl_tax
+        description: "Shipping inc tax"
+        meta:
+          metrics:
+            shipping_incl_tax_kpi_metric:
+              label: 'Shipping inc tax'
+              type: sum
+              description: "Shipping inc tax"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: total_paid
+        description: "Total paid"
+        meta:
+          metrics:
+            base_grand_total_kpi_metric:
+              label: 'Base grand total'
+              type: sum
+              description: "Base grand total"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: total_refunded
+        description: "Total refunded"
+        meta:
+          metrics:
+            total_refunded_kpi_metric:
+              label: 'Total refunded'
+              type: sum
+              description: "Total refunded"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: total_due
+        description: "Total due"
+        meta:
+          metrics:
+            total_due_kpi_metric:
+              label: 'Total due'
+              type: sum
+              description: "Total due"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: total_invoiced_cost
+        description: "Total invoiced cost"
+        meta:
+          metrics:
+            total_invoiced_cost_kpi_metric:
+              label: 'Total invoiced cost'
+              type: sum
+              description: "Total invoiced cost"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: base_grand_total
+        description: "Base grand total"
+        meta:
+          metrics:
+            base_grand_total_kpi_metric:
+              label: 'Base grand total'
+              type: sum
+              description: "Base grand total"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: grand_total
+        description: "Grand total"
+        meta:
+          metrics:
+            grand_total_kpi_metric:
+              label: 'Grand Total'
+              type: sum
+              description: "Grand total"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+
+      - name: new_orders
+        description: "New orders"
+        meta:
+          metrics:
+            new_orders_kpi_metric:
+              label: 'New orders'
+              type: sum
+              description: "New orders"
+              hidden: false
+              round: 2   
+
+      - name: repeat_orders
+        description: "Repeat orders"
+        meta:
+          metrics:
+            repeat_orders_kpi_metric:
+              label: 'Repeat orders'
+              type: sum
+              description: "Repeat orders"
+              hidden: false
+              round: 2
+
+      - name: new_members
+        description: "New members"
+        meta:
+          metrics:
+            new_members_kpi_metric:
+              label: 'New members'
+              type: sum
+              description: "New members"
+              hidden: false
+              round: 2
+
+      - name: count_customers_orders
+        description: "Count of customers from the orders table"
+        meta:
+          metrics:
+            count_customers_orders_kpi_metric:
+              label: 'Count of customers from the orders table'
+              type: sum
+              description: "Count of customers from the orders table"
+              hidden: false
+              round: 2
+
+      - name: new_orders_total_paid
+        description: "New orders total paid"
+        meta:
+          metrics:
+            new_orders_total_paid_kpi_metric:
+              label: 'New orders total paid'
+              type: sum
+              description: "Total paid from new customers"
+              hidden: false
+              round: 2   
+
+      - name: repeat_orders_total_paid
+        description: "Repeat orders total paid"
+        meta:
+          metrics:
+            repeat_orders_total_paid_kpi_metric:
+              label: 'Repeat orders total paid'
+              type: sum
+              description: "Total paid from Repeat orders"
+              hidden: false
+              round: 2
+
+  
