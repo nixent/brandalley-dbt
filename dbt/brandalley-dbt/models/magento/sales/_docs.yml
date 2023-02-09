@@ -1289,6 +1289,12 @@ models:
         meta: 
           dimension:
             type: number
+      - name: order_number
+        description: " the total count of intervals between orders for each customer (in days)"
+        meta: 
+          dimension:
+            type: number
+            sql: "row_number() over (partition by customer_id order by created_at)"
 
   - name: sales_flat_creditmemo_item
     description: ""
