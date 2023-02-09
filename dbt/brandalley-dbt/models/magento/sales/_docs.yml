@@ -1263,7 +1263,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
       - name: updated_at
         description: "Update date of the order, nullable"
       - name: orderno
@@ -1289,13 +1289,7 @@ models:
         meta: 
           dimension:
             type: number
-      - name: order_number
-        description: " the total count of intervals between orders for each customer (in days)"
-        meta: 
-          dimension:
-            type: number
-            sql: "row_number() over (partition by ${customer_id} order by ${created_at})"
-
+ 
   - name: sales_flat_creditmemo_item
     description: ""
     columns:
