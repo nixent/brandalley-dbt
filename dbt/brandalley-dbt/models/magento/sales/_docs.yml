@@ -70,6 +70,16 @@ models:
           dimension:
             hidden: true
 
+  - name: customers_enriched
+    description: " table with a grain of one customer per row "
+    columns: 
+      - name: customer_id
+        meta:
+          dimension:
+            format: id
+
+      - name: first_purchase_at
+
   - name: memo_feed
     description: ""
     columns:
@@ -143,6 +153,10 @@ models:
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
         - join: orderlineswithsequence
           sql_on: ${OrderLines.order_id}  = ${orderlineswithsequence.order_id}
+        - join: customers_enriched 
+          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id}
+        - join: orders_enriched
+          sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id}
     columns:
       - name: unique_id
         description: ""
@@ -611,7 +625,7 @@ models:
               format: 'gbp'   
             average_order_value:
               label: ' average order value (excluding VAT after discount) '
-              type: number
+              type: number 
               description: 'average order value (excluding VAT after discount)'
               sql: " ${total_revenue_exc_tax}/${total_orders_count}"
               round: 2
@@ -1062,6 +1076,20 @@ models:
             type: number
             description: 
             hidden: false
+     
+  - name: orders_enriched
+    columns:
+      - name: customers_id
+        meta:
+          dimension:
+            format: id
+      - name: order_id
+        meta:
+          dimension:
+            format: id
+
+      - name: order_at  
+      - name: order_sequence 
 
   - name: Orders
     description: ""
@@ -1754,5 +1782,57 @@ models:
               round: 0    
       - name: updated_at
         description: "Update date of the order, nullable"
-     
-      
+
+  - name: coupon_rules
+    description: "Coupon details"
+    columns:
+      - name: coupon_id
+        data_type: <integer>
+        description: "Primary key"
+      - name: rule_id
+        data_type: <integer>
+        description: "Rule Id, nullable"
+      - name: code
+        data_type: <string>
+        description: "Code"
+      - name: usage_limit
+        data_type: <integer>
+        description: "Usage limit"
+      - name: usage_per_customer
+        data_type: <integer>
+        description: "Usage per customer"
+      - name: time_used
+        data_type: <integer>
+        description: "Number of times the coupon has been used"
+      - name: expiration_date
+        data_type: <string>
+        description: "Expiration date"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: is_primary
+        data_type: <integer>
+        description: "Is primary flag"
+      - name: created_at
+        data_type: <string>
+        description: "Created at"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: type
+        data_type: <integer>
+        description: "Type"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: _streamkap_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+      - name: _streamkap_offset
+        description: ""
+      - name: _streamkap_loaded_at_ts
+        description: ""
+      - name: coupon_expired
+        description: "Flag indicating if coupon is expired or not"

@@ -30,7 +30,10 @@
     cpev_barcode.value AS barcode,
     cpev_nego.value AS nego,
     cpn.buyer AS buyer_id,
-    CONCAT(au.firstname, ' ', au.lastname) AS buyer
+    CONCAT(au.firstname, ' ', au.lastname) AS buyer,
+    SPLIT(cpev_outlet_category.value, '>')[offset(0)] level_1, 
+    IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>0, SPLIT(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
+    IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3
 FROM
 		{{ ref(
 				'stg__catalog_product_entity'
