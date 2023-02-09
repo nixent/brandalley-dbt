@@ -25,7 +25,11 @@ order_sequencing as (
 			when coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled' 
 			then row_number() over (partition by customer_id, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled' order by increment_id) 
 			else null 
-		end as order_number_excl_full_refunds
+		end as order_number_excl_full_refunds,
+		timestamp_diff(
+			cast(created_at as timestamp), 
+			lag(cast(created_at as timestamp)) over (partition by customer_id order by cast(created_at as timestamp))
+		, day) as interval_between_orders
 	from {{ ref('stg__sales_flat_order') }}
 	where 1=1
 	{% if is_incremental() %}
@@ -70,20 +74,12 @@ order_info as (
 		sfo.expected_delivery_days,
 		cast(sfo.created_at as timestamp) 									as created_at,
 		sfo.updated_at,
-		-- case 
-		-- 	when sfo.status <> 'canceled' then row_number() over (partition by sfo.customer_id, sfo.status <> 'canceled' order by sfo.increment_id) 
-		-- 	else null 
-		-- end 																as orderno,
 		sfo.total_qty_ordered,
 		ce.email,
 		sfo.customer_firstname,
 		sfo.customer_lastname,
 		cc_trans_id, 
-		additional_information,
-		cast(timestamp_diff(
-			cast(sfo.created_at as timestamp), 
-			lag(cast(sfo.created_at as timestamp)) over (partition by sfo.customer_id order by cast(sfo.created_at as timestamp))
-		, day) as integer) 													as interval_between_orders
+		additional_information
 	from order_updates sfo
 	left join {{ ref('stg__sales_flat_order_address') }} sfoa
 		on sfoa.entity_id = sfo.shipping_address_id
@@ -108,7 +104,8 @@ select
 	oi.*,
 	sum(oi.interval_between_orders) over (partition by oi.customer_id order by oi.created_at) as total_interval_between_orders_for_each_customer,
 	os.orderno,
-	os.order_number_excl_full_refunds
+	os.order_number_excl_full_refunds,
+	os.interval_between_orders
 from order_info oi
 left join order_sequencing os
 	on oi.increment_id = os.increment_id
