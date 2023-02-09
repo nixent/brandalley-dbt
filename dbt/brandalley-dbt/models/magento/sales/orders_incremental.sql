@@ -69,6 +69,8 @@ order_info as (
 		'' 																	as customer_phone,
 		'' 																	as delivery_address,
 		sfoa.postcode 														as delivery_postcode,
+		sfoa_b.postcode														as billing_postcode,
+		sfoa_b.address_type													as billing_address_type,
 		'' 																	as customer_age,
 		sfo.expected_delivery_date,
 		sfo.expected_delivery_days,
@@ -102,7 +104,8 @@ order_info as (
 
 select 
 	oi.*,
-	sum(oi.interval_between_orders) over (partition by oi.customer_id order by oi.created_at) as total_interval_between_orders_for_each_customer,
+	-- check this below, whats it for?
+	sum(os.interval_between_orders) over (partition by oi.customer_id order by oi.created_at) as total_interval_between_orders_for_each_customer,
 	os.orderno,
 	os.order_number_excl_full_refunds,
 	os.interval_between_orders
