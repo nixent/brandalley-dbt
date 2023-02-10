@@ -7,7 +7,7 @@
 {% set min_ts = '2023-01-01' %}
 {% if execute and is_incremental() %}
   {% set sql %}
-    -- Query to see the earliest event date that needs to be rebuilt from for inserted order lines since last run
+    -- Query to see the earliest event date that needs to be rebuilt from for inserted order lines since last run 
     select min(created_at) as min_ts from (
 		select 
 			min(created_at) as created_at
