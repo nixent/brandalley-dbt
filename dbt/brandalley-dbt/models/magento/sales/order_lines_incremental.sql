@@ -7,19 +7,19 @@
 {% set min_ts = '2023-01-01' %}
 {% if execute and is_incremental() %}
   {% set sql %}
-    -- Query to see the earliest event date that needs to be rebuilt from for inserted order lines since last run 
+    -- Query to see the earliest event date that needs to be rebuilt from for inserted order lines since last run  
     select min(created_at) as min_ts from (
 		select 
 			min(created_at) as created_at
 		from {{ ref('orders_incremental') }} 
-		where streamkap_updated_at > (select max(streamkap_updated_at) from {{this}})
+		where streamkap_updated_at > ( select max(streamkap_updated_at) from {{this}} )
 
 		union all
 
 		select 
 			min(safe_cast(created_at as timestamp)) as created_at
 		from {{ ref('stg__sales_flat_order_item') }} 
-		where _streamkap_source_ts_ms > (select max(streamkap_updated_at) from {{this}})
+		where _streamkap_source_ts_ms > ( select max(streamkap_updated_at) from {{this}} )
 	)
   {% endset %}
   {% set result = run_query(sql) %}
