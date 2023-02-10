@@ -1787,10 +1787,11 @@ models:
         description: "Update date of the order, nullable"
 
   - name: coupon_rules
+    description: "Coupon details"
+    meta:
       joins:
         - join: Orders
           sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
-    description: "Coupon details"
     columns:
       - name: coupon_id
         data_type: <integer>
