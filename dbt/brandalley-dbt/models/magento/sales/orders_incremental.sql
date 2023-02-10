@@ -1,6 +1,7 @@
 {{ config(
 	materialized='incremental',
-	unique_key='increment_id'
+	unique_key='increment_id',
+	cluster_by=['created_at', 'streamkap_updated_at']
 ) }}
 
 with order_updates as (
@@ -55,6 +56,7 @@ order_info as (
 		sfo._streamkap_source_ts_ms 										as streamkap_updated_at,
 		if(sfo.total_paid is null, 0, sfo.total_paid) 						as total_paid,
 		coalesce(sfo.total_refunded, 0) 									as total_refunded,
+		if(sfo.shipping_refunded is null, 0, sfo.shipping_refunded) 		as shipping_refunded,
 		sfo.total_due,
 		sfo.base_total_invoiced_cost 										as total_invoiced_cost,
 		sfo.base_grand_total,
