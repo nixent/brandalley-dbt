@@ -1,3 +1,5 @@
+{{ config(schema='emarsys') }}
+
 SELECT
     `e`.`entity_id`,
     `e`.`entity_type_id`,
