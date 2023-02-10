@@ -79,6 +79,9 @@ models:
             format: id
 
       - name: first_purchase_at
+        meta: 
+          dimension:
+            type: date
 
   - name: memo_feed
     description: ""
