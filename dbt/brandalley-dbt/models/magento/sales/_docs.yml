@@ -1791,7 +1791,7 @@ models:
     meta:
       joins:
         - join: Orders
-          sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
+          sql_on: ${Orders.coupon_code} = ${coupon_rules.code}
     columns:
       - name: coupon_id
         data_type: <integer>
