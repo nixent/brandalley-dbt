@@ -1,7 +1,8 @@
 {{ config(
 	materialized='incremental',
 	unique_key='unique_id',
-	schema="magento"
+	schema="magento",
+	enabled=false
 ) }}
 
 {% set min_ts = '2023-01-01' %}
