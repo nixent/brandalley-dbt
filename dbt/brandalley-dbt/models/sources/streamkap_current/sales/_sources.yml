@@ -1832,3 +1832,12 @@ sources:
             description: ""
           - name: _streamkap_loaded_at_ts
             description: ""
+
+      - name: enterprise_giftcardaccount_history
+        description: ""
+
+      - name: enterprise_giftcardaccount
+        description: ""
+      
+      - name: invent_autocoupon
+        description: ""
