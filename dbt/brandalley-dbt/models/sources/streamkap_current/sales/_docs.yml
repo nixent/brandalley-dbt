@@ -1863,3 +1863,9 @@ models:
         description: ""
       - name: _streamkap_loaded_at_ts
         description: ""
+
+  - name: stg__enterprise_giftcardaccount_history
+    description: "Gif card history"
+
+  - name: stg__enterprise_giftcardaccount
+    description: "Gif card details"
