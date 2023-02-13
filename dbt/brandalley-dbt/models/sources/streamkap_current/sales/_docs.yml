@@ -1865,7 +1865,7 @@ models:
         description: ""
 
   - name: stg__enterprise_giftcardaccount_history
-    description: "Gif card history"
+    description: "Gift card history"
 
   - name: stg__enterprise_giftcardaccount
-    description: "Gif card details"
+    description: "Gift card details"
