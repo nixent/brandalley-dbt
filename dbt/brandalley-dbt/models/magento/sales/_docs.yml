@@ -79,6 +79,9 @@ models:
             format: id
 
       - name: first_purchase_at
+        meta: 
+          dimension:
+            type: date
 
   - name: memo_feed
     description: ""
@@ -1786,6 +1789,10 @@ models:
 
   - name: coupon_rules
     description: "Coupon details"
+    meta:
+      joins:
+        - join: Orders
+          sql_on: ${Orders.coupon_code} = ${coupon_rules.code}
     columns:
       - name: coupon_id
         data_type: <integer>
