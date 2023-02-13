@@ -1092,8 +1092,17 @@ models:
             format: id
       - name: order_at
       - name: order_sequence
+        meta:
+          dimension:
+            format: number
       - name: order_number_excl_full_refunds
+        meta:
+          dimension:
+            format: number
       - name: order_number_incl_cancellations
+        meta:
+          dimension:
+            format: number
 
   - name: Orders
     description: ""
