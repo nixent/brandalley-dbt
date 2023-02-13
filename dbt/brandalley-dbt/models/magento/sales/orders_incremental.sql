@@ -27,6 +27,7 @@ order_sequencing as (
 			then row_number() over (partition by customer_id, status = 'closed' or (coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled') order by increment_id) 
 			else null 
 		end as order_number_excl_full_refunds,
+		row_number() over (partition by customer_id order by increment_id) as order_number_incl_cancellations,
 		timestamp_diff(
 			cast(created_at as timestamp), 
 			lag(cast(created_at as timestamp)) over (partition by customer_id order by cast(created_at as timestamp))
@@ -110,6 +111,7 @@ select
 	sum(os.interval_between_orders) over (partition by oi.customer_id order by oi.created_at) as total_interval_between_orders_for_each_customer,
 	os.orderno,
 	os.order_number_excl_full_refunds,
+	os.order_number_incl_cancellations,
 	os.interval_between_orders
 from order_info oi
 left join order_sequencing os
