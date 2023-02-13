@@ -11,4 +11,4 @@ sfo.base_rwrd_crrncy_amnt_refnded, sfo.rwrd_crrncy_amnt_refunded, sfo.reward_poi
  from 
 {{ ref(
         'stg__sales_flat_order'
-    ) }} sfo on sc.code=sfo.coupon_code 
+    ) }} sfo
