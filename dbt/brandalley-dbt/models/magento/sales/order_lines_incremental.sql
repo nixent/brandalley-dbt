@@ -1,8 +1,7 @@
 {{ config(
 	materialized='incremental',
 	unique_key='unique_id',
-	schema="magento",
-	enabled=false
+	schema="magento"
 ) }}
 
 {% set min_ts = '2023-01-01' %}
@@ -13,14 +12,14 @@
 		select 
 			min(created_at) as created_at
 		from {{ ref('orders_incremental') }} 
-		where streamkap_updated_at > ( select max(streamkap_updated_at) from {{this}} )
+		where streamkap_updated_at >= ( select max(streamkap_updated_at) from {{this}} )
 
 		union all
 
 		select 
 			min(safe_cast(created_at as timestamp)) as created_at
 		from {{ ref('stg__sales_flat_order_item') }} 
-		where _streamkap_source_ts_ms > ( select max(streamkap_updated_at) from {{this}} )
+		where _streamkap_source_ts_ms >= ( select max(streamkap_updated_at) from {{this}} )
 	)
   {% endset %}
   {% set result = run_query(sql) %}

@@ -1,8 +1,7 @@
 {{ config(
 	materialized='incremental',
 	unique_key='increment_id',
-	cluster_by=['created_at', 'streamkap_updated_at'],
-	enabled=false
+	cluster_by=['created_at', 'streamkap_updated_at']
 ) }}
 
 with order_updates as (
