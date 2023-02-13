@@ -1,3 +1,7 @@
+{# /* 
+    This macro is used to calculate a region from a postcode column
+*/ #}
+
 {% macro calculate_region_from_postcode(postcode) -%}
 case
        when {{postcode}} like 'AB%' then 'Scotland'

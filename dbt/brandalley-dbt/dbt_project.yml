@@ -23,8 +23,10 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 
+# Append dbt default query comment to make debugging in BQ easier
 query-comment:
   append: True
+
 
 
 # Configuring models

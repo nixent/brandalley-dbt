@@ -23,8 +23,8 @@ order_sequencing as (
 			else null 
 		end as orderno,
 		case 
-			when coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled' 
-			then row_number() over (partition by customer_id, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled' order by increment_id) 
+			when status = 'closed' or (coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled')
+			then row_number() over (partition by customer_id, status = 'closed' or (coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled') order by increment_id) 
 			else null 
 		end as order_number_excl_full_refunds,
 		timestamp_diff(
