@@ -1090,7 +1090,7 @@ models:
 
       - name: order_at  
       - name: order_sequence 
-      - name: order_number_excl_full_refunds,
+      - name: order_number_excl_full_refunds
 	    - name: order_number_incl_cancellations
 
   - name: Orders
