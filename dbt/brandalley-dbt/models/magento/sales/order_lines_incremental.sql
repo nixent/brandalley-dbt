@@ -213,7 +213,11 @@ left join {{ ref('stg__catalog_product_negotiation') }} cpn
 	on sfoi_sim.nego = cpn.negotiation_id
 left join {{ ref('stg__admin_user') }} au
 	on cpn.buyer = au.user_id
-left join {{ ref('stg__catalog_product_super_link') }} cpsl
+-- todo split this into a sep dedupe model
+left join (
+	select * from {{ ref('stg__catalog_product_super_link') }}
+	qualify row_number() over (partition by product_id order by link_id desc) = 1
+) cpsl
 	on sfoi_sim.product_id = cpsl.product_id
 left outer join {{ ref('stg__catalog_product_entity') }} cpe
 	on cpe.entity_id = cpsl.parent_id
