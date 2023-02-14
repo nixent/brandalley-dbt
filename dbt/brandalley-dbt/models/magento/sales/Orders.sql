@@ -2,7 +2,7 @@ with cte as (
 
 SELECT
        sfo.increment_id,
-       sfo.entity_id AS magentoID,
+       sfo.entity_id AS magentoID, 
        sfo.store_id,
        sfo.billing_address_id,
        sfo.shipping_address_id,
