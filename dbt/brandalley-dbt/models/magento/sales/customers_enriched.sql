@@ -1,11 +1,11 @@
-WITH
-  customers AS (
-  SELECT
+with customers as (
+  select
     customer_id,
-    MIN(created_at) first_purchase_at
-  FROM {{ ref('OrderLines') }}
-  GROUP BY 1 
-  )
+    min(created_at)   as first_purchase_at,
+    count(magentoID)  as count_orders
+  from {{ ref('Orders') }}
+  group by 1 
+)
   
-  SELECT * FROM customers 
+select * from customers 
   
