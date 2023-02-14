@@ -1119,7 +1119,9 @@ models:
         - join: stg__salesrule_coupon
           sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
         - join: customers_enriched 
-          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and date(${Orders.created_at}) = date(${customers_enriched.first_purchase_at})
+          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
+        - join: orders_enriched 
+          sql_on: ${Orders.magentoID} = ${orders_enriched.order_id}
     columns:
       - name: increment_id
         description: "Increment id, nullable"
@@ -1143,12 +1145,19 @@ models:
               hidden: false
               sql: "IF(${orderno}=1, ${increment_id}, null)"
               round: 0
-            total_customer_subsequent_order_count:
-              label: 'Total number of customers who repeat purchase'
+            total_customers_second_order_within_90_days:
+              label: 'Total number of customers who have made a second purchase within 90 days'
               type: count_distinct
-              description: "Number of customers who return to make another order"
+              description: "Number of customers who have returned to make second order within 90 days"
               hidden: false
-              sql: "if(${orderno}=1 and ${customers_enriched.count_orders} > 1, ${customer_id}, null)"
+              sql: "if(${orderno}=2 and ${orders_enriched.days_since_first_purchase} <= 90, ${customer_id}, null)"
+              round: 0
+            total_customers_second_order_within_1_year:
+              label: 'Total number of customers who have made a second purchase within 365 days'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 365 days"
+              hidden: false
+              sql: "if(${orderno}=2 and ${orders_enriched.days_since_first_purchase} <= 365, ${customer_id}, null)"
               round: 0
       - name: magentoID
         description: ""
