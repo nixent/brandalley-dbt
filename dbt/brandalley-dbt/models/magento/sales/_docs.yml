@@ -1864,6 +1864,12 @@ models:
         description: "Discount invoiced"
       - name: discount_description
         description: "Discount description"
+      - name: order_date
+        description: "Date of the order"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: invent_autocoupon_id
         description: "invent_autocoupon_id"
       - name: referral_coupon
