@@ -1100,19 +1100,19 @@ models:
       - name: order_sequence
         meta:
           dimension:
-            format: number
+            type: number
       - name: order_number_excl_full_refunds
         meta:
           dimension:
-            format: number
+            type: number
       - name: order_number_incl_cancellations
         meta:
           dimension:
-            format: number
+            type: number
       - name: days_since_first_purchase
         meta:
           dimension:
-            format: number
+            type: number
 
   - name: Orders
     description: ""
