@@ -23,15 +23,23 @@ order_sequencing as (
 			else null 
 		end as orderno,
 		case 
-			when status = 'closed' or (coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled')
-			then row_number() over (partition by customer_id, status = 'closed' or (coalesce(total_paid,0) <> coalesce(total_refunded,0) and status <> 'canceled') order by increment_id) 
+			when coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed')
+			then row_number() over (partition by customer_id, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed') order by increment_id) 
 			else null 
 		end as order_number_excl_full_refunds,
 		row_number() over (partition by customer_id order by increment_id) as order_number_incl_cancellations,
+		case 
+			when status not in ('canceled')
+			then timestamp_diff(
+				timestamp(created_at), 
+				lag(timestamp(created_at)) over (partition by customer_id, status not in ('canceled') order by timestamp(created_at))
+				, day)
+			else null 
+		end as interval_between_orders,
 		timestamp_diff(
-			cast(created_at as timestamp), 
-			lag(cast(created_at as timestamp)) over (partition by customer_id order by cast(created_at as timestamp))
-		, day) as interval_between_orders
+			timestamp(created_at), 
+			first_value(timestamp(created_at)) over (partition by customer_id order by timestamp(created_at))
+		, day) as days_since_first_purchase
 	from {{ ref('stg__sales_flat_order') }}
 	where 1=1
 	{% if is_incremental() %}
@@ -84,7 +92,8 @@ order_info as (
 		sfo.customer_firstname,
 		sfo.customer_lastname,
 		cc_trans_id, 
-		additional_information
+		additional_information,
+		timestamp_diff(safe_cast(sfo.created_at as timestamp), safe_cast(ce.created_at as timestamp), day ) as days_since_signup
 	from order_updates sfo
 	left join {{ ref('stg__sales_flat_order_address') }} sfoa
 		on sfoa.entity_id = sfo.shipping_address_id
@@ -112,7 +121,8 @@ select
 	os.orderno,
 	os.order_number_excl_full_refunds,
 	os.order_number_incl_cancellations,
-	os.interval_between_orders
+	os.interval_between_orders,
+	os.days_since_first_purchase
 from order_info oi
 left join order_sequencing os
 	on oi.increment_id = os.increment_id

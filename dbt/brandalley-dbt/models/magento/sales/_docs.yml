@@ -83,6 +83,11 @@ models:
           dimension:
             type: date
 
+      - name: count_orders
+        meta: 
+          dimension:
+            type: number
+
   - name: memo_feed
     description: ""
     columns:
@@ -1093,8 +1098,17 @@ models:
             format: id
       - name: order_at
       - name: order_sequence
+        meta:
+          dimension:
+            format: number
       - name: order_number_excl_full_refunds
+        meta:
+          dimension:
+            format: number
       - name: order_number_incl_cancellations
+        meta:
+          dimension:
+            format: number
 
   - name: Orders
     description: ""
@@ -1104,6 +1118,8 @@ models:
           sql_on: ${Orders.magentoID} = ${shipments.order_id}
         - join: stg__salesrule_coupon
           sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
+        - join: customers_enriched 
+          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and date(${Orders.created_at}) = date(${customers_enriched.first_purchase_at})
     columns:
       - name: increment_id
         description: "Increment id, nullable"
@@ -1126,6 +1142,13 @@ models:
               description: "Number of new orders"
               hidden: false
               sql: "IF(${orderno}=1, ${increment_id}, null)"
+              round: 0
+            total_customer_subsequent_order_count:
+              label: 'Total number of customers who repeat purchase'
+              type: count_distinct
+              description: "Number of customers who return to make another order"
+              hidden: false
+              sql: "if(${orderno}=1 and ${customers_enriched.count_orders} > 1, ${customer_id}, null)"
               round: 0
       - name: magentoID
         description: ""
