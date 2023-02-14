@@ -1904,7 +1904,7 @@ models:
         description: "Issuer id"
 
   - name: gift_cards
-    description: "Coupon details"
+    description: "Gift cards"
     columns:
       - name: order_id
         data_type: <integer>
