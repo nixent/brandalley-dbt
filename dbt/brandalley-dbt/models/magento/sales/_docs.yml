@@ -1906,19 +1906,45 @@ models:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: cartrule_id
-        description: "Reward to"
+        description: "Cartrule id"
       - name: basis_for_issue
-        description: "Reward to"
+        description: "Basis for issue"
       - name: comments_text
-        description: "Reward to"
+        description: "Comments text"
       - name: recommendation
-        description: "Reward to"
+        description: "Recommendation"
       - name: referral_couponid
-        description: "Reward to"
+        description: "Referral coupon id"
       - name: referee_couponid
-        description: "Reward to"
+        description: "Referee coupon id"
       - name: reward_from_old
-        description: "Reward to"
+        description: "Reward from old"
       - name: issuer_id
-        description: "Reward to"
+        description: "Issuer id"
 
+  - name: gift_cards
+    description: "Gift cards"
+    columns:
+      - name: order_id
+        data_type: <integer>
+        description: "Order id"
+      - name: status
+        description: "Status"
+      - name: base_gift_cards_amount
+        description: "Base gift card amount"
+      - name: gift_cards_amount
+        description: "Gift card amount"
+      - name: base_gift_cards_invoiced
+        description: "Base gift cards invoiced"
+      - name: gift_cards_invoiced
+        description: "Gift cards invoiced"
+      - name: base_gift_cards_refunded
+        description: "Base gift cards refunded"
+      - name: gift_cards_refunded
+        description: "Gift cards refunded"
+      - name: order_date
+        description: "Order date"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
