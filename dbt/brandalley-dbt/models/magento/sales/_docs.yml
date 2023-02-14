@@ -630,10 +630,6 @@ models:
               label: ' average order value (excluding VAT after discount) '
               type: number 
               description: 'average order value (excluding VAT after discount)'
-<<<<<<< HEAD:dbt/brandalley-dbt/models/Avora_models/models.yml
-              sql: " (${TOTAL_GBP_after_vouchers}-${tax_amount}) / ${total_order_count} "
-
-=======
               sql: " ${total_revenue_exc_tax}/${total_orders_count}"
               round: 2
               format: 'gbp'   
