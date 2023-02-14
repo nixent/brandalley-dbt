@@ -1790,10 +1790,6 @@ models:
 
   - name: coupon_rules
     description: "Coupon details"
-    meta:
-      joins:
-        - join: Orders
-          sql_on: ${Orders.coupon_code} = ${coupon_rules.code}
     columns:
       - name: coupon_id
         data_type: <integer>
@@ -1823,9 +1819,9 @@ models:
       - name: is_primary
         data_type: <integer>
         description: "Is primary flag"
-      - name: created_at
+      - name: sales_rule_coupon_created_at
         data_type: <string>
-        description: "Created at"
+        description: "Created date for coupon"
         meta:
           dimension:
             type: date
@@ -1833,15 +1829,48 @@ models:
       - name: type
         data_type: <integer>
         description: "Type"
-      - name: _streamkap_source_ts_ms
-        description: ""
-      - name: _streamkap_ts_ms
-        description: ""
-      - name: __deleted
-        description: ""
-      - name: _streamkap_offset
-        description: ""
-      - name: _streamkap_loaded_at_ts
-        description: ""
       - name: coupon_expired
         description: "Flag indicating if coupon is expired or not"
+      - name: order_id
+        description: "Id of order linked to coupon, nullable"
+      - name: status
+        description: "Order status"
+      - name: base_discount_amount
+        description: "Discount amount"
+      - name: base_discount_invoiced
+        description: "Discount invoiced"
+      - name: discount_description
+        description: "Discount description"
+      - name: invent_autocoupon_id
+        description: "invent_autocoupon_id"
+      - name: referral_coupon
+        description: "Coupon code linked"
+      - name: referee_coupon
+        description: "Referee coupon"
+      - name: reward_to
+        description: "Reward to"
+      - name: reward_from
+        description: "Reward from"
+      - name: invent_autocoupon_created_at
+        description: "invent_autocoupon_created_at"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: cartrule_id
+        description: "Reward to"
+      - name: basis_for_issue
+        description: "Reward to"
+      - name: comments_text
+        description: "Reward to"
+      - name: recommendation
+        description: "Reward to"
+      - name: referral_couponid
+        description: "Reward to"
+      - name: referee_couponid
+        description: "Reward to"
+      - name: reward_from_old
+        description: "Reward to"
+      - name: issuer_id
+        description: "Reward to"
+
