@@ -83,6 +83,11 @@ models:
           dimension:
             type: date
 
+      - name: count_orders
+        meta: 
+          dimension:
+            type: number
+
   - name: memo_feed
     description: ""
     columns:
@@ -1142,7 +1147,7 @@ models:
               type: count_distinct
               description: "Number of subsequent orders"
               hidden: false
-              sql: "if(${orderno}=1 and ${count_orders} > 1, ${increment_id}, null)"
+              sql: "if(${orderno}=1 and ${customers_enriched.count_orders} > 1, ${increment_id}, null)"
               round: 0
       - name: magentoID
         description: ""
