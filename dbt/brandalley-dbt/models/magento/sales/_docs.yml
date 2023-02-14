@@ -1149,6 +1149,20 @@ models:
               hidden: false
               sql: "if(${orderno}=1 and ${customers_enriched.count_orders} > 1, ${increment_id}, null)"
               round: 0
+            total_new_customer_count:
+              label: 'Total number of new customers'
+              type: count_distinct
+              description: "Number of new customers"
+              hidden: false
+              sql: "IF(${orderno}=1, ${customer_id}, null)"
+              round: 0
+            total_returning_customer_count:
+              label: 'Total number of returning customers'
+              type: count_distinct
+              description: "Number of returning customers"
+              hidden: false
+              sql: "if(${orderno}=1 and ${customers_enriched.count_orders} > 1, ${customer_id}, null)"
+              round: 0
       - name: magentoID
         description: ""
         meta:
