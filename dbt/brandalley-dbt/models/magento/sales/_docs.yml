@@ -1109,6 +1109,10 @@ models:
         meta:
           dimension:
             format: number
+      - name: days_since_first_purchase
+        meta:
+          dimension:
+            format: number
 
   - name: Orders
     description: ""
