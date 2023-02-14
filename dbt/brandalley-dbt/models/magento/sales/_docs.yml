@@ -600,7 +600,13 @@ models:
       - name: sap_ref
         description: "SAP Reference number"       
       - name: cpn_status
-        description: "catalog_product_negotiation status"       
+        description: "catalog_product_negotiation status"
+      - name: product_category_level_1
+        description: "Highest level of product category"
+	    - name: product_category_level_2
+        description: "Second highest level of product category"
+	    - name: product_category_level_3     
+        description: "Lowest level of product category" 
       - name: TOTAL_GBP_after_vouchers
         meta:
           metrics:
