@@ -1903,7 +1903,7 @@ models:
       - name: issuer_id
         description: "Issuer id"
 
-  - name: coupon_rules
+  - name: gift_cards
     description: "Coupon details"
     columns:
       - name: order_id
