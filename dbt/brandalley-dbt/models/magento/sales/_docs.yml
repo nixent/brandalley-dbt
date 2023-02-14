@@ -1149,6 +1149,12 @@ models:
               hidden: false
               sql: "IF(${orderno}=1, ${increment_id}, null)"
               round: 0
+            total_customers_count:
+              label: 'Total number of customers'
+              type: count_distinct
+              description: "Number of customers"
+              hidden: false
+              sql: "${customer_id}"
             total_customers_second_order_within_90_days:
               label: 'Total number of customers who have made a second purchase within 90 days'
               type: count_distinct
