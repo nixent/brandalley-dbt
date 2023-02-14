@@ -333,3 +333,15 @@ models:
         description: "Level 2 of categories"
       - name: level_3
         description: "Level 3 of categories"
+
+  - name: category_mapping
+    description: "Static table with category mapping"
+    columns:
+      - name: row_label
+        description: "Buyer, nullable"
+      - name: level_3
+        description: "Buyer, nullable"
+      - name: level_2
+        description: "Buyer, nullable"
+      - name: category
+        description: "Buyer, nullable"
