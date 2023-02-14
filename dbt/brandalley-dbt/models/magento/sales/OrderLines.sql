@@ -673,8 +673,8 @@ WHERE
 
 select 
        *,
-	split(category_path, '>')[offset(0)] as product_category_level_1, 
-	split(category_path, '>')[offset(1)] as product_category_level_2,
-	split(category_path, '>')[offset(2)] as product_category_level_3
+	split(category_path, '>')[safe_offset(0)] as product_category_level_1, 
+	split(category_path, '>')[safe_offset(1)] as product_category_level_2,
+	split(category_path, '>')[safe_offset(2)] as product_category_level_3
 from order_lines
 
