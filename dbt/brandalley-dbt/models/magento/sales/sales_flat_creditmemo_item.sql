@@ -35,8 +35,8 @@ SELECT
     cti.customer_refund_request,
     cti.exported_to_sap,
     cti.qty_returned_to_warehouse,
-    cm.created_at,
-    cm.updated_at,
+    timestamp(cm.created_at) created_at,
+    timestamp(cm.updated_at) updated_at,
     CASE
         cti.refund_reason_id
         WHEN 1 THEN 'Do not like/different to picture'

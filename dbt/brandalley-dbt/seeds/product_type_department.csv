@@ -1,0 +1,245 @@
+product_department,product_type
+ACCESSORIES,accessories
+ACCESSORIES,backpacks & holdalls
+ACCESSORIES,bags
+ACCESSORIES,belts
+ACCESSORIES,cosmetics cases
+ACCESSORIES,cufflinks & tie clips
+ACCESSORIES,face coverings
+ACCESSORIES,fashion hair accessories
+ACCESSORIES,gloves
+ACCESSORIES,handbags
+ACCESSORIES,hats
+ACCESSORIES,jewellery
+ACCESSORIES,luggage & suitcases
+ACCESSORIES,purses
+ACCESSORIES,scarves
+ACCESSORIES,ski accessories
+ACCESSORIES,sunglasses
+ACCESSORIES,tech
+ACCESSORIES,tech accessories
+ACCESSORIES,ties & pocket squares
+ACCESSORIES,travel
+ACCESSORIES,travel accessories
+ACCESSORIES,umbrellas
+ACCESSORIES,wallets
+ACCESSORIES,watches
+B&B,bath mats
+B&B,Bath Robes
+B&B,Bathroom
+B&B,bathroom accessories
+B&B,bathroom fixtures
+B&B,beach towels
+B&B,bed accessories
+B&B,bed linen
+B&B,bedding
+B&B,Bedroom
+B&B,Blankets
+B&B,duvets & pillows
+B&B,mattress toppers & protectors
+B&B,towels
+BEAUTY,anti-ageing
+BEAUTY,bath & shower
+BEAUTY,body sculpting & toning
+BEAUTY,Bodycare
+BEAUTY,bronzers & sun care
+BEAUTY,candles & fragrance
+BEAUTY,candles & home fragrance
+BEAUTY,cleansers
+BEAUTY,eye care
+BEAUTY,eyes
+BEAUTY,face
+BEAUTY,gift sets
+BEAUTY,hair accessories
+BEAUTY,hair oils & treatments
+BEAUTY,hair styling & finishing
+BEAUTY,Haircare
+BEAUTY,hand & foot care
+BEAUTY,lips
+BEAUTY,makeup removers
+BEAUTY,makeup sets
+BEAUTY,masks
+BEAUTY,mens bath & body
+BEAUTY,mens cologne
+BEAUTY,mens hair care
+BEAUTY,mens skincare
+BEAUTY,moisturisers
+BEAUTY,nails
+BEAUTY,organic & natural
+BEAUTY,personal care electricals
+BEAUTY,serums
+BEAUTY,shampoo & conditioners
+BEAUTY,Skincare
+BEAUTY,teeth whitening
+BEAUTY,toners
+BEAUTY,toothbrushes
+BEAUTY,treatments
+BEAUTY,womens perfume
+DEC HOME,cards & calendars
+DEC HOME,Cards & Crackers
+DEC HOME,Christmas Decorations
+DEC HOME,curtains & blinds
+DEC HOME,cushions & throws
+DEC HOME,decorations
+DEC HOME,decorative accessories
+DEC HOME,decorative garden accessories
+DEC HOME,garden gifts
+DEC HOME,garden tools
+DEC HOME,gardening tools
+DEC HOME,Gifts
+DEC HOME,home decor
+DEC HOME,home gifts
+DEC HOME,Interior
+DEC HOME,lights
+DEC HOME,outdoor cushions
+DEC HOME,outdoor garden lighting
+DEC HOME,outdoor lanterns
+DEC HOME,outdoor wall & security lights
+DEC HOME,pet care
+DEC HOME,planters pots & ornaments
+DEC HOME,portable & party lights
+DEC HOME,pots & planters
+DEC HOME,rugs
+DEC HOME,solar lights
+DEC HOME,stationery
+DEC HOME,storage
+DEC HOME,trees
+DEC HOME,wall art
+DEC HOME,wreaths & garlands
+FOOTWEAR,ankle boots
+FOOTWEAR,boots
+FOOTWEAR,casual shoes
+FOOTWEAR,court shoes
+FOOTWEAR,espadrilles
+FOOTWEAR,flat sandals
+FOOTWEAR,flat shoes
+FOOTWEAR,flip flops
+FOOTWEAR,footwear
+FOOTWEAR,formal shoes
+FOOTWEAR,heeled sandals
+FOOTWEAR,heeled shoes
+FOOTWEAR,long boots
+FOOTWEAR,pumps
+FOOTWEAR,sandals
+FOOTWEAR,slippers
+FOOTWEAR,trainers
+FURN,bar chairs & stools
+FURN,beds
+FURN,bookcases shelving units & shelves
+FURN,cabinets & sideboards
+FURN,coffee tables
+FURN,console tables
+FURN,cots & beds
+FURN,dining tables & chairs
+FURN,garden furniture sets
+FURN,garden seating
+FURN,garden sheds & workshops
+FURN,garden storage
+FURN,garden tables
+FURN,gazebos arbours & arches
+FURN,lighting
+FURN,mattresses
+FURN,media cabinets
+FURN,mirrors
+FURN,parasols & accessories
+FURN,patio heaters fire pits & chimineas
+FURN,seats tables & loungers
+FURN,side tables
+FURN,sofas & armchairs
+FURN,summerhouses & outbuildings
+FURN,sun loungers & swing seats
+K&D,alcohol
+K&D,barbeque accessories
+K&D,barware & drinks accessories
+K&D,bbqs & accessories
+K&D,chocolate & sweets
+K&D,cooking & baking
+K&D,Cookware/bakeware
+K&D,cutlery
+K&D,Dining
+K&D,drink
+K&D,drinkware
+K&D,electricals
+K&D,food & drink
+K&D,food preparation
+K&D,gift hampers
+K&D,kitchen fixtures
+K&D,kitchen storage
+K&D,laundry & ironing
+K&D,nutrition supplements
+K&D,outdoor tableware & serveware
+K&D,pots & pans
+K&D,puddings chocolates & sweets
+K&D,tableware
+K&D,utensils
+KIDS,baby
+KIDS,baby & toddler toys
+KIDS,baby gifts
+KIDS,baby shoes
+KIDS,Babygrows
+KIDS,Boys
+KIDS,boys clothing
+KIDS,boys shoes
+KIDS,buggies & travel
+KIDS,childrens books
+KIDS,childrens toys
+KIDS,games & puzzles
+KIDS,girls clothing
+KIDS,Girls Footwear
+KIDS,girls shoes
+KIDS,nursery accessories
+KIDS,Outdoor Play
+KIDS,outdoor toys & games
+KIDS,Sleepsuits
+KIDS,Soft Toys
+KIDS,Wooden Toys
+LINGERIE,activewear
+LINGERIE,bodies
+LINGERIE,bras
+LINGERIE,briefs
+LINGERIE,leggings
+LINGERIE,nightwear
+LINGERIE,shapewear
+LINGERIE,slips
+LINGERIE,socks & tights
+LINGERIE,sports bras
+LINGERIE,sports equipment
+LINGERIE,Sportswear/sports accessories
+LINGERIE,Suspender belts
+LINGERIE,suspenders
+LINGERIE,swimwear
+LINGERIE,swimwear & beachwear
+LINGERIE,Underwear
+LINGERIE,underwear & socks
+OUTLET,null
+RTW,base layers
+RTW,blouses & tops
+RTW,Blouses/shirts
+RTW,Camisoles/tops
+RTW,coats
+RTW,dresses
+RTW,jackets
+RTW,jeans
+RTW,jumpsuits
+RTW,knitwear
+RTW,leather
+RTW,Loungewear
+RTW,loungewear & onesies
+RTW,maternity
+RTW,outerwear
+RTW,polo shirts
+RTW,shirts
+RTW,shorts
+RTW,ski jackets
+RTW,ski trousers
+RTW,skirts
+RTW,suits
+RTW,sweatshirts & fleeces
+RTW,sweatshirts & hoodies
+RTW,t-shirts
+RTW,t-shirts & vests
+RTW,team merchandise
+RTW,Tops/T-Shirts
+RTW,track pants
+RTW,trousers
+RTW,vests

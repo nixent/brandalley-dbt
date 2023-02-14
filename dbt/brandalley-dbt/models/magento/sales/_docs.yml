@@ -9,607 +9,79 @@ models:
         meta:
           dimension:
             hidden: true
-
       - name: order_item_number
         description: "Order item number"
         meta:
           dimension:
             hidden: true
-
       - name: sku
         description: "SKU"
         meta:
           dimension:
             hidden: false
-
       - name: order_increment_id
         description: "Order increment id"
         meta:
           dimension:
             hidden: false
-
       - name: qty
         description: "Quantity"
         meta:
           dimension:
             hidden: false
-
       - name: return_code
         description: "Return code"
         meta:
           dimension:
             hidden: true
-
       - name: created_at
         description: "Created date"
         meta:
           dimension:
             hidden: true
-
       - name: xml_created_at
         description: "Created date of the xml"
         meta:
           dimension:
             hidden: true
-
       - name: exported_to_sap
         description: "Flag indicating if exported to SAP"
         meta:
           dimension:
             hidden: true
-
       - name: wh_line_id
         description: "Warehouse Line ID"
         meta:
           dimension:
             hidden: true
-
       - name: return_service
         description: "Return service"
         meta:
           dimension:
             hidden: true
-
       - name: creditmemo_id
         description: "Credit memo Id"
         meta:
           dimension:
             hidden: true
-
       - name: maxdate
         description: ""
         meta:
           dimension:
             hidden: true
 
-  - name: catalog_product_negotiation_item
-    description: ""
-    columns:
-      - name: negotiation_item_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-
-      - name: negotiation_id
-        description: "Negotiation id"
-        meta:
-          dimension:
-            format: id
-
-      - name: updated_at
-        description: "Update time, nullable"
-
-      - name: product_id
-        description: "Product id"
-
-      - name: product_parent_id
-        description: "Product parent id"
-
-      - name: sku
-        description: "SKU"
-
-      - name: parrent_sku
-        description: "Parent SKU"
-
-      - name: reference
-        description: "Reference"
-
-      - name: name
-        description: "Name"
-
-      - name: size
-        description: "Size"
-
-      - name: brand
-        description: "Brand"
-
-      - name: commodity_code
-        description: "Commodity code"
-
-      - name: pack_size
-        description: "Pack size"
-
-      - name: cost
-        description: "Cost"
-
-      - name: cost_gbp
-        description: "Cost in GBP"
-
-      - name: rrp
-        description: "RRP"
-
-      - name: price
-        description: "Price"
-
-      - name: tax_rate
-        description: "Tax rate"
-
-      - name: tax_code
-        description: "Tax code"
-
-      - name: qty
-        description: "Quantity"
-
-      - name: ordered
-        description: "Ordered"
-
-      - name: to_order
-        description: "To order"
-
-      - name: qty_exported
-        description: "Quantity exported"
-
-  - name: catalog_product_negotiation
-    description: ""
-    columns:
-      - name: negotiation_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-            
-      - name: updated_at
-        description: "Update time, nullable"
-
-      - name: parent
-        description: "Parent, nullable"
-
-      - name: sap_ref
-        description: "SAP ref"
-
-      - name: type
-        description: "Type"
-
-      - name: supplier
-        description: "Supplier"
-
-      - name: currency
-        description: "Currency"
-
-      - name: rate
-        description: "Rate"
-
-      - name: cost
-        description: "Cost"
-
-      - name: price
-        description: "Price"
-
-      - name: status
-        description: "Status"
-
-      - name: admin
-        description: "Admin"
-
-      - name: date_import
-        description: "Date import"
-
-      - name: date_reservation
-        description: "Date reservation"
-
-      - name: date_pend_proc
-        description: "Date pend proc"
-
-      - name: date_proc_comp
-        description: "Date proc comp"
-
-      - name: date_comp_exported
-        description: "Date comp exported"
-
-      - name: date_due
-        description: "Date due"
-
-      - name: sap_message
-        description: "SAP message, nullable"
-
-      - name: buyer
-        description: "Buyer, nullable"
-
-      - name: department
-        description: "Department, nullable"
-
-  - name: catalog_product_negotiation_sfoi_joined
-    description: ""
-    columns:
-      - name: negotiation_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-            
-      - name: po_date
-        description: "PO date"
-
-      - name: sku
-        description: "SKU"
-
-      - name: order_id
-        description: "order_id"
-        meta:
-          dimension:
-            format: id
-            
-      - name: consignment_ordered
-        description: "Qty of consignment units ordered"
-
-      - name: created_at
-        description: "Create date"
-
-      - name: brand
-        description: "Brand"
-
-      - name: name
-        description: "Name of the product"
-
-      - name: reference_ref
-        description: "Reference"
-
-      - name: supplier_id
-        description: "Supplier id"
-        meta:
-          dimension:
-            format: id
-            
-      - name: SAP ref
-        description: "SAP ref"
-
-  - name: categories
-    description: ""
-    columns:
-      - name: u_unique_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-            
-      - name: category_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-            
-      - name: parent_category_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-            
-      - name: category_name
-        description: ""
-
-      - name: parent_category_name
-        description: ""
-
-      - name: active
-        description: ""
-
-      - name: path
-        description: "Tree Path"
-
-      - name: level
-        description: "Tree level"
-
-      - name: updated_at
-        description: "Update time, nullable"
-
-  - name: category_join
-    description: ""
-    columns:
-      - name: product_id
-        description: "Product id"
-        meta:
-          dimension:
-            format: id
-            
-      - name: category_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-            
-      - name: updated_at
-        description: "Update time"
-
-  - name: customers_record_data_source
-    description: ""
-    columns:
-      - name: cst_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-          metrics:
-            new_members_customers_record:
-              label: 'New Members from customers_record_data_source'
-              type: count_distinct
-              description: "New Members from customers_record_data_source"
-              hidden: false    
-            
-      - name: record_data_source
-        description: ""
-
-      - name: date
-        description: ""
-
-  - name: customers
-    description: ""
-    columns:
-      - name: cst_id
-        description: ""
-        meta:
-          metrics:
-            members:
-              label: 'Members'
-              type: count_distinct
-              description: "Number of members"
-              hidden: false    
-            new_members:
-              label: 'New Members'
-              type: count_distinct
-              description: "Number of new members"
-              sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, 0)"
-              hidden: false    
-
-      - name: customer_name
-        description: ""
-
-      - name: email
-        description: ""
-
-      - name: telephone
-        description: ""
-
-      - name: billing_street
-        description: ""
-
-      - name: billing_city
-        description: ""
-
-      - name: billing_postcode
-        description: ""
-
-      - name: b_region
-        description: ""
-
-      - name: billing_country
-        description: ""
-
-      - name: shipping_street
-        description: ""
-
-      - name: shipping_city
-        description: ""
-
-      - name: shipping_postcode
-        description: ""
-
-      - name: s_region
-        description: ""
-
-      - name: s_country
-        description: ""
-
-      - name: dt_cr
-        description: ""
-
-      - name: subscription
-        description: ""
-
-      - name: old_account_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-            
-      - name: third_party
-        description: ""
-
-      - name: updated_at
-        description: ""
-
-      - name: achica_user
-        description: ""
-
-      - name: achica_migration_date
-        description: ""
-
-  - name: invent_referer
-    description: ""
-    columns:
-      - name: referer_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-            
-      - name: entity_id
-        description: "Entity id"
-        meta:
-          dimension:
-            format: id
-            
-      - name: entity_type
-        description: "Entity type"
-
-      - name: event_type
-        description: "Event type"
-
-      - name: source
-        description: "Source"
-
-      - name: medium
-        description: "Medium"
-
-      - name: term
-        description: "Term"
-
-      - name: content
-        description: "Content"
-
-      - name: campaign
-        description: "Campaign"
-
-      - name: gclid
-        description: "Gclid"
-
-      - name: device_category
-        description: "Device categoy, nullable"
-
-      - name: operating_system
-        description: "Operating system, nullable"
-
-      - name: _streamkap_source_ts_ms
-        description: ""
-
-      - name: __deleted
-        description: ""
-
-  - name: inventory_items
-    description: ""
-    columns:
-      - name: item_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-            
-      - name: product_id
-        description: "Product id"
-        meta:
-          dimension:
-            format: id
-            
-      - name: stock_id
-        description: "Stock id"
-        meta:
-          dimension:
-            format: id
-            
-      - name: qty
-        description: "Quantity"
-
-      - name: min_qty
-        description: "Min Quantity"
-
-      - name: use_config_min_qty
-        description: "Use config min quantity"
-
-      - name: is_qty_decimal
-        description: "Is quantity decimal"
-
-      - name: backorders
-        description: "Backorders"
-
-      - name: use_config_backorders
-        description: "Use config backorders"
-
-      - name: min_sale_qty
-        description: "Min sale quantity"
-
-      - name: use_config_min_sale_qty
-        description: "Use config min sale quantity"
-
-      - name: max_sale_qty
-        description: "Max sale quantity"
-
-      - name: use_config_max_sale_qty
-        description: "Use config min sale quantity"
-
-      - name: is_in_stock
-        description: "Is in stock"
-
-      - name: low_stock_date
-        description: "Low stock date, nullable"
-
-      - name: notify_stock_qty
-        description: "Notify stock quantity, nullable"
-
-      - name: use_config_notify_stock_qty
-        description: "Use config notify stock quantity"
-
-      - name: manage_stock
-        description: "Manage stock"
-
-      - name: use_config_manage_stock
-        description: "Use config manage stock"
-
-      - name: stock_status_changed_auto
-        description: "Stock status changed auto"
-
-      - name: use_config_qty_increments
-        description: "Use config quantity increments"
-
-      - name: qty_increments
-        description: "Quantity increments"
-
-      - name: use_config_enable_qty_inc
-        description: "Use config enable quantity inc"
-
-      - name: enable_qty_increments
-        description: "Enable quantoty increments"
-
-      - name: is_decimal_divided
-        description: "Is decimal divided"
-
-  - name: log_customer
-    description: ""
-    columns:
-      - name: log_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-
-      - name: visitor_id
-        description: "Visitor id, nullable"
-        meta:
-          dimension:
-            format: id
-
+  - name: customers_enriched
+    description: " table with a grain of one customer per row "
+    columns: 
       - name: customer_id
-        description: "Customer id"
         meta:
           dimension:
             format: id
 
-      - name: login_at
-        description: "Login time"
-
-      - name: logout_at
-        description: "Logout time, nullable"
-
-      - name: store_id
-        description: "Store id"
-        meta:
+      - name: first_purchase_at
+        meta: 
           dimension:
-            format: id
-
-      - name: _streamkap_source_ts_ms
-        description: ""
-
-      - name: __deleted
-        description: ""
+            type: date
 
   - name: memo_feed
     description: ""
@@ -619,57 +91,55 @@ models:
         meta:
           dimension:
             format: id
-
       - name: adminuserid
         description: ""
         meta:
           dimension:
             format: id
-
       - name: ordernumber
         description: ""
-
       - name: orderdate
         description: ""
-
       - name: dateofstockreturned
         description: ""
-
       - name: refund_type_id
         description: "Refund type id, nullable"
         meta:
           dimension:
             format: id
-
       - name: refund_status
         description: ""
-
       - name: creditmemodate
         description: ""
-
       - name: creditmemonumber
         description: ""
-
       - name: grandtotal
         description: ""
-
       - name: flag
         description: "Flag"
-
       - name: approvedat
         description: ""
-
       - name: updated_at
         description: "Update date of the order, nullable"
+
+  - name: order_summary
+    description: " an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
+    columns:
+      - name: Period
+      - name: Total_Orders
+      - name: Grand_Total
+      - name: AOV
 
   - name: OrderLines
     description: ""
     meta:
       joins:
+        - join: sales_flat_creditmemo
+          sql_on: ${OrderLines.order_id} = ${sales_flat_creditmemo.order_id}
         - join: ba_core_stock_return
           sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id}
         - join: sales_flat_creditmemo_item
-          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku}
+          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.parent_id}=${sales_flat_creditmemo.entity_id}
         - join: customers
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
         - join: Orders
@@ -680,8 +150,16 @@ models:
           sql_on: ${OrderLines.sku} = ${shipment_items.sku}            
         - join: shipments
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
+        - join: shipping
+          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${products.product_id} = ${shipping.product_id}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
+        - join: orderlineswithsequence
+          sql_on: ${OrderLines.order_id}  = ${orderlineswithsequence.order_id}
+        - join: customers_enriched 
+          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id}
+        - join: orders_enriched
+          sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id}
     columns:
       - name: unique_id
         description: ""
@@ -690,48 +168,69 @@ models:
               config:
                 severity: warn
                 warn_if: "> 100"
-
         meta:
           dimension:
             hidden: true
-
-
+      - name: months_since_cohort_start
+        description: " no of months since cohort began"
+        meta:
+          dimension:
+            type: number
+      - name: years_since_cohort_start
+        description: " no of years since cohort began" 
+        meta: 
+          dimension: 
+            type: number
+      - name : quarters_since_cohort_start
+        description: " no of quarters since cohort began"
+        meta:
+          dimension:
+            type: number
       - name: order_number
         description: ""       
-
       - name: customer_id
-        description: "Customer id, foreign key, nullable"
+        description: "Customer id, foreign key, nullable" 
         meta:
+          dimension:
+            format: id
           metrics:
             total_customers:
               label: 'Total number of customers'
               type: count_distinct
               description: "Number of customers who ordered"
               hidden: false
-              round: 2      
-
+              round: 0      
       - name: order_item_id
         description: "Order item id, foreign key"
         meta:
           dimension:
-            format: id
-
+            format: id    
+          metrics:
+            count_order_items:
+              label: 'count distinct of order item ids'
+              type: count_distinct     
       - name: order_id
         description: "Id of the order, foreign key"
         meta:
+          dimension:
+            format: id
           metrics:
-            total_order_count:
-              type: count_distinct 
-
+            total_orders_count:
+              label: 'Total number of orders'
+              type: count_distinct
+            sum_of_order_ids:
+              label: ' sum of order ids'
+              type: sum
+            average_items_per_order:
+              label: 'average items per order'
+              type: number
+              sql: " ${count_order_items} / ${total_orders_count} "
       - name: sku
         description: "SKU, nullable"
-
       - name: buyer
         description: "Buyer, nullable"
-
       - name: name
         description: "Name"
-
       - name: qty_canceled
         description: "Quantity canceled, nullable"
         meta:
@@ -743,8 +242,7 @@ models:
               type: sum
               description: "Number of units cancelled"
               hidden: false
-              round: 2      
-
+              round: 0      
       - name: qty_ordered
         description: "Quantity ordered, nullable"
         meta:
@@ -756,8 +254,13 @@ models:
               type: sum
               description: "Number of units ordered"
               hidden: false
-              round: 2      
-
+              round: 0  
+            average_qty_ordered_metric:
+              label: 'Average units quantity ordered'
+              type: average 
+              description: "Average number of units ordered"
+              hidden: false
+              round: 0
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
         meta:
@@ -769,8 +272,7 @@ models:
               type: sum
               description: "Number of units invoiced"
               hidden: false
-              round: 2      
-
+              round: 0      
       - name: qty_refunded
         description: "Quantity refunded, nullable"
         meta:
@@ -782,8 +284,7 @@ models:
               type: sum
               description: "Number of units refunded"
               hidden: false
-              round: 2      
-
+              round: 0      
       - name: qty_shipped
         description: "Quantity shipped, nullable"
         meta:
@@ -795,8 +296,7 @@ models:
               type: sum
               description: "Number of units shipped"
               hidden: false
-              round: 2      
-
+              round: 0      
       - name: consignment_qty
         description: ""
         meta:
@@ -808,8 +308,19 @@ models:
               type: sum
               description: "Number of consignment units ordered"
               hidden: false
-              round: 2      
-
+              round: 0     
+      - name: selffulfill_qty
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            selfulfill_qty_metric:
+              label: 'Self-fulfill quantity'
+              type: sum
+              description: "Number of self-fulfill units ordered"
+              hidden: false
+              round: 0      
       - name: warehouse_qty
         description: ""
         meta:
@@ -821,24 +332,22 @@ models:
               type: sum
               description: "Number of warehouse units ordered"
               hidden: false
-              round: 2      
-
+              round: 0      
       - name: order_placed_date
         description: ""
         meta: 
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+          metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
-              type: max
+              type: max 
               description: 'No of months since cohort start'
-              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME), SAFE_CAST(${customers.dt_cr} AS DATETIME), MONTH )  "
+              sql: " DATETIME_DIFF( SAFE_CAST(${OrderLines.order_placed_date} AS DATETIME),  ${customers.dt_cr}, MONTH )  "
               group_label: 
-
       - name: dispatch_due_date
         description: ""
-
       - name: product_cost_inc_vat
         description: ""
         meta:
@@ -852,7 +361,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: line_product_cost_inc_vat
         description: ""
         meta:
@@ -866,7 +374,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: product_cost_exc_vat
         description: ""
         meta:
@@ -880,7 +387,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: line_product_cost_exc_vat
         description: ""
         meta:
@@ -894,7 +400,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: flash_price_inc_vat
         description: ""
         meta:
@@ -908,7 +413,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: line_flash_price_inc_vat
         description: ""
         meta:
@@ -922,7 +426,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: flash_price_exc_vat
         description: ""
         meta:
@@ -936,7 +439,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: line_flash_price_exc_vat
         description: ""
         meta:
@@ -950,7 +452,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: line_discount_amount
         description: ""
         meta:
@@ -964,7 +465,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: margin_inc_discount_percentage
         description: ""
         meta:
@@ -978,7 +478,6 @@ models:
               hidden: false
               round: 2
               format: 'percent'
-
       - name: margin_inc_discount_value
         description: ""
         meta:
@@ -992,7 +491,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: margin_exc_discount_percentage
         description: ""
         meta:
@@ -1006,7 +504,6 @@ models:
               hidden: false
               round: 2
               format: 'percent'      
-
       - name: margin_exc_discount_value
         description: ""
         meta:
@@ -1020,102 +517,85 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: line_total_refunded
         description: ""
-
       - name: shipping_refunded
         description: "Shippung reufnded, nullable"
-
       - name: category_path
         description: ""
-
       - name: product_type
         description: "Type of the product, nullable"
-
       - name: brand
         description: ""
-
       - name: supplier_id
         description: "Supplier id"
         meta:
           dimension:
             format: id
-
       - name: supplier_name
         description: ""
-
       - name: colour
         description: ""
-
       - name: size
         description: "Size"
-
       - name: nego
         description: "Negociation number"
         meta:
           dimension:
             format: id
-
       - name: category_name
         description: ""
-
       - name: department_type
         description: ""
-
       - name: updated_at
         description: "Update time"
-
       - name: created_at
         description: "Creation time"
         meta:
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: month_created
         description: ""
-
       - name: order_status
         description: ""
-
       - name: tax_amount
         description: "Tax amount, nullable"
-
+        meta:
+          metrics:
+            total_tax_amount:
+              type: sum
       - name: tax_percent
         description: "Tax percent, nullable"
-
       - name: date_comp_exported
         description: "Catalog product negotiation date comp exported"
         meta:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
       - name: cpn_date_flag
         description: "sfoi.created_at greater than cpn.date_comp_exported"
-
       - name: rrp
         description: ""
-
+        meta:
+          dimension:    
+            type: number
+            label: 'RRP' 
+            description: 'Recommended Price'
+            round: 2
+            format: 'gbp'
       - name: parent_sku
         description: ""
-
       - name: reference
         description: "Reference"
-
       - name: region
         description: "Region"       
-
       - name: qty_backordered
         description: "Quantity backordered"       
-
       - name: sap_ref
         description: "SAP Reference number"       
-
       - name: cpn_status
         description: "catalog_product_negotiation status"       
-
       - name: TOTAL_GBP_after_vouchers
         meta:
           metrics:
@@ -1126,19 +606,107 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-            total_revenue_exc_vat:
+      - name: TOTAL_GBP_before_vouchers
+        meta:
+          metrics:
+            total_revenue_before_vouchers:
+              label: 'Total revenue GBP inc VAT (before vouchers)'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      - name: TOTAL_GBP_ex_tax_after_vouchers
+        meta:
+          metrics:
+            total_revenue_exc_tax:
               label: 'Total revenue GBP exc VAT (after vouchers)'
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
-              sql: "${TOTAL_GBP_after_vouchers}-${tax_amount}"
               hidden: false
               round: 2
               format: 'gbp'   
             average_order_value:
               label: ' average order value (excluding VAT after discount) '
-              type: sum
+              type: number 
               description: 'average order value (excluding VAT after discount)'
+<<<<<<< HEAD:dbt/brandalley-dbt/models/Avora_models/models.yml
               sql: " (${TOTAL_GBP_after_vouchers}-${tax_amount}) / ${total_order_count} "
+
+=======
+              sql: " ${total_revenue_exc_tax}/${total_orders_count}"
+              round: 2
+              format: 'gbp'   
+      - name: TOTAL_GBP_ex_tax_before_vouchers
+        meta:
+          metrics:
+            total_revenue_exc_tax_before_vouchers:
+              label: 'Total revenue GBP ex VAT (before vouchers)'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      - name: selffulfill_totalGBP_inc_tax
+        meta:
+          metrics:
+            self_fulfill_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for SF orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for SF orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      - name: selffulfill_totalGBP_ex_tax
+        meta:
+          metrics:
+            self_fulfill_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for SF order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for SF order"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      - name: consignment_totalGBP_inc_tax
+        meta:
+          metrics:
+            consignment_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for consignment orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for consignment orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      - name: consignment_totalGBP_ex_tax
+        meta:
+          metrics:
+            consignment_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for consignment order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for consignment order"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      - name: warehouse_totalGBP_inc_tax
+        meta:
+          metrics:
+            warehouse_value_inc_vat:
+              label: 'Total revenue GBP inc VAT (before vouchers) for warehouse orders'
+              type: sum
+              description: "Total revenue inc VAT in GBP before taking vouchers into account for warehouse orders"
+              hidden: false
+              round: 2
+              format: 'gbp'   
+      - name: warehouse_totalGBP_ex_tax
+        meta:
+          metrics:
+            warehouse_value_exc_vat:
+              label: 'Total revenue GBP ex VAT (before vouchers) for warehouse order'
+              type: sum
+              description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
+              hidden: false
+              round: 2
+              format: 'gbp'  
 
   - name: OrderLinesNullParent
     description: ""
@@ -1150,15 +718,12 @@ models:
               config: 
                 severity: warn
                 warn_if: ">100"
-  
         meta:
           metrics:
             total_order_count_nullParent:
               type: count_distinct 
-
       - name: category
         description: "Category of the order"       
-
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta:
@@ -1169,32 +734,25 @@ models:
               description: "Number of customers who ordered"
               hidden: false
               round: 2      
-
       - name: status
         description: "Status of the order"
-
       - name: item_id
         description: "Item ID"
         meta:
           dimension:
             format: id
-
       - name: created_at
         description: "Creation date of the order"
         meta:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
       - name: line_created_at
         description: "Creation date of the order line"
-
       - name: customer_name
         description: "Name of the customer"
-
       - name: sku
         description: "SKU ordered"
-
       - name: qty_canceled
         description: "Quantity canceled, nullable"
         meta:
@@ -1207,7 +765,6 @@ models:
               description: "Number of units cancelled"
               hidden: false
               round: 2      
-
       - name: qty_ordered
         description: "Quantity ordered, nullable"
         meta:
@@ -1220,7 +777,6 @@ models:
               description: "Number of units ordered"
               hidden: false
               round: 2      
-
       - name: qty
         description: "Quantity invoiced, nullable"
         meta:
@@ -1233,7 +789,6 @@ models:
               description: "Number of units invoiced"
               hidden: false
               round: 2      
-
       - name: qty_refunded
         description: "Quantity refunded, nullable"
         meta:
@@ -1246,7 +801,6 @@ models:
               description: "Number of units refunded"
               hidden: false
               round: 2      
-
       - name: qty_refunded_hold
         description: "Quantity refunded on hold, nullable"
         meta:
@@ -1259,7 +813,6 @@ models:
               description: "Number of units refund on hold"
               hidden: false
               round: 2      
-
       - name: qty_shipped
         description: "Quantity shipped, nullable"
         meta:
@@ -1272,7 +825,6 @@ models:
               description: "Number of units shipped"
               hidden: false
               round: 2      
-
       - name: qty_reserved
         description: "Quantity shipped, nullable"
         meta:
@@ -1285,7 +837,6 @@ models:
               description: "Number of units reserved by tc"
               hidden: false
               round: 2      
-
       - name: qty_out_of_stock
         description: "Quantity out of stock, nullable"
         meta:
@@ -1298,7 +849,6 @@ models:
               description: "Number of units out of stock"
               hidden: false
               round: 2      
-
       - name: qty_backordered
         description: "Quantity backordered, nullable"
         meta:
@@ -1311,7 +861,6 @@ models:
               description: "Number of units backordered"
               hidden: false
               round: 2      
-
       - name: qty_warehouse_sent
         description: "Quantity sent from warehouse, nullable"
         meta:
@@ -1324,7 +873,6 @@ models:
               description: "Units quantity sent from warehouse"
               hidden: false
               round: 2      
-
       - name: qty_backorder_reconciliation
         description: "Quantity backorder reconciliation, nullable"
         meta:
@@ -1337,7 +885,6 @@ models:
               description: "Units quantity backorder reconciliation"
               hidden: false
               round: 2      
-
       - name: qty_wh_b_sent
         description: "Quantity warehouse b sent, nullable"
         meta:
@@ -1350,7 +897,6 @@ models:
               description: "Units quantity warehouse b sent"
               hidden: false
               round: 2      
-
       - name: qty_reserved_by_wh_b
         description: "Quantity reserved by warehouse b, nullable"
         meta:
@@ -1363,7 +909,6 @@ models:
               description: "Units quantity reserved by warehouse b"
               hidden: false
               round: 2      
-
       - name: qty_to_ignore
         description: "Quantity to ignore, nullable"
         meta:
@@ -1376,7 +921,6 @@ models:
               description: "Units quantity to ignore"
               hidden: false
               round: 2      
-
       - name: qty_to_send
         description: "Quantity to send, nullable"
         meta:
@@ -1389,7 +933,6 @@ models:
               description: "Units quantity to send"
               hidden: false
               round: 2      
-
       - name: qty_orders_due
         description: "Quantity to send, nullable"
         meta:
@@ -1402,7 +945,6 @@ models:
               description: "Units quantity of orders due"
               hidden: false
               round: 2      
-
       - name: qty_backorder_not_shipped
         description: "Quantity of backorders not shipped, nullable"
         meta:
@@ -1415,47 +957,37 @@ models:
               description: "Units quantity of backorders not shipped"
               hidden: false
               round: 2      
-
       - name: price
         description: "Price of the unit"
-
       - name: dispatch_date
         description: "Dispatch date"
         meta:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
       - name: delivery_address
         description: "Address of delivery"
-
       - name: method
         description: "Method"
-
       - name: last_trans_id
         description: "Last transaction id"
         meta:
           dimension:
             format: id
-
       - name: MagentoID
         description: "Magento Id"
         meta:
           dimension:
             format: id
-
       - name: customer_email
         description: "Email of the customer"
-
       - name: name
         description: "Product name"
-
       - name: nego
         description: "Negotiation number"
         meta:
           dimension:
             format: id
-
       - name: boreco_or_reswhb
         description: "Flag indicating if qty_backorder_reconciliation > 0  or qty_reserved_by_wh_b > 0"
 
@@ -1477,10 +1009,8 @@ models:
           metrics:
             total_order_count_nullParent:
               type: count_distinct 
-
       - name: brand
         description: "Brand of the line ordered"       
-
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta:
@@ -1491,32 +1021,26 @@ models:
               description: "Number of customers who ordered"
               hidden: false
               round: 2      
-
       - name: subscriber_status
         description: "Status of the newsletter subscribment"
-
       - name: created_at
         description: "Creation date of the order"
         meta:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
       - name: product_type
         description: "Type of product ordered"
-
       - name: parent_item_id
         description: "Id of the parent item"
         meta:
           dimension:
             format: id
-
       - name: store_id
         description: "Brand store id"
         meta:
           dimension:
             format: id
-
       - name: total_gbp
         description: "Total value of the order before vouchers"
         meta:
@@ -1529,7 +1053,6 @@ models:
               description: "Total value of the order before vouchers"
               hidden: false
               round: 2      
-
       - name: total_gbp_after_vouchers
         description: "Total value of the order after vouchers"
         meta:
@@ -1541,15 +1064,50 @@ models:
               type: sum
               description: "Total value of the order after vouchers"
               hidden: false
-              round: 2      
+              round: 2   
+
+  - name: orderlineswithsequence
+    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"       
+    columns:
+      - name: customer_id
+        meta:
+          dimension:
+            format: id
+      - name: order_id
+        meta:
+          dimension:
+            format: id
+      - name: no_of_orders_since_customer_started_ordering
+        meta:
+          dimension: 
+            label: 'number of orders customer made from first ever order'
+            type: number
+            description: 
+            hidden: false
+     
+  - name: orders_enriched
+    columns:
+      - name: customers_id
+        meta:
+          dimension:
+            format: id
+      - name: order_id
+        meta:
+          dimension:
+            format: id
+      - name: order_at
+      - name: order_sequence
+      - name: order_number_excl_full_refunds
+      - name: order_number_incl_cancellations
 
   - name: Orders
     description: ""
     meta:
       joins:
         - join: shipments
-          sql_on: ${Orders.magentoid} = ${shipments.order_id}
-
+          sql_on: ${Orders.magentoID} = ${shipments.order_id}
+        - join: stg__salesrule_coupon
+          sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
     columns:
       - name: increment_id
         description: "Increment id, nullable"
@@ -1565,44 +1123,42 @@ models:
               type: count_distinct
               description: "Number of orders"
               hidden: false
-              round: 2      
-
-      - name: magentoid
+              round: 0
+            total_new_order_count:
+              label: 'Total number of new orders'
+              type: count_distinct
+              description: "Number of new orders"
+              hidden: false
+              sql: "IF(${orderno}=1, ${increment_id}, null)"
+              round: 0
+      - name: magentoID
         description: ""
         meta:
           dimension:
-            hidden: true
-
+            format: id
       - name: store_id
         description: "Store id, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: billing_address_id
         description: "Id of the billing address, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: shipping_address_id
         description: "Shipping address id, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: subtotal_incl_tax
         description: "Adjustment negative, nullable"
-
       - name: subtotal_excl_tax
         description: ""
-
       - name: total_discount_amount
         description: ""
-
       - name: shipping_discount_amount
         description: "Adjustment negative, nullable"
-
       - name: total_tax
         description: ""
         meta:
@@ -1616,10 +1172,8 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: total_qty_ordered
         description: "Total quantity ordered"
-
       - name: shipping_excl_tax
         description: ""
         meta:
@@ -1633,7 +1187,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: shipping_incl_tax
         description: "Shipping including tax, nullable"
         meta:
@@ -1655,7 +1208,6 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: grand_total
         description: "Grand total, nullable"
         meta:
@@ -1669,37 +1221,26 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-
       - name: total_paid
         description: "Total paid, nullable"
-
       - name: total_refunded
         description: "Total refunded, nullable"
-
       - name: total_due
         description: "Adjustment negative, nullable"
-
       - name: total_invoiced_cost
         description: ""
-
       - name: status
         description: "Status, nullable"
-
       - name: coupon_rule_name
         description: "Coupon rule name, nullable"
-
       - name: coupon_code
         description: "Coupon code, nullable"
-
       - name: method
         description: "Method, nullable"
-
       - name: shipping_method
         description: "Shipping method, nullable"
-
       - name: shipping_description
         description: "Shipping description, nullable"
-
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta: 
@@ -1710,156 +1251,54 @@ models:
               description: "Number of new customers"
               sql: "IF(${orderno}=1, ${customer_id}, 0)"
               hidden: false    
-
       - name: customer_name
         description: ""
-
       - name: email
         description: "Email, nullable"
-
       - name: customer_phone
         description: ""
-
       - name: delivery_address
         description: ""
-
       - name: delivery_postcode
         description: ""
-
       - name: customer_age
         description: ""
-
       - name: expected_delivery_date
         description: "Expected delivery date"
-
       - name: expected_delivery_days
         description: "Expected delivery days, nullable"
-
       - name: created_at
         description: ""
         meta:
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
       - name: updated_at
         description: "Update date of the order, nullable"
-
       - name: orderno
         description: "Order index placed by the client at Brandalley"
-
       - name: cc_trans_id
         description: "CC Transaction Id"
         meta:
           dimension:
             format: id
-
       - name: customer_firstname
         description: "Customer first name"
-
       - name: customer_lastname
         description: "Customer last name"
-
       - name: additional_information
         description: "Additional information"
-
       - name: base_grand_total
         data_type: <decimal>
         description: "Base Grand Total"
-
-  - name: products
-    description: ""
-    columns:
-      - name: u_unique_id
-        description: ""
-        meta:
+      - name: interval_between_orders
+        description: " customer interval between orders (in days) "
+      - name: total_interval_between_orders_for_each_customer
+        description: " the total count of intervals between orders for each customer (in days)"
+        meta: 
           dimension:
-            format: id
-
-      - name: product_id
-        description: "Product id"
-        meta:
-          dimension:
-            format: id
-
-      - name: dt_cr
-        description: ""
-
-      - name: variant_product_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-
-      - name: sku
-        description: "SKU, nullable"
-
-      - name: variant_sku
-        description: ""
-
-      - name: sap_product_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-
-      - name: name
-        description: "Name"
-
-      - name: description
-        description: ""
-
-      - name: brand
-        description: ""
-
-      - name: supplier
-        description: ""
-
-      - name: outlet_category
-        description: ""
-
-      - name: product_type
-        description: ""
-
-      - name: availability
-        description: ""
-
-      - name: outlet_price
-        description: ""
-
-      - name: color
-        description: ""
-
-      - name: size
-        description: ""
-
-      - name: stock
-        description: ""
-
-      - name: price
-        description: ""
-
-      - name: sale_price
-        description: ""
-
-      - name: cost
-        description: ""
-
-      - name: tax_class
-        description: ""
-
-      - name: updated_at
-        description: "Update time"
-
-      - name: supplier_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-
-      - name: supplier_name
-        description: ""
-
+            type: number
+ 
   - name: sales_flat_creditmemo_item
     description: ""
     columns:
@@ -1868,127 +1307,111 @@ models:
         meta:
           dimension:
             format: id
-
+          metrics:
+            count_item_refunds_metric:
+              label: 'Total number of item refunds'
+              type: count_distinct
+              description: "Number of credit memo per item"
+              hidden: false   
+              round: 0 
       - name: parent_id
         description: "Parent id"
         meta:
           dimension:
             format: id
-
       - name: base_price
         description: "Base price, nullable"
-
       - name: tax_amount
         description: "Tax amount, nullable"
-
       - name: base_row_total
         description: "Base row total, nullable"
-
       - name: discount_amount
         description: "Discount amount, nullable"
-
       - name: row_total
         description: "Row total, nullable"
-
+        meta: 
+          metrics:
+            creditmemo_row_total:
+              label: 'Row total'
+              type: sum
+              description: "Row total from credit memo"
+              hidden: false  
+              round: 2
+              format: 'gbp'     
       - name: base_discount_amount
         description: "Base discount amount, nullable"
-
       - name: price_incl_tax
         description: "Price incl. tax, nullable"
-
+        round: 2
+        format: 'gbp'      
       - name: base_tax_amount
         description: "Base tax amount, nullable"
-
       - name: base_price_incl_tax
         description: "Base price incl tax, nullable"
-
       - name: qty
         description: "Quantity, nullable"
-
       - name: base_cost
         description: "Base cost, nullable"
-
       - name: price
         description: "Price, nullable"
-
       - name: base_row_total_incl_tax
         description: "Base row total incl tax, nullable"
-
       - name: row_total_incl_tax
         description: "Row total incl tax, nullable"
-
       - name: product_id
         description: "Product id, nullable"
         meta:
           dimension:
             format: id
-
       - name: order_item_id
         description: "Order item id, nullable"
         meta:
           dimension:
             format: id
-
       - name: additional_data
         description: "Additional data, nullable"
-
       - name: description
         description: "Description, nullable"
-
       - name: sku
         description: "SKU, nullable"
-
       - name: name
         description: "Name, nullable"
-
       - name: hidden_tax_amount
         description: "Hidden tax amount, nullable"
-
       - name: base_hidden_tax_amount
         description: "Base hidden tax amount, nullable"
-
       - name: weee_tax_disposition
         description: "Weee Tax disposition, nullable"
-
       - name: weee_tax_row_disposition
         description: "Weee tax row disposition, nullable"
-
       - name: base_weee_tax_disposition
         description: "Base weee tax disposition, nullable"
-
       - name: base_weee_tax_row_disposition
         description: "Base weee tax row disposition, nullable"
-
       - name: weee_tax_applied
         description: "Weee tax applied, nullable"
-
       - name: base_weee_tax_applied_amount
         description: "Base weee tax applied amount, nullable"
-
       - name: base_weee_tax_applied_row_amnt
         description: "Base weee tax applied row amount, nullable"
-
       - name: weee_tax_applied_amount
         description: "Weee tax applied amount, nullable"
-
       - name: weee_tax_applied_row_amount
         description: "Weee tax applied row amount, nullable"
-
       - name: customer_refund_request
         description: "Customer refund request, nullable"
-
       - name: exported_to_sap
         description: "Exported to sap"
-
       - name: qty_returned_to_warehouse
         description: "Quantity returned to warehouse"
-
       - name: created_at
         description: "Created at, nullable"
-
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
       - name: updated_at
         description: "Updated at, nullable"
-
       - name: refund_reason
         description: ""
 
@@ -2000,272 +1423,199 @@ models:
         meta:
           dimension:
             format: id
-
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Number of credit memo"
+              hidden: false   
+              round: 0 
       - name: store_id
         description: "Store id, nullable"
         meta:
           dimension:
             format: id
-
       - name: adjustment_positive
         description: "Ajustment positive, nullable"
-
       - name: base_shipping_tax_amount
         description: "Base shipping tax amount, nullable"
-
       - name: store_to_order_rate
         description: "Store to order rate, nullable"
-
       - name: base_discount_amount
         description: "Base discount amount, nullable"
-
       - name: base_to_order_rate
         description: "Base to order rate, nullable"
-
       - name: grand_total
         description: "Grand total, nullable"
-
       - name: base_adjustment_negative
         description: "Base adjustement negative, nullable"
-
       - name: base_subtotal_incl_tax
         description: "Base subtotal incl. tax, nullable"
-
       - name: shipping_amount
         description: "Shipping amount, nullable"
-
       - name: subtotal_incl_tax
         description: "Subtotal incl. tax, nullable"
-
       - name: adjustment_negative
         description: "Adjustment negative, nullable"
-
       - name: base_shipping_amount
         description: "Base shipping amount, nullable"
-
       - name: store_to_base_rate
         description: "Store to base rate, nullable"
-
       - name: base_to_global_rate
         description: "Base to global rate, nullable"
-
       - name: base_adjustment
         description: "Base adjustment, nullable"
-
       - name: base_subtotal
         description: "Base subtotal, nullable"
-
       - name: discount_amount
         description: "Discount amount, nullable"
-
       - name: subtotal
         description: "Subtotal, nullable"
-
       - name: adjustment
         description: "Adjustment, nullable"
-
       - name: base_grand_total
         data_type: <decimal>
         description: "Base grand total, nullable"
-
       - name: base_adjustment_positive
         description: "Base adjustment positive, nullable"
-
       - name: base_tax_amount
         description: "Base tax amount, nullable"
-
       - name: shipping_tax_amount
         description: "Shipping tax amount, nullable"
-
       - name: tax_amount
         description: "Tax amount, nullable"
-
       - name: order_id
         description: "Order id"
         meta:
           dimension:
             format: id
-
       - name: email_sent
         description: "Email sent, nullable"
-
       - name: creditmemo_status
         description: "Creditmemo status, nullable"
-
       - name: state
         description: "State, nullable"
-
       - name: shipping_address_id
         description: "Shipping address id, nullable"
         meta:
           dimension:
             format: id
-
       - name: billing_address_id
         description: "Billing address id, nullable"
         meta:
           dimension:
             format: id
-
       - name: invoice_id
         description: "Invoice id, nullable"
         meta:
           dimension:
             format: id
-
       - name: store_currency_code
         description: "Store currency code, nullable"
-
       - name: order_currency_code
         description: "Order currency code, nullable"
-
       - name: base_currency_code
         description: "Base currency code, nullable"
-
       - name: global_currency_code
         description: "Global currency code, nullable"
-
       - name: transaction_id
         description: "Transaction id, nullable"
         meta:
           dimension:
             format: id
-
       - name: increment_id
         description: "Increment id, nullable"
         meta:
           dimension:
             format: id
-
       - name: created_at
         description: "Created at, nullable"
-
       - name: updated_at
         description: "Updated at, nullable"
-
       - name: hidden_tax_amount
         description: "Hidden tax amount, nullable"
-
       - name: base_hidden_tax_amount
         description: "Base hidden tax amount, nullable"
-
       - name: shipping_hidden_tax_amount
         description: "Shipping hidden tax amount, nullable"
-
       - name: base_shipping_hidden_tax_amnt
         description: "Base shipping hidden tax amount, nullable"
-
       - name: shipping_incl_tax
         description: "Shipping incl. tax, nullable"
-
       - name: base_shipping_incl_tax
         description: "Base shipping incl. tax, nullable"
-
       - name: discount_description
         description: "Discount description, nullable"
-
       - name: base_customer_balance_amount
         description: "Base customer balance amount, nullable"
-
       - name: customer_balance_amount
         description: "Customer balance amount, nullable"
-
       - name: bs_customer_bal_total_refunded
         description: "BS customer bal total refunded, nullable"
-
       - name: customer_bal_total_refunded
         description: "Customer bal total refunded, nullable"
-
       - name: base_gift_cards_amount
         description: "Base gift cards amount, nullable"
-
       - name: gift_cards_amount
         description: "Gift cards amount, nullable"
-
       - name: gw_base_price
         description: "GW base price, nullable"
-
       - name: gw_price
         description: "GW price, nullable"
-
       - name: gw_items_base_price
         description: "GW items base price, nullable"
-
       - name: gw_items_price
         description: "GW items price, nullable"
-
       - name: gw_card_base_price
         description: "GW card base price, nullable"
-
       - name: gw_card_price
         description: "GW card price, nullable"
-
       - name: gw_base_tax_amount
         description: "GW Base tax amount, nullable"
-
       - name: gw_tax_amount
         description: "GW tax amount, nullable"
-
       - name: gw_items_base_tax_amount
         description: "GW items base tax amount, nullable"
-
       - name: gw_items_tax_amount
         description: "GW items tax amount, nullable"
-
       - name: gw_card_base_tax_amount
         description: "GW card base tax amount, nullable"
-
       - name: gw_card_tax_amount
         description: "GW card tax amount, nullable"
-
       - name: base_reward_currency_amount
         description: "Base reward currency amount, nullable"
-
       - name: reward_currency_amount
         description: "Reward currency amount, nullable"
-
       - name: reward_points_balance
         description: "Reward points balance, nullable"
-
       - name: reward_points_balance_refund
         description: "Reward points balance refund, nullable"
-
       - name: refund_type_id
         description: "Refund type id, nullable"
-
       - name: adjustment_reason_id
         description: "Adjustement reason id, nullable"
-
       - name: status_id
         description: "Status id, nullable"
         meta:
           dimension:
             format: id
-
       - name: admin_user_id
         description: "Admin user id, nullable"
         meta:
           dimension:
             format: id
-
       - name: approve_at
         description: "Approve at, nullable"
-
       - name: exported_to_sap
         description: "Exported to sap"
-
       - name: fee_type
         description: "Fee type, nullable"
-
       - name: flag
         description: "Flag"
-
       - name: approved_by
         description: "Approved by, nullable"
-
       - name: canceled_at
         description: "Canceled at, nullable"
-
       - name: is_batch
         description: "Is batch, nullable"
 
@@ -2285,58 +1635,44 @@ models:
               type: count_distinct
               description: "Number of shipments"
               hidden: false    
-
       - name: parent_id
         description: "Shipment item ID of the parent, foreign key"
         meta:
           dimension:
             format: id
-
       - name: row_total
         description: "Value total of a specific item for this shipment, nullable"
-
       - name: price
         description: "Price of a specific item for this shipment, nullable"
-
       - name: weight
         description: "Weight of a specific item for this shipment, nullable"
-
       - name: qty
         description: "Quantity to ship of a specific item , nullable"
-
       - name: product_id
         description: "Id of the product to ship, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: order_item_id
         description: "Id of the order item to ship, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: additional_data
         description: "Additional information about the shipment item, nullable"
-
       - name: description
         description: "Description about the shipment item, nullable"
-
       - name: name
         description: "Name of the product to ship, nullable"
-
       - name: sku
         description: "SKU of the product to ship, nullable"
-
       - name: sap_id
         description: "SAP shipment ID, nullable"
         meta:
           dimension:
             format: id
-
       - name: _streamkap_source_ts_ms
         description: "Sync time from streamkap, nullable"
-
       - name: __deleted
         description: "Deleted flag, nullable"
 
@@ -2348,65 +1684,52 @@ models:
         meta:
           dimension:
             format: id
-
       - name: store_id
         description: "Id of the store, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: total_weight
         description: "Total weight, nullable"
-
       - name: total_qty
         description: "Quantity to ship, nullable"
-
       - name: email_sent
         description: "Flag indicating if email was sent, nullable"
-
       - name: order_id
         description: "Order ID linked to the shipment, foreign key"
         meta:
           dimension:
             format: id
-
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: shipping_address_id
         description: "Shipping address id, foreign key"
         meta:
           dimension:
             format: id
-
       - name: billing_address_id
         description: "Billing address id, foreign key"
         meta:
           dimension:
             format: id
-
       - name: shipment_status
         description: "Shipment status, nullable"
-
       - name: increment_id
         description: "Increment id"
         meta:
           dimension:
             format: id
-
       - name: created_at
         description: "Created date of the shipment, nullable"
         meta:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
       - name: updated_at
         description: "Update date of the shipment, nullable"
-
       - name: packages
         description: "Number of packages, nullable"
 
@@ -2418,540 +1741,111 @@ models:
         meta:
           dimension:
             format: id
-
       - name: product_id
         description: "Id of the product to ship, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: sku
         description: "SKU of the product to ship, nullable"
-
       - name: qty
         description: "Quantity to ship of a specific item , nullable"
-
       - name: weight
         description: "Adjustment negative, nullable"
-
       - name: order_id
         description: "Order ID linked to the shipment, foreign key"
         meta:
           dimension:
             format: id
-
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta:
           dimension:
             format: id
-
       - name: postcode
         description: "Post code, nullable"
-
       - name: shipment_id
         description: ""
         meta:
           dimension:
             format: id
-
       - name: order_date
         description: ""
-
-      - name: shipment_date
-        description: ""
-
-      - name: updated_at
-        description: "Update date of the order, nullable"
-
-  - name: flatten_kpis_per_day
-    description: ""
-    meta:
-      joins:
-        - join: customers_record_data_source
-          sql_on: ${flatten_kpis_per_day.customer_id} = ${customers_record_data_source.cst_id}
-    columns:
-      - name: order_number
-        description: "Id of the order"
-        meta:
-          dimension:
-            format: id
-
-      - name: product_name
-        description: "Name of the product"
-
-      - name: sku
-        description: "SKU of the product to ship, nullable"
-
-      - name: entity
-        description: "Entity the data is coming from"
-
-      - name: date
-        description: "Key date of each entity"
         meta:
           dimension:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-
-      - name: nego
-        description: "Negociation number"
+      - name: shipment_date
+        description: ""
         meta:
           dimension:
-            format: id
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+          metrics:
+            days_to_delivery_exc_we:
+              label: 'Days to delivery exc WE'
+              type: sum
+              description: "Number of days spent between the order date and the shipment date, excluding week-ends"
+              sql: "IF(${shipment_date} !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
+              hidden: false
+              round: 0    
+      - name: updated_at
+        description: "Update date of the order, nullable"
 
-      - name: customer_id
-        description: "Customer id, foreign key, nullable"
+  - name: coupon_rules
+    description: "Coupon details"
+    meta:
+      joins:
+        - join: Orders
+          sql_on: ${Orders.coupon_code} = ${coupon_rules.code}
+    columns:
+      - name: coupon_id
+        data_type: <integer>
+        description: "Primary key"
+      - name: rule_id
+        data_type: <integer>
+        description: "Rule Id, nullable"
+      - name: code
+        data_type: <string>
+        description: "Code"
+      - name: usage_limit
+        data_type: <integer>
+        description: "Usage limit"
+      - name: usage_per_customer
+        data_type: <integer>
+        description: "Usage per customer"
+      - name: time_used
+        data_type: <integer>
+        description: "Number of times the coupon has been used"
+      - name: expiration_date
+        data_type: <string>
+        description: "Expiration date"
         meta:
           dimension:
-            format: id
-
-      - name: category_path
-        description: "Category tree details, nullable"
-
-      - name: product_type
-        description: "Type of product"
-
-      - name: brand
-        description: "Brand name"
-
-      - name: supplier_id
-        description: "ID of the supplier"
-
-      - name: supplier_name
-        description: "Name of the supplier, nullable"
-
-      - name: colour
-        description: "Colour of the product"
-
-      - name: gender
-        description: "Gender targeted by the product"
-
-      - name: size
-        description: "Size of the product"
-
-      - name: nego
-        description: "Negociation number"
-
-      - name: category_name
-        description: "Name of the category"
-
-      - name: department_type
-        description: "Department type"
-
-      - name: order_status
-        description: "Status of the order"
-
-      - name: region
-        description: "Region"
-
-      - name: reference
-        description: "Reference"
-
-      - name: order_number
-        description: "Order number"
-
-      - name: coupon_rule_name
-        description: "Coupon rule name"
-
-      - name: coupon_code
-        description: "Coupon code"
-
-      - name: method
-        description: "Method"
-
-      - name: shipping_method
-        description: "Shipping method"
-
-      - name: customer_id
-        description: "Customer id"
-
-      - name: orderno
-        description: "Order number"
-
-      - name: email
-        description: "Email"
-
-      - name: achica_user
-        description: "Flag achica user"
-
-      - name: achica_migration_date
-        description: "Achica migration date"
-
-      - name: count_orderlines
-        description: "Count of number of lines in orderlines"
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: is_primary
+        data_type: <integer>
+        description: "Is primary flag"
+      - name: created_at
+        data_type: <string>
+        description: "Created at"
         meta:
-          metrics:
-            count_orderlines_kpi_metric:
-              label: 'Count of number of lines in orderlines'
-              type: sum
-              description: "Count of number of lines in orderlines"
-              hidden: false
-              round: 2     
-
-      - name: count_orders
-        description: "Count of number of lines in orders"
-        meta:
-          metrics:
-            count_orders_kpi_metric:
-              label: 'Count of number of lines in orders'
-              type: sum
-              description: "Count of number of lines in orders"
-              hidden: false
-              round: 2    
-
-      - name: count_customers
-        description: "Count of number of lines in customers"
-        meta:
-          metrics:
-            count_customers_kpi_metric:
-              label: 'Count of number of lines in customer'
-              type: sum
-              description: "Count of number of lines in customer"
-              hidden: false
-              round: 2  
-
-      - name: qty_canceled
-        description: "Quantity of units canceled"
-        meta:
-          metrics:
-            qty_canceled_kpi_metric:
-              label: 'Quantity of units canceled'
-              type: sum
-              description: "Quantity of units canceled"
-              hidden: false
-              round: 2  
-
-      - name: qty_ordered
-        description: "Quantity ordered"
-        meta:
-          metrics:
-            qty_ordered_kpi_metric:
-              label: 'Quantity ordered'
-              type: sum
-              description: "Quantity ordered"
-              hidden: false
-              round: 2   
-
-      - name: qty_invoiced
-        description: "Quantity invoiced"
-        meta:
-          metrics:
-            qty_invoiced_kpi_metric:
-              label: 'Quantity invoiced'
-              type: sum
-              description: "Quantity invoiced"
-              hidden: false
-              round: 2  
-
-      - name: qty_refunded
-        description: "Quantity refunded"
-        meta:
-          metrics:
-            qty_refunded_kpi_metric:
-              label: 'Quantity refunded'
-              type: sum
-              description: "Quantity refunded"
-              hidden: false
-              round: 2   
-
-      - name: qty_shipped
-        description: "Quantity shipped"
-        meta:
-          metrics:
-            qty_shipped_kpi_metric:
-              label: 'Quantity shipped'
-              type: sum
-              description: "Quantity shipped"
-              hidden: false
-              round: 2  
-
-      - name: consignment_quantity
-        description: "Consignment quantity"
-        meta:
-          metrics:
-            consignment_quantity_kpi_metric:
-              label: 'Consignment quantity'
-              type: sum
-              description: "Consignment quantity"
-              hidden: false
-              round: 2  
-
-      - name: warehouse_qty
-        description: "Warehouse quantity"
-        meta:
-          metrics:
-            warehouse_qty_kpi_metric:
-              label: 'Warehouse quantity'
-              type: sum
-              description: "Warehouse quantity"
-              hidden: false
-              round: 2    
-
-      - name: product_cost_inc_vat
-        description: "Product cost inc VAT"
-        meta:
-          metrics:
-            product_cost_inc_vat_kpi_metric:
-              label: 'Product cost inc VAT'
-              type: sum
-              description: "Product cost inc VAT"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: product_cost_exc_vat
-        description: "Product cost exc VAT"
-        meta:
-          metrics:
-            product_cost_exc_vat_kpi_metric:
-              label: 'Product cost exc VAT'
-              type: sum
-              description: "Product cost exc VAT"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: flash_price_inc_vat
-        description: "Flash price inc VAT"
-        meta:
-          metrics:
-            flash_price_inc_vat_kpi_metric:
-              label: 'Flash price inc VAT'
-              type: sum
-              description: "Flash price inc VAT"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: shipping_refunded
-        description: "Shipping refunded"
-        meta:
-          metrics:
-            shipping_refunded_kpi_metric:
-              label: 'Shipping refunded'
-              type: sum
-              description: "Shipping refunded"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: tax_amount
-        description: "Tax amount"
-        meta:
-          metrics:
-            tax_amount_kpi_metric:
-              label: 'Tax amount'
-              type: sum
-              description: "Tax amount"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: qty_backordered
-        description: "Quantity backordered"
-        meta:
-          metrics:
-            qty_backordered_kpi_metric:
-              label: 'Quantity backordered'
-              type: sum
-              description: "Quantity backordered"
-              hidden: false
-              round: 2    
-
-      - name: TOTAL_GBP_after_vouchers
-        description: "Total revenue after vouchers"
-        meta:
-          metrics:
-            TOTAL_GBP_after_vouchers_kpi_metric:
-              label: 'Total revenue after vouchers'
-              type: sum
-              description: "Total revenue after vouchers"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: total_discount_amount
-        description: "Total discount amount"
-        meta:
-          metrics:
-            total_discount_amount_kpi_metric:
-              label: 'Total discount amount'
-              type: sum
-              description: "Total discount amount"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: shipping_discount_amount
-        description: "Shipping discount"
-        meta:
-          metrics:
-            shipping_discount_amount_kpi_metric:
-              label: 'Shipping discount'
-              type: sum
-              description: "Shipping discount"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: shipping_excl_tax
-        description: "Shipping exc tax"
-        meta:
-          metrics:
-            shipping_excl_tax_kpi_metric:
-              label: 'Shipping exc tax'
-              type: sum
-              description: "Shipping exc tax"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: shipping_incl_tax
-        description: "Shipping inc tax"
-        meta:
-          metrics:
-            shipping_incl_tax_kpi_metric:
-              label: 'Shipping inc tax'
-              type: sum
-              description: "Shipping inc tax"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: total_paid
-        description: "Total paid"
-        meta:
-          metrics:
-            base_grand_total_kpi_metric:
-              label: 'Base grand total'
-              type: sum
-              description: "Base grand total"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: total_refunded
-        description: "Total refunded"
-        meta:
-          metrics:
-            total_refunded_kpi_metric:
-              label: 'Total refunded'
-              type: sum
-              description: "Total refunded"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: total_due
-        description: "Total due"
-        meta:
-          metrics:
-            total_due_kpi_metric:
-              label: 'Total due'
-              type: sum
-              description: "Total due"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: total_invoiced_cost
-        description: "Total invoiced cost"
-        meta:
-          metrics:
-            total_invoiced_cost_kpi_metric:
-              label: 'Total invoiced cost'
-              type: sum
-              description: "Total invoiced cost"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: base_grand_total
-        description: "Base grand total"
-        meta:
-          metrics:
-            base_grand_total_kpi_metric:
-              label: 'Base grand total'
-              type: sum
-              description: "Base grand total"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: grand_total
-        description: "Grand total"
-        meta:
-          metrics:
-            grand_total_kpi_metric:
-              label: 'Grand Total'
-              type: sum
-              description: "Grand total"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-
-      - name: new_orders
-        description: "New orders"
-        meta:
-          metrics:
-            new_orders_kpi_metric:
-              label: 'New orders'
-              type: sum
-              description: "New orders"
-              hidden: false
-              round: 2   
-
-      - name: repeat_orders
-        description: "Repeat orders"
-        meta:
-          metrics:
-            repeat_orders_kpi_metric:
-              label: 'Repeat orders'
-              type: sum
-              description: "Repeat orders"
-              hidden: false
-              round: 2
-
-      - name: new_members
-        description: "New members"
-        meta:
-          metrics:
-            new_members_kpi_metric:
-              label: 'New members'
-              type: sum
-              description: "New members"
-              hidden: false
-              round: 2
-
-      - name: count_customers_orders
-        description: "Count of customers from the orders table"
-        meta:
-          metrics:
-            count_customers_orders_kpi_metric:
-              label: 'Count of customers from the orders table'
-              type: sum
-              description: "Count of customers from the orders table"
-              hidden: false
-              round: 2
-
-      - name: new_orders_total_paid
-        description: "New orders total paid"
-        meta:
-          metrics:
-            new_orders_total_paid_kpi_metric:
-              label: 'New orders total paid'
-              type: sum
-              description: "Total paid from new customers"
-              hidden: false
-              round: 2   
-
-      - name: repeat_orders_total_paid
-        description: "Repeat orders total paid"
-        meta:
-          metrics:
-            repeat_orders_total_paid_kpi_metric:
-              label: 'Repeat orders total paid'
-              type: sum
-              description: "Total paid from Repeat orders"
-              hidden: false
-              round: 2
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: type
+        data_type: <integer>
+        description: "Type"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: _streamkap_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+      - name: _streamkap_offset
+        description: ""
+      - name: _streamkap_loaded_at_ts
+        description: ""
+      - name: coupon_expired
+        description: "Flag indicating if coupon is expired or not"

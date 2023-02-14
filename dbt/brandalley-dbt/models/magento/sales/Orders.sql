@@ -1,3 +1,5 @@
+with cte as (
+
 SELECT
        sfo.increment_id,
        sfo.entity_id AS magentoID,
@@ -50,7 +52,8 @@ SELECT
        sfo.customer_firstname,
        sfo.customer_lastname,
        cc_trans_id, 
-       additional_information
+       additional_information,
+       cast(TIMESTAMP_DIFF(cast(sfo.created_at as timestamp), lag(cast(sfo.created_at as timestamp)) over (partition by sfo.customer_id order by cast(sfo.created_at as timestamp)), day) as INTEGER) as interval_between_orders
 FROM
        {{ ref(
               'stg__sales_flat_order'
@@ -90,3 +93,9 @@ WHERE
               sfo.sales_product_type != 12
               OR sfo.sales_product_type IS NULL
        )
+
+)
+
+SELECT *
+, sum(interval_between_orders) over (partition by customer_id order by created_at) as total_interval_between_orders_for_each_customer
+FROM cte 

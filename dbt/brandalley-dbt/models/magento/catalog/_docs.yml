@@ -1,0 +1,335 @@
+version: 2
+
+models:
+  - name: catalog_product_negotiation_item
+    description: ""
+    columns:
+      - name: negotiation_item_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+      - name: negotiation_id
+        description: "Negotiation id"
+        meta:
+          dimension:
+            format: id
+      - name: updated_at
+        description: "Update time, nullable"
+      - name: product_id
+        description: "Product id"
+      - name: product_parent_id
+        description: "Product parent id"
+      - name: sku
+        description: "SKU"
+      - name: parrent_sku
+        description: "Parent SKU"
+      - name: reference
+        description: "Reference"
+      - name: name
+        description: "Name"
+      - name: size
+        description: "Size"
+      - name: brand
+        description: "Brand"
+      - name: commodity_code
+        description: "Commodity code"
+      - name: pack_size
+        description: "Pack size"
+      - name: cost
+        description: "Cost"
+      - name: cost_gbp
+        description: "Cost in GBP"
+      - name: rrp
+        description: "RRP"
+      - name: price
+        description: "Price"
+      - name: tax_rate
+        description: "Tax rate"
+      - name: tax_code
+        description: "Tax code"
+      - name: qty
+        description: "Quantity"
+      - name: ordered
+        description: "Ordered"
+      - name: to_order
+        description: "To order"
+      - name: qty_exported
+        description: "Quantity exported"
+
+  - name: catalog_product_negotiation
+    description: ""
+    columns:
+      - name: negotiation_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+      - name: updated_at
+        description: "Update time, nullable"
+      - name: parent
+        description: "Parent, nullable"
+      - name: sap_ref
+        description: "SAP ref"
+      - name: type
+        description: "Type"
+      - name: supplier
+        description: "Supplier"
+      - name: currency
+        description: "Currency"
+      - name: rate
+        description: "Rate"
+      - name: cost
+        description: "Cost"
+      - name: price
+        description: "Price"
+      - name: status
+        description: "Status"
+      - name: admin
+        description: "Admin"
+      - name: date_import
+        description: "Date import"
+      - name: date_reservation
+        description: "Date reservation"
+      - name: date_pend_proc
+        description: "Date pend proc"
+      - name: date_proc_comp
+        description: "Date proc comp"
+      - name: date_comp_exported
+        description: "Date comp exported"
+      - name: date_due
+        description: "Date due"
+      - name: sap_message
+        description: "SAP message, nullable"
+      - name: buyer
+        description: "Buyer, nullable"
+      - name: department
+        description: "Department, nullable"
+
+  - name: catalog_product_negotiation_sfoi_joined
+    description: ""
+    columns:
+      - name: negotiation_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+      - name: po_date
+        description: "PO date"
+      - name: sku
+        description: "SKU"
+      - name: order_id
+        description: "order_id"
+        meta:
+          dimension:
+            format: id
+      - name: consignment_ordered
+        description: "Qty of consignment units ordered"
+      - name: created_at
+        description: "Create date"
+      - name: brand
+        description: "Brand"
+      - name: name
+        description: "Name of the product"
+      - name: reference_ref
+        description: "Reference"
+      - name: supplier_id
+        description: "Supplier id"
+        meta:
+          dimension:
+            format: id
+      - name: SAP ref
+        description: "SAP ref"
+
+  - name: categories
+    description: ""
+    columns:
+      - name: u_unique_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: category_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: parent_category_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: category_name
+        description: ""
+      - name: parent_category_name
+        description: ""
+      - name: active
+        description: ""
+      - name: path
+        description: "Tree Path"
+      - name: level
+        description: "Tree level"
+      - name: updated_at
+        description: "Update time, nullable"
+
+  - name: products
+    description: ""
+    columns:
+      - name: u_unique_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: product_id
+        description: "Product id"
+        meta:
+          dimension:
+            format: id
+      - name: dt_cr
+        description: ""
+      - name: variant_product_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: sku
+        description: "SKU, nullable"
+      - name: variant_sku
+        description: ""
+      - name: sap_product_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: name
+        description: "Name"
+      - name: description
+        description: ""
+      - name: brand
+        description: ""
+      - name: supplier
+        description: ""
+      - name: outlet_category
+        description: ""
+      - name: product_type
+        description: ""
+      - name: availability
+        description: ""
+      - name: outlet_price
+        description: ""
+      - name: color
+        description: ""
+      - name: size
+        description: ""
+      - name: stock
+        description: ""
+      - name: price
+        description: ""
+      - name: sale_price
+        description: ""
+      - name: cost
+        description: ""
+      - name: tax_class
+        description: ""
+      - name: updated_at
+        description: "Update time"
+      - name: supplier_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+      - name: supplier_name
+        description: ""
+      - name: barcode
+        description: ""
+
+
+  - name: stock_file
+    description: ""
+    columns:
+      - name: child_entity_id
+        description: "Primary Key"
+        meta:
+          dimension:
+            format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of entity id'
+              type: count_distinct
+              description: "Number of entity id"
+              hidden: false   
+              round: 0 
+      - name: child_sku
+        description: "child sku, nullable"
+      - name: min_qty
+        description: "Quantity min, nullable"
+      - name: qty
+        description: "Quantity, nullable"
+      - name: parent_id
+        description: "parent id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: child_parent_sku
+        description: "SKU from the child, nullable"
+      - name: image_value
+        description: "Image value, nullable"
+      - name: name
+        description: "name, nullable"
+      - name: value
+        description: "Base adjustement negative, nullable"
+      - name: suplier_id
+        description: "suplier id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: brand
+        description: "Brand, nullable"
+      - name: country_of_manufacture
+        description: "Country of manufacture, nullable"
+      - name: cost
+        description: "cost, nullable"
+      - name: parent_gender
+        description: "Parent gender, nullable"
+      - name: simple_gender
+        description: "Gender of the simple item, nullable"
+      - name: simple_product_type
+        description: "Simple product type, nullable"
+      - name: parent_product_type
+        description: "Parent product type, nullable"
+      - name: size
+        description: "Size, nullable"
+      - name: colour
+        description: "Colour, nullable"
+      - name: price
+        description: "Price, nullable"
+      - name: special_price
+        description: "Special price, nullable"
+      - name: outlet_price
+        description: "Outlet price, nullable"
+      - name: outlet_category
+        description: "Outlet category, nullable"
+      - name: child_id
+        description: "Child id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: canUseForWHSale
+        description: "Can use for warehouse sale flag, nullable"
+      - name: barcode
+        description: "Barcode, nullable"
+      - name: nego
+        description: "Nego number, nullable"
+      - name: buyer_id
+        description: "Buyer id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: buyer
+        description: "Buyer, nullable"
+      - name: level_1
+        description: "Level 1 of categories"
+      - name: level_2
+        description: "Level 2 of categories"
+      - name: level_3
+        description: "Level 3 of categories"
