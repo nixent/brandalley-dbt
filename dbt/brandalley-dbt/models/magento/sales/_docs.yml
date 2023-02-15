@@ -1510,6 +1510,11 @@ models:
         meta:
           dimension:
             format: id
+      - name: order_id
+        description: "Order id, nullable"
+        meta:
+          dimension:
+            format: id
       - name: additional_data
         description: "Additional data, nullable"
       - name: description
