@@ -93,15 +93,15 @@ models:
         meta: 
           dimension:
             type: number
-      - name: days_since_first_purchase
+      - name: first_to_second_order_interval
         meta:
           dimension:
             type: number
           metrics:
-            average_days_since_first_purchase_metric:
-              label: 'Average days since first purchase'
+            average_first_to_second_order_interval_metric:
+              label: 'Average days between first and second purchase'
               type: average
-              description: "Average days since first purchase"
+              description: "Average days between first and second purchase"
               hidden: false
               round: 0
 
