@@ -11,7 +11,7 @@ second_orders as (
   select
     customer_id,
     order_at as second_purchase_at,
-    days_since_first_purchase as first_to_second_order_interval
+    days_since_first_purchase as first_to_second_order_interval 
   from {{ ref('orders_enriched') }}
   where order_sequence = 2
 )
