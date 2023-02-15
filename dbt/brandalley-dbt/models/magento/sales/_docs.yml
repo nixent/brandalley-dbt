@@ -72,21 +72,62 @@ models:
 
   - name: customers_enriched
     description: " table with a grain of one customer per row "
+    meta:
+      joins:
+        - join: Orders
+          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
     columns: 
       - name: customer_id
         meta:
           dimension:
             format: id
-
       - name: first_purchase_at
         meta: 
           dimension:
             type: date
-
+      - name: second_purchase_at
+        meta: 
+          dimension:
+            type: date
       - name: count_orders
         meta: 
           dimension:
             type: number
+      - name: first_to_second_order_interval
+        meta:
+          dimension:
+            type: number
+          metrics:
+            average_first_to_second_order_interval_metric:
+              label: 'Average days between first and second purchase'
+              type: average
+              description: "Average days between first and second purchase"
+              hidden: false
+              round: 0
+            average_order_interval_within_90_days_metric:
+              label: 'Average days between first and second purchase, when within 90 days'
+              type: average
+              description: "Average days between first and second purchase, when within 90 days"
+              sql: "if(${first_to_second_order_interval} <= 90, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
+      - name: customer_order_intervals
+        meta:
+          metrics:
+            total_customers_second_order_within_90_days:
+              label: 'Total number of customers who have made a second purchase within 90 days'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 90 days"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 90, ${customer_id}, null)"
+              round: 0
+            total_customers_second_order_within_1_year:
+              label: 'Total number of customers who have made a second purchase within 365 days'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 365 days"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 365, ${customer_id}, null)"
+              round: 0
 
   - name: memo_feed
     description: ""
@@ -1119,6 +1160,13 @@ models:
         meta:
           dimension:
             type: number
+          metrics:
+            average_days_since_first_purchase_metric:
+              label: 'Average days since first purchase'
+              type: average
+              description: "Average days since first purchase"
+              hidden: false
+              round: 0
 
   - name: Orders
     description: ""
@@ -1161,20 +1209,6 @@ models:
               description: "Number of customers"
               hidden: false
               sql: "${customer_id}"
-            total_customers_second_order_within_90_days:
-              label: 'Total number of customers who have made a second purchase within 90 days'
-              type: count_distinct
-              description: "Number of customers who have returned to make second order within 90 days"
-              hidden: false
-              sql: "if(${orderno}=2 and ${orders_enriched.days_since_first_purchase} <= 90, ${customer_id}, null)"
-              round: 0
-            total_customers_second_order_within_1_year:
-              label: 'Total number of customers who have made a second purchase within 365 days'
-              type: count_distinct
-              description: "Number of customers who have returned to make second order within 365 days"
-              hidden: false
-              sql: "if(${orderno}=2 and ${orders_enriched.days_since_first_purchase} <= 365, ${customer_id}, null)"
-              round: 0
       - name: magentoID
         description: ""
         meta:
