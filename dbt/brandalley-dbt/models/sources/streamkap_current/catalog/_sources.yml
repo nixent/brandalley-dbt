@@ -691,3 +691,228 @@ sources:
             description: ""
           - name: __deleted
             description: ""
+
+      - name: stg__catalog_product_reservation_upload
+        description: "Reservation files details"
+        columns:
+          - name: reservation_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: product_parent_id
+            data_type: <integer>
+            description: "Product parent id"
+          - name: reference
+            data_type: <string>
+            description: "Reference"
+          - name: parrent_sku
+            data_type: <string>
+            description: "Parent sku"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: domain
+            data_type: <string>
+            description: "Domain"
+          - name: category
+            data_type: <string>
+            description: "Category"
+          - name: sub_category
+            data_type: <string>
+            description: "Sub category"
+          - name: gender
+            data_type: <string>
+            description: "Gender"
+          - name: brand
+            data_type: <integer>
+            description: "Brand"
+          - name: name
+            data_type: <string>
+            description: "Name"
+          - name: colour
+            data_type: <integer>
+            description: "Colour"
+          - name: size
+            data_type: <integer>
+            description: "Size"
+          - name: original_size
+            data_type: <string>
+            description: "Original size"
+          - name: pack_size
+            data_type: <integer>
+            description: "Pack size"
+          - name: qty
+            data_type: <integer>
+            description: "Quantity"
+          - name: weight
+            data_type: <decimal>
+            description: "Weight"
+          - name: height
+            data_type: <decimal>
+            description: "Height"
+          - name: width
+            data_type: <decimal>
+            description: "Width"
+          - name: length
+            data_type: <decimal>
+            description: "Length"
+          - name: weight_net
+            data_type: <decimal>
+            description: "Weight net"
+          - name: cost
+            data_type: <decimal>
+            description: "Cost"
+          - name: rrp
+            data_type: <decimal>
+            description: "RRP"
+          - name: price
+            data_type: <decimal>
+            description: "Price"
+          - name: tax_rate
+            data_type: <decimal>
+            description: "Tax rate"
+          - name: tax_code
+            data_type: <string>
+            description: "Tax code"
+          - name: charge_code
+            data_type: <string>
+            description: "Charge code"       
+          - name: barcode
+            data_type: <string>
+            description: "Barcode"
+          - name: product_age
+            data_type: <integer>
+            description: "Product age"
+          - name: country_of_manufacture
+            data_type: <string>
+            description: "Country of manufacture"
+          - name: commodity_codes
+            data_type: <string>
+            description: "Commodity codes"
+          - name: supplier_id
+            data_type: <integet>
+            description: "Supplier Id"
+          - name: user_id
+            data_type: <integer>
+            description: "User id"
+          - name: errors
+            data_type: <string>
+            description: "Errors"
+          - name: notices
+            data_type: <string>
+            description: "Notices"
+          - name: material
+            data_type: <string>
+            description: "Material"
+          - name: vip_category_id
+            data_type: <integer>
+            description: "VIP Category Id"
+          - name: VIP unit
+            data_type: <string>
+            description: "VIP unit"
+          - name: vip_is_embargo
+            data_type: <integer>
+            description: "VIP is embargo"
+          - name: vip_is_fragile
+            data_type: <integer>
+            description: "VIP is fragile"
+          - name: vip_is_large
+            data_type: <integer>
+            description: "VIP is large"
+          - name: vip_is_precious
+            data_type: <integer>
+            description: "VIP is precious"
+          - name: vip_is_consumption_tax
+            data_type: <integer>
+            description: "VIP is consumption tax"
+          - name: vip_washing_instruct
+            data_type: <string>
+            description: "VIP washing instruct"
+          - name: vip_sale_service
+            data_type: <string>
+            description: "VIP sale service"
+          - name: vip_sub_title
+            data_type: <string>
+            description: "VIP sub title"
+          - name: vip_accessory_info
+            data_type: <string>
+            description: "VIP accessory info"
+          - name: vip_product_type
+            data_type: <string>
+            description: "VIP product type"
+          - name: tree_one
+            data_type: <string>
+            description: "Tree one"
+          - name: tree_two
+            data_type: <string>
+            description: "Tree two"
+          - name: brand_cat
+            data_type: <string>
+            description: "Brand cat"
+          - name: google_product_category
+            data_type: <string>
+            description: "Google product category"
+          - name: age_group
+            data_type: <string>
+            description: "Age group"
+          - name: age_restricted
+            data_type: <string>
+            description: "Age restricted"     
+
+reservation_id
+product_id
+product_parent_id
+reference
+parrent_sku
+sku
+domain
+category
+sub_category
+gender
+brand
+name
+colour
+size
+original_size
+pack_size
+qty
+weight
+height
+width
+length
+weight_net
+cost
+rrp
+price
+tax_rate
+tax_code
+charge_code
+barcode
+product_age
+country_of_manufacture
+commodity_codes
+supplier_id
+user_id
+errors
+notices
+material
+vip_category_id
+vip_unit
+vip_is_embargo
+vip_is_fragile
+vip_is_large
+vip_is_precious
+vip_is_consumption_tax
+vip_washing_instruct
+vip_sale_service
+vip_sub_title
+vip_accessory_info
+vip_product_type
+tree_one
+tree_two
+brand_cat
+google_product_category
+age_group
+age_restricted
