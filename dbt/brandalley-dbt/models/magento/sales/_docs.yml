@@ -104,6 +104,23 @@ models:
               description: "Average days between first and second purchase"
               hidden: false
               round: 0
+      - name: first_to_second_order_interval
+        meta:
+          metrics:
+            total_customers_second_order_within_90_days:
+              label: 'Total number of customers who have made a second purchase within 90 days'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 90 days"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 90, ${customer_id}, null)"
+              round: 0
+            total_customers_second_order_within_1_year:
+              label: 'Total number of customers who have made a second purchase within 365 days'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 365 days"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 365, ${customer_id}, null)"
+              round: 0
 
   - name: memo_feed
     description: ""
@@ -1185,20 +1202,6 @@ models:
               description: "Number of customers"
               hidden: false
               sql: "${customer_id}"
-            total_customers_second_order_within_90_days:
-              label: 'Total number of customers who have made a second purchase within 90 days'
-              type: count_distinct
-              description: "Number of customers who have returned to make second order within 90 days"
-              hidden: false
-              sql: "if(${orderno}=2 and ${orders_enriched.days_since_first_purchase} <= 90, ${customer_id}, null)"
-              round: 0
-            total_customers_second_order_within_1_year:
-              label: 'Total number of customers who have made a second purchase within 365 days'
-              type: count_distinct
-              description: "Number of customers who have returned to make second order within 365 days"
-              hidden: false
-              sql: "if(${orderno}=2 and ${orders_enriched.days_since_first_purchase} <= 365, ${customer_id}, null)"
-              round: 0
       - name: magentoID
         description: ""
         meta:
