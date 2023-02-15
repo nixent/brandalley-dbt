@@ -77,16 +77,29 @@ models:
         meta:
           dimension:
             format: id
-
       - name: first_purchase_at
         meta: 
           dimension:
             type: date
-
+      - name: second_purchase_at
+        meta: 
+          dimension:
+            type: date
       - name: count_orders
         meta: 
           dimension:
             type: number
+      - name: days_since_first_purchase
+        meta:
+          dimension:
+            type: number
+          metrics:
+            average_days_since_first_purchase_metric:
+              label: 'Average days since first purchase'
+              type: average
+              description: "Average days since first purchase"
+              hidden: false
+              round: 0
 
   - name: memo_feed
     description: ""
