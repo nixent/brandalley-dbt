@@ -582,6 +582,8 @@ models:
         description: ""
       - name: colour
         description: ""
+      - name: gender
+        description: "Gender"
       - name: size
         description: "Size"
       - name: nego
