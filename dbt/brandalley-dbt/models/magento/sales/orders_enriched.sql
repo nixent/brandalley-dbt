@@ -44,5 +44,5 @@ from {{ ref('orders_incremental') }} o
 left join order_line_agg ola 
   on o.magentoID = ola.order_id
 left join order_refunds_agg ora
-  on o.order_id = ora.order_id
+  on o.magentoID = ora.order_id
 
