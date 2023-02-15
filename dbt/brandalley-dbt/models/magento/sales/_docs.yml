@@ -1167,6 +1167,45 @@ models:
               description: "Average days since first purchase"
               hidden: false
               round: 0
+      - name: order_revenue_excl_tax_after_vouchers
+        meta:
+          dimension:
+            type: number
+          metrics:
+            average_order_value_metric:
+              label: 'AOV'
+              type: average
+              description: "AOV"
+              hidden: false
+              round: 2
+            total_order_value_metric:
+              label: 'Total Order Revenue'
+              type: average
+              description: "Total Order Revenue"
+              hidden: false
+              round: 2
+      - name: order_product_costs_excl_tax
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_product_costs_metric:
+              label: 'Total product costs'
+              type: sum
+              description: "Total product costs"
+              hidden: false
+              round: 2
+      - name: order_margin
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_order_margin_metric:
+              label: 'Total margin'
+              type: sum
+              description: "Total margin"
+              hidden: false
+              round: 2
 
   - name: Orders
     description: ""
