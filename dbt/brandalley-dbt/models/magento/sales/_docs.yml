@@ -72,6 +72,10 @@ models:
 
   - name: customers_enriched
     description: " table with a grain of one customer per row "
+    meta:
+      joins:
+        - join: Orders
+          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
     columns: 
       - name: customer_id
         meta:
