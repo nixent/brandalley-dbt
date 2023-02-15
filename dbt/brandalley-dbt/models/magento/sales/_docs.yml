@@ -105,9 +105,9 @@ models:
               hidden: false
               round: 0
             average_order_interval_within_90_days_metric:
-              label: 'Average days between first and second purchase, when within 3 months'
+              label: 'Average days between first and second purchase, when within 90 days'
               type: average
-              description: "Average days between first and second purchase, when within 3 months"
+              description: "Average days between first and second purchase, when within 90 days"
               sql: "if(${first_to_second_order_interval} <= 90, ${first_to_second_order_interval}, null)"
               hidden: false
               round: 0
