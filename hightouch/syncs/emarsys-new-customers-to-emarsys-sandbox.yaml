@@ -1,0 +1,20 @@
+model: emarsys-new-customers
+destination: emarsys-sandbox
+config:
+  mode: upsert
+  type: object
+  object: contact
+  mappings:
+    - to: '14485'
+      from: createdAccountDateV2
+      type: standard
+    - to: '3'
+      from: email
+      type: standard
+  configVersion: 0
+  externalIdMapping:
+    to: '14487'
+    from: customerId
+schedule:
+  type: manual
+schedulePaused: false
