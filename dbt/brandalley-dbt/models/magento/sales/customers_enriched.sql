@@ -19,7 +19,8 @@ second_orders as (
 select 
   c.*,
   second_purchase_at,
-  first_to_second_order_interval
+  first_to_second_order_interval,
+  timestamp_diff(first_purchase_at, current_date, day) as customer_first_purchase_age_days
 from customers c
 left join second_orders so
   on c.customer_id = so.customer_id

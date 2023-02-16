@@ -99,6 +99,10 @@ models:
         meta: 
           dimension:
             type: number
+      - name: customer_first_purchase_age_days
+        meta: 
+          dimension:
+            type: number
       - name: first_to_second_order_interval
         meta:
           dimension:
