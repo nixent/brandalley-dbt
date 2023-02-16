@@ -81,6 +81,12 @@ models:
         meta:
           dimension:
             format: id
+          metrics:
+            customers_enriched_count:
+              label: 'Count of customers'
+              type: count_distinct
+              description: "Count of customers"
+              hidden: false
       - name: first_purchase_at
         meta: 
           dimension:
@@ -90,6 +96,10 @@ models:
           dimension:
             type: date
       - name: count_orders
+        meta: 
+          dimension:
+            type: number
+      - name: customer_first_purchase_age_days
         meta: 
           dimension:
             type: number
@@ -111,6 +121,27 @@ models:
               sql: "if(${first_to_second_order_interval} <= 90, ${first_to_second_order_interval}, null)"
               hidden: false
               round: 0
+            average_order_interval_within_180_days_metric:
+              label: 'Average days between first and second purchase, when within 180 days'
+              type: average
+              description: "Average days between first and second purchase, when within 180 days"
+              sql: "if(${first_to_second_order_interval} <= 180, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
+            average_order_interval_within_270_days_metric:
+              label: 'Average days between first and second purchase, when within 270 days'
+              type: average
+              description: "Average days between first and second purchase, when within 270 days"
+              sql: "if(${first_to_second_order_interval} <= 270, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
+            average_order_interval_within_365_days_metric:
+              label: 'Average days between first and second purchase, when within 365 days'
+              type: average
+              description: "Average days between first and second purchase, when within 365 days"
+              sql: "if(${first_to_second_order_interval} <= 365, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
       - name: customer_order_intervals
         meta:
           metrics:
@@ -120,14 +151,24 @@ models:
               description: "Number of customers who have returned to make second order within 90 days"
               hidden: false
               sql: "if(${first_to_second_order_interval} <= 90, ${customer_id}, null)"
-              round: 0
+            total_customers_second_order_within_180_days:
+              label: 'Total number of customers who have made a second purchase within 180 days'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 180 days"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 180, ${customer_id}, null)"
+            total_customers_second_order_within_270_days:
+              label: 'Total number of customers who have made a second purchase within 9 months'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 9 months"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 270, ${customer_id}, null)"
             total_customers_second_order_within_1_year:
               label: 'Total number of customers who have made a second purchase within 365 days'
               type: count_distinct
               description: "Number of customers who have returned to make second order within 365 days"
               hidden: false
               sql: "if(${first_to_second_order_interval} <= 365, ${customer_id}, null)"
-              round: 0
 
   - name: memo_feed
     description: ""
@@ -185,7 +226,7 @@ models:
         - join: ba_core_stock_return
           sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id}
         - join: sales_flat_creditmemo_item
-          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.parent_id}=${sales_flat_creditmemo.entity_id}
+          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.order_id}=${OrderLines.order_id}
         - join: customers
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
         - join: Orders
@@ -197,7 +238,7 @@ models:
         - join: shipments
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: shipping
-          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${products.product_id} = ${shipping.product_id}
+          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
         - join: orderlineswithsequence
@@ -1169,6 +1210,63 @@ models:
               description: "Average days since first purchase"
               hidden: false
               round: 0
+      - name: order_revenue_excl_tax_after_vouchers
+        meta:
+          dimension:
+            type: number
+          metrics:
+            average_order_value_metric:
+              label: 'AOV'
+              type: average
+              description: "AOV"
+              hidden: false
+              round: 2
+            total_order_value_metric:
+              label: 'Total Order Revenue'
+              type: average
+              description: "Total Order Revenue"
+              hidden: false
+              round: 2
+      - name: order_product_costs_excl_tax
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_product_costs_metric:
+              label: 'Total product costs'
+              type: sum
+              description: "Total product costs"
+              hidden: false
+              round: 2
+      - name: order_margin
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_order_margin_metric:
+              label: 'Total margin'
+              type: sum
+              description: "Total margin"
+              hidden: false
+              round: 2
+      - name: count_refunds
+        meta:
+          metrics:
+            dimension:
+              type: number
+            total_refunds_count_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Total number of refunds"
+              sql: "IF(${count_refunds}=1, ${order_id}, null)"
+              hidden: false
+      - name: total_refund_amount
+        meta:
+          metrics:
+            total_refund_amount_metric:
+              label: 'Total refund amount'
+              type: sum
+              description: "Total refund amount"
 
   - name: Orders
     description: ""
@@ -1391,7 +1489,7 @@ models:
             count_item_refunds_metric:
               label: 'Total number of item refunds'
               type: count_distinct
-              description: "Number of credit memo per item"
+              description: "Number of item credit memos"
               hidden: false   
               round: 0 
       - name: parent_id
@@ -1399,6 +1497,13 @@ models:
         meta:
           dimension:
             format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Number of order credit memo"
+              hidden: false   
+              round: 0 
       - name: base_price
         description: "Base price, nullable"
       - name: tax_amount
@@ -1445,6 +1550,11 @@ models:
             format: id
       - name: order_item_id
         description: "Order item id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: order_id
+        description: "Order id, nullable"
         meta:
           dimension:
             format: id
@@ -1868,7 +1978,7 @@ models:
               description: "Number of days spent between the order date and the shipment date, excluding week-ends"
               sql: "IF(${shipment_date} !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
               hidden: false
-              round: 0    
+              round: 0  
       - name: updated_at
         description: "Update date of the order, nullable"
 

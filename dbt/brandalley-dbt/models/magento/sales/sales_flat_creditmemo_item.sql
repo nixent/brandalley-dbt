@@ -37,6 +37,7 @@ SELECT
     cti.qty_returned_to_warehouse,
     timestamp(cm.created_at) created_at,
     timestamp(cm.updated_at) updated_at,
+    cm.order_id,
     CASE
         cti.refund_reason_id
         WHEN 1 THEN 'Do not like/different to picture'
