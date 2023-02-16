@@ -1,0 +1,7 @@
+name: Emarsys_new_customers
+source: google-big-query-dev
+type: raw_sql
+rawSql: |
+  select * from `emarsys.emarsys_new_customers`
+isSchema: false
+primaryKey: customerId
