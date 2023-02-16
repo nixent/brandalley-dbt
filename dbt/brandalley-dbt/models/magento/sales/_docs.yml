@@ -120,14 +120,24 @@ models:
               description: "Number of customers who have returned to make second order within 90 days"
               hidden: false
               sql: "if(${first_to_second_order_interval} <= 90, ${customer_id}, null)"
-              round: 0
+            total_customers_second_order_within_180_days:
+              label: 'Total number of customers who have made a second purchase within 180 days'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 180 days"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 180, ${customer_id}, null)"
+            total_customers_second_order_within_270_days:
+              label: 'Total number of customers who have made a second purchase within 9 months'
+              type: count_distinct
+              description: "Number of customers who have returned to make second order within 9 months"
+              hidden: false
+              sql: "if(${first_to_second_order_interval} <= 270, ${customer_id}, null)"
             total_customers_second_order_within_1_year:
               label: 'Total number of customers who have made a second purchase within 365 days'
               type: count_distinct
               description: "Number of customers who have returned to make second order within 365 days"
               hidden: false
               sql: "if(${first_to_second_order_interval} <= 365, ${customer_id}, null)"
-              round: 0
 
   - name: memo_feed
     description: ""
