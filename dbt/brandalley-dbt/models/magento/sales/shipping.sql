@@ -51,3 +51,5 @@ WHERE
         sfo.sales_product_type != 12
         OR sfo.sales_product_type IS NULL
     )
+    
+QUALIFY ROW_NUMBER() OVER (PARTITION BY order_id, sku ORDER BY shipment_date DESC) = 1
