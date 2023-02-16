@@ -197,7 +197,7 @@ models:
         - join: shipments
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: shipping
-          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${products.product_id} = ${shipping.product_id}
+          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
         - join: orderlineswithsequence
