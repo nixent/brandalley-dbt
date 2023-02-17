@@ -2004,4 +2004,8 @@ models:
 
 
   - name: orders_incremental
-  - name: order_lines_incremental   
+    columns:
+      - name: increment_id
+  - name: order_lines_incremental 
+    columns:
+      - name: increment_id  
