@@ -2000,4 +2000,12 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']         
+
+
+  - name: orders_incremental
+    columns:
+      - name: increment_id
+  - name: order_lines_incremental 
+    columns:
+      - name: increment_id  
