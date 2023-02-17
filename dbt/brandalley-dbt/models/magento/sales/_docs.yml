@@ -2003,6 +2003,5 @@ models:
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']         
 
 
-  - name: gift_cards
   - name: orders_incremental
   - name: order_lines_incremental   
