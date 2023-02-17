@@ -141,6 +141,10 @@ models:
       - name: SAP ref
         description: "SAP ref"
 
+  - name: catalog_product
+    columns:
+      - name: entity_id
+
   - name: categories
     description: ""
     columns:
