@@ -39,8 +39,8 @@ SELECT
     timestamp(cm.updated_at) updated_at,
     cm.order_id,
     case 
-        when cm.approve_at is not null 'approved' 
-        when cm.canceled_at is not null 'canceled'
+        when cm.approve_at is not null then 'approved' 
+        when cm.canceled_at is not null then 'canceled'
     else 'pending'
     end as refund_status,
     CASE
