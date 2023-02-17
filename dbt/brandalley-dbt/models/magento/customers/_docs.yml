@@ -1,6 +1,107 @@
 version: 2
 
 models:
+  - name: customers_enriched
+    description: " table with a grain of one customer per row "
+    meta:
+      joins:
+        - join: Orders
+          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
+    columns: 
+      - name: customer_id
+        meta:
+          dimension:
+            format: id
+          metrics:
+            customers_enriched_count:
+              label: 'Count of customers'
+              type: count_distinct
+              description: "Count of customers"
+              hidden: false
+      - name: first_purchase_at
+        meta: 
+          dimension:
+            type: date
+      - name: second_purchase_at
+        meta: 
+          dimension:
+            type: date
+      - name: count_orders
+        meta: 
+          dimension:
+            type: number
+      - name: customer_first_purchase_age_days
+        meta: 
+          dimension:
+            type: number
+      - name: first_to_second_order_interval
+        meta:
+          dimension:
+            type: number
+          metrics:
+            average_first_to_second_order_interval_metric:
+              label: 'Average days between first and second purchase'
+              type: average
+              description: "Average days between first and second purchase"
+              hidden: false
+              round: 0
+            average_order_interval_within_90_days_metric:
+              label: 'Average days between first and second purchase, when within 90 days'
+              type: average
+              description: "Average days between first and second purchase, when within 90 days"
+              sql: "if(${first_to_second_order_interval} <= 90, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
+            average_order_interval_within_180_days_metric:
+              label: 'Average days between first and second purchase, when within 180 days'
+              type: average
+              description: "Average days between first and second purchase, when within 180 days"
+              sql: "if(${first_to_second_order_interval} <= 180, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
+            average_order_interval_within_270_days_metric:
+              label: 'Average days between first and second purchase, when within 270 days'
+              type: average
+              description: "Average days between first and second purchase, when within 270 days"
+              sql: "if(${first_to_second_order_interval} <= 270, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
+            average_order_interval_within_365_days_metric:
+              label: 'Average days between first and second purchase, when within 365 days'
+              type: average
+              description: "Average days between first and second purchase, when within 365 days"
+              sql: "if(${first_to_second_order_interval} <= 365, ${first_to_second_order_interval}, null)"
+              hidden: false
+              round: 0
+              
+  - name: customer_order_intervals
+    meta:
+      metrics:
+        total_customers_second_order_within_90_days:
+          label: 'Total number of customers who have made a second purchase within 90 days'
+          type: count_distinct
+          description: "Number of customers who have returned to make second order within 90 days"
+          hidden: false
+          sql: "if(${first_to_second_order_interval} <= 90, ${customer_id}, null)"
+        total_customers_second_order_within_180_days:
+          label: 'Total number of customers who have made a second purchase within 180 days'
+          type: count_distinct
+          description: "Number of customers who have returned to make second order within 180 days"
+          hidden: false
+          sql: "if(${first_to_second_order_interval} <= 180, ${customer_id}, null)"
+        total_customers_second_order_within_270_days:
+          label: 'Total number of customers who have made a second purchase within 9 months'
+          type: count_distinct
+          description: "Number of customers who have returned to make second order within 9 months"
+          hidden: false
+          sql: "if(${first_to_second_order_interval} <= 270, ${customer_id}, null)"
+        total_customers_second_order_within_1_year:
+          label: 'Total number of customers who have made a second purchase within 365 days'
+          type: count_distinct
+          description: "Number of customers who have returned to make second order within 365 days"
+          hidden: false
+          sql: "if(${first_to_second_order_interval} <= 365, ${customer_id}, null)"
+
   - name: customers_record_data_source
     description: ""
     columns:
