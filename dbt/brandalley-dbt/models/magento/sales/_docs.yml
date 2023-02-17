@@ -1148,7 +1148,7 @@ models:
               description: "Total margin"
               hidden: false
               round: 2
-      - name: count_skus_ordered
+      - name: count_order_lines
         meta:
           metrics:
             dimension:
@@ -1170,7 +1170,7 @@ models:
               label: 'Total number of refunds split per order item'
               type: sum
               description: "Total number of refunds split per order item"
-              sql: "${count_refunds}/${count_skus_ordered}"
+              sql: "${count_refunds}/${count_order_lines}"
               hidden: false
               round: 0
       - name: count_item_refunds
@@ -1190,7 +1190,7 @@ models:
               label: 'Total number of item refunds split per order item'
               type: sum
               description: "Total number of item refunds split per order item"
-              sql: "${count_item_refunds}/${count_skus_ordered}"
+              sql: "${count_item_refunds}/${count_order_lines}"
               hidden: false
               round: 0
       - name: total_refund_amount_split_per_order_item
@@ -1200,7 +1200,7 @@ models:
               label: 'Total refund amount split per order item'
               type: sum
               description: "Total refund amount split per order item"
-              sql: "${total_refund_amount}/${count_skus_ordered}"
+              sql: "${total_refund_amount}/${count_order_lines}"
               round: 0
       - name: total_refund_amount
         meta:
