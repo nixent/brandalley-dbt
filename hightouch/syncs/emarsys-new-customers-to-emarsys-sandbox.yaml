@@ -62,6 +62,36 @@ config:
     - to: '1860'
       from: recordSource
       type: standard
+    - to: '1'
+      from: firstName
+      type: standard
+    - to: '2'
+      from: lastName
+      type: standard
+    - to: '4'
+      from: dob
+      type: standard
+    - to: '5'
+      from: gender
+      type: standard
+    - to: '31'
+      from: optin
+      type: standard
+    - to: '11'
+      from: city
+      type: standard
+    - to: '13'
+      from: postcode
+      type: standard
+    - to: '14'
+      from: country
+      type: standard
+    - to: '15'
+      from: telephone
+      type: standard
+    - to: '18'
+      from: company
+      type: standard
   configVersion: 0
   externalIdMapping:
     to: '1845'
