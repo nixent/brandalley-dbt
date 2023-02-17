@@ -1457,6 +1457,8 @@ models:
         meta:
           dimension:
             format: id
+      - name: refund_status
+        description: "Status of refund - determined by if approve_at and canceled_at is null then pending"
       - name: additional_data
         description: "Additional data, nullable"
       - name: description
