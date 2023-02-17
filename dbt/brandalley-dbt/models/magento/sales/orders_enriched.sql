@@ -5,6 +5,7 @@
 with order_line_agg as (
   select
     order_id,
+    count(sku)                           as count_skus_ordered
     sum(TOTAL_GBP_ex_tax_after_vouchers) as order_revenue_excl_tax_after_vouchers,
     sum(line_product_cost_exc_vat)       as order_product_costs_excl_tax
   from {{ ref('OrderLines') }}
@@ -39,7 +40,11 @@ select
   ola.order_revenue_excl_tax_after_vouchers - ola.order_product_costs_excl_tax as order_margin,
   ora.count_refunds,
   ora.count_item_refunds,
-  ora.total_refund_amount
+  ora.total_refund_amount,
+  ola.count_skus_ordered
+  -- ora.count_refunds/ola.count_skus_ordered        as count_refunds_order_lines_join,
+  -- ora.count_item_refunds/ola.count_skus_ordered   as count_item_refunds_order_lines_join,
+  -- ora.total_refund_amount/ola.count_skus_ordered  as total_refund_amount_order_lines_join
 from {{ ref('orders_incremental') }} o
 left join order_line_agg ola 
   on o.magentoID = ola.order_id

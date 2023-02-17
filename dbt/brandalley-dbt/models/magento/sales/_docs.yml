@@ -1148,6 +1148,11 @@ models:
               description: "Total margin"
               hidden: false
               round: 2
+      - name: count_skus_ordered
+        meta:
+          metrics:
+            dimension:
+              type: number
       - name: count_refunds
         meta:
           metrics:
@@ -1155,10 +1160,49 @@ models:
               type: number
             total_refunds_count_metric:
               label: 'Total number of refunds'
-              type: count_distinct
+              type: sum
               description: "Total number of refunds"
-              sql: "IF(${count_refunds}=1, ${order_id}, null)"
               hidden: false
+      - name: count_refunds_split_per_order_item
+        meta:
+          metrics:
+            dimension:
+              type: number
+            total_refunds_split_per_order_item_count_metric:
+              label: 'Total number of refunds split per order item'
+              type: sum
+              description: "Total number of refunds split per order item"
+              sql: "${count_refunds}/${count_skus_ordered}"
+              hidden: false
+      - name: count_item_refunds
+        meta:
+          metrics:
+            dimension:
+              type: number
+            total_item_refunds_count_metric:
+              label: 'Total number of item refunds'
+              type: sum
+              description: "Total number of item refunds"
+              hidden: false
+      - name: count_item_refunds_split_per_order_item
+        meta:
+          metrics:
+            dimension:
+              type: number
+            total_item_refunds_split_per_order_item_count_metric:
+              label: 'Total number of item refunds split per order item'
+              type: sum
+              description: "Total number of item refunds split per order item"
+              sql: "${count_item_refunds}/${count_skus_ordered}"
+              hidden: false
+      - name: total_refund_amount_split_per_order_item
+        meta:
+          metrics:
+            total_refund_amount_split_per_order_item_metric:
+              label: 'Total refund amount split per order item'
+              type: sum
+              description: "Total refund amount split per order item"
+              sql: "${total_refund_amount}/${count_skus_ordered}"
       - name: total_refund_amount
         meta:
           metrics:
