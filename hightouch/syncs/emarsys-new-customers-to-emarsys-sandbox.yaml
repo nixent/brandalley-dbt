@@ -11,6 +11,15 @@ config:
     - to: '3'
       from: email
       type: standard
+    - to: '14530'
+      from: baTitle
+      type: standard
+    - to: '14531'
+      from: rdpEmails
+      type: standard
+    - to: '1846'
+      from: dailyEmails
+      type: standard
   configVersion: 0
   externalIdMapping:
     to: '1845'
