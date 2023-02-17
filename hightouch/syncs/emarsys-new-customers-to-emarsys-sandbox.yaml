@@ -5,8 +5,8 @@ config:
   type: object
   object: contact
   mappings:
-    - to: '14485'
-      from: createdAccountDateV2
+    - to: '1848'
+      from: createdAccountDate
       type: standard
     - to: '3'
       from: email
