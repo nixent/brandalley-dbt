@@ -5,7 +5,7 @@
 with order_line_agg as (
   select
     order_id,
-    count(sku)                           as count_skus_ordered
+    count(sku)                           as count_skus_ordered,
     sum(TOTAL_GBP_ex_tax_after_vouchers) as order_revenue_excl_tax_after_vouchers,
     sum(line_product_cost_exc_vat)       as order_product_costs_excl_tax
   from {{ ref('OrderLines') }}
