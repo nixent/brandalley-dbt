@@ -13,7 +13,7 @@ config:
       type: standard
   configVersion: 0
   externalIdMapping:
-    to: '14487'
+    to: '1845'
     from: customerId
 schedule:
   type: manual
