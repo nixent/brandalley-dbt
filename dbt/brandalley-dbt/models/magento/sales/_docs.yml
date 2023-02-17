@@ -2009,3 +2009,7 @@ models:
   - name: order_lines_incremental 
     columns:
       - name: increment_id  
+
+  - name: hourly_sales_today
+    columns:
+      - name: hour
