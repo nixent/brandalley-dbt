@@ -227,6 +227,11 @@ FROM
                 'stg__admin_user'
         ) }}
         au ON cpn.buyer = au.user_id
+        LEFT JOIN
+		{{ ref(
+				'stg__catalog_category_flat_store_1'
+		) }}
+		category_details ON category.category_id = category_details.entity_id
 WHERE
     (e.type_id = 'simple')
         AND (stock.qty > 0)
