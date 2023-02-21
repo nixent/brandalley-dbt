@@ -2055,4 +2055,19 @@ models:
 
   - name: hourly_sales_today
     columns:
+      - name: created_at_hour
+      - name: qty_invoiced_metric
+      - name: total_revenue
+      - name: line_product_cost_exc_vat_metric
+      - name: total_revenue_exc_tax
+      - name: margin_percent
+      - name: margin_value
       - name: hour
+      - name: last_week_margin
+      - name: wow_margin_change_pct
+      - name: last_week_margin
+      - name: wow_margin_change_pct
+      - name: last_week_qty_invoiced
+      - name: wow_qty_invoiced_change_pct
+      - name: last_week_revenue
+      - name: wow_revenue_change_pct
