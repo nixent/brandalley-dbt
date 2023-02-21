@@ -2,7 +2,7 @@
     materialized = 'incremental',
     unique_key = 'entity_id',
     partition_by = {
-      "field": "_streamkap_source_ts_ms",
+      "field": "bq_last_processed_at",
       "data_type": "timestamp",
       "granularity": "day"
     },
