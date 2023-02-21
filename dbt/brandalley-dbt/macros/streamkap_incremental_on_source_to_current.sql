@@ -33,7 +33,8 @@ SELECT
         ),
         except = [deleted_field]
     ) }},
-    cast({{deleted_field}} as boolean) as {{deleted_field}}
+    cast({{deleted_field}} as boolean) as {{deleted_field}},
+    current_timestamp                  as bq_last_processed_at
 FROM
     {{ source(
         source_schema,

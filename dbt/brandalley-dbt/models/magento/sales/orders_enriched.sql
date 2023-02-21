@@ -42,9 +42,6 @@ select
   ora.count_item_refunds,
   ora.total_refund_amount,
   ola.count_order_lines
-  -- ora.count_refunds/ola.count_skus_ordered        as count_refunds_order_lines_join,
-  -- ora.count_item_refunds/ola.count_skus_ordered   as count_item_refunds_order_lines_join,
-  -- ora.total_refund_amount/ola.count_skus_ordered  as total_refund_amount_order_lines_join
 from {{ ref('orders_incremental') }} o
 left join order_line_agg ola 
   on o.magentoID = ola.order_id
