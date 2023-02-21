@@ -1392,7 +1392,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: updated_at
         description: "Update date of the order, nullable"
       - name: orderno
