@@ -1150,6 +1150,11 @@ models:
               description: "Total margin"
               hidden: false
               round: 2
+      - name: count_order_lines
+        meta:
+          metrics:
+            dimension:
+              type: number
       - name: count_refunds
         meta:
           metrics:
@@ -1157,10 +1162,48 @@ models:
               type: number
             total_refunds_count_metric:
               label: 'Total number of refunds'
-              type: count_distinct
+              type: sum
               description: "Total number of refunds"
-              sql: "IF(${count_refunds}=1, ${order_id}, null)"
               hidden: false
+      - name: count_refunds_split_per_order_item
+        meta:
+          metrics:
+            total_refunds_split_per_order_item_count_metric:
+              label: 'Total number of refunds split per order item'
+              type: sum
+              description: "Total number of refunds split per order item"
+              sql: "${count_refunds}/${count_order_lines}"
+              hidden: false
+              round: 0
+      - name: count_item_refunds
+        meta:
+          metrics:
+            dimension:
+              type: number
+            total_item_refunds_count_metric:
+              label: 'Total number of item refunds'
+              type: sum
+              description: "Total number of item refunds"
+              hidden: false
+      - name: count_item_refunds_split_per_order_item
+        meta:
+          metrics:
+            total_item_refunds_split_per_order_item_count_metric:
+              label: 'Total number of item refunds split per order item'
+              type: sum
+              description: "Total number of item refunds split per order item"
+              sql: "${count_item_refunds}/${count_order_lines}"
+              hidden: false
+              round: 0
+      - name: total_refund_amount_split_per_order_item
+        meta:
+          metrics:
+            total_refund_amount_split_per_order_item_metric:
+              label: 'Total refund amount split per order item'
+              type: sum
+              description: "Total refund amount split per order item"
+              sql: "${total_refund_amount}/${count_order_lines}"
+              round: 0
       - name: total_refund_amount
         meta:
           metrics:
@@ -1351,7 +1394,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: updated_at
         description: "Update date of the order, nullable"
       - name: orderno
@@ -2011,3 +2054,22 @@ models:
   - name: order_lines_incremental 
     columns:
       - name: increment_id  
+
+  - name: hourly_sales_today
+    columns:
+      - name: created_at_hour
+      - name: qty_invoiced_metric
+      - name: total_revenue
+      - name: line_product_cost_exc_vat_metric
+      - name: total_revenue_exc_tax
+      - name: margin_percent
+      - name: margin_value
+      - name: hour
+      - name: last_week_margin
+      - name: wow_margin_change_pct
+      - name: last_week_margin
+      - name: wow_margin_change_pct
+      - name: last_week_qty_invoiced
+      - name: wow_qty_invoiced_change_pct
+      - name: last_week_revenue
+      - name: wow_revenue_change_pct
