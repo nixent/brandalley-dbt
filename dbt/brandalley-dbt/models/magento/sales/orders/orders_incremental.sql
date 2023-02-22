@@ -1,7 +1,7 @@
 {{ config(
 	materialized='incremental',
 	unique_key='increment_id',
-	cluster_by=['created_at', 'streamkap_updated_at']
+	cluster_by=['created_at', 'bq_last_processed_at']
 ) }}
 
 with order_updates as (
@@ -9,8 +9,10 @@ with order_updates as (
 		* 
 	from {{ ref('stg__sales_flat_order') }}
 	where 1=1
+		and increment_id not like '%-%'
+		and (sales_product_type != 12 or sales_product_type is null)
 	{% if is_incremental() %}
-		and _streamkap_source_ts_ms > (select max(streamkap_updated_at) from {{this}})
+		and bq_last_processed_at >= (select max(bq_last_processed_at) from {{this}})
 	{% endif %}
 ),
 
@@ -62,7 +64,7 @@ order_info as (
 		sfo.shipping_amount 												as shipping_excl_tax,
 		sfo.base_shipping_incl_tax 											as shipping_incl_tax,
 		sfo.grand_total,
-		sfo._streamkap_source_ts_ms 										as streamkap_updated_at,
+		sfo.bq_last_processed_at,
 		if(sfo.total_paid is null, 0, sfo.total_paid) 						as total_paid,
 		coalesce(sfo.total_refunded, 0) 									as total_refunded,
 		if(sfo.shipping_refunded is null, 0, sfo.shipping_refunded) 		as shipping_refunded,
@@ -103,15 +105,6 @@ order_info as (
 		on sfo.entity_id = sfop.parent_id
 	left join {{ ref('stg__customer_entity') }} ce
 			on ce.entity_id = sfo.customer_id
-	where 1=1
-		and sfo.increment_id not like '%-%'
-		and (sfo.sales_product_type != 12 or sfo.sales_product_type is null)
-		{% if is_incremental() %}
-		 	-- this isn't really doing anything to limit amount of table scan currently but have put in for future
-			and sfoa.entity_id 		in (select shipping_address_id from order_updates)
-			and sfoa_b.entity_id 	in (select billing_address_id from order_updates)
-			and sfop.parent_id 		in (select entity_id from order_updates)
-		{% endif %}
 )
 
 select 

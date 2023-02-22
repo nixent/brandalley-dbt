@@ -43,5 +43,6 @@ models:
       +schema: emarsys
     sources:
       streamkap_current:
+        +on_schema_change: "append_new_columns"
         +schema: streamkap_current
         +post-hook: "delete {{this}} where __deleted = true"
