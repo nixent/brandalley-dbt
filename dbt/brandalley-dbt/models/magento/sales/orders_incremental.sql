@@ -9,6 +9,8 @@ with order_updates as (
 		* 
 	from {{ ref('stg__sales_flat_order') }}
 	where 1=1
+		and increment_id not like '%-%'
+		and (sales_product_type != 12 or sales_product_type is null)
 	{% if is_incremental() %}
 		and bq_last_processed_at >= (select max(bq_last_processed_at) from {{this}})
 	{% endif %}
@@ -103,15 +105,6 @@ order_info as (
 		on sfo.entity_id = sfop.parent_id
 	left join {{ ref('stg__customer_entity') }} ce
 			on ce.entity_id = sfo.customer_id
-	where 1=1
-		and sfo.increment_id not like '%-%'
-		and (sfo.sales_product_type != 12 or sfo.sales_product_type is null)
-		{% if is_incremental() %}
-		 	-- this isn't really doing anything to limit amount of table scan currently but have put in for future
-			and sfoa.entity_id 		in (select shipping_address_id from order_updates)
-			and sfoa_b.entity_id 	in (select billing_address_id from order_updates)
-			and sfop.parent_id 		in (select entity_id from order_updates)
-		{% endif %}
 )
 
 select 
