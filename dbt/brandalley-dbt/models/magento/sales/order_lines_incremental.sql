@@ -12,14 +12,14 @@
 		select 
 			min(created_at) as created_at
 		from {{ ref('orders_incremental') }} 
-		where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+		where streamkap_updated_at >= ( select max(streamkap_updated_at) from {{this}} )
 
 		union all
 
 		select 
 			min(safe_cast(created_at as timestamp)) as created_at
 		from {{ ref('stg__sales_flat_order_item') }} 
-		where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+		where _streamkap_source_ts_ms >= ( select max(streamkap_updated_at) from {{this}} )
 	)
   {% endset %}
   {% set result = run_query(sql) %}
@@ -29,7 +29,7 @@
 with order_lines as (
 	select
 		{{dbt_utils.surrogate_key(['sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfo.magentoID','cpev_pt_con.value','eaov_brand.option_id','eaov_color.option_id','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
-		greatest(sfo.bq_last_processed_at, sfoi_sim.bq_last_processed_at, sfoi_con.bq_last_processed_at)												as bq_last_processed_at,
+		greatest(sfo.streamkap_updated_at, sfoi_sim._streamkap_source_ts_ms, sfoi_con._streamkap_source_ts_ms)												as streamkap_updated_at,
 		-- sometimes these are before reg date - how? should we set them as first_purchase_at in these cases?
 		datetime_diff(safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), month) 	as months_since_cohort_start,
 		datetime_diff(safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), year) 	as years_since_cohort_start,
