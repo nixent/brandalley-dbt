@@ -258,6 +258,6 @@ FROM
         'stg__catalog_product_entity_varchar'
     ) }}
     cpev_barcode
-    ON cpe.entity_id = cpev_name.entity_id
-    AND cpev_name.attribute_id = 252
-    AND cpev_name.store_id = 0
+    ON cpe.entity_id = cpev_barcode.entity_id
+    AND cpev_barcode.attribute_id = 252
+    AND cpev_barcode.store_id = 0

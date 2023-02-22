@@ -10,6 +10,7 @@
     cpvn.value AS name,
     cpevsi.value,
     cpevsiv.sup_id AS suplier_id,
+    cpevsiv.name AS supplier_name,
     eaov_brand.value AS brand,
     cpevcoorigin.value AS country_of_manufacture,
     cpedcost.value AS cost,
@@ -33,7 +34,9 @@
     CONCAT(au.firstname, ' ', au.lastname) AS buyer,
     SPLIT(cpev_outlet_category.value, '>')[offset(0)] level_1, 
     IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>0, SPLIT(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
-    IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3
+    IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
+    if(cpei_menu_type.value=3, category_details.name, null) as parent_category,
+    if(cpei_menu_type.value=1, category_details.name, null) as flashsale_category,
 FROM
 		{{ ref(
 				'stg__catalog_product_entity'
@@ -226,6 +229,17 @@ FROM
                 'stg__admin_user'
         ) }}
         au ON cpn.buyer = au.user_id
+        LEFT JOIN             
+		{{ ref(
+				'catalog_category_flat_store_1_enriched'
+		) }}
+		category_details ON category.category_id = category_details.entity_id
+        LEFT JOIN
+		{{ ref(
+				'stg__catalog_product_entity_int'
+		) }}
+		cpei_menu_type ON cpei_menu_type.attribute_id = 373
+        AND cpei_menu_type.entity_id = category.category_id
 WHERE
     (e.type_id = 'simple')
         AND (stock.qty > 0)
@@ -240,6 +254,7 @@ group by
     cpvn.value,
     cpevsi.value,
     cpevsiv.sup_id,
+    cpevsiv.name,
     eaov_brand.value,
     cpevcoorigin.value,
     cpedcost.value,
@@ -257,4 +272,6 @@ group by
     cpev_barcode.value,
     cpev_nego.value,
     cpn.buyer,
-    CONCAT(au.firstname, ' ', au.lastname)
+    CONCAT(au.firstname, ' ', au.lastname),
+    category_details.name,
+    cpei_menu_type.value

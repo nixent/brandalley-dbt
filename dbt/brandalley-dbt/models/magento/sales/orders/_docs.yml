@@ -565,6 +565,8 @@ models:
         description: ""
       - name: colour
         description: ""
+      - name: gender
+        description: "Gender"
       - name: size
         description: "Size"
       - name: nego
@@ -582,7 +584,7 @@ models:
         description: "Creation time"
         meta:
           dimension:
-            type: date
+            type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: month_created
         description: ""
