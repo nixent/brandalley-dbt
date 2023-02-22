@@ -1,6 +1,7 @@
 {{ config(
 	materialized='incremental',
-	unique_key='cst_id'
+	unique_key='cst_id',
+	enabled=false
 ) }}
 
 {% if is_incremental() %}
@@ -8,14 +9,14 @@ with customers_updated as (
 	select 
 		entity_id as customer_id
 	from {{ ref('stg__customer_entity') }} 
-	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
 		entity_id as customer_id
 	from {{ ref('stg__customer_entity_int') }} 
-	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
