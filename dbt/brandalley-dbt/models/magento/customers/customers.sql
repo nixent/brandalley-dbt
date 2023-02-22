@@ -1,41 +1,41 @@
 select
-       ce.entity_id 												as cst_id,
-       '' 															as customer_name,
-       '' 															as email,
-       '' 															as telephone,
-       '' 															as billing_street,
-       ca_b_26.value billing_city,
-       ca_b_30.value billing_postcode,
-       ca_b_28.value b_region,
-       ca_b_27.value billing_country,
-       '' 															as shipping_street,
-       ca_s_26.value shipping_city,
-       ca_s_30.value shipping_postcode,
-       ca_s_28.value s_region,
-       ca_s_27.value s_country,
-       safe_cast(safe_cast(ce.created_at as timestamp) as datetime) as dt_cr,
-       case
-              ns.subscriber_status
-              when 1 then 'Opted'
-              else 'Not Opted'
-       end															as subscription,
-       case
-              cet_old_acount.value
-              when '' then null
-              else cet_old_acount.value
-       end 															as old_account_id,
-       case
-              cei_222.value
-              when 1 then 'Yes'
-              else 'No'
-       end 															as third_party,
-       ce.updated_at,
-       cei_363.value 												as achica_user,
-       case
-              when cei_367.value is null --OR cei_367.value = ''
-              then timestamp(ce.created_at)
-              else cei_367.value
-       end 															as achica_migration_date
+	ce.entity_id 												as cst_id,
+	'' 															as customer_name,
+	'' 															as email,
+	'' 															as telephone,
+	'' 															as billing_street,
+	ca_b_26.value billing_city,
+	ca_b_30.value billing_postcode,
+	ca_b_28.value b_region,
+	ca_b_27.value billing_country,
+	'' 															as shipping_street,
+	ca_s_26.value shipping_city,
+	ca_s_30.value shipping_postcode,
+	ca_s_28.value s_region,
+	ca_s_27.value s_country,
+	safe_cast(safe_cast(ce.created_at as timestamp) as datetime) as dt_cr,
+	case
+			ns.subscriber_status
+			when 1 then 'Opted'
+			else 'Not Opted'
+	end															as subscription,
+	case
+			cet_old_acount.value
+			when '' then null
+			else cet_old_acount.value
+	end 															as old_account_id,
+	case
+			cei_222.value
+			when 1 then 'Yes'
+			else 'No'
+	end 															as third_party,
+	ce.updated_at,
+	cei_363.value 												as achica_user,
+	case
+			when cei_367.value is null --OR cei_367.value = ''
+			then timestamp(ce.created_at)
+			else cei_367.value
+	end 															as achica_migration_date
 from {{ ref('stg__customer_entity') }} ce
 left join {{ ref('stg__customer_entity_int') }} cei
 	on ce.entity_id = cei.entity_id
