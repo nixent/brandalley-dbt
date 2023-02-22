@@ -1,41 +1,90 @@
+{{ config(
+	materialized='incremental',
+	unique_key='cst_id'
+) }}
+
+{% if is_incremental() %}
+with customers_updated as (
+	select 
+		entity_id as customer_id
+	from {{ ref('stg__customer_entity') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+	union all
+
+	select 
+		entity_id as customer_id
+	from {{ ref('stg__customer_entity_int') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+	union all
+
+	select 
+		entity_id as customer_id
+	from {{ ref('stg__customer_entity_datetime') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+	union all
+
+	select 
+		entity_id as customer_id
+	from {{ ref('stg__customer_entity_varchar') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+	union all
+
+	select 
+		entity_id as customer_id
+	from {{ ref('stg__customer_entity_text') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+	union all
+
+	select 
+		entity_id as customer_id
+	from {{ ref('stg__customer_address_entity_text') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+	union all
+
+	select 
+		entity_id as customer_id
+	from {{ ref('stg__customer_address_entity_varchar') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+	union all
+
+	select 
+		customer_id
+	from {{ ref('stg__newsletter_subscriber') }} 
+	where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+)
+{% endif %}
+
 select
-	ce.entity_id 												as cst_id,
-	'' 															as customer_name,
-	'' 															as email,
-	'' 															as telephone,
-	'' 															as billing_street,
+	ce.entity_id 													   as cst_id,
+	'' 																   as customer_name,
+	'' 																   as email,
+	'' 																   as telephone,
+	'' 																   as billing_street,
 	ca_b_26.value billing_city,
 	ca_b_30.value billing_postcode,
 	ca_b_28.value b_region,
 	ca_b_27.value billing_country,
-	'' 															as shipping_street,
+	'' 																   as shipping_street,
 	ca_s_26.value shipping_city,
 	ca_s_30.value shipping_postcode,
 	ca_s_28.value s_region,
 	ca_s_27.value s_country,
-	safe_cast(safe_cast(ce.created_at as timestamp) as datetime) as dt_cr,
-	case
-			ns.subscriber_status
-			when 1 then 'Opted'
-			else 'Not Opted'
-	end															as subscription,
-	case
-			cet_old_acount.value
-			when '' then null
-			else cet_old_acount.value
-	end 															as old_account_id,
-	case
-			cei_222.value
-			when 1 then 'Yes'
-			else 'No'
-	end 															as third_party,
+	safe_cast(safe_cast(ce.created_at as timestamp) as datetime) 	   as dt_cr,
+	if(ns.subscriber_status = 1, 'Opted', 'Not Opted') 				   as subscription,
+	if(cet_old_acount.value = '', null, cet_old_acount.value) 		   as old_account_id,
+	if(cei_222.value = 1, 'Yes', 'No') 								   as third_party,
 	ce.updated_at,
-	cei_363.value 												as achica_user,
-	case
-			when cei_367.value is null --OR cei_367.value = ''
-			then timestamp(ce.created_at)
-			else cei_367.value
-	end 															as achica_migration_date
+	cei_363.value 													   as achica_user,
+	if(cei_367.value is null, timestamp(ce.created_at), cei_367.value) as achica_migration_date,
+	ce.bq_last_processed_at
 from {{ ref('stg__customer_entity') }} ce
 left join {{ ref('stg__customer_entity_int') }} cei
 	on ce.entity_id = cei.entity_id
@@ -124,3 +173,7 @@ left join {{ ref('stg__customer_entity_int') }} cei_363
 left join {{ ref('stg__customer_entity_datetime') }} cei_367
 	on cei_367.entity_id = ce.entity_id
 		and cei_367.attribute_id = 367
+where 1=1
+{% if is_incremental() %}
+	and ce.entity_id in (select distinct customer_id from customers_updated)
+{% endif %}
