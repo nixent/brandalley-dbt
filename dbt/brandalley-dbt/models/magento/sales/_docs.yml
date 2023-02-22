@@ -543,7 +543,7 @@ models:
         description: "Creation time"
         meta:
           dimension:
-            type: date
+            type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: month_created
         description: ""

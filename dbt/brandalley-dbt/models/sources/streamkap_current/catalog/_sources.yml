@@ -861,7 +861,7 @@ sources:
             data_type: <string>
             description: "Age restricted"     
 
-      - name: catalog_category_entity
+      - name: catalog_category_flat_store_1
         description: ""
         columns:
           - name: entity_id

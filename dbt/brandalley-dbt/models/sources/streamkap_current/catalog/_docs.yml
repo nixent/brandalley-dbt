@@ -935,7 +935,7 @@ models:
             data_type: <string>
             description: "Age restricted"     
 
-      - name: stg__catalog_category_entity
+      - name: stg__catalog_category_flat_store_1
         description: ""
         columns:
           - name: entity_id
