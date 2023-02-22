@@ -1,122 +1,163 @@
 version: 2
 
 models:
-  - name: ba_core_stock_return
-    description: ""
+  - name: coupon_rules
+    description: "Coupon details"
     columns:
-      - name: id
+      - name: coupon_id
+        data_type: <integer>
         description: "Primary key"
+      - name: rule_id
+        data_type: <integer>
+        description: "Rule Id, nullable"
+      - name: code
+        data_type: <string>
+        description: "Code"
+      - name: usage_limit
+        data_type: <integer>
+        description: "Usage limit"
+      - name: usage_per_customer
+        data_type: <integer>
+        description: "Usage per customer"
+      - name: time_used
+        data_type: <integer>
+        description: "Number of times the coupon has been used"
+      - name: expiration_date
+        data_type: <string>
+        description: "Expiration date"
         meta:
           dimension:
-            hidden: true
-      - name: order_item_number
-        description: "Order item number"
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: is_primary
+        data_type: <integer>
+        description: "Is primary flag"
+      - name: sales_rule_coupon_created_at
+        data_type: <string>
+        description: "Created date for coupon"
         meta:
           dimension:
-            hidden: true
-      - name: sku
-        description: "SKU"
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: type
+        data_type: <integer>
+        description: "Type"
+      - name: coupon_expired
+        description: "Flag indicating if coupon is expired or not"
+      - name: order_id
+        description: "Id of order linked to coupon, nullable"
+      - name: status
+        description: "Order status"
+      - name: base_discount_amount
+        description: "Discount amount"
+      - name: base_discount_invoiced
+        description: "Discount invoiced"
+      - name: discount_description
+        description: "Discount description"
+      - name: order_date
+        description: "Date of the order"
         meta:
           dimension:
-            hidden: false
-      - name: order_increment_id
-        description: "Order increment id"
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: invent_autocoupon_id
+        description: "invent_autocoupon_id"
+      - name: referral_coupon
+        description: "Coupon code linked"
+      - name: referee_coupon
+        description: "Referee coupon"
+      - name: reward_to
+        description: "Reward to"
+      - name: reward_from
+        description: "Reward from"
+      - name: invent_autocoupon_created_at
+        description: "invent_autocoupon_created_at"
         meta:
           dimension:
-            hidden: false
-      - name: qty
-        description: "Quantity"
-        meta:
-          dimension:
-            hidden: false
-      - name: return_code
-        description: "Return code"
-        meta:
-          dimension:
-            hidden: true
-      - name: created_at
-        description: "Created date"
-        meta:
-          dimension:
-            hidden: true
-      - name: xml_created_at
-        description: "Created date of the xml"
-        meta:
-          dimension:
-            hidden: true
-      - name: exported_to_sap
-        description: "Flag indicating if exported to SAP"
-        meta:
-          dimension:
-            hidden: true
-      - name: wh_line_id
-        description: "Warehouse Line ID"
-        meta:
-          dimension:
-            hidden: true
-      - name: return_service
-        description: "Return service"
-        meta:
-          dimension:
-            hidden: true
-      - name: creditmemo_id
-        description: "Credit memo Id"
-        meta:
-          dimension:
-            hidden: true
-      - name: maxdate
-        description: ""
-        meta:
-          dimension:
-            hidden: true
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: cartrule_id
+        description: "Cartrule id"
+      - name: basis_for_issue
+        description: "Basis for issue"
+      - name: comments_text
+        description: "Comments text"
+      - name: recommendation
+        description: "Recommendation"
+      - name: referral_couponid
+        description: "Referral coupon id"
+      - name: referee_couponid
+        description: "Referee coupon id"
+      - name: reward_from_old
+        description: "Reward from old"
+      - name: issuer_id
+        description: "Issuer id"
 
-
-  - name: memo_feed
-    description: ""
+  - name: gift_cards
+    description: "Gift cards"
     columns:
-      - name: u_unique_id
-        description: ""
+      - name: order_id
+        data_type: <integer>
+        description: "Order id"
+      - name: status
+        description: "Status"
+      - name: base_gift_cards_amount
+        description: "Base gift card amount"
+      - name: gift_cards_amount
+        description: "Gift card amount"
+      - name: base_gift_cards_invoiced
+        description: "Base gift cards invoiced"
+      - name: gift_cards_invoiced
+        description: "Gift cards invoiced"
+      - name: base_gift_cards_refunded
+        description: "Base gift cards refunded"
+      - name: gift_cards_refunded
+        description: "Gift cards refunded"
+      - name: order_date
+        description: "Order date"
         meta:
           dimension:
-            format: id
-      - name: adminuserid
-        description: ""
-        meta:
-          dimension:
-            format: id
-      - name: ordernumber
-        description: ""
-      - name: orderdate
-        description: ""
-      - name: dateofstockreturned
-        description: ""
-      - name: refund_type_id
-        description: "Refund type id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: refund_status
-        description: ""
-      - name: creditmemodate
-        description: ""
-      - name: creditmemonumber
-        description: ""
-      - name: grandtotal
-        description: ""
-      - name: flag
-        description: "Flag"
-      - name: approvedat
-        description: ""
-      - name: updated_at
-        description: "Update date of the order, nullable"
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']         
+
+  - name: orders_incremental
+    description: "To replace Orders"
+    columns:
+      - name: increment_id
+
+  - name: order_lines_incremental 
+    description: "To replace OrderLines"
+    columns:
+      - name: increment_id  
+
+  - name: hourly_sales_today
+    description: "A view to query realtime orders by hour today, and compare to the same hour last week"
+    columns:
+      - name: created_at_hour
+      - name: qty_invoiced_metric
+      - name: total_revenue
+      - name: line_product_cost_exc_vat_metric
+      - name: total_revenue_exc_tax
+      - name: margin_percent
+      - name: margin_value
+      - name: hour
+      - name: last_week_margin
+      - name: wow_margin_change_pct
+      - name: last_week_margin
+      - name: wow_margin_change_pct
+      - name: last_week_qty_invoiced
+      - name: wow_qty_invoiced_change_pct
+      - name: last_week_revenue
+      - name: wow_revenue_change_pct
 
   - name: order_summary
-    description: " an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
+    description: "an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
     columns:
       - name: Period
       - name: Total_Orders
       - name: Grand_Total
       - name: AOV
+
 
   - name: OrderLines
     description: ""
@@ -1418,656 +1459,3 @@ models:
         meta: 
           dimension:
             type: number
- 
-  - name: sales_flat_creditmemo_item
-    description: ""
-    columns:
-      - name: entity_id
-        description: "Primary Key"
-        meta:
-          dimension:
-            format: id
-          metrics:
-            count_item_refunds_metric:
-              label: 'Total number of item refunds'
-              type: count_distinct
-              description: "Number of item credit memos"
-              hidden: false   
-              round: 0 
-      - name: parent_id
-        description: "Parent id"
-        meta:
-          dimension:
-            format: id
-          metrics:
-            count_refunds_metric:
-              label: 'Total number of refunds'
-              type: count_distinct
-              description: "Number of order credit memo"
-              hidden: false   
-              round: 0 
-      - name: base_price
-        description: "Base price, nullable"
-      - name: tax_amount
-        description: "Tax amount, nullable"
-      - name: base_row_total
-        description: "Base row total, nullable"
-      - name: discount_amount
-        description: "Discount amount, nullable"
-      - name: row_total
-        description: "Row total, nullable"
-        meta: 
-          metrics:
-            creditmemo_row_total:
-              label: 'Row total'
-              type: sum
-              description: "Row total from credit memo"
-              hidden: false  
-              round: 2
-              format: 'gbp'     
-      - name: base_discount_amount
-        description: "Base discount amount, nullable"
-      - name: price_incl_tax
-        description: "Price incl. tax, nullable"
-        round: 2
-        format: 'gbp'      
-      - name: base_tax_amount
-        description: "Base tax amount, nullable"
-      - name: base_price_incl_tax
-        description: "Base price incl tax, nullable"
-      - name: qty
-        description: "Quantity, nullable"
-      - name: base_cost
-        description: "Base cost, nullable"
-      - name: price
-        description: "Price, nullable"
-      - name: base_row_total_incl_tax
-        description: "Base row total incl tax, nullable"
-      - name: row_total_incl_tax
-        description: "Row total incl tax, nullable"
-      - name: product_id
-        description: "Product id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: order_item_id
-        description: "Order item id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: order_id
-        description: "Order id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: refund_status
-        description: "Status of refund - determined by if approve_at and canceled_at is null then pending"
-      - name: additional_data
-        description: "Additional data, nullable"
-      - name: description
-        description: "Description, nullable"
-      - name: sku
-        description: "SKU, nullable"
-      - name: name
-        description: "Name, nullable"
-      - name: hidden_tax_amount
-        description: "Hidden tax amount, nullable"
-      - name: base_hidden_tax_amount
-        description: "Base hidden tax amount, nullable"
-      - name: weee_tax_disposition
-        description: "Weee Tax disposition, nullable"
-      - name: weee_tax_row_disposition
-        description: "Weee tax row disposition, nullable"
-      - name: base_weee_tax_disposition
-        description: "Base weee tax disposition, nullable"
-      - name: base_weee_tax_row_disposition
-        description: "Base weee tax row disposition, nullable"
-      - name: weee_tax_applied
-        description: "Weee tax applied, nullable"
-      - name: base_weee_tax_applied_amount
-        description: "Base weee tax applied amount, nullable"
-      - name: base_weee_tax_applied_row_amnt
-        description: "Base weee tax applied row amount, nullable"
-      - name: weee_tax_applied_amount
-        description: "Weee tax applied amount, nullable"
-      - name: weee_tax_applied_row_amount
-        description: "Weee tax applied row amount, nullable"
-      - name: customer_refund_request
-        description: "Customer refund request, nullable"
-      - name: exported_to_sap
-        description: "Exported to sap"
-      - name: qty_returned_to_warehouse
-        description: "Quantity returned to warehouse"
-      - name: created_at
-        description: "Created at, nullable"
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-      - name: updated_at
-        description: "Updated at, nullable"
-      - name: refund_reason
-        description: ""
-
-  - name: sales_flat_creditmemo
-    description: ""
-    columns:
-      - name: entity_id
-        description: "Primary Key"
-        meta:
-          dimension:
-            format: id
-          metrics:
-            count_refunds_metric:
-              label: 'Total number of refunds'
-              type: count_distinct
-              description: "Number of credit memo"
-              hidden: false   
-              round: 0 
-      - name: store_id
-        description: "Store id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: adjustment_positive
-        description: "Ajustment positive, nullable"
-      - name: base_shipping_tax_amount
-        description: "Base shipping tax amount, nullable"
-      - name: store_to_order_rate
-        description: "Store to order rate, nullable"
-      - name: base_discount_amount
-        description: "Base discount amount, nullable"
-      - name: base_to_order_rate
-        description: "Base to order rate, nullable"
-      - name: grand_total
-        description: "Grand total, nullable"
-      - name: base_adjustment_negative
-        description: "Base adjustement negative, nullable"
-      - name: base_subtotal_incl_tax
-        description: "Base subtotal incl. tax, nullable"
-      - name: shipping_amount
-        description: "Shipping amount, nullable"
-      - name: subtotal_incl_tax
-        description: "Subtotal incl. tax, nullable"
-      - name: adjustment_negative
-        description: "Adjustment negative, nullable"
-      - name: base_shipping_amount
-        description: "Base shipping amount, nullable"
-      - name: store_to_base_rate
-        description: "Store to base rate, nullable"
-      - name: base_to_global_rate
-        description: "Base to global rate, nullable"
-      - name: base_adjustment
-        description: "Base adjustment, nullable"
-      - name: base_subtotal
-        description: "Base subtotal, nullable"
-      - name: discount_amount
-        description: "Discount amount, nullable"
-      - name: subtotal
-        description: "Subtotal, nullable"
-      - name: adjustment
-        description: "Adjustment, nullable"
-      - name: base_grand_total
-        data_type: <decimal>
-        description: "Base grand total, nullable"
-      - name: base_adjustment_positive
-        description: "Base adjustment positive, nullable"
-      - name: base_tax_amount
-        description: "Base tax amount, nullable"
-      - name: shipping_tax_amount
-        description: "Shipping tax amount, nullable"
-      - name: tax_amount
-        description: "Tax amount, nullable"
-      - name: order_id
-        description: "Order id"
-        meta:
-          dimension:
-            format: id
-      - name: email_sent
-        description: "Email sent, nullable"
-      - name: creditmemo_status
-        description: "Creditmemo status, nullable"
-      - name: state
-        description: "State, nullable"
-      - name: shipping_address_id
-        description: "Shipping address id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: billing_address_id
-        description: "Billing address id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: invoice_id
-        description: "Invoice id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: store_currency_code
-        description: "Store currency code, nullable"
-      - name: order_currency_code
-        description: "Order currency code, nullable"
-      - name: base_currency_code
-        description: "Base currency code, nullable"
-      - name: global_currency_code
-        description: "Global currency code, nullable"
-      - name: transaction_id
-        description: "Transaction id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: increment_id
-        description: "Increment id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: created_at
-        description: "Created at, nullable"
-      - name: updated_at
-        description: "Updated at, nullable"
-      - name: hidden_tax_amount
-        description: "Hidden tax amount, nullable"
-      - name: base_hidden_tax_amount
-        description: "Base hidden tax amount, nullable"
-      - name: shipping_hidden_tax_amount
-        description: "Shipping hidden tax amount, nullable"
-      - name: base_shipping_hidden_tax_amnt
-        description: "Base shipping hidden tax amount, nullable"
-      - name: shipping_incl_tax
-        description: "Shipping incl. tax, nullable"
-      - name: base_shipping_incl_tax
-        description: "Base shipping incl. tax, nullable"
-      - name: discount_description
-        description: "Discount description, nullable"
-      - name: base_customer_balance_amount
-        description: "Base customer balance amount, nullable"
-      - name: customer_balance_amount
-        description: "Customer balance amount, nullable"
-      - name: bs_customer_bal_total_refunded
-        description: "BS customer bal total refunded, nullable"
-      - name: customer_bal_total_refunded
-        description: "Customer bal total refunded, nullable"
-      - name: base_gift_cards_amount
-        description: "Base gift cards amount, nullable"
-      - name: gift_cards_amount
-        description: "Gift cards amount, nullable"
-      - name: gw_base_price
-        description: "GW base price, nullable"
-      - name: gw_price
-        description: "GW price, nullable"
-      - name: gw_items_base_price
-        description: "GW items base price, nullable"
-      - name: gw_items_price
-        description: "GW items price, nullable"
-      - name: gw_card_base_price
-        description: "GW card base price, nullable"
-      - name: gw_card_price
-        description: "GW card price, nullable"
-      - name: gw_base_tax_amount
-        description: "GW Base tax amount, nullable"
-      - name: gw_tax_amount
-        description: "GW tax amount, nullable"
-      - name: gw_items_base_tax_amount
-        description: "GW items base tax amount, nullable"
-      - name: gw_items_tax_amount
-        description: "GW items tax amount, nullable"
-      - name: gw_card_base_tax_amount
-        description: "GW card base tax amount, nullable"
-      - name: gw_card_tax_amount
-        description: "GW card tax amount, nullable"
-      - name: base_reward_currency_amount
-        description: "Base reward currency amount, nullable"
-      - name: reward_currency_amount
-        description: "Reward currency amount, nullable"
-      - name: reward_points_balance
-        description: "Reward points balance, nullable"
-      - name: reward_points_balance_refund
-        description: "Reward points balance refund, nullable"
-      - name: refund_type_id
-        description: "Refund type id, nullable"
-      - name: adjustment_reason_id
-        description: "Adjustement reason id, nullable"
-      - name: status_id
-        description: "Status id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: admin_user_id
-        description: "Admin user id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: approve_at
-        description: "Approve at, nullable"
-      - name: exported_to_sap
-        description: "Exported to sap"
-      - name: fee_type
-        description: "Fee type, nullable"
-      - name: flag
-        description: "Flag"
-      - name: approved_by
-        description: "Approved by, nullable"
-      - name: canceled_at
-        description: "Canceled at, nullable"
-      - name: is_batch
-        description: "Is batch, nullable"
-
-  - name: shipment_items
-    description: ""
-    meta:
-      joins:
-        - join: shipments
-          sql_on: ${shipment_items.parent_id} = ${shipments.entity_id}
-    columns:
-      - name: entity_id
-        description: "Shipment item ID, primary key"
-        meta: 
-          metrics:
-            no_shipments:
-              label: 'Number of shipments'
-              type: count_distinct
-              description: "Number of shipments"
-              hidden: false    
-      - name: parent_id
-        description: "Shipment item ID of the parent, foreign key"
-        meta:
-          dimension:
-            format: id
-      - name: row_total
-        description: "Value total of a specific item for this shipment, nullable"
-      - name: price
-        description: "Price of a specific item for this shipment, nullable"
-      - name: weight
-        description: "Weight of a specific item for this shipment, nullable"
-      - name: qty
-        description: "Quantity to ship of a specific item , nullable"
-      - name: product_id
-        description: "Id of the product to ship, foreign key, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: order_item_id
-        description: "Id of the order item to ship, foreign key, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: additional_data
-        description: "Additional information about the shipment item, nullable"
-      - name: description
-        description: "Description about the shipment item, nullable"
-      - name: name
-        description: "Name of the product to ship, nullable"
-      - name: sku
-        description: "SKU of the product to ship, nullable"
-      - name: sap_id
-        description: "SAP shipment ID, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: _streamkap_source_ts_ms
-        description: "Sync time from streamkap, nullable"
-      - name: __deleted
-        description: "Deleted flag, nullable"
-
-  - name: shipments
-    description: ""
-    columns:
-      - name: entity_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-      - name: store_id
-        description: "Id of the store, foreign key, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: total_weight
-        description: "Total weight, nullable"
-      - name: total_qty
-        description: "Quantity to ship, nullable"
-      - name: email_sent
-        description: "Flag indicating if email was sent, nullable"
-      - name: order_id
-        description: "Order ID linked to the shipment, foreign key"
-        meta:
-          dimension:
-            format: id
-      - name: customer_id
-        description: "Customer id, foreign key, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: shipping_address_id
-        description: "Shipping address id, foreign key"
-        meta:
-          dimension:
-            format: id
-      - name: billing_address_id
-        description: "Billing address id, foreign key"
-        meta:
-          dimension:
-            format: id
-      - name: shipment_status
-        description: "Shipment status, nullable"
-      - name: increment_id
-        description: "Increment id"
-        meta:
-          dimension:
-            format: id
-      - name: created_at
-        description: "Created date of the shipment, nullable"
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-      - name: updated_at
-        description: "Update date of the shipment, nullable"
-      - name: packages
-        description: "Number of packages, nullable"
-
-  - name: shipping
-    description: ""
-    columns:
-      - name: unique_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-      - name: product_id
-        description: "Id of the product to ship, foreign key, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: sku
-        description: "SKU of the product to ship, nullable"
-      - name: qty
-        description: "Quantity to ship of a specific item , nullable"
-      - name: weight
-        description: "Adjustment negative, nullable"
-      - name: order_id
-        description: "Order ID linked to the shipment, foreign key"
-        meta:
-          dimension:
-            format: id
-      - name: customer_id
-        description: "Customer id, foreign key, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: postcode
-        description: "Post code, nullable"
-      - name: shipment_id
-        description: ""
-        meta:
-          dimension:
-            format: id
-      - name: order_date
-        description: ""
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-      - name: shipment_date
-        description: ""
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-          metrics:
-            days_to_delivery_exc_we:
-              label: 'Days to delivery exc WE'
-              type: sum
-              description: "Number of days spent between the order date and the shipment date, excluding week-ends"
-              sql: "IF(${shipment_date} !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
-              hidden: false
-              round: 0  
-      - name: updated_at
-        description: "Update date of the order, nullable"
-
-  - name: coupon_rules
-    description: "Coupon details"
-    columns:
-      - name: coupon_id
-        data_type: <integer>
-        description: "Primary key"
-      - name: rule_id
-        data_type: <integer>
-        description: "Rule Id, nullable"
-      - name: code
-        data_type: <string>
-        description: "Code"
-      - name: usage_limit
-        data_type: <integer>
-        description: "Usage limit"
-      - name: usage_per_customer
-        data_type: <integer>
-        description: "Usage per customer"
-      - name: time_used
-        data_type: <integer>
-        description: "Number of times the coupon has been used"
-      - name: expiration_date
-        data_type: <string>
-        description: "Expiration date"
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
-      - name: is_primary
-        data_type: <integer>
-        description: "Is primary flag"
-      - name: sales_rule_coupon_created_at
-        data_type: <string>
-        description: "Created date for coupon"
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
-      - name: type
-        data_type: <integer>
-        description: "Type"
-      - name: coupon_expired
-        description: "Flag indicating if coupon is expired or not"
-      - name: order_id
-        description: "Id of order linked to coupon, nullable"
-      - name: status
-        description: "Order status"
-      - name: base_discount_amount
-        description: "Discount amount"
-      - name: base_discount_invoiced
-        description: "Discount invoiced"
-      - name: discount_description
-        description: "Discount description"
-      - name: order_date
-        description: "Date of the order"
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
-      - name: invent_autocoupon_id
-        description: "invent_autocoupon_id"
-      - name: referral_coupon
-        description: "Coupon code linked"
-      - name: referee_coupon
-        description: "Referee coupon"
-      - name: reward_to
-        description: "Reward to"
-      - name: reward_from
-        description: "Reward from"
-      - name: invent_autocoupon_created_at
-        description: "invent_autocoupon_created_at"
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
-      - name: cartrule_id
-        description: "Cartrule id"
-      - name: basis_for_issue
-        description: "Basis for issue"
-      - name: comments_text
-        description: "Comments text"
-      - name: recommendation
-        description: "Recommendation"
-      - name: referral_couponid
-        description: "Referral coupon id"
-      - name: referee_couponid
-        description: "Referee coupon id"
-      - name: reward_from_old
-        description: "Reward from old"
-      - name: issuer_id
-        description: "Issuer id"
-
-  - name: gift_cards
-    description: "Gift cards"
-    columns:
-      - name: order_id
-        data_type: <integer>
-        description: "Order id"
-      - name: status
-        description: "Status"
-      - name: base_gift_cards_amount
-        description: "Base gift card amount"
-      - name: gift_cards_amount
-        description: "Gift card amount"
-      - name: base_gift_cards_invoiced
-        description: "Base gift cards invoiced"
-      - name: gift_cards_invoiced
-        description: "Gift cards invoiced"
-      - name: base_gift_cards_refunded
-        description: "Base gift cards refunded"
-      - name: gift_cards_refunded
-        description: "Gift cards refunded"
-      - name: order_date
-        description: "Order date"
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']         
-
-
-  - name: orders_incremental
-    columns:
-      - name: increment_id
-  - name: order_lines_incremental 
-    columns:
-      - name: increment_id  
-
-  - name: hourly_sales_today
-    columns:
-      - name: created_at_hour
-      - name: qty_invoiced_metric
-      - name: total_revenue
-      - name: line_product_cost_exc_vat_metric
-      - name: total_revenue_exc_tax
-      - name: margin_percent
-      - name: margin_value
-      - name: hour
-      - name: last_week_margin
-      - name: wow_margin_change_pct
-      - name: last_week_margin
-      - name: wow_margin_change_pct
-      - name: last_week_qty_invoiced
-      - name: wow_qty_invoiced_change_pct
-      - name: last_week_revenue
-      - name: wow_revenue_change_pct

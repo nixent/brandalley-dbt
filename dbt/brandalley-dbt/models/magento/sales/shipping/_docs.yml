@@ -1,0 +1,175 @@
+version: 2
+
+models:
+  - name: shipment_items
+    description: ""
+    meta:
+      joins:
+        - join: shipments
+          sql_on: ${shipment_items.parent_id} = ${shipments.entity_id}
+    columns:
+      - name: entity_id
+        description: "Shipment item ID, primary key"
+        meta: 
+          metrics:
+            no_shipments:
+              label: 'Number of shipments'
+              type: count_distinct
+              description: "Number of shipments"
+              hidden: false    
+      - name: parent_id
+        description: "Shipment item ID of the parent, foreign key"
+        meta:
+          dimension:
+            format: id
+      - name: row_total
+        description: "Value total of a specific item for this shipment, nullable"
+      - name: price
+        description: "Price of a specific item for this shipment, nullable"
+      - name: weight
+        description: "Weight of a specific item for this shipment, nullable"
+      - name: qty
+        description: "Quantity to ship of a specific item , nullable"
+      - name: product_id
+        description: "Id of the product to ship, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: order_item_id
+        description: "Id of the order item to ship, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: additional_data
+        description: "Additional information about the shipment item, nullable"
+      - name: description
+        description: "Description about the shipment item, nullable"
+      - name: name
+        description: "Name of the product to ship, nullable"
+      - name: sku
+        description: "SKU of the product to ship, nullable"
+      - name: sap_id
+        description: "SAP shipment ID, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: _streamkap_source_ts_ms
+        description: "Sync time from streamkap, nullable"
+      - name: __deleted
+        description: "Deleted flag, nullable"
+
+  - name: shipments
+    description: ""
+    columns:
+      - name: entity_id
+        description: "Primary key"
+        meta:
+          dimension:
+            format: id
+      - name: store_id
+        description: "Id of the store, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: total_weight
+        description: "Total weight, nullable"
+      - name: total_qty
+        description: "Quantity to ship, nullable"
+      - name: email_sent
+        description: "Flag indicating if email was sent, nullable"
+      - name: order_id
+        description: "Order ID linked to the shipment, foreign key"
+        meta:
+          dimension:
+            format: id
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: shipping_address_id
+        description: "Shipping address id, foreign key"
+        meta:
+          dimension:
+            format: id
+      - name: billing_address_id
+        description: "Billing address id, foreign key"
+        meta:
+          dimension:
+            format: id
+      - name: shipment_status
+        description: "Shipment status, nullable"
+      - name: increment_id
+        description: "Increment id"
+        meta:
+          dimension:
+            format: id
+      - name: created_at
+        description: "Created date of the shipment, nullable"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+      - name: updated_at
+        description: "Update date of the shipment, nullable"
+      - name: packages
+        description: "Number of packages, nullable"
+
+  - name: shipping
+    description: ""
+    columns:
+      - name: unique_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: product_id
+        description: "Id of the product to ship, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: sku
+        description: "SKU of the product to ship, nullable"
+      - name: qty
+        description: "Quantity to ship of a specific item , nullable"
+      - name: weight
+        description: "Adjustment negative, nullable"
+      - name: order_id
+        description: "Order ID linked to the shipment, foreign key"
+        meta:
+          dimension:
+            format: id
+      - name: customer_id
+        description: "Customer id, foreign key, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: postcode
+        description: "Post code, nullable"
+      - name: shipment_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: order_date
+        description: ""
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+      - name: shipment_date
+        description: ""
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+          metrics:
+            days_to_delivery_exc_we:
+              label: 'Days to delivery exc WE'
+              type: sum
+              description: "Number of days spent between the order date and the shipment date, excluding week-ends"
+              sql: "IF(${shipment_date} !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
+              hidden: false
+              round: 0  
+      - name: updated_at
+        description: "Update date of the order, nullable"

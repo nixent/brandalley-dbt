@@ -1,0 +1,445 @@
+version: 2
+
+models:
+  - name: ba_core_stock_return
+    description: ""
+    columns:
+      - name: id
+        description: "Primary key"
+        meta:
+          dimension:
+            hidden: true
+      - name: order_item_number
+        description: "Order item number"
+        meta:
+          dimension:
+            hidden: true
+      - name: sku
+        description: "SKU"
+        meta:
+          dimension:
+            hidden: false
+      - name: order_increment_id
+        description: "Order increment id"
+        meta:
+          dimension:
+            hidden: false
+      - name: qty
+        description: "Quantity"
+        meta:
+          dimension:
+            hidden: false
+      - name: return_code
+        description: "Return code"
+        meta:
+          dimension:
+            hidden: true
+      - name: created_at
+        description: "Created date"
+        meta:
+          dimension:
+            hidden: true
+      - name: xml_created_at
+        description: "Created date of the xml"
+        meta:
+          dimension:
+            hidden: true
+      - name: exported_to_sap
+        description: "Flag indicating if exported to SAP"
+        meta:
+          dimension:
+            hidden: true
+      - name: wh_line_id
+        description: "Warehouse Line ID"
+        meta:
+          dimension:
+            hidden: true
+      - name: return_service
+        description: "Return service"
+        meta:
+          dimension:
+            hidden: true
+      - name: creditmemo_id
+        description: "Credit memo Id"
+        meta:
+          dimension:
+            hidden: true
+      - name: maxdate
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+
+
+  - name: memo_feed
+    description: ""
+    columns:
+      - name: u_unique_id
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: adminuserid
+        description: ""
+        meta:
+          dimension:
+            format: id
+      - name: ordernumber
+        description: ""
+      - name: orderdate
+        description: ""
+      - name: dateofstockreturned
+        description: ""
+      - name: refund_type_id
+        description: "Refund type id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: refund_status
+        description: ""
+      - name: creditmemodate
+        description: ""
+      - name: creditmemonumber
+        description: ""
+      - name: grandtotal
+        description: ""
+      - name: flag
+        description: "Flag"
+      - name: approvedat
+        description: ""
+      - name: updated_at
+        description: "Update date of the order, nullable"
+
+  - name: sales_flat_creditmemo_item
+    description: ""
+    columns:
+      - name: entity_id
+        description: "Primary Key"
+        meta:
+          dimension:
+            format: id
+          metrics:
+            count_item_refunds_metric:
+              label: 'Total number of item refunds'
+              type: count_distinct
+              description: "Number of item credit memos"
+              hidden: false   
+              round: 0 
+      - name: parent_id
+        description: "Parent id"
+        meta:
+          dimension:
+            format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Number of order credit memo"
+              hidden: false   
+              round: 0 
+      - name: base_price
+        description: "Base price, nullable"
+      - name: tax_amount
+        description: "Tax amount, nullable"
+      - name: base_row_total
+        description: "Base row total, nullable"
+      - name: discount_amount
+        description: "Discount amount, nullable"
+      - name: row_total
+        description: "Row total, nullable"
+        meta: 
+          metrics:
+            creditmemo_row_total:
+              label: 'Row total'
+              type: sum
+              description: "Row total from credit memo"
+              hidden: false  
+              round: 2
+              format: 'gbp'     
+      - name: base_discount_amount
+        description: "Base discount amount, nullable"
+      - name: price_incl_tax
+        description: "Price incl. tax, nullable"
+        round: 2
+        format: 'gbp'      
+      - name: base_tax_amount
+        description: "Base tax amount, nullable"
+      - name: base_price_incl_tax
+        description: "Base price incl tax, nullable"
+      - name: qty
+        description: "Quantity, nullable"
+      - name: base_cost
+        description: "Base cost, nullable"
+      - name: price
+        description: "Price, nullable"
+      - name: base_row_total_incl_tax
+        description: "Base row total incl tax, nullable"
+      - name: row_total_incl_tax
+        description: "Row total incl tax, nullable"
+      - name: product_id
+        description: "Product id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: order_item_id
+        description: "Order item id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: order_id
+        description: "Order id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: refund_status
+        description: "Status of refund - determined by if approve_at and canceled_at is null then pending"
+      - name: additional_data
+        description: "Additional data, nullable"
+      - name: description
+        description: "Description, nullable"
+      - name: sku
+        description: "SKU, nullable"
+      - name: name
+        description: "Name, nullable"
+      - name: hidden_tax_amount
+        description: "Hidden tax amount, nullable"
+      - name: base_hidden_tax_amount
+        description: "Base hidden tax amount, nullable"
+      - name: weee_tax_disposition
+        description: "Weee Tax disposition, nullable"
+      - name: weee_tax_row_disposition
+        description: "Weee tax row disposition, nullable"
+      - name: base_weee_tax_disposition
+        description: "Base weee tax disposition, nullable"
+      - name: base_weee_tax_row_disposition
+        description: "Base weee tax row disposition, nullable"
+      - name: weee_tax_applied
+        description: "Weee tax applied, nullable"
+      - name: base_weee_tax_applied_amount
+        description: "Base weee tax applied amount, nullable"
+      - name: base_weee_tax_applied_row_amnt
+        description: "Base weee tax applied row amount, nullable"
+      - name: weee_tax_applied_amount
+        description: "Weee tax applied amount, nullable"
+      - name: weee_tax_applied_row_amount
+        description: "Weee tax applied row amount, nullable"
+      - name: customer_refund_request
+        description: "Customer refund request, nullable"
+      - name: exported_to_sap
+        description: "Exported to sap"
+      - name: qty_returned_to_warehouse
+        description: "Quantity returned to warehouse"
+      - name: created_at
+        description: "Created at, nullable"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+      - name: updated_at
+        description: "Updated at, nullable"
+      - name: refund_reason
+        description: ""
+
+  - name: sales_flat_creditmemo
+    description: ""
+    columns:
+      - name: entity_id
+        description: "Primary Key"
+        meta:
+          dimension:
+            format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of refunds'
+              type: count_distinct
+              description: "Number of credit memo"
+              hidden: false   
+              round: 0 
+      - name: store_id
+        description: "Store id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: adjustment_positive
+        description: "Ajustment positive, nullable"
+      - name: base_shipping_tax_amount
+        description: "Base shipping tax amount, nullable"
+      - name: store_to_order_rate
+        description: "Store to order rate, nullable"
+      - name: base_discount_amount
+        description: "Base discount amount, nullable"
+      - name: base_to_order_rate
+        description: "Base to order rate, nullable"
+      - name: grand_total
+        description: "Grand total, nullable"
+      - name: base_adjustment_negative
+        description: "Base adjustement negative, nullable"
+      - name: base_subtotal_incl_tax
+        description: "Base subtotal incl. tax, nullable"
+      - name: shipping_amount
+        description: "Shipping amount, nullable"
+      - name: subtotal_incl_tax
+        description: "Subtotal incl. tax, nullable"
+      - name: adjustment_negative
+        description: "Adjustment negative, nullable"
+      - name: base_shipping_amount
+        description: "Base shipping amount, nullable"
+      - name: store_to_base_rate
+        description: "Store to base rate, nullable"
+      - name: base_to_global_rate
+        description: "Base to global rate, nullable"
+      - name: base_adjustment
+        description: "Base adjustment, nullable"
+      - name: base_subtotal
+        description: "Base subtotal, nullable"
+      - name: discount_amount
+        description: "Discount amount, nullable"
+      - name: subtotal
+        description: "Subtotal, nullable"
+      - name: adjustment
+        description: "Adjustment, nullable"
+      - name: base_grand_total
+        data_type: <decimal>
+        description: "Base grand total, nullable"
+      - name: base_adjustment_positive
+        description: "Base adjustment positive, nullable"
+      - name: base_tax_amount
+        description: "Base tax amount, nullable"
+      - name: shipping_tax_amount
+        description: "Shipping tax amount, nullable"
+      - name: tax_amount
+        description: "Tax amount, nullable"
+      - name: order_id
+        description: "Order id"
+        meta:
+          dimension:
+            format: id
+      - name: email_sent
+        description: "Email sent, nullable"
+      - name: creditmemo_status
+        description: "Creditmemo status, nullable"
+      - name: state
+        description: "State, nullable"
+      - name: shipping_address_id
+        description: "Shipping address id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: billing_address_id
+        description: "Billing address id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: invoice_id
+        description: "Invoice id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: store_currency_code
+        description: "Store currency code, nullable"
+      - name: order_currency_code
+        description: "Order currency code, nullable"
+      - name: base_currency_code
+        description: "Base currency code, nullable"
+      - name: global_currency_code
+        description: "Global currency code, nullable"
+      - name: transaction_id
+        description: "Transaction id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: increment_id
+        description: "Increment id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: created_at
+        description: "Created at, nullable"
+      - name: updated_at
+        description: "Updated at, nullable"
+      - name: hidden_tax_amount
+        description: "Hidden tax amount, nullable"
+      - name: base_hidden_tax_amount
+        description: "Base hidden tax amount, nullable"
+      - name: shipping_hidden_tax_amount
+        description: "Shipping hidden tax amount, nullable"
+      - name: base_shipping_hidden_tax_amnt
+        description: "Base shipping hidden tax amount, nullable"
+      - name: shipping_incl_tax
+        description: "Shipping incl. tax, nullable"
+      - name: base_shipping_incl_tax
+        description: "Base shipping incl. tax, nullable"
+      - name: discount_description
+        description: "Discount description, nullable"
+      - name: base_customer_balance_amount
+        description: "Base customer balance amount, nullable"
+      - name: customer_balance_amount
+        description: "Customer balance amount, nullable"
+      - name: bs_customer_bal_total_refunded
+        description: "BS customer bal total refunded, nullable"
+      - name: customer_bal_total_refunded
+        description: "Customer bal total refunded, nullable"
+      - name: base_gift_cards_amount
+        description: "Base gift cards amount, nullable"
+      - name: gift_cards_amount
+        description: "Gift cards amount, nullable"
+      - name: gw_base_price
+        description: "GW base price, nullable"
+      - name: gw_price
+        description: "GW price, nullable"
+      - name: gw_items_base_price
+        description: "GW items base price, nullable"
+      - name: gw_items_price
+        description: "GW items price, nullable"
+      - name: gw_card_base_price
+        description: "GW card base price, nullable"
+      - name: gw_card_price
+        description: "GW card price, nullable"
+      - name: gw_base_tax_amount
+        description: "GW Base tax amount, nullable"
+      - name: gw_tax_amount
+        description: "GW tax amount, nullable"
+      - name: gw_items_base_tax_amount
+        description: "GW items base tax amount, nullable"
+      - name: gw_items_tax_amount
+        description: "GW items tax amount, nullable"
+      - name: gw_card_base_tax_amount
+        description: "GW card base tax amount, nullable"
+      - name: gw_card_tax_amount
+        description: "GW card tax amount, nullable"
+      - name: base_reward_currency_amount
+        description: "Base reward currency amount, nullable"
+      - name: reward_currency_amount
+        description: "Reward currency amount, nullable"
+      - name: reward_points_balance
+        description: "Reward points balance, nullable"
+      - name: reward_points_balance_refund
+        description: "Reward points balance refund, nullable"
+      - name: refund_type_id
+        description: "Refund type id, nullable"
+      - name: adjustment_reason_id
+        description: "Adjustement reason id, nullable"
+      - name: status_id
+        description: "Status id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: admin_user_id
+        description: "Admin user id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: approve_at
+        description: "Approve at, nullable"
+      - name: exported_to_sap
+        description: "Exported to sap"
+      - name: fee_type
+        description: "Fee type, nullable"
+      - name: flag
+        description: "Flag"
+      - name: approved_by
+        description: "Approved by, nullable"
+      - name: canceled_at
+        description: "Canceled at, nullable"
+      - name: is_batch
+        description: "Is batch, nullable"
