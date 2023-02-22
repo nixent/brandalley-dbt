@@ -1,7 +1,7 @@
 {{config(
     materialized='incremental',
     unique_key='subscriber_id',
-	cluster_by='subscriber_id',
+	cluster_by=['customer_id', 'subscriber_id'],
     partition_by = {
       "field": "bq_last_processed_at",
       "data_type": "timestamp",
