@@ -1,6 +1,7 @@
 version: 2
 
 models:
+  - name: customers_incremental
   - name: customers_enriched
     description: " table with a grain of one customer per row "
     meta:
