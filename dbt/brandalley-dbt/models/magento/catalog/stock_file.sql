@@ -273,4 +273,5 @@ group by
     cpev_nego.value,
     cpn.buyer,
     CONCAT(au.firstname, ' ', au.lastname),
-    category_details.name
+    category_details.name,
+    cpei_menu_type.value
