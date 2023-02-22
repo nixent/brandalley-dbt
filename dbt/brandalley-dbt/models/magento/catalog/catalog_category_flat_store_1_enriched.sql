@@ -5,32 +5,25 @@ FROM {{ ref(
 		) }} main
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv0 ON SUBSTRING_INDEX (main.path,'/',1) = lv0.entity_id
+		) }} lv0 ON split(main.path,'/')[offset(0)] = lv0.entity_id
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv1 ON IF(LENGTH(main.path)
-            - LENGTH( REPLACE ( main.path, "/", "") )> 0, SUBSTRING_INDEX(SUBSTRING_INDEX (main.path,'/',2), '/', -1), null) = lv1.entity_id
+		) }} lv1 ON IF(ARRAY_LENGTH(split(main.path,'/'))> 1, split(main.path,'/')[offset(1)], null) = lv1.entity_id
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv2 ON IF(LENGTH(main.path)
-            - LENGTH( REPLACE ( main.path, "/", "") )> 1, SUBSTRING_INDEX(SUBSTRING_INDEX (main.path,'/',3), '/', -1), null) = lv2.entity_id
+		) }} lv2 ON IF(ARRAY_LENGTH(split(main.path,'/'))> 2, split(main.path,'/')[offset(2)], null) = lv2.entity_id
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv3 ON IF(LENGTH(main.path)
-            - LENGTH( REPLACE ( main.path, "/", "") )> 2, SUBSTRING_INDEX(SUBSTRING_INDEX (main.path,'/',4), '/', -1), null) = lv3.entity_id
+		) }} lv3 ON IF(ARRAY_LENGTH(split(main.path,'/'))> 3, split(main.path,'/')[offset(3)], null) = lv3.entity_id
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv4 ON IF(LENGTH(main.path)
-            - LENGTH( REPLACE ( main.path, "/", "") )> 3, SUBSTRING_INDEX(SUBSTRING_INDEX (main.path,'/',5), '/', -1), null) = lv4.entity_id
+		) }} lv4 ON IF(ARRAY_LENGTH(split(main.path,'/'))> 4, split(main.path,'/')[offset(4)], null) = lv4.entity_id
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv5 ON IF(LENGTH(main.path)
-            - LENGTH( REPLACE ( main.path, "/", "") )> 4, SUBSTRING_INDEX(SUBSTRING_INDEX (main.path,'/',6), '/', -1), null) = lv5.entity_id
+		) }} lv5 ON IF(ARRAY_LENGTH(split(main.path,'/'))> 5, split(main.path,'/')[offset(5)], null) = lv5.entity_id
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv6 ON IF(LENGTH(main.path)
-            - LENGTH( REPLACE ( main.path, "/", "") )> 5, SUBSTRING_INDEX(SUBSTRING_INDEX (main.path,'/',7), '/', -1), null) = lv6.entity_id
+		) }} lv6 ON IF(ARRAY_LENGTH(split(main.path,'/'))> 6, split(main.path,'/')[offset(6)], null) = lv6.entity_id
   LEFT OUTER JOIN {{ ref(
 				'stg__catalog_category_flat_store_1'
-		) }} lv7 ON IF(LENGTH(main.path)
-            - LENGTH( REPLACE ( main.path, "/", "") )> 6, SUBSTRING_INDEX(SUBSTRING_INDEX (main.path,'/',8), '/', -1), null) = lv7.entity_id
+		) }} lv7 ON IF(ARRAY_LENGTH(split(main.path,'/'))> 7, split(main.path,'/')[offset(7)], null) = lv7.entity_id
