@@ -92,6 +92,9 @@ config:
     - to: '18'
       from: company
       type: standard
+    - to: '10'
+      from: street
+      type: standard
   configVersion: 0
   externalIdMapping:
     to: '1845'
