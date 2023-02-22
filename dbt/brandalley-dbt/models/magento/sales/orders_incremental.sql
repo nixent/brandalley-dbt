@@ -10,7 +10,7 @@ with order_updates as (
 	from {{ ref('stg__sales_flat_order') }}
 	where 1=1
 	{% if is_incremental() %}
-		and bq_last_processed_at > (select max(bq_last_processed_at) from {{this}})
+		and bq_last_processed_at >= (select max(bq_last_processed_at) from {{this}})
 	{% endif %}
 ),
 
