@@ -1,7 +1,12 @@
 {{ config(
 	materialized='incremental',
 	unique_key='increment_id',
-	cluster_by=['created_at', 'bq_last_processed_at']
+	cluster_by=['customer_id'],
+	partition_by = {
+      "field": "created_at",
+      "data_type": "timestamp",
+      "granularity": "day"
+    }
 ) }}
 
 with order_updates as (

@@ -1,10 +1,15 @@
 {{ config(
 	materialized='incremental',
 	unique_key='unique_id',
-	schema="magento"
+	cluster_by='order_id',
+	partition_by = {
+      "field": "created_at",
+      "data_type": "timestamp",
+      "granularity": "day"
+    }
 ) }}
 
-{% set min_ts = '2023-01-01' %}
+{% set min_ts = '2023-02-01' %}
 {% if execute and is_incremental() %}
   {% set sql %}
     -- Query to see the earliest event date that needs to be rebuilt from for inserted order lines since last run  
