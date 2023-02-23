@@ -100,7 +100,7 @@ order_info as (
 		sfo.customer_lastname,
 		cc_trans_id, 
 		additional_information,
-		timestamp_diff(safe_cast(sfo.created_at as timestamp), safe_cast(ce.created_at as timestamp), day ) as days_since_signup
+		timestamp_diff(safe_cast(sfo.created_at as timestamp), safe_cast(ce.dt_cr as timestamp), day ) as days_since_signup
 	from order_updates sfo
 	left join {{ ref('stg__sales_flat_order_address') }} sfoa
 		on sfoa.entity_id = sfo.shipping_address_id
