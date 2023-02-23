@@ -34,11 +34,11 @@
 with order_lines as (
 	select
 		{{dbt_utils.surrogate_key(['sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfo.magentoID','cpev_pt_con.value','eaov_brand.option_id','eaov_color.option_id','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
-		greatest(sfo.bq_last_processed_at, sfoi_sim.bq_last_processed_at, sfoi_con.bq_last_processed_at)												as bq_last_processed_at,
+		greatest(sfo.bq_last_processed_at, sfoi_sim.bq_last_processed_at, sfoi_con.bq_last_processed_at)													as bq_last_processed_at,
 		-- sometimes these are before reg date - how? should we set them as first_purchase_at in these cases?
-		datetime_diff(safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), month) 	as months_since_cohort_start,
-		datetime_diff(safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), year) 	as years_since_cohort_start,
-		datetime_diff(safe_cast(safe_cast(sfo.created_at as timestamp) as datetime), safe_cast(safe_cast(ce.created_at as timestamp) as datetime), quarter) as quarters_since_cohort_start,
+		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, month) 																				as months_since_cohort_start,
+		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, year) 																				as years_since_cohort_start,
+		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, quarter) 																			as quarters_since_cohort_start,
 		sfo.increment_id 																																	as order_number,
 		sfo.customer_id 																																	as customer_id,
 		sfoi_sim.item_id 																																	as order_item_id,
@@ -54,7 +54,7 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
-		safe_cast(safe_cast(sfo.created_at as timestamp) as datetime) 																						as order_placed_date,
+		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
 		case
 			when sfoi_con.dispatch_date < cast('2014-06-11' as date) then null
 			else sfoi_con.dispatch_date
@@ -116,7 +116,7 @@ with order_lines as (
 		sfoi_con.tax_amount,
 		sfoi_con.tax_percent,
 		cped_price.value 																																	as rrp,
-		ce.created_at 																																		as reg_date,
+		ce.dt_cr 																																			as reg_date,
 		{{ calculate_region_from_postcode('sfo.billing_postcode') }} 																						as Region, -- Cat 1
 		sfo.email 																																			as customer_email, -- Cat 1
 		sfo.billing_address_type, -- Cat 1  
@@ -139,8 +139,8 @@ with order_lines as (
 		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 	as warehouse_totalGBP_inc_tax,
 		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price) 				as warehouse_totalGBP_ex_tax
 	from {{ ref('orders_incremental') }} sfo
-	left join {{ ref('stg__customer_entity') }} ce 
-		on ce.entity_id = sfo.customer_id
+	left join {{ ref('customers_incremental') }} ce 
+		on ce.cst_id = sfo.customer_id
 	left join {{ ref('stg__sales_flat_order_item') }} sfoi_sim
 		on sfoi_sim.order_id = sfo.magentoID
 			and sfoi_sim.product_type = 'simple'
