@@ -120,16 +120,6 @@ models:
             type: date
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']         
 
-  - name: orders_incremental
-    description: "To replace Orders"
-    columns:
-      - name: increment_id
-
-  - name: order_lines_incremental 
-    description: "To replace OrderLines"
-    columns:
-      - name: increment_id  
-
   - name: hourly_sales_today
     description: "A view to query realtime orders by hour today, and compare to the same hour last week"
     columns:

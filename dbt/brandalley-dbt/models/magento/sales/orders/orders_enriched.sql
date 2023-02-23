@@ -42,7 +42,7 @@ select
   ora.count_item_refunds,
   ora.total_refund_amount,
   ola.count_order_lines
-from {{ ref('orders_incremental') }} o
+from {{ ref('Orders') }} o
 left join order_line_agg ola 
   on o.magentoID = ola.order_id
 left join order_refunds_agg ora
