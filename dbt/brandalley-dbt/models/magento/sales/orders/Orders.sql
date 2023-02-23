@@ -1,101 +1,126 @@
-with cte as (
+{{ config(
+	materialized='incremental',
+	unique_key='increment_id',
+	cluster_by=['customer_id'],
+	partition_by = {
+      "field": "created_at",
+      "data_type": "timestamp",
+      "granularity": "day"
+    }
+) }}
 
-SELECT
-       sfo.increment_id,
-       sfo.entity_id AS magentoID, 
-       sfo.store_id,
-       sfo.billing_address_id,
-       sfo.shipping_address_id,
-       sfo.subtotal_incl_tax,
-       sfo.subtotal AS subtotal_excl_tax,
-       sfo.discount_amount total_discount_amount,
-       sfo.base_free_shipping_amount AS shipping_discount_amount,
-       sfo.tax_amount AS total_tax,
-       sfo.shipping_amount AS shipping_excl_tax,
-       sfo.base_shipping_incl_tax AS shipping_incl_tax,
-       sfo.grand_total,
-       IF (
-              sfo.total_paid IS NULL,
-              0,
-              sfo.total_paid
-       ) AS total_paid,
-       COALESCE(
-              sfo.total_refunded,
-              0
-       ) total_refunded,
-       sfo.total_due,
-       sfo.base_total_invoiced_cost AS total_invoiced_cost,
-       sfo.base_grand_total,
-       sfo.status,
-       sfo.coupon_rule_name,
-       sfo.coupon_code,
-       IF (
-              sfop.method = 'braintreevzero',
-              sfop.cc_type,
-              sfop.method
-       ) AS method,
-       sfo.shipping_method,
-       sfo.shipping_description,
-       sfo.customer_id,
-       '' AS customer_name,
-       '' AS customer_phone,
-       '' AS delivery_address,
-       sfoa.postcode AS delivery_postcode,
-       '' AS customer_age,
-       sfo.expected_delivery_date,
-       sfo.expected_delivery_days,
-       cast(sfo.created_at as timestamp) AS created_at,
-       sfo.updated_at,
-       CASE WHEN sfo.status <> 'canceled' THEN row_number() OVER(  PARTITION BY sfo.customer_id, sfo.status <> 'canceled' ORDER BY sfo.increment_id) ELSE NULL END AS orderno,
-       sfo.total_qty_ordered,
-       ce.email,
-       sfo.customer_firstname,
-       sfo.customer_lastname,
-       cc_trans_id, 
-       additional_information,
-       cast(TIMESTAMP_DIFF(cast(sfo.created_at as timestamp), lag(cast(sfo.created_at as timestamp)) over (partition by sfo.customer_id order by cast(sfo.created_at as timestamp)), day) as INTEGER) as interval_between_orders
-FROM
-       {{ ref(
-              'stg__sales_flat_order'
-       ) }}
-       sfo
-       LEFT JOIN {{ ref(
-              'stg__sales_flat_order_address'
-       ) }}
-       sfoa
-       ON sfoa.entity_id = sfo.shipping_address_id
-       LEFT JOIN {{ ref(
-              'stg__sales_flat_order_address'
-       ) }}
-       sfoa_b
-       ON sfoa_b.entity_id = sfo.billing_address_id
-       LEFT JOIN {{ ref(
-              'stg__sales_flat_order_payment'
-       ) }}
-       sfop
-       ON sfo.entity_id = sfop.parent_id
-       LEFT JOIN {{ ref(
-              'stg__customer_entity_datetime'
-       ) }}
-       ced
-       ON ced.entity_id = sfo.customer_id
-       AND ced.attribute_id = 11 -- AND STR_TO_DATE (ced.value,'%Y-%m-%d') IS NOT NULL
-       AND ced.value IS NOT NULL
-       LEFT JOIN {{ ref(
-              'stg__customer_entity'
-       ) }}
-       ce
-       ON ce.entity_id = sfo.customer_id
+with order_updates as (
+	select 
+		* 
+	from {{ ref('stg__sales_flat_order') }}
+	where 1=1
+		and increment_id not like '%-%'
+		and (sales_product_type != 12 or sales_product_type is null)
+	{% if is_incremental() %}
+		and bq_last_processed_at >= (select max(bq_last_processed_at) from {{this}})
+	{% endif %}
+),
 
-WHERE
-       sfo.increment_id NOT LIKE '%-%'
-       AND (
-              sfo.sales_product_type != 12
-              OR sfo.sales_product_type IS NULL
-       )
+order_sequencing as (
+	-- determine sequencing using all orders the customer has ever had
+	select
+		increment_id,
+		case 
+			when status <> 'canceled' then row_number() over (partition by customer_id, status <> 'canceled' order by increment_id) 
+			else null 
+		end as orderno,
+		case 
+			when coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed')
+			then row_number() over (partition by customer_id, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed') order by increment_id) 
+			else null 
+		end as order_number_excl_full_refunds,
+		row_number() over (partition by customer_id order by increment_id) as order_number_incl_cancellations,
+		case 
+			when status not in ('canceled')
+			then timestamp_diff(
+				timestamp(created_at), 
+				lag(timestamp(created_at)) over (partition by customer_id, status not in ('canceled') order by timestamp(created_at))
+				, day)
+			else null 
+		end as interval_between_orders,
+		timestamp_diff(
+			timestamp(created_at), 
+			first_value(timestamp(created_at)) over (partition by customer_id order by timestamp(created_at))
+		, day) as days_since_first_purchase
+	from {{ ref('stg__sales_flat_order') }}
+	where 1=1
+	{% if is_incremental() %}
+		and customer_id in (select distinct customer_id from order_updates)
+	{% endif %}
+),
 
+order_info as (
+	select
+		sfo.increment_id,
+		sfo.entity_id 														as magentoID,
+		sfo.store_id,
+		sfo.billing_address_id,
+		sfo.shipping_address_id,
+		sfo.subtotal_incl_tax,
+		sfo.subtotal													    as subtotal_excl_tax,
+		sfo.discount_amount total_discount_amount,
+		sfo.base_free_shipping_amount 										as shipping_discount_amount,
+		sfo.tax_amount 														as total_tax,
+		sfo.shipping_amount 												as shipping_excl_tax,
+		sfo.base_shipping_incl_tax 											as shipping_incl_tax,
+		sfo.grand_total,
+		sfo.bq_last_processed_at,
+		if(sfo.total_paid is null, 0, sfo.total_paid) 						as total_paid,
+		coalesce(sfo.total_refunded, 0) 									as total_refunded,
+		if(sfo.shipping_refunded is null, 0, sfo.shipping_refunded) 		as shipping_refunded,
+		sfo.total_due,
+		sfo.base_total_invoiced_cost 										as total_invoiced_cost,
+		sfo.base_grand_total,
+		sfo.status,
+		sfo.coupon_rule_name,
+		sfo.coupon_code,
+		if(sfop.method = 'braintreevzero', sfop.cc_type, sfop.method) 		as method,
+		sfo.shipping_method,
+		sfo.shipping_description,
+		sfo.customer_id,
+		'' 																	as customer_name,
+		'' 																	as customer_phone,
+		'' 																	as delivery_address,
+		sfoa.postcode 														as delivery_postcode,
+		sfoa_b.postcode														as billing_postcode,
+		sfoa_b.address_type													as billing_address_type,
+		'' 																	as customer_age,
+		sfo.expected_delivery_date,
+		sfo.expected_delivery_days,
+		cast(sfo.created_at as timestamp) 									as created_at,
+		sfo.updated_at,
+		sfo.total_qty_ordered,
+		ce.email,
+		sfo.customer_firstname,
+		sfo.customer_lastname,
+		cc_trans_id, 
+		additional_information,
+		timestamp_diff(safe_cast(sfo.created_at as timestamp), safe_cast(ce.created_at as timestamp), day ) as days_since_signup
+	from order_updates sfo
+	left join {{ ref('stg__sales_flat_order_address') }} sfoa
+		on sfoa.entity_id = sfo.shipping_address_id
+	left join {{ ref('stg__sales_flat_order_address') }} sfoa_b
+		on sfoa_b.entity_id = sfo.billing_address_id
+	left join {{ ref('stg__sales_flat_order_payment') }} sfop
+		on sfo.entity_id = sfop.parent_id
+	left join {{ ref('customers') }} ce
+			on ce.cst_id = sfo.customer_id
 )
 
-SELECT *
-, sum(interval_between_orders) over (partition by customer_id order by created_at) as total_interval_between_orders_for_each_customer
-FROM cte 
+select 
+	oi.*,
+	-- check this below, whats it for?
+	sum(os.interval_between_orders) over (partition by oi.customer_id order by oi.created_at) as total_interval_between_orders_for_each_customer,
+	os.orderno,
+	os.order_number_excl_full_refunds,
+	os.order_number_incl_cancellations,
+	os.interval_between_orders,
+	os.days_since_first_purchase
+from order_info oi
+left join order_sequencing os
+	on oi.increment_id = os.increment_id
