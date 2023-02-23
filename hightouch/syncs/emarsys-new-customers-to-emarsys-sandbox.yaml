@@ -53,12 +53,6 @@ config:
     - to: '1858'
       from: updatedDate
       type: standard
-    - to: '1859'
-      from: achicaDataSource
-      type: standard
-    - to: '1860'
-      from: recordSource
-      type: standard
     - to: '1'
       from: firstName
       type: standard
@@ -95,10 +89,19 @@ config:
     - to: '14562'
       from: ipAddress
       type: standard
+    - to: '1845'
+      from: customerId
+      type: standard
+    - to: '14568'
+      from: achicaDataSource
+      type: standard
+    - to: '14569'
+      from: recordSource
+      type: standard
   configVersion: 0
   externalIdMapping:
-    to: '1845'
-    from: customerId
+    to: '14487'
+    from: hightouch_customerId
 schedule:
   type: manual
 schedulePaused: false
