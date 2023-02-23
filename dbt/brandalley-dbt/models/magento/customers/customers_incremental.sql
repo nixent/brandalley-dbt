@@ -6,59 +6,58 @@
 {% if is_incremental() %}
 with customers_updated as (
 	select 
-		entity_id as customer_id
+		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
-		entity_id as customer_id
+		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity_int') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
-		entity_id as customer_id
+		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity_datetime') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
-		entity_id as customer_id
+		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity_varchar') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
-		entity_id as customer_id
+		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity_text') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
-		entity_id as customer_id
+		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_address_entity_text') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
-		entity_id as customer_id
+		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_address_entity_varchar') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
-		customer_id
+		customer_id, bq_last_processed_at
 	from {{ ref('stg__newsletter_subscriber') }} 
 	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
-
 )
 {% endif %}
 
@@ -164,6 +163,9 @@ left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_32
 left join (
 	select customer_id, subscriber_status 
 	from {{ ref('stg__newsletter_subscriber') }}
+	{% if is_incremental() %}
+	where customer_id in (select customer_id from customers_updated)
+	{% endif %}
 	qualify row_number() over (partition by customer_id order by subscriber_id desc) = 1
 ) ns
 	on ce.entity_id = ns.customer_id
@@ -179,5 +181,6 @@ left join {{ ref('stg__customer_entity_datetime') }} cei_367
 		and cei_367.attribute_id = 367
 where 1=1
 {% if is_incremental() %}
-	and ce.entity_id in (select distinct customer_id from customers_updated)
+	and ce.entity_id in (select customer_id from customers_updated)
+	and ce.bq_last_processed_at >= (select min(bq_last_processed_at) from customers_updated)
 {% endif %}
