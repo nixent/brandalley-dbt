@@ -19,14 +19,20 @@
     select 
         t.table_schema,
         t.table_name,
+        case 
+            when t.table_type in ('BASE TABLE', 'CLONE') then 'table'
+            else t.table_type
+        end as table_type,
         t.creation_time,
         lq.start_time,
         date_diff(current_date, date(coalesce(lq.start_time, t.creation_time)), day) as days_since_last_interaction
     from region-europe-west2.INFORMATION_SCHEMA.TABLES t
     left join last_queries lq 
         on t.table_schema = lq.dataset_id and t.table_name = lq.table_id
-    where t.table_schema not in ('streamkap', 'streamkap_current')
+    where (t.table_schema not in ('streamkap', 'streamkap_current', 'prod')
         and date_diff(current_date, date(coalesce(lq.start_time, t.creation_time)), day) >= 30
+        and table_type in ('BASE TABLE', 'VIEW', 'CLONE'))
+        or (t.table_schema like '%dbt_cloud_pr%' and date_diff(current_date, date(coalesce(lq.start_time, t.creation_time)), day) >= 3)
 {% endset %}
 
 {% set schemas_sql %}
@@ -45,22 +51,29 @@
     from region-europe-west2.INFORMATION_SCHEMA.SCHEMATA s
     left join table_counts tc
         on tc.table_schema = s.schema_name
-    where date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 7
-        and tc.tables_in_schema is null
+    where (date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 7
+        and tc.tables_in_schema is null)
+        or (s.schema_name like '%dbt_cloud_pr%' and date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 3)
 {% endset %}
 
 {% set table_results = run_query(tables_sql) %}
 
+{% if table_results %}
 {% for row in table_results %}
-    {% set drop_table_sql = 'drop table if exists ' ~ row[0] ~ '.' ~ row[1] ~ ';' %}
+    {% set drop_table_sql = 'drop ' ~ row[2] ~ ' if exists ' ~ row[0] ~ '.' ~ row[1] ~ ';' %}
     {{ log(drop_table_sql, True) }}
+    {% do run_query(drop_table_sql) %}
 {% endfor %}
+{% endif %}
 
 {% set schema_results = run_query(schemas_sql) %}
 
+{% if schema_results %}
 {% for row in schema_results %}
     {% set drop_schema_sql = 'drop schema if exists ' ~ row[0] ~ ';' %}
     {{ log(drop_schema_sql, True) }}
+    {% do run_query(drop_schema_sql) %}
 {% endfor %}
+{% endif %}
 
 {% endmacro %}
