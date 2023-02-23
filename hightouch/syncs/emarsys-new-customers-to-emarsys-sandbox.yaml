@@ -50,9 +50,6 @@ config:
     - to: '14532'
       from: subscriberSource
       type: standard
-    - to: '1857'
-      from: ipAddress
-      type: standard
     - to: '1858'
       from: updatedDate
       type: standard
@@ -94,6 +91,9 @@ config:
       type: standard
     - to: '10'
       from: street
+      type: standard
+    - to: '14562'
+      from: ipAddress
       type: standard
   configVersion: 0
   externalIdMapping:
