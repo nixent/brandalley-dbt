@@ -8,56 +8,42 @@ with customers_updated as (
 	select 
 		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(customer_bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
 		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity_int') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(customer_bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
 		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity_datetime') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
-
-	union all
-
-	select 
-		entity_id as customer_id, bq_last_processed_at
-	from {{ ref('stg__customer_entity_varchar') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(customer_bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
 		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_entity_text') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
-
-	union all
-
-	select 
-		entity_id as customer_id, bq_last_processed_at
-	from {{ ref('stg__customer_address_entity_text') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(customer_bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
 		entity_id as customer_id, bq_last_processed_at
 	from {{ ref('stg__customer_address_entity_varchar') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(address_bq_last_processed_at) from {{this}} )
 
 	union all
 
 	select 
 		customer_id, bq_last_processed_at
 	from {{ ref('stg__newsletter_subscriber') }} 
-	where bq_last_processed_at > ( select max(bq_last_processed_at) from {{this}} )
+	where bq_last_processed_at > ( select max(subscriber_bq_last_processed_at) from {{this}} )
 )
 {% endif %}
 
@@ -83,32 +69,48 @@ select
 	ce.updated_at,
 	cei_363.value 													   as achica_user,
 	if(cei_367.value is null, timestamp(ce.created_at), cei_367.value) as achica_migration_date,
-	ce.bq_last_processed_at
+	greatest(
+		ce.bq_last_processed_at, 
+		cei.bq_last_processed_at, 
+		cet_old_acount.bq_last_processed_at,
+		cei_s.bq_last_processed_at
+	) as customer_bq_last_processed_at,
+	greatest(
+		ca_b_26.bq_last_processed_at, 
+		ca_b_27.bq_last_processed_at, 
+		ca_b_28.bq_last_processed_at, 
+		ca_b_30.bq_last_processed_at, 
+		ca_s_26.bq_last_processed_at, 
+		ca_s_27.bq_last_processed_at, 
+		ca_s_28.bq_last_processed_at, 
+		ca_s_30.bq_last_processed_at
+	) as address_bq_last_processed_at,
+	ns.bq_last_processed_at as subscriber_bq_last_processed_at
 from {{ ref('stg__customer_entity') }} ce
 left join {{ ref('stg__customer_entity_int') }} cei
 	on ce.entity_id = cei.entity_id
 		and cei.attribute_id = 13
-left join {{ ref('stg__customer_entity_varchar') }} cev_5
-	on ce.entity_id = cev_5.entity_id
-		and cev_5.attribute_id = 5
-left join {{ ref('stg__customer_entity_varchar') }} cev_7
-	on ce.entity_id = cev_7.entity_id
-       	and cev_7.attribute_id = 7
+-- left join {{ ref('stg__customer_entity_varchar') }} cev_5
+-- 	on ce.entity_id = cev_5.entity_id
+-- 		and cev_5.attribute_id = 5
+-- left join {{ ref('stg__customer_entity_varchar') }} cev_7
+-- 	on ce.entity_id = cev_7.entity_id
+--        	and cev_7.attribute_id = 7
 left join {{ ref('stg__customer_entity_text') }} cet_old_acount
 	on ce.entity_id = cet_old_acount.entity_id
        	and cet_old_acount.attribute_id = 217
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_20
-	on cei.value = ca_b_20.entity_id
-       	and ca_b_20.attribute_id = 20
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_22
-	on cei.value = ca_b_22.entity_id
-       	and ca_b_22.attribute_id = 22
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_24
-	on cei.value = ca_b_24.entity_id
-		and ca_b_24.attribute_id = 24
-left join {{ ref('stg__customer_address_entity_text') }} ca_b_25
-	on cei.value = ca_b_25.entity_id
-       	and ca_b_25.attribute_id = 25
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_20
+-- 	on cei.value = ca_b_20.entity_id
+--        	and ca_b_20.attribute_id = 20
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_22
+-- 	on cei.value = ca_b_22.entity_id
+--        	and ca_b_22.attribute_id = 22
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_24
+-- 	on cei.value = ca_b_24.entity_id
+-- 		and ca_b_24.attribute_id = 24
+-- left join {{ ref('stg__customer_address_entity_text') }} ca_b_25
+-- 	on cei.value = ca_b_25.entity_id
+--        	and ca_b_25.attribute_id = 25
 left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_26
 	on cei.value = ca_b_26.entity_id
 		and ca_b_26.attribute_id = 26
@@ -121,27 +123,27 @@ left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_28
 left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_30
 	on cei.value = ca_b_30.entity_id
        	and ca_b_30.attribute_id = 30
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_31
-	on cei.value = ca_b_31.entity_id
-       	and ca_b_31.attribute_id = 31
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_32
-	on cei.value = ca_b_32.entity_id
-       	and ca_b_32.attribute_id = 32
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_31
+-- 	on cei.value = ca_b_31.entity_id
+--        	and ca_b_31.attribute_id = 31
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_32
+-- 	on cei.value = ca_b_32.entity_id
+--        	and ca_b_32.attribute_id = 32
 left join {{ ref('stg__customer_entity_int') }} cei_s
 	on ce.entity_id = cei_s.entity_id
        	and cei_s.attribute_id = 14
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_20
-	on cei_s.value = ca_s_20.entity_id
-       	and ca_s_20.attribute_id = 20
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_22
-	on cei_s.value = ca_s_22.entity_id
-       	and ca_s_22.attribute_id = 22
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_24
-	on cei_s.value = ca_s_24.entity_id
-       	and ca_s_24.attribute_id = 24
-left join {{ ref('stg__customer_address_entity_text') }} ca_s_25
-	on cei_s.value = ca_s_25.entity_id
-       	and ca_s_25.attribute_id = 25
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_20
+-- 	on cei_s.value = ca_s_20.entity_id
+--        	and ca_s_20.attribute_id = 20
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_22
+-- 	on cei_s.value = ca_s_22.entity_id
+--        	and ca_s_22.attribute_id = 22
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_24
+-- 	on cei_s.value = ca_s_24.entity_id
+--        	and ca_s_24.attribute_id = 24
+-- left join {{ ref('stg__customer_address_entity_text') }} ca_s_25
+-- 	on cei_s.value = ca_s_25.entity_id
+--        	and ca_s_25.attribute_id = 25
 left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_26
 	on cei_s.value = ca_s_26.entity_id
        	and ca_s_26.attribute_id = 26
@@ -154,14 +156,14 @@ left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_28
 left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_30
 	on cei_s.value = ca_s_30.entity_id
        	and ca_s_30.attribute_id = 30
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_31
-	on cei_s.value = ca_s_31.entity_id
-       	and ca_s_31.attribute_id = 31
-left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_32
-	on cei_s.value = ca_s_32.entity_id
-       	and ca_s_32.attribute_id = 32
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_31
+-- 	on cei_s.value = ca_s_31.entity_id
+--        	and ca_s_31.attribute_id = 31
+-- left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_32
+-- 	on cei_s.value = ca_s_32.entity_id
+--        	and ca_s_32.attribute_id = 32
 left join (
-	select customer_id, subscriber_status 
+	select customer_id, subscriber_status, bq_last_processed_at 
 	from {{ ref('stg__newsletter_subscriber') }}
 	{% if is_incremental() %}
 	where customer_id in (select customer_id from customers_updated)

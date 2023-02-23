@@ -112,7 +112,14 @@ left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_31
 left join {{ ref('stg__customer_address_entity_varchar') }} ca_s_32
 	on cei_s.value = ca_s_32.entity_id
        	and ca_s_32.attribute_id = 32
-left join (select distinct customer_id, subscriber_status from {{ ref('stg__newsletter_subscriber') }}) ns
+left join (
+	select customer_id, subscriber_status 
+	from {{ ref('stg__newsletter_subscriber') }}
+	{% if is_incremental() %}
+	where customer_id in (select customer_id from customers_updated)
+	{% endif %}
+	qualify row_number() over (partition by customer_id order by subscriber_id desc) = 1
+) ns
 	on ce.entity_id = ns.customer_id
 left join {{ ref('stg__customer_entity_int') }}	cei_222
 	on ce.entity_id = cei_222.entity_id
