@@ -7,7 +7,7 @@
 
 with streamkap_source as (
 {{ streamkap_incremental_on_source_to_current(
-    source_name = 'stg__catalog_product_reservation_upload',
+    source_name = 'catalog_product_reservation_upload',
     id_field = config.get('unique_key')
 ) }}
 )
