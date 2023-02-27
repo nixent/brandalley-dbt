@@ -25,8 +25,8 @@ order_refunds_agg as (
 )
 
 select
-  o.customer_id,
   o.magentoID   as order_id,
+  o.customer_id,
   o.created_at  as order_at,
   o.status      as order_status,
   o.orderno     as order_sequence,

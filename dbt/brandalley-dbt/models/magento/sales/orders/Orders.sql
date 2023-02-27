@@ -26,15 +26,15 @@ order_sequencing as (
 	select
 		increment_id,
 		case 
-			when status <> 'canceled' then row_number() over (partition by customer_id, status <> 'canceled' order by increment_id) 
+			when status <> 'canceled' then row_number() over (partition by customer_id, status <> 'canceled' order by timestamp(created_at)) 
 			else null 
 		end as orderno,
 		case 
 			when coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed')
-			then row_number() over (partition by customer_id, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed') order by increment_id) 
+			then row_number() over (partition by customer_id, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed') order by timestamp(created_at)) 
 			else null 
 		end as order_number_excl_full_refunds,
-		row_number() over (partition by customer_id order by increment_id) as order_number_incl_cancellations,
+		row_number() over (partition by customer_id order by timestamp(created_at)) as order_number_incl_cancellations,
 		case 
 			when status not in ('canceled')
 			then timestamp_diff(
@@ -63,7 +63,8 @@ order_info as (
 		sfo.shipping_address_id,
 		sfo.subtotal_incl_tax,
 		sfo.subtotal													    as subtotal_excl_tax,
-		sfo.discount_amount total_discount_amount,
+		sfo.discount_amount 												as total_discount_amount,
+		sfo.base_discount_amount 											as base_discount_amount,
 		sfo.base_free_shipping_amount 										as shipping_discount_amount,
 		sfo.tax_amount 														as total_tax,
 		sfo.shipping_amount 												as shipping_excl_tax,

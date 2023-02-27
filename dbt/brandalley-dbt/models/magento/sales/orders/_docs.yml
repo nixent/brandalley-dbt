@@ -183,10 +183,8 @@ models:
       - name: unique_id
         description: ""
         tests:
-          - not_null:
-              config:
-                severity: warn
-                warn_if: "> 100"
+          - unique
+          - not_null
         meta:
           dimension:
             hidden: true
@@ -1110,11 +1108,14 @@ models:
      
   - name: orders_enriched
     columns:
-      - name: customers_id
+      - name: order_id
+        tests:
+          - unique
+          - not_null
         meta:
           dimension:
             format: id
-      - name: order_id
+      - name: customers_id
         meta:
           dimension:
             format: id
@@ -1259,10 +1260,8 @@ models:
       - name: increment_id
         description: "Increment id, nullable"
         tests:
-          - not_null:
-              config:
-                severity: warn
-                warn_if: ">100"
+          - not_null
+          - unique
         meta:
           metrics:
             total_order_count:
