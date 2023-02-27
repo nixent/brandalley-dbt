@@ -4,6 +4,7 @@ with customers as (
     min(created_at)   as first_purchase_at, 
     count(magentoID)  as count_customer_orders
   from {{ ref('Orders') }}
+  where customer_id is not null
   group by 1 
 ),
 
