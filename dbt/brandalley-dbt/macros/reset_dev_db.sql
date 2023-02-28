@@ -16,8 +16,9 @@ Run using
 {% set results = run_query(tables_in_prod) %}
 
 {% for row in results %}
-    {% set clone_table_sql = 'CREATE OR REPLACE TABLE datawarehouse-dev-371019.' ~ row[0] ~ '.' ~ row[1] ~ ' CLONE datawarehouse-358408.' ~ row[0] ~ '.' ~ row[1] ~ ';' %}
+    {% set clone_table_sql = 'CREATE OR REPLACE TABLE datawarehouse-dev-371019.' ~ row[1] ~ ' CLONE datawarehouse-358408.' ~ row[1] ~ ';' %}
     {{ log(clone_table_sql, True) }}
+    {% do run_query(clone_table_sql) %}
   {% endfor %}
 
 {% endmacro %}
