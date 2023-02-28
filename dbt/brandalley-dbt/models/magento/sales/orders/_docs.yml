@@ -625,7 +625,7 @@ models:
         meta:
           metrics:
             total_revenue:
-              label: 'Total revenue GBP inc VAT (after vouchers)'
+              label: 'GMV - total revenue GBP inc VAT (after vouchers)'
               type: sum
               description: "Total revenue inc VAT in GBP after taking vouchers into account"
               hidden: false
@@ -645,14 +645,14 @@ models:
         meta:
           metrics:
             total_revenue_exc_tax:
-              label: 'Total revenue GBP exc VAT (after vouchers)'
+              label: 'Sales Amount - total revenue GBP exc VAT (after vouchers)'
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
               hidden: false
               round: 2
               format: 'gbp'   
             average_order_value:
-              label: ' average order value (excluding VAT after discount) '
+              label: 'AOV Sales - average order value (excluding VAT after discount) '
               type: number 
               description: 'average order value (excluding VAT after discount)'
               sql: " ${total_revenue_exc_tax}/${total_orders_count}"
