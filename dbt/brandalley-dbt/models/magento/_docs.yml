@@ -26,6 +26,9 @@ models:
     description: "A view of all KPIs, based off of order creation week"
     columns:
       - name: order_created_at_week
+        tests:
+          - unique
+          - not_null
         meta:
           dimension:
             type: date
