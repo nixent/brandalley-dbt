@@ -173,8 +173,6 @@ models:
           sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
-        - join: orderlineswithsequence
-          sql_on: ${OrderLines.order_id}  = ${orderlineswithsequence.order_id}
         - join: customers_enriched 
           sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id}
         - join: orders_enriched
@@ -1086,25 +1084,6 @@ models:
               description: "Total value of the order after vouchers"
               hidden: false
               round: 2   
-
-  - name: orderlineswithsequence
-    description: " a model designed for retention value for 1>2nd order, 2>3rd order up till the 10th order"       
-    columns:
-      - name: customer_id
-        meta:
-          dimension:
-            format: id
-      - name: order_id
-        meta:
-          dimension:
-            format: id
-      - name: no_of_orders_since_customer_started_ordering
-        meta:
-          dimension: 
-            label: 'number of orders customer made from first ever order'
-            type: number
-            description: 
-            hidden: false
      
   - name: orders_enriched
     columns:

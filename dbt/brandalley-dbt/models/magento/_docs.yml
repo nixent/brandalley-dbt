@@ -26,10 +26,13 @@ models:
     description: "A view of all KPIs, based off of order creation week"
     columns:
       - name: order_created_at_week
+        tests:
+          - unique
+          - not_null
         meta:
           dimension:
             type: date
-            time_intervals: ['WEEK']
+            time_intervals: ['RAW']
       - name: total_order_count
       - name: total_new_order_count
       - name: total_refund_count
@@ -37,19 +40,23 @@ models:
       - name: total_refund_amount
         meta:
           dimension:
-            label: 'Total Refunds (£)'
+            label: 'Total Refund Amount (£)'
       - name: avg_time_to_ship_days
       - name: total_product_costs_inc_vat
       - name: qty_ordered
+        description: "Number of items ordered across all orders"
       - name: gmv
+        description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
             label: 'GMV (£)'
       - name: sales_amount
+        description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
             label: 'Sales Amount (£)'
       - name: shipped_sales_amount
+        description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
             label: 'Shipped Sales Amount (£)'
@@ -59,18 +66,20 @@ models:
           dimension:
             label: 'Margin (£)'
       - name: aov_gmv
+        description: "GMV divided by total number of orders"
         meta:
           dimension:
-            label: 'AOV GMV (£)'
+            label: 'GMV AOV (£)'
       - name: aov_sales
+        description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
-            label: 'AOV Sales (£)'
+            label: 'Sales Amount AOV (£)'
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
           dimension:
-            label: 'Sales amount refunded (%)'
+            label: 'Sales Amount Refunded (%)'
 
 
   
