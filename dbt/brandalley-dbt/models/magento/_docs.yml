@@ -32,7 +32,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['WEEK']
+            time_intervals: ['RAW']
       - name: total_order_count
       - name: total_new_order_count
       - name: total_refund_count
