@@ -768,7 +768,7 @@ models:
               type: sum
               description: "New orders"
               hidden: false
-              round: 2   
+              round: 0   
 
       - name: repeat_orders
         description: "Repeat orders"
@@ -779,7 +779,7 @@ models:
               type: sum
               description: "Repeat orders"
               hidden: false
-              round: 2
+              round: 0
 
       - name: new_members
         description: "New members"
@@ -790,7 +790,7 @@ models:
               type: sum
               description: "New members"
               hidden: false
-              round: 2
+              round: 0
 
       - name: count_customers_orders
         description: "Count of customers from the orders table"
@@ -801,7 +801,7 @@ models:
               type: sum
               description: "Count of customers from the orders table"
               hidden: false
-              round: 2
+              round: 0
 
       - name: new_orders_total_paid
         description: "New orders total paid"

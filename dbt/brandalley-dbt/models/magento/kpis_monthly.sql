@@ -13,15 +13,13 @@ with order_stats as (
 
 refund_stats as (
     select
-        date_trunc(o.created_at, month)         as order_created_at_month,
+        date_trunc(timestamp(sfc.created_at), month)       as order_created_at_month,
         count(sfc.entity_id)                    as total_refund_count,
         count(sfci.entity_id)                   as total_item_refund_count,
         round(sum(sfci.base_row_total),2)       as total_refund_amount
     from {{ ref('sales_flat_creditmemo') }} sfc
     left join {{ ref('sales_flat_creditmemo_item') }} sfci
         on sfci.parent_id = sfc.entity_id
-    left join {{ ref('Orders') }} o
-        on o.magentoID = sfc.order_id
     group by 1
 ),
 
