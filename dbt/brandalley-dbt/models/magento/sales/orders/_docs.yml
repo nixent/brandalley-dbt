@@ -627,7 +627,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in GBP after taking vouchers into account"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'      
       - name: TOTAL_GBP_before_vouchers
         meta:
@@ -637,7 +637,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in GBP before taking vouchers into account"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: TOTAL_GBP_ex_tax_after_vouchers
         meta:
@@ -647,14 +647,14 @@ models:
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
             average_order_value:
               label: 'AOV Sales - average order value (excluding VAT after discount) '
               type: number 
               description: 'average order value (excluding VAT after discount)'
               sql: " ${total_revenue_exc_tax}/${total_orders_count}"
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: TOTAL_GBP_ex_tax_before_vouchers
         meta:
@@ -664,7 +664,7 @@ models:
               type: sum
               description: "Total revenue ex VAT in GBP before taking vouchers into account"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: selffulfill_totalGBP_inc_tax
         meta:
@@ -674,7 +674,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in GBP before taking vouchers into account for SF orders"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: selffulfill_totalGBP_ex_tax
         meta:
@@ -684,7 +684,7 @@ models:
               type: sum
               description: "Total revenue ex VAT in GBP before taking vouchers into account for SF order"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: consignment_totalGBP_inc_tax
         meta:
@@ -694,7 +694,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in GBP before taking vouchers into account for consignment orders"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: consignment_totalGBP_ex_tax
         meta:
@@ -704,7 +704,7 @@ models:
               type: sum
               description: "Total revenue ex VAT in GBP before taking vouchers into account for consignment order"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: warehouse_totalGBP_inc_tax
         meta:
@@ -714,7 +714,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in GBP before taking vouchers into account for warehouse orders"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'   
       - name: warehouse_totalGBP_ex_tax
         meta:
@@ -724,7 +724,7 @@ models:
               type: sum
               description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'  
 
   - name: OrderLinesNullParent
