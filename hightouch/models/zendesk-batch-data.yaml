@@ -10,7 +10,7 @@ rawSql: |-
       WHEN country_id = 'GB'
       AND SUBSTRING(sfoa.telephone, 1, 1) = '0' THEN CONCAT('+44', SUBSTRING(sfoa.telephone, 2))
       WHEN country_id = 'GB'
-      AND SUBSTRING(sfoa.telephone, 1, 1) = '4' THEN CONCAT('+44', SUBSTRING(sfoa.telephone, 2))
+      AND SUBSTRING(sfoa.telephone, 1, 1) = '4' THEN CONCAT('+4', SUBSTRING(sfoa.telephone, 2))
       WHEN country_id = 'IE'
       AND SUBSTRING(sfoa.telephone, 1, 1) = '0' THEN CONCAT('+353', SUBSTRING(sfoa.telephone, 2))
       WHEN country_id = 'IE'
@@ -18,11 +18,11 @@ rawSql: |-
       WHEN country_id = 'GG'
       AND SUBSTRING(sfoa.telephone, 1, 1) = '0' THEN CONCAT('+44', SUBSTRING(sfoa.telephone, 2))
       WHEN country_id = 'GG'
-      AND SUBSTRING(sfoa.telephone, 1, 1) = '4' THEN CONCAT('+44', SUBSTRING(sfoa.telephone, 2))
+      AND SUBSTRING(sfoa.telephone, 1, 1) = '4' THEN CONCAT('+4', SUBSTRING(sfoa.telephone, 2))
       WHEN country_id = 'JE'
       AND SUBSTRING(sfoa.telephone, 1, 1) = '0' THEN CONCAT('+44', SUBSTRING(sfoa.telephone, 2))
       WHEN country_id = 'JE'
-      AND SUBSTRING(sfoa.telephone, 1, 1) = '4' THEN CONCAT('+44', SUBSTRING(sfoa.telephone, 2))
+      AND SUBSTRING(sfoa.telephone, 1, 1) = '4' THEN CONCAT('+4', SUBSTRING(sfoa.telephone, 2))
       ELSE sfoa.telephone
     END AS phonenew,
     sfoa.telephone,
@@ -31,7 +31,13 @@ rawSql: |-
     brandalley_live.sales_flat_order sfo
     INNER JOIN brandalley_live.sales_flat_order_address sfoa ON sfo.shipping_address_id = sfoa.entity_id -- where sfo.created_at between '2022-01-01 00:00:00' and '2022-12-01 23:59:59'
   WHERE
-    1 = 1
-    AND sfo.entity_id = 671881
+    sfo.entity_id IN (
+      SELECT
+        MAX(sfo2.entity_id)
+      FROM
+        brandalley_live.sales_flat_order sfo2
+      GROUP BY
+        sfo2.customer_id
+    );
 isSchema: false
 primaryKey: customer_id
