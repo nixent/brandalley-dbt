@@ -35,6 +35,11 @@ models:
             time_intervals: ['RAW']
       - name: total_order_count
       - name: total_new_order_count
+      - name: shipping_amount
+        description: "Shipping amount incl. tax"
+        meta:
+          dimension:
+            label: 'Shipping Amount (£)'
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
@@ -94,6 +99,11 @@ models:
             time_intervals: ['RAW']
       - name: total_order_count
       - name: total_new_order_count
+      - name: shipping_amount
+        description: "Shipping amount incl. tax"
+        meta:
+          dimension:
+            label: 'Shipping Amount (£)'
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount

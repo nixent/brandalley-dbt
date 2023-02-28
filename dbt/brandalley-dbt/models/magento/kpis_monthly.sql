@@ -6,7 +6,8 @@ with order_stats as (
     select
         date_trunc(created_at, month)                         as order_created_at_month,
         count(distinct increment_id)                          as total_order_count,
-        count(distinct if(orderno=1, increment_id, null))     as total_new_order_count
+        count(distinct if(orderno=1, increment_id, null))     as total_new_order_count,
+        sum(shipping_incl_tax)                                as shipping_amount
     from {{ ref('Orders')}}
     group by 1
 ),
@@ -68,6 +69,7 @@ select
     os.order_created_at_month,
     os.total_order_count,
     os.total_new_order_count,
+    os.shipping_amount,
     rs.total_refund_count,
     rs.total_item_refund_count,
     rs.total_refund_amount,
