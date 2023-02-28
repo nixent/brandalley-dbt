@@ -1,5 +1,5 @@
-    SELECT 
-    STRING_AGG(CAST(category_id AS STRING)) AS parent_child_category_ids,
+with stock_file_raw as (SELECT 
+    STRING_AGG(distinct CAST(category_id AS STRING)) AS parent_child_category_ids,
     e.entity_id AS child_entity_id,
     e.sku AS child_sku,
     stock.min_qty,
@@ -24,7 +24,6 @@
     cpedsprice.value AS special_price,
     cpedoprice.value AS outlet_price,
     cpev_outlet_category.value AS outlet_category,
-    parent_relation_child.product_id AS child_id,
     IF(SUM(stock_child.min_qty) < 0,
         'No',
         'Yes') AS canUseForWHSale,
@@ -35,8 +34,8 @@
     SPLIT(cpev_outlet_category.value, '>')[offset(0)] level_1, 
     IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>0, SPLIT(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
     IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
-    if(cpei_menu_type.value=3, category_details.name, null) as parent_category,
-    if(cpei_menu_type.value=1, category_details.name, null) as flashsale_category,
+    if(cpei_menu_type_3.value=3, replace(STRING_AGG(distinct category_details.path_name ORDER BY path_name), ',', '\n'), null) as parent_category,
+    if(cpei_menu_type_1.value=1, replace(STRING_AGG(distinct category_details.path_name ORDER BY path_name), ',', '\n'), null) as flashsale_category,
 FROM
 		{{ ref(
 				'stg__catalog_product_entity'
@@ -236,11 +235,19 @@ FROM
 		category_details ON category.category_id = category_details.entity_id
         LEFT JOIN
 		{{ ref(
-				'stg__catalog_product_entity_int'
+				'stg__catalog_category_entity_int'
 		) }}
-		cpei_menu_type ON cpei_menu_type.attribute_id = 373
-        AND cpei_menu_type.entity_id = category.category_id
-WHERE
+		cpei_menu_type_3 ON cpei_menu_type_3.attribute_id = 373
+        AND cpei_menu_type_3.entity_id = category.category_id
+        AND cpei_menu_type_3.value=3
+        LEFT JOIN
+		{{ ref(
+				'stg__catalog_category_entity_int'
+		) }}
+		cpei_menu_type_1 ON cpei_menu_type_1.attribute_id = 373
+        AND cpei_menu_type_1.entity_id = category.category_id
+        AND cpei_menu_type_1.value=1
+        WHERE
     (e.type_id = 'simple')
         AND (stock.qty > 0)
 group by 
@@ -268,10 +275,13 @@ group by
     cpedsprice.value,
     cpedoprice.value,
     cpev_outlet_category.value,
-    parent_relation_child.product_id,
     cpev_barcode.value,
     cpev_nego.value,
     cpn.buyer,
     CONCAT(au.firstname, ' ', au.lastname),
-    category_details.name,
-    cpei_menu_type.value
+    cpei_menu_type_3.value,
+    cpei_menu_type_1.value
+ )
+
+select child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,min(special_price) special_price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,level_1,level_2,level_3, string_agg(distinct parent_category) parent_category, string_agg(distinct flashsale_category) flashsale_category from stock_file_raw
+group by child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,level_1,level_2,level_3
