@@ -32,6 +32,6 @@ rawSql: |-
     INNER JOIN brandalley_live.sales_flat_order_address sfoa ON sfo.shipping_address_id = sfoa.entity_id -- where sfo.created_at between '2022-01-01 00:00:00' and '2022-12-01 23:59:59'
   WHERE
     1 = 1
-    AND sfo.entity_id = 8096122
+    AND sfo.entity_id = 671881
 isSchema: false
 primaryKey: customer_id
