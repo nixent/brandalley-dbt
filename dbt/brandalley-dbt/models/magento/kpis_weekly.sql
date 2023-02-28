@@ -45,7 +45,6 @@ shipping_stats as (
 order_line_stats as (
     select
         date_trunc(o.created_at, week)                                          as order_created_at_week,
-        round(sum(ol.total_gbp_ex_tax_after_vouchers),2)                        as total_revenue_exc_tax,
         round(sum(ol.line_product_cost_inc_vat),2)                              as total_product_costs_inc_vat,
         round(sum(ol.line_product_cost_exc_vat),2)                              as line_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
@@ -75,7 +74,6 @@ select
     rs.total_item_refund_count,
     rs.total_refund_amount,
     ss.avg_time_to_ship_days,
-    ols.total_revenue_exc_tax,
     ols.total_product_costs_inc_vat,
     -- ols.line_product_cost_exc_vat,
     ols.qty_ordered,
@@ -83,8 +81,8 @@ select
     ols.sales_amount,
     ols.shipped_sales_amount,
     ols.sales_amount - ols.total_product_costs_inc_vat   as margin,
-    round(ols.gmv/os.total_order_count,2)                as gmv_aov,
-    round(ols.sales_amount/os.total_order_count,2)       as sales_aov,
+    round(ols.gmv/os.total_order_count,2)                as aov_gmv,
+    round(ols.sales_amount/os.total_order_count,2)       as aov_sales,
     round(ols.qty_ordered/os.total_order_count,2)        as avg_items_per_order,
     round(100*rs.total_refund_amount/ols.sales_amount,2) as pct_sales_amount_refunded
 from order_stats os

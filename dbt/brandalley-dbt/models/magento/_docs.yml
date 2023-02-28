@@ -26,21 +26,25 @@ models:
     description: "A view of all KPIs, based off of order creation week"
     columns:
       - name: order_created_at_week
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['WEEK']
       - name: total_order_count
       - name: total_new_order_count
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
       - name: avg_time_to_ship_days
-      - name: total_revenue_exc_tax
       - name: total_product_costs_inc_vat
       - name: qty_ordered
       - name: gmv
+        description: "GMV"
       - name: sales_amount
       - name: shipped_sales_amount
       - name: margin
-      - name: gmv_aov
-      - name: sales_aov
+      - name: aov_gmv
+      - name: aov_sales
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
 
