@@ -35,18 +35,42 @@ models:
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
+        meta:
+          dimension:
+            label: 'Total Refunds (£)'
       - name: avg_time_to_ship_days
       - name: total_product_costs_inc_vat
       - name: qty_ordered
       - name: gmv
-        description: "GMV"
+        meta:
+          dimension:
+            label: 'GMV (£)'
       - name: sales_amount
+        meta:
+          dimension:
+            label: 'Sales Amount (£)'
       - name: shipped_sales_amount
+        meta:
+          dimension:
+            label: 'Shipped Sales Amount (£)'
       - name: margin
+        description: "Sales amount minus total product costs"
+        meta:
+          dimension:
+            label: 'Margin (£)'
       - name: aov_gmv
+        meta:
+          dimension:
+            label: 'AOV GMV (£)'
       - name: aov_sales
+        meta:
+          dimension:
+            label: 'AOV Sales (£)'
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
+        meta:
+          dimension:
+            label: 'Sales amount refunded (%)'
 
 
   
