@@ -329,18 +329,10 @@ models:
         description: "Parent category"
       - name: flashsale_category
         description: "Flash sale category"
-
-  - name: category_mapping
-    description: "Static table with category mapping"
-    columns:
-      - name: row_label
-        description: "Buyer, nullable"
-      - name: level_3
-        description: "Buyer, nullable"
-      - name: level_2
-        description: "Buyer, nullable"
-      - name: category
-        description: "Buyer, nullable"
+      - name: supplier_name
+        description: "Supplier name"
+      - name: child_parent_sku
+        desciption: "Child parent SKU"
 
   - name: catalog_category_flat_store_1_enriched
     description: ""
