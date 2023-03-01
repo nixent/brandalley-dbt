@@ -269,13 +269,6 @@ models:
         description: "Quantity min, nullable"
       - name: qty
         description: "Quantity, nullable"
-      - name: parent_id
-        description: "parent id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: child_parent_sku
-        description: "SKU from the child, nullable"
       - name: image_value
         description: "Image value, nullable"
       - name: name
@@ -313,11 +306,6 @@ models:
         description: "Outlet price, nullable"
       - name: outlet_category
         description: "Outlet category, nullable"
-      - name: child_id
-        description: "Child id, nullable"
-        meta:
-          dimension:
-            format: id
       - name: canUseForWHSale
         description: "Can use for warehouse sale flag, nullable"
       - name: barcode
@@ -337,6 +325,10 @@ models:
         description: "Level 2 of categories"
       - name: level_3
         description: "Level 3 of categories"
+      - name: parent_category
+        description: "Parent category"
+      - name: flashsale_category
+        description: "Flash sale category"
 
   - name: category_mapping
     description: "Static table with category mapping"

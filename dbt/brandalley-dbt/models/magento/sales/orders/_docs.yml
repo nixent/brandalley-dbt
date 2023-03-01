@@ -353,7 +353,7 @@ models:
         meta: 
           dimension:
             type: date
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
           metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
