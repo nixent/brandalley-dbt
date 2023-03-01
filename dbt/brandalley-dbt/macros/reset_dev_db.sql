@@ -27,6 +27,7 @@ Run using
         catalog_name, 
         schema_name
     from datawarehouse-358408.region-europe-west2.INFORMATION_SCHEMA.SCHEMATA
+    where schema_name not in ('streamkap')
 {% endset %}
 
 {% set prod_schema_results = run_query(schemas_in_prod) %}
@@ -43,7 +44,7 @@ Run using
         table_catalog, 
         table_schema||'.'||table_name as table_name
     from region-europe-west2.INFORMATION_SCHEMA.TABLES 
-    where table_type = 'BASE TABLE'
+    where table_type = 'BASE TABLE' and table_schema not in ('streamkap') and table_name not like '%dbt_tmp%'
 {% endset %}
 
 {% set prod_tables_results = run_query(tables_in_prod) %}
