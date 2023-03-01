@@ -4,7 +4,7 @@
 
 with order_stats as (
     select
-        date_trunc(created_at, week(monday))                  as order_created_at_week,
+        date_trunc(created_at, month)                         as order_created_at_month,
         count(distinct increment_id)                          as total_order_count,
         count(distinct if(orderno=1, increment_id, null))     as total_new_order_count,
         sum(shipping_incl_tax)                                as shipping_amount
@@ -14,7 +14,7 @@ with order_stats as (
 
 refund_stats as (
     select
-        date_trunc(timestamp(sfc.created_at), week(monday))       as order_created_at_week,
+        date_trunc(timestamp(sfc.created_at), month)       as order_created_at_month,
         count(sfc.entity_id)                    as total_refund_count,
         count(sfci.entity_id)                   as total_item_refund_count,
         round(sum(sfci.base_row_total),2)       as total_refund_amount
@@ -26,7 +26,7 @@ refund_stats as (
 
 shipping_stats as (
     select
-        date_trunc(timestamp(order_date), week(monday)) as order_created_at_week,
+        date_trunc(timestamp(order_date), month) as order_created_at_month,
         round(avg(
             if(
                 shipment_date != '0000-00-00 00:00:00', 
@@ -43,7 +43,7 @@ shipping_stats as (
 
 order_line_stats as (
     select
-        date_trunc(o.created_at, week(monday))                                  as order_created_at_week,
+        date_trunc(o.created_at, month)                                         as order_created_at_month,
         round(sum(ol.line_product_cost_inc_vat),2)                              as total_product_costs_inc_vat,
         round(sum(ol.line_product_cost_exc_vat),2)                              as line_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
@@ -66,7 +66,7 @@ order_line_stats as (
 )
 
 select
-    os.order_created_at_week,
+    os.order_created_at_month,
     os.total_order_count,
     os.total_new_order_count,
     os.shipping_amount,
@@ -87,8 +87,8 @@ select
     round(100*rs.total_refund_amount/ols.sales_amount,2) as pct_sales_amount_refunded
 from order_stats os
 left join refund_stats rs
-    on os.order_created_at_week = rs.order_created_at_week
+    on os.order_created_at_month = rs.order_created_at_month
 left join shipping_stats ss
-    on os.order_created_at_week = ss.order_created_at_week
+    on os.order_created_at_month = ss.order_created_at_month
 left join order_line_stats ols
-    on os.order_created_at_week = ols.order_created_at_week
+    on os.order_created_at_month = ols.order_created_at_month
