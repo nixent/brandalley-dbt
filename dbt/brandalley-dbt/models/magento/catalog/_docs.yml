@@ -44,6 +44,14 @@ models:
         description: "RRP"
       - name: price
         description: "Price"
+          metrics:
+            negotiation_price:
+              label: 'Negotiation price'
+              type: sum
+              description: "Price entered in the reservation sheet"
+              hidden: false
+              round: 2
+              format: 'gbp'      
       - name: tax_rate
         description: "Tax rate"
       - name: tax_code

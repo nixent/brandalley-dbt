@@ -286,39 +286,37 @@ group by
 select child_entity_id,child_sku,min_qty,qty,string_agg(distinct child_parent_sku) as child_parent_sku,image_value,name,value,
 suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,
 size,colour,price,min(special_price) special_price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,
-level_1,level_2,level_3, string_agg(distinct parent_category) parent_category, string_agg(distinct flashsale_category) flashsale_category,
+stock.level_1,stock.level_2,stock.level_3, string_agg(distinct parent_category) parent_category, string_agg(distinct flashsale_category) flashsale_category,
 cat_map.category
-from stock_file_raw
+from stock_file_raw stock
         LEFT JOIN
-		{{ ref(
-				'category_mapping'
-		) }}
+		{{ source(
+            'utils',
+            'category_mapping'
+        ) }}
         cat_map on 
-        IF(level_1 is not null, 
-            level_1, 
-            IF(string_agg(distinct parent_category) is not null, 
-                SPLIT(parent_category, '>')[offset(0)], 
-                    if(string_agg(distinct flashsale_category) is not null, 
-                        SPLIT(flashsale_category, '>')[offset(0)], null)
-                )
-            ) = cat_map.row_label and 
-        IF(level_2 is not null, 
-            level_2, 
-            IF(LENGTH(string_agg(distinct parent_category)) - LENGTH(REGEXP_REPLACE(string_agg(distinct parent_category), '>', ''))>0, 
-                SPLIT(parent_category, '>')[offset(1)], 
-                    if(LENGTH(string_agg(distinct flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(distinct flashsale_category), '>', ''))>0, 
-                        SPLIT(flashsale_category, '>')[offset(1)], null)
-                )
-            ) = cat_map.level_2 and 
-        IF(level_3 is not null, 
-            level_3, 
-            IF(LENGTH(string_agg(distinct parent_category)) - LENGTH(REGEXP_REPLACE(string_agg(distinct parent_category), '>', ''))>1, 
+        IF(stock.level_1 is not null, 
+            stock.level_1, 
+            IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>2, 
                 SPLIT(parent_category, '>')[offset(2)], 
-                    if(LENGTH(string_agg(distinct flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(distinct flashsale_category), '>', ''))>1, 
+                    if(flashsale_category is not null, 
                         SPLIT(flashsale_category, '>')[offset(2)], null)
                 )
-            ) = cat_map.level_3 
-        IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>0, SPLIT(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
-        IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
-
-group by child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,level_1,level_2,level_3
+            ) = cat_map.row_label and 
+        IF(stock.level_2 is not null, 
+            stock.level_2, 
+            IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>3, 
+                SPLIT(parent_category, '>')[offset(3)], 
+                    if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>0, 
+                        SPLIT(flashsale_category, '>')[offset(3)], null)
+                )
+            ) = cat_map.level_2 and 
+        IF(stock.level_3 is not null, 
+            stock.level_3, 
+            IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>4, 
+                SPLIT(parent_category, '>')[offset(4)], 
+                    if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>1, 
+                        SPLIT(flashsale_category, '>')[offset(4)], null)
+                )
+            ) = cat_map.level_3
+group by child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,stock.level_1,stock.level_2,stock.level_3, cat_map.category
