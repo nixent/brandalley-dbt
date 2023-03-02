@@ -20,29 +20,14 @@ models:
             hidden: true
       - name: sku
         description: "SKU"
-        meta:
-          dimension:
-            hidden: false
       - name: order_increment_id
         description: "Order increment id"
-        meta:
-          dimension:
-            hidden: false
       - name: qty
         description: "Quantity"
-        meta:
-          dimension:
-            hidden: false
       - name: return_code
         description: "Return code"
-        meta:
-          dimension:
-            hidden: true
       - name: created_at
         description: "Created date"
-        meta:
-          dimension:
-            hidden: true
       - name: xml_created_at
         description: "Created date of the xml"
         meta:
