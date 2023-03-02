@@ -7,6 +7,8 @@ models:
       joins:
         - join: OrderLines
           sql_on: ${ba_core_stock_return.order_increment_id} = ${OrderLines.order_number} and ${ba_core_stock_return.sku} = ${OrderLines.sku}
+        - join: customers
+          sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
     columns:
       - name: id
         description: "Primary key"

@@ -168,6 +168,9 @@ models:
         description: ""
       - name: dt_cr
         description: ""
+        meta:
+          dimension:
+            type: timestamp
       - name: subscription
         description: ""
       - name: old_account_id
