@@ -45,7 +45,7 @@ jobs:
 
       - name: Copy profiles.yml
         env:
-          config: ${{ secrets.DBT_PROFILES }}          
+          config: ${{ secrets.DBT_PROFILES_DEV }}          
         run: echo -e "$config" > profiles.yml      
 
       - name: Install dbt
