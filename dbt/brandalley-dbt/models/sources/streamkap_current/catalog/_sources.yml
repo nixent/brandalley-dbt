@@ -1102,3 +1102,23 @@ sources:
             description: ""
           - name: __deleted
             description: ""
+  - name: utils
+    database: datawarehouse-358408
+    description: "Utils table, for example hardcoded mapping tables"
+    tables:
+      - name: category_mapping
+        description: ""
+        columns:
+          - name: row_label
+            data_type: <string>
+            description: "Row label"
+          - name: level_3
+            data_type: <string>
+            description: "Level 3"
+          - name: level_2
+            data_type: <string>
+            description: "Level 2"
+          - name: category
+            data_type: <string>
+            description: "Category"
+ 
