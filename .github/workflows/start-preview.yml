@@ -21,7 +21,7 @@ jobs:
 
       - name: Copy Google credentials file
         env: 
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_DEV }}
         if: "${{ env.GOOGLE_CREDENTIALS != '' }}"
         id: create-json
         uses: jsdaniell/create-json@1.1.2
