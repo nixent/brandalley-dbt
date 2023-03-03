@@ -170,7 +170,8 @@ models:
         description: ""
         meta:
           dimension:
-            type: timestamp
+            type: date
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
       - name: subscription
         description: ""
       - name: old_account_id
