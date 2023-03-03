@@ -44,6 +44,7 @@ models:
         description: "RRP"
       - name: price
         description: "Price"
+        meta:
           metrics:
             negotiation_price:
               label: 'Negotiation price'
