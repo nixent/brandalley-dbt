@@ -341,7 +341,9 @@ models:
       - name: supplier_name
         description: "Supplier name"
       - name: child_parent_sku
-        desciption: "Child parent SKU"
+        description: "Child parent SKU"
+      - name: category
+        description: "Category as defined by buyers"
 
   - name: catalog_category_flat_store_1_enriched
     description: ""
