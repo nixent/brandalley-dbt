@@ -63,6 +63,14 @@ order_line_stats as (
      ) s
         on o.increment_id = s.order_id and ol.sku = s.sku
     group by 1
+),
+
+conversion_stats as (
+    select
+        date_trunc(date, month)                           as ga_session_at_month,
+        round(100*sum(transactions)/sum(unique_visits),2) as conversion_rate,
+    from {{ ref('ga_daily_stats') }}
+    group by 1
 )
 
 select
@@ -84,7 +92,8 @@ select
     round(ols.gmv/os.total_order_count,2)                as aov_gmv,
     round(ols.sales_amount/os.total_order_count,2)       as aov_sales,
     round(ols.qty_ordered/os.total_order_count,2)        as avg_items_per_order,
-    round(100*rs.total_refund_amount/ols.sales_amount,2) as pct_sales_amount_refunded
+    round(100*rs.total_refund_amount/ols.sales_amount,2) as pct_sales_amount_refunded,
+    cs.conversion_rate
 from order_stats os
 left join refund_stats rs
     on os.order_created_at_month = rs.order_created_at_month
@@ -92,3 +101,5 @@ left join shipping_stats ss
     on os.order_created_at_month = ss.order_created_at_month
 left join order_line_stats ols
     on os.order_created_at_month = ols.order_created_at_month
+left join conversion_stats cs
+    on os.order_created_at_month = timestamp(cs.ga_session_at_month)

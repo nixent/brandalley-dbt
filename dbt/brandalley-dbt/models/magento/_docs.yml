@@ -96,6 +96,10 @@ models:
         meta:
           dimension:
             label: 'Sales Amount Refunded (%)'
+      - name: conversion_rate
+        meta:
+          dimension:
+            label: 'Conversion Rate - GA (%)'
 
   - name: kpis_monthly
     description: "A view of all KPIs, based off of order creation month"
@@ -171,6 +175,10 @@ models:
         meta:
           dimension:
             label: 'Sales Amount Refunded (%)'
+      - name: conversion_rate
+        meta:
+          dimension:
+            label: 'Conversion Rate - GA (%)'
 
 
   
