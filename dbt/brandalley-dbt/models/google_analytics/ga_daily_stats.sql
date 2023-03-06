@@ -25,8 +25,7 @@ select
     count(distinct hits.transaction.transactionid)                                              as transactions,
     coalesce(sum(product.productRevenue)/1000000,0)                                             as gmv,
     count(distinct fullVisitorId || visitId)                                                    as unique_visits
-{# from {{ source('76149814', 'ga_sessions_*') }}, #}
-from `bigquery-347014.76149814.ga_sessions_202302*`,
+from {{ source('76149814', 'ga_sessions_*') }},
     unnest(hits) as hits,
     unnest(hits.product) as product
 where totals.visits = 1
