@@ -22,7 +22,7 @@ models:
               label: 'Conversion Rate - GA'
               type: number 
               description: 'Total transactions / Total visits'
-              sql: "100*safe_divide(sum(${transactions}),sum(${unique_visits}))"
+              sql: "100*safe_divide(${total_transactions_metric},sum(${unique_visits}))"
               round: 2
       - name: revenue
         meta:
