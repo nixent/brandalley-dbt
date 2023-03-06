@@ -30,15 +30,17 @@ models:
             total_transactions_metric:
               label: 'Count of transactions'
               type: sum
-              description: "Total transactions"
+              description: "Transactions"
             ga_conversion_rate:
-              label: 'Conversion Rate'
+              label: 'Conversion Rate (%)'
               type: number 
               description: 'Total transactions / Total visits'
               sql: "100*safe_divide(${total_transactions_metric},${total_visits_metric})"
               round: 2
       - name: gmv
         meta:
+          dimension:
+            label: 'GMV'
           metrics:
             total_revenue_metric:
               label: 'GMV (£)'
@@ -49,6 +51,6 @@ models:
         meta:
           metrics:
             total_visits_metric:
-              label: 'Total unique visits'
+              label: 'Unique visits'
               type: sum
               description: "Total unique visits"
