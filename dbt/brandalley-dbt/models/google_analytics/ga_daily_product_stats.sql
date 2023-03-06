@@ -2,6 +2,7 @@
     materialized='incremental',
     unique_key='date',
     cluster_by='traffic_channel',
+    enabled=false,
 	partition_by = {
       "field": "date",
       "data_type": "date",
