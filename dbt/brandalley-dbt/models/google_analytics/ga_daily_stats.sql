@@ -24,4 +24,5 @@ where totals.visits = 1
     {% if is_incremental() %}
         and parse_date("%Y%m%d", date) > (select max(date) from {{this}})
     {% endif %}
-group by date
+group by
+  1,2,3,4,5,6,7
