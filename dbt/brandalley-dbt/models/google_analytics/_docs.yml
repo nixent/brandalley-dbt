@@ -10,6 +10,10 @@ models:
         meta:
           dimension:
             type: date
+      - name: is_new_user
+        meta:
+          dimension:
+            type: boolean
       - name: traffic_channel
       - name: traffic_medium
       - name: traffic_campaign

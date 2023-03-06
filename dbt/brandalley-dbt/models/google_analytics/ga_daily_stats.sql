@@ -11,6 +11,7 @@
 
 select
     parse_date("%Y%m%d", date)                                                                  as date,
+    case when visitNumber = 1 then true else false end                                          as is_new_user,
     channelGrouping                                                                             as traffic_channel,
     trafficSource.medium                                                                        as traffic_medium,
     trafficSource.campaign                                                                      as traffic_campaign,
@@ -23,8 +24,9 @@ select
     sum(product.productQuantity)                                                                as product_quantity,
     count(distinct hits.transaction.transactionid)                                              as transactions,
     coalesce(sum(product.productRevenue)/1000000,0)                                             as gmv,
-    count(distinct concat(cast(fullvisitorid as string), cast(visitstarttime as string)))       as unique_visits
-from {{ source('76149814', 'ga_sessions_*') }},
+    count(distinct fullvisitorid || visitId)                                                    as unique_visits
+{# from {{ source('76149814', 'ga_sessions_*') }}, #}
+from `bigquery-347014.76149814.ga_sessions_202302*`,
     unnest(hits) as hits,
     unnest(hits.product) as product
 where totals.visits = 1
@@ -32,4 +34,4 @@ where totals.visits = 1
         and parse_date("%Y%m%d", date) > (select max(date) from {{this}})
     {% endif %}
 group by
-  1,2,3,4,5,6,7,8,9,10
+  1,2,3,4,5,6,7,8,9,10,11
