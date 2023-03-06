@@ -3,38 +3,63 @@ version: 2
 models:
   - name: ga_daily_stats
     description: "GA visit and transaction counts"
+    meta:
+      label: "Conversions GA"
     columns:
       - name: date
+        meta:
+          dimension:
+            type: date
+      - name: is_new_user
+        meta:
+          dimension:
+            type: boolean
       - name: traffic_channel
       - name: traffic_medium
       - name: traffic_campaign
       - name: traffic_source
       - name: device_browser
       - name: device_os
+        meta:
+          dimension:
+            label: 'Device OS'
+      - name: product_sku
+      - name: product_name
+      - name: product_brand
+      - name: product_quantity
+        meta:
+          metrics:
+            total_quantity_metric:
+              label: 'Quantity ordered'
+              type: sum
+              description: "Total quantity ordered"
       - name: transactions
         meta:
           metrics:
             total_transactions_metric:
-              label: 'Count of transactions'
+              label: 'Transactions'
               type: sum
               description: "Count of transactions"
             ga_conversion_rate:
-              label: 'Conversion Rate - GA'
+              label: 'Conversion Rate (%)'
               type: number 
               description: 'Total transactions / Total visits'
-              sql: "100*safe_divide(sum(${transactions}),sum(${unique_visits}))"
+              sql: "100*safe_divide(${total_transactions_metric},${total_visits_metric})"
               round: 2
-      - name: revenue
+      - name: gmv
         meta:
+          dimension:
+            label: 'GMV'
           metrics:
             total_revenue_metric:
-              label: 'Total Revenue (£)'
+              label: 'GMV (£)'
               type: sum
-              description: "Total Revenue"
+              description: "GMV"
+              round: 0
       - name: unique_visits
         meta:
           metrics:
             total_visits_metric:
-              label: 'Total unique visits'
+              label: 'Unique Visits'
               type: sum
               description: "Total unique visits"
