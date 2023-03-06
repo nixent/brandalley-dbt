@@ -1,6 +1,6 @@
 version: 2
 
-modles:
+models:
   - name: ga_daily_stats
     description: "GA visit and transaction counts"
     columns:
