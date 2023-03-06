@@ -1,12 +1,23 @@
 name: Magento Prod customer entity
 source: my-sql-magento-prod
 type: raw_sql
-rawSql: |-
-  SELECT
-    *
+rawSql: >
+  SELECT e.entity_id,created_at,updated_at,e.email,caev_fn.value as
+  firstName,caev_ln.value as lastName,caev_phone.value as telephone FROM 
+
+  (SELECT
+    entity_id,email,created_at,updated_at
   FROM
     customer_entity
   WHERE
-    DATE(created_at) = CURDATE()
+    updated_at >= (now() - interval 13 HOUR)) e
+  LEFT JOIN
+    customer_entity_int AS cei_db ON cei_db.entity_id = e.entity_id AND cei_db.attribute_id = 13
+  LEFT JOIN
+    customer_address_entity_varchar caev_fn ON caev_fn.entity_id = cei_db.value and caev_fn.attribute_id = 20
+  LEFT JOIN
+    customer_address_entity_varchar caev_ln ON caev_ln.entity_id = cei_db.value and caev_ln.attribute_id = 22
+  LEFT JOIN
+    customer_address_entity_varchar caev_phone ON caev_phone.entity_id = cei_db.value and caev_phone.attribute_id = 31
 isSchema: false
 primaryKey: entity_id

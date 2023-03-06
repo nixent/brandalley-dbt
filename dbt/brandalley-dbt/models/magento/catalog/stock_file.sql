@@ -290,11 +290,14 @@ stock.level_1,stock.level_2,stock.level_3, string_agg(distinct parent_category) 
 cat_map.category
 from stock_file_raw stock
         LEFT JOIN
+        -- join on the mapping provided by the buying team
+        -- the logic is we look at outlet_category first to do the join. If not possible we use parent_category then flashsale_category.
 		{{ source(
             'utils',
             'category_mapping'
         ) }}
         cat_map on 
+        -- join on level 1 (First element of path in outlet_category, 3rd element in parent_category and flashsale_category)
         IF(stock.level_1 is not null, 
             stock.level_1, 
             IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>2, 
@@ -303,6 +306,7 @@ from stock_file_raw stock
                         SPLIT(flashsale_category, '>')[offset(2)], null)
                 )
             ) = cat_map.row_label and 
+        -- join on level 2 (Second element of path in outlet_category, 4th element in parent_category and flashsale_category)
         IF(stock.level_2 is not null, 
             stock.level_2, 
             IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>3, 
@@ -311,6 +315,7 @@ from stock_file_raw stock
                         SPLIT(flashsale_category, '>')[offset(3)], null)
                 )
             ) = cat_map.level_2 and 
+        -- join on level 3 (Third element of path in outlet_category, 5th element in parent_category and flashsale_category)
         IF(stock.level_3 is not null, 
             stock.level_3, 
             IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>4, 
