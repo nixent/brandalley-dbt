@@ -28,4 +28,4 @@ where totals.visits = 1
         and parse_date("%Y%m%d", date) > (select max(date) from {{this}})
     {% endif %}
 group by
-  1,2,3,4,5,6,7,8,9,10,11
+  1,2,3,4,5,6,7,8
