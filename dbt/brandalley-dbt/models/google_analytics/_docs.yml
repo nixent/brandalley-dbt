@@ -23,59 +23,6 @@ models:
         meta:
           dimension:
             label: 'Device OS'
-      - name: transactions
-        meta:
-          metrics:
-            total_transactions_metric:
-              label: 'Transactions'
-              type: sum
-              description: "Count of transactions"
-            ga_conversion_rate:
-              label: 'Conversion Rate (%)'
-              type: number 
-              description: 'Total transactions / Total visits'
-              sql: "100*safe_divide(${total_transactions_metric},${total_visits_metric})"
-              round: 2
-      - name: gmv
-        meta:
-          dimension:
-            label: 'GMV'
-          metrics:
-            total_revenue_metric:
-              label: 'GMV (£)'
-              type: sum
-              description: "GMV"
-              round: 0
-      - name: unique_visits
-        meta:
-          metrics:
-            total_visits_metric:
-              label: 'Unique Visits'
-              type: sum
-              description: "Total unique visits"
-
-  - name: ga_daily_product_stats
-    description: "GA visit and transaction counts - this can only be queried at product level conversions NOT just traffic source level due to the nested nature of products in a visit"
-    meta:
-      label: "Conversions GA at Product Level"
-    columns:
-      - name: date
-        meta:
-          dimension:
-            type: date
-      - name: is_new_user
-        meta:
-          dimension:
-            type: boolean
-      - name: traffic_channel
-      - name: traffic_medium
-      - name: traffic_campaign
-      - name: traffic_source
-      - name: device_browser
-      - name: device_os
-        meta:
-          dimension:
-            label: 'Device OS'
       - name: product_sku
       - name: product_name
       - name: product_brand
@@ -111,6 +58,6 @@ models:
         meta:
           metrics:
             total_visits_metric:
-              label: 'Unique Visits'
+              label: 'Visits'
               type: count_distinct
-              description: "Total unique visits"
+              description: "Total visits"
