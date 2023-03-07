@@ -1,5 +1,12 @@
 with customers as (
   select
+    cst_id            as customer_id,
+    timestamp(dt_cr)  as signed_up_at
+  from {{ ref('customers') }}
+), 
+
+first_orders as (
+  select
     customer_id,
     min(created_at)   as first_purchase_at, 
     count(magentoID)  as count_customer_orders
@@ -18,11 +25,16 @@ second_orders as (
 )
   
 select 
-  c.*,
-  second_purchase_at,
-  first_to_second_order_interval,
-  date_diff(current_date, date(first_purchase_at), day) as customer_first_purchase_age_days
+  c.customer_id,
+  c.signed_up_at,
+  fo.first_purchase_at,
+  fo.count_customer_orders,
+  so.second_purchase_at,
+  so.first_to_second_order_interval,
+  date_diff(current_date, date(fo.first_purchase_at), day) as customer_first_purchase_age_days
 from customers c
+left join first_orders fo
+  on c.customer_id = fo.customer_id
 left join second_orders so
   on c.customer_id = so.customer_id
   
