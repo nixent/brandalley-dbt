@@ -1,15 +1,15 @@
 {{ config(
     materialized='table',
-    unique_key='date'
-   
-)}}
-{# 
- cluster_by='traffic_channel',
+    unique_key='date',
+    cluster_by='traffic_channel',
 	partition_by = {
       "field": "date",
       "data_type": "date",
       "granularity": "day"
-    } #}
+    }
+)}}
+{# 
+  #}
 
 {# NOTE: This can only be queried at product level conversions NOT just traffic source level due to the nested nature of products in a visit #}
 
@@ -29,9 +29,10 @@ select
     hits.transaction.transactionid                                                              as transaction_id,
     coalesce(product.productRevenue/1000000,0)                                                  as product_revenue,
     fullVisitorId || visitId                                                                    as unique_visit_id
-from {{ source('76149814', 'ga_sessions_*') }},
-    unnest(hits) as hits,
-    unnest(hits.product) as product
+from `bigquery-347014.76149814.ga_sessions_202302*`,
+{# from {{ source('76149814', 'ga_sessions_*') }}, #}
+    unnest(hits) as hits
+left join unnest(hits.product) as product
 where totals.visits = 1
     {% if is_incremental() %}
         and parse_date("%Y%m%d", date) > (select max(date) from {{this}})
