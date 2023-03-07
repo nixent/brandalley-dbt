@@ -67,10 +67,10 @@ order_line_stats as (
 
 conversion_stats as (
     select
-        date_trunc(date, week(monday))                    as ga_session_at_week,
-        round(100*sum(transactions)/sum(unique_visits),2) as conversion_rate,
-    from {{ ref('ga_daily_stats') }}
-    group by 1
+        ga_session_at_date as ga_session_at_week,
+        conversion_rate
+    from {{ ref('ga_conversion_rate') }}
+    where date_aggregation_type = 'week'
 )
 
 select
