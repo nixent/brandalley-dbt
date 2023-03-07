@@ -55,7 +55,7 @@ models:
               description: "Total unique visits"
 
   - name: ga_daily_product_stats
-    description: "GA visit and transaction counts"
+    description: "GA visit and transaction counts - this can only be queried at product level conversions NOT just traffic source level due to the nested nature of products in a visit"
     meta:
       label: "Conversions GA at Product Level"
     columns:
@@ -86,12 +86,12 @@ models:
               label: 'Quantity ordered'
               type: sum
               description: "Total quantity ordered"
-      - name: transactions
+      - name: transaction_id
         meta:
           metrics:
             total_transactions_metric:
               label: 'Transactions'
-              type: sum
+              type: count_distinct
               description: "Count of transactions"
             ga_conversion_rate:
               label: 'Conversion Rate (%)'
@@ -99,20 +99,18 @@ models:
               description: 'Total transactions / Total visits'
               sql: "100*safe_divide(${total_transactions_metric},${total_visits_metric})"
               round: 2
-      - name: gmv
+      - name: product_revenue
         meta:
-          dimension:
-            label: 'GMV'
           metrics:
             total_revenue_metric:
               label: 'GMV (£)'
               type: sum
               description: "GMV"
               round: 0
-      - name: unique_visits
+      - name: unique_visit_id
         meta:
           metrics:
             total_visits_metric:
               label: 'Unique Visits'
-              type: sum
+              type: count_distinct
               description: "Total unique visits"

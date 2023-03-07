@@ -1,14 +1,17 @@
 {{ config(
-    materialized='incremental',
-    unique_key='date',
-    cluster_by='traffic_channel',
-    enabled=false,
+    materialized='table',
+    unique_key='date'
+   
+)}}
+{# 
+ cluster_by='traffic_channel',
 	partition_by = {
       "field": "date",
       "data_type": "date",
       "granularity": "day"
-    }
-)}}
+    } #}
+
+{# NOTE: This can only be queried at product level conversions NOT just traffic source level due to the nested nature of products in a visit #}
 
 select
     parse_date("%Y%m%d", date)                                                                  as date,
@@ -22,10 +25,10 @@ select
     product.productSKU                                                                          as product_sku,
     product.v2productName                                                                       as product_name,
     product.productBrand                                                                        as product_brand,
-    sum(product.productQuantity)                                                                as product_quantity,
-    count(distinct hits.transaction.transactionid)                                              as transactions,
-    coalesce(sum(product.productRevenue)/1000000,0)                                             as gmv,
-    count(distinct fullVisitorId || visitId)                                                    as unique_visits
+    product.productQuantity                                                                     as product_quantity,
+    hits.transaction.transactionid                                                              as transaction_id,
+    coalesce(product.productRevenue/1000000,0)                                                  as product_revenue,
+    fullVisitorId || visitId                                                                    as unique_visit_id
 from {{ source('76149814', 'ga_sessions_*') }},
     unnest(hits) as hits,
     unnest(hits.product) as product
@@ -33,5 +36,5 @@ where totals.visits = 1
     {% if is_incremental() %}
         and parse_date("%Y%m%d", date) > (select max(date) from {{this}})
     {% endif %}
-group by
-  1,2,3,4,5,6,7,8,9,10,11
+{# group by
+  1,2,3,4,5,6,7,8,9,10,11 #}
