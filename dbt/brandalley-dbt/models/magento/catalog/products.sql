@@ -116,7 +116,7 @@ left join {{ ref('stg__cataloginventory_stock_item') }} csi
     on csi.product_id = cpe.entity_id
 left join {{ ref('stg__cataloginventory_stock_item') }} csi_child
     on csi_child.product_id = cpe_child.entity_id
-left join {{ ref(='stg__catalog_product_entity_decimal') }} cped_outletprice
+left join {{ ref('stg__catalog_product_entity_decimal') }} cped_outletprice
     on cpe.entity_id = cped_outletprice.entity_id
         and cped_outletprice.attribute_id = 75
         and cped_outletprice.store_id = 0
