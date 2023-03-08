@@ -11,7 +11,8 @@ SELECT
     price,
     status,
     admin,
-    date_import,CASE
+    date_import,
+    CASE
         WHEN date_reservation = '0000-00-00 00:00:00' THEN NULL
         ELSE date_reservation
     END date_reservation,CASE
@@ -30,7 +31,4 @@ SELECT
     sap_message,
     buyer,
     department
-FROM
-    {{ ref(
-        'stg__catalog_product_negotiation'
-    ) }}
+FROM {{ ref('stg__catalog_product_negotiation') }}
