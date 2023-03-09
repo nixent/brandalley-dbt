@@ -22,6 +22,85 @@ models:
   #     - name: updated_at
   #       description: "Update time"
 
+  - name: kpis_daily
+    description: "A view of all KPIs, based off of order creation day"
+    columns:
+      - name: order_created_at_day
+        tests:
+          - unique
+          - not_null
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW']
+      - name: total_order_count
+      - name: total_new_order_count
+      - name: shipping_amount
+        description: "Shipping amount incl. tax"
+        meta:
+          dimension:
+            label: 'Shipping Amount (£)'
+            round: 0
+      - name: total_refund_count
+      - name: total_item_refund_count
+      - name: total_refund_amount
+        meta:
+          dimension:
+            label: 'Total Refund Amount (£)'
+            round: 0
+      - name: avg_time_to_ship_days
+      - name: total_product_costs_inc_vat
+        meta:
+          dimension:
+            round: 0
+      - name: qty_ordered
+        description: "Number of items ordered across all orders"
+      - name: gmv
+        description: "Sales incl. VAT, after any discounts and excl. shipping"
+        meta:
+          dimension:
+            label: 'GMV (£)'
+            round: 0
+      - name: sales_amount
+        description: "Sales excl. VAT, after any discounts and excl. shipping"
+        meta:
+          dimension:
+            label: 'Sales Amount (£)'
+            round: 0
+      - name: shipped_sales_amount
+        description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
+        meta:
+          dimension:
+            label: 'Shipped Sales Amount (£)'
+            round: 0
+      - name: margin
+        description: "Sales amount minus total product costs"
+        meta:
+          dimension:
+            label: 'Margin (£)'
+            round: 0
+      - name: aov_gmv
+        description: "GMV divided by total number of orders"
+        meta:
+          dimension:
+            label: 'GMV AOV (£)'
+            round: 0
+      - name: aov_sales
+        description: "Sales Amount divided by total number of orders"
+        meta:
+          dimension:
+            label: 'Sales Amount AOV (£)'
+            round: 0
+      - name: avg_items_per_order
+      - name: pct_sales_amount_refunded
+        meta:
+          dimension:
+            label: 'Sales Amount Refunded (%)'
+      - name: conversion_rate
+        meta:
+          dimension:
+            label: 'Conversion Rate - GA (%)'
+
   - name: kpis_weekly
     description: "A view of all KPIs, based off of order creation week"
     columns:
