@@ -37,6 +37,7 @@ models:
         meta:
           dimension:
             type: timestamp
+            time_intervals: ['RAW', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: xml_created_at
         description: "Created date of the xml"
         meta:
