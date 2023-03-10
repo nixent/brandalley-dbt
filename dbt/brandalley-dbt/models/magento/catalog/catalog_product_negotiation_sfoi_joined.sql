@@ -1,50 +1,33 @@
-SELECT 
-cpn.date_comp_exported AS po_date, 
-cpn.negotiation_id, 
-sfoi.sku, 
-sfo.increment_id AS order_id, 
-sfoi.qty_backordered AS consigment_ordered, 
-sfoi.created_at,
-eaov.value AS brand, 
-cpev.value AS name, 
-cpr.reference AS reference_ref, 
-cpr.supplier_id, 
-cpn.sap_ref
-FROM {{ ref(
-        'stg__catalog_product_negotiation')
-        }} 
-        cpn
-INNER JOIN {{ ref(
-        'stg__sales_flat_order_item')
-        }} 
-        sfoi ON (
-cpn.negotiation_id = sfoi.nego AND
-sfoi.created_at > cpn.date_comp_exported AND
-sfoi.product_type = 'simple' AND
-cpn.status = 70 AND
-sfoi.qty_backordered > 0
-)
-JOIN {{ ref(
-        'stg__sales_flat_order')
-        }} 
-        sfo ON sfo.entity_id = sfoi.order_id
-LEFT JOIN {{ ref(
-        'stg__catalog_product_reference')
-        }}
-        cpr ON cpr.entity_id = sfoi.product_id
-LEFT JOIN {{ ref(
-        'stg__sales_flat_order_item')
-        }} 
-        sfoii ON ( sfoi.parent_item_id = sfoii.parent_item_id)
-LEFT JOIN {{ ref(
-        'stg__catalog_product_entity_int')
-        }}
-        cpei ON (sfoii.product_id = cpei.entity_id AND cpei.attribute_id = 178)
-LEFT JOIN {{ ref(
-        'stg__catalog_product_entity_varchar')
-        }} 
-        cpev ON (sfoii.product_id = cpev.entity_id AND cpev.attribute_id = 71)
-LEFT JOIN {{ ref(
-        'stg__eav_attribute_option_value')
-        }} 
-        eaov ON cpei.value = eaov.option_id
+select 
+    cpn.date_comp_exported  as po_date, 
+    cpn.negotiation_id, 
+    sfoi.sku, 
+    sfo.increment_id        as order_id, 
+    sfoi.qty_backordered    as consigment_ordered, 
+    sfoi.created_at,
+    eaov.value              as brand, 
+    cpev.value              as name, 
+    cpr.reference           as reference_ref, 
+    cpr.supplier_id, 
+    cpn.sap_ref
+from {{ ref('stg__catalog_product_negotiation') }} cpn
+inner join {{ ref('stg__sales_flat_order_item') }} sfoi 
+    on cpn.negotiation_id = sfoi.nego 
+        and sfoi.created_at > cpn.date_comp_exported 
+        and sfoi.product_type = 'simple' 
+        and cpn.status = 70 
+        and sfoi.qty_backordered > 0
+join {{ ref('stg__sales_flat_order')}} sfo 
+    on sfo.entity_id = sfoi.order_id
+left join {{ ref('stg__catalog_product_reference') }} cpr 
+    on cpr.entity_id = sfoi.product_id
+left join {{ ref('stg__sales_flat_order_item') }} sfoii 
+    on sfoi.parent_item_id = sfoii.parent_item_id
+left join {{ ref('stg__catalog_product_entity_int') }} cpei 
+    on sfoii.product_id = cpei.entity_id 
+        and cpei.attribute_id = 178
+left join {{ ref('stg__catalog_product_entity_varchar') }} cpev 
+    on sfoii.product_id = cpev.entity_id 
+        and cpev.attribute_id = 71
+left join {{ ref('stg__eav_attribute_option_value') }} eaov 
+    on cpei.value = eaov.option_id

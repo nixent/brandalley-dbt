@@ -22,7 +22,4 @@ SELECT
     ordered,
     to_order,
     qty_exported
-FROM
-    {{ ref(
-        'stg__catalog_product_negotiation_item'
-    ) }}
+FROM {{ ref('stg__catalog_product_negotiation_item') }}

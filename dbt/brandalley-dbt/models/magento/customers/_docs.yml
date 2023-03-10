@@ -21,6 +21,10 @@ models:
               type: count_distinct
               description: "Count of customers"
               hidden: false
+      - name: signed_up_at
+        meta: 
+          dimension:
+            type: date
       - name: first_purchase_at
         meta: 
           dimension:
