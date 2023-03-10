@@ -5,6 +5,11 @@ models:
     description: "GA visit and transaction counts"
     meta:
       label: "Conversions GA"
+      joins:
+        - join: products
+          sql_on: ${ga_daily_stats.product_sku} = ${products.sku}
+        - join: products_sales
+          sql_on: ${ga_daily_stats.product_sku} = ${products_sales.sku}
     columns:
       - name: date
         meta:

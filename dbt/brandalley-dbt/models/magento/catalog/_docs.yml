@@ -188,7 +188,7 @@ models:
   - name: products
     description: ""
     columns:
-      - name: u_unique_id
+      - name: unique_id
         description: ""
         meta:
           dimension:
@@ -257,6 +257,22 @@ models:
         description: ""
 
 
+  - name: products_sales
+    description: ""
+    columns:
+      - name: unique_id
+        description: "Primary Key"
+        meta:
+          dimension:
+            format: id
+            hidden: true
+      - name: product_id
+      - name: variant_product_id
+      - name: sku
+      - name: variant_sku
+      - name: category_name
+      - name: category_id
+          
   - name: stock_file
     description: ""
     columns:
