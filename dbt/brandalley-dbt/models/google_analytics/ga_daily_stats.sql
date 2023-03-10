@@ -31,5 +31,5 @@ from {{ source('76149814', 'ga_sessions_*') }},
 left join unnest(hits.product) as product with offset as i
 where totals.visits = 1
     {% if is_incremental() %}
-        and parse_date("%Y%m%d", date) >= (select max(date) from {{this}})
+        and parse_date("%Y%m%d", date) >= current_date
     {% endif %}
