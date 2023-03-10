@@ -188,7 +188,7 @@ models:
   - name: products
     description: ""
     columns:
-      - name: u_unique_id
+      - name: unique_id
         description: ""
         meta:
           dimension:
