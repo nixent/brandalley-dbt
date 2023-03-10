@@ -7,9 +7,15 @@ models:
       - name: coupon_id
         data_type: <integer>
         description: "Primary key"
+        meta:
+          dimension:
+            format: id
       - name: rule_id
         data_type: <integer>
         description: "Rule Id, nullable"
+        meta:
+          dimension:
+            format: id
       - name: code
         data_type: <string>
         description: "Code"
@@ -46,12 +52,33 @@ models:
         description: "Flag indicating if coupon is expired or not"
       - name: order_id
         description: "Id of order linked to coupon, nullable"
+        meta:
+          dimension:
+            format: id
       - name: status
         description: "Order status"
       - name: base_discount_amount
         description: "Discount amount"
+        meta:
+          metrics:
+            coupon_discount_amount:
+              label: 'Discount amount'
+              type: sum
+              description: "Discount amount"
+              hidden: false
+              round: 2
+              format: 'gbp'      
       - name: base_discount_invoiced
         description: "Discount invoiced"
+        meta:
+          metrics:
+            coupon_discount_invoiced:
+              label: 'Discount invoiced'
+              type: sum
+              description: "Discount invoiced"
+              hidden: false
+              round: 2
+              format: 'gbp'      
       - name: discount_description
         description: "Discount description"
       - name: order_date
@@ -62,14 +89,26 @@ models:
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: invent_autocoupon_id
         description: "invent_autocoupon_id"
+        meta:
+          dimension:
+            format: id
       - name: referral_coupon
         description: "Coupon code linked"
       - name: referee_coupon
         description: "Referee coupon"
+        meta:
+          dimension:
+            format: id
       - name: reward_to
         description: "Reward to"
+        meta:
+          dimension:
+            format: id
       - name: reward_from
         description: "Reward from"
+        meta:
+          dimension:
+            format: id
       - name: invent_autocoupon_created_at
         description: "invent_autocoupon_created_at"
         meta:
@@ -78,6 +117,9 @@ models:
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: cartrule_id
         description: "Cartrule id"
+        meta:
+          dimension:
+            format: id
       - name: basis_for_issue
         description: "Basis for issue"
       - name: comments_text
@@ -86,12 +128,21 @@ models:
         description: "Recommendation"
       - name: referral_couponid
         description: "Referral coupon id"
+        meta:
+          dimension:
+            format: id
       - name: referee_couponid
         description: "Referee coupon id"
+        meta:
+          dimension:
+            format: id
       - name: reward_from_old
         description: "Reward from old"
       - name: issuer_id
         description: "Issuer id"
+        meta:
+          dimension:
+            format: id
 
   - name: gift_cards
     description: "Gift cards"
@@ -99,6 +150,9 @@ models:
       - name: order_id
         data_type: <integer>
         description: "Order id"
+        meta:
+          dimension:
+            format: id
       - name: status
         description: "Status"
       - name: base_gift_cards_amount
@@ -118,7 +172,32 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']         
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+      - name: date_created
+        description: "Date created"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+      - name: date_expires
+        description: "Date expires"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+      - name: balance
+        description: "Balance"
+        meta:
+          metrics:
+            gift_cards_balance:
+              label: 'Gift cards balance'
+              type: sum
+              description: "Gift cards balance"
+              hidden: false
+              round: 2
+              format: 'gbp'      
+      - name: state
+        description: "State"
 
   - name: hourly_sales_today
     description: "A view to query realtime orders by hour today, and compare to the same hour last week"

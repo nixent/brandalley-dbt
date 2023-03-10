@@ -7,8 +7,13 @@ sfo.gw_base_tax_amount_invoiced, sfo.gw_tax_amount_invoiced, sfo.gw_items_base_t
 sfo.gw_base_price_refunded, sfo.gw_price_refunded, sfo.gw_items_base_price_refunded, sfo.gw_items_price_refunded, sfo.gw_card_base_price_refunded, sfo.gw_card_price_refunded, 
 sfo.gw_base_tax_amount_refunded, sfo.gw_tax_amount_refunded, sfo.gw_items_base_tax_refunded, sfo.gw_items_tax_refunded, sfo.gw_card_base_tax_refunded, sfo.gw_card_tax_refunded, 
 sfo.reward_points_balance, sfo.base_reward_currency_amount, sfo.reward_currency_amount, sfo.base_rwrd_crrncy_amt_invoiced, sfo.rwrd_currency_amount_invoiced, 
-sfo.base_rwrd_crrncy_amnt_refnded, sfo.rwrd_crrncy_amnt_refunded, sfo.reward_points_balance_refund, sfo.reward_points_balance_refunded, sfo.reward_salesrule_points
+sfo.base_rwrd_crrncy_amnt_refnded, sfo.rwrd_crrncy_amnt_refunded, sfo.reward_points_balance_refund, sfo.reward_points_balance_refunded, sfo.reward_salesrule_points,
+gca.date_created, gca.date_expires, gca.balance, gca.state
  from 
 {{ ref(
         'stg__sales_flat_order'
     ) }} sfo
+left outer join {{ ref(
+        'stg__sales_flat_order'
+    ) }} gca
+on REGEXP_EXTRACT(sfo.gift_cards, 'BAGC[^"]*')=gca.code

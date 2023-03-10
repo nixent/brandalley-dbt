@@ -31,9 +31,11 @@ with stock_file_raw as (SELECT
     cpev_nego.value AS nego,
     cpn.buyer AS buyer_id,
     CONCAT(au.firstname, ' ', au.lastname) AS buyer,
+    -- Pulling level_1>level_2>level_3 from the outlet_category field
     SPLIT(cpev_outlet_category.value, '>')[offset(0)] level_1, 
     IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>0, SPLIT(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
     IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
+    -- Parent category is type 3, flashsale type 1. If there are more than 1 category, we need to put them on the same, but separated with a return carriage character
     if(cpei_menu_type_3.value=3, replace(STRING_AGG(distinct category_details.path_name ORDER BY path_name), ',', '\n'), null) as parent_category,
     if(cpei_menu_type_1.value=1, replace(STRING_AGG(distinct category_details.path_name ORDER BY path_name), ',', '\n'), null) as flashsale_category,
 FROM
@@ -286,7 +288,9 @@ group by
 select child_entity_id,child_sku,min_qty,qty,string_agg(distinct child_parent_sku) as child_parent_sku,image_value,name,value,
 suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,
 size,colour,price,min(special_price) special_price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,
-stock.level_1,stock.level_2,stock.level_3, string_agg(distinct parent_category) parent_category, string_agg(distinct flashsale_category) flashsale_category,
+stock.level_1,stock.level_2,stock.level_3, 
+-- We need to remove the initial "Root Catalog>Brand Alley UK>" so 28 characters to get the category formatted correctly
+string_agg(distinct RIGHT(parent_category, length(parent_category)-28)) parent_category, string_agg(distinct RIGHT(flashsale_category, length(flashsale_category)-28)) flashsale_category,
 cat_map.category
 from stock_file_raw stock
         LEFT JOIN
