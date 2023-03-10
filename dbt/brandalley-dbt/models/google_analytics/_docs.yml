@@ -13,10 +13,10 @@ models:
     columns:
       - name: unique_key
         tests:
-          - unique
+          - unique:
               config:
                 where: "date >= current_date"
-          - not_null
+          - not_null:
               config:
                 where: "date >= current_date"
 
