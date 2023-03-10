@@ -12,7 +12,7 @@ select
     cpn.sap_ref
 from {{ ref('stg__catalog_product_negotiation') }} cpn
 inner join {{ ref('stg__sales_flat_order_item') }} sfoi 
-    on pn.negotiation_id = sfoi.nego 
+    on cpn.negotiation_id = sfoi.nego 
         and sfoi.created_at > cpn.date_comp_exported 
         and sfoi.product_type = 'simple' 
         and cpn.status = 70 
