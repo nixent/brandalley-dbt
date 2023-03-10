@@ -11,6 +11,15 @@ models:
         - join: products_sales
           sql_on: ${ga_daily_stats.product_sku} = ${products_sales.sku}
     columns:
+      - name: unique_key
+        tests:
+          - unique
+              config:
+                where: "date >= current_date"
+          - not_null
+              config:
+                where: "date >= current_date"
+
       - name: date
         meta:
           dimension:
