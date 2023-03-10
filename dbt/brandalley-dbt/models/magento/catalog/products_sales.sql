@@ -1,3 +1,9 @@
+{{ config(
+	materialized='table',
+	unique_key='increment_id',
+	cluster_by=['category_name']
+) }}
+
 select
     {{dbt_utils.surrogate_key(['p.unique_id', 'ccp.category_id'])}}    as unique_id,
     p.product_id,
@@ -10,8 +16,7 @@ select
         then 'Outlet'
         else cceh.name
     end 											as category_name,
-    ccp.category_id,
-    cceh.name
+    ccp.category_id
 from {{ ref('products') }} p
 left join {{ ref('stg__catalog_category_product') }} ccp
     on p.product_id = ccp.product_id

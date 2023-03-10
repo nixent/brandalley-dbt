@@ -272,7 +272,6 @@ models:
       - name: variant_sku
       - name: category_name
       - name: category_id
-      - name: name
           
   - name: stock_file
     description: ""
