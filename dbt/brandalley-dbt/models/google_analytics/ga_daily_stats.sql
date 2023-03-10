@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key='date',
+    unique_key='unique_key',
     cluster_by=['traffic_channel','product_brand'],
 	partition_by = {
       "field": "date",
