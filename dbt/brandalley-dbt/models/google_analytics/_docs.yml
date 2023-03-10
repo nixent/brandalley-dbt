@@ -9,7 +9,7 @@ models:
         - join: products
           sql_on: ${ga_daily_stats.product_sku} = ${products.sku}
         - join: products_sales
-          sql_on: ${products.product_id} = ${products_sales.product_id}
+          sql_on: ${ga_daily_stats.sku} = ${products_sales.sku}
     columns:
       - name: date
         meta:
