@@ -1819,7 +1819,7 @@ sources:
           - name: created_at
             data_type: <string>
             description: "Created at"
-          - name: tyoe
+          - name: type
             data_type: <integer>
             description: "Type"
           - name: _streamkap_source_ts_ms
@@ -1841,3 +1841,95 @@ sources:
       
       - name: invent_autocoupon
         description: ""
+
+      - name: salesrule
+        description: "Coupon rules details"
+        columns:
+          - name: rule_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: name
+            data_type: <string>
+            description: "Rule name"
+          - name: description
+            data_type: <string>
+            description: "Description"
+          - name: from_date
+            data_type: <timestamp>
+            description: "From date"
+          - name: to_date
+            data_type: <timestamp>
+            description: "To date"
+          - name: uses_per_customer
+            data_type: <integer>
+            description: "Number of times the coupon has been used"
+          - name: is_active
+            data_type: <string>
+            description: "Flag indicating if coupon is active"
+          - name: conditions_serialized
+            data_type: <string>
+            description: "Conditions serialized"
+          - name: actions_serialized
+            data_type: <string>
+            description: "Actions serialized"
+          - name: stop_rules_processing
+            data_type: <integer>
+            description: "Stop rules processing"
+          - name: is_advanced
+            data_type: <integer>
+            description: "Is advanced"
+          - name: product_ids
+            data_type: <string>
+            description: "Product ids"
+          - name: sort_order
+            data_type: <integer>
+            description: "Sort order"
+          - name: simple_action
+            data_type: <string>
+            description: "Simple action"
+          - name: discount_amount
+            data_type: <decimal>
+            description: "Discount amount"
+          - name: discount_qty
+            data_type: <decimal>
+            description: "Discount quantity"
+          - name: discount_step
+            data_type: <integer>
+            description: "Discount step"
+          - name: simple_free_shipping
+            data_type: <integer>
+            description: "Simple free shipping"
+          - name: apply_to_shipping
+            data_type: <integer>
+            description: "Apply to shipping"
+          - name: times_used
+            data_type: <decimal>
+            description: "Time used"
+          - name: is_rss
+            data_type: <integer>
+            description: "Is RSS"
+          - name: coupon_type
+            data_type: <integer>
+            description: "Coupon type"
+          - name: use_auto_generation
+            data_type: <integer>
+            description: "Use auto generation"
+          - name: uses_per_coupon
+            data_type: <integer>
+            description: "Uses per coupon"
+          - name: promo_sku
+            data_type: <string>
+            description: "Promo SKU"
+          - name: promo_cats
+            data_type: <string>
+            description: "Promo cats"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: _streamkap_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+          - name: _streamkap_offset
+            description: ""
+          - name: _streamkap_loaded_at_ts
+            description: ""

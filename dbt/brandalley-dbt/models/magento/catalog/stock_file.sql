@@ -6,7 +6,7 @@ with stock_file_raw as (SELECT
     stock.qty,
     IFNULL(parent_relation.parent_id, e.entity_id) AS parent_id,
     parent_entity_relation.sku AS child_parent_sku,
-    image.value AS image_value,
+    if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product/'||image.value,  image.value) AS image_value,
     cpvn.value AS name,
     cpevsi.value,
     cpevsiv.sup_id AS suplier_id,
@@ -36,8 +36,20 @@ with stock_file_raw as (SELECT
     IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>0, SPLIT(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
     IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
     -- Parent category is type 3, flashsale type 1. If there are more than 1 category, we need to put them on the same, but separated with a return carriage character
-    if(cpei_menu_type_3.value=3, replace(STRING_AGG(distinct category_details.path_name ORDER BY path_name), ',', '\n'), null) as parent_category,
-    if(cpei_menu_type_1.value=1, replace(STRING_AGG(distinct category_details.path_name ORDER BY path_name), ',', '\n'), null) as flashsale_category,
+    if(cpei_menu_type_3.value=3, 
+    --STRINGAGG to put multiple lines on one, then 2 replace: 1 for changing separator from comma to return carriage, one to remove the initial 'Root Catalog>Brand Alley UK>' of categories
+        replace(
+            replace(
+                STRING_AGG(distinct category_details.path_name ORDER BY path_name)
+            , ',', '\n')
+        , 'Root Catalog>Brand Alley UK>', '')
+    , null) as parent_category,
+--    if(cpei_menu_type_1.value=1, replace(replace(RTRIM(REGEXP_EXTRACT(STRING_AGG(category_details.path_name ORDER BY category_details.created_at), '(?:.*?,){3}'), ','), ',', '\n'), 'Root Catalog>Brand Alley UK>', ''), null) as flashsale_category
+    if(cpei_menu_type_1.value=1, 
+    --STRINGAGG to put multiple lines on one, categories need to be ordered from oldest to newest
+        STRING_AGG(category_details.path_name ORDER BY category_details.created_at)
+    , null) as flashsale_category,
+    if(cpei_tax.value=2, 20, 0) as tax
 FROM
 		{{ ref(
 				'stg__catalog_product_entity'
@@ -68,7 +80,7 @@ FROM
 				'stg__catalog_product_entity_varchar'
 		) }}
 		image ON image.attribute_id = 85
-        AND image.entity_id = e.entity_id
+        AND image.entity_id = parent_entity_relation.entity_id
         INNER JOIN
 		{{ ref(
 				'stg__catalog_product_entity_varchar'
@@ -166,6 +178,12 @@ FROM
 		{{ ref(
 				'stg__catalog_product_entity_int'
 		) }}
+		cpei_tax ON cpei_tax.attribute_id = 122
+        AND cpei_tax.entity_id = e.entity_id
+        LEFT JOIN
+		{{ ref(
+				'stg__catalog_product_entity_int'
+		) }}
 		cpei_colour ON cpei_colour.attribute_id = 213
         AND cpei_colour.entity_id = e.entity_id
         LEFT JOIN {{ ref(
@@ -257,7 +275,7 @@ group by
     e.sku,
     stock.min_qty,
     stock.qty,
-    IFNULL(parent_relation.parent_id, e.entity_id),
+    parent_relation.parent_id,
     parent_entity_relation.sku,
     image.value,
     cpvn.value,
@@ -280,17 +298,32 @@ group by
     cpev_barcode.value,
     cpev_nego.value,
     cpn.buyer,
-    CONCAT(au.firstname, ' ', au.lastname),
+    au.firstname,
+    au.lastname,
     cpei_menu_type_3.value,
-    cpei_menu_type_1.value
+    cpei_menu_type_1.value,
+    cpei_tax.value
  )
 
 select child_entity_id,child_sku,min_qty,qty,string_agg(distinct child_parent_sku) as child_parent_sku,image_value,name,value,
 suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,
 size,colour,price,min(special_price) special_price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,
 stock.level_1,stock.level_2,stock.level_3, 
--- We need to remove the initial "Root Catalog>Brand Alley UK>" so 28 characters to get the category formatted correctly
-string_agg(distinct RIGHT(parent_category, length(parent_category)-28)) parent_category, string_agg(distinct RIGHT(flashsale_category, length(flashsale_category)-28)) flashsale_category,
+string_agg(distinct parent_category) parent_category, tax,
+replace(
+    replace(
+        RTRIM(
+            REGEXP_EXTRACT(
+                --We want to remove the duplicates from a comma separated string
+                (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value)
+            -- The REGEXP_EXTRACT help to keep only characters up to the 3rd comma as Buying team doesn't want more than 3 categories
+            , '(?:.*?,){3}')
+        -- RTRIM to remove the last comma
+        , ',')
+    -- replacing commas by return carriage
+    , ',', '\n')
+-- removing the initial unwanted 'Root Catalog>Brand Alley UK>' categories
+, 'Root Catalog>Brand Alley UK>', '') flashsale_category,
 cat_map.category
 from stock_file_raw stock
         LEFT JOIN
@@ -328,4 +361,4 @@ from stock_file_raw stock
                         SPLIT(flashsale_category, '>')[offset(4)], null)
                 )
             ) = cat_map.level_3
-group by child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,stock.level_1,stock.level_2,stock.level_3, cat_map.category
+group by child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,stock.level_1,stock.level_2,stock.level_3, cat_map.category, flashsale_category, tax

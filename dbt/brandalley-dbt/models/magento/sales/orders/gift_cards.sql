@@ -14,6 +14,7 @@ gca.date_created, gca.date_expires, gca.balance, gca.state
         'stg__sales_flat_order'
     ) }} sfo
 left outer join {{ ref(
-        'stg__sales_flat_order'
+        'stg__enterprise_giftcardaccount'
     ) }} gca
 on REGEXP_EXTRACT(sfo.gift_cards, 'BAGC[^"]*')=gca.code
+where sfo.gift_cards like '%BAGC%'
