@@ -130,7 +130,7 @@ with order_lines as (
 		max(cpr.reference) 																																	as REFERENCE,
 		sum((sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount) 															as TOTAL_GBP_after_vouchers,
 		sum(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) 																							as TOTAL_GBP_before_vouchers,
-		sum(sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - sfoi_con.hidden_tax_amount)) 			                            as TOTAL_GBP_ex_tax_after_vouchers,
+		sum(sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))) 			                as TOTAL_GBP_ex_tax_after_vouchers,
 		sum(sfoi_sim.qty_ordered * sfoi_con.base_price) 											                                                        as TOTAL_GBP_ex_tax_before_vouchers,
 		sum(if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 								as selffulfill_totalGBP_inc_tax,
 		sum(if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price) 										as selffulfill_totalGBP_ex_tax,       
