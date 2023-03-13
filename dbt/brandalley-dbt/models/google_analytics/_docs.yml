@@ -46,6 +46,7 @@ models:
             total_quantity_metric:
               label: 'Quantity ordered'
               type: sum
+              sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_quantity}, null)"
               description: "Total quantity ordered"
       - name: transaction_id
         meta:
