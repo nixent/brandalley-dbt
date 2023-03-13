@@ -20,7 +20,7 @@ rawSql: |-
       FROM
         customer_entity
       WHERE
-        updated_at >= (NOW() - INTERVAL 1 DAY)
+        updated_at >= (NOW() - INTERVAL 8 HOUR)
     ) e
     LEFT JOIN customer_entity_int AS cei_db ON cei_db.entity_id = e.entity_id
     AND cei_db.attribute_id = 13
