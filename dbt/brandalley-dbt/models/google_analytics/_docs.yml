@@ -6,8 +6,8 @@ models:
     meta:
       label: "Conversions GA"
       joins:
-        - join: products
-          sql_on: ${ga_daily_stats.product_sku} = ${products.sku}
+        - join: catalog_product
+          sql_on: ${ga_daily_stats.product_sku} = ${catalog_product.sku}
         - join: products_sales
           sql_on: ${ga_daily_stats.product_sku} = ${products_sales.sku}
     columns:
@@ -71,7 +71,7 @@ models:
             total_margin_metric:
               label: 'Margin (£)'
               type: sum
-              sql: "if(transaction_id is not null, product_revenue - ${products.cost}, null)"
+              sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_revenue} - ${catalog_product.cost}, null)"
               description: "Margin"
               round: 0
       - name: unique_visit_id
