@@ -22,12 +22,12 @@ rawSql: |-
       WHERE
         updated_at >= (NOW() - INTERVAL 8 HOUR)
     ) e
+    LEFT JOIN customer_entity_varchar caev_fn ON caev_fn.entity_id = e.entity_id
+    AND caev_fn.attribute_id = 5
+    LEFT JOIN customer_entity_varchar caev_ln ON caev_ln.entity_id = e.entity_id
+    AND caev_ln.attribute_id = 7
     LEFT JOIN customer_entity_int AS cei_db ON cei_db.entity_id = e.entity_id
     AND cei_db.attribute_id = 13
-    LEFT JOIN customer_address_entity_varchar caev_fn ON caev_fn.entity_id = cei_db.value
-    AND caev_fn.attribute_id = 20
-    LEFT JOIN customer_address_entity_varchar caev_ln ON caev_ln.entity_id = cei_db.value
-    AND caev_ln.attribute_id = 22
     LEFT JOIN customer_address_entity_varchar caev_phone ON caev_phone.entity_id = cei_db.value
     AND caev_phone.attribute_id = 31
 isSchema: false
