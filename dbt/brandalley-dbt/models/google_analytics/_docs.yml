@@ -46,7 +46,7 @@ models:
             total_quantity_metric:
               label: 'Quantity ordered'
               type: sum
-              sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_quantity}, null)"
+              sql: "coalesce(if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_quantity}, null),0)"
               description: "Total quantity ordered"
       - name: transaction_id
         meta:
@@ -59,7 +59,7 @@ models:
               label: 'Conversion Rate (%)'
               type: number 
               description: 'Total transactions / Total visits'
-              sql: "100*safe_divide(${total_transactions_metric},${total_visits_metric})"
+              sql: "coalesce(100*safe_divide(${total_transactions_metric},${total_visits_metric}),0)"
               round: 2
       - name: product_revenue
         meta:
@@ -72,7 +72,7 @@ models:
             total_margin_metric:
               label: 'Margin (£)'
               type: sum
-              sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_revenue} - ${catalog_product.cost}, null)"
+              sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_revenue} - ${catalog_product.cost}, 0)"
               description: "Margin"
               round: 0
       - name: unique_visit_id
