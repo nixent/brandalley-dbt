@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: '76149814'
+    database: bigquery-347014
+    description: "Streamkap Current tables relating to Magento sales"
+    tables:
+      - name: ga_sessions_*

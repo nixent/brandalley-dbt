@@ -622,25 +622,6 @@ sources:
           - name: __deleted
             description: ""
 
-      - name: eav_attribute_option_value
-        description: ""
-        columns:
-          - name: value_id
-            data_type: <integer>
-            description: "Primary key"
-          - name: option_id
-            data_type: <integer>
-            description: "Option id"
-          - name: store_id
-            data_type: <integer>
-            description: "Store id"
-          - name: value
-            data_type: <integer>
-            description: "Value, nullable"
-          - name: _streamkap_source_ts_ms
-            description: ""
-          - name: __deleted
-            description: ""
 
       - name: stock_prism_grn_item
         description: "Stock Prism GRN item"
@@ -691,3 +672,434 @@ sources:
             description: ""
           - name: __deleted
             description: ""
+
+      - name: catalog_product_reservation_upload
+        description: "Reservation files details"
+        columns:
+          - name: reservation_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: product_parent_id
+            data_type: <integer>
+            description: "Product parent id"
+          - name: reference
+            data_type: <string>
+            description: "Reference"
+          - name: parrent_sku
+            data_type: <string>
+            description: "Parent sku"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: domain
+            data_type: <string>
+            description: "Domain"
+          - name: category
+            data_type: <string>
+            description: "Category"
+          - name: sub_category
+            data_type: <string>
+            description: "Sub category"
+          - name: gender
+            data_type: <string>
+            description: "Gender"
+          - name: brand
+            data_type: <integer>
+            description: "Brand"
+          - name: name
+            data_type: <string>
+            description: "Name"
+          - name: colour
+            data_type: <integer>
+            description: "Colour"
+          - name: size
+            data_type: <integer>
+            description: "Size"
+          - name: original_size
+            data_type: <string>
+            description: "Original size"
+          - name: pack_size
+            data_type: <integer>
+            description: "Pack size"
+          - name: qty
+            data_type: <integer>
+            description: "Quantity"
+          - name: weight
+            data_type: <decimal>
+            description: "Weight"
+          - name: height
+            data_type: <decimal>
+            description: "Height"
+          - name: width
+            data_type: <decimal>
+            description: "Width"
+          - name: length
+            data_type: <decimal>
+            description: "Length"
+          - name: weight_net
+            data_type: <decimal>
+            description: "Weight net"
+          - name: cost
+            data_type: <decimal>
+            description: "Cost"
+          - name: rrp
+            data_type: <decimal>
+            description: "RRP"
+          - name: price
+            data_type: <decimal>
+            description: "Price"
+          - name: tax_rate
+            data_type: <decimal>
+            description: "Tax rate"
+          - name: tax_code
+            data_type: <string>
+            description: "Tax code"
+          - name: charge_code
+            data_type: <string>
+            description: "Charge code"       
+          - name: barcode
+            data_type: <string>
+            description: "Barcode"
+          - name: product_age
+            data_type: <integer>
+            description: "Product age"
+          - name: country_of_manufacture
+            data_type: <string>
+            description: "Country of manufacture"
+          - name: commodity_codes
+            data_type: <string>
+            description: "Commodity codes"
+          - name: supplier_id
+            data_type: <integet>
+            description: "Supplier Id"
+          - name: user_id
+            data_type: <integer>
+            description: "User id"
+          - name: errors
+            data_type: <string>
+            description: "Errors"
+          - name: notices
+            data_type: <string>
+            description: "Notices"
+          - name: material
+            data_type: <string>
+            description: "Material"
+          - name: vip_category_id
+            data_type: <integer>
+            description: "VIP Category Id"
+          - name: VIP unit
+            data_type: <string>
+            description: "VIP unit"
+          - name: vip_is_embargo
+            data_type: <integer>
+            description: "VIP is embargo"
+          - name: vip_is_fragile
+            data_type: <integer>
+            description: "VIP is fragile"
+          - name: vip_is_large
+            data_type: <integer>
+            description: "VIP is large"
+          - name: vip_is_precious
+            data_type: <integer>
+            description: "VIP is precious"
+          - name: vip_is_consumption_tax
+            data_type: <integer>
+            description: "VIP is consumption tax"
+          - name: vip_washing_instruct
+            data_type: <string>
+            description: "VIP washing instruct"
+          - name: vip_sale_service
+            data_type: <string>
+            description: "VIP sale service"
+          - name: vip_sub_title
+            data_type: <string>
+            description: "VIP sub title"
+          - name: vip_accessory_info
+            data_type: <string>
+            description: "VIP accessory info"
+          - name: vip_product_type
+            data_type: <string>
+            description: "VIP product type"
+          - name: tree_one
+            data_type: <string>
+            description: "Tree one"
+          - name: tree_two
+            data_type: <string>
+            description: "Tree two"
+          - name: brand_cat
+            data_type: <string>
+            description: "Brand cat"
+          - name: google_product_category
+            data_type: <string>
+            description: "Google product category"
+          - name: age_group
+            data_type: <string>
+            description: "Age group"
+          - name: age_restricted
+            data_type: <string>
+            description: "Age restricted"     
+
+      - name: catalog_category_flat_store_1
+        description: ""
+        columns:
+          - name: entity_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: parent_id
+            data_type: <integer>
+            description: "Parent id"
+          - name: created_at
+            data_type: <timestamp>
+            description: "Create date"
+          - name: updated_at
+            data_type: <integer>
+            description: "Update date"
+          - name: path
+            data_type: <string>
+            description: "Category path"
+          - name: position
+            data_type: <integer>
+            description: "Position"
+          - name: level
+            data_type: <integer>
+            description: "Level"
+          - name: children_count
+            data_type: <integer>
+            description: "Children count"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: allow_google
+            data_type: <integer>
+            description: "Allow google"
+          - name: all_children
+            data_type: <string>
+            description: "All children"
+          - name: approved_by
+            data_type: <string>
+            description: "Approved by"
+          - name: available_sort_by
+            data_type: <string>
+            description: "Available Product Listing Sort By"
+          - name: brand_attribution
+            data_type: <varchar>
+            description: "Brand Attribution"
+          - name: category_brand_title
+            data_type: <string>
+            description: "Brands Short Name"
+          - name: category_landingpagetype
+            data_type: <integer>
+            description: "Marketing Landing Pages Selection"
+          - name: category_menu_type
+            data_type: <integer>
+            description: "Category Menu Type"
+          - name: category_product_brand
+            data_type: <integer>
+            description: "Product Brands"
+          - name: category_product_gender
+            data_type: <integer>
+            description: "Product Brands"
+          - name: category_product_type
+            data_type: <string>
+            description: "Product Type"
+          - name: children
+            data_type: <string>
+            description: "Children"
+          - name: customer_segments
+            data_type: <string>
+            description: "Customer Segments"
+          - name: custom_apply_to_products
+            data_type: <integer>
+            description: "Apply To Products"
+          - name: custom_design
+            data_type: <string>
+            description: "Custom Design"
+          - name: custom_design_from
+            data_type: <timestamp>
+            description: "Active From"
+          - name: custom_design_to
+            data_type: <timestamp>
+            description: "Active To"
+          - name: custom_layout_update
+            data_type: <string>
+            description: "Custom Layout Update"
+          - name: custom_use_parent_settings
+            data_type: <integer>
+            description: "Use Parent Category Settings"
+          - name: default_sort_by
+            data_type: <string>
+            description: "Default Product Listing Sort By"
+          - name: delivery_info
+            data_type: <string>
+            description: "Delivery Information"
+          - name: description
+            data_type: <string>
+            description: "Description"
+          - name: display_brand_products
+            data_type: <integer>
+            description: "Display Products On Brand Page"
+          - name: display_mode
+            data_type: <string>
+            description: "Display Mode"
+          - name: emarsys_include_in_rss
+            data_type: <integer>
+            description: "Emarsys Include in Rss"
+          - name: emarsys_rss_order
+            data_type: <integer>
+            description: "Emarsys Rss Order"
+          - name: extra_restrictions
+            data_type: <integer>
+            description: "Sale Restrictions"
+          - name: filter_price_range
+            data_type: <decimal>
+            description: "Layered Navigation Price Step"
+          - name: flashsale_promotional_banner
+            data_type: <string>
+            description: "Promotional banner image"
+          - name: full_description
+            data_type: <string>
+            description: "Full Description"
+          - name: gender_attribution
+            data_type: <integer>
+            description: "Gender Attribution"
+          - name: group_tags
+            data_type: <string>
+            description: "Category Tags"
+          - name: image
+            data_type: <string>
+            description: "Image"
+          - name: include_in_menu
+            data_type: <integer>
+            description: "Include in Navigation Menu"
+          - name: is_active
+            data_type: <integer>
+            description: "Is Active"
+          - name: is_anchor
+            data_type: <integer>
+            description: "Is Anchor"
+          - name: landing_page
+            data_type: <integer>
+            description: "CMS Block"
+          - name: meta_description
+            data_type: <string>
+            description: "Meta Description"
+          - name: meta_keywords
+            data_type: <string>
+            description: "Meta Keywords"
+          - name: meta_title
+            data_type: <string>
+            description: "Page Title"
+          - name: name
+            data_type: <string>
+            description: "Name"
+          - name: outlet_landing_image
+            data_type: <string>
+            description: "Outlet landing image"
+          - name: outlet_slider_content
+            data_type: <string>
+            description: "Slider Content"
+          - name: outlet_slider_order
+            data_type: <integer>
+            description: "Outlet Slider Order"
+          - name: page_layout
+            data_type: <string>
+            description: "Page Layout"
+          - name: path_in_store
+            data_type: <string>
+            description: "Path In Store"
+          - name: preview_mode
+            data_type: <integer>
+            description: "Category in preview mode"
+          - name: private_sales_link
+            data_type: <string>
+            description: "Private Sales Link"
+          - name: promotional_banner_link
+            data_type: <string>
+            description: "Promotional banner link"
+          - name: promotional_date
+            data_type: <timestamp>
+            description: "Promotional date"
+          - name: promotion_date
+            data_type: <timestamp>
+            description: "Sorting date"
+          - name: promotion_options
+            data_type: <string>
+            description: "Promotion Options"
+          - name: promo_text
+            data_type: <string>
+            description: "Promotion Text"
+          - name: sale_end
+            data_type: <timestamp>
+            description: "Sale End"
+          - name: sale_start
+            data_type: <timestamp>
+            description: "Sale Start"
+          - name: sale_type
+            data_type: <integer>
+            description: "Sale type"
+          - name: show_out_of_stock
+            data_type: <integer>
+            description: "Show out of stock"
+          - name: standard_image
+            data_type: <string>
+            description: "Standard Image"
+          - name: tagline
+            data_type: <string>
+            description: "Tag line"
+          - name: thumbnail
+            data_type: <string>
+            description: "Thumbnail Image"
+          - name: umm_cat_label
+            data_type: <string>
+            description: "Category Label"
+          - name: umm_cat_target
+            data_type: <string>
+            description: "Custom URL"
+          - name: umm_dd_blocks
+            data_type: <string>
+            description: "Category Blocks"
+          - name: umm_dd_columns
+            data_type: <integer>
+            description: "Number of Columns With Subcategories"
+          - name: umm_dd_proportions
+            data_type: <string>
+            description: "Drop-down Content Proportions"
+          - name: umm_dd_type
+            data_type: <string>
+            description: "Submenu Type"
+          - name: umm_dd_width
+            data_type: <string>
+            description: "Drop-down Width"
+          - name: url_key
+            data_type: <string>
+            description: "URL Key"
+          - name: url_path
+            data_type: <string>
+            description: "Url Path"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+  - name: utils
+    database: datawarehouse-358408
+    description: "Utils table, for example hardcoded mapping tables"
+    tables:
+      - name: category_mapping
+        description: ""
+        columns:
+          - name: row_label
+            data_type: <string>
+            description: "Row label"
+          - name: level_3
+            data_type: <string>
+            description: "Level 3"
+          - name: level_2
+            data_type: <string>
+            description: "Level 2"
+          - name: category
+            data_type: <string>
+            description: "Category"
+ 

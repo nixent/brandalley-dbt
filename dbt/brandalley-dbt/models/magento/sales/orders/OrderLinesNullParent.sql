@@ -86,30 +86,21 @@ SELECT
     sfoi.nego,
     (sfoi.qty_backorder_reconciliation > 0  or sfoi.qty_reserved_by_wh_b > 0) as boreco_or_reswhb,
     qty_reserved_by_wh_b + qty_backorder_reconciliation - qty_shipped as qty_backorder_not_shipped
-FROM
-    {{ ref('stg__sales_flat_order') }}
-    sfo
-    LEFT JOIN {{ ref('stg__customer_entity') }}
-    ce
+FROM {{ ref('stg__sales_flat_order') }} sfo
+LEFT JOIN {{ ref('stg__customer_entity') }} ce
     ON ce.entity_id = sfo.customer_id
-    LEFT JOIN {{ ref('stg__sales_flat_order_item') }}
-    sfoi
+LEFT JOIN {{ ref('stg__sales_flat_order_item') }} sfoi
     ON sfo.entity_id = sfoi.order_id
-    AND sfoi.parent_item_id IS NULL
-    LEFT JOIN {{ ref('stg__catalog_product_negotiation') }}
-    cpn
+        AND sfoi.parent_item_id IS NULL
+LEFT JOIN {{ ref('stg__catalog_product_negotiation') }} cpn
     ON cpn.negotiation_id = sfoi.nego 
-    and (cpn.type is null or cpn.type != 30)
-    LEFT JOIN {{ ref('stg__catalog_product_entity_varchar') }}
-    cpev
+        AND (cpn.type IS NULL OR cpn.type != 30)
+LEFT JOIN {{ ref('stg__catalog_product_entity_varchar') }} cpev
     ON cpev.entity_id = sfoi.product_id
-    AND cpev.attribute_id = 205
-    LEFT JOIN {{ ref('stg__sales_flat_order_address') }}
-    sfoa
+        AND cpev.attribute_id = 205
+LEFT JOIN {{ ref('stg__sales_flat_order_address') }} sfoa
     ON sfoa.entity_id = sfo.shipping_address_id
-    LEFT JOIN {{ ref('stg__sales_flat_order_address') }}
-    sfoa_b
+LEFT JOIN {{ ref('stg__sales_flat_order_address') }} sfoa_b
     ON sfoa_b.entity_id = sfo.billing_address_id
-    LEFT JOIN {{ ref('stg__sales_flat_order_payment') }}
-    sfop
+LEFT JOIN {{ ref('stg__sales_flat_order_payment') }} sfop
     ON sfo.entity_id = sfop.parent_id

@@ -1,4 +1,8 @@
+{{ config(
+       enabled=false
+)}}
 
+with order_lines as (
 SELECT
        SHA1(
               CONCAT(
@@ -668,4 +672,12 @@ WHERE
               OR sfo.sales_product_type IS NULL
        )
 {{dbt_utils.group_by(64)}}
+)
+
+select 
+       *,
+	initcap(split(category_path, '>')[safe_offset(0)]) as product_category_level_1, 
+	initcap(split(category_path, '>')[safe_offset(1)]) as product_category_level_2,
+	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3
+from order_lines
 

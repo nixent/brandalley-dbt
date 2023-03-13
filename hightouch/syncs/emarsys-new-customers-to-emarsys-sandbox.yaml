@@ -1,0 +1,107 @@
+model: emarsys-new-customers
+destination: emarsys-sandbox
+config:
+  mode: upsert
+  type: object
+  object: contact
+  mappings:
+    - to: '1848'
+      from: createdAccountDate
+      type: standard
+    - to: '3'
+      from: email
+      type: standard
+    - to: '14530'
+      from: baTitle
+      type: standard
+    - to: '14531'
+      from: rdpEmails
+      type: standard
+    - to: '1846'
+      from: dailyEmails
+      type: standard
+    - to: '1847'
+      from: weeklyEmails
+      type: standard
+    - to: '1850'
+      from: firstPurchaseDate
+      type: standard
+    - to: '1849'
+      from: lastPurchaseDate
+      type: standard
+    - to: '1853'
+      from: numberTransactions
+      type: standard
+    - to: '1851'
+      from: ltv
+      type: standard
+    - to: '1852'
+      from: ltvr
+      type: standard
+    - to: '1854'
+      from: autosignin
+      type: standard
+    - to: '1855'
+      from: subscriberConfirmCode
+      type: standard
+    - to: '1856'
+      from: subscriberId
+      type: standard
+    - to: '14532'
+      from: subscriberSource
+      type: standard
+    - to: '1858'
+      from: updatedDate
+      type: standard
+    - to: '1'
+      from: firstName
+      type: standard
+    - to: '2'
+      from: lastName
+      type: standard
+    - to: '4'
+      from: dob
+      type: standard
+    - to: '5'
+      from: gender
+      type: standard
+    - to: '31'
+      from: optin
+      type: standard
+    - to: '11'
+      from: city
+      type: standard
+    - to: '13'
+      from: postcode
+      type: standard
+    - to: '14'
+      from: country
+      type: standard
+    - to: '15'
+      from: telephone
+      type: standard
+    - to: '18'
+      from: company
+      type: standard
+    - to: '10'
+      from: street
+      type: standard
+    - to: '14562'
+      from: ipAddress
+      type: standard
+    - to: '1845'
+      from: customerId
+      type: standard
+    - to: '14568'
+      from: achicaDataSource
+      type: standard
+    - to: '14569'
+      from: recordSource
+      type: standard
+  configVersion: 0
+  externalIdMapping:
+    to: '14487'
+    from: hightouch_customerId
+schedule:
+  type: manual
+schedulePaused: false

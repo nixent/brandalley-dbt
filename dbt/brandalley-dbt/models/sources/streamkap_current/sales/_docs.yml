@@ -1863,3 +1863,45 @@ models:
         description: ""
       - name: _streamkap_loaded_at_ts
         description: ""
+
+  - name: stg__enterprise_giftcardaccount_history
+    description: "Gift card history"
+    columns:
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: _streamkap_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+      - name: _streamkap_offset
+        description: ""
+      - name: _streamkap_loaded_at_ts
+        description: ""
+
+  - name: stg__enterprise_giftcardaccount
+    description: "Gift card details"
+    columns:
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: _streamkap_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+      - name: _streamkap_offset
+        description: ""
+      - name: _streamkap_loaded_at_ts
+        description: ""
+
+  - name: stg__invent_autocoupon
+    description: "Autocoupon details"
+    columns:
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: _streamkap_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+      - name: _streamkap_offset
+        description: ""
+      - name: _streamkap_loaded_at_ts
+        description: ""

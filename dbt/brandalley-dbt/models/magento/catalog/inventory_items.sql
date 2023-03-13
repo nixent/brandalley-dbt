@@ -1,4 +1,4 @@
-SELECT
+select
     item_id,
     product_id,
     stock_id,
@@ -12,10 +12,11 @@ SELECT
     use_config_min_sale_qty,
     max_sale_qty,
     use_config_max_sale_qty,
-    is_in_stock,CASE
-        WHEN low_stock_date = '0000-00-00 00:00:00' THEN NULL
-        ELSE low_stock_date
-    END low_stock_date,
+    is_in_stock,
+    case
+        when low_stock_date = '0000-00-00 00:00:00' then null
+        else low_stock_date
+    end as low_stock_date,
     notify_stock_qty,
     use_config_notify_stock_qty,
     manage_stock,
@@ -26,7 +27,4 @@ SELECT
     use_config_enable_qty_inc,
     enable_qty_increments,
     is_decimal_divided
-FROM
-    {{ ref(
-        'stg__cataloginventory_stock_item'
-    ) }}
+from {{ ref('stg__cataloginventory_stock_item') }}

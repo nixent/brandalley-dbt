@@ -23,6 +23,12 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 
+# Append dbt default query comment to make debugging in BQ easier
+query-comment:
+  append: True
+
+
+
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -37,5 +43,6 @@ models:
       +schema: emarsys
     sources:
       streamkap_current:
+        +on_schema_change: "append_new_columns"
         +schema: streamkap_current
         +post-hook: "delete {{this}} where __deleted = true"

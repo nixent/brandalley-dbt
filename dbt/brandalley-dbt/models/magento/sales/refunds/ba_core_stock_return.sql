@@ -5,7 +5,7 @@ SELECT
     order_increment_id,
     qty,
     return_code,
-    created_at,
+    timestamp(created_at) as created_at,
     xml_created_at,
     exported_to_sap,
     wh_line_id,

@@ -1,0 +1,28 @@
+model: zendesk-batch-data
+destination: zendesk
+config:
+  mode: upsert
+  object: users
+  mappings:
+    - to: name
+      from: customer_name
+      type: standard
+    - to: phone
+      from: phonenew
+      type: standard
+    - to: external_id
+      from: customer_id
+      type: standard
+  configVersion: 0
+  customMappings: []
+  externalIdMapping:
+    to: email
+    from: customer_email
+  sendVerificationEmail: true
+schedule:
+  type: interval
+  schedule:
+    interval:
+      unit: hour
+      quantity: 1
+schedulePaused: false
