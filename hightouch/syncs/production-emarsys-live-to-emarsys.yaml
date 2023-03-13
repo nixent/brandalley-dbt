@@ -89,19 +89,19 @@ config:
     - to: '38519'
       from: ipAddress
       type: standard
-    - to: '17506'
-      from: customerId
-      type: standard
     - to: '41555'
       from: achicaDataSource
       type: standard
     - to: '49450'
       from: recordSource
       type: standard
+    - to: '61637'
+      from: hightouch_customerId
+      type: standard
   configVersion: 0
   externalIdMapping:
-    to: '61637'
-    from: hightouch_customerId
+    to: '17506'
+    from: customerId
 schedule:
   type: manual
 schedulePaused: false
