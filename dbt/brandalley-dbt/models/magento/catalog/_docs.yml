@@ -153,6 +153,8 @@ models:
   - name: catalog_product
     columns:
       - name: entity_id
+      - name: sku
+      - name: cost
 
   - name: categories
     description: ""
