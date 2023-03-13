@@ -6,7 +6,10 @@
       "data_type": "timestamp",
       "granularity": "day"
     },
-    pre_hook="update {{ this }} set emarsys_sync_status = 2 WHERE emarsys_sync_status IN (0 , 1) OR emarsys_sync_status IS NULL;"
+    pre_hook="
+        {% if is_incremental() %}
+            update {{ this }} set emarsys_sync_status = 2 WHERE emarsys_sync_status IN (0 , 1) OR emarsys_sync_status IS NULL;
+        {% endif %}"
 ) }}
 SELECT * FROM
 (WITH country_map AS(SELECT *
