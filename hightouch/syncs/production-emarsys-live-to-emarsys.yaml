@@ -8,9 +8,6 @@ config:
     - to: '17510'
       from: createdAccountDate
       type: standard
-    - to: '3'
-      from: email
-      type: standard
     - to: '17516'
       from: baTitle
       type: standard
@@ -53,12 +50,6 @@ config:
     - to: '38520'
       from: updatedDate
       type: standard
-    - to: '1'
-      from: firstName
-      type: standard
-    - to: '2'
-      from: lastName
-      type: standard
     - to: '4'
       from: dob
       type: standard
@@ -76,9 +67,6 @@ config:
       type: standard
     - to: '14'
       from: country
-      type: standard
-    - to: '15'
-      from: telephone
       type: standard
     - to: '18'
       from: company
