@@ -1,0 +1,6 @@
+name: Emarsys Live Contacts
+source: google-big-query-5x13w
+type: dbt_model
+dbtModel: model.brandalley_dbt.emarsys_new_customers
+isSchema: false
+primaryKey: hightouch_customerId
