@@ -1,7 +1,12 @@
 name: Emarsys_new_customers
 source: google-big-query-dev
 type: raw_sql
-rawSql: |
-  select * from `emarsys.emarsys_new_customers`
+rawSql: |-
+  SELECT
+    *
+  FROM
+    `emarsys.emarsys_new_customers`
+  WHERE
+    DATE(_streamkap_loaded_at_ts) >= CURRENT_DATE()
 isSchema: false
 primaryKey: customerId
