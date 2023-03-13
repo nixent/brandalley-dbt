@@ -1,0 +1,26 @@
+model: production-magento-customer-pii-sync
+destination: emarsys-1gyu1
+config:
+  mode: update
+  type: object
+  object: contact
+  mappings:
+    - to: '3'
+      from: email
+      type: standard
+    - to: '1'
+      from: firstName
+      type: standard
+    - to: '2'
+      from: lastName
+      type: standard
+    - to: '15'
+      from: telephone
+      type: standard
+  configVersion: 0
+  externalIdMapping:
+    to: '17506'
+    from: entity_id
+schedule:
+  type: manual
+schedulePaused: false

@@ -9,6 +9,14 @@
     }
 )}}
 
+{% if execute and is_incremental() %}
+  {% set sql %}
+    select replace(cast(max(date) as string), '-', '') as max_date from {{this}}
+  {% endset %}
+  {% set result = run_query(sql) %}
+  {% set max_date = result.columns['max_date'][0]  %}
+{% endif %}
+
 select
     {{dbt_utils.surrogate_key(['date', 'visitId', 'fullVisitorId', 'hits.hitNumber', 'product.productSKU', 'hits.transaction.transactionid', 'i'])}} as unique_key,
     parse_date("%Y%m%d", date)                                                                                as date,
@@ -31,5 +39,5 @@ from {{ source('76149814', 'ga_sessions_*') }},
 left join unnest(hits.product) as product with offset as i
 where totals.visits = 1
     {% if is_incremental() %}
-        and parse_date("%Y%m%d", date) >= current_date
+        and _table_suffix between '{{max_date}}' and format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
     {% endif %}

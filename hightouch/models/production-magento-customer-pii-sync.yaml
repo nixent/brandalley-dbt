@@ -1,0 +1,34 @@
+name: Production - Magento Customer PII sync
+source: my-sql-magento-prod
+type: raw_sql
+rawSql: |-
+  SELECT
+    e.entity_id,
+    created_at,
+    updated_at,
+    e.email,
+    caev_fn.value AS firstName,
+    caev_ln.value AS lastName,
+    caev_phone.value AS telephone
+  FROM
+    (
+      SELECT
+        entity_id,
+        email,
+        created_at,
+        updated_at
+      FROM
+        customer_entity
+      WHERE
+        updated_at >= (NOW() - INTERVAL 8 HOUR)
+    ) e
+    LEFT JOIN customer_entity_int AS cei_db ON cei_db.entity_id = e.entity_id
+    AND cei_db.attribute_id = 13
+    LEFT JOIN customer_address_entity_varchar caev_fn ON caev_fn.entity_id = cei_db.value
+    AND caev_fn.attribute_id = 20
+    LEFT JOIN customer_address_entity_varchar caev_ln ON caev_ln.entity_id = cei_db.value
+    AND caev_ln.attribute_id = 22
+    LEFT JOIN customer_address_entity_varchar caev_phone ON caev_phone.entity_id = cei_db.value
+    AND caev_phone.attribute_id = 31
+isSchema: false
+primaryKey: entity_id
