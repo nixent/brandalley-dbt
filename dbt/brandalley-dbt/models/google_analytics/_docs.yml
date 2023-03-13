@@ -68,6 +68,12 @@ models:
               type: sum
               description: "GMV"
               round: 0
+            total_margin_metric:
+              label: 'Margin (£)'
+              type: sum
+              sql: "if(transaction_id is not null, product_revenue - ${products.cost}, null)"
+              description: "Margin"
+              round: 0
       - name: unique_visit_id
         meta:
           metrics:
