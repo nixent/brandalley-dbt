@@ -9,12 +9,11 @@ sfo.gw_base_tax_amount_refunded, sfo.gw_tax_amount_refunded, sfo.gw_items_base_t
 sfo.reward_points_balance, sfo.base_reward_currency_amount, sfo.reward_currency_amount, sfo.base_rwrd_crrncy_amt_invoiced, sfo.rwrd_currency_amount_invoiced, 
 sfo.base_rwrd_crrncy_amnt_refnded, sfo.rwrd_crrncy_amnt_refunded, sfo.reward_points_balance_refund, sfo.reward_points_balance_refunded, sfo.reward_salesrule_points,
 gca.date_created, gca.date_expires, gca.balance, gca.state
- from 
+ from {{ ref(
+        'stg__enterprise_giftcardaccount'
+    ) }} gca
+left outer join 
 {{ ref(
         'stg__sales_flat_order'
     ) }} sfo
-left outer join {{ ref(
-        'stg__enterprise_giftcardaccount'
-    ) }} gca
 on REGEXP_EXTRACT(sfo.gift_cards, 'BAGC[^"]*')=gca.code
-where sfo.gift_cards like '%BAGC%'

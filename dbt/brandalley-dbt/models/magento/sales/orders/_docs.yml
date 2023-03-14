@@ -143,6 +143,17 @@ models:
         meta:
           dimension:
             format: id
+      - name: salesrule_discount_amount
+        description: "Discount value"
+        meta:
+          metrics:
+            salesrule_discount_amount_value:
+              label: 'Discount value'
+              type: sum
+              description: "Discount value"
+              hidden: false
+              round: 2
+              format: 'gbp'      
 
   - name: gift_cards
     description: "Gift cards"
