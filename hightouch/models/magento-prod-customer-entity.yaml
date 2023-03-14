@@ -1,4 +1,4 @@
-name: Magento Prod customer entity
+name: Test Magento Prod customer entity
 source: my-sql-magento-prod
 type: raw_sql
 rawSql: >
