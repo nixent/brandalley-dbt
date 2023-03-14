@@ -15,6 +15,19 @@ first_orders as (
   group by 1 
 ),
 
+first_order_brands as (
+  select
+    customer_id,
+    order_id,
+    min(created_at)           as order_at
+    , 
+    array_agg(distinct brand ignore nulls) as first_purchase_brands
+  from {{ ref('OrderLines') }}
+  where customer_id is not null
+  group by 1,2
+  qualify row_number() over (partition by customer_id order by order_at) = 1
+),
+
 second_orders as (
   select
     customer_id,
@@ -29,12 +42,15 @@ select
   c.signed_up_at,
   fo.first_purchase_at,
   fo.count_customer_orders,
+  fob.first_purchase_brands,
   so.second_purchase_at,
   so.first_to_second_order_interval,
   date_diff(current_date, date(fo.first_purchase_at), day) as customer_first_purchase_age_days
 from customers c
 left join first_orders fo
   on c.customer_id = fo.customer_id
+left join first_order_brands fob
+  on c.customer_id = fob.customer_id
 left join second_orders so
   on c.customer_id = so.customer_id
   
