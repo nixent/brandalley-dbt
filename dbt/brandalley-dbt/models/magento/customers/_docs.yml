@@ -30,6 +30,10 @@ models:
           dimension:
             type: date
       - name: first_purchase_brands
+        meta: 
+          dimension:
+            type: string
+            sql: array_to_string(first_purchase_brands, ', ')
       - name: second_purchase_at
         meta: 
           dimension:
