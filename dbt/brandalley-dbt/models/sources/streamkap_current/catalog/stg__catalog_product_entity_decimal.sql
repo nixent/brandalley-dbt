@@ -1,6 +1,6 @@
 {{config(
     materialized='incremental',
-    unique_key='value_id',
+    unique_key='entity_id',
 	cluster_by='value_id',
 )}}
 
