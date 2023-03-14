@@ -26,7 +26,7 @@ with products as (
         cps_supplier.sup_id                             as supplier_id,
         cps_supplier.name                               as supplier_name,
         eaov_gender.value                               as gender,
-        cpev_barcode.value                              as barcode
+        cpev_barcode.value                              as barcode 
     from {{ ref('stg__catalog_product_entity') }} cpe
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_name
         on cpe.entity_id = cpev_name.entity_id
