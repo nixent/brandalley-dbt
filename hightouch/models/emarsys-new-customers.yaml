@@ -1,4 +1,4 @@
-name: Emarsys_new_customers
+name: Test Emarsys_new_customers
 source: google-big-query-dev
 type: raw_sql
 rawSql: |-
