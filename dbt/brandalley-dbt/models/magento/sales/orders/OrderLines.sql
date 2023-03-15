@@ -126,7 +126,7 @@ with order_lines as (
 		cpn.sap_ref,
 		cpn.status 																																			as cpn_status,
 		eaov_product_age.value																																as product_age,
-		max(cpe.sku) 																																		as parent_sku,
+		coalesce(max(cpe.sku), 'Unknown') 																													as parent_sku,
 		max(cpr.reference) 																																	as REFERENCE,
 		sum((sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount) 															as TOTAL_GBP_after_vouchers,
 		sum(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) 																							as TOTAL_GBP_before_vouchers,
