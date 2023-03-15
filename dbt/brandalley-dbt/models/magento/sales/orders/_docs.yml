@@ -627,6 +627,8 @@ models:
             format: 'gbp'
       - name: parent_sku
         description: ""
+        tests:
+          - not_null
       - name: reference
         description: "Reference"
       - name: region

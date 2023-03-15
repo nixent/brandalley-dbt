@@ -88,7 +88,7 @@ with order_lines as (
 		if(sfo.total_refunded is null, 0, sfo.total_refunded)																								as line_total_refunded,
 		shipping_refunded,
 		if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value) 														as category_path,
-		if(eaov_pt_con.value is not null, eaov_pt_con.value, eaov_pt_sim.value) 																			as product_type,
+		coalesce(eaov_pt_con.value, eaov_pt_sim.value, 'Unknown') 																							as product_type,
 		eaov_brand.value 																																	as brand,
 		cps_supplier.sup_id 																																as supplier_id,
 		cps_supplier.name 																																	as supplier_name,
