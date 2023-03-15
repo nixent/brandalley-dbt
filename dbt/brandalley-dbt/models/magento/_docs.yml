@@ -84,13 +84,13 @@ models:
         meta:
           dimension:
             label: 'GMV AOV (£)'
-            round: 0
+            round: 1
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
             label: 'Sales Amount AOV (£)'
-            round: 0
+            round: 1
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
@@ -163,13 +163,13 @@ models:
         meta:
           dimension:
             label: 'GMV AOV (£)'
-            round: 0
+            round: 1
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
             label: 'Sales Amount AOV (£)'
-            round: 0
+            round: 1
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
@@ -242,13 +242,13 @@ models:
         meta:
           dimension:
             label: 'GMV AOV (£)'
-            round: 0
+            round: 1
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
             label: 'Sales Amount AOV (£)'
-            round: 0
+            round: 1
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
