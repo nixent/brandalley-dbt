@@ -652,6 +652,8 @@ models:
         description: "Shippung reufnded, nullable"
       - name: category_path
         description: ""
+      - name: marketing_category
+        description: ""
       - name: product_type
         description: "Type of the product, nullable"
       - name: brand

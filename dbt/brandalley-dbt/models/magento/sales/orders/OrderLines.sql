@@ -88,6 +88,106 @@ with order_lines as (
 		if(sfo.total_refunded is null, 0, sfo.total_refunded)																								as line_total_refunded,
 		shipping_refunded,
 		if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value) 														as category_path,
+		case 
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Home>%') then "Homeware"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Home & Garden>%') then "Homeware"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Gifts>%') then "Festival"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Kids>%') then "Kidswear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Christmas>%') then "Festival"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Lingerie>%') then "Lingerie & Swimwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Outlet>%') then "Outlet"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Tops%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Trousers>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Underwear>%') then "Lingerie & Swimwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Accessories>%') then "Accessories"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Clothing>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Fleeces%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Jeans>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Knitwear>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Onesies>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Outerwear>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Shirts>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Footwear>%') then "Footwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Shoes>%') then "Footwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Shorts>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Sportswear%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Suits>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Swimwear>%') then "Lingerie & Swimwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Men>Nightwear>%') then "Lingerie & Swimwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Sports%') then "Active"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Accessories%') then "Accessories"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Blouses%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Clothing>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Dresses>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Fleeces%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Footwear%') then "Footwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Handbags>%') then "Accessories"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Jeans>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Knitwear>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Lingerie>%') then "Lingerie & Swimwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Onesies>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Outerwear>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Playsuits%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Shoes%') then "Footwear"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Shorts>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Skirts>%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Sportswear%') then "Active"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Tops%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Trousers%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Maternity%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Jeans%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Women>Outerwear%') then "RTW"
+            when if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value)
+            like ('Beauty>%') then "Beauty"
+            else "Others" end 														                                                                        as marketing_category,
 		if(eaov_pt_con.value is not null, eaov_pt_con.value, eaov_pt_sim.value) 																			as product_type,
 		eaov_brand.value 																																	as brand,
 		cps_supplier.sup_id 																																as supplier_id,
@@ -246,7 +346,7 @@ with order_lines as (
 		and sfo.created_at > '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(65)}}
+	{{dbt_utils.group_by(66)}}
 )
 
 
