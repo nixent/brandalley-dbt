@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: page_views
+    columns:
+      - name: unique_key
+        tests:
+          - unique
+          - not_null
