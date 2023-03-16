@@ -1209,7 +1209,7 @@ models:
           dimension:
             format: id
       - name: increment_id
-      - name: customers_id
+      - name: customer_id
         meta:
           dimension:
             format: id
