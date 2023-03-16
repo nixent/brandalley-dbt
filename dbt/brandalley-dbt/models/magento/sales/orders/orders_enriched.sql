@@ -39,6 +39,7 @@ select
   o.days_since_signup,
   o.coupon_code,
   if(contains_substr(o.coupon_code, ','), 'Multiple Codes', sr.name)           as coupon_name,
+  if(src.type = 0, 'UNLIMITED USE', 'ONE TIME USE')                            as coupon_type,
   ola.order_revenue_excl_tax_after_vouchers,
   ola.order_product_costs_excl_tax,
   ola.order_revenue_excl_tax_after_vouchers - ola.order_product_costs_excl_tax as order_margin,
