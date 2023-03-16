@@ -307,7 +307,7 @@ group by
 
 select child_entity_id,child_sku,min_qty,qty,string_agg(distinct child_parent_sku) as child_parent_sku,image_value,name,value,
 suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,
-size,colour,price,min(special_price) special_price,outlet_price,string_agg(outlet_category) outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,
+size,colour,price,min(special_price) special_price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,
 -- Not ideal to do a nested query there but couldn't find any other way to get the parent and flashsale categories on the same line
 level_1,level_2,level_3, string_agg(parent_category) parent_category, tax, string_agg(flashsale_category) flashsale_category, category from (
 select child_entity_id,child_sku,min_qty,qty,string_agg(distinct child_parent_sku) as child_parent_sku,image_value,name,value,
