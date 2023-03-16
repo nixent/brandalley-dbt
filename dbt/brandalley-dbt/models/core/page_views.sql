@@ -32,3 +32,4 @@ where 1=1
 {% if is_incremental() %}
   and loaded_at >= (select max(rs_loaded_at) from {{ this }})
 {% endif %}
+qualify row_number() over (partition by unique_key order by rs_loaded_at desc) = 1
