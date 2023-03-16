@@ -1,6 +1,12 @@
 {{ config(
     materialized='incremental',
-    unique_key='unique_key'
+    unique_key='unique_key',
+    cluster_by='unique_key',
+	partition_by = {
+      "field": "event_at",
+      "data_type": "timestamp",
+      "granularity": "day"
+    }
 )}}
 
 select
@@ -8,8 +14,8 @@ select
     channel                                             as platform,
     anonymous_id,
     id                                                  as event_id,
-    original_timestamp                                  as event_at,
-    timestamp                                           as recalc_event_at,
+    original_timestamp                                  as original_event_at,
+    timestamp                                           as event_at,
     context_campaign_name                               as campaign_name,
     context_campaign_source                             as campaign_source,
     context_campaign_medium                             as campaign_medium,
