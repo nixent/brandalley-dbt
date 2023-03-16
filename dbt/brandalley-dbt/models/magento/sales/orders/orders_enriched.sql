@@ -38,6 +38,7 @@ select
   o.days_since_first_purchase,
   o.days_since_signup,
   o.coupon_code,
+  sr.name                         as coupon_name,
   ola.order_revenue_excl_tax_after_vouchers,
   ola.order_product_costs_excl_tax,
   ola.order_revenue_excl_tax_after_vouchers - ola.order_product_costs_excl_tax as order_margin,
@@ -50,4 +51,8 @@ left join order_line_agg ola
   on o.magentoID = ola.order_id
 left join order_refunds_agg ora
   on o.magentoID = ora.order_id
+left join {{ ref('stg__salesrule_coupon') }} src
+  on lower(o.coupon_code) = lower(src.code)
+left join {{ ref('stg__salesrule') }} sr
+  on src.rule_id = sr.rule_id
 

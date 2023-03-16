@@ -1242,6 +1242,7 @@ models:
               hidden: false
               round: 0
       - name: coupon_code
+      - name: coupon_name
       - name: order_revenue_excl_tax_after_vouchers
         meta:
           dimension:
