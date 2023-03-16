@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: prod
+    database: datawarehouse-358408
+    description: "Rudderstack Events"
+    tables:
+      - name: pages
