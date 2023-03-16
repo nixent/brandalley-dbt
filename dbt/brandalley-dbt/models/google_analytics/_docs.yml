@@ -10,6 +10,10 @@ models:
           sql_on: ${ga_daily_stats.product_sku} = ${catalog_product.sku}
         - join: products_sales
           sql_on: ${ga_daily_stats.product_sku} = ${products_sales.sku}
+        - join: orders_enriched
+          sql_on: ${ga_daily_stats.transaction_id} = ${orders_enriched.increment_id}
+        - join: customers_enriched
+          sql_on: ${orders_enriched.customer_id} = ${customers_enriched.customer_id}
     columns:
       - name: unique_key
         tests:

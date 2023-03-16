@@ -1208,7 +1208,8 @@ models:
         meta:
           dimension:
             format: id
-      - name: customers_id
+      - name: increment_id
+      - name: customer_id
         meta:
           dimension:
             format: id
@@ -1217,6 +1218,10 @@ models:
         meta:
           dimension:
             type: number
+      - name: is_first_order
+        meta:
+          dimension:
+            type: boolean
       - name: order_number_excl_full_refunds
         meta:
           dimension:
@@ -1236,6 +1241,8 @@ models:
               description: "Average days since first purchase"
               hidden: false
               round: 0
+      - name: coupon_code
+      - name: coupon_name
       - name: order_revenue_excl_tax_after_vouchers
         meta:
           dimension:
