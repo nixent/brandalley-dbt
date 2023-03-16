@@ -38,7 +38,7 @@ select
   o.days_since_first_purchase,
   o.days_since_signup,
   o.coupon_code,
-  if(contains_substr(o.coupon_codes, ','), 'Multiple Codes', r.name)           as coupon_name,
+  if(contains_substr(o.coupon_code, ','), 'Multiple Codes', r.name)            as coupon_name,
   ola.order_revenue_excl_tax_after_vouchers,
   ola.order_product_costs_excl_tax,
   ola.order_revenue_excl_tax_after_vouchers - ola.order_product_costs_excl_tax as order_margin,
