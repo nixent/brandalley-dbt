@@ -26,6 +26,7 @@ order_refunds_agg as (
 
 select
   o.magentoID   as order_id,
+  o.increment_id,
   o.customer_id,
   o.created_at  as order_at,
   o.status      as order_status,
@@ -35,6 +36,7 @@ select
   o.interval_between_orders,
   o.days_since_first_purchase,
   o.days_since_signup,
+  o.coupon_code,
   ola.order_revenue_excl_tax_after_vouchers,
   ola.order_product_costs_excl_tax,
   ola.order_revenue_excl_tax_after_vouchers - ola.order_product_costs_excl_tax as order_margin,
