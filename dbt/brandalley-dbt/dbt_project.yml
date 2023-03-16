@@ -34,6 +34,9 @@ query-comment:
 
 models:
   brandalley_dbt:
+    core:
+      +schema: core
+      +materialized: table
     magento:
       +schema: magento
       +materialized: table 
@@ -45,4 +48,7 @@ models:
       streamkap_current:
         +on_schema_change: "append_new_columns"
         +schema: streamkap_current
-        +post-hook: "delete {{this}} where __deleted = true"
+        sales:
+          +post-hook: "delete {{this}} where __deleted = true"
+        customers:
+          +post-hook: "delete {{this}} where __deleted = true"
