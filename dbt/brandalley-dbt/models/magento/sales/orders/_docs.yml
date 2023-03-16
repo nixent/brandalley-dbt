@@ -1218,6 +1218,10 @@ models:
         meta:
           dimension:
             type: number
+      - name: is_first_order
+        meta:
+          dimension:
+            type: boolean
       - name: order_number_excl_full_refunds
         meta:
           dimension:

@@ -25,12 +25,13 @@ order_refunds_agg as (
 )
 
 select
-  o.magentoID   as order_id,
+  o.magentoID                     as order_id,
   o.increment_id,
   o.customer_id,
-  o.created_at  as order_at,
-  o.status      as order_status,
-  o.orderno     as order_sequence,
+  o.created_at                    as order_at,
+  o.status                        as order_status,
+  o.orderno                       as order_sequence,
+  if(o.orderno = 1, true, false)  as is_first_order,
 	o.order_number_excl_full_refunds,
 	o.order_number_incl_cancellations,
   o.interval_between_orders,
