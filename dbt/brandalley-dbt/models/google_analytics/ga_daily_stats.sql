@@ -33,6 +33,8 @@ select
     product.productQuantity                                                                                   as product_quantity,
     hits.transaction.transactionid                                                                            as transaction_id,
     coalesce(product.productRevenue/1000000,0)                                                                as product_revenue,
+    fullVisitorId                                                                                             as visitor_id,
+    visitId                                                                                                   as visit_id,
     fullVisitorId || visitId                                                                                  as unique_visit_id
 from {{ source('76149814', 'ga_sessions_*') }},
     unnest(hits) as hits

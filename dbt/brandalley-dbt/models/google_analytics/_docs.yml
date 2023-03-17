@@ -79,6 +79,14 @@ models:
               sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_revenue} - ${catalog_product.cost}, 0)"
               description: "Margin"
               round: 0
+      - name: visit_id
+        meta:
+          metrics:
+            total_users_metric:
+              label: 'Users'
+              type: count_distinct
+              description: "Total users"
+      - name: visitor_id
       - name: unique_visit_id
         meta:
           metrics:
