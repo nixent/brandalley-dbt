@@ -217,42 +217,47 @@ models:
       - name: qty_invoiced_metric
       - name: total_revenue
         meta:
-          dimension:
-            round: 0
+          metrics:
+            total_gmv:
+              type: sum
+              round: 0
       - name: line_product_cost_exc_vat_metric
         meta:
-          dimension:
-            round: 0
+          metrics:
+            total_cost:
+              type: sum
+              round: 0
       - name: total_revenue_exc_tax
         meta:
-          dimension:
-            round: 0
-      - name: margin_percent
-        meta:
-          dimension:
-            round: 2
+          metrics:
+            total_sales_amount:
+              type: sum
+              round: 0
       - name: margin_value
         meta:
-          dimension:
-            round: 0
+          metrics:
+            total_margin:
+              type: sum
+              round: 0
       - name: hour
       - name: last_week_margin
         meta:
-          dimension:
-            round: 0
-      - name: wow_margin_change_pct
-      - name: last_week_margin
-        meta:
-          dimension:
-            round: 0
-      - name: wow_margin_change_pct
+          metrics:
+            total_margin_last_week:
+              type: sum
+              round: 0
       - name: last_week_qty_invoiced
-      - name: wow_qty_invoiced_change_pct
+        meta:
+          metrics:
+            total_qty_invoiced_last_week:
+              type: sum
+              round: 0
       - name: last_week_revenue
         meta:
-          dimension:
-            round: 0
-      - name: wow_revenue_change_pct
+          metrics:
+            total_sales_amount_last_week:
+              type: sum
+              round: 0
 
   - name: order_summary
     description: "an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
