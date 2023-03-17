@@ -222,6 +222,11 @@ models:
       - name: product_type
       - name: supplier_name
       - name: qty_invoiced_metric
+        meta:
+          metrics:
+            total_qty_invoiced:
+              type: sum
+              round: 0
       - name: total_revenue
         meta:
           metrics:
