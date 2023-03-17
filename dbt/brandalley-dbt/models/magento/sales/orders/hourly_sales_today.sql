@@ -19,8 +19,7 @@ with metrics_today_and_last_week as (
     from {{ ref('OrderLines') }} ol
     where date(date_trunc(ol.created_at, day)) in (current_date, current_date - 7)
     group by 1,2,3,4,5,6,7,8
-),
-
+)
 
 select
     created_at_hour,
