@@ -51,7 +51,7 @@ models:
             round: 0
             format: 'gbp' 
       - name: avg_time_to_ship_days
-      - name: total_product_costs_exc_vat
+      - name: total_product_cost_exc_vat
         meta:
           dimension:
             round: 0
@@ -146,7 +146,7 @@ models:
             round: 0
             format: 'gbp' 
       - name: avg_time_to_ship_days
-      - name: total_product_costs_exc_vat
+      - name: total_product_cost_exc_vat
         meta:
           dimension:
             round: 0
@@ -241,7 +241,7 @@ models:
             round: 0
             format: 'gbp' 
       - name: avg_time_to_ship_days
-      - name: total_product_costs_exc_vat
+      - name: total_product_cost_exc_vat
         meta:
           dimension:
             round: 0
