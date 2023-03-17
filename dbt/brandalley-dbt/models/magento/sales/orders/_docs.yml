@@ -214,6 +214,13 @@ models:
     description: "A view to query realtime orders by hour today, and compare to the same hour last week"
     columns:
       - name: created_at_hour
+      - name: nego
+      - name: brand
+      - name: category_name
+      - name: department_type
+      - name: parent_sku
+      - name: product_type
+      - name: supplier_name
       - name: qty_invoiced_metric
       - name: total_revenue
         meta:
