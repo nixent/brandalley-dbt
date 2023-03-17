@@ -34,6 +34,7 @@
 
 with order_lines as (
 	select
+		-- check unique key on this
 		{{dbt_utils.surrogate_key(['sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfo.magentoID','cpev_pt_con.value','eaov_brand.option_id','eaov_color.option_id','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
 		greatest(sfo.bq_last_processed_at, sfoi_sim.bq_last_processed_at, sfoi_con.bq_last_processed_at)													as bq_last_processed_at,
 		-- sometimes these are before reg date - how? should we set them as first_purchase_at in these cases?
