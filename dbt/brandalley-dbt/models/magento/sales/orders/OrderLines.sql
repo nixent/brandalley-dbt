@@ -325,7 +325,7 @@ with order_lines as (
 
 	where 1=1
 	{% if is_incremental() %}
-		and sfo.created_at > '{{min_ts}}'
+		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
 	{{dbt_utils.group_by(60)}}
