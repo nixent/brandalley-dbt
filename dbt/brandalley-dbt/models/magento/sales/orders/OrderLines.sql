@@ -6,8 +6,7 @@
       "field": "created_at",
       "data_type": "timestamp",
       "granularity": "day"
-    },
-	on_schema_change='sync_all_columns'
+    }
 ) }}
 
 {% set min_ts = '2023-02-01' %}

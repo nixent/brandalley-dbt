@@ -508,32 +508,6 @@ models:
               group_label: 
       - name: dispatch_due_date
         description: ""
-      - name: product_cost_inc_vat
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            product_cost_inc_vat_metric:
-              label: 'Cost of 1 unit inc VAT'
-              type: sum
-              description: "Cost inc VAT for 1 unit of the order"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-      - name: line_product_cost_inc_vat
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            line_product_cost_inc_vat_metric:
-              label: 'Cost of all units inc VAT'
-              type: sum
-              description: "Cost inc VAT for all units of the item"
-              hidden: false
-              round: 2
-              format: 'gbp'      
       - name: product_cost_exc_vat
         description: ""
         meta:
@@ -625,55 +599,16 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-      - name: margin_inc_discount_percentage
+      - name: margin
         description: ""
         meta:
           dimension:
             hidden: true
           metrics:
-            margin_inc_discount_percentage_metric:
-              label: 'Margin after discount in percentage'
+            total_margin:
+              label: 'Margin (£)'
               type: sum
-              description: "Percentage of the margin after the discount is applied"
-              hidden: false
-              round: 2
-              format: 'percent'
-      - name: margin_inc_discount_value
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            margin_inc_discount_value_metric:
-              label: 'Margin after discount in GBP'
-              type: sum
-              description: "Value of the margin after the discount is applied"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-      - name: margin_exc_discount_percentage
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            margin_exc_discount_percentage_metric:
-              label: 'Margin before discount in percentage'
-              type: sum
-              description: "Percentage of the margin before the discount is applied"
-              hidden: false
-              round: 2
-              format: 'percent'      
-      - name: margin_exc_discount_value
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            margin_exc_discount_value_metric:
-              label: 'Margin before discount in GBP'
-              type: sum
-              description: "Value of the margin before the discount is applied"
+              description: "Total Margin"
               hidden: false
               round: 2
               format: 'gbp'      
