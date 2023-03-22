@@ -122,6 +122,8 @@ models:
             format: id
       - name: basis_for_issue
         description: "Basis for issue"
+      - name: coupon_reason
+        description: "Reason coupon was issued"
       - name: comments_text
         description: "Comments text"
       - name: recommendation
