@@ -34,6 +34,7 @@ query-comment:
 
 models:
   brandalley_dbt:
+    +schema: analytics
     core:
       +schema: core
       +materialized: table
