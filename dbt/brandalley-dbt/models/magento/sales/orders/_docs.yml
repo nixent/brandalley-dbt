@@ -1372,6 +1372,8 @@ models:
           sql_on: ${Orders.magentoID} = ${shipments.order_id}
         - join: stg__salesrule_coupon
           sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
+        - join: stg__salesrule
+          sql_on: ${stg__salesrule_coupon.rule_id} = ${stg__salesrule.rule_id}
         - join: customers_enriched 
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
         - join: orders_enriched 
