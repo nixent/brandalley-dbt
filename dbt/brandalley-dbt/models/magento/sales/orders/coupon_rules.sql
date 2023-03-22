@@ -6,21 +6,22 @@ select
     sc.usage_per_customer,
     sc.times_used,
     sc.expiration_date,
-    sc.is_primary,sc.created_at                                                 as sales_rule_coupon_created_at,
+    sc.is_primary,
+    sc.created_at                                                                               as sales_rule_coupon_created_at,
     type, 
-    sc.expiration_date < current_timestamp or sc.times_used >= sc.usage_limit   as coupon_expired, 
-    sfo.increment_id                                                            as order_id, 
+    coalesce((sc.times_used >= sc.usage_limit or current_timestamp > sc.expiration_date), false)  as coupon_expired, 
+    sfo.increment_id                                                                            as order_id, 
     sfo.status, 
     sfo.base_discount_amount, 
     sfo.base_discount_invoiced, 
     sfo.discount_description, 
-    timestamp(sfo.created_at)                                                   as order_date,
-    ia.id as invent_autocoupon_id,
+    timestamp(sfo.created_at)                                                                   as order_date,
+    ia.id                                                                                       as invent_autocoupon_id,
     ia.referral_coupon,
     ia.referee_coupon,
     ia.reward_to,
     ia.reward_from,
-    ia.created_at                                                               as invent_autocoupon_created_at, 
+    ia.created_at                                                                               as invent_autocoupon_created_at, 
     ia.cartrule_id, 
     ia.basis_for_issue,
     ia.comments_text,
@@ -29,7 +30,7 @@ select
     ia.referee_couponid,
     ia.reward_from_old,
     ia.issuer_id,
-    sr.discount_amount                                                          as salesrule_discount_amount
+    sr.discount_amount                                                                          as salesrule_discount_amount
 from {{ ref('stg__salesrule_coupon') }} sc
 left outer join {{ ref('stg__salesrule') }} sr 
     on sc.rule_id = sr.rule_id 
