@@ -24,6 +24,13 @@ select
     ia.created_at                                                                               as invent_autocoupon_created_at, 
     ia.cartrule_id, 
     ia.basis_for_issue,
+    case 
+        when ia.basis_for_issue = 1 then 'Goodwill'
+        when ia.basis_for_issue = 2 then 'Discount'
+        when ia.basis_for_issue = 3 then 'Supplier defect'
+        when ia.basis_for_issue = 4 then 'Item broken'
+        else 'Other'
+    end as coupon_reason,
     ia.comments_text,
     ia.recommendation,
     ia.referral_couponid,
