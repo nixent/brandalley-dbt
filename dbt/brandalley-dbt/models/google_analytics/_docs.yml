@@ -63,7 +63,7 @@ models:
               label: 'Conversion Rate (%)'
               type: number 
               description: 'Total transactions / Total visits'
-              sql: "coalesce(100*safe_divide(${total_transactions_metric},${total_visits_metric}),0)"
+              sql: "coalesce(safe_divide(${total_transactions_metric},${total_visits_metric}),0)"
               round: 2
               format: 'percent'
       - name: product_revenue
