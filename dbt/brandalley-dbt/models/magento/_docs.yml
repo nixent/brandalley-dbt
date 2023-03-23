@@ -109,7 +109,6 @@ models:
         meta:
           dimension:
             label: 'Conversion Rate - GA (%)'
-            format: 'percent'
 
   - name: kpis_weekly
     description: "A view of all KPIs, based off of order creation week"
@@ -198,7 +197,6 @@ models:
         meta:
           dimension:
             label: 'Conversion Rate - GA (%)'
-            format: 'percent'
 
   - name: kpis_monthly
     description: "A view of all KPIs, based off of order creation month"
