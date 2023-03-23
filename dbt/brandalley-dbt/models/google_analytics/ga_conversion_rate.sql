@@ -6,7 +6,7 @@
 select
     'month'                                                                                     as date_aggregation_type,
     date_trunc(date, month)                                                                     as ga_session_at_date,
-    round(100*safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
+    round(safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
 from {{ ref('ga_daily_stats') }}
 {% if is_incremental() %}
     where date >= date_trunc(current_date, month)
@@ -18,7 +18,7 @@ union all
 select
     'week'                                                                                      as date_aggregation_type,
     date_trunc(date, week(monday))                                                              as ga_session_at_date,
-    round(100*safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
+    round(safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
 from {{ ref('ga_daily_stats') }}
 {% if is_incremental() %}
     where date >= date_trunc(current_date, week(monday))
@@ -30,7 +30,7 @@ union all
 select
     'day'                                                                                      as date_aggregation_type,
     date_trunc(date, day)                                                                       as ga_session_at_date,
-    round(100*safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
+    round(safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
 from {{ ref('ga_daily_stats') }}
 {% if is_incremental() %}
     where date >= date_trunc(current_date, day)
