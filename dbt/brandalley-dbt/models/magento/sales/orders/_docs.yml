@@ -64,7 +64,7 @@ models:
             coupon_discount_amount:
               label: 'Discount amount'
               type: sum
-              description: "Discount amount"
+              description: "Order discount amount"
               hidden: false
               round: 2
               format: 'gbp'      
@@ -73,7 +73,7 @@ models:
         meta:
           metrics:
             coupon_discount_invoiced:
-              label: 'Discount invoiced'
+              label: 'Order discount invoiced'
               type: sum
               description: "Discount invoiced"
               hidden: false
@@ -155,7 +155,7 @@ models:
         meta:
           metrics:
             salesrule_discount_amount_value:
-              label: 'Discount value'
+              label: 'Coupon discount value'
               type: sum
               description: "Discount value"
               hidden: false
