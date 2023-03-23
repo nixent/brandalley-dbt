@@ -65,6 +65,7 @@ models:
               description: 'Total transactions / Total visits'
               sql: "coalesce(100*safe_divide(${total_transactions_metric},${total_visits_metric}),0)"
               round: 2
+              format: 'percent'
       - name: product_revenue
         meta:
           metrics:
@@ -73,12 +74,14 @@ models:
               type: sum
               description: "GMV"
               round: 0
+              format: 'gbp' 
             total_margin_metric:
               label: 'Margin (£)'
               type: sum
               sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_revenue} - ${catalog_product.cost}, 0)"
               description: "Margin"
               round: 0
+              format: 'gbp' 
       - name: visit_id
         meta:
           metrics:

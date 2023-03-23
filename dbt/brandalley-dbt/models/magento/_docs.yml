@@ -41,6 +41,7 @@ models:
           dimension:
             label: 'Shipping Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
@@ -48,11 +49,13 @@ models:
           dimension:
             label: 'Total Refund Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: avg_time_to_ship_days
       - name: total_product_costs_inc_vat
         meta:
           dimension:
             round: 0
+            format: 'gbp' 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
       - name: gmv
@@ -61,36 +64,42 @@ models:
           dimension:
             label: 'GMV (£)'
             round: 0
+            format: 'gbp' 
       - name: sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
             label: 'Sales Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: shipped_sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
             label: 'Shipped Sales Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
           dimension:
             label: 'Margin (£)'
             round: 0
+            format: 'gbp' 
       - name: aov_gmv
         description: "GMV divided by total number of orders"
         meta:
           dimension:
             label: 'GMV AOV (£)'
             round: 1
+            format: 'gbp' 
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
             label: 'Sales Amount AOV (£)'
             round: 1
+            format: 'gbp' 
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
@@ -120,6 +129,7 @@ models:
           dimension:
             label: 'Shipping Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
@@ -127,11 +137,13 @@ models:
           dimension:
             label: 'Total Refund Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: avg_time_to_ship_days
       - name: total_product_costs_inc_vat
         meta:
           dimension:
             round: 0
+            format: 'gbp' 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
       - name: gmv
@@ -140,36 +152,42 @@ models:
           dimension:
             label: 'GMV (£)'
             round: 0
+            format: 'gbp' 
       - name: sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
             label: 'Sales Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: shipped_sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
             label: 'Shipped Sales Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
           dimension:
             label: 'Margin (£)'
             round: 0
+            format: 'gbp' 
       - name: aov_gmv
         description: "GMV divided by total number of orders"
         meta:
           dimension:
             label: 'GMV AOV (£)'
             round: 1
+            format: 'gbp' 
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
             label: 'Sales Amount AOV (£)'
             round: 1
+            format: 'gbp' 
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
@@ -199,6 +217,7 @@ models:
           dimension:
             label: 'Shipping Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
@@ -206,11 +225,13 @@ models:
           dimension:
             label: 'Total Refund Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: avg_time_to_ship_days
       - name: total_product_costs_inc_vat
         meta:
           dimension:
             round: 0
+            format: 'gbp' 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
       - name: gmv
@@ -219,36 +240,42 @@ models:
           dimension:
             label: 'GMV (£)'
             round: 0
+            format: 'gbp' 
       - name: sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
             label: 'Sales Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: shipped_sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
             label: 'Shipped Sales Amount (£)'
             round: 0
+            format: 'gbp' 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
           dimension:
             label: 'Margin (£)'
             round: 0
+            format: 'gbp' 
       - name: aov_gmv
         description: "GMV divided by total number of orders"
         meta:
           dimension:
             label: 'GMV AOV (£)'
             round: 1
+            format: 'gbp' 
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
             label: 'Sales Amount AOV (£)'
             round: 1
+            format: 'gbp' 
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
