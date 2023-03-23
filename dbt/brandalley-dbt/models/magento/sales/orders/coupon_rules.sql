@@ -15,6 +15,7 @@ select
     sfo.base_discount_amount, 
     sfo.base_discount_invoiced, 
     sfo.discount_description, 
+    sfo.customer_id,
     timestamp(sfo.created_at)                                                                   as order_date,
     ia.id                                                                                       as invent_autocoupon_id,
     ia.referral_coupon,

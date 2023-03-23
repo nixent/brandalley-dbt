@@ -81,6 +81,11 @@ models:
               format: 'gbp'      
       - name: discount_description
         description: "Discount description"
+      - name: customer_id
+        description: "Customer ID"
+        meta:
+          dimension:
+            format: id
       - name: order_date
         description: "Date of the order"
         meta:
