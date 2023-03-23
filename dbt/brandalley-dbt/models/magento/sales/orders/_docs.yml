@@ -240,24 +240,28 @@ models:
             total_gmv:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: line_product_cost_exc_vat_metric
         meta:
           metrics:
             total_cost:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: total_revenue_exc_tax
         meta:
           metrics:
             total_sales_amount:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: margin_value
         meta:
           metrics:
             total_margin:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: hour
       - name: last_week_margin
         meta:
@@ -265,18 +269,21 @@ models:
             total_margin_last_week:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: last_week_qty_invoiced
         meta:
           metrics:
             total_qty_invoiced_last_week:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: last_week_revenue
         meta:
           metrics:
             total_sales_amount_last_week:
               type: sum
               round: 0
+              format: 'gbp' 
 
   - name: order_summary
     description: "an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
@@ -1281,12 +1288,14 @@ models:
               description: "AOV"
               hidden: false
               round: 2
+              format: 'gbp' 
             total_order_value_metric:
               label: 'Total Order Revenue'
               type: average
               description: "Total Order Revenue"
               hidden: false
               round: 2
+              format: 'gbp' 
       - name: order_product_costs_excl_tax
         meta:
           dimension:
@@ -1298,6 +1307,7 @@ models:
               description: "Total product costs"
               hidden: false
               round: 2
+              format: 'gbp' 
       - name: order_margin
         meta:
           dimension:
@@ -1309,6 +1319,7 @@ models:
               description: "Total margin"
               hidden: false
               round: 2
+              format: 'gbp' 
       - name: count_order_lines
         meta:
           metrics:
@@ -1363,6 +1374,7 @@ models:
               description: "Total refund amount split per order item"
               sql: "${total_refund_amount}/${count_order_lines}"
               round: 0
+              format: 'gbp' 
       - name: total_refund_amount
         meta:
           metrics:
@@ -1370,6 +1382,7 @@ models:
               label: 'Total refund amount'
               type: sum
               description: "Total refund amount"
+              format: 'gbp' 
 
   - name: Orders
     description: ""
