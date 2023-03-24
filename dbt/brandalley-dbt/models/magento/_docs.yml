@@ -79,6 +79,13 @@ models:
             label: 'Shipped Sales Amount (£)'
             round: 0
             format: 'gbp' 
+      - name: total_discount_amount
+        description: "Total discount amount"
+        meta:
+          dimension:
+            label: 'Total Discount Amount (£)'
+            round: 0
+            format: 'gbp' 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
@@ -167,6 +174,13 @@ models:
             label: 'Shipped Sales Amount (£)'
             round: 0
             format: 'gbp' 
+      - name: total_discount_amount
+        description: "Total discount amount"
+        meta:
+          dimension:
+            label: 'Total Discount Amount (£)'
+            round: 0
+            format: 'gbp' 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
@@ -253,6 +267,13 @@ models:
         meta:
           dimension:
             label: 'Shipped Sales Amount (£)'
+            round: 0
+            format: 'gbp' 
+      - name: total_discount_amount
+        description: "Total discount amount"
+        meta:
+          dimension:
+            label: 'Total Discount Amount (£)'
             round: 0
             format: 'gbp' 
       - name: margin
