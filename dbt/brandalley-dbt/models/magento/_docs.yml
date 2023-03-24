@@ -83,7 +83,7 @@ models:
         description: "Total discount amount"
         meta:
           dimension:
-            label: 'Total Discount Amount (£)'
+            label: 'Discount Amount (£)'
             round: 0
             format: 'gbp' 
       - name: margin
@@ -178,7 +178,7 @@ models:
         description: "Total discount amount"
         meta:
           dimension:
-            label: 'Total Discount Amount (£)'
+            label: 'Discount Amount (£)'
             round: 0
             format: 'gbp' 
       - name: margin
@@ -273,7 +273,7 @@ models:
         description: "Total discount amount"
         meta:
           dimension:
-            label: 'Total Discount Amount (£)'
+            label: 'Discount Amount (£)'
             round: 0
             format: 'gbp' 
       - name: margin
