@@ -5,7 +5,6 @@ models:
     description: "Coupon details"
     columns:
       - name: coupon_id
-        data_type: <integer>
         description: "Primary key"
         meta:
           dimension:
@@ -684,6 +683,8 @@ models:
             round: 2
             format: 'gbp'
       - name: parent_sku
+        description: ""
+      - name: parent_sku_offset
         description: ""
       - name: reference
         description: "Reference"

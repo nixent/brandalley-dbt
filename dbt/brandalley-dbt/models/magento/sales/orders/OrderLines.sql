@@ -337,6 +337,7 @@ select
 	TOTAL_GBP_ex_tax_after_vouchers - line_product_cost_exc_vat as margin,
 	initcap(split(category_path, '>')[safe_offset(0)]) as product_category_level_1, 
 	initcap(split(category_path, '>')[safe_offset(1)]) as product_category_level_2,
-	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3
+	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3,
+	row_number() over (partition by order_number, parent_sku order by sku) as parent_sku_offset
 from order_lines
 

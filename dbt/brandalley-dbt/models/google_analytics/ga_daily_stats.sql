@@ -28,6 +28,8 @@ select
     device.browser                                                                                            as device_browser,
     device.operatingSystem                                                                                    as device_os,
     product.productSKU                                                                                        as product_sku,
+    -- As we receive parent_sku as the sku - keep the offset to be able to join to OrderLines on a 1 to 1
+    row_number() over (partition by fullVisitorId || visitId || hits.transaction.transactionid || product.productSKU order by product.productSKU) as product_sku_offset,
     product.v2productName                                                                                     as product_name,
     product.productBrand                                                                                      as product_brand,
     product.productQuantity                                                                                   as product_quantity,
@@ -35,7 +37,8 @@ select
     coalesce(product.productRevenue/1000000,0)                                                                as product_revenue,
     fullVisitorId                                                                                             as visitor_id,
     visitId                                                                                                   as visit_id,
-    fullVisitorId || visitId                                                                                  as unique_visit_id
+    fullVisitorId || visitId                                                                                  as unique_visit_id,
+    hits.experiment                                                                                           as experiment,
 from {{ source('76149814', 'ga_sessions_*') }},
     unnest(hits) as hits
 left join unnest(hits.product) as product with offset as i
