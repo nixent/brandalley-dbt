@@ -14,6 +14,8 @@ models:
           sql_on: ${ga_daily_stats.transaction_id} = ${orders_enriched.increment_id}
         - join: customers_enriched
           sql_on: ${orders_enriched.customer_id} = ${customers_enriched.customer_id}
+        - join: OrderLines
+          sql_on: ${ga_daily_stats.transaction_id} = ${OrderLines.order_number} and ${ga_daily_stats.product_sku} = ${OrderLines.parent_sku} and ${ga_daily_stats.product_sku_offset} = ${OrderLines.parent_sku_offset}
     columns:
       - name: unique_key
         tests:
@@ -42,6 +44,7 @@ models:
           dimension:
             label: 'Device OS'
       - name: product_sku
+      - name: product_sku_offset
       - name: product_name
       - name: product_brand
       - name: product_quantity
@@ -97,3 +100,6 @@ models:
               label: 'Visits'
               type: count_distinct
               description: "Total visits"
+      # - name: experiment_id
+      # - name: experiment_variant
+        
