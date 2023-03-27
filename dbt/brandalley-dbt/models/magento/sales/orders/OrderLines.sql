@@ -33,6 +33,7 @@
 
 with order_lines as (
 	select
+		-- check unique key on this
 		{{dbt_utils.surrogate_key(['sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfo.magentoID','cpev_pt_con.value','eaov_brand.option_id','eaov_color.option_id','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
 		greatest(sfo.bq_last_processed_at, sfoi_sim.bq_last_processed_at, sfoi_con.bq_last_processed_at)													as bq_last_processed_at,
 		-- sometimes these are before reg date - how? should we set them as first_purchase_at in these cases?
@@ -59,8 +60,6 @@ with order_lines as (
 			when sfoi_con.dispatch_date < cast('2014-06-11' as date) then null
 			else sfoi_con.dispatch_date
 		end 																																				as dispatch_due_date,
-		sfoi_sim.base_cost 																																	as product_cost_inc_vat,
-		(sfoi_sim.base_cost * sfoi_sim.qty_ordered) 																										as line_product_cost_inc_vat,
 		cast((sfoi_sim.base_cost) as decimal) 																												as product_cost_exc_vat,
 		(sfoi_sim.base_cost) * sfoi_sim.qty_ordered 																										as line_product_cost_exc_vat,
 		sfoi_con.original_price 																															as flash_price_inc_vat,
@@ -68,23 +67,6 @@ with order_lines as (
 		sfoi_con.original_price /nullif((1 + (sfoi_con.tax_percent / 100.)),0) 																				as flash_price_exc_vat,
 		sfoi_con.original_price /nullif((1 + (sfoi_con.tax_percent / 100.)),0) * sfoi_sim.qty_ordered 														as line_flash_price_exc_vat,
 		sfoi_con.discount_amount 																															as line_discount_amount,
-		cast((
-			((sfoi_con.original_price * sfoi_sim.qty_ordered)/nullif((1 +(sfoi_con.tax_percent / 100.)),0)) - (sfoi_sim.base_cost * sfoi_sim.qty_ordered))
-			/nullif(((sfoi_con.original_price * sfoi_sim.qty_ordered)/(1 +(sfoi_con.tax_percent / 100.))),0
-		) as decimal) 																																		as margin_inc_discount_percentage,
-		cast((
-			(sfoi_con.original_price * sfoi_sim.qty_ordered)/nullif((1 +(sfoi_con.tax_percent / 100.)),0) - (sfoi_sim.base_cost * sfoi_sim.qty_ordered)
-		) as decimal) 																																		as margin_inc_discount_value,
-		cast((
-			(((sfoi_con.original_price * sfoi_sim.qty_ordered) - sfoi_con.discount_amount)/nullif((1 +(sfoi_con.tax_percent / 100.)),0)) 
-			- (sfoi_sim.base_cost * sfoi_sim.qty_ordered))
-			/nullif(((sfoi_con.original_price * sfoi_sim.qty_ordered) /nullif((1 + (sfoi_con.tax_percent / 100.)),0)),0
-		) as decimal) 																																		as margin_exc_discount_percentage,
-		cast(
-			(((sfoi_con.original_price * sfoi_sim.qty_ordered) - sfoi_con.discount_amount)
-			/nullif((1 +(sfoi_con.tax_percent / 100.)),0)) 
-			- (sfoi_sim.base_cost * sfoi_sim.qty_ordered) 
-		as decimal) 																																		as margin_exc_discount_value,
 		if(sfo.total_refunded is null, 0, sfo.total_refunded)																								as line_total_refunded,
 		shipping_refunded,
 		if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value) 														as category_path,
@@ -210,7 +192,7 @@ with order_lines as (
 			else 'OUTLET'
 		end 																																				as department_type,
 		sfo.updated_at,
-		cast(sfo.created_at as timestamp) 																													as created_at,
+		safe_cast(sfo.created_at as timestamp) 																													as created_at,
 		cast(null as datetime) 																																as month_created,
 		sfo.status 																																			as order_status,
 		sfoi_con.tax_amount,
@@ -220,7 +202,7 @@ with order_lines as (
 		{{ calculate_region_from_postcode('sfo.billing_postcode') }} 																						as Region, -- Cat 1
 		sfo.email 																																			as customer_email, -- Cat 1
 		sfo.billing_address_type, -- Cat 1  
-		CAST(cpn.date_comp_exported as timestamp) 																											as date_comp_exported,
+		safe_cast(cpn.date_comp_exported as timestamp) 																											as date_comp_exported,
 		sfoi_sim.created_at > cpn.date_comp_exported 																										as cpn_date_flag,
 		sfoi_sim.qty_backordered,
 		cpn.sap_ref,
@@ -343,15 +325,16 @@ with order_lines as (
 
 	where 1=1
 	{% if is_incremental() %}
-		and sfo.created_at > '{{min_ts}}'
+		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(66)}}
+	{{dbt_utils.group_by(60)}}
 )
 
 
 select 
 	*,
+	TOTAL_GBP_ex_tax_after_vouchers - line_product_cost_exc_vat as margin,
 	initcap(split(category_path, '>')[safe_offset(0)]) as product_category_level_1, 
 	initcap(split(category_path, '>')[safe_offset(1)]) as product_category_level_2,
 	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3

@@ -64,7 +64,7 @@ models:
             coupon_discount_amount:
               label: 'Discount amount'
               type: sum
-              description: "Discount amount"
+              description: "Order discount amount"
               hidden: false
               round: 2
               format: 'gbp'      
@@ -73,7 +73,7 @@ models:
         meta:
           metrics:
             coupon_discount_invoiced:
-              label: 'Discount invoiced'
+              label: 'Order discount invoiced'
               type: sum
               description: "Discount invoiced"
               hidden: false
@@ -81,6 +81,11 @@ models:
               format: 'gbp'      
       - name: discount_description
         description: "Discount description"
+      - name: customer_id
+        description: "Customer ID"
+        meta:
+          dimension:
+            format: id
       - name: order_date
         description: "Date of the order"
         meta:
@@ -122,6 +127,8 @@ models:
             format: id
       - name: basis_for_issue
         description: "Basis for issue"
+      - name: coupon_reason
+        description: "Reason coupon was issued"
       - name: comments_text
         description: "Comments text"
       - name: recommendation
@@ -148,7 +155,7 @@ models:
         meta:
           metrics:
             salesrule_discount_amount_value:
-              label: 'Discount value'
+              label: 'Coupon discount value'
               type: sum
               description: "Discount value"
               hidden: false
@@ -233,24 +240,28 @@ models:
             total_gmv:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: line_product_cost_exc_vat_metric
         meta:
           metrics:
             total_cost:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: total_revenue_exc_tax
         meta:
           metrics:
             total_sales_amount:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: margin_value
         meta:
           metrics:
             total_margin:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: hour
       - name: last_week_margin
         meta:
@@ -258,18 +269,21 @@ models:
             total_margin_last_week:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: last_week_qty_invoiced
         meta:
           metrics:
             total_qty_invoiced_last_week:
               type: sum
               round: 0
+              format: 'gbp' 
       - name: last_week_revenue
         meta:
           metrics:
             total_sales_amount_last_week:
               type: sum
               round: 0
+              format: 'gbp' 
 
   - name: order_summary
     description: "an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
@@ -494,32 +508,6 @@ models:
               group_label: 
       - name: dispatch_due_date
         description: ""
-      - name: product_cost_inc_vat
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            product_cost_inc_vat_metric:
-              label: 'Cost of 1 unit inc VAT'
-              type: sum
-              description: "Cost inc VAT for 1 unit of the order"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-      - name: line_product_cost_inc_vat
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            line_product_cost_inc_vat_metric:
-              label: 'Cost of all units inc VAT'
-              type: sum
-              description: "Cost inc VAT for all units of the item"
-              hidden: false
-              round: 2
-              format: 'gbp'      
       - name: product_cost_exc_vat
         description: ""
         meta:
@@ -611,57 +599,18 @@ models:
               hidden: false
               round: 2
               format: 'gbp'      
-      - name: margin_inc_discount_percentage
+      - name: margin
         description: ""
         meta:
           dimension:
             hidden: true
           metrics:
-            margin_inc_discount_percentage_metric:
-              label: 'Margin after discount in percentage'
+            total_margin:
+              label: 'Margin (£)'
               type: sum
-              description: "Percentage of the margin after the discount is applied"
+              description: "Total Margin"
               hidden: false
-              round: 2
-              format: 'percent'
-      - name: margin_inc_discount_value
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            margin_inc_discount_value_metric:
-              label: 'Margin after discount in GBP'
-              type: sum
-              description: "Value of the margin after the discount is applied"
-              hidden: false
-              round: 2
-              format: 'gbp'      
-      - name: margin_exc_discount_percentage
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            margin_exc_discount_percentage_metric:
-              label: 'Margin before discount in percentage'
-              type: sum
-              description: "Percentage of the margin before the discount is applied"
-              hidden: false
-              round: 2
-              format: 'percent'      
-      - name: margin_exc_discount_value
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            margin_exc_discount_value_metric:
-              label: 'Margin before discount in GBP'
-              type: sum
-              description: "Value of the margin before the discount is applied"
-              hidden: false
-              round: 2
+              round: 0
               format: 'gbp'      
       - name: line_total_refunded
         description: ""
@@ -1274,12 +1223,14 @@ models:
               description: "AOV"
               hidden: false
               round: 2
+              format: 'gbp' 
             total_order_value_metric:
               label: 'Total Order Revenue'
               type: average
               description: "Total Order Revenue"
               hidden: false
               round: 2
+              format: 'gbp' 
       - name: order_product_costs_excl_tax
         meta:
           dimension:
@@ -1291,6 +1242,7 @@ models:
               description: "Total product costs"
               hidden: false
               round: 2
+              format: 'gbp' 
       - name: order_margin
         meta:
           dimension:
@@ -1302,6 +1254,7 @@ models:
               description: "Total margin"
               hidden: false
               round: 2
+              format: 'gbp' 
       - name: count_order_lines
         meta:
           metrics:
@@ -1356,6 +1309,7 @@ models:
               description: "Total refund amount split per order item"
               sql: "${total_refund_amount}/${count_order_lines}"
               round: 0
+              format: 'gbp' 
       - name: total_refund_amount
         meta:
           metrics:
@@ -1363,6 +1317,7 @@ models:
               label: 'Total refund amount'
               type: sum
               description: "Total refund amount"
+              format: 'gbp' 
 
   - name: Orders
     description: ""
@@ -1372,6 +1327,8 @@ models:
           sql_on: ${Orders.magentoID} = ${shipments.order_id}
         - join: stg__salesrule_coupon
           sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
+        - join: stg__salesrule
+          sql_on: ${stg__salesrule_coupon.rule_id} = ${stg__salesrule.rule_id}
         - join: customers_enriched 
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
         - join: orders_enriched 
