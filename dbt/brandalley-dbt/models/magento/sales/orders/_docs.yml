@@ -610,7 +610,7 @@ models:
               type: sum
               description: "Total Margin"
               hidden: false
-              round: 2
+              round: 0
               format: 'gbp'      
       - name: line_total_refunded
         description: ""
