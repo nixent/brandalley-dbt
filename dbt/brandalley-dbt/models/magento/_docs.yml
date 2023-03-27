@@ -51,7 +51,7 @@ models:
             round: 0
             format: 'gbp' 
       - name: avg_time_to_ship_days
-      - name: total_product_costs_inc_vat
+      - name: total_product_cost_exc_vat
         meta:
           dimension:
             round: 0
@@ -146,7 +146,7 @@ models:
             round: 0
             format: 'gbp' 
       - name: avg_time_to_ship_days
-      - name: total_product_costs_inc_vat
+      - name: total_product_cost_exc_vat
         meta:
           dimension:
             round: 0
@@ -241,7 +241,7 @@ models:
             round: 0
             format: 'gbp' 
       - name: avg_time_to_ship_days
-      - name: total_product_costs_inc_vat
+      - name: total_product_cost_exc_vat
         meta:
           dimension:
             round: 0
@@ -687,14 +687,15 @@ models:
               hidden: false
               round: 0    
 
-      - name: product_cost_inc_vat
-        description: "Product cost inc VAT"
+      - name: product_cost_exc_vat
+        description: "Product cost exc VAT"
         meta:
           metrics:
+            #  This should be called exc vat
             product_cost_inc_vat_kpi_metric:
-              label: 'Product cost inc VAT'
+              label: 'Product cost exc VAT'
               type: sum
-              description: "Product cost inc VAT"
+              description: "Product cost exc VAT"
               hidden: false
               round: 2
               format: 'gbp'      
