@@ -75,16 +75,9 @@ models:
         meta:
           metrics:
             total_revenue_metric:
-              label: 'GMV (£)'
+              label: 'GMV Before Discount (£)'
               type: sum
               description: "GMV"
-              round: 0
-              format: 'gbp' 
-            total_margin_metric:
-              label: 'Margin (£)'
-              type: sum
-              sql: "if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_revenue} - ${catalog_product.cost}, 0)"
-              description: "Margin"
               round: 0
               format: 'gbp' 
       - name: visit_id
@@ -102,6 +95,5 @@ models:
               label: 'Visits'
               type: count_distinct
               description: "Total visits"
-      # - name: experiment_id
-      # - name: experiment_variant
+      - name: experiment
         
