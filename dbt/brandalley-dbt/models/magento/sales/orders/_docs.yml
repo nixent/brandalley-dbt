@@ -297,7 +297,7 @@ models:
         - join: products
           sql_on: ${OrderLines.sku} = ${products.sku}
         - join: shipment_items
-          sql_on: ${OrderLines.sku} = ${shipment_items.sku}            
+          sql_on: ${OrderLines.order_item_id} = ${shipment_items.order_item_id}+1            
         - join: shipments
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: shipping
