@@ -684,6 +684,8 @@ models:
             format: 'gbp'
       - name: parent_sku
         description: ""
+      - name: parent_sku_offset
+        description: ""
       - name: reference
         description: "Reference"
       - name: region
