@@ -1313,13 +1313,13 @@ models:
         meta:
           metrics:
             total_refund_amount_metric:
-              label: 'Total refund amount'
+              label: 'Total Refund Amount'
               type: sum
               description: "Total refund amount"
               format: 'gbp' 
 
   - name: Orders
-    description: ""
+    description: "A table of order information, unique at order id level"
     meta:
       joins:
         - join: shipments
@@ -1341,23 +1341,26 @@ models:
         meta:
           metrics:
             total_order_count:
-              label: 'Total number of orders'
+              label: 'Total Orders'
               type: count_distinct
               description: "Number of orders"
-              hidden: false
               round: 0
             total_new_order_count:
-              label: 'Total number of new orders'
+              label: 'Total New Orders'
               type: count_distinct
               description: "Number of new orders"
-              hidden: false
-              sql: "IF(${orderno}=1, ${increment_id}, null)"
+              sql: "IF(${order_number_incl_cancellations}=1, ${increment_id}, null)"
+              round: 0
+            total_returning_order_count:
+              label: 'Total Returning Orders'
+              type: count_distinct
+              description: "Number of returning orders"
+              sql: "IF(${order_number_incl_cancellations}>1, ${increment_id}, null)"
               round: 0
             total_customers_count:
-              label: 'Total number of customers'
+              label: 'Total Customers'
               type: count_distinct
               description: "Number of customers"
-              hidden: false
               sql: "${customer_id}"
       - name: magentoID
         description: ""
@@ -1394,7 +1397,7 @@ models:
             hidden: true
           metrics:
             orders_total_tax:
-              label: 'Orders total tax amount'
+              label: 'Total Orders Tax Amount (£)'
               type: sum
               description: "Order's total tax amount"
               hidden: false
@@ -1443,7 +1446,7 @@ models:
             hidden: true
           metrics:
             orders_grand_total:
-              label: 'Order grand total'
+              label: 'Order Grand Total'
               type: sum
               description: "Order grand total"
               hidden: false
@@ -1474,7 +1477,7 @@ models:
         meta: 
           metrics:
             new_customers:
-              label: 'New Customers'
+              label: 'Total New Customers'
               type: count_distinct
               description: "Number of new customers"
               sql: "IF(${orderno}=1, ${customer_id}, 0)"
