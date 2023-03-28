@@ -1211,6 +1211,7 @@ models:
       - name: coupon_code
       - name: coupon_name
       - name: coupon_type
+      - name: coupon_type_label
       - name: order_revenue_excl_tax_after_vouchers
         meta:
           dimension:
