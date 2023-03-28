@@ -24,7 +24,6 @@ select
     cast(null as string)                    as shipping_method, 
     customer_id, 
     cast(null as integer)                   as orderno, 
-    customer_email                          as email,
     cast(null as integer)                   as achica_user, 
     cast(null as date)                      as achica_migration_date,
     count(distinct order_item_id)           as count_orderlines, 
@@ -66,7 +65,7 @@ select
 from {{ ref('OrderLines') }}
 group by date(created_at), sku, name, category_path, product_type, brand, supplier_id, supplier_name,
 colour, gender, size, nego, category_name, department_type, order_status, region, reference, order_number,
-customer_id, customer_email
+customer_id
 
 union all
 
@@ -96,7 +95,6 @@ select
     shipping_method, 
     customer_id, 
     orderno, 
-    email,
     cast(null as integer)                           as achica_user, 
     cast(null as date)                              as achica_migration_date,
     cast(null as integer)                           as count_orderlines, 
@@ -137,7 +135,7 @@ select
     null as new_members
 from {{ ref('Orders') }}
 group by date(created_at), status, increment_id, coupon_rule_name, coupon_code, method, shipping_method, customer_id, 
-orderno, email
+orderno
 
 union all
 
@@ -169,7 +167,6 @@ select
     null                                                                        as shipping_method, 
     c.cst_id                                                                    as customer_id, 
     null                                                                        as orderno, 
-    email,
     achica_user, 
     date(achica_migration_date)                                                 as achica_migration_date,
     null                                                                        as count_orderlines, 
@@ -213,5 +210,5 @@ left outer join {{ ref('customers_record_data_source') }} crds
     on c.cst_id=crds.cst_id
 group by if(crds.date is not null, date(crds.date), 
     if(achica_user is null or achica_user != 2, date(achica_migration_date), date(dt_cr))
-), c.cst_id, email, achica_user, date(achica_migration_date)
+), c.cst_id, achica_user, date(achica_migration_date)
 
