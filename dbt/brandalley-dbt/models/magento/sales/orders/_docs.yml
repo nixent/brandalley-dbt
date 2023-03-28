@@ -1211,6 +1211,7 @@ models:
       - name: coupon_code
       - name: coupon_name
       - name: coupon_type
+      - name: coupon_type_label
       - name: order_revenue_excl_tax_after_vouchers
         meta:
           dimension:
@@ -1492,7 +1493,7 @@ models:
         description: ""
         meta:
           dimension:
-            type: date
+            type: datef
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: updated_at
         description: "Update date of the order, nullable"
