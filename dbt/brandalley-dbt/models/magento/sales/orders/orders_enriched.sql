@@ -31,7 +31,7 @@ select
   o.created_at                    as order_at,
   o.status                        as order_status,
   o.orderno                       as order_sequence,
-  if(o.orderno = 1, true, false)  as is_first_order,
+  if(o.order_number_incl_cancellations = 1, true, false)  as is_first_order,
 	o.order_number_excl_full_refunds,
 	o.order_number_incl_cancellations,
   o.interval_between_orders,
