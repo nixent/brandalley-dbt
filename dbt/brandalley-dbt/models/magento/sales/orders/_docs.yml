@@ -47,6 +47,8 @@ models:
       - name: type
         data_type: <integer>
         description: "Type"
+      - name: coupon_type_label
+        description: "Readable Coupon Type, one of Marketing or Customer Service"
       - name: coupon_expired
         description: "Flag indicating if coupon is expired or not"
       - name: order_id
