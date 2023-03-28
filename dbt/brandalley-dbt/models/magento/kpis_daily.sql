@@ -40,7 +40,8 @@ order_line_stats as (
         round(sum(ol.TOTAL_GBP_ex_tax_after_vouchers),2)                        as sales_amount,
         round(sum(if(s.has_shipped, ol.TOTAL_GBP_ex_tax_after_vouchers, 0)),2)  as shipped_sales_amount,
         round(sum(ol.TOTAL_GBP_after_vouchers),2)                               as gmv,
-        round(sum(ol.line_discount_amount),2)                                   as total_discount_amount
+        round(sum(ol.line_discount_amount),2)                                   as total_discount_amount,
+        round(sum(ol.margin),2)                                                 as margin
     from {{ ref('OrderLines') }} ol
     left join {{ ref('Orders') }} o
         on ol.order_number = o.increment_id
@@ -79,7 +80,7 @@ select
     ols.sales_amount,
     ols.shipped_sales_amount,
     ols.total_discount_amount,
-    ols.sales_amount - ols.total_product_cost_exc_vat   as margin,
+    ols.margin,
     round(ols.gmv/os.total_order_count,2)                as aov_gmv,
     round(ols.sales_amount/os.total_order_count,2)       as aov_sales,
     round(ols.qty_ordered/os.total_order_count,2)        as avg_items_per_order,
