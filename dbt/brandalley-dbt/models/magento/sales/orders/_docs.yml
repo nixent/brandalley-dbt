@@ -5,7 +5,6 @@ models:
     description: "Coupon details"
     columns:
       - name: coupon_id
-        data_type: <integer>
         description: "Primary key"
         meta:
           dimension:
@@ -685,6 +684,8 @@ models:
             format: 'gbp'
       - name: parent_sku
         description: ""
+      - name: parent_sku_offset
+        description: ""
       - name: reference
         description: "Reference"
       - name: region
@@ -705,7 +706,7 @@ models:
         meta:
           metrics:
             total_revenue:
-              label: 'GMV - total revenue GBP inc VAT (after vouchers)'
+              label: 'GMV (£)'
               type: sum
               description: "Total revenue inc VAT in GBP after taking vouchers into account"
               hidden: false
@@ -725,16 +726,16 @@ models:
         meta:
           metrics:
             total_revenue_exc_tax:
-              label: 'Sales Amount - total revenue GBP exc VAT (after vouchers)'
+              label: 'Sales Amount (£)'
               type: sum
               description: "Total revenue exc VAT in GBP after taking vouchers into account"
               hidden: false
               round: 0
               format: 'gbp'   
             average_order_value:
-              label: 'AOV Sales - average order value (excluding VAT after discount) '
+              label: 'AOV Sales (£)'
               type: number 
-              description: 'average order value (excluding VAT after discount)'
+              description: 'Average order value (excluding VAT after discount)'
               sql: " ${total_revenue_exc_tax}/${total_orders_count}"
               round: 0
               format: 'gbp'   
