@@ -192,7 +192,7 @@ with order_lines as (
 			else 'OUTLET'
 		end 																																				as department_type,
 		sfo.updated_at,
-		safe_cast(sfo.created_at as timestamp) 																													as created_at,
+		safe_cast(sfo.created_at as timestamp) 																												as created_at,
 		cast(null as datetime) 																																as month_created,
 		sfo.status 																																			as order_status,
 		sfoi_con.tax_amount,
@@ -200,9 +200,8 @@ with order_lines as (
 		cped_price.value 																																	as rrp,
 		ce.dt_cr 																																			as reg_date,
 		{{ calculate_region_from_postcode('sfo.billing_postcode') }} 																						as Region, -- Cat 1
-		sfo.email 																																			as customer_email, -- Cat 1
 		sfo.billing_address_type, -- Cat 1  
-		safe_cast(cpn.date_comp_exported as timestamp) 																											as date_comp_exported,
+		safe_cast(cpn.date_comp_exported as timestamp) 																										as date_comp_exported,
 		sfoi_sim.created_at > cpn.date_comp_exported 																										as cpn_date_flag,
 		sfoi_sim.qty_backordered,
 		cpn.sap_ref,

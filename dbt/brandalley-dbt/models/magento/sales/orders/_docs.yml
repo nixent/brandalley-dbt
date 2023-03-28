@@ -1081,8 +1081,6 @@ models:
         meta:
           dimension:
             format: id
-      - name: customer_email
-        description: "Email of the customer"
       - name: name
         description: "Product name"
       - name: nego
@@ -1481,17 +1479,7 @@ models:
               description: "Number of new customers"
               sql: "IF(${orderno}=1, ${customer_id}, 0)"
               hidden: false    
-      - name: customer_name
-        description: ""
-      - name: email
-        description: "Email, nullable"
-      - name: customer_phone
-        description: ""
-      - name: delivery_address
-        description: ""
       - name: delivery_postcode
-        description: ""
-      - name: customer_age
         description: ""
       - name: expected_delivery_date
         description: "Expected delivery date"
@@ -1512,10 +1500,6 @@ models:
         meta:
           dimension:
             format: id
-      - name: customer_firstname
-        description: "Customer first name"
-      - name: customer_lastname
-        description: "Customer last name"
       - name: additional_information
         description: "Additional information"
       - name: base_grand_total

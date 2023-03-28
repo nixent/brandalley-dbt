@@ -54,7 +54,6 @@ SELECT
     sfo.status,
     sfo.customer_id,
     sfo.entity_id as MagentoID,
-    sfo.customer_email,
     sfo.increment_id as order_id,
     TIMESTAMP(sfo.created_at) as created_at,
     sfoi.created_at as line_created_at,
