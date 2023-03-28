@@ -1498,6 +1498,7 @@ models:
         description: "Update date of the order, nullable"
       - name: orderno
         description: "Order index placed by the client at Brandalley"
+      - name: order_number_incl_cancellations
       - name: cc_trans_id
         description: "CC Transaction Id"
         meta:
