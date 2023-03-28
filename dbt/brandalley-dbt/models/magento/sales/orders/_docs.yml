@@ -1493,7 +1493,7 @@ models:
         description: ""
         meta:
           dimension:
-            type: datef
+            type: date
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: updated_at
         description: "Update date of the order, nullable"
