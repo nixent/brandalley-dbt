@@ -1357,11 +1357,6 @@ models:
               description: "Number of returning orders"
               sql: "IF(${order_number_incl_cancellations}>1, ${increment_id}, null)"
               round: 0
-            total_customers_count:
-              label: 'Total Customers'
-              type: count_distinct
-              description: "Number of customers"
-              sql: "${customer_id}"
       - name: magentoID
         description: ""
         meta:
@@ -1476,6 +1471,11 @@ models:
         description: "Customer id, foreign key, nullable"
         meta: 
           metrics:
+            total_customers_count:
+              label: 'Total Customers'
+              type: count_distinct
+              description: "Number of customers"
+              sql: "${customer_id}"
             new_customers:
               label: 'Total New Customers'
               type: count_distinct
