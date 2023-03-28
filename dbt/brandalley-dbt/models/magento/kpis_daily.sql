@@ -9,7 +9,6 @@ with order_stats as (
         count(distinct if(orderno=1, increment_id, null))     as total_new_order_count,
         sum(shipping_incl_tax)                                as shipping_amount
     from {{ ref('Orders')}}
-    where date(created_at) >= current_date - 7
     group by 1
 ),
 
@@ -22,7 +21,6 @@ refund_stats as (
     from {{ ref('sales_flat_creditmemo') }} sfc
     left join {{ ref('sales_flat_creditmemo_item') }} sfci
         on sfci.parent_id = sfc.entity_id
-    where date(sfc.created_at) >= current_date - 7
     group by 1
 ),
 
@@ -31,7 +29,6 @@ shipping_stats as (
         date_trunc(timestamp(order_date), day) as order_created_at_day,
         round(avg(if(shipment_date != '0000-00-00 00:00:00', date_diff(date((shipment_date)), date((order_date)), day), null)),1) as avg_time_to_ship_days
     from {{ ref('shipping') }}
-    where date(order_date) >= current_date - 7
     group by 1
 ),
 
@@ -56,7 +53,6 @@ order_line_stats as (
         group by 2,3
      ) s
         on o.increment_id = s.order_id and ol.sku = s.sku
-    where date(o.created_at) >= current_date - 7
     group by 1
 ),
 
