@@ -40,7 +40,7 @@ select
   o.coupon_code,
   if(contains_substr(o.coupon_code, ','), o.coupon_code, sr.name)              as coupon_name,
   src.type                                                                     as coupon_type,
-  coalesce(src.coupon_type_label, 'Multiple Codes')                            as coupon_type_label,
+  coalesce(src.coupon_type_label, sr.name, 'Multiple Codes')                   as coupon_type_label,
   ola.order_revenue_excl_tax_after_vouchers,
   ola.order_product_costs_excl_tax,
   ola.order_revenue_excl_tax_after_vouchers - ola.order_product_costs_excl_tax as order_margin,
