@@ -286,6 +286,26 @@ models:
               round: 0
               format: 'gbp' 
 
+  - name: multiple_coupon_orders
+    description: "Orders that use multiple coupons, split by each of those coupons"
+    columns:
+      - name: customer_id
+        meta:
+          dimension:
+            format: id
+      - name: order_number
+        meta:
+          dimension:
+            format: id
+      - name: coupon_type_label
+      - name: created_at
+        meta:
+          dimension: 
+            type: timestamp
+      - name: coupon_code
+      - name: coupon_name
+
+
   - name: order_summary
     description: "an order_summary table that summarizes the total orders, total_revenue and aov of orders of the last hour , current day, previous day and previous 6 days"
     columns:
