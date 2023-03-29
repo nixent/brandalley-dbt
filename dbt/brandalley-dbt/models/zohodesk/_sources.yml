@@ -232,9 +232,9 @@ sources:
           - name: ChatStatus
             data_type: <string>
             description: "ChatStatus"
-          - name: IsVisibleInCustomerPortal	
+          - name: IsVisibleInCustomerPortal
             data_type: <string>
-            description: "IsVisibleInCustomerPortal	"
+            description: "IsVisibleInCustomerPortal"
           - name: CreatedTime
             data_type: <timestamp>
             description: "CreatedTime"
