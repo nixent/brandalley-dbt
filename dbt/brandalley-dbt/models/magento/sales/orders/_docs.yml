@@ -312,7 +312,7 @@ models:
         - join: products
           sql_on: ${OrderLines.sku} = ${products.sku}
         - join: shipment_items
-          sql_on: ${OrderLines.order_item_id} = ${shipment_items.order_item_id}+1            
+          sql_on: ${OrderLines.parent_item_id} = ${shipment_items.order_item_id}            
         - join: shipments
           sql_on: ${OrderLines.order_id} = ${shipments.order_id}
         - join: shipping
@@ -370,6 +370,8 @@ models:
             count_order_items:
               label: 'count distinct of order item ids'
               type: count_distinct     
+      - name: parent_item_id
+        description: "Parent item id, foreign key"
       - name: order_id
         description: "Id of the order, foreign key"
         meta:

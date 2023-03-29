@@ -43,6 +43,7 @@ with order_lines as (
 		sfo.increment_id 																																	as order_number,
 		sfo.customer_id 																																	as customer_id,
 		sfoi_sim.item_id 																																	as order_item_id,
+        sfoi_sim.parent_item_id,        
 		sfo.magentoID 																																		as order_id,
 		sfoi_sim.sku,
 		if(au.user_id is not null, concat(au.firstname, ' ', au.lastname), 'Unknown') 																		as buyer,
@@ -327,7 +328,7 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(59)}}
+	{{dbt_utils.group_by(60)}}
 )
 
 

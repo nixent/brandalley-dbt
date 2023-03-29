@@ -312,32 +312,92 @@ group by
     cpni.tax_rate, cpei_tax.value
  )
 
-select child_entity_id,child_sku,min_qty,qty,string_agg(distinct child_parent_sku) as child_parent_sku,image_value,name,value,
-suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,
-size,colour,price,min(special_price) special_price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,
--- Not ideal to do a nested query there but couldn't find any other way to get the parent and flashsale categories on the same line
-level_1,level_2,level_3, string_agg(parent_category) parent_category, tax, tax_class, replace(
-    replace(
-        if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
-        RTRIM(
-            REGEXP_EXTRACT(string_agg(flashsale_category)            
+select  child_entity_id,
+        child_sku,
+        min_qty,
+        qty,
+        string_agg(distinct child_parent_sku) as child_parent_sku,
+        image_value,
+        name,
+        value,
+        suplier_id,
+        supplier_name,
+        brand,
+        country_of_manufacture,
+        cost,
+        parent_gender,
+        simple_gender,
+        simple_product_type,
+        parent_product_type,
+        size,
+        colour,
+        price,
+        min(special_price) special_price,
+        outlet_price,
+        outlet_category,
+        canUseForWHSale,
+        barcode,
+        nego,
+        buyer_id,
+        buyer,
+        level_1,
+        level_2,
+        level_3, 
+        string_agg(parent_category) parent_category, 
+        tax, 
+        tax_class, 
+        replace(
+            replace(
+                if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
+                    RTRIM(
+                        REGEXP_EXTRACT(string_agg(flashsale_category)            
             -- The REGEXP_EXTRACT help to keep only characters up to the 3rd comma as Buying team doesn't want more than 3 categories
-            , '(?:.*?,){3}')
+                        , '(?:.*?,){3}')
         -- RTRIM to remove the last comma
-        , ','),
-        string_agg(flashsale_category))
+                    , ','),
+                string_agg(flashsale_category))
     -- replacing commas by return carriage
-    , ',', '\n')
+            , ',', '\n')
 -- removing the initial unwanted 'Root Catalog>Brand Alley UK>' categories
-, 'Root Catalog>Brand Alley UK>', '') flashsale_category, category from (
-select child_entity_id,child_sku,min_qty,qty,string_agg(distinct child_parent_sku) as child_parent_sku,image_value,name,value,
-suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,
-size,colour,price,min(special_price) special_price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,
-stock.level_1,stock.level_2,stock.level_3, 
-string_agg(distinct parent_category) parent_category, tax, tax_class,
-                (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value)
- flashsale_category,
-cat_map.category
+        , 'Root Catalog>Brand Alley UK>', '') flashsale_category, 
+        category 
+        from (
+select  child_entity_id,
+        child_sku,
+        min_qty,
+        qty,
+        string_agg(distinct child_parent_sku) as child_parent_sku,
+        image_value,
+        name,
+        value,
+        suplier_id,
+        supplier_name,
+        brand,
+        country_of_manufacture,
+        cost,
+        parent_gender,
+        simple_gender,
+        simple_product_type,
+        parent_product_type,
+        size,
+        colour,
+        price,
+        min(special_price) special_price,
+        outlet_price,
+        outlet_category,
+        canUseForWHSale,
+        barcode,
+        nego,
+        buyer_id,
+        buyer,
+        stock.level_1,
+        stock.level_2,
+        stock.level_3, 
+        string_agg(distinct parent_category) parent_category, 
+        tax, 
+        tax_class,
+        (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value) flashsale_category,
+        cat_map.category
 from stock_file_raw stock
         LEFT JOIN
         -- join on the mapping provided by the buying team
@@ -374,5 +434,68 @@ from stock_file_raw stock
                         SPLIT(flashsale_category, '>')[offset(4)], null)
                 )
             ) = cat_map.level_3
-group by child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,stock.level_1,stock.level_2,stock.level_3, cat_map.category, flashsale_category, tax, tax_class)
-group by child_entity_id,child_sku,min_qty,qty,image_value,name,value,suplier_id,supplier_name,brand,country_of_manufacture,cost,parent_gender,simple_gender,simple_product_type,parent_product_type,size,colour,price,outlet_price,outlet_category,canUseForWHSale,barcode,nego,buyer_id,buyer,level_1,level_2,level_3, category, tax, tax_class
+    group by    child_entity_id,
+                child_sku,
+                min_qty,
+                qty,
+                image_value,
+                name,
+                value,
+                suplier_id,
+                supplier_name,
+                brand,
+                country_of_manufacture,
+                cost,
+                parent_gender,
+                simple_gender,
+                simple_product_type,
+                parent_product_type,
+                size,
+                colour,
+                price,
+                outlet_price,
+                outlet_category,
+                canUseForWHSale,
+                barcode,
+                nego,
+                buyer_id,
+                buyer,
+                stock.level_1,
+                stock.level_2,
+                stock.level_3,
+                cat_map.category, 
+                flashsale_category, 
+                tax, 
+                tax_class)
+group by    child_entity_id,
+            child_sku,
+            min_qty,
+            qty,
+            image_value,
+            name,
+            value,
+            suplier_id,
+            supplier_name,
+            brand,
+            country_of_manufacture,
+            cost,
+            parent_gender,
+            simple_gender,
+            simple_product_type,
+            parent_product_type,
+            size,
+            colour,
+            price,
+            outlet_price,
+            outlet_category,
+            canUseForWHSale,
+            barcode,
+            nego,
+            buyer_id,
+            buyer,
+            level_1,
+            level_2,
+            level_3, 
+            category, 
+            tax, 
+            tax_class
