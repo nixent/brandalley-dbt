@@ -4,7 +4,7 @@
 
 with metrics_today_and_last_week as (
     select
-        date_trunc(ol.created_at, hour)                  as created_at_hour,
+        date_trunc(datetime(ol.created_at, "Europe/London"), hour)                  as created_at_hour,
         nego,
         brand,
         category_name,
@@ -17,7 +17,7 @@ with metrics_today_and_last_week as (
         sum(ol.line_product_cost_exc_vat)                as line_product_cost_exc_vat_metric,
         sum(round(ol.TOTAL_GBP_ex_tax_after_vouchers,2)) as total_revenue_exc_tax
     from {{ ref('OrderLines') }} ol
-    where date(date_trunc(ol.created_at, day)) in (current_date, current_date - 7)
+    where date(datetime(ol.created_at, "Europe/London")) in (current_date, current_date - 7)
     group by 1,2,3,4,5,6,7,8
 )
 

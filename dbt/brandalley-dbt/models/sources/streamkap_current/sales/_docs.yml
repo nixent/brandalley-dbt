@@ -1853,6 +1853,8 @@ models:
       - name: type
         data_type: <integer>
         description: "Type"
+      - name: coupon_type_label
+        description: "Coupon Type Label - one of Marketing or Customer Service"
       - name: _streamkap_source_ts_ms
         description: ""
       - name: _streamkap_ts_ms

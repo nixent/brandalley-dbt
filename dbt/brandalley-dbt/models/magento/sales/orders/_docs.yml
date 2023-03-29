@@ -47,6 +47,8 @@ models:
       - name: type
         data_type: <integer>
         description: "Type"
+      - name: coupon_type_label
+        description: "Readable Coupon Type, one of Marketing or Customer Service"
       - name: coupon_expired
         description: "Flag indicating if coupon is expired or not"
       - name: order_id
@@ -1081,8 +1083,6 @@ models:
         meta:
           dimension:
             format: id
-      - name: customer_email
-        description: "Email of the customer"
       - name: name
         description: "Product name"
       - name: nego
@@ -1213,6 +1213,7 @@ models:
       - name: coupon_code
       - name: coupon_name
       - name: coupon_type
+      - name: coupon_type_label
       - name: order_revenue_excl_tax_after_vouchers
         meta:
           dimension:
@@ -1315,13 +1316,13 @@ models:
         meta:
           metrics:
             total_refund_amount_metric:
-              label: 'Total refund amount'
+              label: 'Total Refund Amount'
               type: sum
               description: "Total refund amount"
               format: 'gbp' 
 
   - name: Orders
-    description: ""
+    description: "A table of order information, unique at order id level"
     meta:
       joins:
         - join: shipments
@@ -1343,24 +1344,22 @@ models:
         meta:
           metrics:
             total_order_count:
-              label: 'Total number of orders'
+              label: 'Total Orders'
               type: count_distinct
               description: "Number of orders"
-              hidden: false
               round: 0
             total_new_order_count:
-              label: 'Total number of new orders'
+              label: 'Total New Orders'
               type: count_distinct
               description: "Number of new orders"
-              hidden: false
-              sql: "IF(${orderno}=1, ${increment_id}, null)"
+              sql: "IF(${order_number_incl_cancellations}=1, ${increment_id}, null)"
               round: 0
-            total_customers_count:
-              label: 'Total number of customers'
+            total_returning_order_count:
+              label: 'Total Returning Orders'
               type: count_distinct
-              description: "Number of customers"
-              hidden: false
-              sql: "${customer_id}"
+              description: "Number of returning orders"
+              sql: "IF(${order_number_incl_cancellations}>1, ${increment_id}, null)"
+              round: 0
       - name: magentoID
         description: ""
         meta:
@@ -1396,7 +1395,7 @@ models:
             hidden: true
           metrics:
             orders_total_tax:
-              label: 'Orders total tax amount'
+              label: 'Total Orders Tax Amount (£)'
               type: sum
               description: "Order's total tax amount"
               hidden: false
@@ -1445,7 +1444,7 @@ models:
             hidden: true
           metrics:
             orders_grand_total:
-              label: 'Order grand total'
+              label: 'Order Grand Total'
               type: sum
               description: "Order grand total"
               hidden: false
@@ -1475,23 +1474,18 @@ models:
         description: "Customer id, foreign key, nullable"
         meta: 
           metrics:
+            total_customers_count:
+              label: 'Total Customers'
+              type: count_distinct
+              description: "Number of customers"
+              sql: "${customer_id}"
             new_customers:
-              label: 'New Customers'
+              label: 'Total New Customers'
               type: count_distinct
               description: "Number of new customers"
               sql: "IF(${orderno}=1, ${customer_id}, 0)"
               hidden: false    
-      - name: customer_name
-        description: ""
-      - name: email
-        description: "Email, nullable"
-      - name: customer_phone
-        description: ""
-      - name: delivery_address
-        description: ""
       - name: delivery_postcode
-        description: ""
-      - name: customer_age
         description: ""
       - name: expected_delivery_date
         description: "Expected delivery date"
@@ -1507,15 +1501,12 @@ models:
         description: "Update date of the order, nullable"
       - name: orderno
         description: "Order index placed by the client at Brandalley"
+      - name: order_number_incl_cancellations
       - name: cc_trans_id
         description: "CC Transaction Id"
         meta:
           dimension:
             format: id
-      - name: customer_firstname
-        description: "Customer first name"
-      - name: customer_lastname
-        description: "Customer last name"
       - name: additional_information
         description: "Additional information"
       - name: base_grand_total

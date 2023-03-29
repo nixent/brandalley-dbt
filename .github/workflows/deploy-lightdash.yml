@@ -63,4 +63,4 @@ jobs:
           LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}      
           GOOGLE_APPLICATION_CREDENTIALS: '/tmp/googlecredentials.json'    
 
-        run: lightdash deploy --ignore-errors --project-dir "$PROJECT_DIR" --profiles-dir . || lightdash deploy --project-dir "$PROJECT_DIR" --profiles-dir .
+        run: lightdash deploy --ignore-errors --start-of-week 0 --project-dir "$PROJECT_DIR" --profiles-dir . || lightdash deploy --start-of-week 0  --project-dir "$PROJECT_DIR" --profiles-dir .

@@ -1,3 +1,5 @@
+{{ config(enabled=false)}}
+
 SELECT
     brand_option.value brand,
     sfo.customer_id,
