@@ -1,0 +1,1164 @@
+version: 2
+
+sources:
+  - name: 'zendesk'
+    database: datawarehouse-358408
+    description: ""
+    tables:
+      - name: alert_recipient
+        columns:
+          - name: ticket_alert_id
+            data_type: <integer>
+            description: "ticket_alert_id"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+      - name: article
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: author_id
+            data_type: <integer>
+            description: "author_id"
+          - name: body
+            data_type: <string>
+            description: "body"
+          - name: comments_disabled
+            data_type: <string>
+            description: "comments_disabled"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: draft
+            data_type: <string>
+            description: "draft"
+          - name: edited_at
+            data_type: <timestamp>
+            description: "edited_at"
+          - name: html_url
+            data_type: <string>
+            description: "html_url"
+          - name: locale
+            data_type: <string>
+            description: "locale"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: outdated
+            data_type: <string>
+            description: "outdated"
+          - name: permission_group_id
+            data_type: <integer>
+            description: "permission_group_id"
+          - name: position
+            data_type: <string>
+            description: "position"
+          - name: promoted
+            data_type: <string>
+            description: "promoted"
+          - name: section_id
+            data_type: <string>
+            description: "section_id"
+          - name: source_locale
+            data_type: <string>
+            description: "source_locale"
+          - name: title
+            data_type: <string>
+            description: "title"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: url
+            data_type: <string>
+            description: "url"
+          - name: vote_count
+            data_type: <integer>
+            description: "vote_count"
+          - name: vote_sum
+            data_type: <integer>
+            description: "vote_sum"
+      - name: brand
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: active
+            data_type: <string>
+            description: "active"
+          - name: brand_url
+            data_type: <string>
+            description: "brand_url"
+          - name: default
+            data_type: <string>
+            description: "default"
+          - name: has_help_center
+            data_type: <string>
+            description: "has_help_center"
+          - name: logo_content_type
+            data_type: <string>
+            description: "logo_content_type"
+          - name: logo_content_url
+            data_type: <string>
+            description: "logo_content_url"
+          - name: logo_deleted
+            data_type: <string>
+            description: "logo_deleted"
+          - name: logo_file_name
+            data_type: <string>
+            description: "logo_file_name"
+          - name: logo_height
+            data_type: <integer>
+            description: "logo_height"
+          - name: logo_id
+            data_type: <integer>
+            description: "logo_id"
+          - name: logo_inline
+            data_type: <string>
+            description: "logo_inline"
+          - name: logo_mapped_content_url
+            data_type: <string>
+            description: "logo_mapped_content_url"
+          - name: logo_size
+            data_type: <integer>
+            description: "logo_size"
+          - name: logo_url
+            data_type: <string>
+            description: "logo_url"
+          - name: logo_width
+            data_type: <integer>
+            description: "logo_width"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: subdomain
+            data_type: <string>
+            description: "subdomain"
+          - name: url
+            data_type: <string>
+            description: "url"
+      - name: custom_role
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "id"
+          - name: configuration_chat_access
+            data_type: <string>
+            description: "configuration_chat_access"
+          - name: configuration_end_user_list_access
+            data_type: <string>
+            description: "configuration_end_user_list_access"
+          - name: configuration_end_user_profile_access
+            data_type: <string>
+            description: "configuration_end_user_profile_access"
+          - name: configuration_forum_access
+            data_type: <string>
+            description: "configuration_forum_access"
+          - name: configuration_forum_access_restricted_content
+            data_type: <string>
+            description: "configuration_forum_access_restricted_content"
+          - name: configuration_group_access
+            data_type: <string>
+            description: "configuration_group_access"
+          - name: configuration_light_agent
+            data_type: <string>
+            description: "configuration_light_agent"
+          - name: configuration_macro_access
+            data_type: <string>
+            description: "configuration_macro_access"
+          - name: configuration_manage_business_rules
+            data_type: <string>
+            description: "configuration_manage_business_rules"
+          - name: configuration_manage_dynamic_content
+            data_type: <string>
+            description: "configuration_manage_dynamic_content"
+          - name: configuration_manage_extensions_and_channels
+            data_type: <string>
+            description: "configuration_manage_extensions_and_channels"
+          - name: configuration_manage_facebook
+            data_type: <string>
+            description: "configuration_manage_facebook"
+          - name: configuration_moderate_forums
+            data_type: <string>
+            description: "configuration_moderate_forums"
+          - name: configuration_organization_editing
+            data_type: <string>
+            description: "configuration_organization_editing"
+          - name: configuration_organization_notes_editing
+            data_type: <string>
+            description: "configuration_organization_notes_editing"
+          - name: configuration_report_access
+            data_type: <string>
+            description: "configuration_report_access"
+          - name: configuration_ticket_access
+            data_type: <string>
+            description: "configuration_ticket_access"
+          - name: configuration_ticket_comment_access
+            data_type: <string>
+            description: "configuration_ticket_comment_access"
+          - name: configuration_ticket_deletion
+            data_type: <string>
+            description: "configuration_ticket_deletion"
+          - name: configuration_ticket_editing
+            data_type: <string>
+            description: "configuration_ticket_editing"
+          - name: configuration_ticket_merge
+            data_type: <string>
+            description: "configuration_ticket_merge"
+          - name: configuration_ticket_tag_editing
+            data_type: <string>
+            description: "configuration_ticket_tag_editing"
+          - name: configuration_twitter_search_access
+            data_type: <string>
+            description: "configuration_twitter_search_access"
+          - name: configuration_user_view_access
+            data_type: <string>
+            description: "configuration_user_view_access"
+          - name: configuration_view_access
+            data_type: <string>
+            description: "configuration_view_access"
+          - name: configuration_view_deleted_tickets
+            data_type: <string>
+            description: "configuration_view_deleted_tickets"
+          - name: configuration_voice_access
+            data_type: <string>
+            description: "configuration_voice_access"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: description
+            data_type: <string>
+            description: "description"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: role_type
+            data_type: <string>
+            description: "role_type"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+      - name: daylight_time
+        columns:
+          - name: time_zone
+            data_type: <string>
+            description: "time_zone"
+          - name: year
+            data_type: <integer>
+            description: "year"
+          - name: daylight_end_utc
+            data_type: <timestamp>
+            description: "daylight_end_utc"
+          - name: daylight_offset
+            data_type: <integer>
+            description: "daylight_offset"
+          - name: daylight_start_utc
+            data_type: <timestamp>
+            description: "daylight_start_utc"
+      - name: forum_topic
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: description
+            data_type: <string>
+            description: "description"
+          - name: name
+            data_type: <string>
+            description: "name"
+      - name: group
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: url
+            data_type: <string>
+            description: "url"
+      - name: group_member
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: group_id
+            data_type: <integer>
+            description: "group_id"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+      - name: organization
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: custom_don_t_send_csat
+            data_type: <string>
+            description: "custom_don_t_send_csat"
+          - name: custom_don_t_send_pending_reminder
+            data_type: <string>
+            description: "custom_don_t_send_pending_reminder"
+          - name: details
+            data_type: <string>
+            description: "details"
+          - name: external_id
+            data_type: <string>
+            description: "external_id"
+          - name: group_id
+            data_type: <integer>
+            description: "group_id"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: notes
+            data_type: <string>
+            description: "notes"
+          - name: shared_comments
+            data_type: <string>
+            description: "shared_comments"
+          - name: shared_tickets
+            data_type: <string>
+            description: "shared_tickets"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: url
+            data_type: <string>
+            description: "url"
+      - name: post
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: author_id
+            data_type: <integer>
+            description: "author_id"
+          - name: closed
+            data_type: <string>
+            description: "closed"
+          - name: comment_count
+            data_type: <integer>
+            description: "comment_count"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: details
+            data_type: <string>
+            description: "details"
+          - name: featured
+            data_type: <string>
+            description: "featured"
+          - name: follower_count
+            data_type: <integer>
+            description: "follower_count"
+          - name: html_url
+            data_type: <string>
+            description: "html_url"
+          - name: pinned
+            data_type: <string>
+            description: "pinned"
+          - name: status
+            data_type: <string>
+            description: "status"
+          - name: title
+            data_type: <string>
+            description: "title"
+          - name: topic_id
+            data_type: <integer>
+            description: "topic_id"
+          - name: url
+            data_type: <string>
+            description: "url"
+          - name: vote_count
+            data_type: <integer>
+            description: "vote_counte"
+          - name: vote_sum
+            data_type: <integer>
+            description: "vote_sum"
+      - name: satisfaction_rating
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: assignee_id
+            data_type: <integer>
+            description: "assignee_id"
+          - name: comment
+            data_type: <string>
+            description: "comment"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: group_id
+            data_type: <integer>
+            description: "group_id"
+          - name: reason
+            data_type: <string>
+            description: "reason"
+          - name: requester_id
+            data_type: <integer>
+            description: "requester_id"
+          - name: score
+            data_type: <string>
+            description: "score"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: url
+            data_type: <string>
+            description: "url"
+      - name: schedule
+        columns:
+          - name: end_time
+            data_type: <integer>
+            description: "end_time"
+          - name: id
+            data_type: <integer>
+            description: "id"
+          - name: start_time
+            data_type: <integer>
+            description: "start_time"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: end_time_utc
+            data_type: <integer>
+            description: "end_time_utc"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: start_time_utc
+            data_type: <integer>
+            description: "start_time_utc"
+          - name: time_zone
+            data_type: <string>
+            description: "time_zone"
+      - name: sla_policy_history
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: updated_at
+            data_type: <tiemstamp>
+            description: "updated_at"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: description
+            data_type: <string>
+            description: "description"
+          - name: position
+            data_type: <integer>
+            description: "position"
+          - name: title
+            data_type: <string>
+            description: "title"
+      - name: sla_policy_metric_history
+        columns:
+          - name: index
+            data_type: <integer>
+            description: "index"
+          - name: sla_policy_id
+            data_type: <integer>
+            description: "sla_policy_id"
+          - name: sla_policy_updated_at
+            data_type: <timestamp>
+            description: "sla_policy_updated_at"
+          - name: business_hours
+            data_type: <string>
+            description: "business_hours"
+          - name: metric
+            data_type: <string>
+            description: "metric"
+          - name: priority
+            data_type: <string>
+            description: "priority"
+          - name: target
+            data_type: <integer>
+            description: "target"
+      - name: ticket
+        columns:
+          - name: user_id
+            data_type: <integer>
+            description: "primary key"
+          - name: allow_channelback
+            data_type: <string>
+            description: "allow_channelback"
+          - name: assignee_id
+            data_type: <integer>
+            description: "assignee_id"
+          - name: brand_id
+            data_type: <integer>
+            description: "brand_id"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: custom_carrier
+            data_type: <string>
+            description: "custom_carrier"
+          - name: custom_client_contact_reason_no_order
+            data_type: <string>
+            description: "custom_client_contact_reason_no_order"
+          - name: custom_client_contact_reason_order
+            data_type: <string>
+            description: "custom_client_contact_reason_order"
+          - name: custom_contact_reason
+            data_type: <string>
+            description: "custom_contact_reason"
+          - name: custom_coupon_code
+            data_type: <string>
+            description: "custom_coupon_code"
+          - name: custom_needs_senior_help
+            data_type: <string>
+            description: "custom_needs_senior_help"
+          - name: custom_order_id
+            data_type: <string>
+            description: "custom_order_id"
+          - name: custom_order_number
+            data_type: <string>
+            description: "custom_order_number"
+          - name: custom_order_related
+            data_type: <string>
+            description: "custom_order_related"
+          - name: custom_product_issue_type
+            data_type: <string>
+            description: "custom_product_issue_type"
+          - name: custom_shipping_issue_type
+            data_type: <string>
+            description: "custom_shipping_issue_type"
+          - name: custom_solution
+            data_type: <string>
+            description: "custom_solution"
+          - name: custom_status_id
+            data_type: <integer>
+            description: "custom_status_id"
+          - name: custom_tracking_
+            data_type: <string>
+            description: "custom_tracking_"
+          - name: description
+            data_type: <string>
+            description: "description"
+          - name: due_at
+            data_type: <timestamp>
+            description: "due_at"
+          - name: external_id
+            data_type: <string>
+            description: "external_id"
+          - name: followup_ids
+            data_type: <string>
+            description: "followup_ids"
+          - name: forum_topic_id
+            data_type: <integer>
+            description: "forum_topic_id"
+          - name: group_id
+            data_type: <integer>
+            description: "group_id"
+          - name: has_incidents
+            data_type: <string>
+            description: "has_incidents"
+          - name: is_public
+            data_type: <string>
+            description: "is_public"
+          - name: merged_ticket_ids
+            data_type: <string>
+            description: "merged_ticket_ids"
+          - name: organization_id
+            data_type: <integer>
+            description: "organization_id"
+          - name: priority
+            data_type: <string>
+            description: "priority"
+          - name: problem_id
+            data_type: <integer>
+            description: "problem_id"
+          - name: recipient
+            data_type: <string>
+            description: "recipient"
+          - name: requester_id
+            data_type: <integer>
+            description: "requester_id"
+          - name: status
+            data_type: <string>
+            description: "status"
+          - name: subject
+            data_type: <string>
+            description: "subject"
+          - name: submitter_id
+            data_type: <integer>
+            description: "submitter_id"
+          - name: system_client
+            data_type: <string>
+            description: "system_client"
+          - name: system_email_id
+            data_type: <string>
+            description: "system_email_id"
+          - name: system_eml_redacted
+            data_type: <string>
+            description: "system_eml_redacted"
+          - name: system_ip_address
+            data_type: <string>
+            description: "system_ip_address"
+          - name: system_json_email_identifier
+            data_type: <string>
+            description: "system_json_email_identifier"
+          - name: system_latitude
+            data_type: <decimal>
+            description: "system_latitude"
+          - name: system_location
+            data_type: <string>
+            description: "system_location"
+          - name: system_longitude
+            data_type: <decimal>
+            description: "system_longitude"
+          - name: system_message_id
+            data_type: <string>
+            description: "system_message_id"
+          - name: system_raw_email_identifier
+            data_type: <string>
+            description: "system_raw_email_identifier"
+          - name: ticket_form_id
+            data_type: <integer>
+            description: "ticket_form_id"
+          - name: type
+            data_type: <string>
+            description: "type"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: url
+            data_type: <string>
+            description: "url"
+          - name: via_channel
+            data_type: <string>
+            description: "via_channel"
+          - name: via_followup_source_id
+            data_type: <integer>
+            description: "via_followup_source_id"
+          - name: via_source_from_address
+            data_type: <string>
+            description: "via_source_from_address"
+          - name: via_source_from_id
+            data_type: <integer>
+            description: "via_source_from_id"
+          - name: via_source_from_title
+            data_type: <string>
+            description: "via_source_from_title"
+          - name: via_source_rel
+            data_type: <string>
+            description: "via_source_rel"
+          - name: via_source_to_address
+            data_type: <string>
+            description: "via_source_to_address"
+          - name: via_source_to_name
+            data_type: <string>
+            description: "via_source_to_name"
+      - name: ticket_alert
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: body
+            data_type: <string>
+            description: "body"
+          - name: created
+            data_type: <timestamp>
+            description: "created"
+          - name: resource
+            data_type: <string>
+            description: "resource"
+          - name: subject
+            data_type: <string>
+            description: "subject"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: type
+            data_type: <timestamp>
+            description: "type"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+          - name: via_channel
+            data_type: <string>
+            description: "via_channel"
+          - name: via_source_from_address
+            data_type: <string>
+            description: "via_source_from_address"
+          - name: via_source_from_id
+            data_type: <integer>
+            description: "via_source_from_id"
+          - name: via_source_from_title
+            data_type: <string>
+            description: "via_source_from_title"
+          - name: via_source_rel
+            data_type: <string>
+            description: "via_source_rel"
+          - name: via_source_to_address
+            data_type: <string>
+            description: "via_source_to_address"
+          - name: via_source_to_name
+            data_type: <string>
+            description: "via_source_to_name"
+      - name: ticket_collaborator
+        columns:
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+      - name: ticket_comment
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: body
+            data_type: <string>
+            description: "body"
+          - name: call_duration
+            data_type: <integer>
+            description: "call_duration"
+          - name: call_id
+            data_type: <integer>
+            description: "call_id"
+          - name: created
+            data_type: <timestamp>
+            description: "created"
+          - name: facebook_comment
+            data_type: <string>
+            description: "facebook_comment"
+          - name: from
+            data_type: <string>
+            description: "from"
+          - name: html_body
+            data_type: <string>
+            description: "html_body"
+          - name: location
+            data_type: <string>
+            description: "location"
+          - name: public
+            data_type: <string>
+            description: "public"
+          - name: recording_url
+            data_type: <string>
+            description: "recording_url"
+          - name: started_at
+            data_type: <timestamp>
+            description: "started_at"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_ide"
+          - name: to
+            data_type: <string>
+            description: "to"
+          - name: transcription_status
+            data_type: <string>
+            description: "transcription_status"
+          - name: trusted
+            data_type: <string>
+            description: "trusted"
+          - name: tweet
+            data_type: <string>
+            description: "tweet"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+          - name: via_channel
+            data_type: <string>
+            description: "via_channel"
+          - name: via_source_from_address
+            data_type: <string>
+            description: "via_source_from_address"
+          - name: via_source_from_id
+            data_type: <integer>
+            description: "via_source_from_id"
+          - name: via_source_from_title
+            data_type: <string>
+            description: "via_source_from_title"
+          - name: via_source_rel
+            data_type: <string>
+            description: "via_source_rel"
+          - name: via_source_to_address
+            data_type: <string>
+            description: "via_source_to_address"
+          - name: via_source_to_name
+            data_type: <string>
+            description: "via_source_to_name"
+          - name: voice_comment
+            data_type: <string>
+            description: "voice_comment"
+      - name: ticket_custom_field
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: title
+            data_type: <string>
+            description: "title"
+          - name: type
+            data_type: <string>
+            description: "type"
+      - name: ticket_custom_status
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: active
+            data_type: <string>
+            description: "active"
+          - name: agent_label
+            data_type: <string>
+            description: "agent_label"
+          - name: created_at
+            data_type: <string>
+            description: "created_at"
+          - name: default
+            data_type: <string>
+            description: "default"
+          - name: description
+            data_type: <string>
+            description: "description"
+          - name: end_user_description
+            data_type: <string>
+            description: "end_user_description"
+          - name: end_user_label
+            data_type: <string>
+            description: "end_user_label"
+          - name: status_category
+            data_type: <string>
+            description: "status_category"
+          - name: ticket_custom_field_id
+            data_type: <integer>
+            description: "ticket_custom_field_id"
+          - name: updated_at
+            data_type: <string>
+            description: "updated_at"
+      - name: ticket_field_history
+        columns:
+          - name: field_name
+            data_type: <string>
+            description: "field_name"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: updated
+            data_type: <timestamp>
+            description: "updated"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+          - name: value
+            data_type: <string>
+            description: "value"
+          - name: via_channel
+            data_type: <string>
+            description: "via_channel"
+          - name: via_source_from_address
+            data_type: <string>
+            description: "via_source_from_address"
+          - name: via_source_from_id
+            data_type: <integer>
+            description: "via_source_from_id"
+          - name: via_source_from_title
+            data_type: <string>
+            description: "via_source_from_title"
+          - name: via_source_rel
+            data_type: <string>
+            description: "via_source_rel"
+          - name: via_source_to_address
+            data_type: <string>
+            description: "via_source_to_address"
+          - name: via_source_to_name
+            data_type: <string>
+            description: "via_source_to_name"
+      - name: ticket_field_option
+        columns:
+          - name: value
+            data_type: <string>
+            description: "value"
+          - name: default
+            data_type: <string>
+            description: "default"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: ticket_custom_field_id
+            data_type: <integer>
+            description: "ticket_custom_field_id"
+      - name: ticket_follower
+        columns:
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+      - name: ticket_form_history
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: active
+            data_type: <string>
+            description: "active"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: display_name
+            data_type: <string>
+            description: "display_name"
+          - name: password
+            data_type: <string>
+            description: "Password, nullable"
+          - name: end_user_visible
+            data_type: <string>
+            description: "end_user_visible"
+          - name: name
+            data_type: <string>
+            description: "name"
+      - name: ticket_macro_reference
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: created
+            data_type: <timestamp>
+            description: "created"
+          - name: macro_deleted
+            data_type: <string>
+            description: "macro_deleted"
+          - name: macro_id
+            data_type: <string>
+            description: "macro_id"
+          - name: macro_title
+            data_type: <string>
+            description: "macro_title"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+          - name: via_channel
+            data_type: <string>
+            description: "via_channel"
+          - name: via_source_from_address
+            data_type: <string>
+            description: "via_source_from_address"
+          - name: via_source_from_id
+            data_type: <integer>
+            description: "via_source_from_id"
+          - name: via_source_from_title
+            data_type: <string>
+            description: "via_source_from_title"
+          - name: via_source_rel
+            data_type: <string>
+            description: "via_source_rel"
+          - name: via_source_to_address
+            data_type: <string>
+            description: "via_source_to_address"
+          - name: via_source_to_name
+            data_type: <string>
+            description: "via_source_to_name"
+      - name: ticket_sla_policy
+        columns:
+          - name: sla_policy_id
+            data_type: <integer>
+            description: "sla_policy_id"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: policy_applied_at
+            data_type: <timestamp>
+            description: "policy_applied_at"
+      - name: ticket_tag
+        columns:
+          - name: tag
+            data_type: <string>
+            description: "tag"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+      - name: ticket_tag_history
+        columns:
+          - name: tag
+            data_type: <string>
+            description: "tag"
+          - name: ticket_id
+            data_type: <integer>
+            description: "ticket_id"
+          - name: updated
+            data_type: <timestamp>
+            description: "updated"
+          - name: tagged
+            data_type: <string>
+            description: "tagged"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"
+          - name: via_channel
+            data_type: <string>
+            description: "via_channel"
+          - name: via_source_from_address
+            data_type: <string>
+            description: "via_source_from_address"
+          - name: via_source_from_id
+            data_type: <integer>
+            description: "via_source_from_id"
+          - name: via_source_from_title
+            data_type: <string>
+            description: "via_source_from_title"
+          - name: via_source_rel
+            data_type: <string>
+            description: "via_source_rel"
+          - name: via_source_to_address
+            data_type: <string>
+            description: "via_source_to_address"
+          - name: via_source_to_name
+            data_type: <string>
+            description: "via_source_to_name"
+      - name: time_zone
+        columns:
+          - name: time_zone
+            data_type: <string>
+            description: "time_zone"
+          - name: standard_offset
+            data_type: <string>
+            description: "standard_offset"
+      - name: user
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: active
+            data_type: <string>
+            description: "active"
+          - name: alias
+            data_type: <string>
+            description: "alias"
+          - name: authenticity_token
+            data_type: <string>
+            description: "authenticity_token"
+          - name: chat_only
+            data_type: <string>
+            description: "chat_only"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: custom_agent_s_company
+            data_type: <string>
+            description: "custom_agent_s_company"
+          - name: custom_don_t_send_csat
+            data_type: <string>
+            description: "custom_don_t_send_csat"
+          - name: custom_don_t_send_pending_reminder
+            data_type: <string>
+            description: "custom_don_t_send_pending_reminder"
+          - name: custom_role_id
+            data_type: <integer>
+            description: "custom_role_id"
+          - name: email
+            data_type: <string>
+            description: "email"
+          - name: external_id
+            data_type: <string>
+            description: "external_id"
+          - name: iana_time_zone
+            data_type: <string>
+            description: "iana_time_zone"
+          - name: last_login_at
+            data_type: <timestamp>
+            description: "last_login_at"
+          - name: locale
+            data_type: <string>
+            description: "locale"
+          - name: locale_id
+            data_type: <integer>
+            description: "locale_id"
+          - name: moderator
+            data_type: <string>
+            description: "moderator"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: notes
+            data_type: <string>
+            description: "notes"
+          - name: only_private_comments
+            data_type: <string>
+            description: "only_private_comments"
+          - name: organization_id
+            data_type: <integer>
+            description: "organization_id"
+          - name: phone
+            data_type: <string>
+            description: "phone"
+          - name: remote_photo_url
+            data_type: <string>
+            description: "remote_photo_url"
+          - name: report_csv
+            data_type: <string>
+            description: "report_csv"
+          - name: restricted_agent
+            data_type: <string>
+            description: "restricted_agent"
+          - name: role
+            data_type: <string>
+            description: "role"
+          - name: shared
+            data_type: <string>
+            description: "shared"
+          - name: shared_agent
+            data_type: <string>
+            description: "shared_agent"
+          - name: signature
+            data_type: <string>
+            description: "signature"
+          - name: suspended
+            data_type: <string>
+            description: "suspended"
+          - name: ticket_restriction
+            data_type: <string>
+            description: "ticket_restriction"
+          - name: time_zone
+            data_type: <string>
+            description: "time_zone"
+          - name: two_factor_auth_enabled
+            data_type: <string>
+            description: "two_factor_auth_enabled"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
+          - name: url
+            data_type: <string>
+            description: "url"
+          - name: verified
+            data_type: <string>
+            description: "verified"
+      - name: user_tag
+        columns:
+          - name: tag
+            data_type: <string>
+            description: "tag"
+          - name: user_id
+            data_type: <integer>
+            description: "user_id"

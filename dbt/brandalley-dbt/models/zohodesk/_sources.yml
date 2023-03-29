@@ -1,0 +1,534 @@
+version: 2
+
+sources:
+  - name: 'zohodesk'
+    database: datawarehouse-358408
+    description: ""
+    tables:
+      - name: Accounts
+        columns:
+          - name: id
+            data_type: <string>
+            description: "primary key"
+          - name: AccountName
+            data_type: <string>
+            description: "Account name, nullable"
+          - name: CreatedTime
+            data_type: <timestamp>
+            description: "Created time"
+          - name: CustomerHappinessBadPercentage
+            data_type: <string>
+            description: "CustomerHappinessBadPercentage"
+          - name: CustomerHappinessGoodPercentage
+            data_type: <string>
+            description: "CustomerHappinessGoodPercentage"
+          - name: CustomerHappinessOkPercentage
+            data_type: <string>
+            description: "CustomerHappinessOkPercentage"
+          - name: Email
+            data_type: <string>
+            description: "Email"
+          - name: Phone
+            data_type: <string>
+            description: "Phone"
+          - name: Fax
+            data_type: <string>
+            description: "Fax"
+          - name: Website
+            data_type: <string>
+            description: "Website"
+          - name: WebURL
+            data_type: <string>
+            description: "WebURL"
+          - name: ZohoCRMAccount
+            data_type: <string>
+            description: "ZohoCRMAccount"
+      - name: Agents
+        columns:
+          - name: id
+            data_type: <string>
+            description: "primary key"
+          - name: Name
+            data_type: <string>
+            description: "Name"
+          - name: firstName
+            data_type: <string>
+            description: "firstName"
+          - name: LastName
+            data_type: <string>
+            description: "LastName"
+          - name: EmailId
+            data_type: <string>
+            description: "EmailId"
+          - name: Mobile
+            data_type: <string>
+            description: "Mobile"
+          - name: AboutInfo
+            data_type: <string>
+            description: "AboutInfo"
+          - name: CountryCode
+            data_type: <string>
+            description: "CountryCode"
+          - name: Phone
+            data_type: <string>
+            description: "Phone"
+          - name: Status
+            data_type: <string>
+            description: "Status"
+          - name: TimeZone
+            data_type: <string>
+            description: "TimeZone"
+          - name: AssociatedChatDepartmentIds
+            data_type: <string>
+            description: "AssociatedChatDepartmentIds"
+          - name: AssociatedDepartmentIds
+            data_type: <string>
+            description: "AssociatedDepartmentIds"
+          - name: ChannelExpert
+            data_type: <string>
+            description: "ChannelExpert"
+          - name: Zuid
+            data_type: <string>
+            description: "Zuid"
+          - name: Extn
+            data_type: <string>
+            description: "Extn"
+          - name: IsConfirmed
+            data_type: <string>
+            description: "IsConfirmed"
+          - name: LangCode
+            data_type: <string>
+            description: "LangCode"
+          - name: PhotoURL
+            data_type: <string>
+            description: "PhotoURL"
+          - name: ProfileId
+            data_type: <string>
+            description: "ProfileId"
+          - name: RoleId
+            data_type: <string>
+            description: "RoleId"
+          - name: RolePermissionType
+            data_type: <string>
+            description: "RolePermissionType"
+      - name: Contacts
+        columns:
+          - name: id
+            data_type: <string>
+            description: "primary key"
+          - name: FirstName
+            data_type: <string>
+            description: "FirstName"
+          - name: LastName
+            data_type: <timestamp>
+            description: "LastName"
+          - name: AccountId
+            data_type: <string>
+            description: "AccountId"
+          - name: Phone
+            data_type: <string>
+            description: "Phone"
+          - name: Email
+            data_type: <string>
+            description: "Email"
+          - name: Mobile
+            data_type: <string>
+            description: "Mobile"
+          - name: Title
+            data_type: <string>
+            description: "Title"
+          - name: Type
+            data_type: <string>
+            description: "Type"
+          - name: Description
+            data_type: <string>
+            description: "Description"
+          - name: Street
+            data_type: <string>
+            description: "Street"
+          - name: City
+            data_type: <string>
+            description: "City"
+          - name: State
+            data_type: <string>
+            description: "State"
+          - name: Country
+            data_type: <string>
+            description: "Country"
+          - name: Zip
+            data_type: <string>
+            description: "Zip"
+          - name: CreatedTime
+            data_type: <timestamp>
+            description: "CreatedTime"
+          - name: ModifiedTime
+            data_type: <timestamp>
+            description: "ModifiedTime"
+          - name: CustomerHappinessBadPercentage
+            data_type: <string>
+            description: "CustomerHappinessBadPercentage"
+          - name: CustomerHappinessGoodPercentage
+            data_type: <string>
+            description: "CustomerHappinessGoodPercentage"
+          - name: CustomerHappinessOkPercentage
+            data_type: <string>
+            description: "CustomerHappinessOkPercentage"
+          - name: SecondaryEmail
+            data_type: <string>
+            description: "SecondaryEmail"
+          - name: Facebook
+            data_type: <string>
+            description: "Facebook"
+          - name: Twitter
+            data_type: <string>
+            description: "Twitter"
+          - name: LayoutName
+            data_type: <string>
+            description: "LayoutName"
+          - name: LayoutId
+            data_type: <string>
+            description: "LayoutId"
+          - name: OwnerId
+            data_type: <string>
+            description: "OwnerId"
+          - name: PhotoURL
+            data_type: <timestamp>
+            description: "PhotoURL"
+          - name: WebUrl
+            data_type: <timestamp>
+            description: "WebUrl"
+          - name: IsTrahsed
+            data_type: <string>
+            description: "IsTrahsed"
+          - name: IsFollowing
+            data_type: <string>
+            description: "IsFollowing"
+          - name: IsSpam
+            data_type: <string>
+            description: "IsSpam"
+          - name: IsEndUser
+            data_type: <string>
+            description: "IsEndUser"
+          - name: IsDeleted
+            data_type: <string>
+            description: "IsDeleted"
+          - name: IsAnonymous
+            data_type: <string>
+            description: "IsAnonymous"
+          - name: ZohoCRMContact
+            data_type: <string>
+            description: "ZohoCRMContact"
+      - name: Departments
+        columns:
+          - name: id
+            data_type: <string>
+            description: "primary key"
+          - name: Name
+            data_type: <string>
+            description: "Name"
+          - name: NameInCustomerPortal
+            data_type: <string>
+            description: "NameInCustomerPortal"
+          - name: ChatStatus
+            data_type: <string>
+            description: "ChatStatus"
+          - name: IsVisibleInCustomerPortal	
+            data_type: <string>
+            description: "IsVisibleInCustomerPortal	"
+          - name: CreatedTime
+            data_type: <timestamp>
+            description: "CreatedTime"
+          - name: CreatorId
+            data_type: <string>
+            description: "CreatorId"
+          - name: Description
+            data_type: <string>
+            description: "Description"
+          - name: AssociatedAgentIds
+            data_type: <string>
+            description: "AssociatedAgentIds"
+          - name: HasLogo
+            data_type: <string>
+            description: "HasLogo"
+          - name: IsAssignToTeamEnabled
+            data_type: <string>
+            description: "IsAssignToTeamEnabled"
+          - name: IsDefault
+            data_type: <string>
+            description: "IsDefault"
+          - name: IsEnabled
+            data_type: <string>
+            description: "IsEnabled"
+          - name: sanitizedName
+            data_type: <string>
+            description: "sanitizedName"
+      - name: Organizations
+        columns:
+          - name: id
+            data_type: <string>
+            description: "primary key"
+          - name: CompanyName
+            data_type: <string>
+            description: "CompanyName"
+          - name: PortalName
+            data_type: <string>
+            description: "PortalName"
+          - name: PortalURL
+            data_type: <string>
+            description: "PortalURL"
+          - name: Alias
+            data_type: <string>
+            description: "Alias"
+          - name: EmployeeCount
+            data_type: <integer>
+            description: "EmployeeCount"
+          - name: Description
+            data_type: <string>
+            description: "Description"
+          - name: CurrencyLocale
+            data_type: <string>
+            description: "CurrencyLocale"
+          - name: PrimaryContact
+            data_type: <string>
+            description: "PrimaryContact"
+          - name: Mobile
+            data_type: <string>
+            description: "Mobile"
+          - name: Fax
+            data_type: <string>
+            description: "Fax"
+          - name: PhoneNumber
+            data_type: <string>
+            description: "PhoneNumber"
+          - name: CurrencySymbol
+            data_type: <string>
+            description: "CurrencySymbol"
+          - name: Edition
+            data_type: <string>
+            description: "Edition"
+          - name: Street
+            data_type: <string>
+            description: "Street"
+          - name: City
+            data_type: <string>
+            description: "City"
+          - name: State
+            data_type: <string>
+            description: "State"
+          - name: Country
+            data_type: <string>
+            description: "Country"
+          - name: Zip
+            data_type: <integer>
+            description: "Zip"
+          - name: FaviconURL
+            data_type: <string>
+            description: "FaviconURL"
+          - name: IsAdminInOrg
+            data_type: <string>
+            description: "IsAdminInOrg"
+          - name: IsDefault
+            data_type: <string>
+            description: "IsDefault"
+          - name: LogoURL
+            data_type: <string>
+            description: "LogoURL"
+          - name: Website
+            data_type: <string>
+            description: "Website"
+      - name: Teams
+        columns:
+          - name: id
+            data_type: <string>
+            description: "primary key"
+          - name: Name
+            data_type: <string>
+            description: "Name"
+          - name: Description
+            data_type: <string>
+            description: "Description"
+          - name: DepartmentId
+            data_type: <string>
+            description: "DepartmentId"
+          - name: SubTeams
+            data_type: <string>
+            description: "SubTeams"
+          - name: Agents
+            data_type: <string>
+            description: "Agents"
+          - name: DerivedAgents
+            data_type: <string>
+            description: "DerivedAgents"
+          - name: Roles
+            data_type: <string>
+            description: "Roles"
+          - name: RolesWithSubordinates
+            data_type: <string>
+            description: "RolesWithSubordinates"
+      - name: Tickets
+        columns:
+          - name: id
+            data_type: <string>
+            description: "primary key"
+          - name: TicketNumber
+            data_type: <string>
+            description: "TicketNumber"
+          - name: Subject
+            data_type: <string>
+            description: "Subject"
+          - name: Description
+            data_type: <string>
+            description: "Description"
+          - name: Status
+            data_type: <string>
+            description: "Status"
+          - name: StatusType
+            data_type: <string>
+            description: "StatusType"
+          - name: Priority
+            data_type: <string>
+            description: "Priority"
+          - name: Category
+            data_type: <string>
+            description: "Category"
+          - name: SubCategory
+            data_type: <string>
+            description: "SubCategory"
+          - name: CreatedTime
+            data_type: <timestamp>
+            description: "CreatedTime"
+          - name: ModifiedTime
+            data_type: <timestamp>
+            description: "ModifiedTime"
+          - name: DueDate
+            data_type: <timestamp>
+            description: "DueDate"
+          - name: Email
+            data_type: <string>
+            description: "Email"
+          - name: CustomerResponseTime
+            data_type: <timestamp>
+            description: "CustomerResponseTime"
+          - name: ContactId
+            data_type: <string>
+            description: "ContactId"
+          - name: DepartmentId
+            data_type: <string>
+            description: "DepartmentId"
+          - name: DepartmentName
+            data_type: <string>
+            description: "DepartmentName"
+          - name: Channel
+            data_type: <string>
+            description: "Channel"
+          - name: IsRead
+            data_type: <string>
+            description: "IsRead"
+          - name: OnholdTime
+            data_type: <timestamp>
+            description: "OnholdTime"
+          - name: ResponseDueDate
+            data_type: <timestamp>
+            description: "ResponseDueDate"
+          - name: AssigneeId
+            data_type: <string>
+            description: "AssigneeId"
+          - name: AssigneeEmail
+            data_type: <string>
+            description: "AssigneeEmail"
+          - name: AssigneeFirstName
+            data_type: <string>
+            description: "AssigneeFirstName"
+          - name: AssigneeLastName
+            data_type: <string>
+            description: "AssigneeLastName"
+          - name: AssigneePhotoURL
+            data_type: <string>
+            description: "AssigneePhotoURL"
+          - name: ChannelCode
+            data_type: <string>
+            description: "ChannelCode"
+          - name: ClosedTime
+            data_type: <timestamp>
+            description: "ClosedTime"
+          - name: CommentCount
+            data_type: <string>
+            description: "CommentCount"
+          - name: ContactAccountaccountName
+            data_type: <string>
+            description: "ContactAccountaccountName"
+          - name: ContactAccountId
+            data_type: <string>
+            description: "ContactAccountId"
+          - name: ContactAccountWebsite
+            data_type: <string>
+            description: "ContactAccountWebsite"
+          - name: ContactEmail
+            data_type: <string>
+            description: "ContactEmail"
+          - name: ContactFirstName
+            data_type: <string>
+            description: "ContactFirstName"
+          - name: ContactLastName
+            data_type: <string>
+            description: "ContactLastName"
+          - name: ContactMobile
+            data_type: <string>
+            description: "ContactMobile"
+          - name: ContactPhone
+            data_type: <string>
+            description: "ContactPhone"
+          - name: ContactType
+            data_type: <string>
+            description: "ContactType"
+          - name: IsArchived
+            data_type: <string>
+            description: "IsArchived"
+          - name: IsArchived
+            data_type: <string>
+            description: "IsArchived"
+          - name: LastThread
+            data_type: <string>
+            description: "LastThread"
+          - name: LayoutId
+            data_type: <string>
+            description: "LayoutId"
+          - name: Phone
+            data_type: <string>
+            description: "Phone"
+          - name: ProductId
+            data_type: <string>
+            description: "ProductId"
+          - name: Sentiment
+            data_type: <string>
+            description: "Sentiment"
+          - name: SourceAppName
+            data_type: <string>
+            description: "SourceAppName"
+          - name: SourceAppPhotoURL
+            data_type: <string>
+            description: "SourceAppPhotoURL"
+          - name: SourceExtId
+            data_type: <string>
+            description: "SourceExtId"
+          - name: SourcePermalink
+            data_type: <string>
+            description: "SourcePermalink"
+          - name: SourceType
+            data_type: <string>
+            description: "SourceType"
+          - name: Team
+            data_type: <string>
+            description: "Team"
+          - name: TeamId
+            data_type: <string>
+            description: "TeamId"
+          - name: ThreadCount
+            data_type: <string>
+            description: "ThreadCount"
+          - name: WebUrl
+            data_type: <string>
+            description: "WebUrl"
+          - name: Resolution
+            data_type: <string>
+            description: "Resolution"
