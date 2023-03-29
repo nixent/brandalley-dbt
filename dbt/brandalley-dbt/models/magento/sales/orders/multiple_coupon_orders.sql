@@ -1,15 +1,15 @@
 with codes as (
     select
         o.customer_id,
-        o.order_number,
+        oe.order_id,
+        o.increment_id,
         oe.coupon_type_label,
         o.created_at,
-        split(coupon_code, ',') as code_array
-    from {{ ref('OrderLines') }} o
+        split(o.coupon_code, ',') as code_array
+    from {{ ref('Orders') }} o
     left join {{ ref('orders_enriched') }} oe
-        on o.order_id = oe.order_id
-    where o.created_at >= '2023-01-01' 
-        and contains_substr(oe.coupon_code, ',')
+        on o.increment_id = oe.increment_id
+    where contains_substr(oe.coupon_code, ',')
 )
 
 select 

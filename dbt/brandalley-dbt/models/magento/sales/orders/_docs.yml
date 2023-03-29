@@ -293,7 +293,11 @@ models:
         meta:
           dimension:
             format: id
-      - name: order_number
+      - name: order_id
+        meta:
+          dimension:
+            format: id
+      - name: increment_id
         meta:
           dimension:
             format: id
