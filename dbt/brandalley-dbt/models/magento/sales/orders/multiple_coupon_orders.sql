@@ -20,5 +20,5 @@ from codes c,
 unnest(code_array) as code_unnest
 left join {{ ref('stg__salesrule_coupon') }} src
   on lower(code_unnest) = lower(src.code)
-left join {{ ref('stg__salesrule') }} sr
+left join {{ ref('stg__salesrule') }} sr 
   on src.rule_id = sr.rule_id
