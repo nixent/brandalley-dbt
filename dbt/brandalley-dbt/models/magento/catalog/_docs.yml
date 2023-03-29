@@ -274,6 +274,14 @@ models:
       - name: variant_sku
       - name: category_name
       - name: category_id
+      - name: sale_start_at
+        meta:
+          dimension:
+            type: timestamp
+      - name: sale_end_at
+        meta:
+          dimension:
+            type: timestamp
           
   - name: stock_file
     description: ""
