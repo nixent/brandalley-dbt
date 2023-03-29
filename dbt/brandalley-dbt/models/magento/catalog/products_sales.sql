@@ -16,7 +16,9 @@ select
         then 'Outlet'
         else cceh.name
     end 											as category_name,
-    ccp.category_id
+    ccp.category_id,
+    timestamp(cceh.sale_start)                      as sale_start_at,
+    timestamp(cceh.sale_end)                        as sale_end_at
 from {{ ref('products') }} p
 left join {{ ref('stg__catalog_category_product') }} ccp
     on p.product_id = ccp.product_id
