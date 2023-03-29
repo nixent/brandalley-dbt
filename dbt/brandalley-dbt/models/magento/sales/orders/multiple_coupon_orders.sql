@@ -9,7 +9,7 @@ with codes as (
     from {{ ref('Orders') }} o
     left join {{ ref('orders_enriched') }} oe
         on o.increment_id = oe.increment_id
-    where contains_substr(oe.coupon_code, ',')
+    where contains_substr(oe.coupon_code, ',') 
 )
 
 select 
