@@ -14,8 +14,8 @@ with codes as (
 
 select 
     c.*, 
-    code_unnest as code, 
-    sr.name as code_name
+    code_unnest as coupon_code, 
+    sr.name as coupon_name
 from codes c,
 unnest(code_array) as code_unnest
 left join {{ ref('stg__salesrule_coupon') }} src
