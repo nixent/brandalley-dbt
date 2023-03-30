@@ -378,13 +378,13 @@ models:
         meta:
           dimension:
             sql: > 
-              "case 
+              case 
                 when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 274 then '9 - 12 Months'
                 when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 180 then '6 - 9 Months'
                 when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 89 then '3 - 6 Months'
                 when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 30 then '1 - 3 Months'
                 else 'Up to 1 Month'
-              end"
+              end
       - name: category
         description: "Category as defined by buyers"
       - name: tax
