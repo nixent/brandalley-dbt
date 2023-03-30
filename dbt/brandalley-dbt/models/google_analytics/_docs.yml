@@ -9,7 +9,7 @@ models:
         - join: catalog_product
           sql_on: ${ga_daily_stats.product_sku} = ${catalog_product.sku}
         - join: products_sales
-          sql_on: ${ga_daily_stats.product_sku} = ${products_sales.sku} and ${ga_daily_stats.date} between date(${products_sales.sale_start_at}) and date(${products_sales.sale_end_at}) and ${product_sales.variant_sku_per_sku_per_sale_number} = 1
+          sql_on: ${ga_daily_stats.product_sku} = ${products_sales.sku} and ${ga_daily_stats.date} between date(${products_sales.sale_start_at}) and date(${products_sales.sale_end_at}) and ${products_sales.variant_sku_per_sku_per_sale_number} = 1
         - join: orders_enriched
           sql_on: ${ga_daily_stats.transaction_id} = ${orders_enriched.increment_id}
         - join: customers_enriched
@@ -17,7 +17,7 @@ models:
         - join: OrderLines
           sql_on: ${ga_daily_stats.transaction_id} = ${OrderLines.order_number} and ${ga_daily_stats.product_sku} = ${OrderLines.parent_sku} and ${ga_daily_stats.product_sku_offset} = ${OrderLines.parent_sku_offset}
         - join: customers
-          sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
+          sql_on: ${OrderLines.customer_id} = ${customers.cst_id} 
     columns:
       - name: unique_key
         tests:
