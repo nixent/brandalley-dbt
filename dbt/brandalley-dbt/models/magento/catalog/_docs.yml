@@ -379,6 +379,7 @@ models:
           dimension:
             sql: > 
               case 
+                when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 365 then 'Over 1 Year'
                 when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 274 then '9 - 12 Months'
                 when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 180 then '6 - 9 Months'
                 when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 89 then '3 - 6 Months'
