@@ -282,6 +282,7 @@ models:
         meta:
           dimension:
             type: timestamp
+      - name: variant_sku_per_sku_per_sale_number
           
   - name: stock_file
     description: ""
