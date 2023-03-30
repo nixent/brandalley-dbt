@@ -53,3 +53,10 @@ models:
           +post-hook: "delete {{this}} where __deleted = true"
         customers:
           +post-hook: "delete {{this}} where __deleted = true"
+    zendesk:
+      +schema: zendesk_model
+      +materialized: table 
+    zohodesk:
+      +schema: zohodesk_model
+      +materialized: table 
+
