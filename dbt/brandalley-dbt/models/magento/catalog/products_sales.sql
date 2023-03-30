@@ -18,7 +18,8 @@ select
     end 											as category_name,
     ccp.category_id,
     timestamp(cceh.sale_start)                      as sale_start_at,
-    timestamp(cceh.sale_end)                        as sale_end_at
+    timestamp(cceh.sale_end)                        as sale_end_at,
+    row_number() over (partition by ccp.category_id, p.sku) as variant_sku_per_sku_per_sale_number
 from {{ ref('products') }} p
 left join {{ ref('stg__catalog_category_product') }} ccp
     on p.product_id = ccp.product_id
