@@ -53,4 +53,4 @@ with tickets as (
 	{% endif %}
 )
 
-select * from tickets;
+select * from tickets
