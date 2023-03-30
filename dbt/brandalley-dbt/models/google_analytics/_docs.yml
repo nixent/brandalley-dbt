@@ -17,7 +17,7 @@ models:
         - join: OrderLines
           sql_on: ${ga_daily_stats.transaction_id} = ${OrderLines.order_number} and ${ga_daily_stats.product_sku} = ${OrderLines.parent_sku} and ${ga_daily_stats.product_sku_offset} = ${OrderLines.parent_sku_offset}
         - join: customers
-          sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
+          sql_on: ${OrderLines.customer_id} = ${customers.cst_id} 
     columns:
       - name: unique_key
         tests:
