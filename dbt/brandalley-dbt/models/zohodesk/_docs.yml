@@ -61,4 +61,33 @@ models:
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']       
       - name: comment_count
         description: "Count of comments left on the ticket"     
-      
+      - name: phone_ticket
+        description: "1 when it's a phone ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zohodesk_phone_tickets:
+              label: 'Total number of tickets coming from calls from Zohodesk'
+              type: sum
+              description: "Number of tickets coming from calls in Zohodesk"
+              hidden: false
+              round: 0      
+      - name: chat_ticket
+        description: "1 when it's a chat ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zohodesk_chat_tickets:
+              label: 'Total number of tickets coming from chat from zendesk'
+              type: sum
+              description: "Number of tickets coming from chat in Zendesk"
+              hidden: false
+              round: 0        
+      - name: email_ticket
+        description: "1 when it's an email ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zohodesk_email_tickets:
+              label: 'Total number of tickets coming from email from zendesk'
+              type: sum
+              description: "Number of tickets coming from email in Zendesk"
+              hidden: false
+              round: 0      

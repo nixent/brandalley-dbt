@@ -42,7 +42,10 @@ with tickets as (
             ResponseDueDate                                                             as response_due_date,
             AssigneeId                                                                  as assignee_id,
             ClosedTime                                                                  as closed_time,
-            CommentCount                                                                as comment_count
+            CommentCount                                                                as comment_count,
+            if(Channel='Phone', 1, 0)                                                   as phone_ticket,
+            if(Channel='Chat', 1, 0)                                                as chat_ticket,
+            if(Channel ='email', 1, 0)                                              as email_ticket
         from {{ source(
             'zohodesk',
             'Tickets'

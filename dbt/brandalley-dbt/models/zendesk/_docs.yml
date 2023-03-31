@@ -56,3 +56,53 @@ models:
         description: "Channel the ticket is coming from"
       - name: via_source_rel
         description: "Source relative to the channel"
+      - name: phone_ticket
+        description: "1 when it's a phone ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zendesk_phone_tickets:
+              label: 'Total number of tickets coming from calls from zendesk'
+              type: sum
+              description: "Number of tickets coming from calls in Zendesk"
+              hidden: false
+              round: 0      
+      - name: chat_ticket
+        description: "1 when it's a chat ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zendesk_chat_tickets:
+              label: 'Total number of tickets coming from chat from zendesk'
+              type: sum
+              description: "Number of tickets coming from chat in Zendesk"
+              hidden: false
+              round: 0      
+      - name: web_email_ticket
+        description: "1 when it's a web or email ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zendesk_web_email_tickets:
+              label: 'Total number of tickets coming from web or email from zendesk'
+              type: sum
+              description: "Number of tickets coming from web or email in Zendesk"
+              hidden: false
+              round: 0      
+      - name: web_ticket
+        description: "1 when it's a phone ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zendesk_web_tickets:
+              label: 'Total number of tickets coming from web from zendesk'
+              type: sum
+              description: "Number of tickets coming from web in Zendesk"
+              hidden: false
+              round: 0      
+      - name: email_ticket
+        description: "1 when it's a phone ticket, 0 otherwise"
+        meta:
+          metrics:
+            total_zendesk_email_tickets:
+              label: 'Total number of tickets coming from email from zendesk'
+              type: sum
+              description: "Number of tickets coming from email in Zendesk"
+              hidden: false
+              round: 0      
