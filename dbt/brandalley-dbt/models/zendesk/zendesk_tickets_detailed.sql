@@ -41,7 +41,12 @@ with tickets as (
             type,
             url,
             via_channel,
-            via_source_rel
+            via_source_rel,
+            if(via_channel='voice', 1, 0) as phone_ticket,
+            if(via_channel='native_messaging', 1, 0) as chat_ticket,
+            if(via_channel in ('web','email'), 1, 0) as web_email_ticket,
+            if(via_channel='web', 1, 0) as web_ticket,
+            if(via_channel='email', 1, 0) as email_ticket
     from {{ source(
         'zendesk',
         'ticket'
