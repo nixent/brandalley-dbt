@@ -1,4 +1,3 @@
-/* On hold for first run
 {{ config(
 	materialized='incremental',
 	unique_key='id',
@@ -9,6 +8,7 @@
     }
 ) }}
 
+/* On hold for first run
 {% set min_ts = '2023-02-01' %}
 {% if execute and is_incremental() %}
   {% set sql %}
