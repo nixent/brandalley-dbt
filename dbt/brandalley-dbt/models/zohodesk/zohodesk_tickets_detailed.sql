@@ -18,7 +18,7 @@
 			IF(min(gravity_inserted)<min(gravity_updated), min(gravity_inserted), min(gravity_updated)) as updated_at
 		from     {{ source(
         'zohodesk',
-        'ticket'
+        'Tickets'
     ) }}
 		where updated_at >= ( select IF(max(gravity_inserted)>max(gravity_updated), max(gravity_inserted), max(gravity_updated)) from {{this}} )
 	)
