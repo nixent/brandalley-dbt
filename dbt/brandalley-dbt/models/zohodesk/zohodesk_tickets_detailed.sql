@@ -43,10 +43,10 @@ with tickets as (
             AssigneeId                                                                  as assignee_id,
             ClosedTime                                                                  as closed_time,
             CommentCount                                                                as comment_count
-    from {{ source(
-        'zohodesk',
-        'Tickets'
-    ) }} 
+        from {{ source(
+            'zohodesk',
+            'Tickets'
+        ) }} 
 	where 1=1
 /*	{% if is_incremental() %}
 		and IF(gravity_inserted>gravity_updated or gravity_updated is null, gravity_inserted, gravity_updated) >= '{{min_ts}}'
