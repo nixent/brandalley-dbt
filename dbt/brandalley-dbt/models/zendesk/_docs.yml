@@ -2,7 +2,7 @@ version: 2
 
 models:
   
-  - name: zendesk_tickets_detailed.sql
+  - name: zendesk_tickets_detailed
     description: "A detailed view of all tickets for zendesk"
     columns:
       - name: id
