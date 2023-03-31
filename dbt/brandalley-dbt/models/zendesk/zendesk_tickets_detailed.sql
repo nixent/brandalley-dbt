@@ -47,9 +47,9 @@ with tickets as (
         'ticket'
     ) }} 
 	where 1=1
-	{% if is_incremental() %}
+/*	{% if is_incremental() %}
 		and updated_at >= '{{min_ts}}'
-	{% endif %}
+	{% endif %}*/
 )
 
 select * from tickets

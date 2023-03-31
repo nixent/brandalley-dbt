@@ -29,28 +29,28 @@
 */
 
 with tickets as (
-    select  Id,
-            TicketNumber,
-            Subject,
-            Status,
-            StatusType,
-            CreatedTime,
-            DueDate,
-            CustomerResponseTime,
-            ContactId,
-            Channel,
-            ResponseDueDate,
-            AssigneeId,
-            ClosedTime,
-            CommentCount
+    select  Id                                                                          as id,
+            TicketNumber                                                                as ticket_number,
+            Subject                                                                     as subject,
+            Status                                                                      as status,
+            StatusType                                                                  as status_type,
+            CreatedTime                                                                 as created_time,
+            DueDate                                                                     as due_date,
+            CustomerResponseTime                                                        as customer_response_time,
+            ContactId                                                                   as contact_id,
+            Channel                                                                     as channel,
+            ResponseDueDate                                                             as response_due_date,
+            AssigneeId                                                                  as assignee_id,
+            ClosedTime                                                                  as closed_time,
+            CommentCount                                                                as comment_count
     from {{ source(
         'zohodesk',
         'Tickets'
     ) }} 
 	where 1=1
-	{% if is_incremental() %}
+/*	{% if is_incremental() %}
 		and IF(gravity_inserted>gravity_updated or gravity_updated is null, gravity_inserted, gravity_updated) >= '{{min_ts}}'
-	{% endif %}
+	{% endif %}*/
 )
 
 select * from tickets
