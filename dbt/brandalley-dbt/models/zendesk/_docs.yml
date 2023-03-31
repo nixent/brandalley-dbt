@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  
+  - name: zendesk_tickets_detailed
+    description: "A detailed view of all tickets for zendesk"
+    columns:
+      - name: id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+        meta:
+          dimension:
+            format: id
+          metrics:
+            total_zendesk_tickets:
+              label: 'Total number of tickets from zendesk'
+              type: count_distinct
+              description: "Number of tickets in Zendesk"
+              hidden: false
+              round: 0      
+      - name: created_at
+        description: "created_at"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: description
+        description: "description"
+      - name: due_at
+        description: "Due date of the ticket"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: is_public
+        description: "is_public"
+      - name: merged_ticket_ids
+        description: "Ids of tickets merged"
+      - name: status
+        description: "Status of the ticket"
+      - name: subject
+        description: "Subject of the ticket"
+      - name: updated_at
+        description: "Update date"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: type
+        description: "Type"
+      - name: URL
+        description: "URL"
+      - name: via_channel
+        description: "Channel the ticket is coming from"
+      - name: via_source_rel
+        description: "Source relative to the channel"
