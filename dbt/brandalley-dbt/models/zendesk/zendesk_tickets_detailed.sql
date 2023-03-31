@@ -1,5 +1,5 @@
 {{ config(
-	materialized='incremental',
+	materialized='table',
 	unique_key='id',
 	partition_by = {
       "field": "created_at",
