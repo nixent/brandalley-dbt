@@ -340,9 +340,9 @@ select
 	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3,
 	row_number() over (partition by order_number, parent_sku order by sku) as parent_sku_offset,
 	case 
-		when consignment_qty > 0 and selffulfill_qty = 0 and warehouse_qty = 0 or (consignment_qty >= warehouse_qty and consignment_qty >= selffulfill_qty)  then 'Consignment'
-		when consignment_qty = 0 and selffulfill_qty > 0 and warehouse_qty = 0 or (selffulfill_qty >= warehouse_qty and selffulfill_qty >= consignment_qty) then 'Self-fulfill'
-		when consignment_qty = 0 and selffulfill_qty = 0 and warehouse_qty > 0 or (warehouse_qty > selffulfill_qty and warehouse_qty > consignment_qty) then 'Warehouse'
+		when consignment_qty >= warehouse_qty and consignment_qty >= selffulfill_qty  then 'Consignment'
+		when selffulfill_qty >= warehouse_qty and selffulfill_qty >= consignment_qty then 'Self-fulfill'
+		when warehouse_qty > selffulfill_qty and warehouse_qty > consignment_qty then 'Warehouse'
 		else 'Multiple'
 	end as order_fulfillment_type
 from order_lines
