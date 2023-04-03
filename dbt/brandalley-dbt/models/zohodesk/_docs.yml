@@ -76,9 +76,9 @@ models:
         meta:
           metrics:
             total_zohodesk_chat_tickets:
-              label: 'Total number of tickets coming from chat from zendesk'
+              label: 'Total number of tickets coming from chat from Zohodesk'
               type: sum
-              description: "Number of tickets coming from chat in Zendesk"
+              description: "Number of tickets coming from chat in Zohodesk"
               hidden: false
               round: 0        
       - name: email_ticket
@@ -86,8 +86,8 @@ models:
         meta:
           metrics:
             total_zohodesk_email_tickets:
-              label: 'Total number of tickets coming from email from zendesk'
+              label: 'Total number of tickets coming from email from Zohodesk'
               type: sum
-              description: "Number of tickets coming from email in Zendesk"
+              description: "Number of tickets coming from email in Zohodesk"
               hidden: false
               round: 0      
