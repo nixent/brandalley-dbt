@@ -44,8 +44,8 @@ with tickets as (
             ClosedTime                                                                  as closed_time,
             CommentCount                                                                as comment_count,
             if(Channel='Phone', 1, 0)                                                   as phone_ticket,
-            if(Channel='Chat', 1, 0)                                                as chat_ticket,
-            if(Channel ='email', 1, 0)                                              as email_ticket
+            if(Channel='Chat', 1, 0)                                                    as chat_ticket,
+            if(Channel ='Email', 1, 0)                                                  as email_ticket
         from {{ source(
             'zohodesk',
             'Tickets'
