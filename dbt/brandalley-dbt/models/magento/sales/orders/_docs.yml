@@ -1347,6 +1347,10 @@ models:
               type: sum
               description: "Total refund amount"
               format: 'gbp' 
+      - name: has_ordered_since
+        meta:
+          dimension:
+            type: boolean
 
   - name: Orders
     description: "A table of order information, unique at order id level"

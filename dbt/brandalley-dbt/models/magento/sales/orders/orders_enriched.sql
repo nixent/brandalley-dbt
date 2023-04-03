@@ -47,7 +47,11 @@ select
   ora.count_refunds,
   ora.count_item_refunds,
   ora.total_refund_amount,
-  ola.count_order_lines
+  ola.count_order_lines,
+  case 
+    when lead(o.created_at) over (partition by o.customer_id order by o.created_at) is not null then true 
+    else false 
+  end as has_ordered_since
 from {{ ref('Orders') }} o
 left join order_line_agg ola 
   on o.magentoID = ola.order_id
