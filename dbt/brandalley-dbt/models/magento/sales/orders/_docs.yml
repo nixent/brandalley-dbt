@@ -1351,6 +1351,13 @@ models:
         meta:
           dimension:
             type: boolean
+          metrics:
+            total_customers_with_subsequent_order:
+              label: 'Customers with subsequent order'
+              type: count_distinct
+              description: "Number of customers who have returned to make another order"
+              hidden: false
+              sql: "if(${has_ordered_since}, ${customer_id}, null)"
 
   - name: Orders
     description: "A table of order information, unique at order id level"
