@@ -1,0 +1,55 @@
+version: 2
+
+models:
+
+  - name: tickets_daily
+    description: "A view of tickets KPIs, based off of ticket creation day"
+    columns:
+      - name: id
+        tests:
+          - not_null
+      - name: date_created
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW']
+      - name: entity
+      - name: source
+      - name: due_date
+      - name: status
+      - name: phone_ticket
+        meta:
+          metrics:
+            phone_tickets_daily:
+              label: 'Total number of tickets coming from phone'
+              type: sum
+              description: "Number of tickets coming from phone"
+              hidden: false
+              round: 0      
+      - name: email_ticket
+        meta:
+          metrics:
+            email_tickets_daily:
+              label: 'Total number of tickets coming from email'
+              type: sum
+              description: "Number of tickets coming from email"
+              hidden: false
+              round: 0      
+      - name: chat_ticket
+        meta:
+          metrics:
+            chat_tickets_daily:
+              label: 'Total number of tickets coming from chat'
+              type: sum
+              description: "Number of tickets coming from chat"
+              hidden: false
+              round: 0      
+      - name: order_count
+        meta:
+          metrics:
+            order_ticket_daily:
+              label: 'Total number of orders'
+              type: sum
+              description: "Number of orders"
+              hidden: false
+              round: 0      
