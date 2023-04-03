@@ -45,6 +45,12 @@ models:
         - "lightdash"
     crm:
       +schema: emarsys
+    cs:
+      +schema: cs
+      zendesk:
+        +schema: zendesk_model
+      zohodesk:
+        +schema: zohodesk_model
     sources:
       streamkap_current:
         +on_schema_change: "append_new_columns"
@@ -53,10 +59,4 @@ models:
           +post-hook: "delete {{this}} where __deleted = true"
         customers:
           +post-hook: "delete {{this}} where __deleted = true"
-    zendesk:
-      +schema: zendesk_model
-      +materialized: table 
-    zohodesk:
-      +schema: zohodesk_model
-      +materialized: table 
 
