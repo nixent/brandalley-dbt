@@ -1358,6 +1358,12 @@ models:
               description: "Number of customers who have returned to make another order"
               hidden: false
               sql: "if(${has_ordered_since}, ${customer_id}, null)"
+            total_new_customers_with_subsequent_order:
+              label: 'New customers with subsequent order'
+              type: count_distinct
+              description: "Number of new customers who have returned to make another order"
+              hidden: false
+              sql: "if(${has_ordered_since} and ${order_sequence} = 1, ${customer_id}, null)"
 
   - name: Orders
     description: "A table of order information, unique at order id level"
