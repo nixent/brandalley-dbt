@@ -128,6 +128,26 @@ models:
       - name: date
         description: ""
 
+  - name: customers_rfm
+    description: 'Recency, Frequency & Monetary values per customer along with the average time between transactions and average order value per customer'
+    columns:
+      - name: customer_id
+        tests:
+          - unique 
+      - name: days_since_last_order
+      - name: lifetime_orders
+      - name: lifetime_sales_amount
+        meta:
+          metrics:
+            avg_lifetime_sales_amount:
+              type: average
+              label: 'Average Lifetime Sales Amount (£)'
+              round: 1
+              format: 'gbp'
+      - name: lifetime_margin
+      - name: avg_days_between_orders
+      - name: lifetime_sales_amount_aov
+
   - name: customers
     description: "" 
     columns:
@@ -185,36 +205,4 @@ models:
       - name: achica_user
         description: ""
       - name: achica_migration_date
-        description: ""
-
-  - name: log_customer
-    description: ""
-    columns:
-      - name: log_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-      - name: visitor_id
-        description: "Visitor id, nullable"
-        meta:
-          dimension:
-            format: id
-      - name: customer_id
-        description: "Customer id"
-        meta:
-          dimension:
-            format: id
-      - name: login_at
-        description: "Login time"
-      - name: logout_at
-        description: "Logout time, nullable"
-      - name: store_id
-        description: "Store id"
-        meta:
-          dimension:
-            format: id
-      - name: _streamkap_source_ts_ms
-        description: ""
-      - name: __deleted
         description: ""

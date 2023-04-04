@@ -406,59 +406,6 @@ models:
           dimension:
             label: 'Conversion Rate - GA (%)'
 
-
-  
-  - name: invent_referer
-    description: ""
-    columns:
-      - name: referer_id
-        description: "Primary key"
-        meta:
-          dimension:
-            format: id
-            
-      - name: entity_id
-        description: "Entity id"
-        meta:
-          dimension:
-            format: id
-            
-      - name: entity_type
-        description: "Entity type"
-
-      - name: event_type
-        description: "Event type"
-
-      - name: source
-        description: "Source"
-
-      - name: medium
-        description: "Medium"
-
-      - name: term
-        description: "Term"
-
-      - name: content
-        description: "Content"
-
-      - name: campaign
-        description: "Campaign"
-
-      - name: gclid
-        description: "Gclid"
-
-      - name: device_category
-        description: "Device categoy, nullable"
-
-      - name: operating_system
-        description: "Operating system, nullable"
-
-      - name: _streamkap_source_ts_ms
-        description: ""
-
-      - name: __deleted
-        description: ""
-
   - name: inventory_items
     description: ""
     columns:
@@ -547,19 +494,6 @@ models:
         description: "Is decimal divided"
 
   
-  
-
-  - name: RFM
-    description: 'a table showing the Recency, Frequency & Monetary values per customer along with the average time between transactions and average order value per customer'
-    columns:
-      - name: customer_id
-        tests:
-          - unique 
-      - name: days_since_last_order
-      - name: total_orders_made
-      - name: total_money_spent
-      - name: average_time_between_transactions
-      - name: average_order_value
 
   
 
