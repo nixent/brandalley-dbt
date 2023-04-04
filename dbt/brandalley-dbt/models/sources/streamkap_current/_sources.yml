@@ -163,6 +163,7 @@ sources:
             description: ""
           - name: __deleted
             description: ""
-
+      - name: catalog_product_po
+      - name: catalog_product_po_item
 
       
