@@ -163,7 +163,185 @@ sources:
             description: ""
           - name: __deleted
             description: ""
-      - name: catalog_product_po
-      - name: catalog_product_po_item
 
-      
+      - name: catalog_product_po
+        columns:
+          - name: po_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: negotiation_id
+            data_type: <integer>
+            description: "Negotiation id"
+          - name: created_at
+            data_type: <timestamp>
+            description: "Create time"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "Update time"
+          - name: status
+            data_type: <integer>
+            description: "Status"
+          - name: sap_ref
+            data_type: <integer>
+            description: "SAP ref"
+          - name: sap_message
+            data_type: <string>
+            description: "SAP message"
+          - name: delivery_date
+            data_type: <string>
+            description: "Date of delivery of the PO"
+          - name: date_exported
+            data_type: <string>
+            description: "Date of export of the PO"
+          - name: products_in_wh_b
+            data_type: <integer>
+            description: "Products in WH b"
+          - name: products_export_process_id
+            data_type: <string>
+            description: "products_export_process_id"
+          - name: purchase_order_export_process_id	
+            data_type: <string>
+            description: "purchase_order_export_process_id"
+          - name: purchase_order_in_wh_b
+            description: "purchase_order_in_wh_b"
+
+      - name: catalog_product_po_item
+        columns:
+          - name: po_item_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: po_id
+            data_type: <integer>
+            description: "PO Id"
+          - name: product_id
+            data_type: <integer>
+            description: "Product id"
+          - name: configurable_product_id
+            data_type: <integer>
+            description: "Configurable product ID"
+          - name: SKU
+            data_type: <string>
+            description: "SKU"
+          - name: configurable_SKU
+            data_type: <string>
+            description: "Confirgurable SKU"
+          - name: reference
+            data_type: <string>
+            description: "Reference"
+          - name: simple_name
+            data_type: <string>
+            description: "Name of the child of the product"
+          - name: configurable_name
+            data_type: <string>
+            description: "Name of the parent of the product"
+          - name: brand
+            data_type: <string>
+            description: "Brand"
+          - name: colour	
+            data_type: <string>
+            description: "Colour"
+          - name: web_size
+            data_type: <string>
+            description: "Web size"
+          - name: supplier_size
+            data_type: <string>
+            description: "Supplier size"
+          - name: cost
+            data_type: <decimal>
+            description: "Cost in local currency"
+          - name: cost_gbp
+            data_type: <decimal>
+            description: "Cost in GBP"
+          - name: rrp
+            data_type: <decimal>
+            description: "RRP"
+          - name: price
+            data_type: <decimal>
+            description: "Price"
+          - name: tax_rate
+            data_type: <decimal>
+            description: "Tax rate"
+          - name: tax_code
+            data_type: <string>
+            description: "Tax code"
+          - name: barcode
+            data_type: <string>
+            description: "Barcode"
+          - name: commodity_code
+            data_type: <string>
+            description: "Commodity code"
+          - name: category
+            data_type: <string>
+            description: "Category"
+          - name: sub_category	
+            data_type: <string>
+            description: "Sub category"
+          - name: sub_sub_category
+            data_type: <string>
+            description: "Sub sub category"     
+          - name: image
+            data_type: <string>
+            description: "Image"
+          - name: pack_size
+            data_type: <integer>
+            description: "Pack size"
+          - name: to_order	
+            data_type: <integer>
+            description: "To order"
+          - name: to_order_original
+            data_type: <integer>
+            description: "To order original"     
+
+      - name: stock_prism_grn
+        columns:
+          - name: grn_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: purchase_order_reference
+            data_type: <string>
+            description: "PO refernce"
+          - name: purchase_order_instance
+            data_type: <string>
+            description: "PO instance"
+          - name: date
+            data_type: <date>
+            description: "Date"
+          - name: time
+            data_type: <time>
+            description: "time"
+          - name: magento_process_id
+            data_type: <integer>
+            description: "Magento process id"
+
+      - name: stock_prism_grn_item
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "Primary key"
+          - name: grn_id
+            data_type: <integer>
+            description: "GRN Id"
+          - name: grn_item_id
+            data_type: <integer>
+            description: "GRN item Id"
+          - name: unique_reference
+            data_type: <string>
+            description: "Unique reference"
+          - name: in_sap
+            data_type: <string>
+            description: "In SAP"
+          - name: sku
+            data_type: <string>
+            description: "SKU"
+          - name: delivery_number
+            data_type: <string>
+            description: "Delivery number"
+          - name: delivery_date
+            data_type: <date>
+            description: "Delivery date"
+          - name: stock_type_ss
+            data_type: <string>
+            description: "Stock type ss"
+          - name: stock_type_qc
+            data_type: <string>
+            description: "Stock type qc"
