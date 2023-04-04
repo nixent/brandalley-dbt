@@ -77,7 +77,7 @@ select
     os.order_created_at_day,
     os.total_order_count,
     os.total_new_order_count,
-    cs.total_new_members,
+    cs2.total_new_members,
     os.shipping_amount,
     rs.total_refund_count,
     rs.total_item_refund_count,
@@ -104,5 +104,5 @@ left join order_line_stats ols
     on os.order_created_at_day = ols.order_created_at_day
 left join conversion_stats cs
     on os.order_created_at_day = timestamp(cs.ga_session_at_day)
-left join customer_stats cs
-    on os.order_created_at_day = cs.customer_created_at_day
+left join customer_stats cs2
+    on os.order_created_at_day = cs2.customer_created_at_day
