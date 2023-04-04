@@ -9,7 +9,7 @@ select
     sum(chat_ticket)                    as chat_ticket, 
     sum(email_ticket)                   as email_ticket, 
     null                                as order_count 
-from zendesk_model.zendesk_tickets_detailed
+from {{ ref('zendesk_tickets_detailed') }}
 group by date(created_at), id, date(due_at), status
 
 UNION all
@@ -25,7 +25,7 @@ select
     sum(chat_ticket)                    as chat_ticket, 
     sum(email_ticket)                   as email_ticket, 
     null                                as order_count
-from zohodesk_model.zohodesk_tickets_detailed
+from {{ ref('zohodesk_tickets_detailed') }}
 group by date(created_time), id, date(due_date), status
 
 UNION all

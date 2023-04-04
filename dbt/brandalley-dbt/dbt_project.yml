@@ -45,8 +45,8 @@ models:
         - "lightdash"
     crm:
       +schema: emarsys
-    cs:
-      +schema: cs
+    customer_service:
+      +schema: customer_service
       zendesk:
         +schema: zendesk_model
       zohodesk:
