@@ -4,7 +4,7 @@
 
 with order_stats as (
     select
-        date_trunc(created_at, day)                  as order_created_at_day,
+        date_trunc(created_at, day)                           as order_created_at_day,
         count(distinct increment_id)                          as total_order_count,
         count(distinct if(orderno=1, increment_id, null))     as total_new_order_count,
         sum(shipping_incl_tax)                                as shipping_amount
@@ -12,12 +12,20 @@ with order_stats as (
     group by 1
 ),
 
+customer_stats as (
+    select
+        date_trunc(signed_up_at, day)           as customer_created_at_day,
+        count(customer_id)                      as total_new_members
+    from {{ ref('customers_enriched') }} ce
+    group by 1
+),
+
 refund_stats as (
     select
         date_trunc(timestamp(sfc.created_at), day)       as order_created_at_day,
-        count(sfc.entity_id)                    as total_refund_count,
-        count(sfci.entity_id)                   as total_item_refund_count,
-        round(sum(sfci.base_row_total),2)       as total_refund_amount
+        count(sfc.entity_id)                             as total_refund_count,
+        count(sfci.entity_id)                            as total_item_refund_count,
+        round(sum(sfci.base_row_total),2)                as total_refund_amount
     from {{ ref('sales_flat_creditmemo') }} sfc
     left join {{ ref('sales_flat_creditmemo_item') }} sfci
         on sfci.parent_id = sfc.entity_id
@@ -26,7 +34,7 @@ refund_stats as (
 
 shipping_stats as (
     select
-        date_trunc(timestamp(order_date), day) as order_created_at_day,
+        date_trunc(timestamp(order_date), day)                                                                                    as order_created_at_day,
         round(avg(if(shipment_date != '0000-00-00 00:00:00', date_diff(date((shipment_date)), date((order_date)), day), null)),1) as avg_time_to_ship_days
     from {{ ref('shipping') }}
     group by 1
@@ -34,7 +42,7 @@ shipping_stats as (
 
 order_line_stats as (
     select
-        date_trunc(o.created_at, day)                                  as order_created_at_day,
+        date_trunc(o.created_at, day)                                           as order_created_at_day,
         round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
         round(sum(ol.TOTAL_GBP_ex_tax_after_vouchers),2)                        as sales_amount,
@@ -69,6 +77,7 @@ select
     os.order_created_at_day,
     os.total_order_count,
     os.total_new_order_count,
+    cs2.total_new_members,
     os.shipping_amount,
     rs.total_refund_count,
     rs.total_item_refund_count,
@@ -95,3 +104,5 @@ left join order_line_stats ols
     on os.order_created_at_day = ols.order_created_at_day
 left join conversion_stats cs
     on os.order_created_at_day = timestamp(cs.ga_session_at_day)
+left join customer_stats cs2
+    on os.order_created_at_day = cs2.customer_created_at_day

@@ -147,16 +147,8 @@ models:
               label: 'New Members'
               type: count_distinct
               description: "Number of new members"
-              sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, 0)"
+              sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, null)"
               hidden: false    
-      - name: customer_name
-        description: ""
-      - name: email
-        description: ""
-      - name: telephone
-        description: ""
-      - name: billing_street
-        description: ""
       - name: billing_city
         description: ""
       - name: billing_postcode
@@ -164,8 +156,6 @@ models:
       - name: b_region
         description: ""
       - name: billing_country
-        description: ""
-      - name: shipping_street
         description: ""
       - name: shipping_city
         description: ""
