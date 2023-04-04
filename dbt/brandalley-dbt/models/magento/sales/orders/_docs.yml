@@ -337,8 +337,6 @@ models:
           sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id}
         - join: orders_enriched
           sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id}
-        - join: customers_rfm
-          sql_on: ${OrderLines.customer_id} = ${customers_rfm.customer_id}
 
     columns:
       - name: unique_id
