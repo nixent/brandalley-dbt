@@ -9,7 +9,7 @@ select
     sum(email_ticket)                   as email_ticket, 
     null                                as order_count 
 from {{ ref('zendesk_tickets_detailed') }}
-group by date(created_at), id, date(due_at), status
+group by date(created_at), date(due_at), status
 
 UNION all
 
@@ -24,7 +24,7 @@ select
     sum(email_ticket)                   as email_ticket, 
     null                                as order_count
 from {{ ref('zohodesk_tickets_detailed') }}
-group by date(created_time), id, date(due_date), status
+group by date(created_time), date(due_date), status
 
 UNION all
 
@@ -39,4 +39,4 @@ select
     null                                as email_ticket, 
     count(distinct magentoID)           as order_count
 from {{ ref('Orders') }}
-group by date(created_at), magentoID, status
+group by date(created_at), status
