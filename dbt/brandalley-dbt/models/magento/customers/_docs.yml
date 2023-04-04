@@ -137,6 +137,11 @@ models:
       - name: days_since_last_order
       - name: lifetime_orders
       - name: lifetime_sales_amount
+        meta:
+          metrics:
+            avg_lifetime_sales_amount:
+              type: average
+              label: 'Average Lifetime Sales Amount (£)'
       - name: lifetime_margin
       - name: avg_days_between_orders
       - name: lifetime_sales_amount_aov
