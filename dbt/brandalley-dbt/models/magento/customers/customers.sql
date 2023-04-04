@@ -49,15 +49,10 @@ with customers_updated as (
 
 select
 	ce.entity_id 													   as cst_id,
-	'' 																   as customer_name,
-	'' 																   as email,
-	'' 																   as telephone,
-	'' 																   as billing_street,
 	ca_b_26.value billing_city,
 	ca_b_30.value billing_postcode,
 	ca_b_28.value b_region,
 	ca_b_27.value billing_country,
-	'' 																   as shipping_street,
 	ca_s_26.value shipping_city,
 	ca_s_30.value shipping_postcode,
 	ca_s_28.value s_region,

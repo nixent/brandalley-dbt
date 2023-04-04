@@ -12,6 +12,14 @@ with order_stats as (
     group by 1
 ),
 
+customer_stats as (
+    select
+        date_trunc(signed_up_at, week(monday))           as customer_created_at_week,
+        count(customer_id)                              as total_new_members
+    from {{ ref('customers_enriched') }} ce
+    group by 1
+),
+
 refund_stats as (
     select
         date_trunc(timestamp(sfc.created_at), week(monday))       as order_created_at_week,
@@ -69,6 +77,7 @@ select
     os.order_created_at_week,
     os.total_order_count,
     os.total_new_order_count,
+    cs.total_new_members,
     os.shipping_amount,
     rs.total_refund_count,
     rs.total_item_refund_count,
@@ -95,3 +104,5 @@ left join order_line_stats ols
     on os.order_created_at_week = ols.order_created_at_week
 left join conversion_stats cs
     on os.order_created_at_week = timestamp(cs.ga_session_at_week)
+left join customer_stats cs
+    on os.order_created_at_week = cs.customer_created_at_week
