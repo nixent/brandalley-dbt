@@ -21,6 +21,7 @@ select
     {{dbt_utils.surrogate_key(['date', 'visitId', 'fullVisitorId', 'hits.hitNumber', 'product.productSKU', 'hits.transaction.transactionid', 'i'])}} as unique_key,
     parse_date("%Y%m%d", date)                                                                                as date,
     case when visitNumber = 1 then true else false end                                                        as is_new_user,
+    timestamp_seconds(visitStartTime)                                                                         as visit_start_at,
     channelGrouping                                                                                           as traffic_channel,
     trafficSource.medium                                                                                      as traffic_medium,
     trafficSource.campaign                                                                                    as traffic_campaign,

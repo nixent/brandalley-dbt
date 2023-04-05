@@ -36,6 +36,10 @@ models:
         meta:
           dimension:
             type: boolean
+      - name: visit_start_at
+        meta:
+          dimension:
+            type: timestamp
       - name: traffic_channel
       - name: traffic_medium
       - name: traffic_campaign
