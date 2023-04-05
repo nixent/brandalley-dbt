@@ -36,11 +36,11 @@ models:
         meta:
           dimension:
             type: boolean
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: visit_start_at
         meta:
           dimension:
             type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
       - name: traffic_channel
       - name: traffic_medium
       - name: traffic_campaign
