@@ -63,3 +63,5 @@ models:
 vars:
   # Needed to keep the surrogate_key function treating null as empty strings following upgrade of db-utils
   surrogate_key_treat_nulls_as_empty_strings: true
+  using_domain_names:         False         #Disable if you are not using domain names
+  using_organization_tags:    False         #Disable if you are not using organization tags
