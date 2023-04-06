@@ -1183,7 +1183,7 @@ models:
           - name: products_export_process_id
             data_type: <string>
             description: "products_export_process_id"
-          - name: purchase_order_export_process_id	
+          - name: purchase_order_export_process_id
             data_type: <string>
             description: "purchase_order_export_process_id"
           - name: purchase_order_in_wh_b
@@ -1221,7 +1221,7 @@ models:
           - name: brand
             data_type: <string>
             description: "Brand"
-          - name: colour	
+          - name: colour
             data_type: <string>
             description: "Colour"
           - name: web_size
@@ -1257,7 +1257,7 @@ models:
           - name: category
             data_type: <string>
             description: "Category"
-          - name: sub_category	
+          - name: sub_category
             data_type: <string>
             description: "Sub category"
           - name: sub_sub_category
@@ -1269,7 +1269,7 @@ models:
           - name: pack_size
             data_type: <integer>
             description: "Pack size"
-          - name: to_order	
+          - name: to_order
             data_type: <integer>
             description: "To order"
           - name: to_order_original
