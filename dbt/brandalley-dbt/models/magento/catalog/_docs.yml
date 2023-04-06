@@ -836,9 +836,9 @@ models:
             format: id
       - name: in_sap
         description: "In SAP"
-      - name: max_delivery_number
+      - name: grn_delivery_number
         description: "Delivery number"
-      - name: max_delivery_date
+      - name: grn_delivery_date
         description: "GRN Delivery"
         meta:
           dimension:
@@ -855,7 +855,7 @@ models:
             type: date
             time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: nego_type
-        description: "Negociation type"
+        description: "Negotiation type"
       - name: supplier
         description: "Supplier"
       - name: nego_currency
