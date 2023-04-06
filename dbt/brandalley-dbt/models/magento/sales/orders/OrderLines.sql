@@ -200,7 +200,8 @@ with order_lines as (
 		sfoi_con.tax_percent,
 		cped_price.value 																																	as rrp,
 		ce.dt_cr 																																			as reg_date,
-		{{ calculate_region_from_postcode('sfo.billing_postcode') }} 																						as Region, -- Cat 1
+		{{ calculate_region_from_postcode('sfo.billing_postcode') }} 																						as region,
+		{{ calculate_region_from_postcode('sfo.shipping_postcode') }} 																						as shipping_region,
 		sfo.billing_address_type, -- Cat 1  
 		safe_cast(cpn.date_comp_exported as timestamp) 																										as date_comp_exported,
 		sfoi_sim.created_at > cpn.date_comp_exported 																										as cpn_date_flag,
