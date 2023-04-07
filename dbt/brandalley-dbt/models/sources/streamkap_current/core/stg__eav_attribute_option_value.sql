@@ -14,7 +14,7 @@ with streamkap_source as (
 ,
 table_cte as (
     SELECT
-    {{dbt_utils.surrogate_key(['option_id','store_id'])}} as composite_key,
+    {{dbt_utils.generate_surrogate_key(['option_id','store_id'])}} as composite_key,
     *
     from streamkap_source
 )

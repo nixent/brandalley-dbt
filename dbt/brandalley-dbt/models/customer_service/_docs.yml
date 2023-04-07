@@ -5,11 +5,11 @@ models:
   - name: tickets_daily
     description: "A view of tickets KPIs, based off of ticket creation day"
     columns:
-      - name: date_created
+      - name: date
         meta:
           dimension:
             type: date
-            time_intervals: ['RAW']
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
       - name: entity
       - name: source
       - name: due_date

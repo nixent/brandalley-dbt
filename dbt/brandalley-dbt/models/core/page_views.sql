@@ -10,7 +10,7 @@
 )}}
 
 select
-    {{dbt_utils.surrogate_key(['id', 'anonymous_id'])}} as unique_key,
+    {{dbt_utils.generate_surrogate_key(['id', 'anonymous_id'])}} as unique_key,
     channel                                             as platform,
     anonymous_id,
     id                                                  as event_id,

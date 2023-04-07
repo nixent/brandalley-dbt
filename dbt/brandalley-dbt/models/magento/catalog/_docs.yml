@@ -718,3 +718,149 @@ models:
       - name: path_name
         data_type: <string>
         description: "Path name formatted"
+
+  - name: purchase_order
+    description: ""
+    columns:
+      - name: po_id
+        description: "ID of the PO"
+        meta:
+          dimension:
+            format: id
+      - name: po_item_id
+        description: "ID of the line of the PO"
+        meta:
+          dimension:
+            format: id
+      - name: product_id
+        description: "Product ID"
+        meta:
+          dimension:
+            format: id
+      - name: SKU
+        description: "SKU"
+      - name: reference
+        description: "Reference, nullable"
+      - name: simple_name
+        description: "Name of the simple product"
+      - name: brand
+        description: "brand"
+      - name: colour
+        description: "Colour"
+      - name: web_size
+        description: "Web size"
+      - name: supplier_size
+        description: "Supplier size"
+      - name: cost
+        description: "Cost"
+      - name: cost_gbp
+        description: "Cost GBP"
+      - name: rrp
+        description: "RRP"
+      - name: tax_rate
+        description: "Tax rate"
+      - name: tax_code
+        description: "Tax code"
+      - name: barcode
+        description: "Barcode"
+      - name: commodity_code
+        description: "Commodity code"
+      - name: category
+        description: "Category"
+      - name: sub_category
+        description: "Sub category"
+      - name: sub_sub_category
+        description: "Sub sub category"
+      - name: image
+        description: "Image"
+      - name: pack_size
+        description: "Pack size"
+      - name: to_order
+        description: "To order"
+      - name: to_order_original
+        description: "To order original"
+      - name: negotiation_id
+        description: "Negotiation ID"
+      - name: po_created
+        description: "Created date of the PO"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: po_updated
+        description: "Update date of the PO"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: po_status
+        description: "Status of the po"
+      - name: sap_ref
+        description: "SAP ref"
+      - name: sap_message
+        description: "SAP message"
+      - name: po_delivery
+        description: "Delivery date of the PO"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: po_date_exported
+        description: "Export date of the PO"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: products_in_wh_b
+        description: "Products in WH B"
+      - name: products_export_process_id
+        description: "Products export process id"
+      - name: purchase_order_export_process_id
+        description: "Purchase order export process id"
+      - name: purchase_order_in_wh_b
+        description: "PO in WH B"
+      - name: grn_id
+        description: "GRN Id"
+        meta:
+          dimension:
+            format: id
+      - name: magento_process_id
+        description: "Magento process id"
+        meta:
+          dimension:
+            format: id
+      - name: grn_item_id
+        description: "GRN item id"
+        meta:
+          dimension:
+            format: id
+      - name: in_sap
+        description: "In SAP"
+      - name: grn_delivery_number
+        description: "Delivery number"
+      - name: grn_delivery_date
+        description: "GRN Delivery"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: stock_type_ss
+        description: "Stock type SS"
+      - name: stock_type_qc
+        description: "Stock type QC"
+      - name: nego_updated
+        description: "Nego update date"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+      - name: nego_type
+        description: "Negotiation type"
+      - name: supplier
+        description: "Supplier"
+      - name: nego_currency
+        description: "Nego currency"         
+      - name: buyer
+        description: "Buyer"    
+      - name: department
+        description: "Department"

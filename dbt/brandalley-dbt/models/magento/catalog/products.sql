@@ -1,6 +1,6 @@
 with products as (
     select
-        {{dbt_utils.surrogate_key(['cpe.entity_id', 'cpe_child.sku', 'cpsl.product_id'])}} as unique_id,
+        {{dbt_utils.generate_surrogate_key(['cpe.entity_id', 'cpe_child.sku', 'cpsl.product_id'])}} as unique_id,
         cpe.entity_id                                   as product_id,
         timestamp(cpe.created_at)                       as dt_cr,
         cpsl.product_id                                 as variant_product_id,
