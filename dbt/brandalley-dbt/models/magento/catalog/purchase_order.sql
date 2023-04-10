@@ -47,7 +47,13 @@ select  poi.po_id,
         nego.supplier, 
         nego.currency                                   as nego_currency, 
         nego.buyer, 
-        nego.department 
+        nego.department,
+        nego_item.size,
+        nego_item.price, 
+        nego_item.qty,			
+        nego_item.ordered                               as nego_ordered,
+        nego_item.to_order                              as nego_to_order,
+        nego_item.qty_exported
         from {{ ref('stg__catalog_product_po_item') }} poi
         inner join {{ ref('stg__catalog_product_po') }} po 
             on poi.po_id = po.po_id
@@ -56,5 +62,7 @@ select  poi.po_id,
         inner join {{ ref('stg__stock_prism_grn_item') }} spgi 
             on spgi.grn_id = spg.grn_id and spgi.sku = poi.sku
         left join {{ ref('stg__catalog_product_negotiation') }} nego 
-            on po.negotiation_id = nego.negotiation_id
-Qualify ROW_NUMBER() OVER (PARTITION BY poi.po_item_id, spgi.grn_item_id, spgi.delivery_number ORDER BY spgi.delivery_number DESC) = 1
+            on po.negotiation_id = nego.negotiation_id 
+        left join {{ ref('stg__catalog_product_negotiation_item') }} nego_item
+            on po.negotiation_id = nego_item.negotiation_id and poi.sku=nego_item.sku
+Qualify ROW_NUMBER() OVER (PARTITION BY poi.po_item_id ORDER BY spgi.delivery_date DESC) = 1
