@@ -43,8 +43,9 @@ models:
       +materialized: table 
       +tags:
         - "lightdash"
-    crm:
-      +schema: emarsys
+    marketing:
+      emarsys:
+        +schema: emarsys
     customer_service:
       +schema: customer_service
       zendesk:
