@@ -34,7 +34,7 @@ select
     'Orders'                            as entity, 
     'Magento'                           as source,
     date(datetime(created_at, "Europe/London"))                    as date, 
-    null                                as due_date, 
+    date(null)                                as due_date, 
     status, 
     null                                as phone_ticket, 
     null                                as chat_ticket, 
