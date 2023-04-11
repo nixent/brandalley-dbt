@@ -22,7 +22,7 @@ customer_stats as (
 
 refund_stats as (
     select
-        date_trunc(datetime(sfc.created_at, "Europe/London"), week(monday))       as order_created_at_week,
+        date_trunc(datetime(timestamp(sfc.created_at), "Europe/London"), week(monday))       as order_created_at_week,
         count(sfc.entity_id)                    as total_refund_count,
         count(sfci.entity_id)                   as total_item_refund_count,
         round(sum(sfci.base_row_total),2)       as total_refund_amount
@@ -34,7 +34,7 @@ refund_stats as (
 
 shipping_stats as (
     select
-        date_trunc(datetime(order_date, "Europe/London"), week(monday)) as order_created_at_week,
+        date_trunc(datetime(timestamp(order_date), "Europe/London"), week(monday)) as order_created_at_week,
         round(avg(if(shipment_date != '0000-00-00 00:00:00', date_diff(date((shipment_date)), date((order_date)), day), null)),1) as avg_time_to_ship_days
     from {{ ref('shipping') }}
     group by 1
@@ -103,6 +103,6 @@ left join shipping_stats ss
 left join order_line_stats ols
     on os.order_created_at_week = ols.order_created_at_week
 left join conversion_stats cs
-    on os.order_created_at_week = timestamp(cs.ga_session_at_week)
+    on os.order_created_at_week = datetime(cs.ga_session_at_week)
 left join customer_stats cs2
     on os.order_created_at_week = cs2.customer_created_at_week

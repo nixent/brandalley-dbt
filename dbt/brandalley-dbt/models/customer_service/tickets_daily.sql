@@ -10,7 +10,7 @@ select
     null                                as order_count 
 from {{ ref('zendesk_tickets_detailed') }}
 where created_at >= '2023-03-27 17:45:00'
-group by date(created_at), date(due_at), status
+group by 1,2,3,4,5,9
 
 UNION all
 
@@ -26,7 +26,7 @@ select
     null                                as order_count
 from {{ ref('zohodesk_tickets_detailed') }}
 where created_time < '2023-03-27 17:45:00'
-group by date(created_time), date(due_date), status
+group by 1,2,3,4,5,9
 
 UNION all
 
@@ -41,4 +41,4 @@ select
     null                                as email_ticket, 
     count(distinct magentoID)           as order_count
 from {{ ref('Orders') }}
-group by date(created_at), status
+group by 1,2,3,4,5,6,7,8
