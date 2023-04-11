@@ -864,3 +864,15 @@ models:
         description: "Buyer"    
       - name: department
         description: "Department"
+      - name: size
+        description: "Size"
+      - name: price
+        description: "Price"
+      - name: qty
+        description: "Quantity"
+      - name: nego_ordered
+        description: "Ordered qty linked to nego"
+      - name: to_order
+        description: "To order qty linked to nego"
+      - name: qty_exported
+        description: "Quantity exported"
