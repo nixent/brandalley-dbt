@@ -17,7 +17,7 @@ UNION all
 select 
     'Ticket'                            as entity, 
     'Zohodesk'                          as source,
-    date(datetime(created_at, "Europe/London"))                  as date, 
+    date(datetime(created_time, "Europe/London"))                  as date, 
     date(datetime(due_date, "Europe/London"))                      as due_date, 
     status, 
     sum(phone_ticket)                   as phone_ticket, 
