@@ -41,6 +41,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
+            sql: 'datetime(ga_daily_stats.visit_start_at, "Europe/London")'
       - name: traffic_channel
       - name: traffic_medium
       - name: traffic_campaign

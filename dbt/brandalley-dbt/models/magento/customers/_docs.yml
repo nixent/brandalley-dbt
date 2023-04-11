@@ -24,11 +24,13 @@ models:
       - name: signed_up_at
         meta: 
           dimension:
-            type: date
+            type: timestamp
+            sql: 'datetime(customers_enriched.signed_up_at, "Europe/London")'
       - name: first_purchase_at
         meta: 
           dimension:
-            type: date
+            type: timestamp
+            sql: 'datetime(customers_enriched.first_purchase_at, "Europe/London")'
       - name: first_purchase_brands
         meta: 
           dimension:
@@ -37,7 +39,8 @@ models:
       - name: second_purchase_at
         meta: 
           dimension:
-            type: date
+            type: timestamp
+            sql: 'datetime(customers_enriched.second_purchase_at, "Europe/London")'
       - name: count_customer_orders
         meta: 
           dimension:
@@ -189,8 +192,9 @@ models:
         description: ""
         meta:
           dimension:
-            type: date
+            type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            sql: 'datetime(customers.dt_cr, "Europe/London")'
       - name: subscription
         description: ""
       - name: old_account_id

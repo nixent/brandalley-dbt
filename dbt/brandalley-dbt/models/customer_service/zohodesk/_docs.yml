@@ -23,8 +23,9 @@ models:
         description: "created_time"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            sql: 'datetime(zohodesk_tickets_detailed.created_time, "Europe/London")'         
       - name: subject
         description: "Subject of the ticket"
       - name: ticket_number
@@ -37,8 +38,9 @@ models:
         description: "Due date of the ticket"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            sql: 'datetime(zohodesk_tickets_detailed.due_date, "Europe/London")'             
       - name: customer_response_time
         description: "time before first response"
       - name: contact_ids
@@ -49,16 +51,18 @@ models:
         description: "Response due date of the ticket"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER'] 
+            sql: 'datetime(zohodesk_tickets_detailed.response_due_date, "Europe/London")'               
       - name: assignee_id
         description: "Id of the assignee of the ticket"
       - name: closed_time
         description: "Date when the ticket was closed"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']       
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']    
+            sql: 'datetime(zohodesk_tickets_detailed.closed_time, "Europe/London")'       
       - name: comment_count
         description: "Count of comments left on the ticket"     
       - name: phone_ticket

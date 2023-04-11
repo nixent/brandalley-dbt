@@ -1,8 +1,8 @@
 select 
     'Ticket'                            as entity, 
     'Zendesk'                           as source,
-    date(created_at)                    as date, 
-    date(due_at)                        as due_date, 
+    date(datetime(created_at, "Europe/London"))                    as date, 
+    date(datetime(due_at, "Europe/London"))                        as due_date, 
     status, 
     sum(phone_ticket)                   as phone_ticket, 
     sum(chat_ticket)                    as chat_ticket, 
@@ -17,8 +17,8 @@ UNION all
 select 
     'Ticket'                            as entity, 
     'Zohodesk'                          as source,
-    date(created_time)                  as date, 
-    date(due_date)                      as due_date, 
+    date(datetime(created_at, "Europe/London"))                  as date, 
+    date(datetime(due_date, "Europe/London"))                      as due_date, 
     status, 
     sum(phone_ticket)                   as phone_ticket, 
     sum(chat_ticket)                    as chat_ticket, 
@@ -33,7 +33,7 @@ UNION all
 select 
     'Orders'                            as entity, 
     'Magento'                           as source,
-    date(created_at)                    as date, 
+    date(datetime(created_at, "Europe/London"))                    as date, 
     null                                as due_date, 
     status, 
     null                                as phone_ticket, 
