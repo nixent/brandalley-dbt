@@ -1838,8 +1838,9 @@ models:
         description: "Expiration date"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            sql: 'datetime(stg__salesrule_coupon.expiration_at, "Europe/London")'         
       - name: is_primary
         data_type: <integer>
         description: "Is primary flag"
@@ -1848,8 +1849,9 @@ models:
         description: "Created at"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+            sql: 'datetime(stg__salesrule_coupon.created_at, "Europe/London")'          
       - name: type
         data_type: <integer>
         description: "Type"

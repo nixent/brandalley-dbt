@@ -24,16 +24,18 @@ models:
         description: "created_at"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            sql: 'datetime(zendesk_tickets_detailed.created_at, "Europe/London")'            
       - name: description
         description: "description"
       - name: due_at
         description: "Due date of the ticket"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']     
+            sql: 'datetime(zendesk_tickets_detailed.due_at, "Europe/London")'           
       - name: is_public
         description: "is_public"
       - name: merged_ticket_ids
@@ -46,8 +48,9 @@ models:
         description: "Update date"
         meta:
           dimension:
-            type: date
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            sql: 'datetime(zendesk_tickets_detailed.updated_at, "Europe/London")'             
       - name: type
         description: "Type"
       - name: URL

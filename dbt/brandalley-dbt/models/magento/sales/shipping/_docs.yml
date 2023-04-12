@@ -108,8 +108,9 @@ models:
         description: "Created date of the shipment, nullable"
         meta:
           dimension:
-            type: date
+            type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            sql: 'datetime(shipments.created_at, "Europe/London")'
       - name: updated_at
         description: "Update date of the shipment, nullable"
       - name: packages
@@ -155,14 +156,16 @@ models:
         description: ""
         meta:
           dimension:
-            type: date
+            type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            sql: 'datetime(shipping.order_date, "Europe/London")'
       - name: shipment_date
         description: ""
         meta:
           dimension:
-            type: date
+            type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            sql: 'datetime(shipping.shipment_date, "Europe/London")'
           metrics:
             days_to_delivery_exc_we:
               label: 'Days to delivery exc WE'
