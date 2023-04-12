@@ -1534,6 +1534,12 @@ models:
               description: "Number of new customers"
               sql: "IF(${orderno}=1, ${customer_id}, 0)"
               hidden: false    
+            returning_customers:
+              label: 'Total Returning Customers'
+              type: count_distinct
+              description: "Number of new customers"
+              sql: "IF(${orderno}>1, ${customer_id}, 0)"
+              hidden: false    
       - name: delivery_postcode
         description: ""
       - name: expected_delivery_date
