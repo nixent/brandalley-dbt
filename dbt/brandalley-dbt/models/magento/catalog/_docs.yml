@@ -365,10 +365,12 @@ models:
         meta:
           dimension:
             type: timestamp
+            sql: 'datetime(products_sales.sale_start_at, "Europe/London")'
       - name: sale_end_at
         meta:
           dimension:
             type: timestamp
+            sql: 'datetime(products_sales.sale_end_at, "Europe/London")'
       - name: variant_sku_per_sku_per_sale_number
           
   - name: stock_file
@@ -785,14 +787,16 @@ models:
         description: "Created date of the PO"
         meta:
           dimension:
-            type: date
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            sql: 'datetime(purchase_order.po_created, "Europe/London")'
       - name: po_updated
         description: "Update date of the PO"
         meta:
           dimension:
-            type: date
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']  
+            sql: 'datetime(purchase_order.po_updated, "Europe/London")'          
       - name: po_status
         description: "Status of the po"
       - name: sap_ref
@@ -803,14 +807,16 @@ models:
         description: "Delivery date of the PO"
         meta:
           dimension:
-            type: date
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER'] 
+            sql: 'datetime(purchase_order.po_delivery, "Europe/London")'           
       - name: po_date_exported
         description: "Export date of the PO"
         meta:
           dimension:
-            type: date
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']    
+            sql: 'datetime(purchase_order.po_date_exported, "Europe/London")'        
       - name: products_in_wh_b
         description: "Products in WH B"
       - name: products_export_process_id
@@ -842,8 +848,9 @@ models:
         description: "GRN Delivery"
         meta:
           dimension:
-            type: date
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']     
+            sql: 'datetime(purchase_order.grn_delivery_date, "Europe/London")'       
       - name: stock_type_ss
         description: "Stock type SS"
       - name: stock_type_qc
@@ -852,8 +859,9 @@ models:
         description: "Nego update date"
         meta:
           dimension:
-            type: date
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']            
+            type: timestamp
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER'] 
+            sql: 'datetime(purchase_order.nego_updated, "Europe/London")'           
       - name: nego_type
         description: "Negotiation type"
       - name: supplier
