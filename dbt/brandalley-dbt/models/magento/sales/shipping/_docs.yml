@@ -165,7 +165,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'datetime(shipping.shipment_date, "Europe/London")'
+            sql: 'datetime(timestamp(shipping.shipment_date), "Europe/London")'
           metrics:
             days_to_delivery_exc_we:
               label: 'Days to delivery exc WE'
