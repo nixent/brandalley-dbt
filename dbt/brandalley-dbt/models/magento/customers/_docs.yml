@@ -194,7 +194,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'datetime(customers.dt_cr, "Europe/London")'
+            sql: 'datetime(timestamp(customers.dt_cr), "Europe/London")'
       - name: subscription
         description: ""
       - name: old_account_id
