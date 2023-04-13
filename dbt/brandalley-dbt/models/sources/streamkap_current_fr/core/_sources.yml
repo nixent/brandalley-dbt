@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: streamkap_fr
+    database: datawarehouse-358408
+    description: "Streamkap Current tables relating to Magento Catalog"
+    tables:
+      - name: eav_attribute_option_value
+        description: ""
+        columns:
+          - name: value_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: option_id
+            data_type: <integer>
+            description: "Option id"
+          - name: store_id
+            data_type: <integer>
+            description: "Store id"
+          - name: value
+            data_type: <integer>
+            description: "Value, nullable"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
+
+      - name: eav_attribute
+        description: "A table of mappings for attribute options for products, customers etc"
+        columns:
+          - name: attribute_id
+            data_type: <integer>
+            description: "Primary key"
+          - name: entity_type_id
+            data_type: <integer>
+            description: "Entity type id"
+          - name: attribute_code
+            description: "Attribute code"
+          - name: backend_type
+            description: "Backend type"
+          - name: _streamkap_source_ts_ms
+            description: ""
+          - name: __deleted
+            description: ""
