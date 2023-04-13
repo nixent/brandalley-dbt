@@ -6,7 +6,8 @@
       "field": "created_at",
       "data_type": "timestamp",
       "granularity": "day"
-    }
+    },
+	post_hook="delete from {{this}} where status = 'pending_payment'"
 ) }}
 
 with order_updates as (
