@@ -525,7 +525,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'datetime(OrderLines.order_placed_date, "Europe/London")' 
+            sql: 'datetime(timestamp(OrderLines.order_placed_date), "Europe/London")' 
           metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
