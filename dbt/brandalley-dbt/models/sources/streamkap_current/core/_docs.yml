@@ -78,14 +78,19 @@ models:
         description: ""
       - name: __deleted
         description: ""
+
   - name: stg__eav_attribute_option_value
     description: ""
     columns:
-      - name: composite_key
-        description: "composite primary key made from option_id and store_id using dbt_utils surrogate key"
-        tests: 
+      - name: ba_site_composite_key
+        description: "Primary key"
+        tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: composite_key
+        description: "composite primary key made from option_id and store_id using dbt_utils surrogate key at site level"
       - name: value_id
         data_type: <integer>
         description: "Primary key"

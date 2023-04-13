@@ -1,21 +1,46 @@
 {{ config(
-    materialized = 'incremental',
-    unique_key = ['option_id', 'store_id'],
-    cluster_by = ['option_id', 'store_id'],
+    materialized='incremental',
+    unique_key="ba_site_composite_key",
+    cluster_by="ba_site_composite_key"
 ) }}
 
-with streamkap_source as (
-{{ streamkap_incremental_on_source_to_current(
-    source_name = 'eav_attribute_option_value',
-    id_field = config.get('unique_key'),
-    order_offset_field = 'value_id'
-) }}
-)
-,
-table_cte as (
-    SELECT
-    {{dbt_utils.generate_surrogate_key(['option_id','store_id'])}} as composite_key,
-    *
-    from streamkap_source
-)
-select * from table_cte 
+select
+    'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'UK'                                                            as ba_site,
+    composite_key,
+    value_id,
+    option_id,
+    store_id,
+    value,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
+from {{ ref('stg_uk__eav_attribute_option_value') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
+{% endif %}
+
+union all
+
+select
+    'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'FR'                                                            as ba_site,
+    composite_key,
+    value_id,
+    option_id,
+    store_id,
+    value,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
+from {{ ref('stg_fr__eav_attribute_option_value') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
+{% endif %}
+
