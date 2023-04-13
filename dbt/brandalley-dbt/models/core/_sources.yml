@@ -6,3 +6,8 @@ sources:
     description: "Rudderstack Events"
     tables:
       - name: pages
+  - name: analytics
+    database: datawarehouse-358408
+    description: "FX Rates"
+    tables:
+      - name: fx_rates_gsheet
