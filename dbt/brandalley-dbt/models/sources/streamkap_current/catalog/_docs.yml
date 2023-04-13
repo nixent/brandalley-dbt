@@ -724,12 +724,16 @@ models:
   - name: stg__tax_class
     description: "Dim table to get tax class ID, name and type."
     columns:
-      - name: class_id
-        data_type: <integer>
+      - name: ba_site_class_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Site of source data"
+      - name: class_id
+        data_type: <integer>
+        description: "Primary key at site level"
       - name: class_name
         data_type: <string>
         description: "Tax class name"
