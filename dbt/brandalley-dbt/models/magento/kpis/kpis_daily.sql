@@ -71,6 +71,16 @@ conversion_stats as (
         conversion_rate
     from {{ ref('ga_conversion_rate') }}
     where date_aggregation_type = 'day'
+),
+
+cs_stats as (
+    select
+        date_trunc(date, day)          as cs_tickets_day,
+        sum(chat_ticket)               as chat_tickets,
+        sum(email_ticket)              as email_tickets,
+        sum(phone_ticket)              as phone_tickets
+    from {{ref('tickets_daily') }}
+    group by 1
 )
 
 select
@@ -94,6 +104,7 @@ select
     round(ols.sales_amount/os.total_order_count,2)       as aov_sales,
     round(ols.qty_ordered/os.total_order_count,2)        as avg_items_per_order,
     round(100*rs.total_refund_amount/ols.sales_amount,2) as pct_sales_amount_refunded,
+    round(100*safe_divide(css.phone_tickets + css.chat_tickets + css.email_tickets,os.total_order_count),2) as pct_cs_cpo,
     cs.conversion_rate
 from order_stats os
 left join refund_stats rs
@@ -106,3 +117,5 @@ left join conversion_stats cs
     on os.order_created_at_day = datetime(cs.ga_session_at_day)
 left join customer_stats cs2
     on os.order_created_at_day = cs2.customer_created_at_day
+left join cs_stats css
+    on os.order_created_at_day = css.cs_tickets_day
