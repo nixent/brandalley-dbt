@@ -35,3 +35,6 @@ from {{ ref('stg_fr__eav_attribute_option_value') }}
           - not_null
       - name: ba_site
         description: "Brand Alley Site" #}
+
+
+{# check joins in lightdash yml and in dbt models, should now always join to a ba_site too #}

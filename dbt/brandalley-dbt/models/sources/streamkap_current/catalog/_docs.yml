@@ -188,12 +188,16 @@ models:
           sql_on: cast(${stg__eav_attribute_option_value.option_id} as string) = ${stg__catalog_product_entity_varchar.value}
     description: ""
     columns:
-      - name: entity_id
-        data_type: <integer>
+      - name: ba_site_entity_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: entity_id
+        data_type: <integer>
+        description: "Primary key"
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -226,12 +230,16 @@ models:
   - name: stg__catalog_product_entity_decimal
     description: ""
     columns:
-      - name: value_id
-        data_type: <integer>
+      - name: ba_site_composite_key
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -255,12 +263,16 @@ models:
   - name: stg__catalog_product_entity_int
     description: ""
     columns:
-      - name: value_id
-        data_type: <integer>
-        description: "Primary id"
+      - name: ba_site_composite_key
+        description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: value_id
+        data_type: <integer>
+        description: "Primary id"
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -284,12 +296,16 @@ models:
   - name: stg__catalog_product_entity_text
     description: ""
     columns:
+      - name: ba_site_composite_key
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: value_id
         data_type: <integer>
         description: "Primary key"
-        tests: 
-          - unique
-          - not_null
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -317,12 +333,16 @@ models:
           sql_on: ${stg__eav_attribute_option_value.option_id} = ${stg__catalog_product_entity_varchar.value}
     description: ""
     columns:
+      - name: ba_site_composite_key
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: value_id
         data_type: <integer>
         description: "Primary key"
-        tests: 
-          - unique
-          - not_null
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -346,12 +366,16 @@ models:
   - name: stg__catalog_product_negotiation
     description: ""
     columns:
-      - name: negotiation_id
-        data_type: <integer>
+      - name: ba_site_negotiation_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: negotiation_id
+        data_type: <integer>
+        description: "Primary key"
       - name: updated_at
         data_type: <timestamp>
         description: "Update time, nullable"
@@ -450,12 +474,16 @@ models:
   - name: stg__catalog_product_negotiation_item
     description: ""
     columns:
-      - name: negotiation_item_id
-        data_type: <integer>
+      - name: ba_site_negotiation_item_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: negotiation_item_id
+        data_type: <integer>
+        description: "Primary key"
       - name: negotiation_id
         data_type: <integer>
         description: "Negotiation id"
@@ -559,12 +587,16 @@ models:
   - name: stg__catalog_product_super_link
     description: ""
     columns:
-      - name: link_id
-        data_type: <integer>
+      - name: ba_site_link_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: link_id
+        data_type: <integer>
+        description: "Primary key"
       - name: product_id
         data_type: <integer>
         description: "Product id"
@@ -579,12 +611,16 @@ models:
   - name: stg__catalog_product_supplier
     description: ""
     columns:
-      - name: supplier_id
-        data_type: <integer>
+      - name: ba_site_supplier_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: supplier_id
+        data_type: <integer>
+        description: "Primary key"
       - name: name
         data_type: <string>
         description: "Name"
@@ -617,12 +653,16 @@ models:
   - name: stg__cataloginventory_stock_item
     description: ""
     columns:
-      - name: item_id
-        data_type: <integer>
+      - name: ba_site_item_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: item_id
+        data_type: <integer>
+        description: "Primary key"
       - name: product_id
         data_type: <integer>
         description: "Product id"
@@ -1181,6 +1221,13 @@ models:
 
       - name: stg__catalog_product_po
         columns:
+          - name: ba_site_po_id
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: ba_site
+            description: "Brand Alley Site"
           - name: po_id
             data_type: <integer>
             description: "Primary key"
@@ -1221,7 +1268,14 @@ models:
             description: "purchase_order_in_wh_b"
 
       - name: stg__catalog_product_po_item
-        columns:
+        columns:  
+          - name: ba_site_po_item_id
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: ba_site
+            description: "Brand Alley Site"
           - name: po_item_id
             data_type: <integer>
             description: "Primary key"
