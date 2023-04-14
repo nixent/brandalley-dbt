@@ -107,3 +107,13 @@ models:
         description: ""
       - name: __deleted
         description: ""
+
+  - name: stg__eav_attribute
+    columns:
+      - name: ba_site_attribute_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"

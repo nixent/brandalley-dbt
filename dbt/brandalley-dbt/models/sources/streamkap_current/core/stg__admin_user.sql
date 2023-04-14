@@ -3,15 +3,6 @@
     unique_key= 'ba_site_user_id'
 )}}
 
-{# with unioned as (
-    select
-    {{ dbt_utils.star(
-        ref('stg_uk__admin_user'),
-        quote_identifiers=false
-    ) }}
-    from {{ ref('stg_uk__admin_user') }}
-) #}
-
 select
     'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'UK'                                                            as ba_site,

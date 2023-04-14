@@ -4,12 +4,16 @@ models:
   - name: stg__catalog_category_entity
     description: ""
     columns:
-      - name: entity_id
-        data_type: <integer>
+      - name: ba_site_entity_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: entity_id
+        data_type: <integer>
+        description: "Primary key"
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -45,12 +49,16 @@ models:
   - name: stg__catalog_category_entity_history
     description: ""
     columns:
-      - name: line_id
-        data_type: <integer>
+      - name: ba_site_line_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: line_id
+        data_type: <integer>
+        description: "Primary key"
       - name: category_id
         data_type: <integer>
         description: "Category id"
@@ -80,12 +88,16 @@ models:
   - name: stg__catalog_category_entity_int
     description: ""
     columns:
-      - name: value_id
-        data_type: <integer>
+      - name: ba_site_value_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -109,12 +121,16 @@ models:
   - name: stg__catalog_category_entity_varchar
     description: ""
     columns:
+      - name: ba_site_value_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: value_id
         data_type: <integer>
         description: "Primary key"
-        tests: 
-          - unique
-          - not_null
       - name: entity_type_id
         data_type: <integer>
         description: "Entity type id"
@@ -138,11 +154,15 @@ models:
   - name: stg__catalog_category_product
     description: ""
     columns:
-      - name: composite_key
-        description: "composite primary key made from category_id and product_id using dbt_utils surrogate key"
-        tests: 
+      - name: ba_site_composite_key
+        description: "Primary key"
+        tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site" 
+      - name: composite_key
+        description: "composite primary key made from category_id and product_id using dbt_utils surrogate key"
       - name: category_id
         data_type: <integer>
         description: "Primary key, Category id"
@@ -917,6 +937,13 @@ models:
       - name: stg__catalog_category_flat_store_1
         description: ""
         columns:
+          - name: ba_site_entity_id
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: ba_site
+            description: "Brand Alley Site"
           - name: entity_id
             data_type: <integer>
             description: "Primary key"
