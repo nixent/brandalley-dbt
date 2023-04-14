@@ -6,12 +6,16 @@ models:
   - name: stg__bacore_stock_return
     description: ""
     columns:
-      - name: id
-        data_type: <integer>
+      - name: ba_site_id
         description: "Primary key"
         tests:
           - unique
-          - not_null 
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: id
+        data_type: <integer>
+        description: "Primary key"
       - name: order_item_number
         data_type: <integer>
         description: "Order item number"
@@ -55,12 +59,16 @@ models:
   - name: stg__invent_referer
     description: ""
     columns:
-      - name: referer_id
-        data_type: <integer>
+      - name: ba_site_referer_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: referer_id
+        data_type: <integer>
+        description: "Primary key"
       - name: entity_id
         data_type: <integer>
         description: "Entity id"
