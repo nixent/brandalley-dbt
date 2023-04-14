@@ -92,6 +92,10 @@ models:
         meta:
           dimension:
             label: 'Sales Amount Refunded (%)'
+      - name: pct_cs_cpo
+        meta:
+          dimension:
+            label: 'CS CPO (%)'
       - name: conversion_rate
         meta:
           dimension:
@@ -188,6 +192,10 @@ models:
         meta:
           dimension:
             label: 'Sales Amount Refunded (%)'
+      - name: pct_cs_cpo
+        meta:
+          dimension:
+            label: 'CS CPO (%)'
       - name: conversion_rate
         meta:
           dimension:
@@ -284,6 +292,10 @@ models:
         meta:
           dimension:
             label: 'Sales Amount Refunded (%)'
+      - name: pct_cs_cpo
+        meta:
+          dimension:
+            label: 'CS CPO (%)'
       - name: conversion_rate
         meta:
           dimension:
@@ -380,6 +392,10 @@ models:
         meta:
           dimension:
             label: 'Sales Amount Refunded (%)'
+      - name: pct_cs_cpo
+        meta:
+          dimension:
+            label: 'CS CPO (%)'
       - name: conversion_rate
         meta:
           dimension:
