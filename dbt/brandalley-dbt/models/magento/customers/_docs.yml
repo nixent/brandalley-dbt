@@ -6,7 +6,7 @@ models:
     meta:
       joins:
         - join: Orders
-          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
+          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and ${Orders.ba_site} = ${customers_enriched.ba_site}
     columns: 
       - name: customer_id
         tests:

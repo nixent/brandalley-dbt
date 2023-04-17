@@ -181,11 +181,11 @@ models:
     meta:
       joins:
         - join: stg__catalog_product_entity_decimal
-          sql_on: ${stg__catalog_product_entity_decimal.entity_id} = ${stg__catalog_product_entity.entity_id}
+          sql_on: ${stg__catalog_product_entity_decimal.entity_id} = ${stg__catalog_product_entity.entity_id} and ${stg__catalog_product_entity_decimal.ba_site} = ${stg__catalog_product_entity.ba_site}
         - join: stg__catalog_product_entity_varchar
-          sql_on: ${stg__catalog_product_entity_varchar.entity_id} = ${stg__catalog_product_entity.entity_id}
+          sql_on: ${stg__catalog_product_entity_varchar.entity_id} = ${stg__catalog_product_entity.entity_id} and ${stg__catalog_product_entity_varchar.ba_site} = ${stg__catalog_product_entity.ba_site}
         - join: stg__eav_attribute_option_value
-          sql_on: cast(${stg__eav_attribute_option_value.option_id} as string) = ${stg__catalog_product_entity_varchar.value}
+          sql_on: cast(${stg__eav_attribute_option_value.option_id} as string) = ${stg__catalog_product_entity_varchar.value} and ${stg__eav_attribute_option_value.ba_site} = ${stg__catalog_product_entity_varchar.ba_site}
     description: ""
     columns:
       - name: ba_site_entity_id
@@ -330,7 +330,7 @@ models:
     meta:
       joins:
         - join: stg__eav_attribute_option_value
-          sql_on: ${stg__eav_attribute_option_value.option_id} = ${stg__catalog_product_entity_varchar.value}
+          sql_on: ${stg__eav_attribute_option_value.option_id} = ${stg__catalog_product_entity_varchar.value} and ${stg__eav_attribute_option_value.ba_site} = ${stg__catalog_product_entity_varchar.ba_site}
     description: ""
     columns:
       - name: ba_site_composite_key

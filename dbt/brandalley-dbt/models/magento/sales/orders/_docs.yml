@@ -322,29 +322,29 @@ models:
     meta:
       joins:
         - join: sales_flat_creditmemo
-          sql_on: ${OrderLines.order_id} = ${sales_flat_creditmemo.order_id}
+          sql_on: ${OrderLines.order_id} = ${sales_flat_creditmemo.order_id} and ${OrderLines.ba_site} = ${sales_flat_creditmemo.ba_site}
         - join: ba_core_stock_return
-          sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id}
+          sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id} and ${OrderLines.ba_site} = ${ba_core_stock_return.ba_site}
         - join: sales_flat_creditmemo_item
-          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.order_id}=${OrderLines.order_id} and ${sales_flat_creditmemo_item.refund_status}='approved'
+          sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.order_id}=${OrderLines.order_id} and ${sales_flat_creditmemo_item.refund_status}='approved' and ${OrderLines.ba_site} = ${sales_flat_creditmemo_item.ba_site}
         - join: customers
-          sql_on: ${OrderLines.customer_id} = ${customers.cst_id}
+          sql_on: ${OrderLines.customer_id} = ${customers.cst_id} and ${OrderLines.ba_site} = ${customers.ba_site}
         - join: Orders
-          sql_on: ${OrderLines.order_number} = ${Orders.increment_id}
+          sql_on: ${OrderLines.order_number} = ${Orders.increment_id} and ${OrderLines.ba_site} = ${Orders.ba_site}
         - join: products
-          sql_on: ${OrderLines.sku} = ${products.sku}
+          sql_on: ${OrderLines.sku} = ${products.sku} and ${OrderLines.ba_site} = ${products.ba_site}
         - join: shipment_items
-          sql_on: ${OrderLines.parent_item_id} = ${shipment_items.order_item_id}            
+          sql_on: ${OrderLines.parent_item_id} = ${shipment_items.order_item_id} and ${OrderLines.ba_site} = ${shipment_items.ba_site}           
         - join: shipments
-          sql_on: ${OrderLines.order_id} = ${shipments.order_id}
+          sql_on: ${OrderLines.order_id} = ${shipments.order_id} and ${OrderLines.ba_site} = ${shipments.ba_site}
         - join: shipping
-          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku}
+          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku} and ${OrderLines.ba_site} = ${shipping.ba_site}
         - join: catalog_product_negotiation_item
-          sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku}
+          sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku} and ${OrderLines.ba_site} = ${catalog_product_negotiation_item.ba_site}
         - join: customers_enriched 
-          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id}
+          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site}
         - join: orders_enriched
-          sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id}
+          sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id} and ${OrderLines.ba_site} = ${orders_enriched.ba_site}
 
     columns:
       - name: unique_id
@@ -1135,7 +1135,7 @@ models:
     meta:
       joins:
         - join: stg__customer_entity
-          sql_on: ${OrderLinesWithParent.store_id} = ${stg__customer_entity.store_id}
+          sql_on: ${OrderLinesWithParent.store_id} = ${stg__customer_entity.store_id} and ${OrderLinesWithParent.ba_site} = ${stg__customer_entity.ba_site}
     columns:
       - name: increment_id
         description: "Id of the order"
@@ -1381,15 +1381,15 @@ models:
     meta:
       joins:
         - join: shipments
-          sql_on: ${Orders.magentoID} = ${shipments.order_id}
+          sql_on: ${Orders.magentoID} = ${shipments.order_id} and ${Orders.ba_site} = ${shipments.ba_site}
         - join: stg__salesrule_coupon
-          sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code}
+          sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code} and  ${Orders.ba_site} = ${stg__salesrule_coupon.ba_site}
         - join: stg__salesrule
-          sql_on: ${stg__salesrule_coupon.rule_id} = ${stg__salesrule.rule_id}
+          sql_on: ${stg__salesrule_coupon.rule_id} = ${stg__salesrule.rule_id} and ${stg__salesrule_coupon.ba_site} = ${stg__salesrule.ba_site}
         - join: customers_enriched 
-          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
+          sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and ${Orders.ba_site} = ${customers_enriched.ba_site}
         - join: orders_enriched 
-          sql_on: ${Orders.magentoID} = ${orders_enriched.order_id}
+          sql_on: ${Orders.magentoID} = ${orders_enriched.order_id} and ${Orders.ba_site} = ${orders_enriched.ba_site}
         - join: stg__sales_payment_transaction 
           sql_on: ${Orders.magentoID} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null
     columns:
