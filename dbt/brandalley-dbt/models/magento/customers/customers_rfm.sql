@@ -27,6 +27,7 @@ customer_lifetime_stats as (
 ) 
 
 select 
+    ba_site || '-' || customer_id as ba_site_customer_id,
     customer_id, 
     ba_site,
     days_since_last_order, 

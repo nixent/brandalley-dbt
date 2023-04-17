@@ -1,4 +1,5 @@
 SELECT
+    ce.ba_site || '-' || ce.entity_id as ba_site_customer_id,
     ce.entity_id AS cst_id,
     ce.ba_site,
     cei.value AS record_data_source,

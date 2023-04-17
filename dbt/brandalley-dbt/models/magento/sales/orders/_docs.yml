@@ -4,6 +4,7 @@ models:
   - name: coupon_rules
     description: "Coupon details"
     columns:
+      - name: ba_site
       - name: coupon_id
         description: "Primary key"
         meta:
@@ -170,6 +171,7 @@ models:
   - name: gift_cards
     description: "Gift cards"
     columns:
+      - name: ba_site
       - name: order_id
         data_type: <integer>
         description: "Order id"
@@ -228,6 +230,7 @@ models:
   - name: hourly_sales_today
     description: "A view to query realtime orders by hour today, and compare to the same hour last week"
     columns:
+      - name: ba_site
       - name: created_at_hour
       - name: nego
       - name: brand
@@ -296,6 +299,7 @@ models:
   - name: multiple_coupon_orders
     description: "Orders that use multiple coupons, split by each of those coupons"
     columns:
+      - name: ba_site
       - name: customer_id
         meta:
           dimension:
@@ -347,6 +351,7 @@ models:
           sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id} and ${OrderLines.ba_site} = ${orders_enriched.ba_site}
 
     columns:
+      - name: ba_site
       - name: unique_id
         description: ""
         tests:
@@ -384,6 +389,7 @@ models:
               description: "Number of customers who ordered"
               hidden: false
               round: 0      
+              sql: "${ba_site} || ${customer_id}"
       - name: order_item_id
         description: "Order item id, foreign key"
         meta:
@@ -392,7 +398,8 @@ models:
           metrics:
             count_order_items:
               label: 'count distinct of order item ids'
-              type: count_distinct     
+              type: count_distinct    
+              sql: "${ba_site} || ${order_item_id}" 
       - name: parent_item_id
         description: "Parent item id, foreign key"
       - name: order_id
@@ -404,6 +411,7 @@ models:
             total_orders_count:
               label: 'Total number of orders'
               type: count_distinct
+              sql: "${ba_site} || ${order_id}"
             sum_of_order_ids:
               label: ' sum of order ids'
               type: sum
@@ -850,17 +858,16 @@ models:
   - name: OrderLinesNullParent
     description: ""
     columns:
+      - name: ba_site
       - name: order_id
         description: "Id of the order"
         tests:
           - not_null:
-              config: 
-                severity: warn
-                warn_if: ">100"
         meta:
           metrics:
             total_order_count_nullParent:
               type: count_distinct 
+              sql: "${ba_site} || ${order_id}"
       - name: category
         description: "Category of the order"       
       - name: customer_id
@@ -873,6 +880,7 @@ models:
               description: "Number of customers who ordered"
               hidden: false
               round: 2      
+              sql: "${ba_site} || ${customer_id}"
       - name: status
         description: "Status of the order"
       - name: item_id
@@ -1137,6 +1145,7 @@ models:
         - join: stg__customer_entity
           sql_on: ${OrderLinesWithParent.store_id} = ${stg__customer_entity.store_id} and ${OrderLinesWithParent.ba_site} = ${stg__customer_entity.ba_site}
     columns:
+      - name: ba_site
       - name: increment_id
         description: "Id of the order"
         tests:
@@ -1208,10 +1217,12 @@ models:
      
   - name: orders_enriched
     columns:
-      - name: order_id
+      - name: ba_site_increment_id
         tests:
-          - unique
           - not_null
+          - unique
+      - name: ba_site
+      - name: order_id
         meta:
           dimension:
             format: id
@@ -1393,8 +1404,7 @@ models:
         - join: stg__sales_payment_transaction 
           sql_on: ${Orders.magentoID} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null
     columns:
-      - name: increment_id
-        description: "Increment id, nullable"
+      - name: ba_site_increment_id
         tests:
           - not_null
           - unique
@@ -1409,14 +1419,17 @@ models:
               label: 'Total New Orders'
               type: count_distinct
               description: "Number of new orders"
-              sql: "IF(${order_number_incl_cancellations}=1, ${increment_id}, null)"
+              sql: "IF(${order_number_incl_cancellations}=1, ${ba_site_increment_id}, null)"
               round: 0
             total_returning_order_count:
               label: 'Total Returning Orders'
               type: count_distinct
               description: "Number of returning orders"
-              sql: "IF(${order_number_incl_cancellations}>1, ${increment_id}, null)"
+              sql: "IF(${order_number_incl_cancellations}>1, ${ba_site_increment_id}, null)"
               round: 0
+      - name: ba_site
+      - name: increment_id
+        description: "Increment id, nullable"
       - name: magentoID
         description: ""
         meta:
@@ -1535,18 +1548,18 @@ models:
               label: 'Total Customers'
               type: count_distinct
               description: "Number of customers"
-              sql: "${customer_id}"
+              sql: "${ba_site} || ${customer_id}"
             new_customers:
               label: 'Total New Customers'
               type: count_distinct
               description: "Number of new customers"
-              sql: "IF(${orderno}=1, ${customer_id}, 0)"
+              sql: "IF(${orderno}=1, ${ba_site} || ${customer_id}, 0)"
               hidden: false    
             returning_customers:
               label: 'Total Returning Customers'
               type: count_distinct
               description: "Number of new customers"
-              sql: "IF(${orderno}>1, ${customer_id}, 0)"
+              sql: "IF(${orderno}>1, ${ba_site} || ${customer_id}, 0)"
               hidden: false    
       - name: delivery_postcode
         description: ""

@@ -4,6 +4,7 @@ SELECT
     brand_option.value brand,
     sfo.customer_id,
     sfo.increment_id,
+    sfo.ba_site,
     sfoi.product_type,
     sfoi.parent_item_id,
     brand_option.store_id,
@@ -14,21 +15,29 @@ SELECT
 FROM {{ ref('stg__sales_flat_order') }} sfo
 INNER JOIN {{ ref('stg__sales_flat_order_item') }} sfoi
     ON sfo.entity_id = sfoi.order_id
+    and sfo.ba_site = sfoi.ba_site
 LEFT JOIN {{ ref('stg__sales_flat_order_item') }} sfoi2
     ON sfo.entity_id = sfoi2.order_id
         AND sfoi.sku = sfoi2.sku
         AND sfoi2.parent_item_id IS NULL
+        and sfo.ba_site = sfoi2.ba_site
 INNER JOIN {{ ref('stg__customer_entity') }} ce
     ON sfo.customer_id = ce.entity_id
+    and sfo.ba_site = ce.ba_site
 LEFT JOIN {{ ref('stg__catalog_product_super_link') }} AS parent_relation
     ON parent_relation.product_id = sfoi.product_id
+    and parent_relation.ba_site = sfoi.ba_site
 LEFT JOIN {{ ref('stg__catalog_product_entity_int') }} AS cpeib
     ON cpeib.attribute_id = 178
         AND cpeib.entity_id = CASE
             WHEN parent_relation.parent_id IS NULL THEN sfoi.product_id
             ELSE parent_relation.parent_id
         END
+        and parent_relation.ba_site = cpeib.ba_site
 LEFT OUTER JOIN {{ ref('stg__eav_attribute_option_value') }} brand_option
     ON cpeib.value = brand_option.option_id
+    and cpeib.ba_site = brand_option.ba_site
 LEFT JOIN {{ ref('stg__newsletter_subscriber') }} ns
-    ON ns.customer_id = sfo.customer_id {{ dbt_utils.group_by(8) }}
+    ON ns.customer_id = sfo.customer_id 
+    and sfo.ba_site = ns.ba_site
+{{ dbt_utils.group_by(9) }}

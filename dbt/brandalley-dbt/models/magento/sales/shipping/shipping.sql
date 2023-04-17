@@ -3,6 +3,7 @@ SELECT
         CONCAT(
             sfsi.product_id,
             sfo.increment_id,
+            sfsi.ba_site,
             IFNULL(CAST(sfsi.parent_id AS STRING), '_'),
             IFNULL(CAST(sfoa.entity_id AS STRING), '_'),
             IFNULL(CAST(sfs.order_id AS STRING), '_'),
@@ -12,6 +13,7 @@ SELECT
             IFNULL(CAST(sfsi.sap_id AS STRING), '_')
         )
     ) unique_id,
+    sfsi.ba_site,
     sfsi.product_id,
     sfsi.sku,
     sfsi.qty,
@@ -36,16 +38,19 @@ FROM
     ) }}
     sfs
     ON sfsi.parent_id = sfs.entity_id
+    and sfsi.ba_site = sfs.ba_site
     LEFT JOIN     {{ ref(
         'stg__sales_flat_order'
     ) }}
     sfo
     ON sfs.order_id = sfo.entity_id
+    and sfs.ba_site = sfo.ba_site
     LEFT JOIN     {{ ref(
         'stg__sales_flat_order_address'
     ) }}
     sfoa
     ON sfoa.entity_id = sfo.shipping_address_id
+    and sfoa.ba_site = sfo.ba_site
 WHERE
     (
         sfo.sales_product_type != 12

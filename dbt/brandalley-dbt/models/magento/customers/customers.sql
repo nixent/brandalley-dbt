@@ -48,6 +48,7 @@ with customers_updated as (
 {% endif %}
 
 select
+	ce.ba_site || '-' || ce.entity_id 								   as ba_site_customer_id,
 	ce.entity_id 													   as cst_id,
 	ce.ba_site,
 	ca_b_26.value billing_city,

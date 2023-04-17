@@ -4,6 +4,8 @@ models:
   - name: catalog_product_negotiation_item
     description: ""
     columns:
+      - name: ba_site
+      - name: ba_site
       - name: negotiation_item_id
         description: "Primary key"
         meta:
@@ -69,6 +71,7 @@ models:
   - name: catalog_product_negotiation
     description: ""
     columns:
+      - name: ba_site
       - name: negotiation_id
         description: "Primary key"
         meta:
@@ -118,6 +121,7 @@ models:
   - name: catalog_product_negotiation_sfoi_joined
     description: ""
     columns:
+      - name: ba_site
       - name: negotiation_id
         description: "Primary key"
         meta:
@@ -152,6 +156,7 @@ models:
 
   - name: catalog_product
     columns:
+      - name: ba_site
       - name: entity_id
       - name: sku
       - name: cost
@@ -159,6 +164,7 @@ models:
   - name: categories
     description: ""
     columns:
+      - name: ba_site
       - name: u_unique_id
         description: ""
         meta:
@@ -190,6 +196,7 @@ models:
   - name: products
     description: ""
     columns:
+      - name: ba_site
       - name: unique_id
         description: ""
         meta:
@@ -261,6 +268,7 @@ models:
   - name: inventory_items
     description: ""
     columns:
+      - name: ba_site
       - name: item_id
         description: "Primary key"
         meta:
@@ -349,6 +357,7 @@ models:
   - name: products_sales
     description: ""
     columns:
+      - name: ba_site
       - name: unique_id
         description: "Primary Key"
         meta:
@@ -376,6 +385,7 @@ models:
   - name: stock_file
     description: ""
     columns:
+      - name: ba_site
       - name: child_entity_id
         description: "Primary Key"
         tests:
@@ -389,7 +399,7 @@ models:
               label: 'Total number of entity id'
               type: count_distinct
               description: "Number of entity id"
-              hidden: false   
+              hidden: false
               round: 0 
       - name: child_sku
         description: "child sku, nullable"
@@ -486,6 +496,7 @@ models:
   - name: catalog_category_flat_store_1_enriched
     description: ""
     columns:
+      - name: ba_site
       - name: entity_id
         data_type: <integer>
         description: "Primary key"
@@ -727,6 +738,7 @@ models:
   - name: purchase_order
     description: ""
     columns:
+      - name: ba_site
       - name: po_id
         description: "ID of the PO"
         meta:

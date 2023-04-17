@@ -1,6 +1,6 @@
 {{ config(
 	materialized='incremental',
-	unique_key='increment_id',
+	unique_key=['increment_id', 'ba_site'],
 	cluster_by=['status','customer_id'],
 	partition_by = {
       "field": "created_at",
@@ -26,32 +26,33 @@ order_sequencing as (
 	-- determine sequencing using all orders the customer has ever had
 	select
 		increment_id,
+		ba_site,
 		case 
-			when status <> 'canceled' then row_number() over (partition by customer_id, status <> 'canceled' order by timestamp(created_at)) 
+			when status <> 'canceled' then row_number() over (partition by customer_id, ba_site, status <> 'canceled' order by timestamp(created_at)) 
 			else null 
 		end as orderno,
 		case 
 			when coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed')
-			then row_number() over (partition by customer_id, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed') order by timestamp(created_at)) 
+			then row_number() over (partition by customer_id, ba_site, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed') order by timestamp(created_at)) 
 			else null 
 		end as order_number_excl_full_refunds,
-		row_number() over (partition by customer_id order by timestamp(created_at)) as order_number_incl_cancellations,
+		row_number() over (partition by customer_id, ba_site, order by timestamp(created_at)) as order_number_incl_cancellations,
 		case 
 			when status not in ('canceled')
 			then timestamp_diff(
 				timestamp(created_at), 
-				lag(timestamp(created_at)) over (partition by customer_id, status not in ('canceled') order by timestamp(created_at))
+				lag(timestamp(created_at)) over (partition by customer_id, ba_site, status not in ('canceled') order by timestamp(created_at))
 				, day)
 			else null 
 		end as interval_between_orders,
 		timestamp_diff(
 			timestamp(created_at), 
-			first_value(timestamp(created_at)) over (partition by customer_id order by timestamp(created_at))
+			first_value(timestamp(created_at)) over (partition by customer_id, ba_site order by timestamp(created_at))
 		, day) as days_since_first_purchase
 	from {{ ref('stg__sales_flat_order') }}
 	where 1=1
 	{% if is_incremental() %}
-		and customer_id in (select distinct customer_id from order_updates)
+		and customer_id || '-' || ba_site in (select distinct customer_id || '-' || ba_site from order_updates)
 	{% endif %}
 ),
 
@@ -60,6 +61,7 @@ order_info as (
 		sfo.increment_id,
 		sfo.entity_id 														as magentoID,
 		sfo.store_id,
+		sfo.ba_site,
 		sfo.billing_address_id,
 		sfo.shipping_address_id,
 		sfo.subtotal_incl_tax,
@@ -100,15 +102,20 @@ order_info as (
 	from order_updates sfo
 	left join {{ ref('stg__sales_flat_order_address') }} sfoa
 		on sfoa.entity_id = sfo.shipping_address_id
+			and sfoa.ba_site = sfo.ba_site
 	left join {{ ref('stg__sales_flat_order_address') }} sfoa_b
 		on sfoa_b.entity_id = sfo.billing_address_id
+			and sfoa_b.ba_site = sfo.ba_site
 	left join {{ ref('stg__sales_flat_order_payment') }} sfop
 		on sfo.entity_id = sfop.parent_id
+			and sfop.ba_site = sfo.ba_site
 	left join {{ ref('customers') }} ce
 		on ce.cst_id = sfo.customer_id
+			and ce.ba_site = sfo.ba_site
 )
 
 select 
+	oi.ba_site || '-' || oi.increment_id as ba_site_increment_id,
 	oi.*,
 	-- check this below, whats it for?
 	sum(os.interval_between_orders) over (partition by oi.customer_id order by oi.created_at) as total_interval_between_orders_for_each_customer,
@@ -120,3 +127,4 @@ select
 from order_info oi
 left join order_sequencing os
 	on oi.increment_id = os.increment_id
+		and oi.ba_site = os.ba_site

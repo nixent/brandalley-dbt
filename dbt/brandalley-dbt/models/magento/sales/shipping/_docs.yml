@@ -8,6 +8,7 @@ models:
         - join: shipments
           sql_on: ${shipment_items.parent_id} = ${shipments.entity_id} and ${shipment_items.ba_site} = ${shipments.ba_site}
     columns:
+      - name: ba_site
       - name: entity_id
         description: "Shipment item ID, primary key"
         meta: 
@@ -61,6 +62,7 @@ models:
   - name: shipments
     description: ""
     columns:
+      - name: ba_site
       - name: entity_id
         description: "Primary key"
         meta:
@@ -119,6 +121,7 @@ models:
   - name: shipping
     description: ""
     columns:
+      - name: ba_site
       - name: unique_id
         description: ""
         meta:

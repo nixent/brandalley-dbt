@@ -42,6 +42,7 @@ second_orders as (
 )
   
 select 
+  c.ba_site || '-' || c.customer_id as ba_site_customer_id,
   c.customer_id,
   c.ba_site,
   c.signed_up_at,

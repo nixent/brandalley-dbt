@@ -8,7 +8,7 @@ models:
         - join: Orders
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and ${Orders.ba_site} = ${customers_enriched.ba_site}
     columns: 
-      - name: customer_id
+      - name: ba_site_customer_id
         tests:
           - unique
           - not_null
@@ -21,6 +21,11 @@ models:
               type: count_distinct
               description: "Count of customers"
               hidden: false
+      - name: ba_site
+      - name: customer_id
+        meta:
+          dimension:
+            format: id
       - name: signed_up_at
         meta: 
           dimension:
@@ -92,30 +97,30 @@ models:
               type: count_distinct
               description: "Number of customers who have returned to make second order within 90 days"
               hidden: false
-              sql: "if(${first_to_second_order_interval} <= 90, ${customer_id}, null)"
+              sql: "if(${first_to_second_order_interval} <= 90, ${ba_site_customer_id}, null)"
             total_customers_second_order_within_180_days:
               label: 'Total number of customers who have made a second purchase within 180 days'
               type: count_distinct
               description: "Number of customers who have returned to make second order within 180 days"
               hidden: false
-              sql: "if(${first_to_second_order_interval} <= 180, ${customer_id}, null)"
+              sql: "if(${first_to_second_order_interval} <= 180, ${ba_site_customer_id}, null)"
             total_customers_second_order_within_270_days:
               label: 'Total number of customers who have made a second purchase within 9 months'
               type: count_distinct
               description: "Number of customers who have returned to make second order within 9 months"
               hidden: false
-              sql: "if(${first_to_second_order_interval} <= 270, ${customer_id}, null)"
+              sql: "if(${first_to_second_order_interval} <= 270, ${ba_site_customer_id}, null)"
             total_customers_second_order_within_1_year:
               label: 'Total number of customers who have made a second purchase within 365 days'
               type: count_distinct
               description: "Number of customers who have returned to make second order within 365 days"
               hidden: false
-              sql: "if(${first_to_second_order_interval} <= 365, ${customer_id}, null)"
+              sql: "if(${first_to_second_order_interval} <= 365, ${ba_site_customer_id}, null)"
 
   - name: customers_record_data_source
     description: ""
     columns:
-      - name: cst_id
+      - name: ba_site_customer_id
         description: ""
         meta:
           dimension:
@@ -126,6 +131,11 @@ models:
               type: count_distinct
               description: "New Members from customers_record_data_source"
               hidden: false    
+      - name: cst_id
+        description: ""
+        meta:
+          dimension:
+            format: id
       - name: record_data_source
         description: ""
       - name: date
@@ -134,9 +144,10 @@ models:
   - name: customers_rfm
     description: 'Recency, Frequency & Monetary values per customer along with the average time between transactions and average order value per customer'
     columns:
-      - name: customer_id
+      - name: ba_site_customer_id
         tests:
           - unique 
+      - name: customer_id
       - name: days_since_last_order
       - name: lifetime_orders
       - name: lifetime_sales_amount
@@ -154,8 +165,8 @@ models:
   - name: customers
     description: "" 
     columns:
-      - name: cst_id
-        description: "Customer ID - primary key"
+      - name: ba_site_customer_id
+        description: "Concat of Customer ID and BA site - primary key"
         tests:
           - unique
           - not_null
@@ -171,7 +182,9 @@ models:
               type: count_distinct
               description: "Number of new members"
               sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, null)"
-              hidden: false    
+              hidden: false   
+      - name: cst_id
+        description: "Customer ID - primary key at site level"
       - name: billing_city
         description: ""
       - name: billing_postcode

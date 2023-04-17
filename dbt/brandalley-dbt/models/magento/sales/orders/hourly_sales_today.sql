@@ -5,6 +5,7 @@
 with metrics_today_and_last_week as (
     select
         date_trunc(datetime(ol.created_at, "Europe/London"), hour)                  as created_at_hour,
+        ba_site,
         nego,
         brand,
         category_name,
@@ -18,11 +19,12 @@ with metrics_today_and_last_week as (
         sum(round(ol.TOTAL_GBP_ex_tax_after_vouchers,2)) as total_revenue_exc_tax
     from {{ ref('OrderLines') }} ol
     where date(datetime(ol.created_at, "Europe/London")) in (current_date, current_date - 7)
-    group by 1,2,3,4,5,6,7,8
+    group by 1,2,3,4,5,6,7,8,9
 )
 
 select
     created_at_hour,
+    ba_site,
     nego,
     brand,
     category_name,
@@ -46,6 +48,7 @@ union all
 
 select
     created_at_hour,
+    ba_site,
     nego,
     brand,
     category_name,
