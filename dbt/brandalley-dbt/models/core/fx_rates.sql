@@ -11,5 +11,5 @@ select
     HKD            as gbp_to_hkd,
     USD            as gbp_to_usd,
     EUR_Budget     as gbp_to_eur_budget,
-    round(1/coalesce(EUR,EUR_Budget),5) as eur_to_gbp
+    round(1/coalesce(EUR,EUR_Budget),4) as eur_to_gbp
 from {{ source('analytics', 'fx_rates_gsheet') }}

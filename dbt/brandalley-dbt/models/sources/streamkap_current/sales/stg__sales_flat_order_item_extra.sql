@@ -1,7 +1,35 @@
 {{config(
     materialized='incremental',
-    unique_key='line_id',
+    unique_key='ba_site_line_id',
 	cluster_by='line_id',
 )}}
 
-{{streamkap_incremental_on_source_to_current(source_name='sales_flat_order_item_extra', id_field=config.get('unique_key'))}}
+-- TO DO WHEN STREAMKAP FIX
+
+with unioned as (
+    select
+    {{ dbt_utils.star(
+        ref('stg_uk__sales_flat_order_item_extra'),
+        quote_identifiers=false
+    ) }}
+    from {{ ref('stg_uk__sales_flat_order_item_extra') }}
+)
+
+select
+    'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'UK'                                                            as ba_site,
+from {{ ref('stg_uk__sales_flat_order_item_extra') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
+{% endif %}
+
+union all
+
+select
+    'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'FR'                                                            as ba_site,
+from {{ ref('stg_fr__sales_flat_order_item_extra') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
+{% endif %}
+

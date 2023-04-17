@@ -4,12 +4,16 @@ models:
   - name: stg__sales_flat_creditmemo
     description: ""
     columns:
-      - name: entity_id
-        data_type: <integer>
-        description: "Primary Key"
+      - name: ba_site_entity_id
+        description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: entity_id
+        data_type: <integer>
+        description: "Primary Key"
       - name: store_id
         data_type: <integer>
         description: "Store id, nullable"
@@ -276,12 +280,16 @@ models:
   - name: stg__sales_flat_creditmemo_item
     description: ""
     columns:
-      - name: entity_id
-        data_type: <integer>
+      - name: ba_site_entity_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: entity_id
+        data_type: <integer>
+        description: "Primary key"
       - name: parent_id
         data_type: <integer>
         description: "Parent id"
@@ -398,12 +406,16 @@ models:
   - name: stg__sales_flat_order
     description: "Fact table for the weight, quantity, value, cost, price, tax, discount, refunds of orders by customer, store, address, created and updated date with hourly details and expected delivery date with daily details"
     columns:
-      - name: entity_id
-        data_type: <integer>
-        description: "Order id, primary key"
+      - name: ba_site_entity_id
+        description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: entity_id
+        data_type: <integer>
+        description: "Order id, primary key"
       - name: state
         data_type: <string>
         description: "State, nullable"
@@ -1066,12 +1078,16 @@ models:
   - name: stg__sales_flat_order_address
     description: "Dim table to get orders' address details, like fax, region, postcode, lastname, street, city, email, teledphone, name and company."
     columns:
-      - name: entity_id
-        data_type: <integer>
-        description: "Id of the order addresss, primary key"
+      - name: ba_site_entity_id
+        description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: entity_id
+        data_type: <integer>
+        description: "Id of the order addresss, primary key"
       - name: parent_id
         data_type: <integer>
         description: "Parent id, foreign key, nullable"
@@ -1161,12 +1177,16 @@ models:
   - name: stg__sales_flat_order_item
     description: "Fact table for the weight, quantity, value, cost, price, tax, discount, refunds of order lines by order, item, product detail, negociation, created and updated date with hourly details, dispatch and out of stock date with daily details"
     columns:
-      - name: item_id
-        data_type: <integer>
-        description: "Id of the line order, primary key"
+      - name: ba_site_item_id
+        description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site" 
+      - name: item_id
+        data_type: <integer>
+        description: "Id of the line order, primary key"
       - name: order_id
         data_type: <integer>
         description: "Id of the order, foreign key"
@@ -1508,12 +1528,16 @@ models:
   - name: stg__sales_flat_order_item_extra
     description: "Dim table to get type and category for order items"
     columns:
-      - name: line_id
-        data_type: <integer>
-        description: "Line id, primary key"
+      - name: ba_site_line_id
+        description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: line_id
+        data_type: <integer>
+        description: "Line id, primary key"
       - name: order_item_id
         data_type: <integer>
         description: "Order item id, foreign key"
@@ -1531,12 +1555,16 @@ models:
   - name: stg__sales_flat_order_payment
     description: "Fact table for the shipping fees, amount paid, refunded, authorized, paid online and refunded online, shipping refunded of order payments by payment details and methods"
     columns:
-      - name: entity_id
-        data_type: <decimal>
-        description: "Order payment id, primary key"
+      - name: ba_site_entity_id
+        description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
+      - name: entity_id
+        data_type: <decimal>
+        description: "Order payment id, primary key"
       - name: parent_id
         data_type: <decimal>
         description: "Order payment parent id, foreign key"
@@ -1707,12 +1735,16 @@ models:
   - name: stg__sales_flat_shipment
     description: "Fact table for total quantity, weight, number of packages of a shipment by order, customer, shipping address and billing address, created and updated date with hourly details. "
     columns:
+      - name: ba_site_entity_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: entity_id
         data_type: <integer>
         description: "Shipment id, primary key"
-        tests: 
-          - unique
-          - not_null
       - name: store_id
         data_type: <integer>
         description: "Store id, foreign key, nullable"
@@ -1763,12 +1795,16 @@ models:
   - name: stg__sales_flat_shipment_item
     description: "Fact table for quantity, price, and weight of an item shipped by product, order item and shipment."
     columns:
+      - name: ba_site_entity_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site" 
       - name: entity_id
         data_type: <integer>
         description: "Shipment item ID, primary key"
-        tests: 
-          - unique
-          - not_null
       - name: parent_id
         data_type: <integer>
         description: "Shipment item ID of the parent, foreign key"
@@ -1815,6 +1851,13 @@ models:
   - name: stg__salesrule_coupon
     description: "Coupon details"
     columns:
+      - name: ba_site_coupon_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: coupon_id
         data_type: <integer>
         description: "Primary key"
@@ -1871,6 +1914,13 @@ models:
   - name: stg__enterprise_giftcardaccount_history
     description: "Gift card history"
     columns:
+      - name: ba_site_history_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: _streamkap_source_ts_ms
         description: ""
       - name: _streamkap_ts_ms
@@ -1885,6 +1935,13 @@ models:
   - name: stg__enterprise_giftcardaccount
     description: "Gift card details"
     columns:
+      - name: ba_site_giftcardaccount_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: _streamkap_source_ts_ms
         description: ""
       - name: _streamkap_ts_ms
@@ -1899,6 +1956,13 @@ models:
   - name: stg__invent_autocoupon
     description: "Autocoupon details"
     columns:
+      - name: ba_site_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: _streamkap_source_ts_ms
         description: ""
       - name: _streamkap_ts_ms
@@ -1913,6 +1977,13 @@ models:
   - name: stg__salesrule
     description: "Coupon rules details"
     columns:
+      - name: ba_site_rule_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+        description: "Brand Alley Site"
       - name: rule_id
         data_type: <integer>
         description: "Primary key"
