@@ -862,7 +862,7 @@ models:
       - name: order_id
         description: "Id of the order"
         tests:
-          - not_null:
+          - not_null
         meta:
           metrics:
             total_order_count_nullParent:
@@ -1149,10 +1149,7 @@ models:
       - name: increment_id
         description: "Id of the order"
         tests:
-          - not_null:
-              config:
-                severity: warn
-                warn_if: ">100"
+          - not_null
         meta:
           metrics:
             total_order_count_nullParent:

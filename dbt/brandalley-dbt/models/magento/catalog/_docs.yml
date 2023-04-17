@@ -5,7 +5,6 @@ models:
     description: ""
     columns:
       - name: ba_site
-      - name: ba_site
       - name: negotiation_item_id
         description: "Primary key"
         meta:
