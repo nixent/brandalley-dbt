@@ -1,15 +1,16 @@
 {{ config(
 	materialized='table',
-	unique_key='increment_id',
+	unique_key='unique_id',
 	cluster_by=['category_name']
 ) }}
 
 select
-    {{dbt_utils.generate_surrogate_key(['p.unique_id', 'ccp.category_id'])}}    as unique_id,
+    {{dbt_utils.generate_surrogate_key(['p.unique_id', 'ccp.category_id', 'p.ba_site'])}}    as unique_id,
     p.product_id,
     p.variant_product_id,
     p.sku,
     p.variant_sku,
+    p.ba_site,
     case
         when cceh.name in ('', 'Women', 'Men', 'Kids', 'Lingerie', 'Home', 'Beauty', 'Z_NoData', 'Archieved outlet products', 'Holding review')
             or cceh.name is null
@@ -22,7 +23,7 @@ select
     row_number() over (partition by ccp.category_id, p.sku) as variant_sku_per_sku_per_sale_number
 from {{ ref('products') }} p
 left join {{ ref('stg__catalog_category_product') }} ccp
-    on p.product_id = ccp.product_id
+    on p.product_id = ccp.product_id and p.ba_site = ccp.ba_site
 left join {{ ref('stg__catalog_category_entity_history') }} cceh
-		on ccp.category_id = cceh.category_id
+		on ccp.category_id = cceh.category_id and ccp.ba_site = cceh.ba_site
     

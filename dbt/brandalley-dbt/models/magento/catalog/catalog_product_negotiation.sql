@@ -1,5 +1,6 @@
 SELECT
     negotiation_id,
+    ba_site,
     updated_at,
     PARENT,
     sap_ref,

@@ -1,6 +1,7 @@
 select
     item_id,
     product_id,
+    ba_site,
     stock_id,
     qty,
     min_qty,

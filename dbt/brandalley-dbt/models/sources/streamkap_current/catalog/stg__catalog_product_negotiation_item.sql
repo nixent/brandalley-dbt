@@ -4,15 +4,6 @@
 	cluster_by='ba_site_negotiation_item_id',
 )}}
 
-with unioned as (
-    select
-    {{ dbt_utils.star(
-        ref('stg_uk__catalog_product_negotiation_item'),
-        quote_identifiers=false
-    ) }}
-    from {{ ref('stg_uk__catalog_product_negotiation_item') }}
-)
-
 select
     'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'UK'                                                            as ba_site,
