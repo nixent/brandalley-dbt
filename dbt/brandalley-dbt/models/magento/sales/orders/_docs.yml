@@ -681,7 +681,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
-            sql: 'datetime(OrderLines.created_at, "Europe/London")'
+            sql: 'datetime(timestamp(OrderLines.created_at), "Europe/London")'
       - name: month_created
         description: ""
       - name: order_status
