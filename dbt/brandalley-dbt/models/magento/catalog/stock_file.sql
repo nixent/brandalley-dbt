@@ -272,7 +272,8 @@ select
     level_2,
     level_3, 
     tax, 
-    tax_class, 
+    tax_class,
+    category,
     replace(
         replace(
             if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
@@ -292,4 +293,4 @@ select
     string_agg(parent_category)             as parent_category, 
     min(special_price)                      as special_price
 from stock_file_2
-{{ dbt_utils.group_by(31) }}
+{{ dbt_utils.group_by(32) }}
