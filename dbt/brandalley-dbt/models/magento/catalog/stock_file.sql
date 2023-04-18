@@ -167,37 +167,7 @@ with stock_file_raw as (
 
  stock_file_2 as (
     select  
-        child_entity_id,
-        child_sku,
-        min_qty,
-        qty,
-        image_value,
-        name,
-        value,
-        suplier_id,
-        supplier_name,
-        brand,
-        country_of_manufacture,
-        cost,
-        parent_gender,
-        simple_gender,
-        simple_product_type,
-        parent_product_type,
-        size,
-        colour,
-        price,
-        outlet_price,
-        outlet_category,
-        canUseForWHSale,
-        barcode,
-        nego,
-        buyer_id,
-        buyer,
-        stock.level_1,
-        stock.level_2,
-        stock.level_3, 
-        tax, 
-        tax_class,
+        stock.* except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price, parent_child_category_ids),
         cat_map.category,
         (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value) as flashsale_category,
         string_agg(distinct child_parent_sku)   as child_parent_sku,
@@ -238,42 +208,11 @@ with stock_file_raw as (
                             SPLIT(flashsale_category, '>')[offset(4)], null)
                     )
                 ) = cat_map.level_3
-    {{ dbt_utils.group_by(33) }}, flashsale_category
+    {{ dbt_utils.group_by(34) }}, flashsale_category
  )
 
 select  
-    child_entity_id,
-    child_sku,
-    min_qty,
-    qty,
-    image_value,
-    name,
-    value,
-    suplier_id,
-    supplier_name,
-    brand,
-    country_of_manufacture,
-    cost,
-    parent_gender,
-    simple_gender,
-    simple_product_type,
-    parent_product_type,
-    size,
-    colour,
-    price,
-    outlet_price,
-    outlet_category,
-    canUseForWHSale,
-    barcode,
-    nego,
-    buyer_id,
-    buyer,
-    level_1,
-    level_2,
-    level_3, 
-    tax, 
-    tax_class,
-    category,
+    * except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price),
     replace(
         replace(
             if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
@@ -293,4 +232,4 @@ select
     string_agg(parent_category)             as parent_category, 
     min(special_price)                      as special_price
 from stock_file_2
-{{ dbt_utils.group_by(32) }}
+{{ dbt_utils.group_by(33) }}
