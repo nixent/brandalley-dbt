@@ -400,6 +400,7 @@ models:
               description: "Number of entity id"
               hidden: false
               round: 0 
+              sql: ${ba_site} || ${child_entity_id}
       - name: child_sku
         description: "child sku, nullable"
       - name: min_qty

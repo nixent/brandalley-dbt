@@ -145,6 +145,7 @@ models:
               description: "Number of order credit memo"
               hidden: false   
               round: 0 
+              sql: '${parent_id} || ${ba_site}'
       - name: base_price
         description: "Base price, nullable"
       - name: tax_amount
