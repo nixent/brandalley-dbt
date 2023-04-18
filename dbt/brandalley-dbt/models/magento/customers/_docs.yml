@@ -147,6 +147,7 @@ models:
       - name: ba_site_customer_id
         tests:
           - unique 
+      - name: ba_site
       - name: customer_id
       - name: days_since_last_order
       - name: lifetime_orders
@@ -183,6 +184,7 @@ models:
               description: "Number of new members"
               sql: "IF(${achica_user} is null OR ${achica_user} <> 2, ${cst_id}, null)"
               hidden: false   
+      - name: ba_site
       - name: cst_id
         description: "Customer ID - primary key at site level"
       - name: billing_city
