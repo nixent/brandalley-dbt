@@ -52,7 +52,11 @@ with stock_file_raw as (
     from {{ ref('stg__catalog_product_entity') }} e
     inner join {{ ref('stg__cataloginventory_stock_item') }} stock 
         on stock.product_id = e.entity_id
-    left join {{ ref('stg__catalog_product_super_link') }} parent_relation 
+    left join (
+        select parent_id, product_id 
+        from {{ ref('stg__catalog_product_super_link') }}
+        qualify row_number() over (partition by product_id order by link_id desc) = 1
+        ) parent_relation 
         on parent_relation.product_id = e.entity_id
     inner join {{ ref('stg__catalog_product_entity') }} parent_entity_relation 
         on parent_entity_relation.entity_id = parent_relation.parent_id
@@ -139,10 +143,11 @@ with stock_file_raw as (
     left join {{ ref('stg__catalog_product_negotiation') }} cpn 
         on cast(cpn.negotiation_id as string) = cpev_nego.value
     left join (
-        select distinct negotiation_id, parrent_sku, tax_rate 
+        select distinct negotiation_id, parrent_sku, sku, tax_rate 
         from {{ ref('stg__catalog_product_negotiation_item') }} ) cpni 
         on cast(cpni.negotiation_id as string) = cpev_nego.value
             and cpni.parrent_sku = parent_entity_relation.sku
+            and e.sku = cpni.sku
     left join {{ ref('stg__admin_user') }} au 
         on cpn.buyer = au.user_id
     left join {{ ref('catalog_category_flat_store_1_enriched') }} category_details 
@@ -162,7 +167,37 @@ with stock_file_raw as (
 
  stock_file_2 as (
     select  
-        stock.* except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price, parent_child_category_ids, level_3),
+        child_entity_id,
+        child_sku,
+        min_qty,
+        qty,
+        image_value,
+        name,
+        value,
+        suplier_id,
+        supplier_name,
+        brand,
+        country_of_manufacture,
+        cost,
+        parent_gender,
+        simple_gender,
+        simple_product_type,
+        parent_product_type,
+        size,
+        colour,
+        price,
+        outlet_price,
+        outlet_category,
+        canUseForWHSale,
+        barcode,
+        nego,
+        buyer_id,
+        buyer,
+        stock.level_1,
+        stock.level_2,
+        stock.level_3, 
+        tax, 
+        tax_class,
         cat_map.category,
         (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value) as flashsale_category,
         string_agg(distinct child_parent_sku)   as child_parent_sku,
@@ -203,11 +238,41 @@ with stock_file_raw as (
                             SPLIT(flashsale_category, '>')[offset(4)], null)
                     )
                 ) = cat_map.level_3
-    {{ dbt_utils.group_by(32) }}, flashsale_category
+    {{ dbt_utils.group_by(33) }}, flashsale_category
  )
 
 select  
-    * except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price),
+    child_entity_id,
+    child_sku,
+    min_qty,
+    qty,
+    image_value,
+    name,
+    value,
+    suplier_id,
+    supplier_name,
+    brand,
+    country_of_manufacture,
+    cost,
+    parent_gender,
+    simple_gender,
+    simple_product_type,
+    parent_product_type,
+    size,
+    colour,
+    price,
+    outlet_price,
+    outlet_category,
+    canUseForWHSale,
+    barcode,
+    nego,
+    buyer_id,
+    buyer,
+    level_1,
+    level_2,
+    level_3, 
+    tax, 
+    tax_class, 
     replace(
         replace(
             if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
@@ -227,4 +292,4 @@ select
     string_agg(parent_category)             as parent_category, 
     min(special_price)                      as special_price
 from stock_file_2
-{{ dbt_utils.group_by(32) }}
+{{ dbt_utils.group_by(31) }}
