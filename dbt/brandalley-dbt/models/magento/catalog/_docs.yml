@@ -378,6 +378,9 @@ models:
     columns:
       - name: child_entity_id
         description: "Primary Key"
+        tests:
+          - unique
+          - not_null
         meta:
           dimension:
             format: id

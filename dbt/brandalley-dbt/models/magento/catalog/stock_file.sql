@@ -1,504 +1,235 @@
-with stock_file_raw as (SELECT 
-    STRING_AGG(distinct CAST(category_id AS STRING)) AS parent_child_category_ids,
-    e.entity_id AS child_entity_id,
-    e.sku AS child_sku,
-    stock.min_qty,
-    stock.qty,
-    IFNULL(parent_relation.parent_id, e.entity_id) AS parent_id,
-    parent_entity_relation.sku AS child_parent_sku,
-    min(timestamp(parent_entity_relation.created_at)) AS child_parent_sku_created_at,
-    if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) AS image_value,
-    cpvn.value AS name,
-    cpevsi.value,
-    cpevsiv.sup_id AS suplier_id,
-    cpevsiv.name AS supplier_name,
-    eaov_brand.value AS brand,
-    cpevcoorigin.value AS country_of_manufacture,
-    cpedcost.value AS cost,
-    REPLACE(REPLACE(REPLACE(cpev_parent_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS parent_gender,
-    REPLACE(REPLACE(REPLACE(cpev_simple_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') AS simple_gender,
-    eaov_simple_type.value AS simple_product_type,
-    eaov_parent_type.value AS parent_product_type,
-    eaov_size.value AS size,
-    eaov_color.value AS colour,
-    cpedprice.value AS price,
-    cpedsprice.value AS special_price,
-    cpedoprice.value AS outlet_price,
-    cpev_outlet_category.value AS outlet_category,
-    IF(SUM(stock_child.min_qty) < 0,
-        'No',
-        'Yes') AS canUseForWHSale,
-    cpev_barcode.value AS barcode,
-    cpev_nego.value AS nego,
-    cpn.buyer AS buyer_id,
-    CONCAT(au.firstname, ' ', au.lastname) AS buyer,
-    -- Pulling level_1>level_2>level_3 from the outlet_category field
-    SPLIT(cpev_outlet_category.value, '>')[offset(0)] level_1, 
-    IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>0, SPLIT(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
-    IF(LENGTH(cpev_outlet_category.value) - LENGTH(REGEXP_REPLACE(cpev_outlet_category.value, '>', ''))>1, SPLIT(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
-    -- Parent category is type 3, flashsale type 1. If there are more than 1 category, we need to put them on the same, but separated with a return carriage character
-    if(cpei_menu_type_3.value=3, 
-    --STRINGAGG to put multiple lines on one, then 2 replace: 1 for changing separator from comma to return carriage, one to remove the initial 'Root Catalog>Brand Alley UK>' of categories
-        replace(
+with stock_file_raw as (
+    select 
+        e.entity_id                                     as child_entity_id,
+        e.sku                                           as child_sku,
+        stock.min_qty,
+        stock.qty,
+        ifnull(parent_relation.parent_id, e.entity_id)  as parent_id,
+        parent_entity_relation.sku                      as child_parent_sku,
+        if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as image_value,
+        cpvn.value                                      as name,
+        cpevsi.value,
+        cpevsiv.sup_id                                  as suplier_id,
+        cpevsiv.name                                    as supplier_name,
+        eaov_brand.value                                as brand,
+        cpevcoorigin.value                              as country_of_manufacture,
+        cpedcost.value                                  as cost,
+        replace(replace(replace(cpev_parent_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') as parent_gender,
+        replace(replace(replace(cpev_simple_gender.value, '13', 'Female'), '14', 'Male'),'11636','Unisex') as simple_gender,
+        eaov_simple_type.value                          as simple_product_type,
+        eaov_parent_type.value                          as parent_product_type,
+        eaov_size.value                                 as size,
+        eaov_color.value                                as colour,
+        cpedprice.value                                 as price,
+        cpedsprice.value                                as special_price,
+        cpedoprice.value                                as outlet_price,
+        cpev_outlet_category.value                      as outlet_category,
+        cpev_barcode.value                              as barcode,
+        cpev_nego.value                                 as nego,
+        cpn.buyer                                       as buyer_id,
+        concat(au.firstname, ' ', au.lastname)          as buyer,
+        -- pulling level_1>level_2>level_3 from the outlet_category field
+        split(cpev_outlet_category.value, '>')[offset(0)] level_1, 
+        if(length(cpev_outlet_category.value) - length(regexp_replace(cpev_outlet_category.value, '>', ''))>0, split(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
+        if(length(cpev_outlet_category.value) - length(regexp_replace(cpev_outlet_category.value, '>', ''))>1, split(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
+        cpni.tax_rate                                   as tax,
+        cpei_tax.value                                  as tax_class,
+        if(sum(stock_child.min_qty) < 0, 'No', 'Yes')   as canUseForWHSale,
+        min(timestamp(parent_entity_relation.created_at)) as child_parent_sku_created_at,
+        string_agg(distinct cast(category_id as string)) as parent_child_category_ids,
+        -- Parent category is type 3, flashsale type 1. If there are more than 1 category, we need to put them on the same, but separated with a return carriage character
+        if(cpei_menu_type_3.value=3, 
+        --stringagg to put multiple lines on one, then 2 replace: 1 for changing separator from comma to return carriage, one to remove the initial 'root catalog>brand alley uk>' of categories
             replace(
-                STRING_AGG(distinct category_details.path_name ORDER BY path_name)
-            , ',', '\n')
-        , 'Root Catalog>Brand Alley UK>', '')
-    , null) as parent_category,
---    if(cpei_menu_type_1.value=1, replace(replace(RTRIM(REGEXP_EXTRACT(STRING_AGG(category_details.path_name ORDER BY category_details.created_at), '(?:.*?,){3}'), ','), ',', '\n'), 'Root Catalog>Brand Alley UK>', ''), null) as flashsale_category
-    if(cpei_menu_type_1.value=1, 
-    --STRINGAGG to put multiple lines on one, categories need to be ordered from oldest to newest
-        STRING_AGG(category_details.path_name ORDER BY category_details.created_at)
-    , null) as flashsale_category,
-    cpni.tax_rate as tax,
-    cpei_tax.value as tax_class
-FROM
-		{{ ref(
-				'stg__catalog_product_entity'
-		) }}
-		e
-        INNER JOIN
-		{{ ref(
-				'stg__cataloginventory_stock_item'
-		) }}
-		stock ON stock.product_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_super_link'
-		) }}
-		parent_relation ON parent_relation.product_id = e.entity_id
-        INNER JOIN
-		{{ ref(
-				'stg__catalog_product_entity'
-		) }}
-		parent_entity_relation ON parent_entity_relation.entity_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_category_product'
-		) }}
-		category ON category.product_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		image ON image.attribute_id = 85
-        AND image.entity_id = parent_entity_relation.entity_id
-        INNER JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpvn ON cpvn.attribute_id = 71
-        AND cpvn.entity_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_int'
-		) }}
-		cpevsi ON cpevsi.attribute_id = 239
-        AND cpevsi.entity_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_supplier'
-		) }}
-		cpevsiv ON cpevsi.value = cpevsiv.supplier_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_int'
-		) }}
-		cpeib ON cpeib.attribute_id = 178
-        AND cpeib.entity_id = parent_relation.parent_id
-        LEFT JOIN {{ ref(
-           'stg__eav_attribute_option_value'
-        ) }}
-        eaov_brand
-        ON eaov_brand.option_id = cpeib.value
-        AND eaov_brand.store_id = 0
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpevcoorigin ON cpevcoorigin.attribute_id = 117
-        AND cpevcoorigin.entity_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_decimal'
-		) }}
-		cpedcost ON cpedcost.attribute_id = 79
-        AND cpedcost.entity_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpev_parent_gender ON cpev_parent_gender.attribute_id = 180
-        AND cpev_parent_gender.entity_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpev_simple_gender ON cpev_simple_gender.attribute_id = 180
-        AND cpev_simple_gender.entity_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpev_simple_type ON cpev_simple_type.attribute_id = 179
-        AND cpev_simple_type.entity_id = e.entity_id
-        LEFT JOIN {{ ref(
-            'stg__eav_attribute_option_value'
-        ) }}
-        eaov_simple_type
-        ON cpev_simple_type.value = CAST(
-                eaov_simple_type.option_id AS STRING
-        )
-        AND eaov_simple_type.store_id = 0
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpev_parent_type ON cpev_parent_type.attribute_id = 179
-        AND cpev_parent_type.entity_id = parent_relation.parent_id
-        LEFT JOIN {{ ref(
-            'stg__eav_attribute_option_value'
-        ) }}
-        eaov_parent_type
-        ON cpev_parent_type.value = CAST(
-                eaov_parent_type.option_id AS STRING
-        )
-        AND eaov_simple_type.store_id = 0
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_int'
-		) }}
-		cpei_size ON cpei_size.attribute_id = 177
-        AND cpei_size.entity_id = e.entity_id
-        LEFT JOIN {{ ref(
-            'stg__eav_attribute_option_value'
-        ) }}
-        eaov_size
-        ON eaov_size.option_id = cpei_size.value
-        AND eaov_size.store_id = 0
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_int'
-		) }}
-		cpei_tax ON cpei_tax.attribute_id = 122
-        AND cpei_tax.entity_id = parent_entity_relation.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_int'
-		) }}
-		cpei_colour ON cpei_colour.attribute_id = 213
-        AND cpei_colour.entity_id = e.entity_id
-        LEFT JOIN {{ ref(
-            'stg__eav_attribute_option_value'
-        ) }}
-        eaov_color
-        ON eaov_color.option_id = cpei_colour.value
-        AND eaov_color.store_id = 0
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_decimal'
-		) }}
-		cpedprice ON cpedprice.attribute_id = 75
-        AND cpedprice.entity_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_decimal'
-		) }}
-		cpedsprice ON cpedsprice.attribute_id = 76
-        AND cpedsprice.entity_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_decimal'
-		) }}
-		cpedoprice ON cpedoprice.attribute_id = 224
-        AND cpedoprice.entity_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpev_outlet_category ON cpev_outlet_category.attribute_id = 205
-        AND cpev_outlet_category.entity_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_super_link'
-		) }}
-		parent_relation_child ON parent_relation_child.parent_id = parent_relation.parent_id
-        LEFT JOIN
-		{{ ref(
-				'stg__cataloginventory_stock_item'
-		) }}
-		stock_child ON stock_child.product_id = parent_relation_child.product_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpev_barcode ON cpev_barcode.attribute_id = 252
-        AND cpev_barcode.entity_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_entity_varchar'
-		) }}
-		cpev_nego ON cpev_nego.attribute_id = 204
-        AND cpev_nego.entity_id = e.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_product_negotiation'
-		) }}
-		cpn ON CAST(cpn.negotiation_id AS STRING) = cpev_nego.value
-        LEFT JOIN
-        (select distinct negotiation_id, parrent_sku, tax_rate from
-		{{ ref(
-				'stg__catalog_product_negotiation_item'
-		) }})
-		cpni ON CAST(cpni.negotiation_id AS STRING) = cpev_nego.value and cpni.parrent_sku = parent_entity_relation.sku
-        LEFT JOIN
-        {{ ref(
-                'stg__admin_user'
-        ) }}
-        au ON cpn.buyer = au.user_id
-        LEFT JOIN             
-		{{ ref(
-				'catalog_category_flat_store_1_enriched'
-		) }}
-		category_details ON category.category_id = category_details.entity_id
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_category_entity_int'
-		) }}
-		cpei_menu_type_3 ON cpei_menu_type_3.attribute_id = 373
-        AND cpei_menu_type_3.entity_id = category.category_id
-        AND cpei_menu_type_3.value=3
-        LEFT JOIN
-		{{ ref(
-				'stg__catalog_category_entity_int'
-		) }}
-		cpei_menu_type_1 ON cpei_menu_type_1.attribute_id = 373
-        AND cpei_menu_type_1.entity_id = category.category_id
-        AND cpei_menu_type_1.value=1
-        WHERE
-    (e.type_id = 'simple')
-        AND (stock.qty > 0)
-group by 
-    e.entity_id,
-    e.sku,
-    stock.min_qty,
-    stock.qty,
-    parent_relation.parent_id,
-    parent_entity_relation.sku,
-    image.value,
-    cpvn.value,
-    cpevsi.value,
-    cpevsiv.sup_id,
-    cpevsiv.name,
-    eaov_brand.value,
-    cpevcoorigin.value,
-    cpedcost.value,
-    cpev_parent_gender.value,
-    cpev_simple_gender.value,
-    eaov_parent_type.value,
-    eaov_simple_type.value,
-    eaov_size.value,
-    eaov_color.value,
-    cpedprice.value,
-    cpedsprice.value,
-    cpedoprice.value,
-    cpev_outlet_category.value,
-    cpev_barcode.value,
-    cpev_nego.value,
-    cpn.buyer,
-    au.firstname,
-    au.lastname,
-    cpei_menu_type_3.value,
-    cpei_menu_type_1.value,
-    cpni.tax_rate, cpei_tax.value
+                replace(
+                    string_agg(distinct category_details.path_name order by path_name)
+                , ',', '\n')
+            , 'Root Catalog>Brand Alley UK>', '')
+        , null) as parent_category,
+        -- if(cpei_menu_type_1.value=1, replace(replace(RTRIM(REGEXP_EXTRACT(STRING_AGG(category_details.path_name ORDER BY category_details.created_at), '(?:.*?,){3}'), ','), ',', '\n'), 'Root Catalog>Brand Alley UK>', ''), null) as flashsale_category
+        -- STRINGAGG to put multiple lines on one, categories need to be ordered from oldest to newest
+        if(cpei_menu_type_1.value=1, string_agg(category_details.path_name order by category_details.created_at), null) as flashsale_category
+    from {{ ref('stg__catalog_product_entity') }} e
+    inner join {{ ref('stg__cataloginventory_stock_item') }} stock 
+        on stock.product_id = e.entity_id
+    left join (
+        select parent_id, product_id 
+        from {{ ref('stg__catalog_product_super_link') }}
+        qualify row_number() over (partition by product_id order by link_id desc) = 1
+        ) parent_relation 
+        on parent_relation.product_id = e.entity_id
+    inner join {{ ref('stg__catalog_product_entity') }} parent_entity_relation 
+        on parent_entity_relation.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__catalog_category_product') }} category 
+        on category.product_id = parent_relation.parent_id
+    left join {{ ref('stg__catalog_product_entity_varchar') }} image 
+        on image.attribute_id = 85
+            and image.entity_id = parent_entity_relation.entity_id
+    inner join {{ ref('stg__catalog_product_entity_varchar') }} cpvn 
+        on cpvn.attribute_id = 71
+            and cpvn.entity_id = e.entity_id
+    left join {{ ref('stg__catalog_product_entity_int') }} cpevsi 
+        on cpevsi.attribute_id = 239
+            and cpevsi.entity_id = e.entity_id
+    left join {{ ref('stg__catalog_product_supplier') }} cpevsiv 
+        on cpevsi.value = cpevsiv.supplier_id
+    left join {{ ref('stg__catalog_product_entity_int') }} cpeib 
+        on cpeib.attribute_id = 178
+            and cpeib.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__eav_attribute_option_value') }} eaov_brand
+        on eaov_brand.option_id = cpeib.value
+            and eaov_brand.store_id = 0
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpevcoorigin 
+        on cpevcoorigin.attribute_id = 117
+            and cpevcoorigin.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__catalog_product_entity_decimal') }} cpedcost 
+        on cpedcost.attribute_id = 79
+            and cpedcost.entity_id = e.entity_id
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_parent_gender 
+        on cpev_parent_gender.attribute_id = 180
+            and cpev_parent_gender.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_simple_gender 
+        on cpev_simple_gender.attribute_id = 180
+            and cpev_simple_gender.entity_id = e.entity_id
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_simple_type 
+        on cpev_simple_type.attribute_id = 179
+            and cpev_simple_type.entity_id = e.entity_id
+    left join {{ ref('stg__eav_attribute_option_value') }} eaov_simple_type
+        on cpev_simple_type.value = cast(eaov_simple_type.option_id as string)
+            and eaov_simple_type.store_id = 0
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_parent_type 
+        on cpev_parent_type.attribute_id = 179
+            and cpev_parent_type.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__eav_attribute_option_value') }} eaov_parent_type
+        on cpev_parent_type.value = cast(eaov_parent_type.option_id as string)
+            and eaov_simple_type.store_id = 0
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_size
+        on cpei_size.attribute_id = 177
+            and cpei_size.entity_id = e.entity_id
+    left join {{ ref('stg__eav_attribute_option_value') }} eaov_size
+        on eaov_size.option_id = cpei_size.value
+            and eaov_size.store_id = 0
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_tax 
+        on cpei_tax.attribute_id = 122
+            and cpei_tax.entity_id = parent_entity_relation.entity_id
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_colour 
+        on cpei_colour.attribute_id = 213
+            and cpei_colour.entity_id = e.entity_id
+    left join {{ ref('stg__eav_attribute_option_value') }} eaov_color
+        on eaov_color.option_id = cpei_colour.value
+            and eaov_color.store_id = 0
+    left join {{ ref('stg__catalog_product_entity_decimal') }} cpedprice 
+        on cpedprice.attribute_id = 75
+            and cpedprice.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__catalog_product_entity_decimal') }} cpedsprice 
+        on cpedsprice.attribute_id = 76
+            and cpedsprice.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__catalog_product_entity_decimal') }} cpedoprice 
+        on cpedoprice.attribute_id = 224
+            and cpedoprice.entity_id = parent_relation.parent_id
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_outlet_category 
+        on cpev_outlet_category.attribute_id = 205
+            and cpev_outlet_category.entity_id = e.entity_id
+    left join {{ ref('stg__catalog_product_super_link') }} parent_relation_child 
+        on parent_relation_child.parent_id = parent_relation.parent_id
+    left join {{ ref('stg__cataloginventory_stock_item') }} stock_child 
+        on stock_child.product_id = parent_relation_child.product_id
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_barcode 
+        on cpev_barcode.attribute_id = 252
+            and cpev_barcode.entity_id = e.entity_id
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_nego 
+        on cpev_nego.attribute_id = 204
+            and cpev_nego.entity_id = e.entity_id
+    left join {{ ref('stg__catalog_product_negotiation') }} cpn 
+        on cast(cpn.negotiation_id as string) = cpev_nego.value
+    left join (
+        select distinct negotiation_id, parrent_sku, sku, tax_rate 
+        from {{ ref('stg__catalog_product_negotiation_item') }} ) cpni 
+        on cast(cpni.negotiation_id as string) = cpev_nego.value
+            and cpni.parrent_sku = parent_entity_relation.sku
+            and e.sku = cpni.sku
+    left join {{ ref('stg__admin_user') }} au 
+        on cpn.buyer = au.user_id
+    left join {{ ref('catalog_category_flat_store_1_enriched') }} category_details 
+        on category.category_id = category_details.entity_id
+    left join {{ ref('stg__catalog_category_entity_int') }} cpei_menu_type_3 
+        on cpei_menu_type_3.attribute_id = 373
+            and cpei_menu_type_3.entity_id = category.category_id
+            and cpei_menu_type_3.value=3
+    left join {{ ref('stg__catalog_category_entity_int') }} cpei_menu_type_1 
+        on cpei_menu_type_1.attribute_id = 373
+            and cpei_menu_type_1.entity_id = category.category_id
+            and cpei_menu_type_1.value=1
+    where e.type_id = 'simple'
+        and stock.qty > 0
+    {{ dbt_utils.group_by(33) }}, cpei_menu_type_3.value, cpei_menu_type_1.value
+ ),
+
+ stock_file_2 as (
+    select  
+        stock.* except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price, parent_child_category_ids),
+        cat_map.category,
+        (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value) as flashsale_category,
+        string_agg(distinct child_parent_sku)   as child_parent_sku,
+        min(child_parent_sku_created_at)        as child_parent_sku_created_at,
+        string_agg(distinct parent_category)    as parent_category, 
+        min(special_price)                      as special_price
+    from stock_file_raw stock
+    -- join on the mapping provided by the buying team
+    -- the logic is we look at outlet_category first to do the join. If not possible we use parent_category then flashsale_category.	
+    left join {{ source('utils', 'category_mapping') }} cat_map 
+        on 
+            -- join on level 1 (First element of path in outlet_category, 3rd element in parent_category and flashsale_category)
+            IF(stock.level_1 is not null, 
+                stock.level_1, 
+                IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>2, 
+                    SPLIT(parent_category, '>')[offset(2)], 
+                        if(flashsale_category is not null, 
+                            SPLIT(flashsale_category, '>')[offset(2)], null)
+                    )
+                ) = cat_map.row_label 
+        and 
+            -- join on level 2 (Second element of path in outlet_category, 4th element in parent_category and flashsale_category)
+            IF(stock.level_2 is not null, 
+                stock.level_2, 
+                IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>3, 
+                    SPLIT(parent_category, '>')[offset(3)], 
+                        if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>0, 
+                            SPLIT(flashsale_category, '>')[offset(3)], null)
+                    )
+                ) = cat_map.level_2 
+        and 
+            -- join on level 3 (Third element of path in outlet_category, 5th element in parent_category and flashsale_category)
+            IF(stock.level_3 is not null, 
+                stock.level_3, 
+                IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>4, 
+                    SPLIT(parent_category, '>')[offset(4)], 
+                        if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>1, 
+                            SPLIT(flashsale_category, '>')[offset(4)], null)
+                    )
+                ) = cat_map.level_3
+    {{ dbt_utils.group_by(34) }}, flashsale_category
  )
 
-select  child_entity_id,
-        child_sku,
-        min_qty,
-        qty,
-        string_agg(distinct child_parent_sku) as child_parent_sku,
-        min(child_parent_sku_created_at) as child_parent_sku_created_at,
-        image_value,
-        name,
-        value,
-        suplier_id,
-        supplier_name,
-        brand,
-        country_of_manufacture,
-        cost,
-        parent_gender,
-        simple_gender,
-        simple_product_type,
-        parent_product_type,
-        size,
-        colour,
-        price,
-        min(special_price) special_price,
-        outlet_price,
-        outlet_category,
-        canUseForWHSale,
-        barcode,
-        nego,
-        buyer_id,
-        buyer,
-        level_1,
-        level_2,
-        level_3, 
-        string_agg(parent_category) parent_category, 
-        tax, 
-        tax_class, 
+select  
+    * except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price),
+    replace(
         replace(
-            replace(
-                if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
-                    RTRIM(
-                        REGEXP_EXTRACT(string_agg(flashsale_category)            
-            -- The REGEXP_EXTRACT help to keep only characters up to the 3rd comma as Buying team doesn't want more than 3 categories
-                        , '(?:.*?,){3}')
-        -- RTRIM to remove the last comma
-                    , ','),
-                string_agg(flashsale_category))
+            if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
+                RTRIM(
+                    REGEXP_EXTRACT(string_agg(flashsale_category)            
+        -- The REGEXP_EXTRACT help to keep only characters up to the 3rd comma as Buying team doesn't want more than 3 categories
+                    , '(?:.*?,){3}')
+    -- RTRIM to remove the last comma
+                , ','),
+            string_agg(flashsale_category))
     -- replacing commas by return carriage
-            , ',', '\n')
--- removing the initial unwanted 'Root Catalog>Brand Alley UK>' categories
-        , 'Root Catalog>Brand Alley UK>', '') flashsale_category, 
-        category 
-        from (
-select  child_entity_id,
-        child_sku,
-        min_qty,
-        qty,
-        string_agg(distinct child_parent_sku) as child_parent_sku,
-        min(child_parent_sku_created_at) as child_parent_sku_created_at,
-        image_value,
-        name,
-        value,
-        suplier_id,
-        supplier_name,
-        brand,
-        country_of_manufacture,
-        cost,
-        parent_gender,
-        simple_gender,
-        simple_product_type,
-        parent_product_type,
-        size,
-        colour,
-        price,
-        min(special_price) special_price,
-        outlet_price,
-        outlet_category,
-        canUseForWHSale,
-        barcode,
-        nego,
-        buyer_id,
-        buyer,
-        stock.level_1,
-        stock.level_2,
-        stock.level_3, 
-        string_agg(distinct parent_category) parent_category, 
-        tax, 
-        tax_class,
-        (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value) flashsale_category,
-        cat_map.category
-from stock_file_raw stock
-        LEFT JOIN
-        -- join on the mapping provided by the buying team
-        -- the logic is we look at outlet_category first to do the join. If not possible we use parent_category then flashsale_category.
-		{{ source(
-            'utils',
-            'category_mapping'
-        ) }}
-        cat_map on 
-        -- join on level 1 (First element of path in outlet_category, 3rd element in parent_category and flashsale_category)
-        IF(stock.level_1 is not null, 
-            stock.level_1, 
-            IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>2, 
-                SPLIT(parent_category, '>')[offset(2)], 
-                    if(flashsale_category is not null, 
-                        SPLIT(flashsale_category, '>')[offset(2)], null)
-                )
-            ) = cat_map.row_label and 
-        -- join on level 2 (Second element of path in outlet_category, 4th element in parent_category and flashsale_category)
-        IF(stock.level_2 is not null, 
-            stock.level_2, 
-            IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>3, 
-                SPLIT(parent_category, '>')[offset(3)], 
-                    if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>0, 
-                        SPLIT(flashsale_category, '>')[offset(3)], null)
-                )
-            ) = cat_map.level_2 and 
-        -- join on level 3 (Third element of path in outlet_category, 5th element in parent_category and flashsale_category)
-        IF(stock.level_3 is not null, 
-            stock.level_3, 
-            IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>4, 
-                SPLIT(parent_category, '>')[offset(4)], 
-                    if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>1, 
-                        SPLIT(flashsale_category, '>')[offset(4)], null)
-                )
-            ) = cat_map.level_3
-    group by    child_entity_id,
-                child_sku,
-                min_qty,
-                qty,
-                image_value,
-                name,
-                value,
-                suplier_id,
-                supplier_name,
-                brand,
-                country_of_manufacture,
-                cost,
-                parent_gender,
-                simple_gender,
-                simple_product_type,
-                parent_product_type,
-                size,
-                colour,
-                price,
-                outlet_price,
-                outlet_category,
-                canUseForWHSale,
-                barcode,
-                nego,
-                buyer_id,
-                buyer,
-                stock.level_1,
-                stock.level_2,
-                stock.level_3,
-                cat_map.category, 
-                flashsale_category, 
-                tax, 
-                tax_class)
-group by    child_entity_id,
-            child_sku,
-            min_qty,
-            qty,
-            image_value,
-            name,
-            value,
-            suplier_id,
-            supplier_name,
-            brand,
-            country_of_manufacture,
-            cost,
-            parent_gender,
-            simple_gender,
-            simple_product_type,
-            parent_product_type,
-            size,
-            colour,
-            price,
-            outlet_price,
-            outlet_category,
-            canUseForWHSale,
-            barcode,
-            nego,
-            buyer_id,
-            buyer,
-            level_1,
-            level_2,
-            level_3, 
-            category, 
-            tax, 
-            tax_class
+        , ',', '\n')
+    -- removing the initial unwanted 'Root Catalog>Brand Alley UK>' categories
+    , 'Root Catalog>Brand Alley UK>', '')   as flashsale_category, 
+    string_agg(distinct child_parent_sku)   as child_parent_sku,
+    min(child_parent_sku_created_at)        as child_parent_sku_created_at,
+    string_agg(parent_category)             as parent_category, 
+    min(special_price)                      as special_price
+from stock_file_2
+{{ dbt_utils.group_by(33) }}
