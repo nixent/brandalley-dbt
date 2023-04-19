@@ -840,6 +840,9 @@ models:
               round: 0
               format: 'gbp'  
       - name: order_fulfillment_type
+        description: ""
+      - name: qty_to_ship
+        description: "number of items still to ship"
 
   - name: OrderLinesNullParent
     description: ""
@@ -1578,4 +1581,4 @@ models:
           dimension:
             type: number
       - name: country_id
-        description: shipping country
+        description: "shipping country"
