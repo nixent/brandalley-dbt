@@ -1384,6 +1384,8 @@ models:
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
         - join: orders_enriched 
           sql_on: ${Orders.magentoID} = ${orders_enriched.order_id}
+        - join: stg__sales_payment_transaction #This is not 1 to 1 transaction. Filter on parent_id is null or txn_type for that
+          sql_on: ${Orders.magentoID} = ${stg__sales_payment_transaction.order_id}
     columns:
       - name: increment_id
         description: "Increment id, nullable"
@@ -1575,3 +1577,5 @@ models:
         meta: 
           dimension:
             type: number
+      - name: country_id
+        description: shipping country

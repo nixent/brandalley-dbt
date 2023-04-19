@@ -95,7 +95,8 @@ order_info as (
 		sfo.total_qty_ordered,
 		cc_trans_id, 
 		additional_information,
-		timestamp_diff(safe_cast(sfo.created_at as timestamp), safe_cast(ce.dt_cr as timestamp), day ) as days_since_signup
+		timestamp_diff(safe_cast(sfo.created_at as timestamp), safe_cast(ce.dt_cr as timestamp), day ) as days_since_signup,
+        sfoa.country_id
 	from order_updates sfo
 	left join {{ ref('stg__sales_flat_order_address') }} sfoa
 		on sfoa.entity_id = sfo.shipping_address_id
@@ -104,7 +105,7 @@ order_info as (
 	left join {{ ref('stg__sales_flat_order_payment') }} sfop
 		on sfo.entity_id = sfop.parent_id
 	left join {{ ref('customers') }} ce
-			on ce.cst_id = sfo.customer_id
+		on ce.cst_id = sfo.customer_id
 )
 
 select 

@@ -54,6 +54,7 @@ with order_lines as (
 		sfoi_sim.qty_invoiced,
 		sfoi_con.qty_refunded,
 		sfoi_con.qty_shipped,
+        sfoi_sim.qty_ordered-sfoi_con.qty_canceled-sfoi_con.qty_refunded-sfoi_con.qty_shipped                                                               as qty_to_ship,
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
@@ -330,7 +331,7 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(61)}}
+	{{dbt_utils.group_by(62)}}
 )
 
 
