@@ -1162,3 +1162,125 @@ sources:
           - name: user_id
             data_type: <integer>
             description: "user_id"
+      - name: call_metric
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "Primary key"
+          - name: agent_id
+            data_type: <integer>
+            description: "Agent ID"
+          - name: call_charge
+            data_type: <string>
+            description: "Call charge"
+          - name: call_group_id
+            data_type: <integer>
+            description: "Call group ID"
+          - name: call_recording_consent
+            data_type: <string>
+            description: "Call recording consent"
+          - name: call_recording_consent_action
+            data_type: <string>
+            description: "Call recording consent action"
+          - name: call_recording_consent_keypress
+            data_type: <string>
+            description: "Call recording consent keypress"
+          - name: callback
+            data_type: <string>
+            description: "Callback"
+          - name: callback_source
+            data_type: <string>
+            description: "Callback source"
+          - name: completion_status
+            data_type: <string>
+            description: "Completion status"
+          - name: consultation_time
+            data_type: <integer>
+            description: "Consultation time"
+          - name: created_at
+            data_type: <timestamp>
+            description: "Created at"
+          - name: customer_requested_voicemail
+            data_type: <string>
+            description: "Customer requested voicemail"
+          - name: default_group
+            data_type: <string>
+            description: "Default group"
+          - name: direction
+            data_type: <string>
+            description: "Direction"
+          - name: duration
+            data_type: <integer>
+            description: "Duration"
+          - name: exceeded_queue_wait_time
+            data_type: <string>
+            description: "Exceeded queue wait time"
+          - name: hold_time
+            data_type: <integer>
+            description: "Hold time"
+          - name: ivr_action
+            data_type: <string>
+            description: "IVR action"
+          - name: ivr_destination_group_name
+            data_type: <string>
+            description: "IVR destination group name"
+          - name: ivr_hops
+            data_type: <integer>
+            description: "IVR hops"
+          - name: ivr_routed_to
+            data_type: <string>
+            description: "IVR routed to"
+          - name: ivr_time_spent
+            data_type: <integer>
+            description: "IVR time spent"
+          - name: minutes_billed
+            data_type: <integer>
+            description: "Minutes billed"
+          - name: not_recording_time
+            data_type: <integer>
+            description: "Not recording time"
+          - name: outside_business_hours
+            data_type: <string>
+            description: "Outside business hours"
+          - name: overflowed
+            data_type: <string>
+            description: "Overflowed"
+          - name: overflowed_to
+            data_type: <string>
+            description: "Overflowed to"
+          - name: phone_number
+            data_type: <string>
+            description: "Phone number"
+          - name: phone_number_id
+            data_type: <integer>
+            description: "Phone number id"
+          - name: quality_issues
+            data_type: <string>
+            description: "Quality issues"
+          - name: recording_control_interactions
+            data_type: <integer>
+            description: "Recording control interactions"
+          - name: recording_time
+            data_type: <integer>
+            description: "Recording time"
+          - name: talk_time
+            data_type: <integer>
+            description: "Talk time"
+          - name: ticket_id
+            data_type: <integer>
+            description: "Ticket id"
+          - name: time_to_answer
+            data_type: <integer>
+            description: "Time to answer"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "Update date"
+          - name: voicemail
+            data_type: <string>
+            description: "Voicemail"
+          - name: wait_time
+            data_type: <integer>
+            description: "Wait time"
+          - name: wrap_up_time
+            data_type: <integer>
+            description: "Wrap up time"

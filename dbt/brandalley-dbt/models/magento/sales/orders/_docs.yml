@@ -840,6 +840,9 @@ models:
               round: 0
               format: 'gbp'  
       - name: order_fulfillment_type
+        description: ""
+      - name: qty_to_ship
+        description: "number of items still to ship"
 
   - name: OrderLinesNullParent
     description: ""
@@ -1384,6 +1387,8 @@ models:
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id}
         - join: orders_enriched 
           sql_on: ${Orders.magentoID} = ${orders_enriched.order_id}
+        - join: stg__sales_payment_transaction 
+          sql_on: ${Orders.magentoID} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null
     columns:
       - name: increment_id
         description: "Increment id, nullable"
@@ -1575,3 +1580,5 @@ models:
         meta: 
           dimension:
             type: number
+      - name: country_id
+        description: "shipping country"
