@@ -66,4 +66,4 @@ vars:
   surrogate_key_treat_nulls_as_empty_strings: true
   using_domain_names:         False         #Disable if you are not using domain names
   using_organization_tags:    False         #Disable if you are not using organization tags
-  zendesk__ticket_passthrough_columns: [account_custom_field_1,account_custom_field_13]
+  zendesk__ticket_passthrough_columns: [Contact Reason,Business Impact]
