@@ -842,6 +842,7 @@ models:
       - name: order_fulfillment_type
         description: ""
       - name: qty_to_ship
+        data_type: <integer>
         description: "number of items still to ship"
 
   - name: OrderLinesNullParent
