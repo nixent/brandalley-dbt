@@ -109,7 +109,36 @@ models:
               description: "Number of tickets coming from email in Zendesk"
               hidden: false
               round: 0      
-  - name: call_metric
+      - name: custom_carrier
+        description: "carrier"
+      - name: custom_client_contact_reason_no_order
+        description: "Client contact reason no order"
+      - name: custom_client_contact_reason_order
+        description: "custom_client_contact_reason_order"
+      - name: custom_contact_reason
+        description: "custom_contact_reason"
+      - name: custom_coupon_code
+        description: "custom_coupon_code"
+      - name: custom_needs_senior_help
+        description: "custom_needs_senior_help"
+      - name: custom_order_id
+        description: "custom_order_id"
+      - name: custom_order_number
+        description: "custom_order_number"
+      - name: custom_order_related
+        description: "custom_order_related"
+      - name: custom_product_issue_type
+        description: "custom_product_issue_type"
+      - name: custom_shipping_issue_type
+        description: "custom_shipping_issue_type"
+      - name: custom_solution
+        description: "custom_solution"
+      - name: custom_status_id
+        description: "custom_status_id"
+      - name: custom_tracking_
+        description: "custom_tracking_"
+            
+  - name: zendesk_call_metric
     columns:
       - name: id
         data_type: <integer>

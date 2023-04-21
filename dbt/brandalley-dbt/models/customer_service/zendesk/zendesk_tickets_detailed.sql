@@ -46,7 +46,21 @@ with tickets as (
             if(via_channel='native_messaging', 1, 0) as chat_ticket,
             if(via_channel in ('web','email'), 1, 0) as web_email_ticket,
             if(via_channel='web', 1, 0) as web_ticket,
-            if(via_channel='email', 1, 0) as email_ticket
+            if(via_channel='email', 1, 0) as email_ticket,
+            custom_carrier,
+            custom_client_contact_reason_no_order,
+            custom_client_contact_reason_order,
+            custom_contact_reason,
+            custom_coupon_code,
+            custom_needs_senior_help,
+            custom_order_id,
+            custom_order_number,
+            custom_order_related,
+            custom_product_issue_type,
+            custom_shipping_issue_type,
+            custom_solution,
+            custom_status_id,
+            custom_tracking_
     from {{ source(
         'zendesk',
         'ticket'
