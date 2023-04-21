@@ -66,3 +66,4 @@ vars:
   surrogate_key_treat_nulls_as_empty_strings: true
   using_domain_names:         False         #Disable if you are not using domain names
   using_organization_tags:    False         #Disable if you are not using organization tags
+  zendesk__ticket_passthrough_columns: [custom_contact_reason,custom_coupon_code,custom_order_number,custom_carrier,custom_client_contact_reason_no_order,custom_client_contact_reason_order]
