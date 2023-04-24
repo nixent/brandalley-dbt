@@ -280,7 +280,7 @@ models:
         data_type: <integer>
         description: "Wrap up time"
 
-  - name: zendesk_call_metric
+  - name: daily_zendesk_call
     columns:
       - name: created_at
         description: "created_at"
