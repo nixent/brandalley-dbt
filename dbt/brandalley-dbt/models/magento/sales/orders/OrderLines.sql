@@ -211,6 +211,10 @@ with order_lines as (
 		cpn.sap_ref,
 		cpn.status 																																			as cpn_status,
 		eaov_product_age.value																																as product_age,
+        row_number() over (partition by sfo.increment_id order by case
+			when sfoi_con.dispatch_date < cast('2014-06-11' as date) then null
+			else sfoi_con.dispatch_date
+		end, sfoi_sim.sku asc)                                                                                                                              as shipping_order,
 		coalesce(max(cpe.sku), 'Unknown') 																													as parent_sku,
 		max(cpr.reference) 																																	as REFERENCE,
 		sum((sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount) 															as TOTAL_GBP_after_vouchers,
@@ -222,11 +226,7 @@ with order_lines as (
 		sum(if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 								as consignment_totalGBP_inc_tax,
 		sum(if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price) 										as consignment_totalGBP_ex_tax,       
 		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 	as warehouse_totalGBP_inc_tax,
-		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price) 				as warehouse_totalGBP_ex_tax,
-        row_number() over (partition by sfo.increment_id order by case
-			when sfoi_con.dispatch_date < cast('2014-06-11' as date) then null
-			else sfoi_con.dispatch_date
-		end, sfoi_sim.sku asc)                                                                                                                              as shipping_order
+		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price) 				as warehouse_totalGBP_ex_tax
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id
@@ -335,7 +335,7 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(62)}}
+	{{dbt_utils.group_by(63)}}
 )
 
 
