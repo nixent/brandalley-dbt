@@ -59,10 +59,7 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
-		case
-			when sfoi_con.dispatch_date < cast('2014-06-11' as date) then null
-			else sfoi_con.dispatch_date
-		end 																																				as dispatch_due_date,
+		sfoi_con.dispatch_date 																																as dispatch_due_date,
 		cast((sfoi_sim.base_cost) as decimal) 																												as product_cost_exc_vat,
 		(sfoi_sim.base_cost) * sfoi_sim.qty_ordered 																										as line_product_cost_exc_vat,
 		sfoi_con.original_price 																															as flash_price_inc_vat,
@@ -211,10 +208,7 @@ with order_lines as (
 		cpn.sap_ref,
 		cpn.status 																																			as cpn_status,
 		eaov_product_age.value																																as product_age,
-        row_number() over (partition by sfo.increment_id order by case
-			when sfoi_con.dispatch_date < cast('2014-06-11' as date) then null
-			else sfoi_con.dispatch_date
-		end, sfoi_sim.sku asc)                                                                                                                              as shipping_order,
+        row_number() over (sfoi_con.dispatch_date, sfoi_sim.sku asc)                                                                                        as shipping_order,
 		coalesce(max(cpe.sku), 'Unknown') 																													as parent_sku,
 		max(cpr.reference) 																																	as REFERENCE,
 		sum((sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount) 															as TOTAL_GBP_after_vouchers,
