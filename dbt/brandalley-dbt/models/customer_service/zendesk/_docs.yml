@@ -288,7 +288,7 @@ models:
           dimension:
             type: date
             time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'date(zendesk_call_metric.created_at, "Europe/London")'             
+            sql: 'date(daily_zendesk_call.created_at, "Europe/London")'             
       - name: number_of_calls
         description: "Number of calls"
         meta:
