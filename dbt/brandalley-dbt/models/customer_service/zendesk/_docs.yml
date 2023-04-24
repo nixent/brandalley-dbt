@@ -143,15 +143,31 @@ models:
       - name: id
         data_type: <integer>
         description: "Primary key"
+        meta:
+          dimension:
+            format: id
+          metrics:
+            ticket_count:
+              label: 'Number of tickets coming from phone'
+              type: count_distinct
+              description: "Number of tickets coming from phone"
+              hidden: false
+              round: 0      
       - name: agent_id
         data_type: <integer>
         description: "Agent ID"
+        meta:
+          dimension:
+            format: id
       - name: call_charge
         data_type: <string>
         description: "Call charge"
       - name: call_group_id
         data_type: <integer>
         description: "Call group ID"
+        meta:
+          dimension:
+            format: id
       - name: call_recording_consent
         data_type: <string>
         description: "Call recording consent"
@@ -245,6 +261,9 @@ models:
       - name: ticket_id
         data_type: <integer>
         description: "Ticket id"
+        meta:
+          dimension:
+            format: id
       - name: time_to_answer
         data_type: <integer>
         description: "Time to answer"
@@ -260,3 +279,93 @@ models:
       - name: wrap_up_time
         data_type: <integer>
         description: "Wrap up time"
+
+  - name: zendesk_call_metric
+    columns:
+      - name: created_at
+        description: "created_at"
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']
+            sql: 'date(zendesk_call_metric.created_at, "Europe/London")'             
+      - name: number_of_calls
+        description: "Number of calls"
+        meta:
+          metrics:
+            total_zendesk_calls:
+              label: 'Total number of calls from zendesk'
+              type: sum
+              description: "Number of calls from Zendesk"
+              hidden: false
+              round: 0      
+      - name: inbound_calls
+        description: "Number of inbound calls"
+        meta:
+          metrics:
+            total_zendesk_inbound_calls:
+              label: 'Total number of inbound calls from zendesk'
+              type: sum
+              description: "Number of inbound calls from Zendesk"
+              hidden: false
+              round: 0      
+      - name: outbound_calls
+        description: "Number of outbound calls"
+        meta:
+          metrics:
+            total_zendesk_inbound_calls:
+              label: 'Total number of outbound calls from zendesk'
+              type: sum
+              description: "Number of outbound calls from Zendesk"
+              hidden: false
+              round: 0      
+      - name: completed_calls
+        description: "Number of completed calls"
+        meta:
+          metrics:
+            total_zendesk_completed_calls:
+              label: 'Total number of completed calls from zendesk'
+              type: sum
+              description: "Number of completed calls from Zendesk"
+              hidden: false
+              round: 0      
+      - name: abandoned_calls
+        description: "Number of abandoned calls"
+        meta:
+          metrics:
+            total_zendesk_abandoned_calls:
+              label: 'Total number of abandoned calls from zendesk'
+              type: sum
+              description: "Number of abandoned calls from Zendesk"
+              hidden: false
+              round: 0      
+      - name: call_duration
+        description: "Sum of all calls duration in HH:mm:SS format"
+      - name: inbound_duration
+        description: "Sum of inbound calls duration in HH:mm:SS format"
+      - name: outbound_duration
+        description: "Sum of outbound calls duration in HH:mm:SS format"
+      - name: completed_duration
+        description: "Sum of completed calls duration in HH:mm:SS format"
+      - name: abandoned_duration
+        description: "Sum of abandoned calls duration in HH:mm:SS format"
+      - name: avg_call_duration
+        description: "Avg of all calls duration in HH:mm:SS format"
+      - name: avg_inbound_duration
+        description: "Avg of inbound calls duration in HH:mm:SS format"
+      - name: avg_outbound_duration
+        description: "Avg of outbound calls duration in HH:mm:SS format"
+      - name: avg_completed_duration
+        description: "Avg of completed calls duration in HH:mm:SS format"
+      - name: avg_abandoned_duration
+        description: "Avg of abandoned calls duration in HH:mm:SS format"
+      - name: max_call_duration
+        description: "Max of all calls duration in HH:mm:SS format"
+      - name: max_inbound_duration
+        description: "Max of inbound calls duration in HH:mm:SS format"
+      - name: max_outbound_duration
+        description: "Max of outbound calls duration in HH:mm:SS format"
+      - name: max_completed_duration
+        description: "Max of completed calls duration in HH:mm:SS format"
+      - name: max_abandoned_duration
+        description: "Max of abandoned calls duration in HH:mm:SS format"
