@@ -223,7 +223,7 @@ with order_lines as (
 		sum(if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price) 										as consignment_totalGBP_ex_tax,       
 		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 	as warehouse_totalGBP_inc_tax,
 		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price) 				as warehouse_totalGBP_ex_tax,
-        row_number() over (partition by order_number order by dispatch_due_date, sku asc)                                                                   as shipping_order
+        row_number() over (partition by sfo.increment_id order by dispatch_due_date, sku asc)                                                               as shipping_order
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id
