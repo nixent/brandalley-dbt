@@ -653,7 +653,7 @@ models:
   - name: stg__cataloginventory_stock_item
     description: ""
     columns:
-      - name: ba_site_item_id
+      - name: ba_site_product_id
         description: "Primary key"
         tests:
           - unique

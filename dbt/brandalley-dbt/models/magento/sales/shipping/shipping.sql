@@ -12,21 +12,18 @@ SELECT
             IFNULL(CAST(sfsi.entity_id AS STRING), '_'),
             IFNULL(CAST(sfsi.sap_id AS STRING), '_')
         )
-    ) unique_id,
+    ) as unique_id,
     sfsi.ba_site,
     sfsi.product_id,
     sfsi.sku,
     sfsi.qty,
     sfsi.weight,
-    sfo.increment_id order_id,
+    sfo.increment_id as order_id,
     sfs.customer_id,
     sfoa.postcode,
-    sfs.increment_id shipment_id,
-    sfo.created_at order_date,
-    IFNULL(
-        sfs.created_at,
-        '0000-00-00 00:00:00'
-    ) shipment_date,
+    sfs.increment_id as shipment_id,
+    sfo.created_at as order_date,
+    sfs.created_at as shipment_date,
     sfs.updated_at
 FROM
     {{ ref(
