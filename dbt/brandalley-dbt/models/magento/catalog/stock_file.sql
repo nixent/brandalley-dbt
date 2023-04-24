@@ -1,5 +1,6 @@
 with stock_file_raw as (
     select 
+        e.ba_site || '-' || e.entity_id                 as ba_site_child_entity_id,
         e.entity_id                                     as child_entity_id,
         e.sku                                           as child_sku,
         e.ba_site,
@@ -101,11 +102,11 @@ with stock_file_raw as (
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_parent_gender 
         on cpev_parent_gender.attribute_id = 180
             and cpev_parent_gender.entity_id = parent_relation.parent_id
-            and cpev_parent.ba_site = parent_relation.ba_site
+            and cpev_parent_gender.ba_site = parent_relation.ba_site
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_simple_gender 
         on cpev_simple_gender.attribute_id = 180
             and cpev_simple_gender.entity_id = e.entity_id
-            and e.ba_site = cpev_simple.ba_site
+            and e.ba_site = cpev_simple_gender.ba_site
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_simple_type 
         on cpev_simple_type.attribute_id = 179
             and cpev_simple_type.entity_id = e.entity_id
@@ -113,11 +114,11 @@ with stock_file_raw as (
     left join {{ ref('stg__eav_attribute_option_value') }} eaov_simple_type
         on cpev_simple_type.value = cast(eaov_simple_type.option_id as string)
             and eaov_simple_type.store_id = 0
-            and cpev_simple.ba_site = eaov_simple.ba_site
+            and cpev_simple_type.ba_site = eaov_simple_type.ba_site
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_parent_type 
         on cpev_parent_type.attribute_id = 179
             and cpev_parent_type.entity_id = parent_relation.parent_id
-            and cpev_parent.ba_site = parent_relation.ba_site
+            and cpev_parent_type.ba_site = parent_relation.ba_site
     left join {{ ref('stg__eav_attribute_option_value') }} eaov_parent_type
         on cpev_parent_type.value = cast(eaov_parent_type.option_id as string)
             and eaov_simple_type.store_id = 0
@@ -157,7 +158,7 @@ with stock_file_raw as (
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_outlet_category 
         on cpev_outlet_category.attribute_id = 205
             and cpev_outlet_category.entity_id = e.entity_id
-            and e.ba_site = cpev_outlet.ba_site
+            and e.ba_site = cpev_outlet_category.ba_site
     left join {{ ref('stg__catalog_product_super_link') }} parent_relation_child 
         on parent_relation_child.parent_id = parent_relation.parent_id
             and parent_relation_child.ba_site = parent_relation.ba_site
@@ -200,7 +201,7 @@ with stock_file_raw as (
             and cpei_menu_type_1.ba_site = category.ba_site
     where e.type_id = 'simple'
         and stock.qty > 0
-    {{ dbt_utils.group_by(34) }}, cpei_menu_type_3.value, cpei_menu_type_1.value
+    {{ dbt_utils.group_by(35) }}, cpei_menu_type_3.value, cpei_menu_type_1.value
  ),
 
  stock_file_2 as (
@@ -246,7 +247,7 @@ with stock_file_raw as (
                             SPLIT(flashsale_category, '>')[offset(4)], null)
                     )
                 ) = cat_map.level_3
-    {{ dbt_utils.group_by(34) }}, flashsale_category
+    {{ dbt_utils.group_by(36) }}, flashsale_category
  )
 
 select  
@@ -270,4 +271,4 @@ select
     string_agg(parent_category)             as parent_category, 
     min(special_price)                      as special_price
 from stock_file_2
-{{ dbt_utils.group_by(33) }}
+{{ dbt_utils.group_by(35) }}

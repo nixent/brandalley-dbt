@@ -384,8 +384,7 @@ models:
   - name: stock_file
     description: ""
     columns:
-      - name: ba_site
-      - name: child_entity_id
+      - name: ba_site_child_entity_id
         description: "Primary Key"
         tests:
           - unique
@@ -400,7 +399,9 @@ models:
               description: "Number of entity id"
               hidden: false
               round: 0 
-              sql: ${ba_site} || ${child_entity_id}
+      - name: ba_site
+      - name: child_entity_id
+        description: "Primary Key at site level"
       - name: child_sku
         description: "child sku, nullable"
       - name: min_qty
