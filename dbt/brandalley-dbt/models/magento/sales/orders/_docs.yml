@@ -844,6 +844,8 @@ models:
       - name: qty_to_ship
         data_type: <integer>
         description: "number of items still to ship"
+      - name: shipping_order
+        description: "Index of the shipment for orders"
 
   - name: OrderLinesNullParent
     description: ""
