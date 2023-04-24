@@ -208,7 +208,7 @@ with order_lines as (
 		cpn.sap_ref,
 		cpn.status 																																			as cpn_status,
 		eaov_product_age.value																																as product_age,
-        row_number() over (sfoi_con.dispatch_date, sfoi_sim.sku asc)                                                                                        as shipping_order,
+        row_number() over (partition by sfo.increment_id order by sfoi_con.dispatch_date, sfoi_sim.sku asc)                                                 as shipping_order,
 		coalesce(max(cpe.sku), 'Unknown') 																													as parent_sku,
 		max(cpr.reference) 																																	as REFERENCE,
 		sum((sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount) 															as TOTAL_GBP_after_vouchers,
