@@ -1399,7 +1399,7 @@ models:
         - join: orders_enriched 
           sql_on: ${Orders.magentoID} = ${orders_enriched.order_id} and ${Orders.ba_site} = ${orders_enriched.ba_site}
         - join: stg__sales_payment_transaction 
-          sql_on: ${Orders.magentoID} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null
+          sql_on: ${Orders.magentoID} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${Orders.ba_site} = ${stg__sales_payment_transaction.ba_site}
     columns:
       - name: ba_site_increment_id
         tests:
