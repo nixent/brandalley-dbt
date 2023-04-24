@@ -187,7 +187,7 @@ with stock_file_raw as (
             and cpn.ba_site = au.ba_site
     left join {{ ref('catalog_category_flat_store_1_enriched') }} category_details 
         on category.category_id = category_details.entity_id
-            and and category.ba_site = category_details.ba_site
+            and category.ba_site = category_details.ba_site
     left join {{ ref('stg__catalog_category_entity_int') }} cpei_menu_type_3 
         on cpei_menu_type_3.attribute_id = 373
             and cpei_menu_type_3.entity_id = category.category_id
