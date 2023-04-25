@@ -1,13 +1,13 @@
 {{ config(
 	materialized='incremental',
 	unique_key='increment_id',
-	cluster_by=['customer_id'],
+	cluster_by=['status','customer_id'],
 	partition_by = {
       "field": "created_at",
       "data_type": "timestamp",
       "granularity": "day"
     },
-	post_hook="delete from {{this}} where status = 'pending_payment'"
+	post_hook="delete from {{this}} where status in ('pending_payment', 'canceled')"
 ) }}
 
 with order_updates as (
