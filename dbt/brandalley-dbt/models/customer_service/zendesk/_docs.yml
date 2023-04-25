@@ -288,7 +288,7 @@ models:
           dimension:
             type: date
             time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'date(daily_zendesk_call.created_at, "Europe/London")'             
+            sql: 'timestamp(daily_zendesk_call.created_at, "Europe/London")'             
       - name: number_of_calls
         description: "Number of calls"
         meta:
@@ -340,32 +340,47 @@ models:
               hidden: false
               round: 0      
       - name: call_duration
+        data_type: <string>
         description: "Sum of all calls duration in HH:mm:SS format"
       - name: inbound_duration
+        data_type: <string>
         description: "Sum of inbound calls duration in HH:mm:SS format"
       - name: outbound_duration
+        data_type: <string>
         description: "Sum of outbound calls duration in HH:mm:SS format"
       - name: completed_duration
+        data_type: <string>
         description: "Sum of completed calls duration in HH:mm:SS format"
       - name: abandoned_duration
+        data_type: <string>
         description: "Sum of abandoned calls duration in HH:mm:SS format"
       - name: avg_call_duration
+        data_type: <string>
         description: "Avg of all calls duration in HH:mm:SS format"
       - name: avg_inbound_duration
+        data_type: <string>
         description: "Avg of inbound calls duration in HH:mm:SS format"
       - name: avg_outbound_duration
+        data_type: <string>
         description: "Avg of outbound calls duration in HH:mm:SS format"
       - name: avg_completed_duration
+        data_type: <string>
         description: "Avg of completed calls duration in HH:mm:SS format"
       - name: avg_abandoned_duration
+        data_type: <string>
         description: "Avg of abandoned calls duration in HH:mm:SS format"
       - name: max_call_duration
+        data_type: <string>
         description: "Max of all calls duration in HH:mm:SS format"
       - name: max_inbound_duration
+        data_type: <string>
         description: "Max of inbound calls duration in HH:mm:SS format"
       - name: max_outbound_duration
+        data_type: <string>
         description: "Max of outbound calls duration in HH:mm:SS format"
       - name: max_completed_duration
+        data_type: <string>
         description: "Max of completed calls duration in HH:mm:SS format"
       - name: max_abandoned_duration
+        data_type: <string>
         description: "Max of abandoned calls duration in HH:mm:SS format"
