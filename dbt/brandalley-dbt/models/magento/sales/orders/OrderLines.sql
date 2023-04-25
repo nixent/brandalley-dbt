@@ -1,7 +1,7 @@
 {{ config(
 	materialized='incremental',
 	unique_key='unique_id',
-	cluster_by='order_id',
+	cluster_by=['order_status','order_id'],
 	partition_by = {
       "field": "created_at",
       "data_type": "timestamp",
