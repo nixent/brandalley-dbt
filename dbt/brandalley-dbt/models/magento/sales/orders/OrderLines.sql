@@ -7,7 +7,7 @@
       "data_type": "timestamp",
       "granularity": "day"
     },
-	post_hook="delete from {{this}} where order_status in ('pending_payment', 'canceled')"
+	post_hook="delete from {{this}} where order_status = 'pending_payment'"
 ) }}
 
 {% set min_ts = '2023-02-01' %}
