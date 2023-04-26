@@ -40,7 +40,7 @@ shipping_stats as (
     select
         date_trunc(datetime(timestamp(order_date), "Europe/London"), month) as order_created_at_month,
         ba_site,
-        round(avg(if(shipment_date != '0000-00-00 00:00:00', date_diff(date((shipment_date)), date((order_date)), day), null)),1) as avg_time_to_ship_days
+        round(avg(if(date_diff(date((shipment_date)), date((order_date)), day))),1) as avg_time_to_ship_days
     from {{ ref('shipping') }}
     group by 1,2
 ),
