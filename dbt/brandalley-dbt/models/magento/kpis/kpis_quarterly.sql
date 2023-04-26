@@ -25,7 +25,7 @@ customer_stats as (
 refund_stats as (
     select
         date_trunc(datetime(timestamp(sfc.created_at), "Europe/London"), quarter)       as order_created_at_quarter,
-        ba_site,
+        sfc.ba_site,
         count(sfc.entity_id)                    as total_refund_count,
         count(sfci.entity_id)                   as total_item_refund_count,
         round(sum(sfci.base_row_total),2)       as total_refund_amount
@@ -48,7 +48,7 @@ shipping_stats as (
 order_line_stats as (
     select
         date_trunc(datetime(o.created_at, "Europe/London"), quarter)                                         as order_created_at_quarter,
-        ba_site,
+        ol.ba_site,
         round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
         round(sum(ol.TOTAL_GBP_ex_tax_after_vouchers),2)                        as sales_amount,
