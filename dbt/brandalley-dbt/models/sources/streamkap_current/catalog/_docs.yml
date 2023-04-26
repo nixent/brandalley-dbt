@@ -1363,6 +1363,13 @@ models:
 
       - name: stg__stock_prism_grn
         columns:
+          - name: ba_site_grn_id
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: ba_site
+            description: "Brand Alley Site"
           - name: grn_id
             data_type: <integer>
             description: "Primary key"
@@ -1384,6 +1391,13 @@ models:
 
       - name: stg__stock_prism_grn_item
         columns:
+          - name: ba_site_id
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: ba_site
+            description: "Brand Alley Site"
           - name: id
             data_type: <integer>
             description: "Primary key"
