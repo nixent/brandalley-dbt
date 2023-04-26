@@ -41,7 +41,7 @@ with customers_updated as (
 	union all
 
 	select 
-		customer_id, bq_last_processed_at
+		customer_id, ba_site, bq_last_processed_at
 	from {{ ref('stg__newsletter_subscriber') }} 
 	where bq_last_processed_at > ( select max(subscriber_bq_last_processed_at) from {{this}} )
 )
@@ -194,6 +194,6 @@ left join {{ ref('stg__customer_entity_datetime') }} cei_367
 		and ce.ba_site = cei_367.ba_site
 where 1=1
 {% if is_incremental() %}
-	and ce.entity_id || '-' || ba_site in (select customer_id || '-' || ba_site from customers_updated)
+	and ce.entity_id || '-' || ce.ba_site in (select customer_id || '-' || ba_site from customers_updated)
 	and ce.bq_last_processed_at >= (select min(bq_last_processed_at) from customers_updated)
 {% endif %}
