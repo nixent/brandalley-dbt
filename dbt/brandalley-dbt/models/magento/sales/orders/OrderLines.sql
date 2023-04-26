@@ -359,7 +359,7 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(62)}}
+	{{dbt_utils.group_by(63)}}
 )
 
 
