@@ -1,6 +1,6 @@
 {{ config(
 	materialized='incremental',
-	unique_key='cst_id'
+	unique_key='ba_site_customer_id'
 ) }}
 
 {% if is_incremental() %}
@@ -178,7 +178,7 @@ left join (
 	{% endif %}
 	qualify row_number() over (partition by customer_id, ba_site order by subscriber_id desc) = 1
 ) ns
-	on ce.entity_id = ns.customer_id
+	on ce.entity_id = ns.customer_id and ce.ba_site = ns.ba_site
 left join {{ ref('stg__customer_entity_int') }}	cei_222
 	on ce.entity_id = cei_222.entity_id
        	and cei_222.attribute_id = 222
