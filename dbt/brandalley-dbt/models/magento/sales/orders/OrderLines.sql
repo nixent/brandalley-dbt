@@ -42,8 +42,8 @@ with order_lines as (
 		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, year) 																				as years_since_cohort_start,
 		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, quarter) 																			as quarters_since_cohort_start,
 		sfo.increment_id 																																	as order_number,
-		sfo.customer_id
-		sfo.ba_site, 																																	as customer_id,
+		sfo.customer_id,
+		sfo.ba_site,
 		sfoi_sim.item_id 																																	as order_item_id,
         sfoi_sim.parent_item_id,        
 		sfo.magentoID 																																		as order_id,
