@@ -61,7 +61,7 @@ select
 	ca_s_27.value s_country,
 	safe_cast(safe_cast(ce.created_at as timestamp) as datetime) 	   as dt_cr,
 	if(ns.subscriber_status = 1, 'Opted', 'Not Opted') 				   as subscription,
-	if(cet_old_acount.value = '', null, cet_old_acount.value) 		   as old_account_id,
+	if(cet_old_account.value = '', null, cet_old_account.value) 		   as old_account_id,
 	if(cei_222.value = 1, 'Yes', 'No') 								   as third_party,
 	ce.updated_at,
 	cei_363.value 													   as achica_user,
@@ -69,7 +69,7 @@ select
 	greatest(
 		ce.bq_last_processed_at, 
 		cei.bq_last_processed_at, 
-		cet_old_acount.bq_last_processed_at,
+		cet_old_account.bq_last_processed_at,
 		cei_s.bq_last_processed_at
 	) as customer_bq_last_processed_at,
 	greatest(
@@ -94,9 +94,9 @@ left join {{ ref('stg__customer_entity_int') }} cei
 -- left join {{ ref('stg__customer_entity_varchar') }} cev_7
 -- 	on ce.entity_id = cev_7.entity_id
 --        	and cev_7.attribute_id = 7
-left join {{ ref('stg__customer_entity_text') }} cet_old_acount
-	on ce.entity_id = cet_old_acount.entity_id
-       	and cet_old_acount.attribute_id = 217
+left join {{ ref('stg__customer_entity_text') }} cet_old_account
+	on ce.entity_id = cet_old_account.entity_id
+       	and cet_old_account.attribute_id = 217
 		and ce.ba_site = cet_old_account.ba_site
 -- left join {{ ref('stg__customer_address_entity_varchar') }} ca_b_20
 -- 	on cei.value = ca_b_20.entity_id
