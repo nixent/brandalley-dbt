@@ -36,7 +36,7 @@ order_sequencing as (
 			then row_number() over (partition by customer_id, ba_site, coalesce(total_paid,0) <> coalesce(total_refunded,0) and status not in ('canceled', 'closed') order by timestamp(created_at)) 
 			else null 
 		end as order_number_excl_full_refunds,
-		row_number() over (partition by customer_id, ba_site, order by timestamp(created_at)) as order_number_incl_cancellations,
+		row_number() over (partition by customer_id, ba_site order by timestamp(created_at)) as order_number_incl_cancellations,
 		case 
 			when status not in ('canceled')
 			then timestamp_diff(
