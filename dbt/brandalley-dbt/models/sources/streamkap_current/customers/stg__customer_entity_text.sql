@@ -8,7 +8,7 @@
       "granularity": "day"
     }
 )}}
-åå
+
 select
     'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'UK'                                                            as ba_site,

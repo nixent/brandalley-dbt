@@ -65,5 +65,5 @@ select  poi.po_id,
         left join {{ ref('stg__catalog_product_negotiation') }} nego 
             on po.negotiation_id = nego.negotiation_id and nego.ba_site = po.ba_site
         left join {{ ref('stg__catalog_product_negotiation_item') }} nego_item
-            on po.negotiation_id = nego_item.negotiation_id and poi.sku=nego_item.sku and neog_item.ba_site = po.ba_site
+            on po.negotiation_id = nego_item.negotiation_id and poi.sku=nego_item.sku and nego_item.ba_site = po.ba_site
 Qualify ROW_NUMBER() OVER (PARTITION BY poi.po_item_id ORDER BY spgi.delivery_date DESC) = 1
