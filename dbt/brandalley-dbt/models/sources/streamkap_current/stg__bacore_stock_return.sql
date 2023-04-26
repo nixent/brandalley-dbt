@@ -4,31 +4,56 @@
 	cluster_by='ba_site_id',
 )}}
 
--- to do when streamkap fix
-
-with unioned as (
-    select
-    {{ dbt_utils.star(
-        ref('stg_uk__bacore_stock_return'),
-        quote_identifiers=false
-    ) }}
-    from {{ ref('stg_uk__bacore_stock_return') }}
-)
-
 select
     'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'UK'                                                            as ba_site,
+    id,
+    order_item_number,
+    sku,
+    order_increment_id,
+    qty,
+    return_code,
+    created_at,
+    xml_created_at,
+    exported_to_sap,
+    wh_line_id,
+    return_service,
+    creditmemo_id,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
 from {{ ref('stg_uk__bacore_stock_return') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-union all
+{# union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'FR'                                                            as ba_site,
+    id,
+    order_item_number,
+    sku,
+    order_increment_id,
+    qty,
+    return_code,
+    created_at,
+    xml_created_at,
+    exported_to_sap,
+    wh_line_id,
+    return_service,
+    creditmemo_id,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
 from {{ ref('stg_fr__bacore_stock_return') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %}
+{% endif %} #}
