@@ -92,7 +92,7 @@ cs_stats as (
 )
 
 select
-    os.order_created_at_day || '-' || os.ba_site as ba_site_created_date,
+    os.order_created_at_quarter || '-' || os.ba_site as ba_site_created_date,
     os.order_created_at_quarter,
     os.ba_site,
     os.total_order_count,
