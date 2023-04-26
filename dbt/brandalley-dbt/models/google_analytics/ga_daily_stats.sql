@@ -47,6 +47,6 @@ where totals.visits = 1
     {% if is_incremental() %}
       and _table_suffix between '{{max_date}}' and format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
     {% endif %}
-    {% if target.name = 'testing' %}
+    {% if target.name == 'testing' %}
       and _table_suffix >= format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
     {% endif %}
