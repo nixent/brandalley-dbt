@@ -1,6 +1,7 @@
 select
     item_id,
     product_id,
+    ba_site,
     stock_id,
     qty,
     min_qty,
@@ -13,10 +14,7 @@ select
     max_sale_qty,
     use_config_max_sale_qty,
     is_in_stock,
-    case
-        when low_stock_date = '0000-00-00 00:00:00' then null
-        else low_stock_date
-    end as low_stock_date,
+    low_stock_date,
     notify_stock_qty,
     use_config_notify_stock_qty,
     manage_stock,

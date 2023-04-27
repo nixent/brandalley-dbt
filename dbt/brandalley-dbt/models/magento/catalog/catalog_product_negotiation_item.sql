@@ -1,6 +1,7 @@
 SELECT
     negotiation_item_id,
     negotiation_id,
+    ba_site,
     updated_at,
     product_id,
     product_parent_id,

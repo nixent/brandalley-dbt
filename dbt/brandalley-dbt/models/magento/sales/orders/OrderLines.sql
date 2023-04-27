@@ -35,14 +35,15 @@
 with order_lines as (
 	select
 		-- check unique key on this
-		{{dbt_utils.generate_surrogate_key(['sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfo.magentoID','cpev_pt_con.value','eaov_brand.option_id','eaov_color.option_id','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
+		{{dbt_utils.generate_surrogate_key(['sfo.ba_site','sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfo.magentoID','cpev_pt_con.value','eaov_brand.option_id','eaov_color.option_id','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
 		greatest(sfo.bq_last_processed_at, sfoi_sim.bq_last_processed_at, sfoi_con.bq_last_processed_at)													as bq_last_processed_at,
 		-- sometimes these are before reg date - how? should we set them as first_purchase_at in these cases?
 		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, month) 																				as months_since_cohort_start,
 		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, year) 																				as years_since_cohort_start,
 		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, quarter) 																			as quarters_since_cohort_start,
 		sfo.increment_id 																																	as order_number,
-		sfo.customer_id 																																	as customer_id,
+		sfo.customer_id,
+		sfo.ba_site,
 		sfoi_sim.item_id 																																	as order_item_id,
         sfoi_sim.parent_item_id,        
 		sfo.magentoID 																																		as order_id,
@@ -223,113 +224,142 @@ with order_lines as (
 		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price) 				as warehouse_totalGBP_ex_tax
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
-		on ce.cst_id = sfo.customer_id
+		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
 	left join {{ ref('stg__sales_flat_order_item') }} sfoi_sim
 		on sfoi_sim.order_id = sfo.magentoID
 			and sfoi_sim.product_type = 'simple'
+			and sfo.ba_site = sfoi_sim.ba_site
 	left join {{ ref('stg__sales_flat_order_item') }} sfoi_con
 		on sfoi_con.order_id = sfo.magentoID
 			and if (sfoi_sim.parent_item_id is not null, sfoi_con.item_id = sfoi_sim.parent_item_id, sfoi_con.item_id = sfoi_sim.item_id)
+			and sfo.ba_site = sfoi_con.ba_site
 	left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_outletcat_con
 		on cpev_outletcat_con.entity_id = sfoi_con.product_id
 			and cpev_outletcat_con.attribute_id = 205
 			and cpev_outletcat_con.store_id = 0
+			and sfoi_con.ba_site = cpev_outletcat_con.ba_site
 	left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_outletcat_sim
 		on cpev_outletcat_sim.entity_id = sfoi_sim.product_id
 			and cpev_outletcat_sim.attribute_id = 205
 			and cpev_outletcat_sim.store_id = 0
+			and sfoi_sim.ba_site = cpev_outletcat_sim.ba_site
 	left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_pt_sim
 		on cpev_pt_sim.entity_id = sfoi_sim.product_id
 			and cpev_pt_sim.attribute_id = 179
 			and cpev_pt_sim.store_id = 0
+			and sfoi_sim.ba_site = cpev_pt_sim.ba_site
 	left join {{ ref('stg__eav_attribute_option_value') }} eaov_pt_sim
 		on cpev_pt_sim.value = cast(eaov_pt_sim.option_id as string)
 			and eaov_pt_sim.store_id = 0
+			and cpev_pt_sim.ba_site = eaov_pt_sim.ba_site
 	left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_pt_con
 		on cpev_pt_con.entity_id = sfoi_con.product_id
 			and cpev_pt_con.attribute_id = 179
 			and cpev_pt_con.store_id = 0
+			and sfoi_con.ba_site = cpev_pt_con.ba_site
 	left join {{ ref('stg__eav_attribute_option_value') }} eaov_pt_con
 		on cpev_pt_con.value = cast(eaov_pt_con.option_id as string)
 			and eaov_pt_con.store_id = 0
+			and cpev_pt_con.ba_site = eaov_pt_con.ba_site
 	left join {{ ref('product_type_department') }} ptd
 		on lower(coalesce(eaov_pt_con.value,eaov_pt_sim.value)) = ptd.product_type
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_brand
 		on cpei_brand.entity_id = sfoi_con.product_id
 			and cpei_brand.attribute_id = 178
 			and cpei_brand.store_id = 0
+			and sfoi_con.ba_site = cpei_brand.ba_site
 	left join {{ ref('stg__eav_attribute_option_value') }} eaov_brand
 		on eaov_brand.option_id = cpei_brand.value
 			and eaov_brand.store_id = 0
+			and cpei_brand.ba_site = eaov_brand.ba_site
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_color
 		on cpei_color.entity_id = sfoi_con.product_id
 			and cpei_color.attribute_id = 213
 			and cpei_color.store_id = 0
+			and cpei_color.ba_site = sfoi_con.ba_site
 	left join {{ ref('stg__eav_attribute_option_value') }} eaov_color
 		on eaov_color.option_id = cpei_color.value
 			and eaov_color.store_id = 0
+			and eaov_color.ba_site = cpei_color.ba_site
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_product_age
 		on cpei_product_age.entity_id = sfoi_con.product_id
 			and cpei_product_age.attribute_id = 213
 			and cpei_product_age.store_id = 0
+			and cpei_product_age.ba_site = sfoi_con.ba_site
 	left join {{ ref('stg__eav_attribute_option_value') }} eaov_product_age
 		on eaov_product_age.option_id = cpei_product_age.value
 			and eaov_product_age.store_id = 0
+			and eaov_product_age.ba_site = cpei_product_age.ba_site
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_size
 		on cpei_size.entity_id = sfoi_con.product_id
 			and cpei_size.attribute_id = 177
 			and cpei_size.store_id = 0
+			and cpei_size.ba_site = sfoi_con.ba_site
 	left join {{ ref('stg__eav_attribute_option_value') }} eaov_size
 		on eaov_size.option_id = cpei_size.value
 			and eaov_size.store_id = 0
+			and eaov_size.ba_site = cpei_size.ba_site
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_size_child
 		on cpei_size_child.entity_id = sfoi_sim.product_id
 			and cpei_size_child.attribute_id = 177
 			and cpei_size_child.store_id = 0
+			and cpei_size_child.ba_site = sfoi_sim.ba_site
 	left join {{ ref('stg__eav_attribute_option_value') }} eaov_size_child
 		on eaov_size_child.option_id = cpei_size_child.value
 			and eaov_size_child.store_id = 0
+			and eaov_size_child.ba_site = cpei_size_child.ba_site
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_supplier
 		on cpei_supplier.entity_id = sfoi_sim.product_id
 			and cpei_supplier.attribute_id = 239
 			and cpei_supplier.store_id = 0
+			and cpei_supplier.ba_site = sfoi_sim.ba_site
 	left join {{ ref('stg__catalog_product_supplier') }} cps_supplier
 		on cpei_supplier.value = cps_supplier.supplier_id
+		and cpei_supplier.ba_site = cps_supplier.ba_site
 	left join {{ ref('stg__sales_flat_order_item_extra') }} sfoie
 		on sfoi_con.item_id = sfoie.order_item_id
+		and sfoi_con.ba_site = sfoie.ba_site
 	left join {{ ref('stg__catalog_category_entity_history') }} cceh
 		on sfoie.category_id = cceh.category_id
+		and sfoie.ba_site = cceh.ba_site
 	left join {{ ref('stg__catalog_product_negotiation') }} cpn
 		on sfoi_sim.nego = cpn.negotiation_id
+		and cpn.ba_site = sfoi_sim.ba_site
 	left join {{ ref('stg__admin_user') }} au
 		on cpn.buyer = au.user_id
+		and cpn.ba_site = au.ba_site
 	-- todo split this into a sep dedupe model
 	left join (
 		select * from {{ ref('stg__catalog_product_super_link') }}
-		qualify row_number() over (partition by product_id order by link_id desc) = 1
+		qualify row_number() over (partition by product_id, ba_site order by link_id desc) = 1
 	) cpsl
-		on sfoi_sim.product_id = cpsl.product_id
+		on sfoi_sim.product_id = cpsl.product_id and cpsl.ba_site = sfoi_sim.ba_site
 	left outer join {{ ref('stg__catalog_product_entity') }} cpe
 		on cpe.entity_id = cpsl.parent_id
+		and cpe.ba_site = cpsl.ba_site
 	left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_gender 
 		on cpe.entity_id = cpev_gender.entity_id
 			and cpev_gender.attribute_id = 180
 			and cpev_gender.store_id = 0
+			and cpe.ba_site = cpev_gender.ba_site
 	left join {{ ref('stg__catalog_product_entity_decimal') }} cped_price
 		on sfoi_sim.product_id = cped_price.entity_id
 			and cped_price.attribute_id = 75
 			and cped_price.store_id = 0
+			and cped_price.ba_site = sfoi_sim.ba_site
 	left join {{ ref('stg__catalog_product_entity') }} cpe_ref
 		on sfoi_sim.sku = cpe_ref.sku
+		and cpe_ref.ba_site = sfoi_sim.ba_site
 	left join {{ ref('stg__catalog_product_reference') }} cpr
 		on cpe_ref.entity_id = cpr.entity_id
+		and cpe_ref.ba_site = cpr.ba_site
 
 	where 1=1
 	{% if is_incremental() %}
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(62)}}
+	{{dbt_utils.group_by(63)}}
 )
 
 
@@ -339,7 +369,7 @@ select
 	initcap(split(category_path, '>')[safe_offset(0)]) as product_category_level_1, 
 	initcap(split(category_path, '>')[safe_offset(1)]) as product_category_level_2,
 	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3,
-	row_number() over (partition by order_number, parent_sku order by sku) as parent_sku_offset,
+	row_number() over (partition by order_number, parent_sku, ba_site order by sku) as parent_sku_offset,
 	case 
 		when consignment_qty >= warehouse_qty and consignment_qty >= selffulfill_qty  then 'Consignment'
 		when selffulfill_qty >= warehouse_qty and selffulfill_qty >= consignment_qty then 'Self-fulfill'

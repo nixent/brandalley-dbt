@@ -1,0 +1,316 @@
+version: 2
+
+models:
+  - name: stg_uk__customer_address_entity_text
+    description: ""
+    columns:
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: entity_type_id
+        data_type: <integer>
+        description: "Entity type id"
+      - name: attribute_id
+        data_type: <integer>
+        description: "Attribute id"
+      - name: entity_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: value
+        data_type: <string>
+        description: "Value, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__customer_address_entity_varchar
+    description: ""
+    columns:
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: entity_type_id
+        data_type: <integer>
+        description: "Entity type id"
+      - name: attribute_id
+        data_type: <integer>
+        description: "Attribute id"
+      - name: entity_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: value
+        data_type: <varchar>
+        description: "Value, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__customer_entity
+    description: ""
+    columns:
+      - name: entity_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: entity_type_id
+        data_type: <integer>
+        description: "Entity type id"
+      - name: attribute_set_id
+        data_type: <integer>
+        description: "Attribute set id"
+      - name: website_id
+        data_type: <integer>
+        description: "Website id, nullable"
+      - name: email
+        data_type: <string>
+        description: "Email, nullable"
+      - name: group_id
+        data_type: <integer>
+        description: "Group id"
+      - name: increment_id
+        data_type: <string>
+        description: "Increment id, nullable"
+      - name: store_id
+        data_type: <integer>
+        description: "Store id, nullable"
+      - name: created_at
+        data_type: <timestamp>
+        description: "Creation date"
+      - name: updated_at
+        data_type: <timestamp>
+        description: "Update date"
+      - name: is_active
+        data_type: <integer>
+        description: "Is active"
+      - name: disable_auto_group_change
+        data_type: <integer>
+        description: "Disable auto group change"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__customer_entity_extra
+    description: ""
+    columns:
+      - name: line_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        data_type: <integer>
+        description: "Customer id, Foreign key"
+      - name: number_transactions
+        data_type: <integer>
+        description: "Number of transactions"
+      - name: website_id
+        data_type: <integer>
+        description: "Website id, nullable"
+      - name: ltv
+        data_type: <decimal>
+        description: "LTV"
+      - name: ltvr
+        data_type: <decimal>
+        description: "LTVR"
+      - name: first_purchase
+        data_type: <timestamp>
+        description: "Time of first purchase, nullable"
+      - name: last_purchase
+        data_type: <timestamp>
+        description: "Time of last purchase, nullable"
+      - name: first_visit_at
+        data_type: <timestamp>
+        description: "Time of first visit, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__customer_entity_datetime
+    description: ""
+    columns:
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: entity_type_id
+        data_type: <integer>
+        description: "Entity type id"
+      - name: attribute_id
+        data_type: <integer>
+        description: "Attribute id"
+      - name: entity_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: value
+        data_type: <datetime>
+        description: "Value"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__customer_entity_int
+    description: ""
+    columns:
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+        tests: 
+          - unique
+          - not_null
+      - name: entity_type_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: attribute_id
+        data_type: <integer>
+        description: "Attribute id"
+      - name: entity_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: value
+        data_type: <integer>
+        description: "Value"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__customer_entity_text
+    description: ""
+    columns:
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: entity_type_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: attribute_id
+        data_type: <integer>
+        description: "Attribute id"
+      - name: entity_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: value
+        data_type: <string>
+        description: "Value"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__customer_entity_varchar
+    description: ""
+    columns:
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: entity_type_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: attribute_id
+        data_type: <integer>
+        description: "Attribute id"
+      - name: entity_id
+        data_type: <integer>
+        description: "Entity id"
+      - name: value
+        data_type: <string>
+        description: "Value, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__log_customer
+    description: ""
+    columns:
+      - name: log_id
+        data_type: <integer>
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: visitor_id
+        data_type: <integer>
+        description: "Visitor id, nullable"
+      - name: customer_id
+        data_type: <integer>
+        description: "Customer id"
+      - name: login_at
+        data_type: <timestamp>
+        description: "Login time"
+      - name: logout_at
+        data_type: <timestamp>
+        description: "Logout time, nullable"
+      - name: store_id
+        data_type: <integer>
+        description: "Store id"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""
+
+  - name: stg_uk__newsletter_subscriber
+    description: ""
+    columns:
+      - name: subscriber_id
+        data_type: <integer>
+        description: "Primary key"
+        tests: 
+          - unique 
+          - not_null
+      - name: store_id
+        data_type: <integer>
+        description: "Store id, nullable"
+      - name: change_status_at
+        data_type: <timestamp>
+        description: "Change status at, nullable"
+      - name: customer_id
+        data_type: <integer>
+        description: "Customer id"
+      - name: subscriber_email
+        data_type: <string>
+        description: "Subscriber email, nullable"
+      - name: subscriber_status
+        data_type: <integer>
+        description: "Subscriber status"
+      - name: subscriber_confirm_code
+        data_type: <string>
+        description: "Subscriber confirm code, nullable"
+      - name: subscription_date
+        data_type: <datetime>
+        description: "Subscription date, nullable"
+      - name: pure360_sync_status
+        data_type: <integer>
+        description: "Pure360 Sync status, nullable"
+      - name: emarsys_sync_status
+        data_type: <integer>
+        description: "Emarsys sync status"
+      - name: subscriber_source
+        data_type: <integer>
+        description: "Subscriber source, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""

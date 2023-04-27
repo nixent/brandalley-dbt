@@ -4,10 +4,12 @@ models:
   - name: kpis_daily
     description: "A view of all KPIs, based off of order creation day"
     columns:
-      - name: order_created_at_day
+      - name: ba_site_created_date
         tests:
           - unique
           - not_null
+      - name: ba_site
+      - name: order_created_at_day
         meta:
           dimension:
             type: date
@@ -104,10 +106,12 @@ models:
   - name: kpis_weekly
     description: "A view of all KPIs, based off of order creation week"
     columns:
-      - name: order_created_at_week
+      - name: ba_site_created_date
         tests:
           - unique
           - not_null
+      - name: ba_site
+      - name: order_created_at_week
         meta:
           dimension:
             type: date
@@ -204,10 +208,12 @@ models:
   - name: kpis_monthly
     description: "A view of all KPIs, based off of order creation month"
     columns:
-      - name: order_created_at_month
+      - name: ba_site_created_date
         tests:
           - unique
           - not_null
+      - name: ba_site
+      - name: order_created_at_month
         meta:
           dimension:
             type: date
@@ -304,10 +310,12 @@ models:
   - name: kpis_quarterly
     description: "A view of all KPIs, based off of order creation quarter"
     columns:
-      - name: order_created_at_quarter
+      - name: ba_site_created_date
         tests:
           - unique
           - not_null
+      - name: ba_site
+      - name: order_created_at_quarter
         meta:
           dimension:
             type: date

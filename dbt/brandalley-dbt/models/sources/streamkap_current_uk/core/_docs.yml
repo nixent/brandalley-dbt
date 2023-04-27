@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_uk__eav_attribute_option_value
+    description: ""
+    columns:
+      - name: composite_key
+        description: "composite primary key made from option_id and store_id using dbt_utils surrogate key"
+        tests: 
+          - unique
+          - not_null
+      - name: value_id
+        data_type: <integer>
+        description: "Primary key"
+      - name: option_id
+        data_type: <integer>
+        description: "Option id"
+      - name: store_id
+        data_type: <integer>
+        description: "Store id"
+      - name: value
+        data_type: <integer>
+        description: "Value, nullable"
+      - name: _streamkap_source_ts_ms
+        description: ""
+      - name: __deleted
+        description: ""

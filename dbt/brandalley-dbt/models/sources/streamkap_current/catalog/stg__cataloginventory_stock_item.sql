@@ -1,7 +1,85 @@
 {{config(
     materialized='incremental',
-    unique_key='product_id',
-	cluster_by='product_id',
+    unique_key='ba_site_product_id',
+	cluster_by='product_id'
 )}}
 
-{{streamkap_incremental_on_source_to_current(source_name='cataloginventory_stock_item', id_field=config.get('unique_key'))}}
+select
+    'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'UK'                                                            as ba_site,
+    item_id,
+    product_id,
+    stock_id,
+    qty,
+    min_qty,
+    use_config_min_qty,
+    is_qty_decimal,
+    backorders,
+    use_config_backorders,
+    min_sale_qty,
+    use_config_min_sale_qty,
+    max_sale_qty,
+    use_config_max_sale_qty,
+    is_in_stock,
+    timestamp(low_stock_date) as low_stock_date,
+    notify_stock_qty,
+    use_config_notify_stock_qty,
+    manage_stock,
+    use_config_manage_stock,
+    stock_status_changed_auto,
+    use_config_qty_increments,
+    qty_increments,
+    use_config_enable_qty_inc,
+    enable_qty_increments,
+    is_decimal_divided,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
+from {{ ref('stg_uk__cataloginventory_stock_item') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
+{% endif %}
+
+union all
+
+select
+    'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'FR'                                                            as ba_site,
+    item_id,
+    product_id,
+    stock_id,
+    qty,
+    min_qty,
+    use_config_min_qty,
+    is_qty_decimal,
+    backorders,
+    use_config_backorders,
+    min_sale_qty,
+    use_config_min_sale_qty,
+    max_sale_qty,
+    use_config_max_sale_qty,
+    is_in_stock,
+    low_stock_date,
+    notify_stock_qty,
+    use_config_notify_stock_qty,
+    manage_stock,
+    use_config_manage_stock,
+    stock_status_changed_auto,
+    use_config_qty_increments,
+    qty_increments,
+    use_config_enable_qty_inc,
+    enable_qty_increments,
+    is_decimal_divided,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
+from {{ ref('stg_fr__cataloginventory_stock_item') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
+{% endif %}

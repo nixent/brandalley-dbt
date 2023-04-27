@@ -13,7 +13,8 @@ SELECT
     ) active,
     cce.path AS path,
     cce.level AS LEVEL,
-    cce.updated_at
+    cce.updated_at,
+    cce.ba_site
 FROM
     {{ ref(
         'stg__catalog_category_entity'
@@ -27,6 +28,7 @@ FROM
     AND ccev.value IS NOT NULL
     AND ccev.attribute_id = 41
     AND ccev.store_id = 0
+    and ccev.ba_site = cce.ba_site
     LEFT JOIN {{ ref(
         'stg__catalog_category_entity_varchar'
     ) }}
@@ -34,6 +36,7 @@ FROM
     ON cce.parent_id = ccev_parent.entity_id
     AND ccev_parent.attribute_id = 41
     AND ccev_parent.store_id = 0
+    and ccev_parent.ba_site = cce.ba_site
     LEFT JOIN {{ ref(
         'stg__catalog_category_entity_int'
     ) }}
@@ -41,3 +44,4 @@ FROM
     ON ccei.entity_id = cce.entity_id
     AND ccei.attribute_id = 42
     AND ccei.store_id = 0
+    and cce.ba_site = ccei.ba_site

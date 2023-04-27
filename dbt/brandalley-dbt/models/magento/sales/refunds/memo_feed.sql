@@ -7,6 +7,7 @@ SELECT
         )
     ) AS u_unique_id,
     sfc.admin_user_id AS adminUserId,
+    sfc.ba_site,
     sfo.increment_id AS orderNumber,
     sfo.created_at AS orderDate,
     sfc.created_at AS dateOfStockReturned,
@@ -37,6 +38,7 @@ FROM
         'stg__sales_flat_order'
     ) }} AS sfo
     ON sfo.entity_id = sfc.order_id
+    and sfc.ba_site = sfo.ba_site
 WHERE
     (
         sfo.sales_product_type != 12

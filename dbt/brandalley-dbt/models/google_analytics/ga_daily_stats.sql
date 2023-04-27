@@ -1,7 +1,7 @@
 {{ config(
-    materialized='incremental',
-    unique_key='unique_key',
-    cluster_by=['traffic_channel','product_brand'],
+  materialized='incremental',
+  unique_key='unique_key',
+  cluster_by=['traffic_channel','product_brand'],
 	partition_by = {
       "field": "date",
       "data_type": "date",
@@ -45,5 +45,8 @@ from {{ source('76149814', 'ga_sessions_*') }},
 left join unnest(hits.product) as product with offset as i
 where totals.visits = 1
     {% if is_incremental() %}
-        and _table_suffix between '{{max_date}}' and format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
+      and _table_suffix between '{{max_date}}' and format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
+    {% endif %}
+    {% if target.name == 'testing' %}
+      and _table_suffix >= format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
     {% endif %}

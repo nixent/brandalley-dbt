@@ -1,7 +1,97 @@
 {{config(
     materialized='incremental',
-    unique_key='negotiation_id',
-	cluster_by='negotiation_id',
+    unique_key='ba_site_negotiation_id',
+	cluster_by='ba_site_negotiation_id',
 )}}
 
-{{streamkap_incremental_on_source_to_current(source_name='catalog_product_negotiation', id_field=config.get('unique_key'))}}
+select
+    'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'UK'                                                            as ba_site,
+    negotiation_id,
+    timestamp(updated_at) as updated_at,
+    parent,
+    sap_ref,
+    type,
+    supplier,
+    currency,
+    rate,
+    cost,
+    price,
+    status,
+    admin,
+    timestamp(date_import) as date_import,
+    timestamp(date_reservation) as date_reservation,
+    timestamp(date_pend_proc) as date_pend_proc,
+    timestamp(date_proc_comp) as date_proc_comp,
+    timestamp(date_comp_exported) as date_comp_exported,
+    timestamp(date_due) as date_due,
+    sap_message,
+    buyer,
+    department,
+    buyer_name,
+    buyer_email,
+    supplier_email,
+    is_internal,
+    email_allert,
+    po_generate,
+    validated,
+    country_po,
+    po_crossdock,
+    imported_to_erp,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
+from {{ ref('stg_uk__catalog_product_negotiation') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
+{% endif %}
+
+union all
+
+select
+    'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'FR'                                                            as ba_site,
+    negotiation_id,
+    updated_at,
+    parent,
+    sap_ref,
+    type,
+    supplier,
+    currency,
+    rate,
+    cost,
+    price,
+    status,
+    admin,
+    date_import,
+    date_reservation,
+    date_pend_proc,
+    date_proc_comp,
+    date_comp_exported,
+    date_due,
+    sap_message,
+    buyer,
+    department,
+    buyer_name,
+    buyer_email,
+    supplier_email,
+    is_internal,
+    email_allert,
+    po_generate,
+    validated,
+    country_po,
+    po_crossdock,
+    imported_to_erp,
+    _streamkap_source_ts_ms,
+    _streamkap_ts_ms,
+    _streamkap_offset,
+    _streamkap_loaded_at_ts,
+    __deleted,
+    bq_last_processed_at
+from {{ ref('stg_fr__catalog_product_negotiation') }}
+{% if is_incremental() %}
+    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
+{% endif %}

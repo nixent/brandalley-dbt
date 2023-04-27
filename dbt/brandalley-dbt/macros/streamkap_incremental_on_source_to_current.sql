@@ -25,6 +25,10 @@
         deleted_field='__deleted'
     ) -%}
 
+{% if '/streamkap_current_fr/' in model.path %}
+    {% set source_schema = 'streamkap_fr' %}
+{% endif %}
+
 SELECT
     {{ dbt_utils.star(
         source(

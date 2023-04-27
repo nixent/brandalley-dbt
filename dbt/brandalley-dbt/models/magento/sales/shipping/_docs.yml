@@ -6,8 +6,9 @@ models:
     meta:
       joins:
         - join: shipments
-          sql_on: ${shipment_items.parent_id} = ${shipments.entity_id}
+          sql_on: ${shipment_items.parent_id} = ${shipments.entity_id} and ${shipment_items.ba_site} = ${shipments.ba_site}
     columns:
+      - name: ba_site
       - name: entity_id
         description: "Shipment item ID, primary key"
         meta: 
@@ -17,6 +18,7 @@ models:
               type: count_distinct
               description: "Number of shipments"
               hidden: false    
+              sql: '${ba_site} || ${entity_id}'
       - name: parent_id
         description: "Shipment item ID of the parent, foreign key"
         meta:
@@ -61,6 +63,7 @@ models:
   - name: shipments
     description: ""
     columns:
+      - name: ba_site
       - name: entity_id
         description: "Primary key"
         meta:
@@ -119,6 +122,7 @@ models:
   - name: shipping
     description: ""
     columns:
+      - name: ba_site
       - name: unique_id
         description: ""
         meta:

@@ -1,6 +1,7 @@
 SELECT
     id,
     order_item_number,
+    ba_site,
     sku,
     order_increment_id,
     qty,
