@@ -1550,13 +1550,13 @@ models:
               label: 'Total New Customers'
               type: count_distinct
               description: "Number of new customers"
-              sql: "IF(${orderno}=1, ${ba_site} || ${customer_id}, 0)"
+              sql: "IF(${orderno}=1, ${ba_site} || ${customer_id}, null)"
               hidden: false    
             returning_customers:
               label: 'Total Returning Customers'
               type: count_distinct
               description: "Number of new customers"
-              sql: "IF(${orderno}>1, ${ba_site} || ${customer_id}, 0)"
+              sql: "IF(${orderno}>1, ${ba_site} || ${customer_id}, null)"
               hidden: false    
       - name: delivery_postcode
         description: ""
