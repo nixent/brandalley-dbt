@@ -1,7 +1,7 @@
 {{config(
     materialized='incremental',
-    unique_key='value_id',
-	cluster_by='entity_id',
+    unique_key=['attribute_id','entity_id'],
+	  cluster_by='entity_id',
     partition_by = {
       "field": "bq_last_processed_at",
       "data_type": "timestamp",
