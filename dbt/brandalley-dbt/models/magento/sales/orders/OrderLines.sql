@@ -59,6 +59,17 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
+		case 
+			when cpn.type = 0 then 'Consignment'
+			when cpn.type = 10 then 'Buy'
+			when cpn.type = 20 then 'Fake buy'
+			when cpn.type = 30 then 'Self-fufill'
+			when cpn.type = 40 then 'Create'
+			when cpn.type = 50 then 'PO'
+			when cpn.type = 60 then 'VIP'
+			when cpn.type = 70 then 'VIP stock'
+			else 'Unknown'
+		end as order_fulfillment_type,
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
 		sfoi_con.dispatch_date 																																as dispatch_due_date,
 		cast((sfoi_sim.base_cost) as decimal) 																												as product_cost_exc_vat,
@@ -359,7 +370,7 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(63)}}
+	{{dbt_utils.group_by(64)}}
 )
 
 
@@ -369,12 +380,6 @@ select
 	initcap(split(category_path, '>')[safe_offset(0)]) as product_category_level_1, 
 	initcap(split(category_path, '>')[safe_offset(1)]) as product_category_level_2,
 	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3,
-	row_number() over (partition by order_number, parent_sku, ba_site order by sku) as parent_sku_offset,
-	case 
-		when consignment_qty >= warehouse_qty and consignment_qty >= selffulfill_qty  then 'Consignment'
-		when selffulfill_qty >= warehouse_qty and selffulfill_qty >= consignment_qty then 'Self-fulfill'
-		when warehouse_qty > selffulfill_qty and warehouse_qty > consignment_qty then 'Warehouse'
-		else 'Multiple'
-	end as order_fulfillment_type
+	row_number() over (partition by order_number, parent_sku, ba_site order by sku) as parent_sku_offset
 from order_lines
 
