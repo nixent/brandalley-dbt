@@ -59,17 +59,6 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
-		case 
-			when cpn.type = 0 then 'Consignment'
-			when cpn.type = 10 then 'Buy'
-			when cpn.type = 20 then 'Fake buy'
-			when cpn.type = 30 then 'Self-fufill'
-			when cpn.type = 40 then 'Create'
-			when cpn.type = 50 then 'PO'
-			when cpn.type = 60 then 'VIP'
-			when cpn.type = 70 then 'VIP stock'
-			else 'Unknown'
-		end as order_fulfillment_type,
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
 		sfoi_con.dispatch_date 																																as dispatch_due_date,
 		cast((sfoi_sim.base_cost) as decimal) 																												as product_cost_exc_vat,
@@ -226,13 +215,7 @@ with order_lines as (
 		sum((sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount) 															as TOTAL_GBP_after_vouchers,
 		sum(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) 																							as TOTAL_GBP_before_vouchers,
 		sum(sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))) 			                as TOTAL_GBP_ex_tax_after_vouchers,
-		sum(sfoi_sim.qty_ordered * sfoi_con.base_price) 											                                                        as TOTAL_GBP_ex_tax_before_vouchers,
-		sum(if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 								as selffulfill_totalGBP_inc_tax,
-		sum(if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price) 										as selffulfill_totalGBP_ex_tax,       
-		sum(if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 								as consignment_totalGBP_inc_tax,
-		sum(if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) * sfoi_con.base_price) 										as consignment_totalGBP_ex_tax,       
-		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price_incl_tax) 	as warehouse_totalGBP_inc_tax,
-		sum(if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) * sfoi_con.base_price) 				as warehouse_totalGBP_ex_tax
+		sum(sfoi_sim.qty_ordered * sfoi_con.base_price) 											                                                        as TOTAL_GBP_ex_tax_before_vouchers
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
@@ -370,7 +353,7 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-	{{dbt_utils.group_by(64)}}
+	{{dbt_utils.group_by(63)}}
 )
 
 
