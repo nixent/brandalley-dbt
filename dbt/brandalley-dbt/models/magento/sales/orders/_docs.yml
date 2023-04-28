@@ -503,6 +503,24 @@ models:
               description: "Number of consignment units ordered"
               hidden: false
               round: 0     
+            consignment_gmv_metric:
+              label: 'Consignment GMV (£)'
+              type: sum
+              description: "Total consignment GMV"
+              sql: "if(${consignment_qty > 0}, ${consignment_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered})"
+              round: 0    
+            consignment_sales_amount_metric:
+              label: 'Consignment Sales Amount (£)'
+              type: sum
+              description: "Total consignment sales amount"
+              sql: "if(${consignment_qty > 0}, ${consignment_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered})"
+              round: 0
+            consignment_product_cost_metric:
+              label: 'Consignment Product Cost (£)'
+              type: sum
+              description: "Total consignment product cost"
+              sql: "if(${consignment_qty > 0}, ${consignment_qty}*${product_cost_exc_vat})"
+              round: 0        
       - name: selffulfill_qty
         description: ""
         meta:
@@ -787,66 +805,66 @@ models:
               hidden: false
               round: 0
               format: 'gbp'   
-      - name: selffulfill_totalGBP_inc_tax
-        meta:
-          metrics:
-            self_fulfill_value_inc_vat:
-              label: 'Total revenue GBP inc VAT (before vouchers) for SF orders'
-              type: sum
-              description: "Total revenue inc VAT in GBP before taking vouchers into account for SF orders"
-              hidden: false
-              round: 0
-              format: 'gbp'   
-      - name: selffulfill_totalGBP_ex_tax
-        meta:
-          metrics:
-            self_fulfill_value_exc_vat:
-              label: 'Total revenue GBP ex VAT (before vouchers) for SF order'
-              type: sum
-              description: "Total revenue ex VAT in GBP before taking vouchers into account for SF order"
-              hidden: false
-              round: 0
-              format: 'gbp'   
-      - name: consignment_totalGBP_inc_tax
-        meta:
-          metrics:
-            consignment_value_inc_vat:
-              label: 'Total revenue GBP inc VAT (before vouchers) for consignment orders'
-              type: sum
-              description: "Total revenue inc VAT in GBP before taking vouchers into account for consignment orders"
-              hidden: false
-              round: 0
-              format: 'gbp'   
-      - name: consignment_totalGBP_ex_tax
-        meta:
-          metrics:
-            consignment_value_exc_vat:
-              label: 'Total revenue GBP ex VAT (before vouchers) for consignment order'
-              type: sum
-              description: "Total revenue ex VAT in GBP before taking vouchers into account for consignment order"
-              hidden: false
-              round: 0
-              format: 'gbp'   
-      - name: warehouse_totalGBP_inc_tax
-        meta:
-          metrics:
-            warehouse_value_inc_vat:
-              label: 'Total revenue GBP inc VAT (before vouchers) for warehouse orders'
-              type: sum
-              description: "Total revenue inc VAT in GBP before taking vouchers into account for warehouse orders"
-              hidden: false
-              round: 0
-              format: 'gbp'   
-      - name: warehouse_totalGBP_ex_tax
-        meta:
-          metrics:
-            warehouse_value_exc_vat:
-              label: 'Total revenue GBP ex VAT (before vouchers) for warehouse order'
-              type: sum
-              description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
-              hidden: false
-              round: 0
-              format: 'gbp'  
+      # - name: selffulfill_totalGBP_inc_tax
+      #   meta:
+      #     metrics:
+      #       self_fulfill_value_inc_vat:
+      #         label: 'Total revenue GBP inc VAT (before vouchers) for SF orders'
+      #         type: sum
+      #         description: "Total revenue inc VAT in GBP before taking vouchers into account for SF orders"
+      #         hidden: false
+      #         round: 0
+      #         format: 'gbp'   
+      # - name: selffulfill_totalGBP_ex_tax
+      #   meta:
+      #     metrics:
+      #       self_fulfill_value_exc_vat:
+      #         label: 'Total revenue GBP ex VAT (before vouchers) for SF order'
+      #         type: sum
+      #         description: "Total revenue ex VAT in GBP before taking vouchers into account for SF order"
+      #         hidden: false
+      #         round: 0
+      #         format: 'gbp'   
+      # - name: consignment_totalGBP_inc_tax
+      #   meta:
+      #     metrics:
+      #       consignment_value_inc_vat:
+      #         label: 'Total revenue GBP inc VAT (before vouchers) for consignment orders'
+      #         type: sum
+      #         description: "Total revenue inc VAT in GBP before taking vouchers into account for consignment orders"
+      #         hidden: false
+      #         round: 0
+      #         format: 'gbp'   
+      # - name: consignment_totalGBP_ex_tax
+      #   meta:
+      #     metrics:
+      #       consignment_value_exc_vat:
+      #         label: 'Total revenue GBP ex VAT (before vouchers) for consignment order'
+      #         type: sum
+      #         description: "Total revenue ex VAT in GBP before taking vouchers into account for consignment order"
+      #         hidden: false
+      #         round: 0
+      #         format: 'gbp'   
+      # - name: warehouse_totalGBP_inc_tax
+      #   meta:
+      #     metrics:
+      #       warehouse_value_inc_vat:
+      #         label: 'Total revenue GBP inc VAT (before vouchers) for warehouse orders'
+      #         type: sum
+      #         description: "Total revenue inc VAT in GBP before taking vouchers into account for warehouse orders"
+      #         hidden: false
+      #         round: 0
+      #         format: 'gbp'   
+      # - name: warehouse_totalGBP_ex_tax
+      #   meta:
+      #     metrics:
+      #       warehouse_value_exc_vat:
+      #         label: 'Total revenue GBP ex VAT (before vouchers) for warehouse order'
+      #         type: sum
+      #         description: "Total revenue ex VAT in GBP before taking vouchers into account for warehouse order"
+      #         hidden: false
+      #         round: 0
+      #         format: 'gbp'  
       - name: order_fulfillment_type
         description: ""
       - name: qty_to_ship
