@@ -34,7 +34,7 @@ models:
   - name: stg__customer_address_entity_varchar
     description: ""
     columns:
-      - name: ba_site_value_id
+      - name: ba_site_entity_id_attribute_id
         description: "Primary key"
         tests:
           - unique
