@@ -1,6 +1,7 @@
 select  poi.po_id, 
         poi.po_item_id, 
         poi.product_id, 
+        poi.ba_site,
         poi.sku, 
         poi.reference, 
         poi.simple_name, 
@@ -56,13 +57,13 @@ select  poi.po_id,
         nego_item.qty_exported
         from {{ ref('stg__catalog_product_po_item') }} poi
         inner join {{ ref('stg__catalog_product_po') }} po 
-            on poi.po_id = po.po_id
+            on poi.po_id = po.po_id and poi.ba_site = po.ba_site
         inner join {{ ref('stg__stock_prism_grn') }} spg 
-            on CAST(spg.purchase_order_reference as integer) = po.po_id
+            on CAST(spg.purchase_order_reference as integer) = po.po_id and po.ba_site = spg.ba_site
         inner join {{ ref('stg__stock_prism_grn_item') }} spgi 
-            on spgi.grn_id = spg.grn_id and spgi.sku = poi.sku
+            on spgi.grn_id = spg.grn_id and spgi.sku = poi.sku and poi.ba_site = spgi.ba_site
         left join {{ ref('stg__catalog_product_negotiation') }} nego 
-            on po.negotiation_id = nego.negotiation_id 
+            on po.negotiation_id = nego.negotiation_id and nego.ba_site = po.ba_site
         left join {{ ref('stg__catalog_product_negotiation_item') }} nego_item
-            on po.negotiation_id = nego_item.negotiation_id and poi.sku=nego_item.sku
+            on po.negotiation_id = nego_item.negotiation_id and poi.sku=nego_item.sku and nego_item.ba_site = po.ba_site
 Qualify ROW_NUMBER() OVER (PARTITION BY poi.po_item_id ORDER BY spgi.delivery_date DESC) = 1

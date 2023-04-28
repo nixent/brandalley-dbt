@@ -1,5 +1,6 @@
 SELECT
     entity_id,
+    ba_site,
     store_id,
     total_weight,
     total_qty,

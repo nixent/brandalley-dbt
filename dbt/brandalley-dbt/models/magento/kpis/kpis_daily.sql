@@ -5,44 +5,49 @@
 with order_stats as (
     select
         date_trunc(datetime(created_at, "Europe/London"), day)                           as order_created_at_day,
+        ba_site,
         count(distinct increment_id)                          as total_order_count,
         count(distinct if(orderno=1, increment_id, null))     as total_new_order_count,
         sum(shipping_incl_tax)                                as shipping_amount
     from {{ ref('Orders')}}
-    group by 1
+    group by 1,2
 ),
 
 customer_stats as (
     select
         date_trunc(datetime(signed_up_at, "Europe/London"), day)           as customer_created_at_day,
+        ba_site,
         count(customer_id)                      as total_new_members
     from {{ ref('customers_enriched') }} ce
-    group by 1
+    group by 1,2
 ),
 
 refund_stats as (
     select
         date_trunc(datetime(timestamp(sfc.created_at), "Europe/London"), day)       as order_created_at_day,
+        sfc.ba_site,
         count(sfc.entity_id)                             as total_refund_count,
         count(sfci.entity_id)                            as total_item_refund_count,
         round(sum(sfci.base_row_total),2)                as total_refund_amount
     from {{ ref('sales_flat_creditmemo') }} sfc
     left join {{ ref('sales_flat_creditmemo_item') }} sfci
-        on sfci.parent_id = sfc.entity_id
-    group by 1
+        on sfci.parent_id = sfc.entity_id and sfc.ba_site = sfci.ba_site
+    group by 1,2
 ),
 
 shipping_stats as (
     select
         date_trunc(datetime(timestamp(order_date), "Europe/London"), day)                                                                                    as order_created_at_day,
-        round(avg(if(shipment_date != '0000-00-00 00:00:00', date_diff(date((shipment_date)), date((order_date)), day), null)),1) as avg_time_to_ship_days
+        ba_site,
+        round(avg(date_diff(date((shipment_date)), date((order_date)), day)),1) as avg_time_to_ship_days
     from {{ ref('shipping') }}
-    group by 1
+    group by 1,2
 ),
 
 order_line_stats as (
     select
         date_trunc(datetime(o.created_at, "Europe/London"), day)                                           as order_created_at_day,
+        ol.ba_site,
         round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
         round(sum(ol.TOTAL_GBP_ex_tax_after_vouchers),2)                        as sales_amount,
@@ -52,17 +57,18 @@ order_line_stats as (
         round(sum(ol.margin),2)                                                 as margin
     from {{ ref('OrderLines') }} ol
     left join {{ ref('Orders') }} o
-        on ol.order_number = o.increment_id
+        on ol.order_number = o.increment_id and ol.ba_site = o.ba_site
     left join (
         select 
             max(true) as has_shipped, 
             order_id, 
-            sku
+            sku,
+            ba_site
         from {{ ref('shipping') }}
-        group by 2,3
+        group by 2,3,4
      ) s
-        on o.increment_id = s.order_id and ol.sku = s.sku
-    group by 1
+        on o.increment_id = s.order_id and ol.sku = s.sku and ol.ba_site = s.ba_site
+    group by 1,2
 ),
 
 conversion_stats as (
@@ -84,7 +90,9 @@ cs_stats as (
 )
 
 select
+    os.order_created_at_day || '-' || os.ba_site as ba_site_created_date,
     os.order_created_at_day,
+    os.ba_site,
     os.total_order_count,
     os.total_new_order_count,
     cs2.total_new_members,
@@ -108,14 +116,14 @@ select
     cs.conversion_rate
 from order_stats os
 left join refund_stats rs
-    on os.order_created_at_day = rs.order_created_at_day
+    on os.order_created_at_day = rs.order_created_at_day and os.ba_site = rs.ba_site
 left join shipping_stats ss
-    on os.order_created_at_day = ss.order_created_at_day
+    on os.order_created_at_day = ss.order_created_at_day and os.ba_site = ss.ba_site
 left join order_line_stats ols
-    on os.order_created_at_day = ols.order_created_at_day
+    on os.order_created_at_day = ols.order_created_at_day and os.ba_site = ols.ba_site
 left join conversion_stats cs
-    on os.order_created_at_day = datetime(cs.ga_session_at_day)
+    on os.order_created_at_day = datetime(cs.ga_session_at_day) and os.ba_site = 'UK'
 left join customer_stats cs2
-    on os.order_created_at_day = cs2.customer_created_at_day
+    on os.order_created_at_day = cs2.customer_created_at_day and os.ba_site = cs2.ba_site
 left join cs_stats css
-    on os.order_created_at_day = css.cs_tickets_day
+    on os.order_created_at_day = css.cs_tickets_day and os.ba_site = 'UK'

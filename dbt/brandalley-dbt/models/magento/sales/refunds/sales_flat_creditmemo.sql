@@ -1,5 +1,7 @@
 SELECT
+    ba_site || '-' || entity_id as ba_site_entity_id,
     entity_id,
+    ba_site,
     store_id,
     adjustment_positive,
     base_shipping_tax_amount,

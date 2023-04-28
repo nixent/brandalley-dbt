@@ -53,6 +53,7 @@ SELECT
     END AS category,
     sfo.status,
     sfo.customer_id,
+    sfo.ba_site,
     sfo.entity_id as MagentoID,
     sfo.increment_id as order_id,
     TIMESTAMP(sfo.created_at) as created_at,
@@ -88,18 +89,25 @@ SELECT
 FROM {{ ref('stg__sales_flat_order') }} sfo
 LEFT JOIN {{ ref('stg__customer_entity') }} ce
     ON ce.entity_id = sfo.customer_id
+    and ce.ba_site = sfo.ba_site
 LEFT JOIN {{ ref('stg__sales_flat_order_item') }} sfoi
     ON sfo.entity_id = sfoi.order_id
         AND sfoi.parent_item_id IS NULL
+        and sfoi.ba_site = sfo.ba_site
 LEFT JOIN {{ ref('stg__catalog_product_negotiation') }} cpn
     ON cpn.negotiation_id = sfoi.nego 
         AND (cpn.type IS NULL OR cpn.type != 30)
+        and sfoi.ba_site = cpn.ba_site
 LEFT JOIN {{ ref('stg__catalog_product_entity_varchar') }} cpev
     ON cpev.entity_id = sfoi.product_id
         AND cpev.attribute_id = 205
+        and sfoi.ba_site = cpev.ba_site
 LEFT JOIN {{ ref('stg__sales_flat_order_address') }} sfoa
     ON sfoa.entity_id = sfo.shipping_address_id
+    and sfoa.ba_site = sfo.ba_site
 LEFT JOIN {{ ref('stg__sales_flat_order_address') }} sfoa_b
     ON sfoa_b.entity_id = sfo.billing_address_id
+    and sfoa_b.ba_site = sfo.ba_site
 LEFT JOIN {{ ref('stg__sales_flat_order_payment') }} sfop
     ON sfo.entity_id = sfop.parent_id
+    and sfop.ba_site = sfo.ba_site

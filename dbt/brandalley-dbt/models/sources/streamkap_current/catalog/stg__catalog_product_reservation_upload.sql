@@ -5,6 +5,8 @@
     enabled=false
 ) }}
 
+-- TO DO / currently disabled
+
 with streamkap_source as (
 {{ streamkap_incremental_on_source_to_current(
     source_name = 'catalog_product_reservation_upload',

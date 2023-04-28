@@ -1,5 +1,7 @@
 SELECT
+    cti.ba_site || '-' || cti.entity_id as ba_site_entity_id,
     cti.entity_id,
+    cti.ba_site,
     cti.parent_id,
     cti.base_price,
     cti.tax_amount,
@@ -72,3 +74,4 @@ FROM
     ) }}
     cm
     ON cti.parent_id = cm.entity_id
+    and cti.ba_site = cm.ba_site

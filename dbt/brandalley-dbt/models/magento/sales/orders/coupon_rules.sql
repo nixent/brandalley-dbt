@@ -1,5 +1,6 @@
 select 
     sc.coupon_id,
+    sc.ba_site,
     sc.rule_id,
     sc.code,
     sc.usage_limit,
@@ -42,9 +43,10 @@ select
     sr.discount_amount                                                                          as salesrule_discount_amount
 from {{ ref('stg__salesrule_coupon') }} sc
 left outer join {{ ref('stg__salesrule') }} sr 
-    on sc.rule_id = sr.rule_id 
+    on sc.rule_id = sr.rule_id and sc.ba_site = sr.ba_site
 left outer join {{ ref('stg__sales_flat_order') }} sfo 
-    on sc.code = sfo.coupon_code 
+    on sc.code = sfo.coupon_code and sc.ba_site = sfo.ba_site
 left outer join {{ ref('stg__invent_autocoupon') }} ia 
     on sc.coupon_id = ia.referral_couponid 
         and (ia.reward_from = sfo.customer_id or sfo.customer_id is null) 
+        and sc.ba_site = ia.ba_site

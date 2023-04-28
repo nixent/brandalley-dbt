@@ -54,8 +54,17 @@ models:
         +schema: zohodesk_model
     sources:
       streamkap_current:
-        +on_schema_change: "append_new_columns"
         +schema: streamkap_current
+      streamkap_current_uk:
+        +on_schema_change: "append_new_columns"
+        +schema: streamkap_current_uk
+        sales:
+          +post-hook: "delete {{this}} where __deleted = true"
+        customers:
+          +post-hook: "delete {{this}} where __deleted = true"
+      streamkap_current_fr:
+        +on_schema_change: "append_new_columns"
+        +schema: streamkap_current_fr
         sales:
           +post-hook: "delete {{this}} where __deleted = true"
         customers:

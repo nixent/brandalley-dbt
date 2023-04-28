@@ -5,29 +5,33 @@
 with order_line_agg as (
   select
     order_id,
+    ba_site,
     count(*)                             as count_order_lines,
     sum(TOTAL_GBP_ex_tax_after_vouchers) as order_revenue_excl_tax_after_vouchers,
     sum(line_product_cost_exc_vat)       as order_product_costs_excl_tax
   from {{ ref('OrderLines') }}
-  group by 1
+  group by 1,2
 ),
 
 order_refunds_agg as (
   select
     sfc.order_id,
+    sfc.ba_site,
     count(sfc.entity_id)  as count_refunds,
     count(sfci.entity_id) as count_item_refunds,
     sum(row_total)        as total_refund_amount
   from {{ ref('sales_flat_creditmemo') }} sfc
   left join {{ ref('sales_flat_creditmemo_item') }} sfci
-    on sfci.parent_id = sfc.entity_id
-  group by 1
+    on sfci.parent_id = sfc.entity_id and sfc.ba_site = sfci.ba_site
+  group by 1,2
 )
 
 select
+  o.ba_site || '-' || o.increment_id as ba_site_increment_id,
   o.magentoID                     as order_id,
   o.increment_id,
   o.customer_id,
+  o.ba_site,
   o.created_at                    as order_at,
   o.status                        as order_status,
   o.orderno                       as order_sequence,
@@ -54,11 +58,11 @@ select
   end as has_ordered_since
 from {{ ref('Orders') }} o
 left join order_line_agg ola 
-  on o.magentoID = ola.order_id
+  on o.magentoID = ola.order_id and o.ba_site = ola.ba_site
 left join order_refunds_agg ora
-  on o.magentoID = ora.order_id
+  on o.magentoID = ora.order_id and o.ba_site = ora.ba_site
 left join {{ ref('stg__salesrule_coupon') }} src
-  on lower(o.coupon_code) = lower(src.code)
+  on lower(o.coupon_code) = lower(src.code) and o.ba_site = src.ba_site
 left join {{ ref('stg__salesrule') }} sr
-  on src.rule_id = sr.rule_id
+  on src.rule_id = sr.rule_id and sr.ba_site = src.ba_site
 
