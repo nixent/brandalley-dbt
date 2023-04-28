@@ -507,19 +507,19 @@ models:
               label: 'Consignment GMV (£)'
               type: sum
               description: "Total consignment GMV"
-              sql: "if(${consignment_qty > 0}, ${consignment_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered})"
+              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered})"
               round: 0    
             consignment_sales_amount_metric:
               label: 'Consignment Sales Amount (£)'
               type: sum
               description: "Total consignment sales amount"
-              sql: "if(${consignment_qty > 0}, ${consignment_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered})"
+              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered})"
               round: 0
             consignment_product_cost_metric:
               label: 'Consignment Product Cost (£)'
               type: sum
               description: "Total consignment product cost"
-              sql: "if(${consignment_qty > 0}, ${consignment_qty}*${product_cost_exc_vat})"
+              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${product_cost_exc_vat})"
               round: 0        
       - name: selffulfill_qty
         description: ""
