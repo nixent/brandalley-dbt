@@ -210,12 +210,12 @@ with order_lines as (
 		cpn.status 																																			as cpn_status,
 		eaov_product_age.value																																as product_age,
         row_number() over (partition by sfo.increment_id order by sfoi_con.dispatch_date, sfoi_sim.sku asc)                                                 as shipping_order,
-		coalesce(cpe.sku, 'Unknown') 																													as parent_sku,
-		cpr.reference																																as REFERENCE,
-		(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount 															as TOTAL_GBP_after_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax 																							as TOTAL_GBP_before_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))			                as TOTAL_GBP_ex_tax_after_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        as TOTAL_GBP_ex_tax_before_vouchers
+		coalesce(cpe.sku, 'Unknown') 																														as parent_sku,
+		cpr.reference																																		as REFERENCE,
+		(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount 																as TOTAL_GBP_after_vouchers,
+		sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax 																								as TOTAL_GBP_before_vouchers,
+		sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))			                		as TOTAL_GBP_ex_tax_after_vouchers,
+		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as TOTAL_GBP_ex_tax_before_vouchers
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
