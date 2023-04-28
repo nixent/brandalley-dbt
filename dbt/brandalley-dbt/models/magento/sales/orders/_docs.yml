@@ -532,7 +532,25 @@ models:
               type: sum
               description: "Number of self-fulfill units ordered"
               hidden: false
-              round: 0      
+              round: 0     
+            selffulfill_gmv_metric:
+              label: 'Self-fulfill GMV (£)'
+              type: sum
+              description: "Total selffulfill GMV"
+              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered},0)"
+              round: 0    
+            selffulfill_sales_amount_metric:
+              label: 'Self-fulfill Sales Amount (£)'
+              type: sum
+              description: "Total selffulfill sales amount"
+              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered},0)"
+              round: 0
+            selffulfill_product_cost_metric:
+              label: 'Self-fulfill Product Cost (£)'
+              type: sum
+              description: "Total selffulfill product cost"
+              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${product_cost_exc_vat},0)"
+              round: 0         
       - name: warehouse_qty
         description: ""
         meta:
@@ -544,7 +562,25 @@ models:
               type: sum
               description: "Number of warehouse units ordered"
               hidden: false
-              round: 0      
+              round: 0   
+            warehouse_gmv_metric:
+              label: 'Warehouse GMV (£)'
+              type: sum
+              description: "Total warehouse GMV"
+              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered},0)"
+              round: 0    
+            warehouse_sales_amount_metric:
+              label: 'Warehouse Sales Amount (£)'
+              type: sum
+              description: "Total warehouse sales amount"
+              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered},0)"
+              round: 0
+            warehouse_product_cost_metric:
+              label: 'Warehouse Product Cost (£)'
+              type: sum
+              description: "Total warehouse product cost"
+              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${product_cost_exc_vat},0)"
+              round: 0     
       - name: order_placed_date
         description: ""
         meta: 
