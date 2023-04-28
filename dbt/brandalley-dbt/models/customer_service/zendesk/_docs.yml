@@ -416,6 +416,7 @@ models:
         description: "Avg of abandoned calls wait time in HH:mm:SS format"
 
   - name: zendesk__ticket_metrics
+    latest_version: 1
     description: Each record represents a Zendesk ticket, enriched with metrics about reply times, resolution times and work times.  Calendar and business hours are supported
     columns:
       - name: first_reply_time_calendar_minutes
