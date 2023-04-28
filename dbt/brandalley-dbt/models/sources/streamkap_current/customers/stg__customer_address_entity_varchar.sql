@@ -1,6 +1,6 @@
 {{config(
     materialized='incremental',
-    unique_key='ba_site_value_id',
+    unique_key='ba_site_entity_id_attribute_id',
 	cluster_by='entity_id',
     partition_by = {
       "field": "bq_last_processed_at",
@@ -10,7 +10,7 @@
 )}}
 
 select
-    'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'UK-' || entity_id || '-' || attribute_id                       as {{ config.get('unique_key') }},
     'UK'                                                            as ba_site,
     value_id,
     entity_type_id,
@@ -31,7 +31,7 @@ from {{ ref('stg_uk__customer_address_entity_varchar') }}
 union all
 
 select
-    'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
+    'FR-' || entity_id || '-' || attribute_id                       as {{ config.get('unique_key') }},
     'FR'                                                            as ba_site,
     value_id,
     entity_type_id,
