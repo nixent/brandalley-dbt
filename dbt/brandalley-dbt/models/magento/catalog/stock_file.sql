@@ -36,8 +36,8 @@ with stock_file_raw as (
         if(length(cpev_outlet_category.value) - length(regexp_replace(cpev_outlet_category.value, '>', ''))>1, split(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
         cpni.tax_rate                                   as tax,
         cpei_tax.value                                  as tax_class,
+        date(stock_prism.delivery_date)                 as last_stock_delivery_date,
         if(sum(stock_child.min_qty) < 0, 'No', 'Yes')   as canUseForWHSale,
-        min(timestamp(parent_entity_relation.created_at)) as child_parent_sku_created_at,
         string_agg(distinct cast(category_id as string)) as parent_child_category_ids,
         -- Parent category is type 3, flashsale type 1. If there are more than 1 category, we need to put them on the same, but separated with a return carriage character
         if(cpei_menu_type_3.value=3, 
@@ -62,6 +62,13 @@ with stock_file_raw as (
         ) parent_relation 
         on parent_relation.product_id = e.entity_id
             and e.ba_site = parent_relation.ba_site
+    left join (
+        select sku, delivery_date, ba_site
+        from {{ ref('stg__stock_prism_grn_item') }}
+        qualify row_number() over (partition by sku, ba_site order by delivery_date desc) = 1
+        ) stock_prism 
+        on e.sku = stock_prism.sku
+            and e.ba_site = stock_prism.ba_site
     inner join {{ ref('stg__catalog_product_entity') }} parent_entity_relation 
         on parent_entity_relation.entity_id = parent_relation.parent_id
             and parent_entity_relation.ba_site = parent_relation.ba_site
@@ -201,16 +208,15 @@ with stock_file_raw as (
             and cpei_menu_type_1.ba_site = category.ba_site
     where e.type_id = 'simple'
         and stock.qty > 0
-    {{ dbt_utils.group_by(35) }}, cpei_menu_type_3.value, cpei_menu_type_1.value
+    {{ dbt_utils.group_by(36) }}, cpei_menu_type_3.value, cpei_menu_type_1.value
  ),
 
  stock_file_2 as (
     select  
-        stock.* except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price, parent_child_category_ids),
+        stock.* except (flashsale_category, child_parent_sku, parent_category, special_price, parent_child_category_ids),
         cat_map.category,
         (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value) as flashsale_category,
         string_agg(distinct child_parent_sku)   as child_parent_sku,
-        min(child_parent_sku_created_at)        as child_parent_sku_created_at,
         string_agg(distinct parent_category)    as parent_category, 
         min(special_price)                      as special_price
     from stock_file_raw stock
@@ -247,11 +253,12 @@ with stock_file_raw as (
                             SPLIT(flashsale_category, '>')[offset(4)], null)
                     )
                 ) = cat_map.level_3
-    {{ dbt_utils.group_by(36) }}, flashsale_category
+    {{ dbt_utils.group_by(37) }}, flashsale_category
  )
 
 select  
-    * except (flashsale_category, child_parent_sku, child_parent_sku_created_at, parent_category, special_price),
+
+    * except (flashsale_category, child_parent_sku, parent_category, special_price),
     replace(
         replace(
             if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
@@ -267,8 +274,7 @@ select
     -- removing the initial unwanted 'Root Catalog>Brand Alley UK>' categories
     , 'Root Catalog>Brand Alley UK>', '')   as flashsale_category, 
     string_agg(distinct child_parent_sku)   as child_parent_sku,
-    min(child_parent_sku_created_at)        as child_parent_sku_created_at,
     string_agg(parent_category)             as parent_category, 
     min(special_price)                      as special_price
 from stock_file_2
-{{ dbt_utils.group_by(35) }}
+{{ dbt_utils.group_by(36) }}
