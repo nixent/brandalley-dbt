@@ -4,12 +4,17 @@
 
 with order_stats as (
     select
-        date_trunc(datetime(created_at, "Europe/London"), day)                           as order_created_at_day,
-        ba_site,
-        count(distinct increment_id)                          as total_order_count,
-        count(distinct if(orderno=1, increment_id, null))     as total_new_order_count,
-        sum(shipping_incl_tax)                                as shipping_amount
-    from {{ ref('Orders')}}
+        date_trunc(datetime(o.created_at, "Europe/London"), day)                           as order_created_at_day,
+        o.ba_site,
+        count(distinct o.increment_id)                                              as total_order_count,
+        count(distinct if(o.orderno=1, o.increment_id, null))                       as total_new_order_count,
+        count(distinct if(ce.achica_user=2 and o.orderno=1, o.customer_id, null))   as total_new_achica_order_count,
+        count(distinct if(o.orderno=1, o.customer_id, null))                        as total_new_customer_count,
+        count(distinct if(o.orderno>1, o.customer_id, null))                        as total_existing_customer_count,
+        sum(o.shipping_incl_tax)                                                    as shipping_amount
+    from {{ ref('Orders')}} o
+    left join {{ ref('customers_enriched') }} ce
+        on o.customer_id = ce.customer_id
     group by 1,2
 ),
 
@@ -17,7 +22,8 @@ customer_stats as (
     select
         date_trunc(datetime(signed_up_at, "Europe/London"), day)           as customer_created_at_day,
         ba_site,
-        count(customer_id)                      as total_new_members
+        count(achica_user is null or achica_user != 2, customer_id)        as total_new_members,
+        count(achica_user == 2, customer_id)                               as total_new_achica_members
     from {{ ref('customers_enriched') }} ce
     group by 1,2
 ),
@@ -95,7 +101,11 @@ select
     os.ba_site,
     os.total_order_count,
     os.total_new_order_count,
+    os.total_new_achica_order_count,
+    os.total_new_customer_count,
+    os.total_existing_customer_count,
     cs2.total_new_members,
+    cs2.total_new_achica_members,
     os.shipping_amount,
     rs.total_refund_count,
     rs.total_item_refund_count,

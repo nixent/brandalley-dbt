@@ -46,6 +46,7 @@ select
   c.customer_id,
   c.ba_site,
   c.signed_up_at,
+  c.achica_user,
   oi.first_purchase_at,
   oi.last_purchase_at,
   oi.count_customer_orders,
