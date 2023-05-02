@@ -8,7 +8,7 @@ with order_stats as (
         o.ba_site,
         count(distinct o.increment_id)                                                  as total_order_count,
         count(distinct if(o.orderno = 1, o.increment_id, null))                         as total_new_order_count,
-        count(distinct if(ce.achica_user = 2 and o.orderno = 1, o.customer_id, null))   as total_new_achica_order_count,
+        count(distinct if(ce.achica_user is not null and o.orderno = 1, o.customer_id, null))   as total_new_achica_order_count,
         count(distinct if(o.orderno = 1, o.customer_id, null))                          as total_new_customer_count,
         count(distinct if(o.orderno > 1, o.customer_id, null))                          as total_existing_customer_count,
         sum(o.shipping_incl_tax)                                                        as shipping_amount
@@ -20,12 +20,10 @@ with order_stats as (
 
 customer_stats as (
     select
-        if(crds.date is not null, date(crds.date), 
-            if(ce.achica_user is null or ce.achica_user != 2, date(ce.achica_migration_date), date(datetime(ce.signed_up_at, "Europe/London")))
-        )                                                                               as customer_created_at_day,
+        coalesce(date(crds.date), date(ce.achica_migration_date), date(datetime(ce.signed_up_at, "Europe/London"))) as customer_created_at_day,
         ce.ba_site,
-        count(if(ce.achica_user is null or ce.achica_user != 2, ce.customer_id, null))           as total_new_members,
-        count(if(ce.achica_user = 2, ce.customer_id, null))                                   as total_new_achica_members
+        count(if(ce.achica_user is null, ce.customer_id, null))                                                 as total_new_members,
+        count(if(ce.achica_user is not null, ce.customer_id, null))                                                         as total_new_achica_members
     from {{ ref('customers_enriched') }} ce
     left join {{ ref('customers_record_data_source') }} crds 
         on ce.customer_id = crds.cst_id
