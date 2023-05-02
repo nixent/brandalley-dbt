@@ -3,7 +3,8 @@ with customers as (
     cst_id            as customer_id,
     timestamp(dt_cr)  as signed_up_at,
     ba_site,
-    achica_user
+    achica_user,
+    achica_migration_date
   from {{ ref('customers') }}
 ), 
 
@@ -48,6 +49,7 @@ select
   c.ba_site,
   c.signed_up_at,
   c.achica_user,
+  c.achica_migration_date,
   oi.first_purchase_at,
   oi.last_purchase_at,
   oi.count_customer_orders,
