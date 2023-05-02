@@ -466,7 +466,7 @@ models:
               type: count_distinct
               description: "Number of customers who have returned to make another order"
               hidden: false
-              sql: "if((${status} in 'solved', closed) and total_agent_replies<=2, ${ticket_id}, null)"
+              sql: "if((${status} in 'solved', 'closed') and ${total_agent_replies}<=2, ${ticket_id}, null)"
       - name: url
         description: The API url of this ticket
       - name: assignee_id
