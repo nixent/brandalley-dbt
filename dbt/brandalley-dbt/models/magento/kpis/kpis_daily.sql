@@ -20,11 +20,15 @@ with order_stats as (
 
 customer_stats as (
     select
-        date_trunc(datetime(signed_up_at, "Europe/London"), day)                        as customer_created_at_day,
+        if(crds.date is not null, date(crds.date), 
+            if(ce.achica_user is null OR ce.achica_user != 2, date(ce.achica_migration_date), date(datetime(ce.signed_up_at, "Europe/London")))
+        )                                                                               as customer_created_at_day,
         ba_site,
         count(if(achica_user is null or achica_user != 2, customer_id, null))           as total_new_members,
         count(if(achica_user = 2, customer_id, null))                                   as total_new_achica_members
     from {{ ref('customers_enriched') }} ce
+    left join {{ ref('customers_record_data_source') }} crds 
+        on ce.customer_id = crds.cst_id
     group by 1,2
 ),
 
