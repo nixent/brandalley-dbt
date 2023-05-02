@@ -2,7 +2,8 @@ with customers as (
   select
     cst_id            as customer_id,
     timestamp(dt_cr)  as signed_up_at,
-    ba_site
+    ba_site,
+    achica_user
   from {{ ref('customers') }}
 ), 
 
