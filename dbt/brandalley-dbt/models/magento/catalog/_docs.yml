@@ -472,21 +472,22 @@ models:
         description: "Supplier name"
       - name: child_parent_sku
         description: "Child parent SKU"
-      - name: child_parent_sku_created_at
+      - name: last_stock_delivery_date
       - name: child_parent_sku_age_days
         meta:
           dimension:
-            sql: 'date_diff(current_date, date(${child_parent_sku_created_at}), day)'
+            sql: 'date_diff(current_date, ${last_stock_delivery_date}, day)'
       - name: child_parent_sku_age_bucket
         meta:
           dimension:
             sql: > 
               case 
-                when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 365 then 'Over 1 Year'
-                when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 274 then '9 - 12 Months'
-                when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 180 then '6 - 9 Months'
-                when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 89 then '3 - 6 Months'
-                when date_diff(current_date, date(${child_parent_sku_created_at}), day) > 30 then '1 - 3 Months'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 365 then 'Over 1 Year'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 274 then '9 - 12 Months'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 180 then '6 - 9 Months'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 89 then '3 - 6 Months'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 30 then '1 - 3 Months'
+                when ${last_stock_delivery_date} is null then 'No Deliveries'
                 else 'Up to 1 Month'
               end
       - name: category
