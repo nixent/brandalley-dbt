@@ -25,6 +25,11 @@ models:
               type: count_distinct
               description: "Count of customers"
               hidden: false
+            member_customer_conversion:
+              label: 'Members to Customers (%)'
+              type: number
+              sql: 'safe_divide(${new_members},${new_customers})'
+              format: 'percent'
       - name: ba_site
       - name: customer_id
         meta:
