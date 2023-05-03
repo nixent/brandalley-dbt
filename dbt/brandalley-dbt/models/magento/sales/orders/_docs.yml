@@ -1555,8 +1555,7 @@ models:
             new_customers_pct:
               label: 'New Customer (%)'
               type: number
-              sql: '${new_customers}/${total_customers_count}'
-              # sql: 'safe_divide(count(distinct IF(${orderno}=1, ${ba_site} || ${customer_id}, null)),count(distinct ${ba_site} || ${customer_id}))'
+              sql: 'safe_divide(${new_customers},${total_customers_count})'
               format: percent
       - name: delivery_postcode
         description: ""
