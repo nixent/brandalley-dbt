@@ -11,12 +11,16 @@ with customers as (
       else ir.medium 
     end as signup_medium
   from {{ ref('customers') }} c
-  left join {{ ref('stg__invent_referer') }} ir
+  left join 
+    (
+      select entity_id, ba_site, source, medium
+      from {{ ref('stg__invent_referer') }}
+      where entity_type = 1 
+        and event_type = 1
+      qualify row_number() over (partition by entity_id, ba_site order by source desc) = 1
+    ) ir
     on c.cst_id = ir.entity_id
       and c.ba_site = ir.ba_site
-      and ir.entity_type = 1 
-      and ir.event_type = 1
-  qualify row_number() over (partition by customer_id, ba_site order by signup_source desc) = 1
 ), 
 
 order_info as (
@@ -77,4 +81,5 @@ left join first_order_brands fob
   on c.customer_id = fob.customer_id and c.ba_site = fob.ba_site
 left join second_orders so
   on c.customer_id = so.customer_id and c.ba_site = so.ba_site
+qualify row_number() over (partition by c.customer_id, c.ba_site order by c.signed_up_at) = 1
   
