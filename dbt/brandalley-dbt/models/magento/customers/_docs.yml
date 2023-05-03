@@ -28,7 +28,7 @@ models:
             member_customer_conversion:
               label: 'Members to Customers (%)'
               type: number
-              sql: 'safe_divide(${new_members},${new_customers})'
+              sql: 'safe_divide(${customers.new_members},${Orders.new_customers})'
               format: 'percent'
       - name: ba_site
       - name: customer_id
