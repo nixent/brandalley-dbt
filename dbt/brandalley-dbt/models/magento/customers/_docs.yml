@@ -8,7 +8,7 @@ models:
         - join: Orders
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and ${Orders.ba_site} = ${customers_enriched.ba_site}
         - join: OrderLines
-          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site}
+          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site} 
     columns: 
       - name: ba_site_customer_id
         tests:
