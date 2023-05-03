@@ -65,7 +65,9 @@ select
 	if(cei_222.value = 1, 'Yes', 'No') 								   as third_party,
 	ce.updated_at,
 	cei_363.value 													   as achica_user,
-	if(cei_367.value is null, timestamp(ce.created_at), cei_367.value) as achica_migration_date,
+	if(cei_367.value is null and cei_363.value is not null, timestamp(ce.created_at), cei_367.value) as achica_migration_date,
+	cei_381.value 													   as cocosa_user,
+	if(ced_382.value is null and cei_381.value is not null, timestamp(ce.created_at), ced_382.value) as cocosa_signup_at,
 	greatest(
 		ce.bq_last_processed_at, 
 		cei.bq_last_processed_at, 
@@ -186,8 +188,17 @@ left join {{ ref('stg__customer_entity_int') }}	cei_222
 left join {{ ref('stg__customer_entity_int') }} cei_363
 	on cei_363.entity_id = ce.entity_id
        	and cei_363.attribute_id = 363
-       	and (cei_363.value = 1 or cei_363.value = 2)
+       	and cei_363.value in (1,2)
 		and ce.ba_site = cei_363.ba_site
+left join {{ ref('stg__customer_entity_int') }} cei_381
+	on cei_381.entity_id = ce.entity_id
+       	and cei_381.attribute_id = 381
+       	and cei_381.value in (1,2)
+		and ce.ba_site = cei_381.ba_site
+left join {{ ref('stg__customer_entity_datetime') }} ced_382
+	on ced_382.entity_id = ce.entity_id
+       	and ced_382.attribute_id = 382
+		and ce.ba_site = ced_382.ba_site
 left join {{ ref('stg__customer_entity_datetime') }} cei_367
 	on cei_367.entity_id = ce.entity_id
 		and cei_367.attribute_id = 367
