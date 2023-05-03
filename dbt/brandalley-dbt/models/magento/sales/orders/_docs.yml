@@ -1551,7 +1551,11 @@ models:
               type: count_distinct
               description: "Number of new customers"
               sql: "IF(${orderno}>1, ${ba_site} || ${customer_id}, null)"
-              hidden: false    
+              hidden: false
+            new_customers_pct:
+              label: 'New Customer (%)'
+              sql: ${new_customers}/${total_customers_count}
+              format: percent
       - name: delivery_postcode
         description: ""
       - name: expected_delivery_date
