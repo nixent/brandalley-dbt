@@ -1,11 +1,22 @@
 with customers as (
   select
-    cst_id            as customer_id,
-    timestamp(dt_cr)  as signed_up_at,
-    ba_site,
-    achica_user,
-    achica_migration_date
-  from {{ ref('customers') }}
+    c.cst_id            as customer_id,
+    timestamp(c.dt_cr)  as signed_up_at,
+    c.ba_site,
+    c.achica_user,
+    c.achica_migration_date,
+    regexp_replace(ir.source, r"\?.+", "")  as signup_source,
+    case 
+      when regexp_replace(ir.source, r"\?.+", "") in ('surf-dome', 'country-attire', 'black-leaf', 'derby-house', 'dirt-bike-bitz', 'ride-away', 'simply-scuba', 'webtogs', 'nightgear') then 'referral-ifg'
+      else ir.medium 
+    end as signup_medium
+  from {{ ref('customers') }} c
+  left join {{ ref('stg__invent_referer') }} ir
+    on c.cst_id = ir.entity_id
+      and c.ba_site = ir.ba_site
+      and ir.entity_type = 1 
+      and ir.event_type = 1
+  qualify row_number() over (partition by customer_id, ba_site order by signup_source desc) = 1
 ), 
 
 order_info as (
@@ -50,6 +61,8 @@ select
   c.signed_up_at,
   c.achica_user,
   c.achica_migration_date,
+  c.signup_source,
+  c.signup_medium,
   oi.first_purchase_at,
   oi.last_purchase_at,
   oi.count_customer_orders,

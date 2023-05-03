@@ -31,6 +31,10 @@ models:
           dimension:
             type: timestamp
             sql: 'datetime(customers_enriched.signed_up_at, "Europe/London")'
+      - name: achica_user
+      - name: achica_migration_date
+      - name: signup_source
+      - name: signup_medium
       - name: first_purchase_at
         meta: 
           dimension:
