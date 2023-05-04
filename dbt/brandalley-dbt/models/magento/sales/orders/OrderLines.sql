@@ -360,15 +360,17 @@ with order_lines as (
 
 
 select 
-	*,
-	total_local_currency_ex_tax_after_vouchers - line_product_cost_exc_vat 			as margin,
-	initcap(split(category_path, '>')[safe_offset(0)]) 								as product_category_level_1, 
-	initcap(split(category_path, '>')[safe_offset(1)]) 								as product_category_level_2,
-	initcap(split(category_path, '>')[safe_offset(2)]) 								as product_category_level_3,
-	row_number() over (partition by order_number, parent_sku, ba_site order by sku) as parent_sku_offset,
-	total_local_currency_after_vouchers 											as TOTAL_GBP_after_vouchers,
-	total_local_currency_before_vouchers 											as TOTAL_GBP_before_vouchers,
-	total_local_currency_ex_tax_after_vouchers 										as TOTAL_GBP_ex_tax_after_vouchers,
-	total_local_currency_ex_tax_before_vouchers 									as TOTAL_GBP_ex_tax_before_vouchers
-from order_lines
+	ol.*,
+	ol.total_local_currency_ex_tax_after_vouchers - ol.line_product_cost_exc_vat 															as margin,
+	initcap(split(ol.category_path, '>')[safe_offset(0)]) 																					as product_category_level_1, 
+	initcap(split(ol.category_path, '>')[safe_offset(1)]) 																					as product_category_level_2,
+	initcap(split(ol.category_path, '>')[safe_offset(2)]) 																					as product_category_level_3,
+	row_number() over (partition by ol.order_number, ol.parent_sku, ol.ba_site order by ol.sku) 											as parent_sku_offset,
+	if(ol.ba_site = 'FR', ol.total_local_currency_after_vouchers * fx.eur_to_gbp, ol.total_local_currency_after_vouchers) 					as TOTAL_GBP_after_vouchers,
+	if(ol.ba_site = 'FR', ol.total_local_currency_before_vouchers * fx.eur_to_gbp, ol.total_local_currency_before_vouchers)					as TOTAL_GBP_before_vouchers,
+	if(ol.ba_site = 'FR', ol.total_local_currency_ex_tax_after_vouchers * fx.eur_to_gbp, ol.total_local_currency_ex_tax_after_vouchers)		as TOTAL_GBP_ex_tax_after_vouchers,
+	if(ol.ba_site = 'FR', ol.total_local_currency_ex_tax_before_vouchers * fx.eur_to_gbp, ol.total_local_currency_ex_tax_before_vouchers)	as TOTAL_GBP_ex_tax_before_vouchers
+from order_lines ol
+left join {{ ref('fx_rates') }} fx
+	on date(ol.created_at) = fx.date_day
 
