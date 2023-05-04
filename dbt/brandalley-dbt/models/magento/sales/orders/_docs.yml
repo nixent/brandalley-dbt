@@ -507,13 +507,13 @@ models:
               label: 'Consignment GMV (£)'
               type: sum
               description: "Total consignment GMV"
-              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered},0)"
+              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0    
             consignment_sales_amount_metric:
               label: 'Consignment Sales Amount (£)'
               type: sum
               description: "Total consignment sales amount"
-              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered},0)"
+              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
             consignment_product_cost_metric:
               label: 'Consignment Product Cost (£)'
@@ -537,13 +537,13 @@ models:
               label: 'Self-fulfill GMV (£)'
               type: sum
               description: "Total selffulfill GMV"
-              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered},0)"
+              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0    
             selffulfill_sales_amount_metric:
               label: 'Self-fulfill Sales Amount (£)'
               type: sum
               description: "Total selffulfill sales amount"
-              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered},0)"
+              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
             selffulfill_product_cost_metric:
               label: 'Self-fulfill Product Cost (£)'
@@ -567,13 +567,13 @@ models:
               label: 'Warehouse GMV (£)'
               type: sum
               description: "Total warehouse GMV"
-              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${TOTAL_GBP_after_vouchers}/${qty_ordered},0)"
+              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0    
             warehouse_sales_amount_metric:
               label: 'Warehouse Sales Amount (£)'
               type: sum
               description: "Total warehouse sales amount"
-              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${TOTAL_GBP_ex_tax_after_vouchers}/${qty_ordered},0)"
+              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
             warehouse_product_cost_metric:
               label: 'Warehouse Product Cost (£)'
@@ -795,52 +795,51 @@ models:
       - name: product_category_level_3
         description: "Lowest level of product category"
       - name: TOTAL_GBP_after_vouchers
+      - name: total_local_currency_after_vouchers
         meta:
           metrics:
             total_revenue:
-              label: 'GMV (£)'
+              label: 'GMV (£/€)'
               type: sum
-              description: "Total revenue inc VAT in GBP after taking vouchers into account"
+              description: "Total revenue inc VAT in local currency after taking vouchers into account"
               hidden: false
               round: 0
-              format: 'gbp'      
-      - name: TOTAL_GBP_before_vouchers
+      - name: TOTAL_GBP_before_vouchers   
+      - name: total_local_currency_before_vouchers
         meta:
           metrics:
             total_revenue_before_vouchers:
-              label: 'Total revenue GBP inc VAT (before vouchers)'
+              label: 'Total revenue local currency inc VAT (before vouchers)'
               type: sum
-              description: "Total revenue inc VAT in GBP before taking vouchers into account"
+              description: "Total revenue inc VAT in local currency before taking vouchers into account"
               hidden: false
               round: 0
-              format: 'gbp'   
-      - name: TOTAL_GBP_ex_tax_after_vouchers
+      - name: TOTAL_GBP_ex_tax_after_vouchers 
+      - name: total_local_currency_ex_tax_after_vouchers
         meta:
           metrics:
             total_revenue_exc_tax:
-              label: 'Sales Amount (£)'
+              label: 'Sales Amount (£/€)'
               type: sum
-              description: "Total revenue exc VAT in GBP after taking vouchers into account"
+              description: "Total revenue exc VAT in local currency after taking vouchers into account"
               hidden: false
               round: 0
-              format: 'gbp'   
             average_order_value:
-              label: 'AOV Sales (£)'
+              label: 'AOV Sales (£/€)'
               type: number 
               description: 'Average order value (excluding VAT after discount)'
-              sql: " ${total_revenue_exc_tax}/${total_orders_count}"
+              sql: "${total_revenue_exc_tax}/${total_orders_count}"
               round: 0
-              format: 'gbp'   
       - name: TOTAL_GBP_ex_tax_before_vouchers
+      - name: total_local_currency_ex_tax_before_vouchers
         meta:
           metrics:
             total_revenue_exc_tax_before_vouchers:
-              label: 'Total revenue GBP ex VAT (before vouchers)'
+              label: 'Total revenue local currency ex VAT (before vouchers)'
               type: sum
-              description: "Total revenue ex VAT in GBP before taking vouchers into account"
+              description: "Total revenue ex VAT in local currency before taking vouchers into account"
               hidden: false
               round: 0
-              format: 'gbp'   
       - name: order_fulfillment_type
         description: ""
       - name: qty_to_ship

@@ -4,7 +4,7 @@ with orderlines_agg as (
         ba_site,
         date_diff(current_date(), max(date(order_placed_date)), day)    as days_since_last_order,
         count(distinct order_id)                                        as lifetime_orders, 
-        round(sum(TOTAL_GBP_ex_tax_after_vouchers),0)                   as lifetime_sales_amount,
+        round(sum(total_local_currency_ex_tax_after_vouchers),0)        as lifetime_sales_amount,
         round(sum(margin),0)                                            as lifetime_margin
     from {{ ref('OrderLines') }}
     where customer_id is not null 
