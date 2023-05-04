@@ -256,7 +256,7 @@ with order_lines as (
 			and eaov_pt_con.store_id = 0
 			and cpev_pt_con.ba_site = eaov_pt_con.ba_site
 	left join {{ ref('product_type_department') }} ptd
-		on lower(coalesce(eaov_pt_con.value,eaov_pt_sim.value)) = ptd.product_type
+		on lower(coalesce(eaov_pt_con.value,eaov_pt_sim.value)) = lower(ptd.product_type)
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_brand
 		on cpei_brand.entity_id = sfoi_con.product_id
 			and cpei_brand.attribute_id = 178
