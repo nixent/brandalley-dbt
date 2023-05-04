@@ -7,3 +7,17 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: fx_rates
+    columns:
+      - name: date_day
+      - name: fx_date_month
+      - name: updated_at
+      - name: gbp_to_aud
+      - name: gbp_to_cad
+      - name: gbp_to_chf
+      - name: gbp_to_eur
+      - name: gbp_to_hkd
+      - name: gbp_to_usd
+      - name: gbp_to_eur_budget
+      - name: eur_to_gbp
