@@ -90,11 +90,9 @@ DEC HOME,Gifts
 DEC HOME,home decor
 DEC HOME,home gifts
 DEC HOME,Interior
-DEC HOME,lights
 DEC HOME,outdoor cushions
 DEC HOME,outdoor garden lighting
 DEC HOME,outdoor lanterns
-DEC HOME,outdoor wall & security lights
 DEC HOME,pet care
 DEC HOME,planters pots & ornaments
 DEC HOME,portable & party lights
@@ -138,9 +136,11 @@ FURN,garden storage
 FURN,garden tables
 FURN,gazebos arbours & arches
 FURN,lighting
+FURN,lights
 FURN,mattresses
 FURN,media cabinets
 FURN,mirrors
+FURN,outdoor wall & security lights
 FURN,parasols & accessories
 FURN,patio heaters fire pits & chimineas
 FURN,seats tables & loungers
