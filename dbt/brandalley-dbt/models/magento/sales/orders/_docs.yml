@@ -504,19 +504,19 @@ models:
               hidden: false
               round: 0     
             consignment_gmv_metric:
-              label: 'Consignment GMV (£)'
+              label: 'Consignment GMV (£/€)'
               type: sum
               description: "Total consignment GMV"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0    
             consignment_sales_amount_metric:
-              label: 'Consignment Sales Amount (£)'
+              label: 'Consignment Sales Amount (£/€)'
               type: sum
               description: "Total consignment sales amount"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
             consignment_product_cost_metric:
-              label: 'Consignment Product Cost (£)'
+              label: 'Consignment Product Cost (£/€)'
               type: sum
               description: "Total consignment product cost"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${product_cost_exc_vat},0)"
@@ -534,19 +534,19 @@ models:
               hidden: false
               round: 0     
             selffulfill_gmv_metric:
-              label: 'Self-fulfill GMV (£)'
+              label: 'Self-fulfill GMV (£/€)'
               type: sum
               description: "Total selffulfill GMV"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0    
             selffulfill_sales_amount_metric:
-              label: 'Self-fulfill Sales Amount (£)'
+              label: 'Self-fulfill Sales Amount (£/€)'
               type: sum
               description: "Total selffulfill sales amount"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
             selffulfill_product_cost_metric:
-              label: 'Self-fulfill Product Cost (£)'
+              label: 'Self-fulfill Product Cost (£/€)'
               type: sum
               description: "Total selffulfill product cost"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${product_cost_exc_vat},0)"
@@ -564,19 +564,19 @@ models:
               hidden: false
               round: 0   
             warehouse_gmv_metric:
-              label: 'Warehouse GMV (£)'
+              label: 'Warehouse GMV (£/€)'
               type: sum
               description: "Total warehouse GMV"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0    
             warehouse_sales_amount_metric:
-              label: 'Warehouse Sales Amount (£)'
+              label: 'Warehouse Sales Amount (£/€)'
               type: sum
               description: "Total warehouse sales amount"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
             warehouse_product_cost_metric:
-              label: 'Warehouse Product Cost (£)'
+              label: 'Warehouse Product Cost (£/€)'
               type: sum
               description: "Total warehouse product cost"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${product_cost_exc_vat},0)"
@@ -695,7 +695,7 @@ models:
             hidden: true
           metrics:
             total_margin:
-              label: 'Margin (£)'
+              label: 'Margin (£/€)'
               type: sum
               description: "Total Margin"
               hidden: false
@@ -1455,7 +1455,7 @@ models:
             hidden: true
           metrics:
             orders_total_tax:
-              label: 'Total Orders Tax Amount (£)'
+              label: 'Total Orders Tax Amount (£/€)'
               type: sum
               description: "Order's total tax amount"
               hidden: false
