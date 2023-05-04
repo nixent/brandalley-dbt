@@ -7,7 +7,7 @@ with order_line_agg as (
     order_id,
     ba_site,
     count(*)                             as count_order_lines,
-    sum(TOTAL_GBP_ex_tax_after_vouchers) as order_revenue_excl_tax_after_vouchers,
+    sum(total_local_currency_ex_tax_after_vouchers) as order_revenue_excl_tax_after_vouchers,
     sum(line_product_cost_exc_vat)       as order_product_costs_excl_tax
   from {{ ref('OrderLines') }}
   group by 1,2
