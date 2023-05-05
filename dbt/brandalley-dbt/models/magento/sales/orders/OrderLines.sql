@@ -193,10 +193,8 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
-			when cceh.type = 1 then coalesce(ptd.product_department, 'OUTLET')
-			when cceh.type = 2 then 'CLEARANCE'
-			when cceh.type = 3 then 'OUTLET'
-			when cceh.type is null then 'OTHERS'
+			when lower(cceh.name) like '%clearance%' then 'CLEARANCE'
+			when cceh.name is not null then ptd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
 		sfo.updated_at,
