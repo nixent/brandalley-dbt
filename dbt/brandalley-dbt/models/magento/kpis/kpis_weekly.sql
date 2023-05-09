@@ -51,9 +51,9 @@ order_line_stats as (
         ol.ba_site,
         round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
-        round(sum(ol.TOTAL_GBP_ex_tax_after_vouchers),2)                        as sales_amount,
-        round(sum(if(s.has_shipped, ol.TOTAL_GBP_ex_tax_after_vouchers, 0)),2)  as shipped_sales_amount,
-        round(sum(ol.TOTAL_GBP_after_vouchers),2)                               as gmv,
+        round(sum(ol.total_local_currency_ex_tax_after_vouchers),2)                        as sales_amount,
+        round(sum(if(s.has_shipped, ol.total_local_currency_ex_tax_after_vouchers, 0)),2)  as shipped_sales_amount,
+        round(sum(ol.total_local_currency_after_vouchers),2)                               as gmv,
         round(sum(ol.line_discount_amount),2)                                   as total_discount_amount,
         round(sum(ol.margin),2)                                                 as margin
     from {{ ref('OrderLines') }} ol

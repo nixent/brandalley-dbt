@@ -8,7 +8,7 @@ with order_stats as (
         o.ba_site,
         count(distinct o.increment_id)                                                  as total_order_count,
         count(distinct if(o.orderno = 1, o.increment_id, null))                         as total_new_order_count,
-        count(distinct if(ce.achica_user = 2 and o.orderno = 1, o.customer_id, null))   as total_new_achica_order_count,
+        count(distinct if(ce.achica_user is not null and o.orderno = 1, o.customer_id, null))   as total_new_achica_order_count,
         count(distinct if(o.orderno = 1, o.customer_id, null))                          as total_new_customer_count,
         count(distinct if(o.orderno > 1, o.customer_id, null))                          as total_existing_customer_count,
         sum(o.shipping_incl_tax)                                                        as shipping_amount
@@ -20,11 +20,13 @@ with order_stats as (
 
 customer_stats as (
     select
-        date_trunc(datetime(signed_up_at, "Europe/London"), day)                        as customer_created_at_day,
-        ba_site,
-        count(if(achica_user is null or achica_user != 2, customer_id, null))           as total_new_members,
-        count(if(achica_user = 2, customer_id, null))                                   as total_new_achica_members
+        coalesce(date(crds.date), date(ce.achica_migration_date), date(datetime(ce.signed_up_at, "Europe/London"))) as customer_created_at_day,
+        ce.ba_site,
+        count(if(ce.achica_user is null, ce.customer_id, null))                                                     as total_new_members,
+        count(if(ce.achica_user is not null, ce.customer_id, null))                                                 as total_new_achica_members
     from {{ ref('customers_enriched') }} ce
+    left join {{ ref('customers_record_data_source') }} crds 
+        on ce.customer_id = crds.cst_id
     group by 1,2
 ),
 
@@ -56,9 +58,9 @@ order_line_stats as (
         ol.ba_site,
         round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
-        round(sum(ol.TOTAL_GBP_ex_tax_after_vouchers),2)                        as sales_amount,
-        round(sum(if(s.has_shipped, ol.TOTAL_GBP_ex_tax_after_vouchers, 0)),2)  as shipped_sales_amount,
-        round(sum(ol.TOTAL_GBP_after_vouchers),2)                               as gmv,
+        round(sum(ol.total_local_currency_ex_tax_after_vouchers),2)                        as sales_amount,
+        round(sum(if(s.has_shipped, ol.total_local_currency_ex_tax_after_vouchers, 0)),2)  as shipped_sales_amount,
+        round(sum(ol.total_local_currency_after_vouchers),2)                               as gmv,
         round(sum(ol.line_discount_amount),2)                                   as total_discount_amount,
         round(sum(ol.margin),2)                                                 as margin
     from {{ ref('OrderLines') }} ol

@@ -26,6 +26,13 @@
 			min(safe_cast(created_at as timestamp)) as created_at
 		from {{ ref('stg__sales_flat_order_item') }} 
 		where bq_last_processed_at >= ( select max(bq_last_processed_at) from {{this}} )
+
+		union all
+
+		select 
+			min(safe_cast(fx_date_month as timestamp)) as created_at
+		from {{ ref('fx_rates') }} 
+		where updated_at >= ( select timestamp_sub(max(bq_last_processed_at),interval 30 minute) from {{this}} )
 	)
   {% endset %}
   {% set result = run_query(sql) %}
@@ -186,10 +193,8 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
-			when cceh.type = 1 then coalesce(ptd.product_department, 'OUTLET')
-			when cceh.type = 2 then 'CLEARANCE'
-			when cceh.type = 3 then 'OUTLET'
-			when cceh.type is null then 'OTHERS'
+			when lower(cceh.name) like '%clearance%' then 'CLEARANCE'
+			when cceh.name is not null then ptd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
 		sfo.updated_at,
@@ -212,10 +217,10 @@ with order_lines as (
         row_number() over (partition by sfo.increment_id order by sfoi_con.dispatch_date, sfoi_sim.sku asc)                                                 as shipping_order,
 		coalesce(cpe.sku, 'Unknown') 																														as parent_sku,
 		cpr.reference																																		as REFERENCE,
-		(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount 																as TOTAL_GBP_after_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax 																								as TOTAL_GBP_before_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))			                		as TOTAL_GBP_ex_tax_after_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as TOTAL_GBP_ex_tax_before_vouchers
+		(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount 																as total_local_currency_after_vouchers,
+		sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax 																								as total_local_currency_before_vouchers,
+		sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))			                		as total_local_currency_ex_tax_after_vouchers,
+		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as total_local_currency_ex_tax_before_vouchers
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
@@ -256,7 +261,7 @@ with order_lines as (
 			and eaov_pt_con.store_id = 0
 			and cpev_pt_con.ba_site = eaov_pt_con.ba_site
 	left join {{ ref('product_type_department') }} ptd
-		on lower(coalesce(eaov_pt_con.value,eaov_pt_sim.value)) = ptd.product_type
+		on lower(coalesce(eaov_pt_con.value,eaov_pt_sim.value)) = lower(ptd.product_type)
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_brand
 		on cpei_brand.entity_id = sfoi_con.product_id
 			and cpei_brand.attribute_id = 178
@@ -360,11 +365,17 @@ with order_lines as (
 
 
 select 
-	*,
-	TOTAL_GBP_ex_tax_after_vouchers - line_product_cost_exc_vat as margin,
-	initcap(split(category_path, '>')[safe_offset(0)]) as product_category_level_1, 
-	initcap(split(category_path, '>')[safe_offset(1)]) as product_category_level_2,
-	initcap(split(category_path, '>')[safe_offset(2)]) as product_category_level_3,
-	row_number() over (partition by order_number, parent_sku, ba_site order by sku) as parent_sku_offset
-from order_lines
+	ol.*,
+	ol.total_local_currency_ex_tax_after_vouchers - ol.line_product_cost_exc_vat 																	as margin,
+	initcap(split(ol.category_path, '>')[safe_offset(0)]) 																							as product_category_level_1, 
+	initcap(split(ol.category_path, '>')[safe_offset(1)]) 																							as product_category_level_2,
+	initcap(split(ol.category_path, '>')[safe_offset(2)]) 																							as product_category_level_3,
+	row_number() over (partition by ol.order_number, ol.parent_sku, ol.ba_site order by ol.sku) 													as parent_sku_offset,
+	if(ol.ba_site = 'FR', round(ol.total_local_currency_after_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_after_vouchers) 					as TOTAL_GBP_after_vouchers,
+	if(ol.ba_site = 'FR', round(ol.total_local_currency_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_before_vouchers)				as TOTAL_GBP_before_vouchers,
+	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_after_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_after_vouchers)	as TOTAL_GBP_ex_tax_after_vouchers,
+	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_before_vouchers)	as TOTAL_GBP_ex_tax_before_vouchers
+from order_lines ol
+left join {{ ref('fx_rates') }} fx
+	on date(ol.created_at) = fx.date_day
 

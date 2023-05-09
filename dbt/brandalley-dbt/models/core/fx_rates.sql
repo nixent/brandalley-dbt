@@ -2,14 +2,24 @@
     materialized='table'
 )}}
 
+with daily_dates as (
+    select
+        date_day
+    from unnest(generate_date_array('2020-12-01', current_date, interval 1 day)) as date_day
+)
+
 select
-    Date           as date,
-    AUD            as gbp_to_aud,
-    CAD            as gbp_to_cad,
-    CHF            as gbp_to_chf,
-    EUR            as gbp_to_eur,
-    HKD            as gbp_to_hkd,
-    USD            as gbp_to_usd,
-    EUR_Budget     as gbp_to_eur_budget,
-    round(1/coalesce(EUR,EUR_Budget),4) as eur_to_gbp
-from {{ source('analytics', 'fx_rates_gsheet') }}
+    dd.date_day,
+    fx.date as fx_date_month,
+    fx.updated_at,
+    fx.gbp_to_aud,
+    fx.gbp_to_cad,
+    fx.gbp_to_chf,
+    fx.gbp_to_eur,
+    fx.gbp_to_hkd,
+    fx.gbp_to_usd,
+    fx.gbp_to_eur_budget,
+    fx.eur_to_gbp
+from {{ ref('stg__fx_rates') }} fx
+left join daily_dates dd 
+    on fx.date = date_trunc(dd.date_day, month)
