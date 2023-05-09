@@ -51,9 +51,10 @@
     from region-europe-west2.INFORMATION_SCHEMA.SCHEMATA s
     left join table_counts tc
         on tc.table_schema = s.schema_name
-    where (date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 7
-        and tc.tables_in_schema is null)
-        or (s.schema_name like '%dbt_cloud_pr%' and date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 3)
+    where 
+        s.schema_name not like 'ml_%'
+        and ((date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 7 and tc.tables_in_schema is null)
+            or (s.schema_name like '%dbt_cloud_pr%' and date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 3))
 {% endset %}
 
 {% set table_results = run_query(tables_sql) %}
