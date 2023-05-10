@@ -747,12 +747,8 @@ models:
         description: "1 for surveyed tickets, 0 otherwise"
       - name: rated_ticket_wt_comment
         description: "1 for rated tickets without comment, 0 otherwise"
-      - name: ticket_age
-        description: "Age since ticket was created, 0 otherwise"
-      - name: last_updated
-        description: "Time since last update, 0 otherwise"
 
-  - name: zendesk__sla_policies_override
+  - name: zendesk__sla_policies_overwrite
     description: Each record represents an SLA policy event and additional sla breach and achievement metrics. Calendar and business hour SLA breaches are supported.
     columns:
       - name: sla_event_id
