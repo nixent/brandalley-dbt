@@ -362,12 +362,6 @@ models:
           dimension:
             type: string
             sql: case when duration < 300 then '0-5 min' when duration < 600 then '5-10 min' when duration < 900 then '10-15 min' when duration < 1200 then '15-20 min' else '>20 min' end
-      - name: inbound_completed_calls
-        description: "1 for inbound completed calls"
-        meta:
-          dimension:
-            type: string
-            sql: if(completion_status='completed' and direction='Inbound', 1, 0)
       - name: aht
         description: "AHT duration"
         meta:
