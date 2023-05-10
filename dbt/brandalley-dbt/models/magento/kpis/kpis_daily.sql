@@ -109,6 +109,7 @@ select
     os.total_existing_customer_count,
     cs2.total_new_members,
     cs2.total_new_achica_members,
+    cs2.total_new_ifg_members,
     os.shipping_amount,
     rs.total_refund_count,
     rs.total_item_refund_count,
