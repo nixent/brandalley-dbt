@@ -342,7 +342,7 @@ models:
         description: "Hour of the day"
         meta:
           dimension:
-            type: integer
+            type: number
             sql: extract(hour from created_at)          
       - name: created_at_mon_of_the_year
         description: "Month of the year in letters"
@@ -372,7 +372,7 @@ models:
         description: "AHT duration"
         meta:
           dimension:
-            type: integer
+            type: number
             sql: ifnull(wait_time, 0) + ifnull(talk_time, 0) + ifnull(time_to_answer, 0) + ifnull(wrap_up_time, 0)
 
   - name: daily_zendesk_call
@@ -844,7 +844,7 @@ models:
         description: "Hour of the day the ticket was created"
         meta:
           dimension:
-            type: integer
+            type: number
             sql: extract(hour from created_at) 
       - name: first_reply_time_hours_business_bucket
         description: "Bucket depending on business time spent on first reply in hours"
@@ -908,5 +908,5 @@ models:
         description: "sla_elapsed_time - target"
         meta:
           dimension:
-            type: integer
+            type: number
             sql: sla_elapsed_time-target
