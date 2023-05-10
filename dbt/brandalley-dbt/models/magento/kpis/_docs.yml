@@ -21,6 +21,7 @@ models:
       - name: total_existing_customer_count
       - name: total_new_members
       - name: total_new_achica_members
+      - name: total_new_ifg_members
       - name: shipping_amount
         description: "Shipping amount incl. tax"
         meta:
