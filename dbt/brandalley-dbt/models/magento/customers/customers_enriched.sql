@@ -75,7 +75,7 @@ select
   c.signed_up_at,
   c.achica_user,
   c.achica_migration_date,
-  if(c.signed_up_at >= '2023-04-29' and ifg.email_hash is not null, true, false) as is_new_ifg_user,
+  if(date(c.signed_up_at) >= '2023-04-29' and ifg.email_hash is not null, true, false) as is_new_ifg_user,
   c.signup_source,
   c.signup_medium,
   oi.first_purchase_at,
