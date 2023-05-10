@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: analytics
+    database: datawarehouse-358408
+    description: "IFG customer tables"
+    tables:
+      - name: ifg_*
