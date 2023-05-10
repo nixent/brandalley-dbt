@@ -55,12 +55,7 @@ with tickets as (
             custom_shipping_issue_type,
             custom_solution,
             custom_status_id,
-            custom_tracking_,
-            case when custom_contact_reason like '%order_info/issue%' then 'Order Info/Issue'
-            when custom_contact_reason like '%general_information%' then 'General Information'
-            when custom_contact_reason like '%others%' then 'Others'
-            when custom_contact_reason like '%technical_support%' then 'Technical Support'
-            END as custom_main_contact_reason,
+            custom_tracking_
     from {{ source(
         'zendesk',
         'ticket'

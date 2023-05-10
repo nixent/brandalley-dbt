@@ -1,3 +1,2 @@
-select *,
-sla_elapsed_time-target                             as breached_time
+select *
 from{{ ref('zendesk__sla_policies') }}
