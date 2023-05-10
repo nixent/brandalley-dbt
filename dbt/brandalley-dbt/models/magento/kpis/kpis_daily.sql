@@ -9,6 +9,7 @@ with order_stats as (
         count(distinct o.increment_id)                                                  as total_order_count,
         count(distinct if(o.orderno = 1, o.increment_id, null))                         as total_new_order_count,
         count(distinct if(ce.achica_user is not null and o.orderno = 1, o.customer_id, null))   as total_new_achica_order_count,
+        count(distinct if(ce.is_new_ifg_user is not null and o.orderno = 1, o.customer_id, null))   as total_new_ifg_order_count,
         count(distinct if(o.orderno = 1, o.customer_id, null))                          as total_new_customer_count,
         count(distinct if(o.orderno > 1, o.customer_id, null))                          as total_existing_customer_count,
         sum(o.shipping_incl_tax)                                                        as shipping_amount
@@ -105,6 +106,7 @@ select
     os.total_order_count,
     os.total_new_order_count,
     os.total_new_achica_order_count,
+    os.total_new_ifg_order_count,
     os.total_new_customer_count,
     os.total_existing_customer_count,
     cs2.total_new_members,
