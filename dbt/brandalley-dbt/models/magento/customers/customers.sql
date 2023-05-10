@@ -50,6 +50,7 @@ with customers_updated as (
 select
 	ce.ba_site || '-' || ce.entity_id 								   as ba_site_customer_id,
 	ce.entity_id 													   as cst_id,
+	ce.email_hash,
 	ce.ba_site,
 	ca_b_26.value billing_city,
 	ca_b_30.value billing_postcode,
@@ -61,7 +62,7 @@ select
 	ca_s_27.value s_country,
 	safe_cast(safe_cast(ce.created_at as timestamp) as datetime) 	   as dt_cr,
 	if(ns.subscriber_status = 1, 'Opted', 'Not Opted') 				   as subscription,
-	if(cet_old_account.value = '', null, cet_old_account.value) 		   as old_account_id,
+	if(cet_old_account.value = '', null, cet_old_account.value) 	   as old_account_id,
 	if(cei_222.value = 1, 'Yes', 'No') 								   as third_party,
 	ce.updated_at,
 	cei_363.value 													   as achica_user,
