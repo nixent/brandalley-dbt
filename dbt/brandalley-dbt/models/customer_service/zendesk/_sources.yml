@@ -137,6 +137,74 @@ sources:
           - name: url
             data_type: <string>
             description: "url"
+      - name: call_leg
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "id"
+          - name: agent_id
+            data_type: <integer>
+            description: "agent_id"
+          - name: available_via
+            data_type: <string>
+            description: "available_via"
+          - name: call_charge
+            data_type: <string>
+            description: "call_charge"
+          - name: call_id
+            data_type: <integer>
+            description: "call_id"
+          - name: completion_status
+            data_type: <string>
+            description: "completion_status"
+          - name: conference_from
+            data_type: <integer>
+            description: "conference_from"
+          - name: conference_time
+            data_type: <integer>
+            description: "conference_time"
+          - name: conference_to
+            data_type: <integer>
+            description: "conference_to"
+          - name: consultation_from
+            data_type: <integer>
+            description: "consultation_from"
+          - name: consultation_time
+            data_type: <integer>
+            description: "consultation_time"
+          - name: consultation_to
+            data_type: <integer>
+            description: "consultation_to"
+          - name: created_at
+            data_type: <timestamp>
+            description: "created_at"
+          - name: duration
+            data_type: <integer>
+            description: "duration"
+          - name: forwarded_to
+            data_type: <string>
+            description: "forwarded_to"
+          - name: hold_time
+            data_type: <integer>
+            description: "hold_time"
+          - name: minutes_billed
+            data_type: <integer>
+            description: "minutes_billed"
+          - name: talk_time
+            data_type: <integer>
+            description: "talk_time"
+          - name: transferred_from
+            data_type: <integer>
+            description: "transferred_from"
+          - name: transferred_to
+            data_type: <integer>
+            description: "transferred_to"
+          - name: type
+            data_type: <string>
+            description: "type"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated_at"
       - name: custom_role
         columns:
           - name: id
