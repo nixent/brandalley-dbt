@@ -147,10 +147,10 @@ models:
   - name: zendesk_call_metric
     meta:
       joins:
-        - join: call_leg
-          sql_on: ${zendesk_call_metric.id} = ${call_leg.call_id}
-        - join: user
-          sql_on: ${zendesk_call_metric.agent_id} = ${user.id}
+        - join: call_leg_overwrite
+          sql_on: ${zendesk_call_metric.id} = ${call_leg_overwrite.call_id}
+        - join: user_overwrite
+          sql_on: ${zendesk_call_metric.agent_id} = ${user_overwrite.id}
     columns:
       - name: id
         data_type: <integer>
@@ -904,3 +904,181 @@ models:
           dimension:
             type: number
             sql: sla_elapsed_time-target
+  - name: call_leg_overwrite
+    columns:
+      - name: id
+        data_type: <integer>
+        description: "id"
+      - name: agent_id
+        data_type: <integer>
+        description: "agent_id"
+      - name: available_via
+        data_type: <string>
+        description: "available_via"
+      - name: call_charge
+        data_type: <string>
+        description: "call_charge"
+      - name: call_id
+        data_type: <integer>
+        description: "call_id"
+      - name: completion_status
+        data_type: <string>
+        description: "completion_status"
+      - name: conference_from
+        data_type: <integer>
+        description: "conference_from"
+      - name: conference_time
+        data_type: <integer>
+        description: "conference_time"
+      - name: conference_to
+        data_type: <integer>
+        description: "conference_to"
+      - name: consultation_from
+        data_type: <integer>
+        description: "consultation_from"
+      - name: consultation_time
+        data_type: <integer>
+        description: "consultation_time"
+      - name: consultation_to
+        data_type: <integer>
+        description: "consultation_to"
+      - name: created_at
+        data_type: <timestamp>
+        description: "created_at"
+      - name: duration
+        data_type: <integer>
+        description: "duration"
+      - name: forwarded_to
+        data_type: <string>
+        description: "forwarded_to"
+      - name: hold_time
+        data_type: <integer>
+        description: "hold_time"
+      - name: minutes_billed
+        data_type: <integer>
+        description: "minutes_billed"
+      - name: talk_time
+        data_type: <integer>
+        description: "talk_time"
+      - name: transferred_from
+        data_type: <integer>
+        description: "transferred_from"
+      - name: transferred_to
+        data_type: <integer>
+        description: "transferred_to"
+      - name: type
+        data_type: <string>
+        description: "type"
+      - name: updated_at
+        data_type: <timestamp>
+        description: "updated_at"
+  - name: user_overwrite
+    columns:
+      - name: id
+        data_type: <integer>
+        description: "primary key"
+      - name: active
+        data_type: <string>
+        description: "active"
+      - name: alias
+        data_type: <string>
+        description: "alias"
+      - name: authenticity_token
+        data_type: <string>
+        description: "authenticity_token"
+      - name: chat_only
+        data_type: <string>
+        description: "chat_only"
+      - name: created_at
+        data_type: <timestamp>
+        description: "created_at"
+      - name: custom_agent_s_company
+        data_type: <string>
+        description: "custom_agent_s_company"
+      - name: custom_don_t_send_csat
+        data_type: <string>
+        description: "custom_don_t_send_csat"
+      - name: custom_don_t_send_pending_reminder
+        data_type: <string>
+        description: "custom_don_t_send_pending_reminder"
+      - name: custom_role_id
+        data_type: <integer>
+        description: "custom_role_id"
+      - name: email
+        data_type: <string>
+        description: "email"
+      - name: external_id
+        data_type: <string>
+        description: "external_id"
+      - name: iana_time_zone
+        data_type: <string>
+        description: "iana_time_zone"
+      - name: last_login_at
+        data_type: <timestamp>
+        description: "last_login_at"
+      - name: locale
+        data_type: <string>
+        description: "locale"
+      - name: locale_id
+        data_type: <integer>
+        description: "locale_id"
+      - name: moderator
+        data_type: <string>
+        description: "moderator"
+      - name: name
+        data_type: <string>
+        description: "name"
+      - name: notes
+        data_type: <string>
+        description: "notes"
+      - name: only_private_comments
+        data_type: <string>
+        description: "only_private_comments"
+      - name: organization_id
+        data_type: <integer>
+        description: "organization_id"
+      - name: phone
+        data_type: <string>
+        description: "phone"
+      - name: remote_photo_url
+        data_type: <string>
+        description: "remote_photo_url"
+      - name: report_csv
+        data_type: <string>
+        description: "report_csv"
+      - name: restricted_agent
+        data_type: <string>
+        description: "restricted_agent"
+      - name: role
+        data_type: <string>
+        description: "role"
+      - name: shared
+        data_type: <string>
+        description: "shared"
+      - name: shared_agent
+        data_type: <string>
+        description: "shared_agent"
+      - name: signature
+        data_type: <string>
+        description: "signature"
+      - name: suspended
+        data_type: <string>
+        description: "suspended"
+      - name: ticket_restriction
+        data_type: <string>
+        description: "ticket_restriction"
+      - name: time_zone
+        data_type: <string>
+        description: "time_zone"
+      - name: two_factor_auth_enabled
+        data_type: <string>
+        description: "two_factor_auth_enabled"
+      - name: updated_at
+        data_type: <timestamp>
+        description: "updated_at"
+      - name: url
+        data_type: <string>
+        description: "url"
+      - name: verified
+        data_type: <string>
+        description: "verified"
