@@ -193,7 +193,7 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
-			when cceh.category_id in (19359, 75381) then 'CLEARANCE'
+			when lower(cceh.name) like '%clearance%' then 'CLEARANCE'
 			when cceh.name is not null then ptd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
