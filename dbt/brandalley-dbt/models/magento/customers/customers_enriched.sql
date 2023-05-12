@@ -6,6 +6,8 @@ with customers as (
     c.ba_site,
     c.achica_user,
     c.achica_migration_date,
+    c.cocosa_user,
+    c.cocosa_signup_at
     regexp_replace(ir.source, r"\?.+", "")  as signup_source,
     case 
       when regexp_replace(ir.source, r"\?.+", "") in ('surf-dome', 'country-attire', 'black-leaf', 'derby-house', 'dirt-bike-bitz', 'ride-away', 'simply-scuba', 'webtogs', 'nightgear') then 'referral-ifg'
