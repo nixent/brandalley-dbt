@@ -17,11 +17,13 @@ models:
       - name: total_order_count
       - name: total_new_order_count
       - name: total_new_achica_order_count
+      - name: total_new_cocosa_order_count
       - name: total_new_ifg_order_count
       - name: total_new_customer_count
       - name: total_existing_customer_count
       - name: total_new_members
       - name: total_new_achica_members
+      - name: total_new_cocosa_members
       - name: total_new_ifg_members
       - name: shipping_amount
         description: "Shipping amount incl. tax"
