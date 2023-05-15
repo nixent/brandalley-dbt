@@ -68,35 +68,47 @@ second_orders as (
     days_since_first_purchase as first_to_second_order_interval 
   from {{ ref('orders_enriched') }}
   where order_sequence = 2
+),
+
+customers_joined as (
+  select 
+    c.ba_site || '-' || c.customer_id as ba_site_customer_id,
+    c.customer_id,
+    c.ba_site,
+    c.signed_up_at,
+    c.achica_user,
+    c.achica_migration_date,
+    c.cocosa_user,
+    c.cocosa_signup_at,
+    if(c.signup_medium='referral-ifg' or (date(c.signed_up_at) >= '2023-04-29' and ifg.email_hash is not null), true, false) as is_new_ifg_user,
+    c.signup_source,
+    c.signup_medium,
+    oi.first_purchase_at,
+    oi.last_purchase_at,
+    oi.count_customer_orders,
+    fob.first_purchase_brands,
+    so.second_purchase_at,
+    so.first_to_second_order_interval,
+    date_diff(current_date, date(oi.first_purchase_at), day) as customer_first_purchase_age_days
+  from customers c
+  left join order_info oi
+    on c.customer_id = oi.customer_id and c.ba_site = oi.ba_site
+  left join first_order_brands fob
+    on c.customer_id = fob.customer_id and c.ba_site = fob.ba_site
+  left join second_orders so
+    on c.customer_id = so.customer_id and c.ba_site = so.ba_site
+  left join ifg_customers ifg
+    on c.email_hash = ifg.email_hash
+  qualify row_number() over (partition by c.customer_id, c.ba_site order by c.signed_up_at) = 1
 )
-  
-select 
-  c.ba_site || '-' || c.customer_id as ba_site_customer_id,
-  c.customer_id,
-  c.ba_site,
-  c.signed_up_at,
-  c.achica_user,
-  c.achica_migration_date,
-  c.cocosa_user,
-  c.cocosa_signup_at,
-  if(date(c.signed_up_at) >= '2023-04-29' and ifg.email_hash is not null, true, false) as is_new_ifg_user,
-  c.signup_source,
-  c.signup_medium,
-  oi.first_purchase_at,
-  oi.last_purchase_at,
-  oi.count_customer_orders,
-  fob.first_purchase_brands,
-  so.second_purchase_at,
-  so.first_to_second_order_interval,
-  date_diff(current_date, date(oi.first_purchase_at), day) as customer_first_purchase_age_days
-from customers c
-left join order_info oi
-  on c.customer_id = oi.customer_id and c.ba_site = oi.ba_site
-left join first_order_brands fob
-  on c.customer_id = fob.customer_id and c.ba_site = fob.ba_site
-left join second_orders so
-  on c.customer_id = so.customer_id and c.ba_site = so.ba_site
-left join ifg_customers ifg
-  on c.email_hash = ifg.email_hash
-qualify row_number() over (partition by c.customer_id, c.ba_site order by c.signed_up_at) = 1
+
+select
+  *,
+  case 
+    when is_new_ifg_user then 'IFG'
+    when achica_user = 2 then 'Achica'
+    when cocosa_user = 2 then 'Cocosa'
+    else 'BA'
+  end as customer_type
+from customers_joined
   

@@ -48,6 +48,7 @@ models:
             type: boolean
       - name: signup_source
       - name: signup_medium
+      - name: customer_type
       - name: first_purchase_at
         meta: 
           dimension:
