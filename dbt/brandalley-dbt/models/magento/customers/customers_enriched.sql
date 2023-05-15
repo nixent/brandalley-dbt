@@ -106,8 +106,8 @@ select
   *,
   case 
     when is_new_ifg_user then 'IFG'
-    when achica_user = 2 then 'Achica'
-    when cocosa_user = 2 then 'Cocosa'
+    when achica_user is not null then 'Achica'
+    when cocosa_user is not null then 'Cocosa'
     else 'BA'
   end as customer_type
 from customers_joined
