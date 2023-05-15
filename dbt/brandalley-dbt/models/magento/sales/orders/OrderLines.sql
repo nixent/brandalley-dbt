@@ -193,7 +193,7 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
-			when lower(cceh.name) like '%clearance%' then 'CLEARANCE'
+			when lower(ccfse.path_name) like '%>clearance>%' then 'CLEARANCE'
 			when cceh.name is not null then ptd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
@@ -321,6 +321,9 @@ with order_lines as (
 	left join {{ ref('stg__catalog_category_entity_history') }} cceh
 		on sfoie.category_id = cceh.category_id
 		and sfoie.ba_site = cceh.ba_site
+	left join {{ ref('catalog_category_flat_store_1_enriched') }} ccfse
+		on ccfse.entity_id = cceh.category_id
+		and ccfse.ba_site = cceh.ba_site
 	left join {{ ref('stg__catalog_product_negotiation') }} cpn
 		on sfoi_sim.nego = cpn.negotiation_id
 		and cpn.ba_site = sfoi_sim.ba_site

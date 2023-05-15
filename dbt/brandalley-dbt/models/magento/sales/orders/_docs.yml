@@ -1409,13 +1409,13 @@ models:
               label: 'Total New Orders'
               type: count_distinct
               description: "Number of new orders"
-              sql: "IF(${order_number_incl_cancellations}=1, ${ba_site_increment_id}, null)"
+              sql: "IF(${orderno}=1, ${ba_site_increment_id}, null)"
               round: 0
             total_returning_order_count:
               label: 'Total Returning Orders'
               type: count_distinct
               description: "Number of returning orders"
-              sql: "IF(${order_number_incl_cancellations}>1, ${ba_site_increment_id}, null)"
+              sql: "IF(${orderno}>1, ${ba_site_increment_id}, null)"
               round: 0
       - name: ba_site
       - name: increment_id
