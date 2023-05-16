@@ -800,6 +800,13 @@ models:
         description: "To order original"
       - name: negotiation_id
         description: "Negotiation ID"
+      - name: poi_updated
+        description: "Updated date of the POI"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            sql: 'datetime(purchase_order.poi_updated, "Europe/London")'
       - name: po_created
         description: "Created date of the PO"
         meta:
