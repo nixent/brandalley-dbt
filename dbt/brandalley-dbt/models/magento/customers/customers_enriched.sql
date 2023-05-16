@@ -8,7 +8,7 @@ with customers as (
     c.achica_migration_date,
     c.cocosa_user,
     c.cocosa_signup_at,
-    regexp_replace(ir.source, r"\?.+", "")  as signup_source,
+    replace(regexp_replace(ir.source, r"\?.+", ""), '-', '')  as signup_source,
     case 
       when regexp_replace(ir.source, r"\?.+", "") in ('surf-dome', 'country-attire', 'black-leaf', 'derby-house', 'dirt-bike-bitz', 'ride-away', 'simply-scuba', 'webtogs', 'nightgear') then 'referral-ifg'
       else ir.medium 
@@ -28,11 +28,11 @@ with customers as (
 
 ifg_customers as (
   select 
-    md5(lower(email))          as email_hash, 
-    max(opt_in)                as opted_in, 
-    min(account_creation_date) as account_created_date
+    md5(lower(email))                        as email_hash, 
+    account_creation_date,
+    replace(_TABLE_SUFFIX, '_customers', '') as ifg_source
   from {{ source('analytics', 'ifg_*') }}
-  group by 1
+  qualify row_number() over (partition by email_hash order by account_creation_date) = 1
 ),
 
 order_info as (
@@ -81,8 +81,8 @@ customers_joined as (
     c.cocosa_user,
     c.cocosa_signup_at,
     if(c.signup_medium='referral-ifg' or (date(c.signed_up_at) >= '2023-04-29' and ifg.email_hash is not null), true, false) as is_new_ifg_user,
-    c.signup_source,
-    c.signup_medium,
+    coalesce(if(ifg.ifg_source is not null and date(c.signed_up_at) >= '2023-04-29', replace(ifg.ifg_source, '_', ''), null), c.signup_source)                       as signup_source,
+    if(ifg.ifg_source is not null and date(c.signed_up_at) >= '2023-04-29', 'referral-ifg', c.signup_medium)                   as signup_medium,
     oi.first_purchase_at,
     oi.last_purchase_at,
     oi.count_customer_orders,
