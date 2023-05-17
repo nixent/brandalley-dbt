@@ -509,7 +509,7 @@ models:
     meta:
       joins:
         - join: zendesk_tickets_detailed
-          sql_on: ${zendesk__ticket_metrics_overwrite.ticket_id} = ${zendesk_tickets_detailed.ticket_id}
+          sql_on: ${zendesk__ticket_metrics_overwrite.ticket_id} = ${zendesk_tickets_detailed.id}
     columns:
       - name: first_reply_time_calendar_minutes
         description: "The number of calendar minutes between when the ticket was created and when the first public agent response occurred"
@@ -911,6 +911,10 @@ models:
             type: number
             sql: ${zendesk__sla_policies_overwrite.sla_elapsed_time}-${zendesk__sla_policies_overwrite.target}
   - name: call_leg_overwrite
+    meta:
+      joins:
+        - join: zendesk_call_metric
+          sql_on: ${zendesk_call_metric.id} = ${call_leg_overwrite.call_id}
     columns:
       - name: id
         data_type: <integer>
@@ -936,7 +940,7 @@ models:
               type: count_distinct
               description: "Number of calls with missed call legs"
               hidden: false
-              sql: if(${call_leg_overwrite.type}='agent' and ${zendesk_call_metric.direction}='inbound' and ${call_leg_overwrite.completion_status}='agent_missed', ${call_leg_overwrite.leg_id}, null)
+              sql: if(${call_leg_overwrite.type}='agent' and ${zendesk_call_metric.direction}='inbound' and ${call_leg_overwrite.completion_status}='agent_missed', ${call_leg_overwrite.id}, null)
               round: 0      
       - name: agent_id
         data_type: <integer>
