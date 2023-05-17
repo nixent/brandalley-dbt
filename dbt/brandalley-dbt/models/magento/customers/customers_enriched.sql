@@ -80,7 +80,7 @@ customers_joined as (
     c.achica_migration_date,
     c.cocosa_user,
     c.cocosa_signup_at,
-    if(ifg.email_hash is not null), true, false) as is_existing_ifg_user,
+    if(ifg.email_hash is not null, true, false) as is_existing_ifg_user,
     if(c.signup_medium='referral-ifg' or (date(c.signed_up_at) >= '2023-04-29' and ifg.email_hash is not null), true, false) as is_new_ifg_user,
     coalesce(if(ifg.ifg_source is not null and date(c.signed_up_at) >= '2023-04-29', replace(ifg.ifg_source, '_', ''), null), c.signup_source)                       as signup_source,
     if(ifg.ifg_source is not null and date(c.signed_up_at) >= '2023-04-29', 'referral-ifg', c.signup_medium)                   as signup_medium,
