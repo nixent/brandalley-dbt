@@ -87,13 +87,13 @@ models:
               round: 0
               format: 'gbp' 
       - name: visit_id
+      - name: visitor_id
         meta:
           metrics:
             total_users_metric:
               label: 'Users'
               type: count_distinct
               description: "Total users"
-      - name: visitor_id
       - name: unique_visit_id
         meta:
           metrics:
