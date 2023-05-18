@@ -243,7 +243,7 @@ models:
               type: sum
               description: "Number of calls with direction outbound"
               hidden: false
-              sql: if(${zendesk_call_metric.direction}='Outbound', 1, 0)
+              sql: if(${zendesk_call_metric.direction}='outbound', 1, 0)
               round: 0      
       - name: duration
         data_type: <integer>
@@ -751,13 +751,13 @@ models:
               type: sum
               description: "Number of satisfaction score = good or bad or offered"
               hidden: false
-              sql: "if(${zendesk__ticket_metrics_overwrite.ticket_satisfaction_score} in ('Offered', 'good', 'bad'), 1, 0)"
+              sql: "if(${zendesk__ticket_metrics_overwrite.ticket_satisfaction_score} in ('offered', 'good', 'bad'), 1, 0)"
             rated_ticket_wt_comment:
               label: 'Tickets rated without any comment'
               type: sum
-              description: "Number of satisfaction score = good or bad and total_comments=0"
+              description: "Number of satisfaction score = good or bad and no ticket_satisfaction_comment"
               hidden: false
-              sql: "if(${zendesk__ticket_metrics_overwrite.ticket_satisfaction_score} in ('good', 'bad') and ${zendesk__ticket_metrics_overwrite.total_comments}=0, 1, 0)"
+              sql: "if(${zendesk__ticket_metrics_overwrite.ticket_satisfaction_score} in ('good', 'bad') and ${zendesk__ticket_metrics_overwrite.ticket_satisfaction_comment} is null, 1, 0)"
       - name: is_good_to_bad_satisfaction_score
         description: "Boolean indicating if the ticket had a satisfaction score went from good to bad."
       - name: is_bad_to_good_satisfaction_score
