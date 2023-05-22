@@ -45,8 +45,8 @@ customer_stats as (
 )
 
 select
-    mt.created_at_hour,
-    mt.ba_site,
+    coalesce(mt.created_at_hour, cs.customer_created_at_hour) as created_at_hour,
+    coalesce(mt.ba_site, cs.ba_site) as ba_site,
     mt.nego,
     mt.brand,
     mt.category_name,
@@ -71,7 +71,7 @@ select
     null                                                                                                    as last_week_qty_invoiced,
     null                                                                                                    as last_week_revenue
 from metrics_today_and_last_week mt
-left join customer_stats cs
+left outer join customer_stats cs
     on mt.created_at_hour = cs.customer_created_at_hour and mt.ba_site = cs.ba_site
 where date(mt.created_at_hour) = current_date
 
@@ -104,7 +104,5 @@ select
     mt.qty_invoiced_metric                                                                                     as last_week_qty_invoiced,
     mt.total_revenue_exc_tax                                                                                   as last_week_revenue
 from metrics_today_and_last_week mt
-left join customer_stats cs
-    on mt.created_at_hour = cs.customer_created_at_hour and mt.ba_site = cs.ba_site
 where date(mt.created_at_hour) = current_date - 7
 
