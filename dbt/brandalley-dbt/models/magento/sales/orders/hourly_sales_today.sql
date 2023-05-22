@@ -45,8 +45,8 @@ customer_stats as (
 )
 
 select
-    coalesce(mt.created_at_hour, cs.customer_created_at_hour) as created_at_hour,
-    coalesce(mt.ba_site, cs.ba_site) as ba_site,
+    mt.created_at_hour,
+    mt.ba_site,
     mt.nego,
     mt.brand,
     mt.category_name,
@@ -65,14 +65,12 @@ select
     mt.total_discount_amount,
     mt.total_new_order_count,
     mt.total_existing_order_count,
-    cs.total_new_members,
+    cast(null as integer) as total_new_members,
     if(extract(hour from mt.created_at_hour) < 10, '0', '') || extract(hour from mt.created_at_hour) || ':00'     as hour,
     null                                                                                                    as last_week_margin,
     null                                                                                                    as last_week_qty_invoiced,
     null                                                                                                    as last_week_revenue
 from metrics_today_and_last_week mt
-left outer join customer_stats cs
-    on mt.created_at_hour = cs.customer_created_at_hour and mt.ba_site = cs.ba_site
 where date(mt.created_at_hour) = current_date
 
 union all
@@ -105,4 +103,35 @@ select
     mt.total_revenue_exc_tax                                                                                   as last_week_revenue
 from metrics_today_and_last_week mt
 where date(mt.created_at_hour) = current_date - 7
+
+union all
+
+select
+    cs.customer_created_at_hour,
+    cs.ba_site,
+    null                                                                                                    as nego,
+    null                                                                                                    as brand,
+    null                                                                                                    as category_name,
+    null                                                                                                    as department_type,
+    null                                                                                                    as parent_sku,
+    null                                                                                                    as product_type,
+    null                                                                                                    as supplier_name,
+    null                                                                                                    as qty_invoiced_metric,
+    null                                                                                                    as total_revenue,
+    null                                                                                                    as line_product_cost_exc_vat_metric,
+    null                                                                                                    as total_revenue_exc_tax,
+    null                                                                                                    as margin_value,
+    null                                                                                                    as gmv_aov,
+    null                                                                                                    as rc_aov,
+    null                                                                                                    as nc_aov,
+    null                                                                                                    as total_discount_amount,
+    null                                                                                                    as total_new_order_count,
+    null                                                                                                    as total_existing_order_count,
+    total_new_members,
+    if(extract(hour from cs.customer_created_at_hour) < 10, '0', '') || extract(hour from cs.customer_created_at_hour) || ':00'     as hour,
+    null                                       as last_week_margin,
+    null                                                                                     as last_week_qty_invoiced,
+    null                                                                                   as last_week_revenue
+from customer_stats cs
+where date(cs.customer_created_at_hour) = current_date
 
