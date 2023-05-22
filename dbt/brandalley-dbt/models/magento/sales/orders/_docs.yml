@@ -253,6 +253,7 @@ models:
               round: 0
               format: 'gbp'
             hourly_aov:
+              type: number
               sql: 'sum(${total_revenue})/sum(${total_order_count})'
               round: 0 
       - name: line_product_cost_exc_vat_metric
@@ -281,12 +282,14 @@ models:
         meta:
           metrics:
             rc_aov:
+              type: number
               sql: 'sum(${rc_gmv})/sum(${total_existing_order_count})'
               round: 0
       - name: nc_gmv
         meta:
           metrics:
             rc_aov:
+              type: number
               sql: 'sum(${nc_gmv})/sum(${total_new_order_count})'
               round: 0
       - name: total_discount_amount
