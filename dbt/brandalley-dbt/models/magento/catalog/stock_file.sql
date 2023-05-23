@@ -31,26 +31,18 @@ with stock_file_raw as (
         cpn.buyer                                       as buyer_id,
         concat(au.firstname, ' ', au.lastname)          as buyer,
         -- pulling level_1>level_2>level_3 from the outlet_category field
-        split(cpev_outlet_category.value, '>')[offset(0)] level_1, 
-        if(length(cpev_outlet_category.value) - length(regexp_replace(cpev_outlet_category.value, '>', ''))>0, split(cpev_outlet_category.value, '>')[offset(1)], null) level_2, 
-        if(length(cpev_outlet_category.value) - length(regexp_replace(cpev_outlet_category.value, '>', ''))>1, split(cpev_outlet_category.value, '>')[offset(2)], null) level_3,
+        split(cpev_outlet_category.value, '>')[safe_offset(0)] as level_1, 
+        split(cpev_outlet_category.value, '>')[safe_offset(1)] as level_2, 
+        split(cpev_outlet_category.value, '>')[safe_offset(2)] as level_3,
         cpni.tax_rate                                   as tax,
         cpei_tax.value                                  as tax_class,
         date(stock_prism.delivery_date)                 as last_stock_delivery_date,
-        if(sum(stock_child.min_qty) < 0, 'No', 'Yes')   as canUseForWHSale,
+        cpei_menu_type_3.value as value_3, 
+        category_details.sale_end,
+        replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,
+        if(sum(stock_child.min_qty) < 0, 'No', 'Yes')    as canUseForWHSale,
         string_agg(distinct cast(category_id as string)) as parent_child_category_ids,
-        -- Parent category is type 3, flashsale type 1. If there are more than 1 category, we need to put them on the same, but separated with a return carriage character
-        if(cpei_menu_type_3.value=3, 
-        --stringagg to put multiple lines on one, then 2 replace: 1 for changing separator from comma to return carriage, one to remove the initial 'root catalog>brand alley uk>' of categories
-            replace(
-                replace(
-                    string_agg(distinct category_details.path_name order by path_name)
-                , ',', '\n')
-            , 'Root Catalog>Brand Alley UK>', '')
-        , null) as parent_category,
-        -- if(cpei_menu_type_1.value=1, replace(replace(RTRIM(REGEXP_EXTRACT(STRING_AGG(category_details.path_name ORDER BY category_details.created_at), '(?:.*?,){3}'), ','), ',', '\n'), 'Root Catalog>Brand Alley UK>', ''), null) as flashsale_category
-        -- STRINGAGG to put multiple lines on one, categories need to be ordered from oldest to newest
-        if(cpei_menu_type_1.value=1, string_agg(category_details.path_name order by category_details.created_at), null) as flashsale_category
+        row_number() over (partition by e.entity_id, e.ba_site order by category_details.sale_end desc) as rn
     from {{ ref('stg__catalog_product_entity') }} e
     inner join {{ ref('stg__cataloginventory_stock_item') }} stock 
         on stock.product_id = e.entity_id
@@ -201,80 +193,24 @@ with stock_file_raw as (
             and cpei_menu_type_3.entity_id = category.category_id
             and cpei_menu_type_3.value=3
             and cpei_menu_type_3.ba_site = category.ba_site
-    left join {{ ref('stg__catalog_category_entity_int') }} cpei_menu_type_1 
-        on cpei_menu_type_1.attribute_id = 373
-            and cpei_menu_type_1.entity_id = category.category_id
-            and cpei_menu_type_1.value=1
-            and cpei_menu_type_1.ba_site = category.ba_site
     where e.type_id = 'simple'
         and stock.qty > 0
-    {{ dbt_utils.group_by(36) }}, cpei_menu_type_3.value, cpei_menu_type_1.value
- ),
-
- stock_file_2 as (
-    select  
-        stock.* except (flashsale_category, child_parent_sku, parent_category, special_price, parent_child_category_ids),
-        cat_map.category,
-        (select string_agg(distinct value order by value) from unnest(split(flashsale_category, ',')) as value) as flashsale_category,
-        string_agg(distinct child_parent_sku)   as child_parent_sku,
-        string_agg(distinct parent_category)    as parent_category, 
-        min(special_price)                      as special_price
-    from stock_file_raw stock
-    -- join on the mapping provided by the buying team
-    -- the logic is we look at outlet_category first to do the join. If not possible we use parent_category then flashsale_category.	
-    left join {{ source('utils', 'category_mapping') }} cat_map 
-        on 
-            -- join on level 1 (First element of path in outlet_category, 3rd element in parent_category and flashsale_category)
-            IF(stock.level_1 is not null, 
-                stock.level_1, 
-                IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>2, 
-                    SPLIT(parent_category, '>')[offset(2)], 
-                        if(flashsale_category is not null, 
-                            SPLIT(flashsale_category, '>')[offset(2)], null)
-                    )
-                ) = cat_map.row_label 
-        and 
-            -- join on level 2 (Second element of path in outlet_category, 4th element in parent_category and flashsale_category)
-            IF(stock.level_2 is not null, 
-                stock.level_2, 
-                IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>3, 
-                    SPLIT(parent_category, '>')[offset(3)], 
-                        if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>0, 
-                            SPLIT(flashsale_category, '>')[offset(3)], null)
-                    )
-                ) = cat_map.level_2 
-        and 
-            -- join on level 3 (Third element of path in outlet_category, 5th element in parent_category and flashsale_category)
-            IF(stock.level_3 is not null, 
-                stock.level_3, 
-                IF(LENGTH(parent_category) - LENGTH(REGEXP_REPLACE(parent_category, '>', ''))>4, 
-                    SPLIT(parent_category, '>')[offset(4)], 
-                        if(LENGTH(flashsale_category) - LENGTH(REGEXP_REPLACE(flashsale_category, '>', ''))>1, 
-                            SPLIT(flashsale_category, '>')[offset(4)], null)
-                    )
-                ) = cat_map.level_3
-    {{ dbt_utils.group_by(37) }}, flashsale_category
+    {{ dbt_utils.group_by(39) }}, category.product_id
  )
 
 select  
-
-    * except (flashsale_category, child_parent_sku, parent_category, special_price),
-    replace(
-        replace(
-            if(LENGTH(string_agg(flashsale_category)) - LENGTH(REGEXP_REPLACE(string_agg(flashsale_category), ',', ''))>=3,
-                RTRIM(
-                    REGEXP_EXTRACT(string_agg(flashsale_category)            
-        -- The REGEXP_EXTRACT help to keep only characters up to the 3rd comma as Buying team doesn't want more than 3 categories
-                    , '(?:.*?,){3}')
-    -- RTRIM to remove the last comma
-                , ','),
-            string_agg(flashsale_category))
-    -- replacing commas by return carriage
-        , ',', '\n')
-    -- removing the initial unwanted 'Root Catalog>Brand Alley UK>' categories
-    , 'Root Catalog>Brand Alley UK>', '')   as flashsale_category, 
-    string_agg(distinct child_parent_sku)   as child_parent_sku,
-    string_agg(parent_category)             as parent_category, 
-    min(special_price)                      as special_price
-from stock_file_2
+    stock.* except (flashsale_category, child_parent_sku, special_price, parent_child_category_ids, value_3, rn, sale_end),
+    cat_map.category,
+    string_agg(distinct if(rn <=3 and current_timestamp <= timestamp(sale_end), flashsale_category, null), '\n') as flashsale_category,
+    string_agg(distinct child_parent_sku)                                                                        as child_parent_sku,
+    string_agg(distinct if(value_3 = 3, flashsale_category, null), '\n')                                         as parent_category, 
+    min(special_price)                                                                                           as special_price
+from stock_file_raw stock
+left join {{ source('utils', 'category_mapping') }} cat_map 
+    -- join on cat_mapping level that corresponds to level of path in outlet_category, then parent_category and then flashsale_category
+    on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label 
+        and coalesce(stock.level_2,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(3)],split(flashsale_category, '>')[safe_offset(3)]) = cat_map.level_2 
+        and coalesce(stock.level_3,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(4)],split(flashsale_category, '>')[safe_offset(4)]) = cat_map.level_3
 {{ dbt_utils.group_by(36) }}
+
+

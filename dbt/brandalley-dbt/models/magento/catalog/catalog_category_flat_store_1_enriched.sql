@@ -1,5 +1,14 @@
-select main.*,
-concat(lv0.name,IF (lv1.name IS NOT NULL,concat('>',lv1.name),''),IF (lv2.name IS NOT NULL,concat('>',lv2.name),''), IF (lv3.name IS NOT NULL,concat('>',lv3.name),''), IF (lv4.name IS NOT NULL,concat('>',lv4.name),''), IF (lv5.name IS NOT NULL,concat('>',lv5.name),''), IF (lv6.name IS NOT NULL,concat('>',lv6.name),''), IF (lv7.name IS NOT NULL,concat('>',lv7.name),'')) path_name
+select 
+	main.*,
+	concat(lv0.name,
+	IF (lv1.name IS NOT NULL,concat('>',lv1.name),''),
+	IF (lv2.name IS NOT NULL,concat('>',lv2.name),''), 
+	IF (lv3.name IS NOT NULL,concat('>',lv3.name),''), 
+	IF (lv4.name IS NOT NULL,concat('>',lv4.name),''), 
+	IF (lv5.name IS NOT NULL,concat('>',lv5.name),''), 
+	IF (lv6.name IS NOT NULL,concat('>',lv6.name),''), 
+	IF (lv7.name IS NOT NULL,concat('>',lv7.name),'')
+	) as path_name
 FROM {{ ref(
 				'stg__catalog_category_flat_store_1'
 		) }} main
