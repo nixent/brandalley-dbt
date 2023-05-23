@@ -255,7 +255,8 @@ models:
             hourly_aov:
               type: number
               sql: 'safe_divide(sum(total_revenue),sum(total_order_count))'
-              round: 0 
+              round: 0
+              label: 'Hourly AOV'
       - name: line_product_cost_exc_vat_metric
         meta:
           metrics:
@@ -285,6 +286,7 @@ models:
               type: number
               sql: 'safe_divide(sum(rc_gmv),sum(total_existing_order_count))'
               round: 0
+              label: 'RC AOV'
       - name: nc_gmv
         meta:
           metrics:
@@ -292,6 +294,7 @@ models:
               type: number
               sql: 'safe_divide(sum(nc_gmv),sum(total_new_order_count))'
               round: 0
+              label: 'NC AOV'
       - name: total_discount_amount
         meta:
           metrics:
