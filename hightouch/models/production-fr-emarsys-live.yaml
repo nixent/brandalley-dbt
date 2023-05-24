@@ -1,0 +1,12 @@
+name: Production - FR Emarsys Live
+source: google-big-query-5x13w
+type: raw_sql
+rawSql: |-
+  SELECT
+    *
+  FROM
+    `emarsys.emarsys_fr_new_customers`
+  WHERE
+    DATE(_streamkap_loaded_at_ts) >= CURRENT_DATE()
+isSchema: false
+primaryKey: hightouch_customerId
