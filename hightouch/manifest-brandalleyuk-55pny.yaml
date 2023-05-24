@@ -18,6 +18,9 @@ sources:
     name: Google BigQuery
     type: bigquery
 destinations:
+  zendesk-fr:
+    name: Zendesk FR
+    type: zendesk
   emarsys-fr:
     name: Emarsys FR
     type: emarsys
