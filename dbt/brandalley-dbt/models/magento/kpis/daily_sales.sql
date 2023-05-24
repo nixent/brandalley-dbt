@@ -2,7 +2,7 @@ with order_stats as (
     select
         date_trunc(datetime(o.created_at, "Europe/London"), day)                           as order_created_at_day,
         o.ba_site,
-        {# ce.customer_type, #}
+        ce.customer_type,
         count(distinct o.increment_id)                                                  as total_order_count--,
         {# count(distinct if(o.orderno = 1, o.increment_id, null))                         as total_new_order_count,
         count(distinct if(o.orderno = 1, o.customer_id, null))                          as total_new_customer_count,
@@ -10,8 +10,8 @@ with order_stats as (
         sum(o.shipping_incl_tax)                                                        as shipping_amount #}
     from {{ ref('Orders')}} o
     left join {{ ref('customers_enriched') }} ce
-        on o.customer_id = ce.customer_id
-    group by 1,2--,3
+        on o.customer_id = ce.customer_id and o.ba_site = ce.ba_site
+    group by 1,2,3
 )
 
 select
@@ -22,6 +22,8 @@ select
     d.last_year,
     {# d.last_month, #}
     {# end for dev #}
+    os.customer_type,
+    -- customer type means totals ly dont quite add up - why?
     os.ba_site,
     os.total_order_count,
     {# os1.total_order_count as last_week_total_order_count,
@@ -36,7 +38,7 @@ left join order_stats os
 left join order_stats os2
     on os2.order_created_at_day = d.last_month and os.ba_site = os2.ba_site #}
 left join order_stats os3
-    on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site
+    on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site and os.customer_type = os3.customer_type
 left join order_stats os4
-    on os4.order_created_at_day = d.last_year_same_day and os.ba_site = os4.ba_site
+    on os4.order_created_at_day = d.last_year_same_day and os.ba_site = os4.ba_site and os.customer_type = os4.customer_type
 
