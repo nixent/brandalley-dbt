@@ -2,6 +2,9 @@
 # Changes made here will be ignored. Please use the Hightouch dashboard to create and edit sources and destinations.
 
 sources:
+  my-sql:
+    name: MySQL FR Prod
+    type: mysql
   my-sql-magento-prod:
     name: MySQL Magento Prod
     type: mysql
