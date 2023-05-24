@@ -9,8 +9,13 @@ models:
       - name: last_week_total_order_count
       - name: last_month_total_order_count
       - name: last_year_total_order_count
+      - name: last_year_same_day_total_order_count
+        meta:
+          metrics:
+            last_year_wtd_total_order_count:
+              type: sum
 
-      
+
   - name: kpis_daily
     description: "A view of all KPIs, based off of order creation day"
     columns:
