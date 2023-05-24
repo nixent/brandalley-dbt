@@ -32,5 +32,5 @@ left join order_stats os2
 left join order_stats os3
     on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site
 left join order_stats os4
-    on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site
+    on os4.order_created_at_day = d.last_year_same_day and os.ba_site = os4.ba_site
 
