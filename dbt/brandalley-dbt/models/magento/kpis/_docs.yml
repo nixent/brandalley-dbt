@@ -1,6 +1,16 @@
 version: 2
 
 models:
+  - name: daily_sales
+    columns:
+      - name: date_day
+      - name: ba_site
+      - name: total_order_count
+      - name: last_week_total_order_count
+      - name: last_month_total_order_count
+      - name: last_year_total_order_count
+
+      
   - name: kpis_daily
     description: "A view of all KPIs, based off of order creation day"
     columns:
