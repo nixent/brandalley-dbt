@@ -8,7 +8,7 @@ models:
       - name: total_order_count
         meta:
           metrics:
-            total_order_count:
+            total_orders_count:
               type: sum
       - name: last_week_total_order_count
       - name: last_month_total_order_count
