@@ -1,0 +1,26 @@
+model: zendesk-batch-data-fr
+destination: zendesk-fr
+description: Zendesk batch data FR
+config:
+  mode: upsert
+  object: users
+  mappings:
+    - to: name
+      from: customer_name
+      type: standard
+    - to: phone
+      from: phonenew
+      type: standard
+    - to: external_id
+      from: customer_id
+      type: standard
+  rowsPerBatch: 300
+  configVersion: 0
+  customMappings: []
+  externalIdMapping:
+    to: email
+    from: customer_email
+  sendVerificationEmail: true
+schedule:
+  type: manual
+schedulePaused: false
