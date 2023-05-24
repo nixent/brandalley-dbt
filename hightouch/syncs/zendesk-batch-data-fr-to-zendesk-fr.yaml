@@ -22,5 +22,9 @@ config:
     from: customer_email
   sendVerificationEmail: true
 schedule:
-  type: manual
+  type: interval
+  schedule:
+    interval:
+      unit: hour
+      quantity: 1
 schedulePaused: false
