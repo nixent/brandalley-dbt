@@ -1,17 +1,14 @@
 with order_stats as (
     select
-        date_trunc(datetime(o.created_at, "Europe/London"), day)                           as order_created_at_day,
-        o.ba_site,
-        ce.customer_type,
-        count(distinct o.increment_id)                                                  as total_order_count--,
-        {# count(distinct if(o.orderno = 1, o.increment_id, null))                         as total_new_order_count,
-        count(distinct if(o.orderno = 1, o.customer_id, null))                          as total_new_customer_count,
-        count(distinct if(o.orderno > 1, o.customer_id, null))                          as total_existing_customer_count,
-        sum(o.shipping_incl_tax)                                                        as shipping_amount #}
-    from {{ ref('Orders')}} o
-    left join {{ ref('customers_enriched') }} ce
-        on o.customer_id = ce.customer_id and o.ba_site = ce.ba_site
-    group by 1,2,3
+        order_created_at_day,
+        ba_site,
+        total_order_count,
+        total_new_customer_count,
+        total_new_members,
+        gmv,
+        margin,
+        qty_ordered
+    from {{ ref('kpis_daily')}}
 )
 
 select
@@ -22,14 +19,27 @@ select
     d.last_year,
     {# d.last_month, #}
     {# end for dev #}
-    os.customer_type,
-    -- customer type means totals ly dont quite add up - why?
     os.ba_site,
     os.total_order_count,
+    os.total_new_customer_count,
+    os.total_new_members,
+    os.gmv,
+    os.margin,
+    os.qty_ordered,
     {# os1.total_order_count as last_week_total_order_count,
     os2.total_order_count as last_month_total_order_count, #}
-    os3.total_order_count as last_year_total_order_count,
-    os4.total_order_count as last_year_same_day_total_order_count
+    os3.total_order_count           as last_year_total_order_count,
+    os4.total_order_count           as last_year_same_day_total_order_count,
+    os3.total_new_customer_count    as last_year_total_new_customer_count,
+    os4.total_new_customer_count    as last_year_same_day_total_new_customer_count,
+    os3.total_new_members           as last_year_total_new_member_count,
+    os4.total_new_members           as last_year_same_day_total_new_member_count,
+    os3.gmv                         as last_year_gmv,
+    os4.gmv                         as last_year_same_day_gmv,
+    os3.margin                      as last_year_margin,
+    os4.margin                      as last_year_same_day_margin,
+    os3.qty_ordered                 as last_year_qty_ordered,
+    os4.qty_ordered                 as last_year_same_day_qty_ordered
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -38,7 +48,7 @@ left join order_stats os
 left join order_stats os2
     on os2.order_created_at_day = d.last_month and os.ba_site = os2.ba_site #}
 left join order_stats os3
-    on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site and os.customer_type = os3.customer_type
+    on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site
 left join order_stats os4
-    on os4.order_created_at_day = d.last_year_same_day and os.ba_site = os4.ba_site and os.customer_type = os4.customer_type
+    on os4.order_created_at_day = d.last_year_same_day and os.ba_site = os4.ba_site
 

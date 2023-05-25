@@ -10,6 +10,31 @@ models:
           metrics:
             total_orders_count:
               type: sum
+      - name: total_new_customer_count
+        meta:
+          metrics:
+            total_new_customers_count:
+              type: sum
+      - name: total_new_members
+        meta:
+          metrics:
+            total_new_members_count:
+              type: sum
+      - name: gmv
+        meta:
+          metrics:
+            total_gmv:
+              type: sum
+      - name: margin
+        meta:
+          metrics:
+            total_margin:
+              type: sum
+      - name: qty_ordered
+        meta:
+          metrics:
+            total_qty_ordered:
+              type: sum
       # - name: last_week_total_order_count
       # - name: last_month_total_order_count
       - name: last_year_total_order_count
@@ -21,6 +46,56 @@ models:
         meta:
           metrics:
             last_year_same_day_wtd_total_order_count:
+              type: sum
+      - name: last_year_total_new_customer_count
+        meta:
+          metrics:
+            last_year_mtd_ytd_total_new_customer_count:
+              type: sum
+      - name: last_year_same_day_total_new_customer_count
+        meta:
+          metrics:
+            last_year_same_day_wtd_total_new_customer_count:
+              type: sum
+      - name: last_year_total_new_member_count
+        meta:
+          metrics:
+            last_year_mtd_ytd_total_new_member_count:
+              type: sum
+      - name: last_year_same_day_total_new_member_count
+        meta:
+          metrics:
+            last_year_same_day_wtd_total_new_member_count:
+              type: sum
+      - name: last_year_gmv
+        meta:
+          metrics:
+            last_year_mtd_ytd_gmv:
+              type: sum
+      - name: last_year_same_day_gmv
+        meta:
+          metrics:
+            last_year_same_day_wtd_gmv:
+              type: sum
+      - name: last_year_margin
+        meta:
+          metrics:
+            last_year_mtd_ytd_margin:
+              type: sum
+      - name: last_year_same_day_margin
+        meta:
+          metrics:
+            last_year_same_day_wtd_margin:
+              type: sum
+      - name: last_year_qty_ordered
+        meta:
+          metrics:
+            last_year_mtd_ytd_qty_ordered:
+              type: sum
+      - name: last_year_same_day_qty_ordered
+        meta:
+          metrics:
+            last_year_same_day_wtd_qty_ordered:
               type: sum
 
 
