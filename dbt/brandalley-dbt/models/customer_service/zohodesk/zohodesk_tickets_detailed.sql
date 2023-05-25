@@ -1,11 +1,6 @@
 {{ config(
 	materialized='table',
-	unique_key='id',
-	partition_by = {
-      "field": "created_time",
-      "data_type": "timestamp",
-      "granularity": "day"
-    }
+	unique_key='id'
 ) }}
 
 /* On hold for first run

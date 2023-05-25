@@ -1,0 +1,35 @@
+# READ ONLY FILE
+# Changes made here will be ignored. Please use the Hightouch dashboard to create and edit sources and destinations.
+
+sources:
+  my-sql:
+    name: MySQL FR Prod
+    type: mysql
+  my-sql-magento-prod:
+    name: MySQL Magento Prod
+    type: mysql
+  google-big-query-dev:
+    name: Google BigQuery Dev
+    type: bigquery
+  google-big-query-5x13w:
+    name: Google BigQuery
+    type: bigquery
+  google-big-query-i1qwd:
+    name: Google BigQuery
+    type: bigquery
+destinations:
+  zendesk-fr:
+    name: Zendesk FR
+    type: zendesk
+  emarsys-fr:
+    name: Emarsys FR
+    type: emarsys
+  zendesk:
+    name: Zendesk
+    type: zendesk
+  emarsys-sandbox:
+    name: Emarsys Sandbox
+    type: emarsys
+  emarsys-1gyu1:
+    name: Emarsys
+    type: emarsys
