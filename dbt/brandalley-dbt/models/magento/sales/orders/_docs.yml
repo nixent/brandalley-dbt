@@ -733,7 +733,43 @@ models:
               description: "Amount of discount granted inc VAT"
               hidden: false
               round: 2
-              format: 'gbp'      
+              format: 'gbp'    
+      - name: line_shipping_incl_tax
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_shipping_incl_tax_metric:
+              label: 'Shipping incl tax'
+              type: sum
+              description: "Shipping incl tax for the full line of the order"
+              hidden: false
+              round: 2
+      - name: line_shipping_excl_tax
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_shipping_excl_tax_metric:
+              label: 'Shipping excl tax'
+              type: sum
+              description: "Shipping excl tax for the full line of the order"
+              hidden: false
+              round: 2
+      - name: line_shipping_tax
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_shipping_tax_metric:
+              label: 'Shipping tax amount'
+              type: sum
+              description: "Shipping tax for the full line of the order"
+              hidden: false
+              round: 2
       - name: margin
         description: ""
         meta:
