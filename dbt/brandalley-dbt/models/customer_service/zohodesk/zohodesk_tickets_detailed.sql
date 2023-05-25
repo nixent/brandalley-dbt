@@ -3,7 +3,6 @@
 	unique_key='id'
 ) }}
 
-/* On hold for first run
 {% set min_ts = '2023-02-01' %}
 {% if execute and is_incremental() %}
   {% set sql %}
@@ -21,7 +20,6 @@
   {% set result = run_query(sql) %}
   {% set min_ts = result.columns['min_ts'][0]  %}
 {% endif %}
-*/
 
 with tickets as (
     select  Id                                                                          as id,
@@ -46,9 +44,9 @@ with tickets as (
             'Tickets'
         ) }} 
 	where 1=1
-/*	{% if is_incremental() %}
+	{% if is_incremental() %}
 		and IF(gravity_inserted>gravity_updated or gravity_updated is null, gravity_inserted, gravity_updated) >= '{{min_ts}}'
-	{% endif %}*/
+	{% endif %}
 )
 
 select * from tickets
