@@ -12,6 +12,7 @@ models:
           metrics:
             total_ga_unique_visits:
               type: sum
+              label: 'Unique Visits'
       - name: ga_orders
       - name: total_order_count
         meta:
@@ -20,6 +21,7 @@ models:
           metrics:
             total_orders_count:
               type: sum
+              label: 'Orders'
       - name: total_new_customer_count
         meta:
           dimension:
@@ -27,6 +29,7 @@ models:
           metrics:
             total_new_customers_count:
               type: sum
+              label: 'New Customers'
       - name: total_new_members
         meta:
           dimension:
@@ -34,6 +37,7 @@ models:
           metrics:
             total_new_members_count:
               type: sum
+              label: 'New Members'
       - name: gmv
         meta:
           dimension:
@@ -41,6 +45,7 @@ models:
           metrics:
             total_gmv:
               type: sum
+              label: 'GMV'
       - name: margin
         meta:
           dimension:
@@ -48,6 +53,7 @@ models:
           metrics:
             total_margin:
               type: sum
+              label: 'Margin'
       - name: qty_ordered
         meta:
           dimension:
@@ -55,6 +61,7 @@ models:
           metrics:
             total_qty_ordered:
               type: sum
+              label: 'Units Ordered'
       # - name: last_week_total_order_count
       # - name: last_month_total_order_count
       - name: last_year_total_order_count
@@ -64,6 +71,7 @@ models:
           metrics:
             last_year_mtd_ytd_total_order_count:
               type: sum
+              label: 'LY Orders (MTD or YTD)'
       - name: last_year_same_day_total_order_count
         meta:
           dimension:
@@ -71,6 +79,7 @@ models:
           metrics:
             last_year_same_day_wtd_total_order_count:
               type: sum
+              label: 'LY Orders (Day or WTD)'
       - name: last_year_total_new_customer_count
         meta:
           dimension:
@@ -78,6 +87,7 @@ models:
           metrics:
             last_year_mtd_ytd_total_new_customer_count:
               type: sum
+              label: 'LY New Customers (MTD or YTD)'
       - name: last_year_same_day_total_new_customer_count
         meta:
           dimension:
@@ -85,6 +95,7 @@ models:
           metrics:
             last_year_same_day_wtd_total_new_customer_count:
               type: sum
+              label: 'LY Orders (Day or WTD)'
       - name: last_year_total_new_member_count
         meta:
           dimension:
@@ -92,6 +103,7 @@ models:
           metrics:
             last_year_mtd_ytd_total_new_member_count:
               type: sum
+              label: 'LY New Members (MTD or YTD)'
       - name: last_year_same_day_total_new_member_count
         meta:
           dimension:
@@ -99,6 +111,7 @@ models:
           metrics:
             last_year_same_day_wtd_total_new_member_count:
               type: sum
+              label: 'LY Orders (Day or WTD)'
       - name: last_year_gmv
         meta:
           dimension:
@@ -106,6 +119,7 @@ models:
           metrics:
             last_year_mtd_ytd_gmv:
               type: sum
+              label: 'LY GMV (MTD or YTD)'
       - name: last_year_same_day_gmv
         meta:
           dimension:
@@ -113,6 +127,7 @@ models:
           metrics:
             last_year_same_day_wtd_gmv:
               type: sum
+              label: 'LY GMV (Day or WTD)'
       - name: last_year_margin
         meta:
           dimension:
@@ -120,6 +135,7 @@ models:
           metrics:
             last_year_mtd_ytd_margin:
               type: sum
+              label: 'LY Margin (MTD or YTD)'
       - name: last_year_same_day_margin
         meta:
           dimension:
@@ -127,6 +143,7 @@ models:
           metrics:
             last_year_same_day_wtd_margin:
               type: sum
+              label: 'LY Margin (Day or WTD)'
       - name: last_year_qty_ordered
         meta:
           dimension:
@@ -134,6 +151,7 @@ models:
           metrics:
             last_year_mtd_ytd_qty_ordered:
               type: sum
+              label: 'LY Units Ordered (MTD or YTD)'
       - name: last_year_same_day_qty_ordered
         meta:
           dimension:
@@ -141,6 +159,7 @@ models:
           metrics:
             last_year_same_day_wtd_qty_ordered:
               type: sum
+              label: 'LY Units Ordered (Day or WTD)'
       - name: last_year_same_day_ga_unique_visits
         meta:
           dimension:
@@ -148,6 +167,7 @@ models:
           metrics:
             last_year_same_day_wtd_ga_unique_visits:
               type: sum
+              label: 'LY Unique Visits (Day or WTD)'
 
 
   - name: kpis_daily
