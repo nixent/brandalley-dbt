@@ -76,6 +76,8 @@ with order_lines as (
 		sfoi_con.original_price /nullif((1 + (sfoi_con.tax_percent / 100.)),0) * sfoi_sim.qty_ordered 														as line_flash_price_exc_vat,
 		sfoi_con.discount_amount 																															as line_discount_amount,
 		if(sfo.total_refunded is null, 0, sfo.total_refunded)																								as line_total_refunded,
+		(sfo.shipping_incl_tax/sfo.total_qty_ordered) * sfoi_sim.qty_ordered as line_shipping_incl_tax,
+		(sfo.shipping_excl_tax/sfo.total_qty_ordered) * sfoi_sim.qty_ordered as line_shipping_excl_tax,
 		shipping_refunded,
 		if(cpev_outletcat_con.value is not null, cpev_outletcat_con.value, cpev_outletcat_sim.value) 														as category_path,
 		case 
@@ -377,7 +379,8 @@ select
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_after_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_after_vouchers) 					as TOTAL_GBP_after_vouchers,
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_before_vouchers)				as TOTAL_GBP_before_vouchers,
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_after_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_after_vouchers)	as TOTAL_GBP_ex_tax_after_vouchers,
-	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_before_vouchers)	as TOTAL_GBP_ex_tax_before_vouchers
+	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_before_vouchers)	as TOTAL_GBP_ex_tax_before_vouchers,
+	line_shipping_incl_tax - line_shipping_excl_tax																									as line_shipping_tax
 from order_lines ol
 left join {{ ref('fx_rates') }} fx
 	on date(ol.created_at) = fx.date_day
