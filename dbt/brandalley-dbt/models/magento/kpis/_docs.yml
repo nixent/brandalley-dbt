@@ -4,7 +4,14 @@ models:
   - name: daily_sales
     columns:
       - name: date_day
+        meta:
+          dimension:
+            type: date
+            label: 'Date'
       - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
       - name: ga_unique_visits
         meta:
           dimension:
@@ -14,6 +21,9 @@ models:
               type: sum
               label: 'Unique Visits'
       - name: ga_orders
+        meta:
+          dimension:
+            label: 'GA Orders'
       - name: total_order_count
         meta:
           dimension:
