@@ -9,6 +9,15 @@ with order_stats as (
         margin,
         qty_ordered
     from {{ ref('kpis_daily')}}
+),
+
+ga_stats as (
+    select 
+        ga_session_at_date,
+        ga_unique_visits,
+        ga_orders
+    from {{ ref('ga_conversion_rate') }}
+    where date_aggregation_type = 'day'
 )
 
 select
@@ -20,6 +29,8 @@ select
     {# d.last_month, #}
     {# end for dev #}
     os.ba_site,
+    gs.ga_unique_visits,
+    gs.ga_orders,
     os.total_order_count,
     os.total_new_customer_count,
     os.total_new_members,
@@ -28,6 +39,8 @@ select
     os.qty_ordered,
     {# os1.total_order_count as last_week_total_order_count,
     os2.total_order_count as last_month_total_order_count, #}
+    gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
+    gs1.ga_orders                   as last_year_same_day_ga_orders,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
     os3.total_new_customer_count    as last_year_total_new_customer_count,
@@ -51,4 +64,8 @@ left join order_stats os3
     on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site
 left join order_stats os4
     on os4.order_created_at_day = d.last_year_same_day and os.ba_site = os4.ba_site
+left join ga_stats gs 
+    on gs.ga_session_at_date = d.date_day and os.ba_site = 'UK'
+left join ga_stats gs1
+    on gs1.ga_session_at_date = d.last_year_same_day and os.ba_site = 'UK'
 
