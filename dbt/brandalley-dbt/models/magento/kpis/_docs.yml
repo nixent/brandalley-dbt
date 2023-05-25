@@ -98,7 +98,7 @@ models:
           metrics:
             last_year_same_day_wtd_total_new_customer_count:
               type: sum
-              label: 'LY Orders (Day or WTD)'
+              label: 'LY New Customers (Day or WTD)'
               group_label: 'Last Year'
       - name: last_year_total_new_member_count
         meta:
@@ -116,7 +116,7 @@ models:
           metrics:
             last_year_same_day_wtd_total_new_member_count:
               type: sum
-              label: 'LY Orders (Day or WTD)'
+              label: 'LY New Members (Day or WTD)'
               group_label: 'Last Year'
       - name: last_year_gmv
         meta:
