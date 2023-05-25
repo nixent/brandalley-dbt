@@ -45,7 +45,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']     
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']     
             sql: 'datetime(coupon_rules.sales_rule_coupon_created_at, "Europe/London")'           
       - name: type
         data_type: <integer>
@@ -124,7 +124,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']  
             sql: 'datetime(coupon_rules.invent_autocoupon_created_at, "Europe/London")'              
       - name: cartrule_id
         description: "Cartrule id"
@@ -204,7 +204,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']  
             sql: 'datetime(gift_cards.date_created, "Europe/London")' 
       - name: date_expires
         description: "Date expires"
@@ -600,8 +600,6 @@ models:
       - name: product_cost_exc_vat
         description: ""
         meta:
-          dimension:
-            hidden: true
           metrics:
             product_cost_exc_vat_metric:
               label: 'Cost of 1 unit exc VAT'
@@ -639,8 +637,6 @@ models:
       - name: line_flash_price_inc_vat
         description: ""
         meta:
-          dimension:
-            hidden: true
           metrics:
             line_flash_price_inc_vat_metric:
               label: 'Flash price inc VAT per unit'
@@ -742,7 +738,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(timestamp(OrderLines.created_at), "Europe/London")'
       - name: month_created
         description: ""
@@ -886,7 +882,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(OrderLinesNullParent.created_at, "Europe/London")'
       - name: line_created_at
         description: "Creation date of the order line"
@@ -1166,7 +1162,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(OrderLinesWithParent.created_at, "Europe/London")'
       - name: product_type
         description: "Type of product ordered"
@@ -1567,7 +1563,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(Orders.created_at, "Europe/London")'
       - name: updated_at
         description: "Update date of the order, nullable"
