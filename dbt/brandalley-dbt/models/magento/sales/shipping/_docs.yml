@@ -112,10 +112,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(shipments.created_at, "Europe/London")'
       - name: updated_at
         description: "Update date of the shipment, nullable"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: packages
         description: "Number of packages, nullable"
 
@@ -161,14 +165,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(shipping.order_date, "Europe/London")'
       - name: shipment_date
         description: ""
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(timestamp(shipping.shipment_date), "Europe/London")'
           metrics:
             days_to_delivery_exc_we:

@@ -34,7 +34,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']    
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(coupon_rules.expiration_date, "Europe/London")'        
       - name: is_primary
         data_type: <integer>
@@ -45,7 +45,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']     
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(coupon_rules.sales_rule_coupon_created_at, "Europe/London")'           
       - name: type
         data_type: <integer>
@@ -95,7 +95,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']    
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(coupon_rules.order_date, "Europe/London")'            
       - name: invent_autocoupon_id
         description: "invent_autocoupon_id"
@@ -124,7 +124,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']  
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(coupon_rules.invent_autocoupon_created_at, "Europe/London")'              
       - name: cartrule_id
         description: "Cartrule id"
@@ -197,21 +197,21 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER'] 
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(gift_cards.order_date, "Europe/London")'     
       - name: date_created
         description: "Date created"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']  
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(gift_cards.date_created, "Europe/London")' 
       - name: date_expires
         description: "Date expires"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(gift_cards.date_expires, "Europe/London")' 
       - name: balance
         description: "Balance"
@@ -361,8 +361,9 @@ models:
       - name: coupon_type_label
       - name: created_at
         meta:
-          dimension: 
+          dimension:
             type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(multiple_coupon_orders.created_at, "Europe/London")'
       - name: coupon_code
       - name: coupon_name
@@ -629,10 +630,10 @@ models:
               round: 0     
       - name: order_placed_date
         description: ""
-        meta: 
+        meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(timestamp(OrderLines.order_placed_date), "Europe/London")' 
           metrics:
             date_difference_between_months:
@@ -643,6 +644,10 @@ models:
               group_label: 
       - name: dispatch_due_date
         description: ""
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: product_cost_exc_vat
         description: ""
         meta:
@@ -779,6 +784,10 @@ models:
         description: ""
       - name: updated_at
         description: "Update time"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: created_at
         description: "Creation time"
         meta:
@@ -803,7 +812,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(OrderLines.date_comp_exported, "Europe/London")'
       - name: cpn_date_flag
         description: "sfoi.created_at greater than cpn.date_comp_exported"
@@ -928,7 +937,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(OrderLinesNullParent.created_at, "Europe/London")'
       - name: line_created_at
         description: "Creation date of the order line"
@@ -1147,7 +1156,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(OrderLinesNullParent.dispatch_date, "Europe/London")'
       - name: delivery_address
         description: "Address of delivery"
@@ -1208,7 +1217,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(OrderLinesWithParent.created_at, "Europe/London")'
       - name: product_type
         description: "Type of product ordered"
@@ -1602,6 +1611,10 @@ models:
         description: ""
       - name: expected_delivery_date
         description: "Expected delivery date"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: expected_delivery_days
         description: "Expected delivery days, nullable"
       - name: created_at

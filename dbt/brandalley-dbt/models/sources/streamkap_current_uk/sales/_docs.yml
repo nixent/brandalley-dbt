@@ -2038,3 +2038,9 @@ models:
       - name: updated_at
         data_type: <string>
         description: "Update date"
+      - name: _streamkap_source_ts_ms
+        data_type: <timestamp>
+        description: "Sync time from streamkap, nullable"
+      - name: __deleted
+        data_type: <string>
+        description: "Deleted flag, nullable"
