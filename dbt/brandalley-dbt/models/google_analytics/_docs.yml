@@ -97,7 +97,7 @@ models:
         meta:
           metrics:
             total_visits_metric:
-              label: 'Visits'
+              label: 'GA Visits'
               type: count_distinct
               description: "Total visits"
       - name: experiment
