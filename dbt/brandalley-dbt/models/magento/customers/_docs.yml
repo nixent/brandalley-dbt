@@ -185,9 +185,8 @@ models:
           metrics:
             avg_lifetime_sales_amount:
               type: average
-              label: 'Average Lifetime Sales Amount (£)'
+              label: 'Average Lifetime Sales Amount (£/€)'
               round: 1
-              format: 'gbp'
       - name: lifetime_margin
       - name: avg_days_between_orders
       - name: lifetime_sales_amount_aov

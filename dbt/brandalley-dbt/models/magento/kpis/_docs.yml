@@ -1,6 +1,198 @@
 version: 2
 
 models:
+  - name: daily_sales
+    columns:
+      - name: date_day
+        meta:
+          dimension:
+            type: date
+            label: 'Date'
+      - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
+      - name: ga_unique_visits
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ga_unique_visits:
+              type: sum
+              label: 'Unique Visits'
+      - name: ga_orders
+        meta:
+          dimension:
+            label: 'GA Orders'
+      - name: total_order_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_orders_count:
+              type: sum
+              label: 'Orders'
+      - name: total_new_customer_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_new_customers_count:
+              type: sum
+              label: 'New Customers'
+      - name: total_new_members
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_new_members_count:
+              type: sum
+              label: 'New Members'
+      - name: gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_gmv:
+              type: sum
+              label: 'GMV'
+      - name: margin
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_margin:
+              type: sum
+              label: 'Margin'
+      - name: qty_ordered
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_qty_ordered:
+              type: sum
+              label: 'Units Ordered'
+      # - name: last_week_total_order_count
+      # - name: last_month_total_order_count
+      - name: last_year_total_order_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_total_order_count:
+              type: sum
+              label: 'LY Orders (MTD or YTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_total_order_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_total_order_count:
+              type: sum
+              label: 'LY Orders (Day or WTD)'
+              group_label: 'Last Year'
+      - name: last_year_total_new_customer_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_total_new_customer_count:
+              type: sum
+              label: 'LY New Customers (MTD or YTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_total_new_customer_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_total_new_customer_count:
+              type: sum
+              label: 'LY New Customers (Day or WTD)'
+              group_label: 'Last Year'
+      - name: last_year_total_new_member_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_total_new_member_count:
+              type: sum
+              label: 'LY New Members (MTD or YTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_total_new_member_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_total_new_member_count:
+              type: sum
+              label: 'LY New Members (Day or WTD)'
+              group_label: 'Last Year'
+      - name: last_year_gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_gmv:
+              type: sum
+              label: 'LY GMV (MTD or YTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_gmv:
+              type: sum
+              label: 'LY GMV (Day or WTD)'
+              group_label: 'Last Year'
+      - name: last_year_margin
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_margin:
+              type: sum
+              label: 'LY Margin (MTD or YTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_margin
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_margin:
+              type: sum
+              label: 'LY Margin (Day or WTD)'
+              group_label: 'Last Year'
+      - name: last_year_qty_ordered
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_qty_ordered:
+              type: sum
+              label: 'LY Units Ordered (MTD or YTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_qty_ordered
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_qty_ordered:
+              type: sum
+              label: 'LY Units Ordered (Day or WTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_ga_unique_visits
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_ga_unique_visits:
+              type: sum
+              label: 'LY Unique Visits (Day or WTD)'
+              group_label: 'Last Year'
+
+
   - name: kpis_daily
     description: "A view of all KPIs, based off of order creation day"
     columns:
@@ -29,74 +221,64 @@ models:
         description: "Shipping amount incl. tax"
         meta:
           dimension:
-            label: 'Shipping Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipping Amount (£/€)'
+            round: 0 
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
         meta:
           dimension:
-            label: 'Total Refund Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Total Refund Amount (£/€)'
+            round: 0 
       - name: avg_time_to_ship_days
       - name: total_product_cost_exc_vat
         meta:
           dimension:
-            round: 0
-            format: 'gbp' 
+            round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'GMV (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'GMV (£/€)'
+            round: 0 
       - name: sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Sales Amount (£/€)'
+            round: 0 
       - name: shipped_sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
-            label: 'Shipped Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipped Sales Amount (£/€)'
+            round: 0 
       - name: total_discount_amount
         description: "Total discount amount"
         meta:
           dimension:
-            label: 'Discount Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Discount Amount (£/€)'
+            round: 0 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
           dimension:
-            label: 'Margin (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Margin (£/€)'
+            round: 0 
       - name: aov_gmv
         description: "GMV divided by total number of orders"
         meta:
           dimension:
-            label: 'GMV AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'GMV AOV (£/€)'
+            round: 1 
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
-            label: 'Sales Amount AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'Sales Amount AOV (£/€)'
+            round: 1 
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
@@ -131,74 +313,64 @@ models:
         description: "Shipping amount incl. tax"
         meta:
           dimension:
-            label: 'Shipping Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipping Amount (£/€)'
+            round: 0 
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
         meta:
           dimension:
-            label: 'Total Refund Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Total Refund Amount (£/€)'
+            round: 0 
       - name: avg_time_to_ship_days
       - name: total_product_cost_exc_vat
         meta:
           dimension:
-            round: 0
-            format: 'gbp' 
+            round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'GMV (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'GMV (£/€)'
+            round: 0 
       - name: sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Sales Amount (£/€)'
+            round: 0 
       - name: shipped_sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
-            label: 'Shipped Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipped Sales Amount (£/€)'
+            round: 0 
       - name: total_discount_amount
         description: "Total discount amount"
         meta:
           dimension:
-            label: 'Discount Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Discount Amount (£/€)'
+            round: 0 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
           dimension:
-            label: 'Margin (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Margin (£/€)'
+            round: 0 
       - name: aov_gmv
         description: "GMV divided by total number of orders"
         meta:
           dimension:
-            label: 'GMV AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'GMV AOV (£/€)'
+            round: 1 
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
-            label: 'Sales Amount AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'Sales Amount AOV (£/€)'
+            round: 1 
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
@@ -233,74 +405,64 @@ models:
         description: "Shipping amount incl. tax"
         meta:
           dimension:
-            label: 'Shipping Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipping Amount (£/€)'
+            round: 0 
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
         meta:
           dimension:
-            label: 'Total Refund Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Total Refund Amount (£/€)'
+            round: 0 
       - name: avg_time_to_ship_days
       - name: total_product_cost_exc_vat
         meta:
           dimension:
-            round: 0
-            format: 'gbp' 
+            round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'GMV (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'GMV (£/€)'
+            round: 0 
       - name: sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Sales Amount (£/€)'
+            round: 0 
       - name: shipped_sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
-            label: 'Shipped Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipped Sales Amount (£/€)'
+            round: 0 
       - name: total_discount_amount
         description: "Total discount amount"
         meta:
           dimension:
-            label: 'Discount Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Discount Amount (£/€)'
+            round: 0 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
           dimension:
-            label: 'Margin (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Margin (£/€)'
+            round: 0 
       - name: aov_gmv
         description: "GMV divided by total number of orders"
         meta:
           dimension:
-            label: 'GMV AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'GMV AOV (£/€)'
+            round: 1 
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
-            label: 'Sales Amount AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'Sales Amount AOV (£/€)'
+            round: 1 
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:
@@ -335,74 +497,64 @@ models:
         description: "Shipping amount incl. tax"
         meta:
           dimension:
-            label: 'Shipping Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipping Amount (£/€)'
+            round: 0 
       - name: total_refund_count
       - name: total_item_refund_count
       - name: total_refund_amount
         meta:
           dimension:
-            label: 'Total Refund Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Total Refund Amount (£/€)'
+            round: 0 
       - name: avg_time_to_ship_days
       - name: total_product_cost_exc_vat
         meta:
           dimension:
-            round: 0
-            format: 'gbp' 
+            round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'GMV (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'GMV (£/€)'
+            round: 0 
       - name: sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping"
         meta:
           dimension:
-            label: 'Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Sales Amount (£/€)'
+            round: 0 
       - name: shipped_sales_amount
         description: "Sales excl. VAT, after any discounts and excl. shipping, and that have been shipped"
         meta:
           dimension:
-            label: 'Shipped Sales Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Shipped Sales Amount (£/€)'
+            round: 0 
       - name: total_discount_amount
         description: "Total discount amount"
         meta:
           dimension:
-            label: 'Discount Amount (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Discount Amount (£/€)'
+            round: 0 
       - name: margin
         description: "Sales amount minus total product costs"
         meta:
           dimension:
-            label: 'Margin (£)'
-            round: 0
-            format: 'gbp' 
+            label: 'Margin (£/€)'
+            round: 0 
       - name: aov_gmv
         description: "GMV divided by total number of orders"
         meta:
           dimension:
-            label: 'GMV AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'GMV AOV (£/€)'
+            round: 1 
       - name: aov_sales
         description: "Sales Amount divided by total number of orders"
         meta:
           dimension:
-            label: 'Sales Amount AOV (£)'
-            round: 1
-            format: 'gbp' 
+            label: 'Sales Amount AOV (£/€)'
+            round: 1 
       - name: avg_items_per_order
       - name: pct_sales_amount_refunded
         meta:

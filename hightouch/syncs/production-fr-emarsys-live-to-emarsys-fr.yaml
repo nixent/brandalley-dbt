@@ -1,0 +1,95 @@
+model: production-fr-emarsys-live
+destination: emarsys-fr
+config:
+  mode: upsert
+  type: object
+  object: contact
+  mappings:
+    - to: '61866'
+      from: createdAccountDate
+      type: standard
+    - to: '61867'
+      from: baTitle
+      type: standard
+    - to: '61868'
+      from: rdpEmails
+      type: standard
+    - to: '53589'
+      from: dailyEmails
+      type: standard
+    - to: '53604'
+      from: weeklyEmails
+      type: standard
+    - to: '61869'
+      from: firstPurchaseDate
+      type: standard
+    - to: '61870'
+      from: lastPurchaseDate
+      type: standard
+    - to: '61871'
+      from: numberTransactions
+      type: standard
+    - to: '61872'
+      from: ltv
+      type: standard
+    - to: '61873'
+      from: ltvr
+      type: standard
+    - to: '61874'
+      from: autosignin
+      type: standard
+    - to: '61875'
+      from: subscriberConfirmCode
+      type: standard
+    - to: '61876'
+      from: subscriberId
+      type: standard
+    - to: '61877'
+      from: subscriberSource
+      type: standard
+    - to: '61878'
+      from: updatedDate
+      type: standard
+    - to: '4'
+      from: dob
+      type: standard
+    - to: '5'
+      from: gender
+      type: standard
+    - to: '31'
+      from: optin
+      type: standard
+    - to: '11'
+      from: city
+      type: standard
+    - to: '13'
+      from: postcode
+      type: standard
+    - to: '14'
+      from: country
+      type: standard
+    - to: '18'
+      from: company
+      type: standard
+    - to: '10'
+      from: street
+      type: standard
+    - to: '61879'
+      from: ipAddress
+      type: standard
+    - to: '61880'
+      from: achicaDataSource
+      type: standard
+    - to: '61881'
+      from: recordSource
+      type: standard
+    - to: '61882'
+      from: hightouch_customerId
+      type: standard
+  configVersion: 0
+  externalIdMapping:
+    to: '61883'
+    from: customerId
+schedule:
+  type: manual
+schedulePaused: false

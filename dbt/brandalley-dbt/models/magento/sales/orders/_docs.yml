@@ -70,8 +70,7 @@ models:
               type: sum
               description: "Order discount amount"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: base_discount_invoiced
         description: "Discount invoiced"
         meta:
@@ -81,8 +80,7 @@ models:
               type: sum
               description: "Discount invoiced"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: discount_description
         description: "Discount description"
       - name: customer_id
@@ -165,8 +163,7 @@ models:
               type: sum
               description: "Discount value"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
 
   - name: gift_cards
     description: "Gift cards"
@@ -222,8 +219,7 @@ models:
               type: sum
               description: "Gift cards balance"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: state
         description: "State"
 
@@ -251,7 +247,6 @@ models:
             total_gmv:
               type: sum
               round: 0
-              format: 'gbp'
             hourly_aov:
               type: number
               sql: 'safe_divide(sum(total_revenue),sum(total_order_count))'
@@ -262,22 +257,19 @@ models:
           metrics:
             total_cost:
               type: sum
-              round: 0
-              format: 'gbp' 
+              round: 0 
       - name: total_revenue_exc_tax
         meta:
           metrics:
             total_sales_amount:
               type: sum
-              round: 0
-              format: 'gbp' 
+              round: 0 
       - name: margin_value
         meta:
           metrics:
             total_margin:
               type: sum
-              round: 0
-              format: 'gbp' 
+              round: 0 
       - name: total_order_count
       - name: rc_gmv
         meta:
@@ -325,22 +317,19 @@ models:
           metrics:
             total_margin_last_week:
               type: sum
-              round: 0
-              format: 'gbp' 
+              round: 0 
       - name: last_week_qty_invoiced
         meta:
           metrics:
             total_qty_invoiced_last_week:
               type: sum
-              round: 0
-              format: 'gbp' 
+              round: 0 
       - name: last_week_revenue
         meta:
           metrics:
             total_sales_amount_last_week:
               type: sum
-              round: 0
-              format: 'gbp' 
+              round: 0 
 
   - name: multiple_coupon_orders
     description: "Orders that use multiple coupons, split by each of those coupons"
@@ -657,8 +646,7 @@ models:
               type: sum
               description: "Cost exc VAT for 1 unit"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: line_product_cost_exc_vat
         description: ""
         meta:
@@ -670,8 +658,7 @@ models:
               type: sum
               description: "Cost exc VAT for the full line of the order"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: flash_price_inc_vat
         description: ""
         meta:
@@ -683,8 +670,7 @@ models:
               type: sum
               description: "Flash price inc VAT for the full line of the order"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: line_flash_price_inc_vat
         description: ""
         meta:
@@ -694,8 +680,7 @@ models:
               type: sum
               description: "Flash price inc VAT for 1 unit of the item"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: flash_price_exc_vat
         description: ""
         meta:
@@ -707,8 +692,7 @@ models:
               type: sum
               description: "Flash price exc VAT for the full line of the order"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: line_flash_price_exc_vat
         description: ""
         meta:
@@ -720,8 +704,7 @@ models:
               type: sum
               description: "Flash price exc VAT for 1 unit of the item"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: line_discount_amount
         description: ""
         meta:
@@ -733,8 +716,43 @@ models:
               type: sum
               description: "Amount of discount granted inc VAT"
               hidden: false
+              round: 2    
+      - name: line_shipping_incl_tax
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_shipping_incl_tax_metric:
+              label: 'Shipping incl tax'
+              type: sum
+              description: "Shipping incl tax for the full line of the order"
+              hidden: false
               round: 2
-              format: 'gbp'      
+      - name: line_shipping_excl_tax
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_shipping_excl_tax_metric:
+              label: 'Shipping excl tax'
+              type: sum
+              description: "Shipping excl tax for the full line of the order"
+              hidden: false
+              round: 2
+      - name: line_shipping_tax
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_shipping_tax_metric:
+              label: 'Shipping tax amount'
+              type: sum
+              description: "Shipping tax for the full line of the order"
+              hidden: false
+              round: 2
       - name: margin
         description: ""
         meta:
@@ -746,8 +764,7 @@ models:
               type: sum
               description: "Total Margin"
               hidden: false
-              round: 0
-              format: 'gbp'      
+              round: 0      
       - name: line_total_refunded
         description: ""
       - name: shipping_refunded
@@ -823,8 +840,7 @@ models:
             type: number
             label: 'RRP' 
             description: 'Recommended Price'
-            round: 2
-            format: 'gbp'
+            round: 
       - name: parent_sku
         description: ""
       - name: parent_sku_offset
@@ -1314,15 +1330,13 @@ models:
               type: average
               description: "AOV"
               hidden: false
-              round: 2
-              format: 'gbp' 
+              round: 2 
             total_order_value_metric:
               label: 'Total Order Revenue'
               type: average
               description: "Total Order Revenue"
               hidden: false
-              round: 2
-              format: 'gbp' 
+              round: 2 
       - name: order_product_costs_excl_tax
         meta:
           dimension:
@@ -1333,8 +1347,7 @@ models:
               type: sum
               description: "Total product costs"
               hidden: false
-              round: 2
-              format: 'gbp' 
+              round: 2 
       - name: order_margin
         meta:
           dimension:
@@ -1345,8 +1358,7 @@ models:
               type: sum
               description: "Total margin"
               hidden: false
-              round: 2
-              format: 'gbp' 
+              round: 2 
       - name: count_order_lines
         meta:
           metrics:
@@ -1400,16 +1412,14 @@ models:
               type: sum
               description: "Total refund amount split per order item"
               sql: "${total_refund_amount}/${count_order_lines}"
-              round: 0
-              format: 'gbp' 
+              round: 0 
       - name: total_refund_amount
         meta:
           metrics:
             total_refund_amount_metric:
               label: 'Total Refund Amount'
               type: sum
-              description: "Total refund amount"
-              format: 'gbp' 
+              description: "Total refund amount" 
       - name: has_ordered_since
         meta:
           dimension:
@@ -1510,8 +1520,7 @@ models:
               type: sum
               description: "Order's total tax amount"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: total_qty_ordered
         description: "Total quantity ordered"
       - name: shipping_excl_tax
@@ -1525,8 +1534,7 @@ models:
               type: sum
               description: "Shipping exc Tax"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: shipping_incl_tax
         description: "Shipping including tax, nullable"
         meta:
@@ -1538,16 +1546,14 @@ models:
               type: sum
               description: "Shipping inc Tax"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
             shipping_incl_tax_per_qty_metric:
               label: 'Shipping inc Tax per unit'
               type: sum
               description: "Shipping inc Tax per unit"
               sql: "${shipping_incl_tax}/${total_qty_ordered}"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: grand_total
         description: "Grand total, nullable"
         meta:
@@ -1559,8 +1565,7 @@ models:
               type: sum
               description: "Order grand total"
               hidden: false
-              round: 2
-              format: 'gbp'      
+              round: 2      
       - name: total_paid
         description: "Total paid, nullable"
       - name: total_refunded
