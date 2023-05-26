@@ -164,13 +164,11 @@ models:
               description: "Row total from credit memo"
               hidden: false  
               round: 2
-              format: 'gbp'     
       - name: base_discount_amount
         description: "Base discount amount, nullable"
       - name: price_incl_tax
         description: "Price incl. tax, nullable"
-        round: 2
-        format: 'gbp'      
+        round: 2      
       - name: base_tax_amount
         description: "Base tax amount, nullable"
       - name: base_price_incl_tax
