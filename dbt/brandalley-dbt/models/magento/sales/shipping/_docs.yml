@@ -179,14 +179,14 @@ models:
               label: 'Days to delivery exc WE'
               type: sum
               description: "Number of days spent between the order date and the shipment date, excluding week-ends"
-              sql: "IF(${shipment_date} !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
+              sql: "IF(CAST(${shipment_date} AS STRING) !='0000-00-00 00:00:00', 1 + DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY) - 2 * DATE_DIFF(date(${shipment_date}), date(${order_date}), WEEK) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 1, 1, 0) - IF(EXTRACT(DAYOFWEEK FROM date(${order_date})) = 7, 1, 0), null)"
               hidden: false
               round: 0
             days_to_ship:
               label: 'Days to ship order'
               type: sum
               description: "Number of days spent between the order date and the shipment date"
-              sql: "IF(${shipment_date} !='0000-00-00 00:00:00', DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY), null)"
+              sql: "IF(CAST(${shipment_date} AS STRING) !='0000-00-00 00:00:00', DATE_DIFF(date(${shipment_date}), date(${order_date}), DAY), null)"
               hidden: false
               round: 0  
       - name: updated_at
