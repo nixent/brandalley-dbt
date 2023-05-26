@@ -81,7 +81,7 @@ models:
         meta:
           metrics:
             total_revenue_metric:
-              label: 'GMV Before Discount (£)'
+              label: 'GMV Before Discount (£/€)'
               type: sum
               description: "GMV"
               round: 0
