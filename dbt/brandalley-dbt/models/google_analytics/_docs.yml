@@ -59,7 +59,7 @@ models:
         meta:
           metrics:
             total_quantity_metric:
-              label: 'Quantity ordered'
+              label: 'GA Units'
               type: sum
               sql: "coalesce(if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_quantity}, null),0)"
               description: "Total quantity ordered"
@@ -67,11 +67,11 @@ models:
         meta:
           metrics:
             total_transactions_metric:
-              label: 'Transactions'
+              label: 'GA Transactions'
               type: count_distinct
               description: "Count of transactions"
             ga_conversion_rate:
-              label: 'Conversion Rate (%)'
+              label: 'GA Conversion Rate (%)'
               type: number 
               description: 'Total transactions / Total visits'
               sql: "coalesce(safe_divide(${total_transactions_metric},${total_visits_metric}),0)"
@@ -81,7 +81,7 @@ models:
         meta:
           metrics:
             total_revenue_metric:
-              label: 'GMV Before Discount (£/€)'
+              label: 'GA GMV Before Discount (£/€)'
               type: sum
               description: "GMV"
               round: 0 
@@ -90,15 +90,23 @@ models:
         meta:
           metrics:
             total_users_metric:
-              label: 'Users'
+              label: 'GA Users'
               type: count_distinct
               description: "Total users"
       - name: unique_visit_id
         meta:
           metrics:
             total_visits_metric:
-              label: 'Visits'
+              label: 'GA Visits'
               type: count_distinct
               description: "Total visits"
       - name: experiment
+      - name: page_path
+      - name: is_new_user_registration
+        meta:
+          metrics:
+            ga_user_registrations:
+              label: 'GA Registrations'
+              type: count_distinct
+              sql: 'if(${is_new_user_registration}, ${visitor_id}, null)'
         
