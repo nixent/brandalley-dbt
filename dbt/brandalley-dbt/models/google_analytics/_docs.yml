@@ -84,8 +84,7 @@ models:
               label: 'GMV Before Discount (£/€)'
               type: sum
               description: "GMV"
-              round: 0
-              format: 'gbp' 
+              round: 0 
       - name: visit_id
       - name: visitor_id
         meta:

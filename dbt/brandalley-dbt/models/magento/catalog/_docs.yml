@@ -53,7 +53,6 @@ models:
               description: "Price entered in the reservation sheet"
               hidden: false
               round: 2
-              format: 'gbp'      
       - name: tax_rate
         description: "Tax rate"
       - name: tax_code
