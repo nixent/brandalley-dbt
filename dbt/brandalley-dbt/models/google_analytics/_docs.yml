@@ -59,7 +59,7 @@ models:
         meta:
           metrics:
             total_quantity_metric:
-              label: ' GA Quantity ordered'
+              label: 'GA Units'
               type: sum
               sql: "coalesce(if(${ga_daily_stats.transaction_id} is not null, ${ga_daily_stats.product_quantity}, null),0)"
               description: "Total quantity ordered"
