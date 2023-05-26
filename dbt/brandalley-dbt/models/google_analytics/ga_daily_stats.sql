@@ -46,10 +46,9 @@ from {{ source('76149814', 'ga_sessions_*') }},
     unnest(hits) as hits
 left join unnest(hits.product) as product with offset as i
 where totals.visits = 1
-and _table_suffix = '20230522'
-    {# {% if is_incremental() %}
+    {% if is_incremental() %}
       and _table_suffix between '{{max_date}}' and format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
     {% endif %}
     {% if target.name == 'testing' %}
       and _table_suffix >= format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
-    {% endif %} #}
+    {% endif %}
