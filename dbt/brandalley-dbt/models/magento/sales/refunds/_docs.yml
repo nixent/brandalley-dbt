@@ -39,7 +39,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
-            sql: 'datetime(ba_core_stock_return.created_at, "Europe/London")'
+            sql: 'if(ba_core_stock_return.ba_site = 'FR',datetime(ba_core_stock_return.created_at, "Europe/Paris"),datetime(ba_core_stock_return.created_at, "Europe/London"))'
       - name: xml_created_at
         description: "Created date of the xml"
         meta:
@@ -242,7 +242,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'datetime(sales_flat_creditmemo_item.created_at, "Europe/London")'
+            sql: 'if(sales_flat_creditmemo_item.ba_site = 'FR',datetime(sales_flat_creditmemo_item.created_at, "Europe/Paris"),datetime(sales_flat_creditmemo_item.created_at, "Europe/London"))'
       - name: updated_at
         description: "Updated at, nullable"
       - name: refund_reason

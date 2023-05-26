@@ -113,7 +113,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'datetime(shipments.created_at, "Europe/London")'
+            sql: 'if(shipments.ba_site = 'FR',datetime(shipments.created_at, "Europe/Paris"),datetime(shipments.created_at, "Europe/London"))'
       - name: updated_at
         description: "Update date of the shipment, nullable"
       - name: packages
@@ -162,14 +162,14 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'datetime(shipping.order_date, "Europe/London")'
+            sql: 'if(shipping.ba_site = 'FR',datetime(shipping.order_date, "Europe/Paris"),datetime(shipping.order_date, "Europe/London"))'
       - name: shipment_date
         description: ""
         meta:
           dimension:
             type: timestamp
             time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
-            sql: 'datetime(timestamp(shipping.shipment_date), "Europe/London")'
+            sql: 'if(shipping.ba_site = 'FR',datetime(shipping.shipment_date, "Europe/Paris"),datetime(timestamp(shipping.shipment_date), "Europe/London"))'
           metrics:
             days_to_delivery_exc_we:
               label: 'Days to delivery exc WE'
