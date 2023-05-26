@@ -4,7 +4,7 @@
 
 with order_stats as (
     select
-        date_trunc(datetime(created_at, "Europe/London"), month)                         as order_created_at_month,
+        date_trunc(if(ba_site = 'FR',datetime(created_at, "Europe/Paris"),datetime(created_at, "Europe/London")), month)                         as order_created_at_month,
         ba_site,
         count(distinct increment_id)                          as total_order_count,
         count(distinct if(orderno=1, increment_id, null))     as total_new_order_count,
@@ -15,7 +15,7 @@ with order_stats as (
 
 customer_stats as (
     select
-        date_trunc(datetime(signed_up_at, "Europe/London"), month)           as customer_created_at_month,
+        date_trunc(if(ce.ba_site = 'FR',datetime(signed_up_at, "Europe/Paris"),datetime(signed_up_at, "Europe/London")), month)           as customer_created_at_month,
         ba_site,
         count(customer_id)                      as total_new_members
     from {{ ref('customers_enriched') }} ce
@@ -24,7 +24,7 @@ customer_stats as (
 
 refund_stats as (
     select
-        date_trunc(datetime(timestamp(sfc.created_at), "Europe/London"), month)       as order_created_at_month,
+        date_trunc(if(sfc.ba_site = 'FR',datetime(timestamp(sfc.created_at), "Europe/Paris"),datetime(timestamp(sfc.created_at), "Europe/London")), month)       as order_created_at_month,
         sfc.ba_site,
         count(sfc.entity_id)                    as total_refund_count,
         count(sfci.entity_id)                   as total_item_refund_count,
@@ -38,7 +38,7 @@ refund_stats as (
 
 shipping_stats as (
     select
-        date_trunc(datetime(timestamp(order_date), "Europe/London"), month) as order_created_at_month,
+        date_trunc(if(ba_site = 'FR',datetime(timestamp(order_date), "Europe/Paris"),datetime(timestamp(order_date), "Europe/London")), month) as order_created_at_month,
         ba_site,
         round(avg(date_diff(date((shipment_date)), date((order_date)), day)),1) as avg_time_to_ship_days
     from {{ ref('shipping') }}
@@ -47,7 +47,7 @@ shipping_stats as (
 
 order_line_stats as (
     select
-        date_trunc(datetime(o.created_at, "Europe/London"), month)                                         as order_created_at_month,
+        date_trunc(if(o.ba_site = 'FR',datetime(o.created_at, "Europe/Paris"),datetime(o.created_at, "Europe/London")), month)                                         as order_created_at_month,
         ol.ba_site,
         round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
