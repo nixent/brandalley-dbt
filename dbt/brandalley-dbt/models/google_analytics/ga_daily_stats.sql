@@ -40,13 +40,16 @@ select
     visitId                                                                                                   as visit_id,
     fullVisitorId || visitId                                                                                  as unique_visit_id,
     hits.experiment                                                                                           as experiment,
+    hits.page.pagePath                                                                                        as page_path,
+    if(contains_substr(hits.page.pagePath, '#thanks-for-registering'), true, false)                           as is_new_user_registration
 from {{ source('76149814', 'ga_sessions_*') }},
     unnest(hits) as hits
 left join unnest(hits.product) as product with offset as i
 where totals.visits = 1
-    {% if is_incremental() %}
+and _table_suffix = '20230522'
+    {# {% if is_incremental() %}
       and _table_suffix between '{{max_date}}' and format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
     {% endif %}
     {% if target.name == 'testing' %}
       and _table_suffix >= format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
-    {% endif %}
+    {% endif %} #}
