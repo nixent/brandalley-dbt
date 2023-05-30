@@ -4,7 +4,7 @@
 
 with metrics_today_and_last_week as (
     select
-        date_trunc(datetime(ol.created_at, "Europe/London"), hour)                  as created_at_hour,
+        date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), hour)                  as created_at_hour,
         ol.ba_site,
         ol.nego,
         ol.brand,
@@ -26,7 +26,7 @@ with metrics_today_and_last_week as (
     from {{ ref('OrderLines') }} ol
     left join {{ ref('orders_enriched') }} oe
         on ol.order_id = oe.order_id and ol.ba_site = oe.ba_site
-    where date(datetime(ol.created_at, "Europe/London")) in (current_date, current_date - 7)
+    where date(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London"))) in (current_date, current_date - 7)
     group by 1,2,3,4,5,6,7,8,9
 ),
 

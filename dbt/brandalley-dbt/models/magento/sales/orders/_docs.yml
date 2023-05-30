@@ -35,7 +35,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(coupon_rules.expiration_date, "Europe/London")'        
+            sql: 'if(coupon_rules.ba_site = "FR",datetime(coupon_rules.expiration_date, "Europe/Paris"),datetime(coupon_rules.expiration_date, "Europe/London"))'        
       - name: is_primary
         data_type: <integer>
         description: "Is primary flag"
@@ -46,7 +46,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(coupon_rules.sales_rule_coupon_created_at, "Europe/London")'           
+            sql: 'if(coupon_rules.ba_site = "FR",datetime(coupon_rules.sales_rule_coupon_created_at, "Europe/Paris"),datetime(coupon_rules.sales_rule_coupon_created_at, "Europe/London"))'           
       - name: type
         data_type: <integer>
         description: "Type"
@@ -94,7 +94,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(coupon_rules.order_date, "Europe/London")'            
+            sql: 'if(coupon_rules.ba_site = "FR",datetime(coupon_rules.order_date, "Europe/Paris"),datetime(coupon_rules.order_date, "Europe/London"))'            
       - name: invent_autocoupon_id
         description: "invent_autocoupon_id"
         meta:
@@ -122,8 +122,8 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(coupon_rules.invent_autocoupon_created_at, "Europe/London")'              
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR','DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: 'if(coupon_rules.ba_site = "FR",datetime(coupon_rules.invent_autocoupon_created_at, "Europe/Paris"),datetime(coupon_rules.invent_autocoupon_created_at, "Europe/London"))'              
       - name: cartrule_id
         description: "Cartrule id"
         meta:
@@ -195,21 +195,21 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(gift_cards.order_date, "Europe/London")'     
+            sql: 'if(gift_cards.ba_site = "FR",datetime(gift_cards.order_date, "Europe/Paris"),datetime(gift_cards.order_date, "Europe/London"))'     
       - name: date_created
         description: "Date created"
         meta:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(gift_cards.date_created, "Europe/London")' 
+            sql: 'if(gift_cards.ba_site = "FR",datetime(gift_cards.date_created, "Europe/Paris"),datetime(gift_cards.date_created, "Europe/London"))' 
       - name: date_expires
         description: "Date expires"
         meta:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(gift_cards.date_expires, "Europe/London")' 
+            sql: 'if(gift_cards.ba_site = "FR",datetime(gift_cards.date_expires, "Europe/Paris"),datetime(gift_cards.date_expires, "Europe/London"))' 
       - name: balance
         description: "Balance"
         meta:
@@ -353,7 +353,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(multiple_coupon_orders.created_at, "Europe/London")'
+            sql: 'if(multiple_coupon_orders.ba_site = "FR",datetime(multiple_coupon_orders.created_at, "Europe/Paris"),datetime(multiple_coupon_orders.created_at, "Europe/London"))'
       - name: coupon_code
       - name: coupon_name
 
@@ -623,7 +623,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(timestamp(OrderLines.order_placed_date), "Europe/London")' 
+            sql: 'if(OrderLines.ba_site = "FR",datetime(OrderLines.order_placed_date, "Europe/Paris"),datetime(timestamp(OrderLines.order_placed_date), "Europe/London"))' 
           metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'
@@ -811,7 +811,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(timestamp(OrderLines.created_at), "Europe/London")'
+            sql: 'if(OrderLines.ba_site = "FR",datetime(timestamp(OrderLines.created_at), "Europe/Paris"),datetime(timestamp(OrderLines.created_at), "Europe/London"))'
       - name: month_created
         description: ""
       - name: order_status
@@ -830,7 +830,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(OrderLines.date_comp_exported, "Europe/London")'
+            sql: 'if(OrderLines.ba_site = "FR",datetime(OrderLines.date_comp_exported, "Europe/Paris"),datetime(OrderLines.date_comp_exported, "Europe/London"))'
       - name: cpn_date_flag
         description: "sfoi.created_at greater than cpn.date_comp_exported"
       - name: rrp
@@ -954,7 +954,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(OrderLinesNullParent.created_at, "Europe/London")'
+            sql: 'if(OrderLinesNullParent.ba_site = "FR",datetime(OrderLinesNullParent.created_at, "Europe/Paris"),datetime(OrderLinesNullParent.created_at, "Europe/London"))'
       - name: line_created_at
         description: "Creation date of the order line"
       - name: customer_name
@@ -1173,7 +1173,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(OrderLinesNullParent.dispatch_date, "Europe/London")'
+            sql: 'if(OrderLinesNullParent.ba_site = "FR",datetime(OrderLinesNullParent.dispatch_date, "Europe/Paris"),datetime(OrderLinesNullParent.dispatch_date, "Europe/London"))'
       - name: delivery_address
         description: "Address of delivery"
       - name: method
@@ -1234,7 +1234,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(OrderLinesWithParent.created_at, "Europe/London")'
+            sql: 'if(OrderLinesWithParent.ba_site = "FR",datetime(OrderLinesWithParent.created_at, "Europe/Paris"),datetime(OrderLinesWithParent.created_at, "Europe/London"))'
       - name: product_type
         description: "Type of product ordered"
       - name: parent_item_id
@@ -1628,7 +1628,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(Orders.created_at, "Europe/London")'
+            sql: 'if(Orders.ba_site = "FR",datetime(Orders.created_at, "Europe/Paris"),datetime(Orders.created_at, "Europe/London"))'
       - name: updated_at
         description: "Update date of the order, nullable"
       - name: orderno

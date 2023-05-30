@@ -40,7 +40,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(customers_enriched.signed_up_at, "Europe/London")'
+            sql: 'if(customers_enriched.ba_site = "FR",datetime(customers_enriched.signed_up_at, "Europe/Paris"),datetime(customers_enriched.signed_up_at, "Europe/London"))'
       - name: achica_user
       - name: achica_migration_date
       - name: is_existing_ifg_user
@@ -59,7 +59,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(customers_enriched.first_purchase_at, "Europe/London")'
+            sql: 'if(customers_enriched.ba_site = "FR",datetime(customers_enriched.first_purchase_at, "Europe/Paris"),datetime(customers_enriched.first_purchase_at, "Europe/London"))'
       - name: first_purchase_brands
         meta: 
           dimension:
@@ -70,7 +70,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(customers_enriched.second_purchase_at, "Europe/London")'
+            sql: 'if(customers_enriched.ba_site = "FR",datetime(customers_enriched.second_purchase_at, "Europe/Paris"),datetime(customers_enriched.second_purchase_at, "Europe/London"))'
       - name: count_customer_orders
         meta: 
           dimension:
@@ -237,7 +237,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'datetime(timestamp(customers.dt_cr), "Europe/London")'
+            sql: 'if(customers.ba_site = "FR",datetime(customers.dt_cr, "Europe/Paris"),datetime(timestamp(customers.dt_cr), "Europe/London"))'
       - name: subscription
         description: ""
       - name: old_account_id

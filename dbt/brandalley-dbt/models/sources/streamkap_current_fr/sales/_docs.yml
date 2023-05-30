@@ -1839,8 +1839,8 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']   
-            sql: 'datetime(stg_fr__salesrule_coupon.expiration_at, "Europe/London")'         
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']   
+            sql: 'datetime(stg_fr__salesrule_coupon.expiration_at, "Europe/Paris")'         
       - name: is_primary
         data_type: <integer>
         description: "Is primary flag"
@@ -1850,8 +1850,8 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
-            sql: 'datetime(stg_fr__salesrule_coupon.created_at, "Europe/London")'          
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']  
+            sql: 'datetime(stg_fr__salesrule_coupon.created_at, "Europe/Paris")'          
       - name: type
         data_type: <integer>
         description: "Type"
