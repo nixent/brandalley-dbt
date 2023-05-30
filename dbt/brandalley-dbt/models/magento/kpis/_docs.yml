@@ -192,6 +192,16 @@ models:
               type: sum
               label: 'LY Margin (Day or WTD)'
               group_label: 'Last Year'
+            last_year_same_day_wtd_margin_comparison:
+              type: number
+              sql: '${total_margin} - ${last_year_same_day_wtd_margin}'
+              label: 'LY Margin Comparison (Day or WTD)'
+              group_label: 'VS Last Year'
+            last_year_same_day_wtd_margin_comparison_pct:
+              type: number
+              sql: '100*safe_divide(${total_margin} - ${last_year_same_day_wtd_margin},${last_year_same_day_wtd_margin})'
+              label: 'LY Margin Comparison % (Day or WTD)'
+              group_label: 'VS Last Year'
       - name: last_year_qty_ordered
         meta:
           dimension:
