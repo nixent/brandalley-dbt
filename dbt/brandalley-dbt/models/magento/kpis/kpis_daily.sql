@@ -4,7 +4,7 @@
 
 with order_stats as (
     select
-        date_trunc(datetime(o.created_at, "Europe/London"), day)                           as order_created_at_day,
+        date_trunc(if(o.ba_site = 'FR',datetime(o.created_at, "Europe/Paris"),datetime(o.created_at, "Europe/London")), day)                           as order_created_at_day,
         o.ba_site,
         count(distinct o.increment_id)                                                  as total_order_count,
         count(distinct if(o.orderno = 1, o.increment_id, null))                         as total_new_order_count,
@@ -22,7 +22,7 @@ with order_stats as (
 
 customer_stats as (
     select
-        coalesce(date(crds.date), date(ce.achica_migration_date), date(ce.cocosa_signup_at), date(datetime(ce.signed_up_at, "Europe/London"))) as customer_created_at_day,
+        coalesce(date(crds.date), date(ce.achica_migration_date), date(ce.cocosa_signup_at), date(if(ce.ba_site = 'FR',datetime(ce.signed_up_at, "Europe/Paris"),datetime(ce.signed_up_at, "Europe/London")))) as customer_created_at_day,
         ce.ba_site,
         count(ce.customer_id)                                                                                       as total_new_members,
         count(if(ce.achica_user is not null, ce.customer_id, null))                                                 as total_new_achica_members,
@@ -36,7 +36,7 @@ customer_stats as (
 
 refund_stats as (
     select
-        date_trunc(datetime(timestamp(sfc.created_at), "Europe/London"), day)       as order_created_at_day,
+        date_trunc(if(sfc.ba_site = 'FR',datetime(timestamp(sfc.created_at), "Europe/Paris"),datetime(timestamp(sfc.created_at), "Europe/London")), day)       as order_created_at_day,
         sfc.ba_site,
         count(sfc.entity_id)                             as total_refund_count,
         count(sfci.entity_id)                            as total_item_refund_count,
@@ -49,7 +49,7 @@ refund_stats as (
 
 shipping_stats as (
     select
-        date_trunc(datetime(timestamp(order_date), "Europe/London"), day)                                                                                    as order_created_at_day,
+        date_trunc(if(ba_site = 'FR',datetime(timestamp(order_date), "Europe/Paris"),datetime(timestamp(order_date), "Europe/London")), day)                                                                                    as order_created_at_day,
         ba_site,
         round(avg(date_diff(date((shipment_date)), date((order_date)), day)),1) as avg_time_to_ship_days
     from {{ ref('shipping') }}
@@ -58,7 +58,7 @@ shipping_stats as (
 
 order_line_stats as (
     select
-        date_trunc(datetime(o.created_at, "Europe/London"), day)                                           as order_created_at_day,
+        date_trunc(if(o.ba_site = 'FR',datetime(o.created_at, "Europe/Paris"),datetime(o.created_at, "Europe/London")), day)                                           as order_created_at_day,
         ol.ba_site,
         round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_ordered,
