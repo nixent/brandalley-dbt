@@ -169,6 +169,11 @@ models:
               sql: '${total_gmv} - ${last_year_same_day_wtd_gmv}'
               label: 'LY GMV Comparison (Day or WTD)'
               group_label: 'VS Last Year'
+            last_year_same_day_wtd_gmv_comparison_pct:
+              type: number
+              sql: '100*safe_divide(${total_gmv} - ${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_gmv})'
+              label: 'LY GMV Comparison % (Day or WTD)'
+              group_label: 'VS Last Year'
       - name: last_year_margin
         meta:
           dimension:
