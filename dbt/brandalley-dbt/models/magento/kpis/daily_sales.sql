@@ -7,7 +7,8 @@ with order_stats as (
         total_new_members,
         gmv,
         margin,
-        qty_ordered
+        qty_ordered,
+        aov_gmv
     from {{ ref('kpis_daily')}}
 ),
 
@@ -37,8 +38,7 @@ select
     os.gmv,
     os.margin,
     os.qty_ordered,
-    {# os1.total_order_count as last_week_total_order_count,
-    os2.total_order_count as last_month_total_order_count, #}
+    os.aov_gmv,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
     gs1.ga_orders                   as last_year_same_day_ga_orders,
     os3.total_order_count           as last_year_total_order_count,
@@ -47,6 +47,8 @@ select
     os4.total_new_customer_count    as last_year_same_day_total_new_customer_count,
     os3.total_new_members           as last_year_total_new_member_count,
     os4.total_new_members           as last_year_same_day_total_new_member_count,
+    os3.aov_gmv                     as last_year_aov_gmv,
+    os4.aov_gmv                     as last_year_same_day_aov_gmv,
     os3.gmv                         as last_year_gmv,
     os4.gmv                         as last_year_same_day_gmv,
     os3.margin                      as last_year_margin,

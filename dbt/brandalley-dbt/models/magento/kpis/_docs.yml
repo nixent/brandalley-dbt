@@ -128,6 +128,24 @@ models:
               type: sum
               label: 'LY New Members (Day or WTD)'
               group_label: 'Last Year'
+      - name: last_year_aov_gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_aov_gmv:
+              type: sum
+              label: 'LY AOV GMV (MTD or YTD)'
+              group_label: 'Last Year'
+      - name: last_year_same_day_aov_gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_aov_gmv:
+              type: sum
+              label: 'LY AOV GMV (Day or WTD)'
+              group_label: 'Last Year'
       - name: last_year_gmv
         meta:
           dimension:
