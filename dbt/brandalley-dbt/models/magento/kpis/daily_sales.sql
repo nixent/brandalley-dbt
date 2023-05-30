@@ -22,7 +22,7 @@ ga_stats as (
 
 select
     d.date_day,
-    {# for dev #}
+    {# for dev purposes #}
     d.last_year_same_day,
     {# d.last_week, #}
     d.last_year,
