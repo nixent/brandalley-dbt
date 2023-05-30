@@ -21,9 +21,9 @@ models:
             format: id
           metrics:
             customers_enriched_count:
-              label: 'Count of customers'
+              label: 'Members'
               type: count_distinct
-              description: "Count of customers"
+              description: "Count of members"
               hidden: false
             # member_customer_conversion:
             #   label: 'Members to Customers (%)'

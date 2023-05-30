@@ -420,7 +420,7 @@ models:
             format: id
           metrics:
             total_customers:
-              label: 'Total number of customers'
+              label: 'Total Customers'
               type: count_distinct
               description: "Number of customers who ordered"
               hidden: false
@@ -433,7 +433,7 @@ models:
             format: id    
           metrics:
             count_order_items:
-              label: 'count distinct of order item ids'
+              label: 'Total Order Items'
               type: count_distinct    
               sql: "${ba_site} || ${order_item_id}" 
       - name: parent_item_id
@@ -445,14 +445,14 @@ models:
             format: id
           metrics:
             total_orders_count:
-              label: 'Total number of orders'
+              label: 'Total Orders'
               type: count_distinct
               sql: "${ba_site} || ${order_id}"
             sum_of_order_ids:
               label: ' sum of order ids'
               type: sum
             average_items_per_order:
-              label: 'average items per order'
+              label: 'Avg Items per Order'
               type: number
               sql: " ${count_order_items} / ${total_orders_count} "
       - name: sku
@@ -468,7 +468,7 @@ models:
             hidden: true
           metrics:
             qty_canceled_metric:
-              label: 'Units quantity cancelled'
+              label: 'Total Cancelled Units'
               type: sum
               description: "Number of units cancelled"
               hidden: false
@@ -486,13 +486,13 @@ models:
               hidden: false
               round: 0  
             average_qty_ordered_metric:
-              label: 'Average units quantity ordered'
+              label: 'Average Ordered Units'
               type: average 
               description: "Average number of units ordered"
               hidden: false
               round: 0
       - name: qty_invoiced
-        description: "Quantity invoiced, nullable"
+        description: "Total Invoiced Units"
         meta:
           dimension:
             hidden: true
@@ -510,7 +510,7 @@ models:
             hidden: true
           metrics:
             qty_refunded_metric:
-              label: 'Units quantity refunded'
+              label: 'Total Refunded Units'
               type: sum
               description: "Number of units refunded"
               hidden: false
@@ -522,7 +522,7 @@ models:
             hidden: true
           metrics:
             qty_shipped_metric:
-              label: 'Units quantity shipped'
+              label: 'Total Shipped Units'
               type: sum
               description: "Number of units shipped"
               hidden: false
@@ -534,7 +534,7 @@ models:
             hidden: true
           metrics:
             consignment_qty_metric:
-              label: 'Consignment quantity'
+              label: 'Total Consignment Units'
               type: sum
               description: "Number of consignment units ordered"
               hidden: false
@@ -564,7 +564,7 @@ models:
             hidden: true
           metrics:
             selfulfill_qty_metric:
-              label: 'Self-fulfill quantity'
+              label: 'Total Self-fulfill Units'
               type: sum
               description: "Number of self-fulfill units ordered"
               hidden: false
@@ -594,7 +594,7 @@ models:
             hidden: true
           metrics:
             warehouse_qty_metric:
-              label: 'Warehouse quantity'
+              label: 'Total Warehouse Units'
               type: sum
               description: "Number of warehouse units ordered"
               hidden: false
