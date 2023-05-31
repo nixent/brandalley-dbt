@@ -231,6 +231,24 @@ models:
               type: sum
               label: 'LY Unique Visits (Day or WTD)'
               group_label: 'Last Year'
+      - name: new_members_forecast
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_new_members_forecast:
+              type: sum
+              label: 'New Members Target'
+              group_label: 'Targets'
+      - name: all_orders_forecast
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_all_orders_forecast:
+              type: sum
+              label: 'All Orders Forecast'
+              group_label: 'Targets'
 
 
   - name: kpis_daily
