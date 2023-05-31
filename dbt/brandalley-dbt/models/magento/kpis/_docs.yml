@@ -92,6 +92,17 @@ models:
               type: sum
               label: 'LY Orders (Day or WTD)'
               group_label: 'Last Year'
+            last_year_same_day_wtd_total_order_comparison:
+              type: number
+              sql: '${total_orders_count} - ${last_year_same_day_wtd_order_count}'
+              label: 'LY Orders Comparison (Day or WTD)'
+              group_label: 'VS Last Year'
+            last_year_same_day_wtd_total_order_comparison_pct:
+              type: number
+              sql: '100*safe_divide(${total_orders_count} - ${last_year_same_day_wtd_order_count},${last_year_same_day_wtd_order_count})'
+              label: 'LY Orders Comparison % (Day or WTD)'
+              group_label: 'VS Last Year'
+              round: 1
       - name: last_year_total_new_customer_count
         meta:
           dimension:
@@ -238,7 +249,7 @@ models:
           metrics:
             total_new_members_forecast:
               type: sum
-              label: 'New Members Target'
+              label: 'New Members Forecast'
               group_label: 'Targets'
       - name: all_orders_forecast
         meta:
