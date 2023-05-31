@@ -1839,7 +1839,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']   
             sql: 'datetime(stg_fr__salesrule_coupon.expiration_at, "Europe/Paris")'         
       - name: is_primary
         data_type: <integer>
@@ -1850,7 +1850,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']  
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']  
             sql: 'datetime(stg_fr__salesrule_coupon.created_at, "Europe/Paris")'          
       - name: type
         data_type: <integer>
@@ -2001,3 +2001,46 @@ models:
         description: ""
       - name: _streamkap_loaded_at_ts
         description: ""
+
+  - name: stg_fr__sales_flat_shipment_track
+    description: ""
+    columns:
+      - name: entity_id
+        data_type: <integer>
+        description: "Primary key"
+      - name: parent_id
+        data_type: <integer>
+        description: "Parent id"
+      - name: weight
+        data_type: <integer>
+        description: "Weight"
+      - name: qty
+        data_type: <integer>
+        description: "Quantity"
+      - name: order_id
+        data_type: <integer>
+        description: "Order id"
+      - name: track_number
+        data_type: <string>
+        description: "Tracking number"
+      - name: description
+        data_type: <string>
+        description: "Description"
+      - name: title
+        data_type: <string>
+        description: "Title"
+      - name: carrier_code
+        data_type: <string>
+        description: "Carrier code"
+      - name: created_at
+        data_type: <string>
+        description: "Create date"
+      - name: updated_at
+        data_type: <string>
+        description: "Update date"
+      - name: _streamkap_source_ts_ms
+        data_type: <timestamp>
+        description: "Sync time from streamkap, nullable"
+      - name: __deleted
+        data_type: <string>
+        description: "Deleted flag, nullable"

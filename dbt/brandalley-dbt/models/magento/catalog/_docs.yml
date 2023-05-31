@@ -17,6 +17,10 @@ models:
             format: id
       - name: updated_at
         description: "Update time, nullable"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: product_id
         description: "Product id"
       - name: product_parent_id
@@ -77,6 +81,10 @@ models:
             format: id
       - name: updated_at
         description: "Update time, nullable"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: parent
         description: "Parent, nullable"
       - name: sap_ref
@@ -99,16 +107,40 @@ models:
         description: "Admin"
       - name: date_import
         description: "Date import"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: date_reservation
         description: "Date reservation"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: date_pend_proc
         description: "Date pend proc"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: date_proc_comp
         description: "Date proc comp"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: date_comp_exported
         description: "Date comp exported"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: date_due
         description: "Date due"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: sap_message
         description: "SAP message, nullable"
       - name: buyer
@@ -127,6 +159,10 @@ models:
             format: id
       - name: po_date
         description: "PO date"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: sku
         description: "SKU"
       - name: order_id
@@ -138,6 +174,10 @@ models:
         description: "Qty of consignment units ordered"
       - name: created_at
         description: "Create date"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: brand
         description: "Brand"
       - name: name
@@ -190,6 +230,10 @@ models:
         description: "Tree level"
       - name: updated_at
         description: "Update time, nullable"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
 
   - name: products
     description: ""
@@ -253,6 +297,10 @@ models:
         description: ""
       - name: updated_at
         description: "Update time"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: supplier_id
         description: "Primary key"
         meta:
@@ -320,6 +368,10 @@ models:
 
       - name: low_stock_date
         description: "Low stock date, nullable"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
 
       - name: notify_stock_qty
         description: "Notify stock quantity, nullable"
@@ -372,11 +424,13 @@ models:
         meta:
           dimension:
             type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(products_sales.ba_site = "FR",datetime(products_sales.sale_start_at, "Europe/Paris"),datetime(products_sales.sale_start_at, "Europe/London"))'
       - name: sale_end_at
         meta:
           dimension:
             type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(products_sales.ba_site = "FR",datetime(products_sales.sale_end_at, "Europe/Paris"),datetime(products_sales.sale_end_at, "Europe/London"))'
       - name: variant_sku_per_sku_per_sale_number
           
@@ -507,6 +561,10 @@ models:
       - name: created_at
         data_type: <timestamp>
         description: "Create date"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: updated_at
         data_type: <integer>
         description: "Update date"
@@ -675,9 +733,17 @@ models:
       - name: promotional_date
         data_type: <timestamp>
         description: "Promotional date"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: promotion_date
         data_type: <timestamp>
         description: "Sorting date"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: promotion_options
         data_type: <string>
         description: "Promotion Options"
@@ -804,21 +870,21 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.poi_updated, "Europe/Paris"),datetime(purchase_order.poi_updated, "Europe/London"))'
       - name: po_created
         description: "Created date of the PO"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']   
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.po_created, "Europe/Paris"),datetime(purchase_order.po_created, "Europe/London"))'
       - name: po_updated
         description: "Update date of the PO"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']  
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.po_updated, "Europe/Paris"),datetime(purchase_order.po_updated, "Europe/London"))'          
       - name: po_status
         description: "Status of the po"
@@ -831,14 +897,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER'] 
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.po_delivery, "Europe/Paris"),datetime(purchase_order.po_delivery, "Europe/London"))'           
       - name: po_date_exported
         description: "Export date of the PO"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']    
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.po_date_exported, "Europe/Paris"),datetime(purchase_order.po_date_exported, "Europe/London"))'        
       - name: products_in_wh_b
         description: "Products in WH B"
@@ -872,7 +938,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER']     
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.grn_delivery_date, "Europe/Paris"),datetime(purchase_order.grn_delivery_date, "Europe/London"))'       
       - name: stock_type_ss
         description: "Stock type SS"
@@ -883,7 +949,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER'] 
+            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.nego_updated, "Europe/Paris"),datetime(purchase_order.nego_updated, "Europe/London"))'           
       - name: nego_type
         description: "Negotiation type"
