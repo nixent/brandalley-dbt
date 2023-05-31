@@ -260,6 +260,17 @@ models:
               type: sum
               label: 'All Orders Forecast'
               group_label: 'Targets'
+            total_order_wtd_forecast_comparison:
+              type: number
+              sql: '${total_orders_count} - ${total_all_orders_forecast}'
+              label: 'LY Orders Comparison (Day or WTD)'
+              group_label: 'VS Last Year'
+            total_order_wtd_forecase_comparison_pct:
+              type: number
+              sql: '100*safe_divide(${total_orders_count} - ${total_all_orders_forecast},${total_all_orders_forecast})'
+              label: 'LY Orders Comparison % (Day or WTD)'
+              group_label: 'VS Last Year'
+              round: 1
 
 
   - name: kpis_daily
