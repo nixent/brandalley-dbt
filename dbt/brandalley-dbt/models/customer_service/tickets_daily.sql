@@ -24,10 +24,7 @@ select
     sum(chat_ticket)                    as chat_ticket, 
     sum(email_ticket)                   as email_ticket, 
     null                                as order_count
-from {{ source(
-        'zohodesk_model',
-        'zohodesk_tickets_detailed'
-    )}}
+from {{ ref('zohodesk_tickets_detailed')}}
 where created_time < '2023-03-27 17:45:00'
 group by 1,2,3,4,5,9
 
