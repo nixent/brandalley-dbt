@@ -2,3 +2,4 @@ version: 2
 
 models:
   - name: marketing_spend
+  - name: marketing_targets
