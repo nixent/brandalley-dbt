@@ -94,12 +94,12 @@ models:
               group_label: 'Last Year'
             last_year_same_day_wtd_total_order_comparison:
               type: number
-              sql: '${total_orders_count} - ${last_year_same_day_wtd_order_count}'
+              sql: '${total_orders_count} - ${last_year_same_day_wtd_total_order_count}'
               label: 'LY Orders Comparison (Day or WTD)'
               group_label: 'VS Last Year'
             last_year_same_day_wtd_total_order_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_orders_count} - ${last_year_same_day_wtd_order_count},${last_year_same_day_wtd_order_count})'
+              sql: '100*safe_divide(${total_orders_count} - ${last_year_same_day_wtd_total_order_count},${last_year_same_day_wtd_total_order_count})'
               label: 'LY Orders Comparison % (Day or WTD)'
               group_label: 'VS Last Year'
               round: 1
