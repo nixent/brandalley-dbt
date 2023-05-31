@@ -7,8 +7,17 @@ with order_stats as (
         total_new_members,
         gmv,
         margin,
-        qty_ordered
+        qty_ordered,
+        aov_gmv
     from {{ ref('kpis_daily')}}
+),
+
+marketing_targets as (
+    select
+        target_date,
+        new_members_forecast,
+        returning_customers_order_forecast + new_customers_order_forecast as all_orders_forecast
+    from {{ ref('marketing_targets') }}
 ),
 
 ga_stats as (
@@ -22,7 +31,7 @@ ga_stats as (
 
 select
     d.date_day,
-    {# for dev #}
+    {# for dev purposes #}
     d.last_year_same_day,
     {# d.last_week, #}
     d.last_year,
@@ -37,8 +46,7 @@ select
     os.gmv,
     os.margin,
     os.qty_ordered,
-    {# os1.total_order_count as last_week_total_order_count,
-    os2.total_order_count as last_month_total_order_count, #}
+    os.aov_gmv,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
     gs1.ga_orders                   as last_year_same_day_ga_orders,
     os3.total_order_count           as last_year_total_order_count,
@@ -47,12 +55,16 @@ select
     os4.total_new_customer_count    as last_year_same_day_total_new_customer_count,
     os3.total_new_members           as last_year_total_new_member_count,
     os4.total_new_members           as last_year_same_day_total_new_member_count,
+    os3.aov_gmv                     as last_year_aov_gmv,
+    os4.aov_gmv                     as last_year_same_day_aov_gmv,
     os3.gmv                         as last_year_gmv,
     os4.gmv                         as last_year_same_day_gmv,
     os3.margin                      as last_year_margin,
     os4.margin                      as last_year_same_day_margin,
     os3.qty_ordered                 as last_year_qty_ordered,
-    os4.qty_ordered                 as last_year_same_day_qty_ordered
+    os4.qty_ordered                 as last_year_same_day_qty_ordered,
+    mt.new_members_forecast,
+    mt.all_orders_forecast
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -68,4 +80,6 @@ left join ga_stats gs
     on gs.ga_session_at_date = d.date_day and os.ba_site = 'UK'
 left join ga_stats gs1
     on gs1.ga_session_at_date = d.last_year_same_day and os.ba_site = 'UK'
+left join marketing_targets mt 
+    on d.date_day = mt.target_date and os.ba_site = 'UK'
 
