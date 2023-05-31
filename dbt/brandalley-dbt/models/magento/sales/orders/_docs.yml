@@ -448,9 +448,6 @@ models:
               label: 'Total Orders'
               type: count_distinct
               sql: "${ba_site} || ${order_id}"
-            sum_of_order_ids:
-              label: ' sum of order ids'
-              type: sum
             average_items_per_order:
               label: 'Avg Items per Order'
               type: number
@@ -480,7 +477,7 @@ models:
             hidden: true
           metrics:
             qty_ordered_metric:
-              label: 'Units quantity ordered'
+              label: 'Total Ordered Units'
               type: sum
               description: "Number of units ordered"
               hidden: false
@@ -492,13 +489,13 @@ models:
               hidden: false
               round: 0
       - name: qty_invoiced
-        description: "Total Invoiced Units"
+        description: "Quantity invoiced, nullable"
         meta:
           dimension:
             hidden: true
           metrics:
             qty_invoiced_metric:
-              label: 'Units quantity invoiced'
+              label: 'Total Invoiced Units'
               type: sum
               description: "Number of units invoiced"
               hidden: false
@@ -623,7 +620,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'if(OrderLines.ba_site = "FR",datetime(OrderLines.order_placed_date, "Europe/Paris"),datetime(timestamp(OrderLines.order_placed_date), "Europe/London"))' 
+            sql: 'if(OrderLines.ba_site = "FR",datetime(timestamp(OrderLines.order_placed_date), "Europe/Paris"),datetime(timestamp(OrderLines.order_placed_date), "Europe/London"))' 
           metrics:
             date_difference_between_months:
               label: 'No of months since cohort start'

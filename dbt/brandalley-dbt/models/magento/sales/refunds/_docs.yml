@@ -38,7 +38,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(ba_core_stock_return.ba_site = "FR",datetime(ba_core_stock_return.created_at, "Europe/Paris"),datetime(ba_core_stock_return.created_at, "Europe/London"))'
       - name: xml_created_at
         description: "Created date of the xml"
