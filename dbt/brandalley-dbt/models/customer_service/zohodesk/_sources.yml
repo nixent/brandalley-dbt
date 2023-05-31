@@ -559,7 +559,7 @@ sources:
             meta:
               dimension:
                 type: timestamp
-                time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+                time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
                 sql: 'datetime(zohodesk_tickets_detailed.created_time, "Europe/London")'         
           - name: subject
             description: "Subject of the ticket"
@@ -574,7 +574,7 @@ sources:
             meta:
               dimension:
                 type: timestamp
-                time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+                time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
                 sql: 'datetime(zohodesk_tickets_detailed.due_date, "Europe/London")'             
           - name: customer_response_time
             description: "time before first response"
@@ -587,7 +587,7 @@ sources:
             meta:
               dimension:
                 type: timestamp
-                time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER'] 
+                time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
                 sql: 'datetime(zohodesk_tickets_detailed.response_due_date, "Europe/London")'               
           - name: assignee_id
             description: "Id of the assignee of the ticket"
@@ -596,7 +596,7 @@ sources:
             meta:
               dimension:
                 type: timestamp
-                time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+                time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
                 sql: 'datetime(zohodesk_tickets_detailed.closed_time, "Europe/London")'       
           - name: comment_count
             description: "Count of comments left on the ticket"     

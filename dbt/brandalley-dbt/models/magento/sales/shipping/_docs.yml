@@ -112,14 +112,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(shipments.ba_site = "FR",datetime(shipments.created_at, "Europe/Paris"),datetime(shipments.created_at, "Europe/London"))'
       - name: updated_at
         description: "Update date of the shipment, nullable"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: packages
         description: "Number of packages, nullable"
 
@@ -165,14 +165,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(shipping.ba_site = "FR",datetime(shipping.order_date, "Europe/Paris"),datetime(shipping.order_date, "Europe/London"))'
       - name: shipment_date
         description: ""
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(shipping.ba_site = "FR",datetime(shipping.shipment_date, "Europe/Paris"),datetime(timestamp(shipping.shipment_date), "Europe/London"))'
           metrics:
             days_to_delivery_exc_we:

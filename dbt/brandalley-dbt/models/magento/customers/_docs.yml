@@ -39,7 +39,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(customers_enriched.ba_site = "FR",datetime(customers_enriched.signed_up_at, "Europe/Paris"),datetime(customers_enriched.signed_up_at, "Europe/London"))'
       - name: achica_user
       - name: achica_migration_date
@@ -58,7 +58,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(customers_enriched.ba_site = "FR",datetime(customers_enriched.first_purchase_at, "Europe/Paris"),datetime(customers_enriched.first_purchase_at, "Europe/London"))'
       - name: first_purchase_brands
         meta: 
@@ -69,7 +69,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(customers_enriched.ba_site = "FR",datetime(customers_enriched.second_purchase_at, "Europe/Paris"),datetime(customers_enriched.second_purchase_at, "Europe/London"))'
       - name: count_customer_orders
         meta: 
@@ -168,7 +168,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
 
   - name: customers_rfm
     description: 'Recency, Frequency & Monetary values per customer along with the average time between transactions and average order value per customer'
@@ -236,7 +236,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(customers.ba_site = "FR",datetime(customers.dt_cr, "Europe/Paris"),datetime(timestamp(customers.dt_cr), "Europe/London"))'
       - name: subscription
         description: ""
@@ -252,7 +252,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: achica_user
         description: ""
       - name: achica_migration_date
@@ -260,4 +260,4 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']

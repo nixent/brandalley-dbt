@@ -25,7 +25,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk_tickets_detailed.created_at, "Europe/London")'            
       - name: description
         description: "description"
@@ -34,7 +34,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk_tickets_detailed.due_at, "Europe/London")'           
       - name: is_public
         description: "is_public"
@@ -49,7 +49,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk_tickets_detailed.updated_at, "Europe/London")'             
       - name: type
         description: "Type"
@@ -230,7 +230,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk_call_metric.created_at, "Europe/London")'            
       - name: customer_requested_voicemail
         data_type: <string>
@@ -331,7 +331,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk_call_metric.updated_at, "Europe/London")'            
       - name: voicemail
         data_type: <string>
@@ -386,7 +386,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'timestamp(daily_zendesk_call.created_at, "Europe/London")'             
       - name: number_of_calls
         description: "Number of calls"
@@ -532,14 +532,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.first_solved_at, "Europe/London")'            
       - name: last_solved_at
         description: "The time the ticket was last in 'solved' status"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.last_solved_at, "Europe/London")'            
       - name: first_resolution_calendar_minutes
         description: "The number of calendar minutes between the ticket created time and the time the ticket was first set to solved status"
@@ -605,7 +605,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.created_at, "Europe/London")'            
       - name: type
         description: "The type of this ticket, possible values are problem, incident, question or task"
@@ -658,7 +658,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.due_at, "Europe/London")'            
       - name: ticket_form_id
         description: "Enterprise only. The id of the ticket form to render for the ticket"
@@ -669,7 +669,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.updated_at, "Europe/London")'            
       - name: created_channel
         description: "The channel the ticket was created from"
@@ -708,14 +708,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.requester_created_at, "Europe/London")'            
       - name: requester_updated_at
         description: "The date the ticket requester was last updated"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.requester_updated_at, "Europe/London")'            
       - name: is_requester_active
         description: "Boolean indicating whether the requester is currently active"
@@ -730,14 +730,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.requester_ticket_last_update_at, "Europe/London")'            
       - name: requester_last_login_at
         description: "The last login of the ticket requester"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.requester_last_login_at, "Europe/London")'            
       - name: requester_organization_id
         description: "The organization id of the ticket requester"
@@ -752,14 +752,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.requester_organization_created_at, "Europe/London")'            
       - name: requester_organization_updated_at
         description: "The date the ticket requesters organization was last updated"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.requester_organization_updated_at, "Europe/London")'            
       - name: submitter_external_id
         description: "The ticket submitter external id"
@@ -786,14 +786,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.assignee_ticket_last_update_at, "Europe/London")'            
       - name: assignee_last_login_at
         description: "The date the ticket assignee last logged in"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__ticket_metrics_overwrite.assignee_last_login_at, "Europe/London")'            
       - name: requester_tag
         description: "The tags associated with the ticket requester."
@@ -860,13 +860,13 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: last_agent_assignment_date
         description: "The date the last agent was assigned to the ticket"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: first_assignment_to_resolution_calendar_minutes
         description: "The time in calendar minutes between the first assignment and resolution of the ticket"
       - name: last_assignment_to_resolution_calendar_minutes
@@ -906,7 +906,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: ticket_unassigned_duration_calendar_minutes
         description: "The time in minutes the ticket was in an unassigned state"
       - name: last_status_assignment_date
@@ -914,7 +914,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: created_at_day_of_week
         description: "Day of the week when the ticket was created"
         meta:
@@ -980,7 +980,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.sla_applied_at, "Europe/London")'            
       - name: target
         description: "The SLA target, in minutes"
@@ -991,7 +991,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.sla_breach_at, "Europe/London")'            
       - name: sla_elapsed_time
         description: "The total elapsed time to achieve the SLA metric whether breached or achieved"
@@ -1076,7 +1076,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.created_at, "Europe/London")'            
       - name: duration
         data_type: <integer>
@@ -1108,7 +1108,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.updated_at, "Europe/London")'            
   - name: user_overwrite
     columns:
@@ -1133,7 +1133,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.created_at, "Europe/London")'            
       - name: custom_agent_s_company
         data_type: <string>
@@ -1162,7 +1162,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.last_login_at, "Europe/London")'            
       - name: locale
         data_type: <string>
@@ -1227,7 +1227,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.updated_at, "Europe/London")'            
       - name: url
         data_type: <string>
