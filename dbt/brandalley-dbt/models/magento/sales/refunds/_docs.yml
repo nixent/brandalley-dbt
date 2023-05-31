@@ -38,7 +38,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(ba_core_stock_return.ba_site = "FR",datetime(ba_core_stock_return.created_at, "Europe/Paris"),datetime(ba_core_stock_return.created_at, "Europe/London"))'
       - name: xml_created_at
         description: "Created date of the xml"
@@ -93,13 +93,13 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: dateofstockreturned
         description: ""
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: refund_type_id
         description: "Refund type id, nullable"
         meta:
@@ -112,7 +112,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: creditmemonumber
         description: ""
       - name: grandtotal
@@ -126,7 +126,7 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
 
   - name: sales_flat_creditmemo_item
     description: ""
@@ -257,14 +257,14 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(sales_flat_creditmemo_item.ba_site = "FR",datetime(sales_flat_creditmemo_item.created_at, "Europe/Paris"),datetime(sales_flat_creditmemo_item.created_at, "Europe/London"))'
       - name: updated_at
         description: "Updated at, nullable"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: refund_reason
         description: ""
 
@@ -394,13 +394,13 @@ models:
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: updated_at
         description: "Updated at, nullable"
         meta:
           dimension:
             type: timestamp
-            time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: hidden_tax_amount
         description: "Hidden tax amount, nullable"
       - name: base_hidden_tax_amount
