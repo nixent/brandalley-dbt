@@ -237,7 +237,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'if(customers.ba_site = "FR",datetime(customers.dt_cr, "Europe/Paris"),datetime(timestamp(customers.dt_cr), "Europe/London"))'
+            sql: 'if(customers.ba_site = "FR",datetime(timestamp(customers.dt_cr), "Europe/Paris"),datetime(timestamp(customers.dt_cr), "Europe/London"))'
       - name: subscription
         description: ""
       - name: old_account_id
