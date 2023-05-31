@@ -96,12 +96,12 @@ models:
               type: number
               sql: '${total_orders_count} - ${last_year_same_day_wtd_total_order_count}'
               label: 'LY Orders Comparison (Day or WTD)'
-              group_label: 'VS Last Year'
+              group_label: 'Last Year VS'
             last_year_same_day_wtd_total_order_comparison_pct:
               type: number
               sql: '100*safe_divide(${total_orders_count} - ${last_year_same_day_wtd_total_order_count},${last_year_same_day_wtd_total_order_count})'
               label: 'LY Orders Comparison % (Day or WTD)'
-              group_label: 'VS Last Year'
+              group_label: 'Last Year VS'
               round: 1
       - name: last_year_total_new_customer_count
         meta:
@@ -179,12 +179,12 @@ models:
               type: number
               sql: '${total_gmv} - ${last_year_same_day_wtd_gmv}'
               label: 'LY GMV Comparison (Day or WTD)'
-              group_label: 'VS Last Year'
+              group_label: 'Last Year VS'
             last_year_same_day_wtd_gmv_comparison_pct:
               type: number
               sql: '100*safe_divide(${total_gmv} - ${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_gmv})'
               label: 'LY GMV Comparison % (Day or WTD)'
-              group_label: 'VS Last Year'
+              group_label: 'Last Year VS'
               round: 1
       - name: last_year_margin
         meta:
@@ -208,12 +208,12 @@ models:
               type: number
               sql: '${total_margin} - ${last_year_same_day_wtd_margin}'
               label: 'LY Margin Comparison (Day or WTD)'
-              group_label: 'VS Last Year'
+              group_label: 'Last Year VS'
             last_year_same_day_wtd_margin_comparison_pct:
               type: number
               sql: '100*safe_divide(${total_margin} - ${last_year_same_day_wtd_margin},${last_year_same_day_wtd_margin})'
               label: 'LY Margin Comparison % (Day or WTD)'
-              group_label: 'VS Last Year'
+              group_label: 'Last Year VS'
               round: 1
       - name: last_year_qty_ordered
         meta:
@@ -263,13 +263,13 @@ models:
             total_order_wtd_forecast_comparison:
               type: number
               sql: '${total_orders_count} - ${total_all_orders_forecast}'
-              label: 'LY Orders Comparison (Day or WTD)'
-              group_label: 'VS Last Year'
+              label: 'LY Orders Forecast Comparison (Day or WTD)'
+              group_label: 'Targets VS'
             total_order_wtd_forecase_comparison_pct:
               type: number
               sql: '100*safe_divide(${total_orders_count} - ${total_all_orders_forecast},${total_all_orders_forecast})'
-              label: 'LY Orders Comparison % (Day or WTD)'
-              group_label: 'VS Last Year'
+              label: 'LY Orders Forecast Comparison % (Day or WTD)'
+              group_label: 'Targets VS'
               round: 1
 
 
