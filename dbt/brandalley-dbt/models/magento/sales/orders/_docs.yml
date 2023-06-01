@@ -237,6 +237,8 @@ models:
       - name: supplier_name
       - name: qty_ordered_metric
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_qty_ordered:
               type: sum
@@ -244,6 +246,8 @@ models:
               label: 'Units Ordered'
       - name: total_revenue
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_gmv:
               type: sum
@@ -255,25 +259,36 @@ models:
               label: 'Hourly AOV'
       - name: line_product_cost_exc_vat_metric
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_cost:
               type: sum
               round: 0 
+              label: 'Product Cost'
       - name: total_revenue_exc_tax
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_sales_amount:
               type: sum
               round: 0 
+              label: 'Sales Amount'
       - name: margin_value
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_margin:
               type: sum
               round: 0 
+              label: 'Margin'
       - name: total_order_count
       - name: rc_gmv
         meta:
+          dimension:
+            hidden: true
           metrics:
             rc_aov:
               type: number
@@ -282,6 +297,8 @@ models:
               label: 'RC AOV'
       - name: nc_gmv
         meta:
+          dimension:
+            hidden: true
           metrics:
             nc_aov:
               type: number
@@ -290,50 +307,71 @@ models:
               label: 'NC AOV'
       - name: total_discount_amount
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_hourly_discount:
               type: sum
               round: 0
+              label: 'Discount'
       - name: total_new_order_count
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_hourly_new_orders:
               type: sum
               round: 0
+              label: 'New Orders'
       - name: total_existing_order_count
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_hourly_existing_orders:
               type: sum
               round: 0
+              label: 'Existing Orders'
       - name: total_new_members
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_hourly_new_members:
               type: sum
               round: 0
+              label: 'New Members'
       - name: hour
       - name: last_week_margin
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_margin_last_week:
               type: sum
               round: 0 
               label: 'Margin Last Week'
+              group_label: 'Last Week'
       - name: last_week_qty_ordered
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_qty_ordered_last_week:
               type: sum
               round: 0 
               label: 'Units Ordered Last Week'
+              group_label: 'Last Week'
       - name: last_week_revenue
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_sales_amount_last_week:
               type: sum
               round: 0 
               label: 'Sales Amount Last Week'
+              group_label: 'Last Week'
 
   - name: multiple_coupon_orders
     description: "Orders that use multiple coupons, split by each of those coupons"
