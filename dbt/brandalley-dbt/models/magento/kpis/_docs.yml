@@ -317,6 +317,9 @@ models:
             round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
+        meta:
+          dimension:
+            label: 'Units Ordered'
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
@@ -409,6 +412,9 @@ models:
             round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
+        meta:
+          dimension:
+            label: 'Units Ordered'
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
@@ -501,6 +507,9 @@ models:
             round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
+        meta:
+          dimension:
+            label: 'Units Ordered'
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
@@ -593,6 +602,9 @@ models:
             round: 0 
       - name: qty_ordered
         description: "Number of items ordered across all orders"
+        meta:
+          dimension:
+            label: 'Units Ordered'
       - name: gmv
         description: "Sales incl. VAT, after any discounts and excl. shipping"
         meta:
