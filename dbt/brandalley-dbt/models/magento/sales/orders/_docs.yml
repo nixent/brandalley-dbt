@@ -235,12 +235,13 @@ models:
       - name: parent_sku
       - name: product_type
       - name: supplier_name
-      - name: qty_invoiced_metric
+      - name: qty_ordered_metric
         meta:
           metrics:
-            total_qty_invoiced:
+            total_qty_ordered:
               type: sum
               round: 0
+              label: 'Units Ordered'
       - name: total_revenue
         meta:
           metrics:

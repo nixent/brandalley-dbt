@@ -13,7 +13,7 @@ with metrics_today_and_last_week as (
         ol.parent_sku,
         ol.product_type,
         ol.supplier_name,
-        sum(ol.qty_invoiced)                                                    as qty_invoiced_metric,
+        sum(ol.qty_ordered)                                                     as qty_ordered_metric,
         sum(ol.total_local_currency_after_vouchers)                             as total_revenue,
         sum(ol.line_product_cost_exc_vat)                                       as line_product_cost_exc_vat_metric,
         sum(round(ol.total_local_currency_ex_tax_after_vouchers,2))             as total_revenue_exc_tax,
@@ -54,7 +54,7 @@ select
     mt.parent_sku,
     mt.product_type,
     mt.supplier_name,
-    mt.qty_invoiced_metric,
+    mt.qty_ordered_metric,
     mt.total_revenue,
     mt.line_product_cost_exc_vat_metric,
     mt.total_revenue_exc_tax,
@@ -68,7 +68,7 @@ select
     cast(null as integer) as total_new_members,
     if(extract(hour from mt.created_at_hour) < 10, '0', '') || extract(hour from mt.created_at_hour) || ':00'     as hour,
     null                                                                                                    as last_week_margin,
-    null                                                                                                    as last_week_qty_invoiced,
+    null                                                                                                    as last_week_qty_ordered,
     null                                                                                                    as last_week_revenue
 from metrics_today_and_last_week mt
 where date(mt.created_at_hour) = current_date
@@ -85,7 +85,7 @@ select
     mt.parent_sku,
     mt.product_type,
     mt.supplier_name,
-    null                                                                                                    as qty_invoiced_metric,
+    null                                                                                                    as qty_ordered_metric,
     null                                                                                                    as total_revenue,
     null                                                                                                    as line_product_cost_exc_vat_metric,
     null                                                                                                    as total_revenue_exc_tax,
@@ -99,7 +99,7 @@ select
     null                                                                                                    as total_new_members,
     if(extract(hour from mt.created_at_hour) < 10, '0', '') || extract(hour from mt.created_at_hour) || ':00'     as hour,
     round(mt.total_revenue_exc_tax - mt.line_product_cost_exc_vat_metric,2)                                       as last_week_margin,
-    mt.qty_invoiced_metric                                                                                     as last_week_qty_invoiced,
+    mt.qty_ordered_metric                                                                                     as last_week_qty_ordered,
     mt.total_revenue_exc_tax                                                                                   as last_week_revenue
 from metrics_today_and_last_week mt
 where date(mt.created_at_hour) = current_date - 7
@@ -116,7 +116,7 @@ select
     null                                                                                                    as parent_sku,
     null                                                                                                    as product_type,
     null                                                                                                    as supplier_name,
-    null                                                                                                    as qty_invoiced_metric,
+    null                                                                                                    as qty_ordered_metric,
     null                                                                                                    as total_revenue,
     null                                                                                                    as line_product_cost_exc_vat_metric,
     null                                                                                                    as total_revenue_exc_tax,
@@ -130,7 +130,7 @@ select
     total_new_members,
     if(extract(hour from cs.customer_created_at_hour) < 10, '0', '') || extract(hour from cs.customer_created_at_hour) || ':00'     as hour,
     null                                       as last_week_margin,
-    null                                                                                     as last_week_qty_invoiced,
+    null                                                                                     as last_week_qty_ordered,
     null                                                                                   as last_week_revenue
 from customer_stats cs
 where date(cs.customer_created_at_hour) = current_date
