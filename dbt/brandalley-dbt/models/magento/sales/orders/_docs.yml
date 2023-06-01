@@ -319,18 +319,21 @@ models:
             total_margin_last_week:
               type: sum
               round: 0 
-      - name: last_week_qty_invoiced
+              label: 'Margin Last Week'
+      - name: last_week_qty_ordered
         meta:
           metrics:
-            total_qty_invoiced_last_week:
+            total_qty_ordered_last_week:
               type: sum
               round: 0 
+              label: 'Units Ordered Last Week'
       - name: last_week_revenue
         meta:
           metrics:
             total_sales_amount_last_week:
               type: sum
               round: 0 
+              label: 'Sales Amount Last Week'
 
   - name: multiple_coupon_orders
     description: "Orders that use multiple coupons, split by each of those coupons"
