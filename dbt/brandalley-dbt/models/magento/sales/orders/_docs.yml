@@ -1548,7 +1548,7 @@ models:
               label: 'Shipping inc Tax per unit'
               type: sum
               description: "Shipping inc Tax per unit"
-              sql: "${shipping_incl_tax}/${total_qty_ordered}"
+              sql: "safe_divide(${shipping_incl_tax},${total_qty_ordered})"
               hidden: false
               round: 2      
       - name: grand_total
