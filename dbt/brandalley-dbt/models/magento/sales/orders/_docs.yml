@@ -804,6 +804,12 @@ models:
               description: "Total Margin"
               hidden: false
               round: 0      
+            total_margin_pct:
+              label: 'Margin (%)'
+              type: number
+              description: "Total Margin (%)"
+              sql: '100*safe_divide(${total_margin}, ${total_revenue_exc_tax})'
+              round: 0     
       - name: line_total_refunded
         description: ""
       - name: shipping_refunded
