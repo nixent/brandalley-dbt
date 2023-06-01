@@ -6,7 +6,7 @@ select
     status, 
     sum(phone_ticket)                   as phone_ticket, 
     sum(chat_ticket)                    as chat_ticket, 
-    sum(email_ticket)                   as email_ticket, 
+    sum(web_email_ticket)               as email_ticket, 
     null                                as order_count 
 from {{ ref('zendesk_tickets_detailed') }}
 where created_at >= '2023-03-27 17:45:00'
