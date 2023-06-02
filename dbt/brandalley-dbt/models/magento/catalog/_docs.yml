@@ -425,6 +425,7 @@ models:
       - name: product_size
       - name: outlet_category
       - name: product_brand
+      - name: order_status
       - name: gmv
         meta:
           dimension:
