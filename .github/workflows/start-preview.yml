@@ -63,9 +63,7 @@ jobs:
           LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}    
           GOOGLE_APPLICATION_CREDENTIALS: '/tmp/googlecredentials.json'
 
-        run:  |
-          lightdash start-preview --project-dir "$PROJECT_DIR" --profiles-dir . --name ${GITHUB_REF##*/}
-          lightdash validate
+        run: lightdash start-preview --project-dir "$PROJECT_DIR" --profiles-dir . --name ${GITHUB_REF##*/}
 
       - uses: jwalton/gh-find-current-pr@v1
         id: finder
@@ -76,3 +74,13 @@ jobs:
           number: ${{ steps.finder.outputs.pr }}
           message: |
             :rocket: Deployed ${{ github.sha }} to ${{ steps.start-preview.outputs.url }}
+      
+      - name: Lightdash CLI start preview
+        id: validate_ld
+        env:
+          LIGHTDASH_API_KEY: ${{ secrets.LIGHTDASH_API_KEY }}          
+          LIGHTDASH_PROJECT: ${{ secrets.LIGHTDASH_PROJECT }}          
+          LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}    
+          GOOGLE_APPLICATION_CREDENTIALS: '/tmp/googlecredentials.json'
+
+        run: lightdash validate
