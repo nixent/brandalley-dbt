@@ -24,11 +24,9 @@ order_info as (
         ol.sku,
         ol.ba_site,
         ol.order_status,
-        round(sum(ol.line_product_cost_exc_vat),2)                              as total_product_cost_exc_vat,
         round(sum(ol.qty_ordered),2)                                            as qty_sold,
         round(sum(ol.total_local_currency_ex_tax_after_vouchers),2)             as sales_amount,
         round(sum(ol.total_local_currency_after_vouchers),2)                    as gmv,
-        round(sum(ol.line_discount_amount),2)                                   as total_discount_amount,
         round(sum(ol.margin),2)                                                 as margin
     from {{ ref('OrderLines') }} ol
     group by 1,2,3
