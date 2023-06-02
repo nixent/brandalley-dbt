@@ -241,6 +241,9 @@ models:
       - name: ba_site
       - name: unique_id
         description: ""
+        tests:
+          - unique
+          - not_null
         meta:
           dimension:
             format: id
