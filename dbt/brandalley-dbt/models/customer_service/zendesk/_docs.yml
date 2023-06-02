@@ -3,6 +3,12 @@ version: 2
 models:
   
   - name: zendesk_tickets_detailed
+    meta:
+      joins:
+        - join: Orders
+          sql_on: IFNULL(${zendesk_tickets_detailed.custom_order_id}, ${zendesk_tickets_detailed.custom_order_number}) = ${Orders.increment_id}
+        - join: stg__sales_flat_shipment_track
+          sql_on: ${Orders.magentoID} = ${stg__sales_flat_shipment_track.order_id}
     description: "A detailed view of all tickets for zendesk"
     columns:
       - name: id
@@ -143,7 +149,13 @@ models:
           dimension:
             type: string
             sql: case when ${zendesk_tickets_detailed.custom_contact_reason} like '%order_info/issue%' then 'Order Info/Issue' when ${zendesk_tickets_detailed.custom_contact_reason} like '%general_information%' then 'General Information' when ${zendesk_tickets_detailed.custom_contact_reason} like '%others%' then 'Others' when ${zendesk_tickets_detailed.custom_contact_reason} like '%technical_support%' then 'Technical Support' END          
-            
+      - name: consignment_qty
+        description: "consignment_qty"
+      - name: warehouse_qty
+        description: "warehouse_qty"
+      - name: selffulfill_qty
+        description: "selffulfill_qty"
+                        
   - name: zendesk_call_metric
     meta:
       joins:

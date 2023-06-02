@@ -3,26 +3,6 @@
 	unique_key='id'
 ) }}
 
-/* On hold for first run
-{% set min_ts = '2023-02-01' %}
-{% if execute and is_incremental() %}
-  {% set sql %}
-    -- Query to see the earliest event date that needs to be rebuilt from for inserted tickets since last run  
-    select min(updated_at) as min_ts from (
-		select 
-			min(updated_at) as updated_at
-		from     {{ source(
-        'zendesk',
-        'ticket'
-    ) }}
-		where updated_at >= ( select max(updated_at) from {{this}} )
-	)
-  {% endset %}
-  {% set result = run_query(sql) %}
-  {% set min_ts = result.columns['min_ts'][0]  %}
-{% endif %}
-*/
-
 with tickets as (
     select  id,
             created_at,
@@ -55,11 +35,18 @@ with tickets as (
             custom_shipping_issue_type,
             custom_solution,
             custom_status_id,
-            custom_tracking_
+            custom_tracking_,
+            consignment_qty, 
+            warehouse_qty, 
+            selffulfill_qty
     from {{ source(
         'zendesk',
         'ticket'
-    ) }} 
+    ) }} ticket
+    left outer join   (select sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty, order_number
+    from {{ ref('OrderLines') }}
+    group by order_number) orderlines
+    on IFNULL(ticket.custom_order_id, ticket.custom_order_number) = orderlines.order_number
 	where 1=1
 /*	{% if is_incremental() %}
 		and updated_at >= '{{min_ts}}'
