@@ -5,10 +5,8 @@ models:
   - name: zendesk_tickets_detailed
     meta:
       joins:
-        - join: Orders
-          sql_on: IFNULL(${zendesk_tickets_detailed.custom_order_id}, ${zendesk_tickets_detailed.custom_order_number}) = ${Orders.increment_id}
         - join: stg__sales_flat_shipment_track
-          sql_on: ${Orders.magentoID} = ${stg__sales_flat_shipment_track.order_id}
+          sql_on: ${zendesk_tickets_detailed.order_id} = ${stg__sales_flat_shipment_track.order_id}
     description: "A detailed view of all tickets for zendesk"
     columns:
       - name: id

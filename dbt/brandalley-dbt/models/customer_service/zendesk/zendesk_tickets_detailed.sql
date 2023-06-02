@@ -38,14 +38,15 @@ with tickets as (
             custom_tracking_,
             consignment_qty, 
             warehouse_qty, 
-            selffulfill_qty
+            selffulfill_qty,
+            order_id
     from {{ source(
         'zendesk',
         'ticket'
     ) }} ticket
-    left outer join   (select sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty, order_number
+    left outer join   (select sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty, order_number, order_id
     from {{ ref('OrderLines') }}
-    group by order_number) orderlines
+    group by order_number, order_id) orderlines
     on IFNULL(ticket.custom_order_id, ticket.custom_order_number) = orderlines.order_number
 	where 1=1
 /*	{% if is_incremental() %}
