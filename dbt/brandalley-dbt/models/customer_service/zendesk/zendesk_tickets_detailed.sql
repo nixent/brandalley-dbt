@@ -45,7 +45,9 @@ with tickets as (
         'ticket'
     ) }} ticket
     left outer join   (select sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty, order_number, order_id
-    from {{ ref('OrderLines') }}
+    from {{ ref('OrderLines') }} 
+    -- At the moment filtering on UK only but we'll need to add join on site when FR data is in
+    where ba_site='UK'
     group by order_number, order_id) orderlines
     on IFNULL(ticket.custom_order_id, ticket.custom_order_number) = orderlines.order_number
 	where 1=1
@@ -54,4 +56,4 @@ with tickets as (
 	{% endif %}*/
 )
 
-select * from tickets
+select * from tickets order by id desc
