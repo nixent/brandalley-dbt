@@ -3,10 +3,6 @@ version: 2
 models:
   
   - name: zendesk_tickets_detailed
-    meta:
-      joins:
-        - join: stg__sales_flat_shipment_track
-          sql_on: ${zendesk_tickets_detailed.order_id} = ${stg__sales_flat_shipment_track.order_id}
     description: "A detailed view of all tickets for zendesk"
     columns:
       - name: id
@@ -155,7 +151,9 @@ models:
         description: "selffulfill_qty"
       - name: order_id
         description: "order_id"
-                        
+      - name: carrier_codes
+        description: "carrier_codes"     
+                           
   - name: zendesk_call_metric
     meta:
       joins:

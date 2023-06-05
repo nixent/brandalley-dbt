@@ -418,7 +418,7 @@ models:
         - join: shipment_items
           sql_on: ${OrderLines.parent_item_id} = ${shipment_items.order_item_id} and ${OrderLines.ba_site} = ${shipment_items.ba_site}           
         - join: shipments
-          sql_on: ${OrderLines.order_id} = ${shipments.order_id} and ${OrderLines.ba_site} = ${shipments.ba_site}
+          sql_on: ${shipment_items.parent_id} = ${shipments.entity_id} and ${OrderLines.ba_site} = ${shipments.ba_site}
         - join: shipping
           sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku} and ${OrderLines.ba_site} = ${shipping.ba_site}
         - join: catalog_product_negotiation_item
