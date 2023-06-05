@@ -153,6 +153,8 @@ models:
         description: "warehouse_qty"
       - name: selffulfill_qty
         description: "selffulfill_qty"
+      - name: order_id
+        description: "order_id"
                         
   - name: zendesk_call_metric
     meta:
