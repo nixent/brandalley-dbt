@@ -196,7 +196,7 @@ with order_lines as (
 		end 																																				as category_name,
 		case
 			when lower(ccfse.path_name) like '%>clearance>%' then 'CLEARANCE'
-			when lower(cceh.name = 'outlet') then 'OUTLET'
+			when lower(cceh.name) = 'outlet' then 'OUTLET'
 			when cceh.name is not null then ptd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
