@@ -39,7 +39,7 @@ select
     entity_type_id,
     attribute_id,
     entity_id,
-    timestamp(null),
+    timestamp_millis(value) as value,
     _streamkap_source_ts_ms,
     _streamkap_ts_ms,
     _streamkap_offset,
