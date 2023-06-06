@@ -441,31 +441,35 @@ models:
         meta:
           dimension:
             hidden: true
-      # - name: months_since_cohort_start
-      #   description: " no of months since cohort began"
-      #   meta:
-      #     dimension:
-      #       type: number
-      # - name: years_since_cohort_start
-      #   description: " no of years since cohort began" 
-      #   meta: 
-      #     dimension: 
-      #       type: number
-      # - name : quarters_since_cohort_start
-      #   description: " no of quarters since cohort began"
-      #   meta:
-      #     dimension:
-      #       type: number
+      - name: months_since_cohort_start
+        description: "no of months since cohort began"
+        meta:
+          dimension:
+            type: number
+            group_label: 'Customers'
+      - name: years_since_cohort_start
+        description: "no of years since cohort began" 
+        meta: 
+          dimension: 
+            type: number
+            group_label: 'Customers'
+      - name : quarters_since_cohort_start
+        description: "no of quarters since cohort began"
+        meta:
+          dimension:
+            type: number
+            group_label: 'Customers'
       - name: order_number
         description: ""
         meta:
           dimension:
-            group_label: 'Order Details' 
+            group_label: 'Sales' 
       - name: customer_id
         description: "Customer id, foreign key, nullable" 
         meta:
           dimension:
             format: id
+            group_label: 'Customers'
           metrics:
             total_customers:
               label: 'Total Customers'
@@ -474,6 +478,7 @@ models:
               hidden: false
               round: 0      
               sql: "${ba_site} || ${customer_id}"
+              group_label: 'Customers'
       - name: order_item_id
         description: "Order item id, foreign key"
         meta:
@@ -484,26 +489,28 @@ models:
               label: 'Total Order Items'
               type: count_distinct    
               sql: "${ba_site} || ${order_item_id}"
-              group_label: 'Order Stats'
+              group_label: 'Sales'
       - name: parent_item_id
         description: "Parent item id, foreign key"
+        meta:
+          dimension: 'Product Details'
       - name: order_id
         description: "Id of the order, foreign key"
         meta:
           dimension:
             format: id
-            group_label: 'Order Details'
+            group_label: 'Sales'
           metrics:
             total_orders_count:
               label: 'Total Orders'
               type: count_distinct
               sql: "${ba_site} || ${order_id}"
-              group_label: 'Order Stats'
+              group_label: 'Sales'
             average_items_per_order:
               label: 'Avg Items per Order'
               type: number
               sql: " ${count_order_items} / ${total_orders_count} "
-              group_label: 'Order Stats'
+              group_label: 'Sales'
       - name: sku
         description: "SKU, nullable"
         meta:
@@ -531,7 +538,7 @@ models:
               description: "Number of units cancelled"
               hidden: false
               round: 0      
-              group_label: 'Order Stats'
+              group_label: 'Sales'
       - name: qty_ordered
         description: "Quantity ordered, nullable"
         meta:
@@ -544,14 +551,14 @@ models:
               description: "Number of units ordered"
               hidden: false
               round: 0  
-              group_label: 'Order Stats'
+              group_label: 'Sales'
             average_qty_ordered_metric:
               label: 'Average Ordered Units'
               type: average 
               description: "Average number of units ordered"
               hidden: false
               round: 0
-              group_label: 'Order Stats'
+              group_label: 'Sales'
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
         meta:
@@ -564,7 +571,7 @@ models:
               description: "Number of units invoiced"
               hidden: false
               round: 0
-              group_label: 'Order Stats'      
+              group_label: 'Sales'      
       - name: qty_refunded
         description: "Quantity refunded, nullable"
         meta:
@@ -577,7 +584,7 @@ models:
               description: "Number of units refunded"
               hidden: false
               round: 0
-              group_label: 'Order Stats'     
+              group_label: 'Refunds'     
       - name: qty_shipped
         description: "Quantity shipped, nullable"
         meta:
@@ -590,7 +597,7 @@ models:
               description: "Number of units shipped"
               hidden: false
               round: 0
-              group_label: 'Order Stats'      
+              group_label: 'Shipping'      
       - name: consignment_qty
         description: ""
         meta:
@@ -603,28 +610,28 @@ models:
               description: "Number of consignment units ordered"
               hidden: false
               round: 0
-              group_label: 'Order Stats'     
+              group_label: 'Order Quantities'     
             consignment_gmv_metric:
               label: 'Consignment GMV (£/€)'
               type: sum
               description: "Total consignment GMV"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0
-              group_label: 'Order Stats'    
+              group_label: 'Sales'    
             consignment_sales_amount_metric:
               label: 'Consignment Sales Amount (£/€)'
               type: sum
               description: "Total consignment sales amount"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
-              group_label: 'Order Stats'
+              group_label: 'Sales'
             consignment_product_cost_metric:
               label: 'Consignment Product Cost (£/€)'
               type: sum
               description: "Total consignment product cost"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${product_cost_exc_vat},0)"
               round: 0
-              group_label: 'Order Stats'        
+              group_label: 'Costs'        
       - name: selffulfill_qty
         description: ""
         meta:
@@ -637,28 +644,28 @@ models:
               description: "Number of self-fulfill units ordered"
               hidden: false
               round: 0
-              group_label: 'Order Stats'     
+              group_label: 'Order Quantities'     
             selffulfill_gmv_metric:
               label: 'Self-fulfill GMV (£/€)'
               type: sum
               description: "Total selffulfill GMV"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0
-              group_label: 'Order Stats'    
+              group_label: 'Sales'    
             selffulfill_sales_amount_metric:
               label: 'Self-fulfill Sales Amount (£/€)'
               type: sum
               description: "Total selffulfill sales amount"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
-              group_label: 'Order Stats'
+              group_label: 'Sales'
             selffulfill_product_cost_metric:
               label: 'Self-fulfill Product Cost (£/€)'
               type: sum
               description: "Total selffulfill product cost"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${product_cost_exc_vat},0)"
               round: 0
-              group_label: 'Order Stats'         
+              group_label: 'Costs'         
       - name: warehouse_qty
         description: ""
         meta:
@@ -671,28 +678,28 @@ models:
               description: "Number of warehouse units ordered"
               hidden: false
               round: 0
-              group_label: 'Order Stats'   
+              group_label: 'Order Quantities'   
             warehouse_gmv_metric:
               label: 'Warehouse GMV (£/€)'
               type: sum
               description: "Total warehouse GMV"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${total_local_currency_after_vouchers}/${qty_ordered},0)"
               round: 0
-              group_label: 'Order Stats'    
+              group_label: 'Sales'    
             warehouse_sales_amount_metric:
               label: 'Warehouse Sales Amount (£/€)'
               type: sum
               description: "Total warehouse sales amount"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${total_local_currency_ex_tax_after_vouchers}/${qty_ordered},0)"
               round: 0
-              group_label: 'Order Stats'
+              group_label: 'Sales'
             warehouse_product_cost_metric:
               label: 'Warehouse Product Cost (£/€)'
               type: sum
               description: "Total warehouse product cost"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${product_cost_exc_vat},0)"
               round: 0
-              group_label: 'Order Stats'     
+              group_label: 'Costs'     
       - name: order_placed_date
         description: ""
         meta:
@@ -700,7 +707,7 @@ models:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(OrderLines.ba_site = "FR",datetime(timestamp(OrderLines.order_placed_date), "Europe/Paris"),datetime(timestamp(OrderLines.order_placed_date), "Europe/London"))'
-            group_label: 'Order Stats'
+            group_label: 'Sales'
           # metrics:
           #   date_difference_between_months:
           #     label: 'No of months since cohort start'
@@ -714,12 +721,15 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            group_label: 'Shipping'
       - name: product_cost_exc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
             product_cost_exc_vat_metric:
-              label: 'Cost of 1 unit exc VAT'
+              label: 'Product Cost (1 Unit)'
               type: sum
               description: "Cost exc VAT for 1 unit"
               hidden: false
@@ -732,7 +742,7 @@ models:
             hidden: true
           metrics:
             line_product_cost_exc_vat_metric:
-              label: 'Cost of all units exc VAT'
+              label: 'Product Cost (All Units)'
               type: sum
               description: "Cost exc VAT for the full line of the order"
               hidden: false
@@ -745,7 +755,7 @@ models:
             hidden: true
           metrics:
             flash_price_inc_vat_metric:
-              label: 'Flash price inc VAT per order line'
+              label: 'Flash Price inc VAT (All Units)'
               type: sum
               description: "Flash price inc VAT for the full line of the order"
               hidden: false
@@ -754,9 +764,11 @@ models:
       - name: line_flash_price_inc_vat
         description: ""
         meta:
+          dimension:
+            hidden: true
           metrics:
             line_flash_price_inc_vat_metric:
-              label: 'Flash price inc VAT per unit'
+              label: 'Flash Price inc VAT (1 Unit)'
               type: sum
               description: "Flash price inc VAT for 1 unit of the item"
               hidden: false
@@ -769,7 +781,7 @@ models:
             hidden: true
           metrics:
             flash_price_exc_vat_metric:
-              label: 'Flash price exc VAT per order line'
+              label: 'Flash Price exc VAT (All Units)'
               type: sum
               description: "Flash price exc VAT for the full line of the order"
               hidden: false
@@ -782,7 +794,7 @@ models:
             hidden: true
           metrics:
             line_flash_price_exc_vat_metric:
-              label: 'Flash price exc VAT per unit'
+              label: 'Flash Price exc VAT (1 Unit)'
               type: sum
               description: "Flash price exc VAT for 1 unit of the item"
               hidden: false
@@ -795,12 +807,12 @@ models:
             hidden: true
           metrics:
             line_discount_amount_metric:
-              label: 'Discount amount inc VAT'
+              label: 'Discount Amount'
               type: sum
               description: "Amount of discount granted inc VAT"
               hidden: false
               round: 2
-              group_label: 'Discount'    
+              group_label: 'Sales'    
       - name: line_shipping_incl_tax
         description: ""
         meta:
@@ -808,7 +820,7 @@ models:
             hidden: true
           metrics:
             line_shipping_incl_tax_metric:
-              label: 'Shipping incl tax'
+              label: 'Shipping Amount inc Tax'
               type: sum
               description: "Shipping incl tax for the full line of the order"
               hidden: false
@@ -821,7 +833,7 @@ models:
             hidden: true
           metrics:
             line_shipping_excl_tax_metric:
-              label: 'Shipping excl tax'
+              label: 'Shipping Amount excl Tax'
               type: sum
               description: "Shipping excl tax for the full line of the order"
               hidden: false
@@ -834,7 +846,7 @@ models:
             hidden: true
           metrics:
             line_shipping_tax_metric:
-              label: 'Shipping tax amount'
+              label: 'Shipping Tax Amount'
               type: sum
               description: "Shipping tax for the full line of the order"
               hidden: false
@@ -852,24 +864,24 @@ models:
               description: "Total Margin"
               hidden: false
               round: 0
-              group_label: 'Order Amounts'      
+              group_label: 'Sales'      
             total_margin_pct:
               label: 'Margin (%)'
               type: number
               description: "Total Margin (%)"
               sql: '100*safe_divide(${total_margin}, ${total_revenue_exc_tax})'
               round: 1
-              group_label: 'Order Amounts'     
+              group_label: 'Sales'     
       - name: line_total_refunded
         description: ""
         meta:
           dimension:
-            group_label: 'Refund Amounts'
+            group_label: 'Refunds'
       - name: shipping_refunded
         description: "Shippung reufnded, nullable"
         meta:
           dimension:
-            group_label: 'Refund Amounts'
+            group_label: 'Refunds'
       - name: category_path
         description: ""
         meta:
@@ -938,6 +950,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            group_label: 'Sales'
       - name: created_at
         description: "Creation time"
         meta:
@@ -945,25 +958,24 @@ models:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(OrderLines.ba_site = "FR",datetime(timestamp(OrderLines.created_at), "Europe/Paris"),datetime(timestamp(OrderLines.created_at), "Europe/London"))'
-      # - name: month_created
-      #   description: ""
+            group_label: 'Sales'
       - name: order_status
         description: ""
         meta:
           dimension:
-            group_label: 'Order Details'
+            group_label: 'Sales'
       - name: tax_amount
         description: "Tax amount, nullable"
         meta:
           metrics:
             total_tax_amount:
               type: sum
-              group_label: 'Order Amounts'
+              group_label: 'Sales'
       - name: tax_percent
         description: "Tax percent, nullable"
         meta:
           dimension:
-            group_label: 'Order Amounts'
+            group_label: 'Sales'
       - name: date_comp_exported
         description: "Catalog product negotiation date comp exported"
         meta:
@@ -1004,7 +1016,7 @@ models:
         description: "Region"
         meta:
           dimension:
-            group_label: 'Customer Details'       
+            group_label: 'Customers'       
       - name: qty_backordered
         description: "Quantity backordered"
         meta:
@@ -1014,6 +1026,9 @@ models:
         description: "SAP Reference number"       
       - name: cpn_status
         description: "catalog_product_negotiation status"
+        meta:
+          dimension:
+            group_label: 'Product Details'
       - name: product_category_level_1
         description: "Highest level of product category"
         meta:
@@ -1032,6 +1047,8 @@ models:
       # - name: TOTAL_GBP_after_vouchers
       - name: total_local_currency_after_vouchers
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_revenue:
               label: 'GMV (£/€)'
@@ -1039,10 +1056,12 @@ models:
               description: "Total revenue inc VAT in local currency after taking vouchers into account"
               hidden: false
               round: 0
-              group_label: 'Order Amounts'
+              group_label: 'Sales'
       # - name: TOTAL_GBP_before_vouchers   
       - name: total_local_currency_before_vouchers
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_revenue_before_vouchers:
               label: 'Total revenue local currency inc VAT (before vouchers)'
@@ -1050,10 +1069,12 @@ models:
               description: "Total revenue inc VAT in local currency before taking vouchers into account"
               hidden: false
               round: 0
-              group_label: 'Order Amounts'
+              group_label: 'Sales'
       # - name: TOTAL_GBP_ex_tax_after_vouchers 
       - name: total_local_currency_ex_tax_after_vouchers
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_revenue_exc_tax:
               label: 'Sales Amount (£/€)'
@@ -1061,17 +1082,19 @@ models:
               description: "Total revenue exc VAT in local currency after taking vouchers into account"
               hidden: false
               round: 0
-              group_label: 'Order Amounts'
+              group_label: 'Sales'
             average_order_value:
               label: 'AOV Sales (£/€)'
               type: number 
               description: 'Average order value (excluding VAT after discount)'
               sql: "${total_revenue_exc_tax}/${total_orders_count}"
               round: 0
-              group_label: 'Order Amounts'
+              group_label: 'Sales'
       # - name: TOTAL_GBP_ex_tax_before_vouchers
       - name: total_local_currency_ex_tax_before_vouchers
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_revenue_exc_tax_before_vouchers:
               label: 'Total revenue local currency ex VAT (before vouchers)'
@@ -1079,12 +1102,12 @@ models:
               description: "Total revenue ex VAT in local currency before taking vouchers into account"
               hidden: false
               round: 0
-              group_label: 'Order Amounts'
+              group_label: 'Sales'
       - name: order_fulfillment_type
         description: ""
         meta:
           dimension:
-            group_label: 'Order Details'
+            group_label: 'Sales'
       - name: qty_to_ship
         data_type: <integer>
         description: "number of items still to ship"
