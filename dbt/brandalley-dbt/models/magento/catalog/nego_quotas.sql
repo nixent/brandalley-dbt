@@ -13,7 +13,7 @@ with nego_info as (
         p.size      as product_size,
         p.outlet_category,
         p.brand     as product_brand
-    from {{ ref('catalog_product_negotiation_item') }} cpni
+    from {{ ref('catalog_product_negotiation_item') }} cpni 
     left join {{ ref('products') }} p
         on cpni.sku = p.variant_sku
         and cpni.ba_site = p.ba_site
