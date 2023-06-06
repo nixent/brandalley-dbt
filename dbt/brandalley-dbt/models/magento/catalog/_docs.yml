@@ -241,6 +241,9 @@ models:
       - name: ba_site
       - name: unique_id
         description: ""
+        tests:
+          - unique
+          - not_null
         meta:
           dimension:
             format: id
@@ -402,6 +405,55 @@ models:
 
       - name: is_decimal_divided
         description: "Is decimal divided"
+
+  - name: nego_quotas
+    description: 'Details on initial negotiation quantities and subsequent units sold'
+    columns:
+      - name: negotiation_item_id
+      - name: ba_site
+      - name: negotiation_id
+      - name: nego_updated_at
+      - name: variant_sku
+      - name: nego_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_nego_qty:
+              type: sum
+      - name: product_color
+      - name: product_size
+      - name: outlet_category
+      - name: product_brand
+      - name: order_status
+      - name: gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_nego_gmv:
+              type: sum
+      - name: sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_nego_sales_amount:
+              type: sum
+      - name: margin
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_nego_margin:
+              type: sum
+      - name: qty_sold
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_nego_qty_sold:
+              type: sum
 
 
   - name: products_sales

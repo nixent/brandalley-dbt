@@ -108,7 +108,10 @@ with products as (
         on eaov_size.option_id = cpei_size.value
             and eaov_size.store_id = 0
             and cpe.ba_site = eaov_size.ba_site
-    left join {{ ref('stg__catalog_product_super_link') }} cpsl
+    left join (
+		select * from {{ ref('stg__catalog_product_super_link') }}
+		qualify row_number() over (partition by product_id, ba_site order by link_id desc) = 1
+	) cpsl
         on cpe.entity_id = cpsl.parent_id
         and cpe.ba_site = cpsl.ba_site
     left join {{ ref('stg__catalog_product_entity') }} cpe_child
