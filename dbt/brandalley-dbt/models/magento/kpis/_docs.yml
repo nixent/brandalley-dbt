@@ -114,7 +114,7 @@ models:
               group_label: 'Last Year'
             last_year_same_day_wtd_new_customer_comparison:
               type: number
-              sql: '${total_new_customers_count} - ${last_year_same_day_wtd_total_new_customers_count}'
+              sql: '${total_new_customers_count} - ${last_year_same_day_wtd_total_new_customer_count}'
               label: 'LY New Customers Comparison (Day or WTD)'
               group_label: 'Last Year VS'
             last_year_same_day_wtd_new_customer_comparison_pct:
