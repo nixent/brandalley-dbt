@@ -143,7 +143,17 @@ models:
           dimension:
             type: string
             sql: case when ${zendesk_tickets_detailed.custom_contact_reason} like '%order_info/issue%' then 'Order Info/Issue' when ${zendesk_tickets_detailed.custom_contact_reason} like '%general_information%' then 'General Information' when ${zendesk_tickets_detailed.custom_contact_reason} like '%others%' then 'Others' when ${zendesk_tickets_detailed.custom_contact_reason} like '%technical_support%' then 'Technical Support' END          
-            
+      - name: consignment_qty
+        description: "consignment_qty"
+      - name: warehouse_qty
+        description: "warehouse_qty"
+      - name: selffulfill_qty
+        description: "selffulfill_qty"
+      - name: order_id
+        description: "order_id"
+      - name: carrier_codes
+        description: "carrier_codes"     
+                           
   - name: zendesk_call_metric
     meta:
       joins:
