@@ -1116,11 +1116,6 @@ models:
               hidden: false
               round: 0
               group_label: 'Sales'
-      - name: order_fulfillment_type
-        description: ""
-        meta:
-          dimension:
-            group_label: 'Order Info'
       - name: qty_to_ship
         data_type: <integer>
         description: "number of items still to ship"
