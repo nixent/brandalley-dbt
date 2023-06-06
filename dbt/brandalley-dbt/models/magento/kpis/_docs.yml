@@ -152,7 +152,7 @@ models:
               group_label: 'Last Year'
             last_year_same_day_wtd_new_member_comparison:
               type: number
-              sql: '${total_new_members_count} - ${last_year_same_day_wtd_total_new_members_count}'
+              sql: '${total_new_members_count} - ${last_year_same_day_wtd_total_new_member_count}'
               label: 'LY New Members Comparison (Day or WTD)'
               group_label: 'Last Year VS'
             last_year_same_day_wtd_new_member_comparison_pct:
