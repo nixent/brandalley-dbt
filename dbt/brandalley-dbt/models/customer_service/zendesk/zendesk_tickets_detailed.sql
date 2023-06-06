@@ -54,7 +54,7 @@ with tickets as (
     on IFNULL(ticket.custom_order_id, ticket.custom_order_number) = orderlines.order_number
     left outer join (select distinct string_agg(carrier_code) OVER(PARTITION BY order_id) carrier_codes_dupes, order_id from {{ ref('stg__sales_flat_shipment_track') }}) track
     on orderlines.order_id = track.order_id
-	where 1=1 and track.order_id=8476877
+	where 1=1
 /*	{% if is_incremental() %}
 		and updated_at >= '{{min_ts}}'
 	{% endif %}*/
