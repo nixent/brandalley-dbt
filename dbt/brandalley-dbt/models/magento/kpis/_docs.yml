@@ -12,13 +12,10 @@ models:
         meta:
           dimension:
             label: 'BA Site'
-      
       - name: ga_orders
         meta:
           dimension:
             label: 'GA Orders'
-
-            
       ######### ORDERS #########
       - name: total_order_count
         meta:
@@ -39,12 +36,12 @@ models:
               group_label: 'Last Year'
             last_year_same_day_mtd_ytd_total_order_comparison:
               type: number
-              sql: '${total_orders_count} - ${last_year_same_day_mtd_ytd_total_order_count}'
+              sql: '${total_orders_count} - ${last_year_mtd_ytd_total_order_count}'
               label: 'LY Orders Comparison (MTD or YTD)'
               group_label: 'Last Year'
             last_year_same_day_mtd_ytd_total_order_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_orders_count} - ${last_year_same_day_mtd_ytd_total_order_count},${last_year_same_day_mtd_ytd_total_order_count})'
+              sql: '100*safe_divide(${total_orders_count} - ${last_year_mtd_ytd_total_order_count},${last_year_mtd_ytd_total_order_count})'
               label: 'LY Orders Comparison % (MTD or YTD)'
               group_label: 'Last Year'
               round: 1
@@ -88,7 +85,6 @@ models:
               label: 'LY Orders Forecast Comparison % (Day or WTD)'
               group_label: 'Targets VS'
               round: 1
-
       ##### CUSTOMERS #######
       - name: total_new_customer_count
         meta:
@@ -127,7 +123,6 @@ models:
               label: 'LY New Customers Comparison % (Day or WTD)'
               group_label: 'Last Year VS'
               round: 1
-
       ##### MEMBERS ######
       - name: total_new_members
         meta:
@@ -175,11 +170,8 @@ models:
               type: sum
               label: 'New Members Forecast'
               group_label: 'Targets'
-      
       ######## AOV GMV #######
-
       ### TO DO - AVG TOTAL GMV / TOTAL ORDERS
-
       # - name: aov_gmv
       #   meta:
       #     dimension:
@@ -217,7 +209,6 @@ models:
             #   label: 'LY New Customers Comparison % (Day or WTD)'
             #   group_label: 'Last Year VS'
             #   round: 1
-
       #### GMV ######
       - name: gmv
         meta:
@@ -256,8 +247,7 @@ models:
               label: 'LY GMV Comparison % (Day or WTD)'
               group_label: 'Last Year VS'
               round: 1
-
-        ##### MARGIN #######
+      ##### MARGIN #######
       - name: margin
         meta:
           dimension:
