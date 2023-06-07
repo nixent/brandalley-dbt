@@ -46,7 +46,6 @@ select
     os.margin,
     os.qty_ordered,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
-    gs1.ga_orders                   as last_year_same_day_ga_orders,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
     os3.total_new_customer_count    as last_year_total_new_customer_count,

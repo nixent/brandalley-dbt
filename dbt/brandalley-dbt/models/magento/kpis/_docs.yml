@@ -278,6 +278,7 @@ models:
               group_label: 'GMV'
               round: 1
 
+      #### SALES AMOUNT ######
       - name: sales_amount
         meta:
           dimension:
