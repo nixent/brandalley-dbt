@@ -39,7 +39,8 @@ models:
               group_label: 'Orders'
             last_year_smtd_ytd_total_order_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_orders_count} - ${last_year_mtd_ytd_total_order_count},${last_year_mtd_ytd_total_order_count})'
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${last_year_mtd_ytd_total_order_count},${last_year_mtd_ytd_total_order_count})'
               label: 'LY Orders Comparison % (MTD or YTD)'
               group_label: 'Orders'
               round: 1
@@ -59,7 +60,8 @@ models:
               group_label: 'Orders'
             last_year_same_day_wtd_total_order_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_orders_count} - ${last_year_same_day_wtd_total_order_count},${last_year_same_day_wtd_total_order_count})'
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${last_year_same_day_wtd_total_order_count},${last_year_same_day_wtd_total_order_count})'
               label: 'LY Orders Comparison % (Day or WTD)'
               group_label: 'Orders'
               round: 1
@@ -79,7 +81,8 @@ models:
               group_label: 'Orders'
             total_order_wtd_forecase_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_orders_count} - ${total_all_orders_forecast},${total_all_orders_forecast})'
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${total_all_orders_forecast},${total_all_orders_forecast})'
               label: 'LY Orders Forecast Comparison % (Day or WTD)'
               group_label: 'Orders'
               round: 1
@@ -119,7 +122,8 @@ models:
               group_label: 'Customers'
             last_year_same_day_wtd_new_customer_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_new_customers_count} - ${last_year_same_day_wtd_total_new_customer_count},${last_year_same_day_wtd_total_new_customer_count})'
+              format: 'percent'
+              sql: 'safe_divide(${total_new_customers_count} - ${last_year_same_day_wtd_total_new_customer_count},${last_year_same_day_wtd_total_new_customer_count})'
               label: 'LY New Customers Comparison % (Day or WTD)'
               group_label: 'Customers'
               round: 1
@@ -159,7 +163,8 @@ models:
               group_label: 'Members'
             last_year_same_day_wtd_new_member_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_new_members_count} - ${last_year_same_day_wtd_total_new_member_count},${last_year_same_day_wtd_total_new_member_count})'
+              format: 'percent'
+              sql: 'safe_divide(${total_new_members_count} - ${last_year_same_day_wtd_total_new_member_count},${last_year_same_day_wtd_total_new_member_count})'
               label: 'LY New Members Comparison % (Day or WTD)'
               group_label: 'Members'
               round: 1
@@ -214,7 +219,8 @@ models:
           #     group_label: 'AOV'
             # last_year_same_day_wtd_aov_gmv_comparison_pct:
             #   type: number
-            #   sql: '100*safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv},${last_year_same_day_wtd_total_aov_gmv})'
+            format: 'percent'#   
+            sql: 'safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv},${last_year_same_day_wtd_total_aov_gmv})'
             #   label: 'LY New Customers Comparison % (Day or WTD)'
             #   group_label: 'Last Year VS'
             #   round: 1
@@ -245,7 +251,8 @@ models:
               group_label: 'GMV'
             last_year_mtd_ytd_total_gmv_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_gmv} - ${last_year_mtd_ytd_gmv},${last_year_mtd_ytd_gmv})'
+              format: 'percent'
+              sql: 'safe_divide(${total_gmv} - ${last_year_mtd_ytd_gmv},${last_year_mtd_ytd_gmv})'
               label: 'LY GMV Comparison % (MTD or YTD)'
               group_label: 'GMV'
               round: 1
@@ -265,7 +272,8 @@ models:
               group_label: 'GMV'
             last_year_same_day_wtd_gmv_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_gmv} - ${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_gmv})'
+              format: 'percent'
+              sql: 'safe_divide(${total_gmv} - ${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_gmv})'
               label: 'LY GMV Comparison % (Day or WTD)'
               group_label: 'GMV'
               round: 1
@@ -315,7 +323,8 @@ models:
               type: number
               label: 'Margin (%)'
               group_label: 'Margin'
-              sql: '100*safe_divide(${total_margin},${total_sales_amount})'
+              format: 'percent'
+              sql: 'safe_divide(${total_margin},${total_sales_amount})'
               round: 1
       - name: last_year_margin
         meta:
@@ -330,7 +339,8 @@ models:
               type: number
               label: 'LY Margin (%) (MTD or YTD)'
               group_label: 'Margin'
-              sql: '100*safe_divide(${last_year_mtd_ytd_margin},${last_year_mtd_ytd_sales_amount})'
+              format: 'percent'
+              sql: 'safe_divide(${last_year_mtd_ytd_margin},${last_year_mtd_ytd_sales_amount})'
               round: 1
             last_year_mtd_ytd_total_margin_comparison:
               type: number
@@ -339,7 +349,8 @@ models:
               group_label: 'Margin'
             last_year_mtd_ytd_total_margin_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_margin} - ${last_year_mtd_ytd_margin},${last_year_mtd_ytd_margin})'
+              format: 'percent'
+              sql: 'safe_divide(${total_margin} - ${last_year_mtd_ytd_margin},${last_year_mtd_ytd_margin})'
               label: 'LY Margin Comparison % (MTD or YTD)'
               group_label: 'Margin'
               round: 1
@@ -356,7 +367,8 @@ models:
               type: number
               label: 'LY Margin (%) (Day or WTD)'
               group_label: 'Margin'
-              sql: '100*safe_divide(${last_year_same_day_wtd_margin},${last_year_same_day_wtd_sales_amount})'
+              format: 'percent'
+              sql: 'safe_divide(${last_year_same_day_wtd_margin},${last_year_same_day_wtd_sales_amount})'
               round: 1
             last_year_same_day_wtd_margin_comparison:
               type: number
@@ -365,7 +377,8 @@ models:
               group_label: 'Margin'
             last_year_same_day_wtd_margin_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_margin} - ${last_year_same_day_wtd_margin},${last_year_same_day_wtd_margin})'
+              format: 'percent'
+              sql: 'safe_divide(${total_margin} - ${last_year_same_day_wtd_margin},${last_year_same_day_wtd_margin})'
               label: 'LY Margin Comparison % (Day or WTD)'
               group_label: 'Margin'
               round: 1
@@ -396,7 +409,8 @@ models:
               group_label: 'Units'
             last_year_mtd_ytd_qty_ordered_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_qty_ordered} - ${last_year_mtd_ytd_qty_ordered},${last_year_mtd_ytd_qty_ordered})'
+              format: 'percent'
+              sql: 'safe_divide(${total_qty_ordered} - ${last_year_mtd_ytd_qty_ordered},${last_year_mtd_ytd_qty_ordered})'
               label: 'LY Units Comparison % (MTD or YTD)'
               group_label: 'Units'
               round: 1
@@ -416,7 +430,8 @@ models:
               group_label: 'Units'
             last_year_same_day_wtd_qty_ordered_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_qty_ordered} - ${last_year_same_day_wtd_qty_ordered},${last_year_same_day_wtd_qty_ordered})'
+              format: 'percent'
+              sql: 'safe_divide(${total_qty_ordered} - ${last_year_same_day_wtd_qty_ordered},${last_year_same_day_wtd_qty_ordered})'
               label: 'LY Units Comparison % (Day or WTD)'
               group_label: 'Units'
               round: 1
