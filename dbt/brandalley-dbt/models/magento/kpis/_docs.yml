@@ -196,7 +196,7 @@ models:
               type: number
               label: 'AOV GMV'
               group_label: 'AOV'
-              sql: 'safe_divide(${total_sales_amount},${total_orders_count})'
+              sql: 'safe_divide(${total_gmv},${total_orders_count})'
       - name: last_year_aov_gmv
         meta:
           dimension:
