@@ -12,10 +12,6 @@ models:
         meta:
           dimension:
             label: 'BA Site'
-      - name: ga_orders
-        meta:
-          dimension:
-            label: 'GA Orders'
 
       ######### ORDERS #########
       - name: total_order_count
@@ -180,15 +176,15 @@ models:
       ######## AOV GMV #######
       - name: aov_gmv
         meta:
-          # dimension:
-            # hidden: true
+          dimension:
+            hidden: true
           metrics:
             total_aov_gmv:
               type: number
               label: 'AOV GMV'
               group_label: 'AOV'
               sql: 'safe_divide(${total_gmv},${total_orders_count})'
-              round: 2
+              round: 1
       - name: last_year_aov_gmv
         meta:
           dimension:
@@ -199,7 +195,7 @@ models:
               label: 'LY AOV GMV (MTD or YTD)'
               group_label: 'AOV'
               sql: 'safe_divide(${last_year_mtd_ytd_gmv},${last_year_mtd_ytd_total_order_count})'
-              round: 2
+              round: 1
       - name: last_year_same_day_aov_gmv
         meta:
           dimension:
@@ -210,7 +206,7 @@ models:
               label: 'LY AOV GMV (Day or WTD)'
               group_label: 'AOV'
               sql: 'safe_divide(${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_total_order_count})'
-              round: 2
+              round: 1
           #   last_year_same_day_wtd_aov_gmv_comparison:
           #     type: number
           #     sql: '${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv}'
