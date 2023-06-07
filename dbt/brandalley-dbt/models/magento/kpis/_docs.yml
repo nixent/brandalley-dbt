@@ -223,7 +223,7 @@ models:
             # sql: 'safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv},${last_year_same_day_wtd_total_aov_gmv})'
             #   label: 'LY New Customers Comparison % (Day or WTD)'
             #   group_label: 'Last Year VS'
-            #   round: 1
+            #   round: 1   
 
       #### GMV ######
       - name: gmv
