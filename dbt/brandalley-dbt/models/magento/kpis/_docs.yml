@@ -282,10 +282,22 @@ models:
         meta:
           dimension:
             hidden: true
+          metrics:
+            last_year_mtd_ytd_sales_amount:
+              type: sum
+              label: 'LY Sales Amount (MTD or YTD)'
+              group_label: 'Sales Amount'
+              hidden: true
       - name: last_year_same_day_sales_amount
         meta:
           dimension:
             hidden: true
+          metrics:
+            last_year_same_day_wtd_sales_amount:
+              type: sum
+              label: 'LY Sales Amount (Day or WTD)'
+              group_label: 'Sales Amount'
+              hidden: true
 
       ##### MARGIN #######
       - name: margin
@@ -312,6 +324,12 @@ models:
               type: sum
               label: 'LY Margin (MTD or YTD)'
               group_label: 'Margin'
+            last_year_mtd_ytd_margin_pct:
+              type: number
+              label: 'LY Margin (%) (MTD or YTD)'
+              group_label: 'Margin'
+              sql: '100*safe_divide(${last_year_mtd_ytd_margin},${last_year_mtd_ytd_sales_amount})'
+              round: 1
             last_year_mtd_ytd_total_margin_comparison:
               type: number
               sql: '${total_margin} - ${last_year_mtd_ytd_margin}'
@@ -332,6 +350,12 @@ models:
               type: sum
               label: 'LY Margin (Day or WTD)'
               group_label: 'Margin'
+            last_year_same_day_wtd_margin_pct:
+              type: number
+              label: 'LY Margin (%) (Day or WTD)'
+              group_label: 'Margin'
+              sql: '100*safe_divide(${last_year_same_day_wtd_margin},${last_year_same_day_wtd_sales_amount})'
+              round: 1
             last_year_same_day_wtd_margin_comparison:
               type: number
               sql: '${total_margin} - ${last_year_same_day_wtd_margin}'
