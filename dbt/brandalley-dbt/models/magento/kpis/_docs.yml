@@ -219,7 +219,7 @@ models:
           #     group_label: 'AOV'
             # last_year_same_day_wtd_aov_gmv_comparison_pct:
             #   type: number
-            format: 'percent'#   
+            format: 'percent'   
             sql: 'safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv},${last_year_same_day_wtd_total_aov_gmv})'
             #   label: 'LY New Customers Comparison % (Day or WTD)'
             #   group_label: 'Last Year VS'
