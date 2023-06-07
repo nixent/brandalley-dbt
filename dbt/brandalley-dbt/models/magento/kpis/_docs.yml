@@ -187,29 +187,39 @@ models:
       #       total_aov_gmv:
       #         type: number
       #         label: 'AOV GMV'
+      - name: aov_gmv
+        meta:
+          # dimension:
+            # hidden: true
+          metrics:
+            total_aov_gmv:
+              type: number
+              label: 'AOV GMV'
+              group_label: 'AOV'
+              sql: 'safe_divide(${total_sales_amount},${total_orders_count})'
       - name: last_year_aov_gmv
         meta:
           dimension:
             hidden: true
-          metrics:
-            last_year_mtd_ytd_aov_gmv:
-              type: sum
-              label: 'LY AOV GMV (MTD or YTD)'
-              group_label: 'AOV'
+          # metrics:
+          #   last_year_mtd_ytd_aov_gmv:
+          #     type: sum
+          #     label: 'LY AOV GMV (MTD or YTD)'
+          #     group_label: 'AOV'
       - name: last_year_same_day_aov_gmv
         meta:
           dimension:
             hidden: true
-          metrics:
-            last_year_same_day_wtd_aov_gmv:
-              type: sum
-              label: 'LY AOV GMV (Day or WTD)'
-              group_label: 'AOV'
-            # last_year_same_day_wtd_aov_gmv_comparison:
-            #   type: number
-            #   sql: '${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv}'
-            #   label: 'LY New Customers Comparison (Day or WTD)'
-            #   group_label: 'Last Year VS'
+          # metrics:
+          #   last_year_same_day_wtd_aov_gmv:
+          #     type: sum
+          #     label: 'LY AOV GMV (Day or WTD)'
+          #     group_label: 'AOV'
+          #   last_year_same_day_wtd_aov_gmv_comparison:
+          #     type: number
+          #     sql: '${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv}'
+          #     label: 'LY AOV Comparison (Day or WTD)'
+          #     group_label: 'AOV'
             # last_year_same_day_wtd_aov_gmv_comparison_pct:
             #   type: number
             #   sql: '100*safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv},${last_year_same_day_wtd_total_aov_gmv})'
