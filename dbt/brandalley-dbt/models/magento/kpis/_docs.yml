@@ -447,6 +447,10 @@ models:
               type: sum
               label: 'Unique Visits'
               group_label: 'Visits'
+            avg_ga_unique_visits:
+              type: average
+              label: 'Avg Unique Visits'
+              group_label: 'Visits'
       - name: last_year_same_day_ga_unique_visits
         meta:
           dimension:
