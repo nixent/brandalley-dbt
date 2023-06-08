@@ -101,6 +101,7 @@ models:
               type: average
               label: 'Avg Customers'
               group_label: 'Customers'
+              round: 0
       - name: last_year_total_new_customer_count
         meta:
           dimension:
@@ -146,6 +147,7 @@ models:
               type: average
               label: 'Avg Members'
               group_label: 'Members'
+              round: 0
       - name: last_year_total_new_member_count
         meta:
           dimension:
@@ -459,6 +461,7 @@ models:
               type: average
               label: 'Avg Unique Visits'
               group_label: 'Visits'
+              round: 0
       - name: last_year_same_day_ga_unique_visits
         meta:
           dimension:
