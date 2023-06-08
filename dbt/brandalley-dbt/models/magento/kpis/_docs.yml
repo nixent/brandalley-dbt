@@ -12,18 +12,8 @@ models:
         meta:
           dimension:
             label: 'BA Site'
-      - name: ga_unique_visits
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_ga_unique_visits:
-              type: sum
-              label: 'Unique Visits'
-      - name: ga_orders
-        meta:
-          dimension:
-            label: 'GA Orders'
+
+      ######### ORDERS #########
       - name: total_order_count
         meta:
           dimension:
@@ -31,49 +21,8 @@ models:
           metrics:
             total_orders_count:
               type: sum
-              label: 'Orders'
-      - name: total_new_customer_count
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_new_customers_count:
-              type: sum
-              label: 'New Customers'
-      - name: total_new_members
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_new_members_count:
-              type: sum
-              label: 'New Members'
-      - name: gmv
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_gmv:
-              type: sum
-              label: 'GMV'
-      - name: margin
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_margin:
-              type: sum
-              label: 'Margin'
-      - name: qty_ordered
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_qty_ordered:
-              type: sum
-              label: 'Units Ordered'
-      # - name: last_week_total_order_count
-      # - name: last_month_total_order_count
+              label: 'Total Orders'
+              group_label: 'Orders'
       - name: last_year_total_order_count
         meta:
           dimension:
@@ -82,7 +31,19 @@ models:
             last_year_mtd_ytd_total_order_count:
               type: sum
               label: 'LY Orders (MTD or YTD)'
-              group_label: 'Last Year'
+              group_label: 'Orders'
+            last_year_mtd_ytd_total_order_comparison:
+              type: number
+              sql: '${total_orders_count} - ${last_year_mtd_ytd_total_order_count}'
+              label: 'LY Orders Comparison (MTD or YTD)'
+              group_label: 'Orders'
+            last_year_smtd_ytd_total_order_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${last_year_mtd_ytd_total_order_count},${last_year_mtd_ytd_total_order_count})'
+              label: 'LY Orders Comparison % (MTD or YTD)'
+              group_label: 'Orders'
+              round: 1
       - name: last_year_same_day_total_order_count
         meta:
           dimension:
@@ -91,18 +52,56 @@ models:
             last_year_same_day_wtd_total_order_count:
               type: sum
               label: 'LY Orders (Day or WTD)'
-              group_label: 'Last Year'
+              group_label: 'Orders'
             last_year_same_day_wtd_total_order_comparison:
               type: number
               sql: '${total_orders_count} - ${last_year_same_day_wtd_total_order_count}'
               label: 'LY Orders Comparison (Day or WTD)'
-              group_label: 'Last Year VS'
+              group_label: 'Orders'
             last_year_same_day_wtd_total_order_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_orders_count} - ${last_year_same_day_wtd_total_order_count},${last_year_same_day_wtd_total_order_count})'
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${last_year_same_day_wtd_total_order_count},${last_year_same_day_wtd_total_order_count})'
               label: 'LY Orders Comparison % (Day or WTD)'
-              group_label: 'Last Year VS'
+              group_label: 'Orders'
               round: 1
+      - name: all_orders_forecast
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_all_orders_forecast:
+              type: sum
+              label: 'All Orders Forecast'
+              group_label: 'Orders'
+            total_order_wtd_forecast_comparison:
+              type: number
+              sql: '${total_orders_count} - ${total_all_orders_forecast}'
+              label: 'LY Orders Forecast Comparison (Day or WTD)'
+              group_label: 'Orders'
+            total_order_wtd_forecase_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${total_all_orders_forecast},${total_all_orders_forecast})'
+              label: 'LY Orders Forecast Comparison % (Day or WTD)'
+              group_label: 'Orders'
+              round: 1
+
+      ##### CUSTOMERS #######
+      - name: total_new_customer_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_new_customers_count:
+              type: sum
+              label: 'New Customers'
+              group_label: 'Customers'
+            avg_new_customers_count:
+              type: average
+              label: 'Avg Customers'
+              group_label: 'Customers'
+              round: 0
       - name: last_year_total_new_customer_count
         meta:
           dimension:
@@ -111,7 +110,7 @@ models:
             last_year_mtd_ytd_total_new_customer_count:
               type: sum
               label: 'LY New Customers (MTD or YTD)'
-              group_label: 'Last Year'
+              group_label: 'Customers'
       - name: last_year_same_day_total_new_customer_count
         meta:
           dimension:
@@ -120,7 +119,35 @@ models:
             last_year_same_day_wtd_total_new_customer_count:
               type: sum
               label: 'LY New Customers (Day or WTD)'
-              group_label: 'Last Year'
+              group_label: 'Customers'
+            last_year_same_day_wtd_new_customer_comparison:
+              type: number
+              sql: '${total_new_customers_count} - ${last_year_same_day_wtd_total_new_customer_count}'
+              label: 'LY New Customers Comparison (Day or WTD)'
+              group_label: 'Customers'
+            last_year_same_day_wtd_new_customer_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_customers_count} - ${last_year_same_day_wtd_total_new_customer_count},${last_year_same_day_wtd_total_new_customer_count})'
+              label: 'LY New Customers Comparison % (Day or WTD)'
+              group_label: 'Customers'
+              round: 1
+
+      ##### MEMBERS ######
+      - name: total_new_members
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_new_members_count:
+              type: sum
+              label: 'New Members'
+              group_label: 'Members'
+            avg_new_members_count:
+              type: average
+              label: 'Avg Members'
+              group_label: 'Members'
+              round: 0
       - name: last_year_total_new_member_count
         meta:
           dimension:
@@ -129,7 +156,7 @@ models:
             last_year_mtd_ytd_total_new_member_count:
               type: sum
               label: 'LY New Members (MTD or YTD)'
-              group_label: 'Last Year'
+              group_label: 'Members'
       - name: last_year_same_day_total_new_member_count
         meta:
           dimension:
@@ -138,25 +165,86 @@ models:
             last_year_same_day_wtd_total_new_member_count:
               type: sum
               label: 'LY New Members (Day or WTD)'
-              group_label: 'Last Year'
+              group_label: 'Members'
+            last_year_same_day_wtd_new_member_comparison:
+              type: number
+              sql: '${total_new_members_count} - ${last_year_same_day_wtd_total_new_member_count}'
+              label: 'LY New Members Comparison (Day or WTD)'
+              group_label: 'Members'
+            last_year_same_day_wtd_new_member_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_members_count} - ${last_year_same_day_wtd_total_new_member_count},${last_year_same_day_wtd_total_new_member_count})'
+              label: 'LY New Members Comparison % (Day or WTD)'
+              group_label: 'Members'
+              round: 1
+      - name: new_members_forecast
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_new_members_forecast:
+              type: sum
+              label: 'New Members Forecast'
+              group_label: 'Members'
+
+      ######## AOV GMV #######
+      - name: aov_gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_aov_gmv:
+              type: number
+              label: 'AOV GMV'
+              group_label: 'AOV'
+              sql: 'safe_divide(${total_gmv},${total_orders_count})'
+              round: 1
       - name: last_year_aov_gmv
         meta:
           dimension:
             hidden: true
           metrics:
             last_year_mtd_ytd_aov_gmv:
-              type: sum
+              type: number
               label: 'LY AOV GMV (MTD or YTD)'
-              group_label: 'Last Year'
+              group_label: 'AOV'
+              sql: 'safe_divide(${last_year_mtd_ytd_gmv},${last_year_mtd_ytd_total_order_count})'
+              round: 1
       - name: last_year_same_day_aov_gmv
         meta:
           dimension:
             hidden: true
           metrics:
             last_year_same_day_wtd_aov_gmv:
-              type: sum
+              type: number
               label: 'LY AOV GMV (Day or WTD)'
-              group_label: 'Last Year'
+              group_label: 'AOV'
+              sql: 'safe_divide(${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_total_order_count})'
+              round: 1
+          #   last_year_same_day_wtd_aov_gmv_comparison:
+          #     type: number
+          #     sql: '${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv}'
+          #     label: 'LY AOV Comparison (Day or WTD)'
+          #     group_label: 'AOV'
+            # last_year_same_day_wtd_aov_gmv_comparison_pct:
+            #   type: number
+            # format: 'percent'   
+            # sql: 'safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv},${last_year_same_day_wtd_total_aov_gmv})'
+            #   label: 'LY New Customers Comparison % (Day or WTD)'
+            #   group_label: 'Last Year VS'
+            #   round: 1   
+
+      #### GMV ######
+      - name: gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_gmv:
+              type: sum
+              label: 'GMV'
+              group_label: 'GMV'
       - name: last_year_gmv
         meta:
           dimension:
@@ -165,7 +253,19 @@ models:
             last_year_mtd_ytd_gmv:
               type: sum
               label: 'LY GMV (MTD or YTD)'
-              group_label: 'Last Year'
+              group_label: 'GMV'
+            last_year_mtd_ytd_total_gmv_comparison:
+              type: number
+              sql: '${total_gmv} - ${last_year_mtd_ytd_gmv}'
+              label: 'LY GMV Comparison (MTD or YTD)'
+              group_label: 'GMV'
+            last_year_mtd_ytd_total_gmv_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_gmv} - ${last_year_mtd_ytd_gmv},${last_year_mtd_ytd_gmv})'
+              label: 'LY GMV Comparison % (MTD or YTD)'
+              group_label: 'GMV'
+              round: 1
       - name: last_year_same_day_gmv
         meta:
           dimension:
@@ -174,17 +274,68 @@ models:
             last_year_same_day_wtd_gmv:
               type: sum
               label: 'LY GMV (Day or WTD)'
-              group_label: 'Last Year'
+              group_label: 'GMV'
             last_year_same_day_wtd_gmv_comparison:
               type: number
               sql: '${total_gmv} - ${last_year_same_day_wtd_gmv}'
               label: 'LY GMV Comparison (Day or WTD)'
-              group_label: 'Last Year VS'
+              group_label: 'GMV'
             last_year_same_day_wtd_gmv_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_gmv} - ${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_gmv})'
+              format: 'percent'
+              sql: 'safe_divide(${total_gmv} - ${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_gmv})'
               label: 'LY GMV Comparison % (Day or WTD)'
-              group_label: 'Last Year VS'
+              group_label: 'GMV'
+              round: 1
+
+      #### SALES AMOUNT ######
+      - name: sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_sales_amount:
+              type: sum
+              label: 'Sales Amount'
+              group_label: 'Sales Amount'
+              hidden: true
+      - name: last_year_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_sales_amount:
+              type: sum
+              label: 'LY Sales Amount (MTD or YTD)'
+              group_label: 'Sales Amount'
+              hidden: true
+      - name: last_year_same_day_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_sales_amount:
+              type: sum
+              label: 'LY Sales Amount (Day or WTD)'
+              group_label: 'Sales Amount'
+              hidden: true
+
+      ##### MARGIN #######
+      - name: margin
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_margin:
+              type: sum
+              label: 'Margin'
+              group_label: 'Margin'
+            total_margin_pct:
+              type: number
+              label: 'Margin (%)'
+              group_label: 'Margin'
+              format: 'percent'
+              sql: 'safe_divide(${total_margin},${total_sales_amount})'
               round: 1
       - name: last_year_margin
         meta:
@@ -194,7 +345,26 @@ models:
             last_year_mtd_ytd_margin:
               type: sum
               label: 'LY Margin (MTD or YTD)'
-              group_label: 'Last Year'
+              group_label: 'Margin'
+            last_year_mtd_ytd_margin_pct:
+              type: number
+              label: 'LY Margin (%) (MTD or YTD)'
+              group_label: 'Margin'
+              format: 'percent'
+              sql: 'safe_divide(${last_year_mtd_ytd_margin},${last_year_mtd_ytd_sales_amount})'
+              round: 1
+            last_year_mtd_ytd_total_margin_comparison:
+              type: number
+              sql: '${total_margin} - ${last_year_mtd_ytd_margin}'
+              label: 'LY Margin Comparison (MTD or YTD)'
+              group_label: 'Margin'
+            last_year_mtd_ytd_total_margin_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_margin} - ${last_year_mtd_ytd_margin},${last_year_mtd_ytd_margin})'
+              label: 'LY Margin Comparison % (MTD or YTD)'
+              group_label: 'Margin'
+              round: 1
       - name: last_year_same_day_margin
         meta:
           dimension:
@@ -203,18 +373,37 @@ models:
             last_year_same_day_wtd_margin:
               type: sum
               label: 'LY Margin (Day or WTD)'
-              group_label: 'Last Year'
+              group_label: 'Margin'
+            last_year_same_day_wtd_margin_pct:
+              type: number
+              label: 'LY Margin (%) (Day or WTD)'
+              group_label: 'Margin'
+              format: 'percent'
+              sql: 'safe_divide(${last_year_same_day_wtd_margin},${last_year_same_day_wtd_sales_amount})'
+              round: 1
             last_year_same_day_wtd_margin_comparison:
               type: number
               sql: '${total_margin} - ${last_year_same_day_wtd_margin}'
               label: 'LY Margin Comparison (Day or WTD)'
-              group_label: 'Last Year VS'
+              group_label: 'Margin'
             last_year_same_day_wtd_margin_comparison_pct:
               type: number
-              sql: '100*safe_divide(${total_margin} - ${last_year_same_day_wtd_margin},${last_year_same_day_wtd_margin})'
+              format: 'percent'
+              sql: 'safe_divide(${total_margin} - ${last_year_same_day_wtd_margin},${last_year_same_day_wtd_margin})'
               label: 'LY Margin Comparison % (Day or WTD)'
-              group_label: 'Last Year VS'
+              group_label: 'Margin'
               round: 1
+
+      #### QTY ORDERED
+      - name: qty_ordered
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_qty_ordered:
+              type: sum
+              label: 'Units Ordered'
+              group_label: 'Units'
       - name: last_year_qty_ordered
         meta:
           dimension:
@@ -223,7 +412,19 @@ models:
             last_year_mtd_ytd_qty_ordered:
               type: sum
               label: 'LY Units Ordered (MTD or YTD)'
-              group_label: 'Last Year'
+              group_label: 'Units'
+            last_year_mtd_ytd_qty_ordered_comparison:
+              type: number
+              sql: '${total_qty_ordered} - ${last_year_mtd_ytd_qty_ordered}'
+              label: 'LY Units Comparison (MTD or YTD)'
+              group_label: 'Units'
+            last_year_mtd_ytd_qty_ordered_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_qty_ordered} - ${last_year_mtd_ytd_qty_ordered},${last_year_mtd_ytd_qty_ordered})'
+              label: 'LY Units Comparison % (MTD or YTD)'
+              group_label: 'Units'
+              round: 1
       - name: last_year_same_day_qty_ordered
         meta:
           dimension:
@@ -232,7 +433,35 @@ models:
             last_year_same_day_wtd_qty_ordered:
               type: sum
               label: 'LY Units Ordered (Day or WTD)'
-              group_label: 'Last Year'
+              group_label: 'Units'
+            last_year_same_day_wtd_qty_ordered_comparison:
+              type: number
+              sql: '${total_qty_ordered} - ${last_year_same_day_wtd_qty_ordered}'
+              label: 'LY Units Comparison (Day or WTD)'
+              group_label: 'Units'
+            last_year_same_day_wtd_qty_ordered_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_qty_ordered} - ${last_year_same_day_wtd_qty_ordered},${last_year_same_day_wtd_qty_ordered})'
+              label: 'LY Units Comparison % (Day or WTD)'
+              group_label: 'Units'
+              round: 1
+
+      #### UNIQUE VISITS
+      - name: ga_unique_visits
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ga_unique_visits:
+              type: sum
+              label: 'Unique Visits'
+              group_label: 'Visits'
+            avg_ga_unique_visits:
+              type: average
+              label: 'Avg Unique Visits'
+              group_label: 'Visits'
+              round: 0
       - name: last_year_same_day_ga_unique_visits
         meta:
           dimension:
@@ -241,37 +470,8 @@ models:
             last_year_same_day_wtd_ga_unique_visits:
               type: sum
               label: 'LY Unique Visits (Day or WTD)'
-              group_label: 'Last Year'
-      - name: new_members_forecast
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_new_members_forecast:
-              type: sum
-              label: 'New Members Forecast'
-              group_label: 'Targets'
-      - name: all_orders_forecast
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_all_orders_forecast:
-              type: sum
-              label: 'All Orders Forecast'
-              group_label: 'Targets'
-            total_order_wtd_forecast_comparison:
-              type: number
-              sql: '${total_orders_count} - ${total_all_orders_forecast}'
-              label: 'LY Orders Forecast Comparison (Day or WTD)'
-              group_label: 'Targets VS'
-            total_order_wtd_forecase_comparison_pct:
-              type: number
-              sql: '100*safe_divide(${total_orders_count} - ${total_all_orders_forecast},${total_all_orders_forecast})'
-              label: 'LY Orders Forecast Comparison % (Day or WTD)'
-              group_label: 'Targets VS'
-              round: 1
-
+              group_label: 'Visits'
+      
 
   - name: kpis_daily
     description: "A view of all KPIs, based off of order creation day"
