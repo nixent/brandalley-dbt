@@ -16,6 +16,7 @@ marketing_targets as (
     select
         target_date,
         new_members_forecast,
+        new_customers_order_forecast as new_customers_forecast,
         returning_customers_order_forecast + new_customers_order_forecast as all_orders_forecast
     from {{ ref('marketing_targets') }}
 ),
@@ -61,7 +62,8 @@ select
     os3.qty_ordered                 as last_year_qty_ordered,
     os4.qty_ordered                 as last_year_same_day_qty_ordered,
     mt.new_members_forecast,
-    mt.all_orders_forecast
+    mt.all_orders_forecast,
+    mt.new_customers_forecast
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day

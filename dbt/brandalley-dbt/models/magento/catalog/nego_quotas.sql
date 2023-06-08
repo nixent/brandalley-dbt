@@ -9,6 +9,7 @@ with nego_info as (
         cpni.updated_at as nego_updated_at,
         cpni.sku    as variant_sku,
         cpni.qty    as nego_qty,
+        po.to_order as po_qty,
         p.color     as product_color,
         p.size      as product_size,
         p.outlet_category,
@@ -17,6 +18,8 @@ with nego_info as (
     left join {{ ref('products') }} p
         on cpni.sku = p.variant_sku
         and cpni.ba_site = p.ba_site
+    left join {{ ref('purchase_order') }} po
+        on po.negotiation_id = cpni.negotiation_id and po.sku = cpni.sku and po.ba_site = cpni.ba_site
 ),
 
 order_info as (
