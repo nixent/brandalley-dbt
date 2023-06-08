@@ -421,6 +421,13 @@ models:
           metrics:
             total_nego_qty:
               type: sum
+      - name: po_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_po_qty:
+              type: sum
       - name: product_color
       - name: product_size
       - name: outlet_category

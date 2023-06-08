@@ -132,7 +132,16 @@ models:
               label: 'LY New Customers Comparison % (Day or WTD)'
               group_label: 'Customers'
               round: 1
-
+      - name: new_customers_forecast
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_new_customers_forecast:
+              type: sum
+              label: 'New Customers Forecast'
+              group_label: 'Customers'
+            
       ##### MEMBERS ######
       - name: total_new_members
         meta:
