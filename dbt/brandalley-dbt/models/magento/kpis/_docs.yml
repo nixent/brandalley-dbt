@@ -97,6 +97,10 @@ models:
               type: sum
               label: 'New Customers'
               group_label: 'Customers'
+            avg_new_customers_count:
+              type: average
+              label: 'Avg Customers'
+              group_label: 'Customers'
       - name: last_year_total_new_customer_count
         meta:
           dimension:
@@ -137,6 +141,10 @@ models:
             total_new_members_count:
               type: sum
               label: 'New Members'
+              group_label: 'Members'
+            avg_new_members_count:
+              type: average
+              label: 'Avg Members'
               group_label: 'Members'
       - name: last_year_total_new_member_count
         meta:
