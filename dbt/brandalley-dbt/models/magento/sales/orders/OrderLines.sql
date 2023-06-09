@@ -195,6 +195,7 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
+			when vs.brand is not null then ptd.product_department
 			when lower(ccfse.path_name) like '%>clearance>%' then 'CLEARANCE'
 			when lower(cceh.name) = 'outlet' then 'OUTLET'
 			when eaov_brand.value = 'N°· Eleven' then 'OWN BRAND'
@@ -362,6 +363,8 @@ with order_lines as (
 		) cpr
 		on cpe_ref.entity_id = cpr.entity_id
 		and cpe_ref.ba_site = cpr.ba_site
+	left join {{ ref('vip_sales') }} vs
+		on date(if(sfo.ba_site = "FR",datetime(timestamp(sfo.created_at), "Europe/Paris"),datetime(timestamp(sfo.created_at), "Europe/London"))) = vs.date and lower(eaov_brand.value) = lower(vs.brand)
 
 	where 1=1
 	{% if is_incremental() %}
