@@ -152,7 +152,9 @@ models:
       - name: order_id
         description: "order_id"
       - name: carrier_codes
-        description: "carrier_codes"     
+        description: "carrier_codes"
+      - name: title
+        description: "carrier title"     
                            
   - name: zendesk_call_metric
     meta:
@@ -967,6 +969,21 @@ models:
           dimension:
             type: string
             sql: case when ${zendesk__ticket_metrics_overwrite.total_agent_replies} = 1 then '1' when ${zendesk__ticket_metrics_overwrite.total_agent_replies} = 2 then '2' when ${zendesk__ticket_metrics_overwrite.total_agent_replies} < 6 then '3-5' else '>5' END
+      - name: last_solved_at_w_merges
+        description: "Last solved at date taking in account merged tickets"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: IF(${zendesk__ticket_metrics_overwrite.ticket_tags} ilike '%closed_by_merge%', ${zendesk__ticket_metrics_overwrite.updated_at}, ${zendesk__ticket_metrics_overwrite.last_solved_at})
+      - name: last_solved_at_w_merges
+        description: "Last solved at date taking in account merged tickets"
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: IF(${zendesk__ticket_metrics_overwrite.ticket_tags} ilike '%closed_by_merge%', ${zendesk__ticket_metrics_overwrite.updated_at}, ${zendesk__ticket_metrics_overwrite.last_solved_at})
+
 
   - name: zendesk__sla_policies_overwrite
     description: Each record represents an SLA policy event and additional sla breach and achievement metrics. Calendar and business hour SLA breaches are supported.
