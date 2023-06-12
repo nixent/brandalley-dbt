@@ -1,7 +1,18 @@
 {{ config(materialized='table' )}}
 
 
-with nego_info as (
+with po_orders as (
+    select
+        ba_site, 
+        negotiation_id,
+        negotiation_item_id,
+        sku,
+        sum(to_order) as po_qty
+    from {{ ref('purchase_order') }}
+    group by 1,2,3,4
+),
+
+nego_info as (
     select 
         cpni.negotiation_item_id,
         cpni.negotiation_id,
@@ -9,7 +20,7 @@ with nego_info as (
         cpni.updated_at as nego_updated_at,
         cpni.sku    as variant_sku,
         cpni.qty    as nego_qty,
-        po.to_order as po_qty,
+        po.po_qty,
         p.color     as product_color,
         p.size      as product_size,
         p.outlet_category,
@@ -18,8 +29,8 @@ with nego_info as (
     left join {{ ref('products') }} p
         on cpni.sku = p.variant_sku
         and cpni.ba_site = p.ba_site
-    left join {{ ref('purchase_order') }} po
-        on po.negotiation_id = cpni.negotiation_id and po.sku = cpni.sku and po.ba_site = cpni.ba_site
+    left join po_orders po
+        on po.negotiation_id = cpni.negotiation_id and po.sku = cpni.sku and po.ba_site = cpni.ba_site and po.negotiation_item_id = cpni.negotiation_item_id
 ),
 
 order_info as (
@@ -37,6 +48,7 @@ order_info as (
 )
 
 select 
+    {{dbt_utils.generate_surrogate_key(['ni.negotiation_item_id', 'ni.ba_site', 'oi.order_status'])}} as ba_site_negotiation_item_id_order_status,
     ni.*,
     oi.order_status,
     oi.gmv,

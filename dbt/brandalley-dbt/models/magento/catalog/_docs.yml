@@ -409,6 +409,13 @@ models:
   - name: nego_quotas
     description: 'Details on initial negotiation quantities and subsequent units sold'
     columns:
+      - name: ba_site_negotiation_item_id_order_status
+        tests:
+          - unique
+          - not_null
+        meta:
+          dimension:
+            hidden: true
       - name: negotiation_item_id
       - name: ba_site
       - name: negotiation_id
