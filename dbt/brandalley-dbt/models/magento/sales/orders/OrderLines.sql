@@ -42,7 +42,7 @@
 with order_lines as (
 	select
 		-- check unique key on this
-		{{dbt_utils.generate_surrogate_key(['sfo.ba_site','sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfo.magentoID','cpev_pt_con.value','eaov_brand.option_id','eaov_color.option_id','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
+		{{dbt_utils.generate_surrogate_key(['sfo.ba_site','sfoi_con.product_id','sfoi_con.order_id','sfoi_con.item_id','sfoi_sim.sku','eaov_size.option_id','cpei_size_child.entity_id','eaov_size_child.option_id'])}} as unique_id,
 		greatest(sfo.bq_last_processed_at, sfoi_sim.bq_last_processed_at, sfoi_con.bq_last_processed_at)													as bq_last_processed_at,
 		-- sometimes these are before reg date - how? should we set them as first_purchase_at in these cases?
 		datetime_diff(safe_cast(sfo.created_at as datetime), ce.dt_cr, month) 																				as months_since_cohort_start,
@@ -196,8 +196,10 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
+			when vs.brand is not null then ptd.product_department
 			when lower(ccfse.path_name) like '%>clearance>%' then 'CLEARANCE'
 			when lower(cceh.name) = 'outlet' then 'OUTLET'
+			when eaov_brand.value = 'N°· Eleven' then 'OWN BRAND'
 			when cceh.name is not null then ptd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
@@ -362,6 +364,8 @@ with order_lines as (
 		) cpr
 		on cpe_ref.entity_id = cpr.entity_id
 		and cpe_ref.ba_site = cpr.ba_site
+	left join {{ ref('vip_sales') }} vs
+		on date(if(sfo.ba_site = "FR",datetime(timestamp(sfo.created_at), "Europe/Paris"),datetime(timestamp(sfo.created_at), "Europe/London"))) = vs.date and lower(eaov_brand.value) = lower(vs.brand)
 
 	where 1=1
 	{% if is_incremental() %}
@@ -387,3 +391,4 @@ from order_lines ol
 left join {{ ref('fx_rates') }} fx
 	on date(ol.created_at) = fx.date_day
 
+where ol.unique_id != 'f66682c5a4027e12ec8c24f2a24628ea'

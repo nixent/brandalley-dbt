@@ -409,6 +409,13 @@ models:
   - name: nego_quotas
     description: 'Details on initial negotiation quantities and subsequent units sold'
     columns:
+      - name: ba_site_negotiation_item_id
+        tests:
+          - unique
+          - not_null
+        meta:
+          dimension:
+            hidden: true
       - name: negotiation_item_id
       - name: ba_site
       - name: negotiation_id
@@ -420,6 +427,13 @@ models:
             hidden: true
           metrics:
             total_nego_qty:
+              type: sum
+      - name: po_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_po_qty:
               type: sum
       - name: product_color
       - name: product_size

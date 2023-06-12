@@ -6,9 +6,9 @@ with order_stats as (
         total_new_customer_count,
         total_new_members,
         gmv,
+        sales_amount,
         margin,
-        qty_ordered,
-        aov_gmv
+        qty_ordered
     from {{ ref('kpis_daily')}}
 ),
 
@@ -16,6 +16,7 @@ marketing_targets as (
     select
         target_date,
         new_members_forecast,
+        new_customers_order_forecast as new_customers_forecast,
         returning_customers_order_forecast + new_customers_order_forecast as all_orders_forecast
     from {{ ref('marketing_targets') }}
 ),
@@ -23,8 +24,7 @@ marketing_targets as (
 ga_stats as (
     select 
         ga_session_at_date,
-        ga_unique_visits,
-        ga_orders
+        ga_unique_visits
     from {{ ref('ga_conversion_rate') }}
     where date_aggregation_type = 'day'
 )
@@ -39,32 +39,31 @@ select
     {# end for dev #}
     os.ba_site,
     gs.ga_unique_visits,
-    gs.ga_orders,
     os.total_order_count,
     os.total_new_customer_count,
     os.total_new_members,
     os.gmv,
+    os.sales_amount,
     os.margin,
     os.qty_ordered,
-    os.aov_gmv,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
-    gs1.ga_orders                   as last_year_same_day_ga_orders,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
     os3.total_new_customer_count    as last_year_total_new_customer_count,
     os4.total_new_customer_count    as last_year_same_day_total_new_customer_count,
     os3.total_new_members           as last_year_total_new_member_count,
     os4.total_new_members           as last_year_same_day_total_new_member_count,
-    os3.aov_gmv                     as last_year_aov_gmv,
-    os4.aov_gmv                     as last_year_same_day_aov_gmv,
     os3.gmv                         as last_year_gmv,
     os4.gmv                         as last_year_same_day_gmv,
+    os3.sales_amount                as last_year_sales_amount,
+    os4.sales_amount                as last_year_same_day_sales_amount,
     os3.margin                      as last_year_margin,
     os4.margin                      as last_year_same_day_margin,
     os3.qty_ordered                 as last_year_qty_ordered,
     os4.qty_ordered                 as last_year_same_day_qty_ordered,
     mt.new_members_forecast,
-    mt.all_orders_forecast
+    mt.all_orders_forecast,
+    mt.new_customers_forecast
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
