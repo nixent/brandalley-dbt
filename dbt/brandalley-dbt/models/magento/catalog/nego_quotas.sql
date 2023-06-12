@@ -37,20 +37,18 @@ order_info as (
     select
         ol.sku,
         ol.ba_site,
-        ol.order_status,
         round(sum(ol.qty_ordered),2)                                            as qty_sold,
         round(sum(ol.total_local_currency_ex_tax_after_vouchers),2)             as sales_amount,
         round(sum(ol.total_local_currency_after_vouchers),2)                    as gmv,
         round(sum(ol.margin),2)                                                 as margin
     from {{ ref('OrderLines') }} ol
-    group by 1,2,3
+    group by 1,2
 
 )
 
 select 
-    {{dbt_utils.generate_surrogate_key(['ni.negotiation_item_id', 'ni.ba_site', 'oi.order_status'])}} as ba_site_negotiation_item_id_order_status,
+    {{dbt_utils.generate_surrogate_key(['ni.negotiation_item_id', 'ni.ba_site'])}} as ba_site_negotiation_item_id,
     ni.*,
-    oi.order_status,
     oi.gmv,
     oi.sales_amount,
     oi.margin,
