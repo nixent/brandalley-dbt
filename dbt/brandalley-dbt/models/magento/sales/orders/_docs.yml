@@ -816,6 +816,19 @@ models:
               hidden: false
               round: 2
               group_label: 'Sales'    
+              round: 2    
+      - name: line_discount_amount_exc_vat
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_discount_amount_metric:
+              label: 'Discount amount exc VAT'
+              type: sum
+              description: "Amount of discount granted exc VAT"
+              hidden: false
+              round: 2    
       - name: line_shipping_incl_tax
         description: ""
         meta:
@@ -1751,6 +1764,13 @@ models:
               label: 'Shipping exc Tax'
               type: sum
               description: "Shipping exc Tax"
+              hidden: false
+              round: 2      
+            shipping_excl_tax_per_qty_metric:
+              label: 'Shipping excl Tax per unit'
+              type: sum
+              description: "Shipping excl Tax per unit"
+              sql: "safe_divide(${shipping_excl_tax},${total_qty_ordered})"
               hidden: false
               round: 2      
       - name: shipping_incl_tax

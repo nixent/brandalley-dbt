@@ -75,6 +75,7 @@ with order_lines as (
 		sfoi_con.original_price /nullif((1 + (sfoi_con.tax_percent / 100.)),0) 																				as flash_price_exc_vat,
 		sfoi_con.original_price /nullif((1 + (sfoi_con.tax_percent / 100.)),0) * sfoi_sim.qty_ordered 														as line_flash_price_exc_vat,
 		sfoi_con.discount_amount 																															as line_discount_amount,
+		SAFE_DIVIDE(sfoi_con.discount_amount, 1 + (sfoi_con.tax_percent / 100.))																	        as line_discount_amount_exc_vat,
 		if(sfo.total_refunded is null, 0, sfo.total_refunded)																								as line_total_refunded,
 		safe_divide(sfo.shipping_incl_tax,sfo.total_qty_ordered) * sfoi_sim.qty_ordered as line_shipping_incl_tax,
 		safe_divide(sfo.shipping_excl_tax,sfo.total_qty_ordered) * sfoi_sim.qty_ordered as line_shipping_excl_tax,
