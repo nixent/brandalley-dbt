@@ -41,7 +41,8 @@ with tickets as (
             orderlines.selffulfill_qty,
             orderlines.order_id,
             -- we removing duplicates from the liste of carriers in case an order had multiple shipments with the same carrier
-            (select string_agg(distinct trim(value)) from UNNEST(SPLIT(carrier_codes_dupes, ',')) as value) as carrier_codes
+            (select string_agg(distinct trim(value)) from UNNEST(SPLIT(carrier_codes_dupes, ',')) as value) as carrier_codes,
+            (select string_agg(distinct trim(value)) from UNNEST(SPLIT(title_dupes, ',')) as value) as title
     from {{ source(
         'zendesk',
         'ticket'
@@ -52,7 +53,10 @@ with tickets as (
     where ba_site='UK'
     group by order_number, order_id) orderlines
     on IFNULL(ticket.custom_order_id, ticket.custom_order_number) = orderlines.order_number
-    left outer join (select distinct string_agg(carrier_code) OVER(PARTITION BY order_id) carrier_codes_dupes, order_id from {{ ref('stg__sales_flat_shipment_track') }}) track
+    left outer join (select distinct string_agg(carrier_code) OVER(PARTITION BY order_id) carrier_codes_dupes, 
+    string_agg(title) OVER(PARTITION BY order_id) title_dupes, 
+    order_id 
+    from {{ ref('stg__sales_flat_shipment_track') }}) track
     on orderlines.order_id = track.order_id
 	where 1=1
 /*	{% if is_incremental() %}
