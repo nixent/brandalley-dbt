@@ -29,6 +29,7 @@ nego_info as (
     left join {{ ref('products') }} p
         on cpni.sku = p.variant_sku
         and cpni.ba_site = p.ba_site
+        -- this join isnt one to one..
     left join po_orders po
         on po.negotiation_id = cpni.negotiation_id and po.sku = cpni.sku and po.ba_site = cpni.ba_site and po.negotiation_item_id = cpni.negotiation_item_id
 ),

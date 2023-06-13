@@ -238,8 +238,7 @@ models:
   - name: products
     description: ""
     columns:
-      - name: ba_site
-      - name: unique_id
+      - name: ba_site_variant_sku
         description: ""
         tests:
           - unique
@@ -247,6 +246,7 @@ models:
         meta:
           dimension:
             format: id
+      - name: ba_site
       - name: product_id
         description: "Product id"
         meta:
@@ -313,6 +313,11 @@ models:
         description: ""
       - name: barcode
         description: ""
+      - name: is_deleted
+        description: 'If the product still exists in the Magento table currently'
+        meta:
+          dimension:
+            type: boolean
 
   - name: inventory_items
     description: ""
@@ -439,7 +444,6 @@ models:
       - name: product_size
       - name: outlet_category
       - name: product_brand
-      - name: order_status
       - name: gmv
         meta:
           dimension:

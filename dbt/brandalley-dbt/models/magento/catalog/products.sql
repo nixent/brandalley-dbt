@@ -1,6 +1,6 @@
 with products as (
     select
-        {{dbt_utils.generate_surrogate_key(['cpe.entity_id', 'cpe_child.sku', 'cpsl.product_id', 'cpe.ba_site'])}} as unique_id,
+        {{dbt_utils.generate_surrogate_key(['cpe_child.sku', 'cpe.ba_site'])}} as ba_site_variant_sku,
         cpe.entity_id                                   as product_id,
         cpe.ba_site,
         timestamp(cpe.created_at)                       as dt_cr,
@@ -27,7 +27,8 @@ with products as (
         cps_supplier.sup_id                             as supplier_id,
         cps_supplier.name                               as supplier_name,
         eaov_gender.value                               as gender,
-        cpev_barcode.value                              as barcode 
+        cpev_barcode.value                              as barcode, 
+        coalesce(cpe_child.__deleted, cpe.__deleted)    as is_deleted
     from {{ ref('stg__catalog_product_entity') }} cpe
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_name
         on cpe.entity_id = cpev_name.entity_id
@@ -161,7 +162,7 @@ with products as (
         on cpei_tax.value = tc.class_id
         and cpe.ba_site = tc.ba_site
     left join {{ ref('stg__catalog_product_entity_int') }} cpei_supplier
-        on cpei_supplier.entity_id = cpe.entity_id
+        on cpei_supplier.entity_id = cpe_child.entity_id
             and cpei_supplier.attribute_id = 239
             and cpei_supplier.store_id = 0
             and cpe.ba_site = cpei_supplier.ba_site
@@ -169,10 +170,11 @@ with products as (
         on cpei_supplier.value = cps_supplier.supplier_id
         and cpe.ba_site = cps_supplier.ba_site
     left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_barcode
-        on cpe.entity_id = cpev_barcode.entity_id
+        on cpe_child.entity_id = cpev_barcode.entity_id
             and cpev_barcode.attribute_id = 252
             and cpev_barcode.store_id = 0
             and cpe.ba_site = cpev_barcode.ba_site
+    where cpe.type_id = 'configurable' and cpe_child.sku is not null
 )
 
 select
