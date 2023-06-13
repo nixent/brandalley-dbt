@@ -39,6 +39,6 @@ select
     null                                as phone_ticket, 
     null                                as chat_ticket, 
     null                                as email_ticket, 
-    count(distinct magentoID)           as order_count
+    count(distinct order_id)           as order_count
 from {{ ref('Orders') }}
 group by 1,2,3,4,5,6,7,8

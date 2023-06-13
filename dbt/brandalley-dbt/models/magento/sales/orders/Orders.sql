@@ -59,7 +59,7 @@ order_sequencing as (
 order_info as (
 	select
 		sfo.increment_id,
-		sfo.entity_id 														as magentoID,
+		sfo.entity_id 														as order_id,
 		sfo.store_id,
 		sfo.ba_site,
 		sfo.billing_address_id,
