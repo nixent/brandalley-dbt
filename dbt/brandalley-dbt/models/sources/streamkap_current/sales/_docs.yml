@@ -1883,7 +1883,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']   
-            sql: 'if(stg__salesrule_coupon.ba_site = "FR",datetime(stg__salesrule_coupon.expiration_at, "Europe/Paris"),datetime(stg__salesrule_coupon.expiration_at, "Europe/London"))'         
+            sql: 'if(stg__salesrule_coupon.ba_site = "FR",datetime(stg__salesrule_coupon.expiration_date, "Europe/Paris"),datetime(stg__salesrule_coupon.expiration_date, "Europe/London"))'         
       - name: is_primary
         data_type: <integer>
         description: "Is primary flag"
