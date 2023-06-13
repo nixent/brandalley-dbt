@@ -5,7 +5,7 @@
 ) }}
 
 select
-    {{dbt_utils.generate_surrogate_key(['p.unique_id', 'ccp.category_id', 'p.ba_site'])}}    as unique_id,
+    {{dbt_utils.generate_surrogate_key(['p.ba_site_variant_sku', 'ccp.category_id', 'p.ba_site'])}}    as unique_id,
     p.product_id,
     p.variant_product_id,
     p.sku,
