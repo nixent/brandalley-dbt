@@ -53,7 +53,7 @@ with order_lines as (
 		sfo.ba_site,
 		sfoi_sim.item_id 																																	as order_item_id,
         sfoi_sim.parent_item_id,        
-		sfo.magentoID 																																		as order_id,
+		sfo.order_id 																																		as order_id,
 		sfoi_sim.sku,
 		if(au.user_id is not null, concat(au.firstname, ' ', au.lastname), 'Unknown') 																		as buyer,
 		sfoi_con.name,
@@ -230,11 +230,11 @@ with order_lines as (
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
 	left join {{ ref('stg__sales_flat_order_item') }} sfoi_sim
-		on sfoi_sim.order_id = sfo.magentoID
+		on sfoi_sim.order_id = sfo.order_id
 			and sfoi_sim.product_type = 'simple'
 			and sfo.ba_site = sfoi_sim.ba_site
 	left join {{ ref('stg__sales_flat_order_item') }} sfoi_con
-		on sfoi_con.order_id = sfo.magentoID
+		on sfoi_con.order_id = sfo.order_id
 			and if (sfoi_sim.parent_item_id is not null, sfoi_con.item_id = sfoi_sim.parent_item_id, sfoi_con.item_id = sfoi_sim.item_id)
 			and sfo.ba_site = sfoi_con.ba_site
 	left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_outletcat_con

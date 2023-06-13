@@ -28,7 +28,7 @@ order_refunds_agg as (
 
 select
   o.ba_site || '-' || o.increment_id as ba_site_increment_id,
-  o.magentoID                     as order_id,
+  o.order_id,
   o.increment_id,
   o.customer_id,
   o.ba_site,
@@ -58,9 +58,9 @@ select
   end as has_ordered_since
 from {{ ref('Orders') }} o
 left join order_line_agg ola 
-  on o.magentoID = ola.order_id and o.ba_site = ola.ba_site
+  on o.order_id = ola.order_id and o.ba_site = ola.ba_site
 left join order_refunds_agg ora
-  on o.magentoID = ora.order_id and o.ba_site = ora.ba_site
+  on o.order_id = ora.order_id and o.ba_site = ora.ba_site
 left join {{ ref('stg__salesrule_coupon') }} src
   on lower(o.coupon_code) = lower(src.code) and o.ba_site = src.ba_site
 left join {{ ref('stg__salesrule') }} sr
