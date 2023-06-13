@@ -1673,7 +1673,7 @@ models:
     meta:
       joins:
         - join: shipments
-          sql_on: ${Orders.magentoID} = ${shipments.order_id} and ${Orders.ba_site} = ${shipments.ba_site}
+          sql_on: ${Orders.order_id} = ${shipments.order_id} and ${Orders.ba_site} = ${shipments.ba_site}
         - join: stg__salesrule_coupon
           sql_on: ${Orders.coupon_code} = ${stg__salesrule_coupon.code} and  ${Orders.ba_site} = ${stg__salesrule_coupon.ba_site}
         - join: stg__salesrule
@@ -1681,9 +1681,9 @@ models:
         - join: customers_enriched 
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and ${Orders.ba_site} = ${customers_enriched.ba_site}
         - join: orders_enriched 
-          sql_on: ${Orders.magentoID} = ${orders_enriched.order_id} and ${Orders.ba_site} = ${orders_enriched.ba_site}
+          sql_on: ${Orders.order_id} = ${orders_enriched.order_id} and ${Orders.ba_site} = ${orders_enriched.ba_site}
         - join: stg__sales_payment_transaction 
-          sql_on: ${Orders.magentoID} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${Orders.ba_site} = ${stg__sales_payment_transaction.ba_site}
+          sql_on: ${Orders.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${Orders.ba_site} = ${stg__sales_payment_transaction.ba_site}
     columns:
       - name: ba_site_increment_id
         tests:
@@ -1711,7 +1711,7 @@ models:
       - name: ba_site
       - name: increment_id
         description: "Increment id, nullable"
-      - name: magentoID
+      - name: order_id
         description: ""
         meta:
           dimension:

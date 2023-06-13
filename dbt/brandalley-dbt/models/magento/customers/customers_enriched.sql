@@ -41,7 +41,7 @@ order_info as (
     ba_site,
     min(created_at)   as first_purchase_at, 
     max(created_at)   as last_purchase_at,
-    count(magentoID)  as count_customer_orders
+    count(order_id)  as count_customer_orders
   from {{ ref('Orders') }}
   where customer_id is not null
   group by 1,2
