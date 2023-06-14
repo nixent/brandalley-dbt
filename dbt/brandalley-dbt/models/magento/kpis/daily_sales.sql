@@ -7,7 +7,7 @@ with order_stats as (
         kd.total_new_members,
         kd.gmv,
         kd.sales_amount,
-        kd.margin + coalesce(ma.amount, 0) as margin,
+        kd.margin + if(kd.ba_site = 'FR', coalesce(ma.fr_amount,0) , coalesce(ma.uk_amount, 0)) as margin,
         kd.qty_ordered
     from {{ ref('kpis_daily')}} kd
     left join {{ ref('stg__margin_adjustments') }} ma
