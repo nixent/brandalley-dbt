@@ -65,7 +65,13 @@ select
     os4.qty_ordered                 as last_year_same_day_qty_ordered,
     mt.new_members_forecast,
     mt.all_orders_forecast,
-    mt.new_customers_forecast
+    mt.new_customers_forecast,
+    dt.gmv_target,
+    dt.sales_amount_target,
+    dt.margin_target,
+    dt.aov_target,
+    dt.avg_units_target,
+    dt.effective_avg_vat_rate
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -83,4 +89,6 @@ left join ga_stats gs1
     on gs1.ga_session_at_date = d.last_year_same_day and os.ba_site = 'UK'
 left join marketing_targets mt 
     on d.date_day = mt.target_date and os.ba_site = 'UK'
+left join {{ ref('daily_targets') }} dt
+    on d.date_day = dt.date_day and os.ba_site = dt.ba_site
 

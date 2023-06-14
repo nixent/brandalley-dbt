@@ -10,6 +10,7 @@ with daily_dates as (
 
 select
     dd.date_day,
+    dst.ba_site,
     round(safe_divide(dst.gmv_target,extract(day from last_day(dd.date_day, month))),2)          as gmv_target,
     round(safe_divide(dst.sales_amount_target,extract(day from last_day(dd.date_day, month))),2) as sales_amount_target,
     round(safe_divide(dst.margin_target,extract(day from last_day(dd.date_day, month))),2)       as margin_target,
