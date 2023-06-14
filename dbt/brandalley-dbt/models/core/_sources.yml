@@ -11,3 +11,4 @@ sources:
     description: "FX Rates"
     tables:
       - name: fx_rates_gsheet
+      - name: margin_adjustments_gsheet

@@ -1,15 +1,17 @@
 with order_stats as (
     select
-        order_created_at_day,
-        ba_site,
-        total_order_count,
-        total_new_customer_count,
-        total_new_members,
-        gmv,
-        sales_amount,
-        margin,
-        qty_ordered
-    from {{ ref('kpis_daily')}}
+        kd.order_created_at_day,
+        kd.ba_site,
+        kd.total_order_count,
+        kd.total_new_customer_count,
+        kd.total_new_members,
+        kd.gmv,
+        kd.sales_amount,
+        kd.margin + coalesce(ma.amount, 0) as margin,
+        kd.qty_ordered
+    from {{ ref('kpis_daily')}} kd
+    left join {{ ref('stg__margin_adjustments') }} ma
+        on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
 ),
 
 marketing_targets as (
