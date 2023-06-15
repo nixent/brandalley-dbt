@@ -77,13 +77,13 @@ models:
             total_order_wtd_target_comparison:
               type: number
               sql: '${total_orders_count} - ${total_all_orders_target}'
-              label: 'Orders Target Comparison (Day or WTD)'
+              label: 'Orders Target Comparison'
               group_label: 'Orders'
             total_order_wtd_target_comparison_pct:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_orders_count} - ${total_all_orders_target},${total_all_orders_target})'
-              label: 'Orders Target Comparison % (Day or WTD)'
+              label: 'Orders Target Comparison %'
               group_label: 'Orders'
               round: 1
 
@@ -141,6 +141,18 @@ models:
               type: sum
               label: 'Customers Target'
               group_label: 'Customers'
+            total_new_customers_target_comparison:
+              type: number
+              sql: '${total_new_customers_count} - ${total_new_customers_target}'
+              label: 'New Customers Comparison'
+              group_label: 'Customers'
+            total_new_customers_target_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_customers_count} - ${total_new_customers_target},${total_new_customers_target})'
+              label: 'New Customers Target Comparison %'
+              group_label: 'Customers'
+              round: 1
             
       ##### MEMBERS ######
       - name: total_new_members
@@ -196,6 +208,18 @@ models:
               type: sum
               label: 'Members Target'
               group_label: 'Members'
+            total_new_members_target_comparison:
+              type: number
+              sql: '${total_new_members_count} - ${total_new_members_target}'
+              label: 'New Members Comparison'
+              group_label: 'Members'
+            total_new_members_target_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_members_count} - ${total_new_members_target},${total_new_members_target})'
+              label: 'New Members Target Comparison %'
+              group_label: 'Members'
+              round: 1
 
       ######## AOV GMV #######
       - name: aov_gmv
@@ -240,18 +264,18 @@ models:
               type: average
               group_label: 'AOV'
               label: 'AOV GMV Target'
-          #   last_year_same_day_wtd_aov_gmv_comparison:
-          #     type: number
-          #     sql: '${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv}'
-          #     label: 'LY AOV Comparison (Day or WTD)'
-          #     group_label: 'AOV'
-            # last_year_same_day_wtd_aov_gmv_comparison_pct:
-            #   type: number
-            # format: 'percent'   
-            # sql: 'safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_total_aov_gmv},${last_year_same_day_wtd_total_aov_gmv})'
-            #   label: 'LY New Customers Comparison % (Day or WTD)'
-            #   group_label: 'Last Year VS'
-            #   round: 1   
+            total_aov_target_comparison:
+              type: number
+              sql: '${total_aov_gmv} - ${total_aov_target}'
+              label: 'AOV GMV Comparison'
+              group_label: 'AOV'
+            total_aov_target_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_aov_gmv} - ${total_aov_target},${total_aov_target})'
+              label: 'AOV GMV Target Comparison %'
+              group_label: 'AOV'
+              round: 1
 
       #### GMV ######
       - name: gmv
@@ -314,6 +338,18 @@ models:
               type: sum
               label: 'GMV Target'
               group_label: 'GMV'
+            total_gmv_target_comparison:
+              type: number
+              sql: '${total_gmv} - ${total_gmv_target}'
+              label: 'GMV Comparison'
+              group_label: 'GMV'
+            total_aov_target_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_gmv} - ${total_gmv_target},${total_gmv_target})'
+              label: 'GMV Target Comparison %'
+              group_label: 'GMV'
+              round: 1
 
       #### SALES AMOUNT ######
       - name: sales_amount
@@ -510,6 +546,18 @@ models:
               round: 0
               label: 'Units Target'
               group_label: 'Units'
+            units_target_comparison:
+              type: number
+              sql: '${total_qty_ordered} - ${units_target}'
+              label: 'Units Comparison'
+              group_label: 'Units'
+            units_target_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_qty_ordered} - ${units_target},${units_target})'
+              label: 'Units Target Comparison %'
+              group_label: 'Units'
+              round: 1
 
       #### UNIQUE VISITS
       - name: ga_unique_visits
