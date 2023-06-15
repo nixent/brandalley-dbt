@@ -35,6 +35,7 @@ nego_info as (
 ),
 
 order_info as (
+    -- nego isnt unique to sku... need to think about this join
     select
         ol.sku,
         ol.ba_site,
