@@ -543,6 +543,8 @@ models:
             unique_visits_target:
               type: string
               sql: '"N/A"'
+              label: 'Unique Visits Target'
+              group_label: 'Visits'
       
 
   - name: kpis_daily
