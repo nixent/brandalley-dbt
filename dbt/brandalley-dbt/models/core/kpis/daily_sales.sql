@@ -17,9 +17,9 @@ with order_stats as (
 marketing_targets as (
     select
         target_date,
-        new_members_forecast,
-        new_customers_order_forecast as new_customers_forecast,
-        returning_customers_order_forecast + new_customers_order_forecast as all_orders_forecast
+        new_members_forecast                                                as new_members_target,
+        new_customers_order_forecast                                        as new_customers_target,
+        returning_customers_order_forecast + new_customers_order_forecast   as all_orders_target
     from {{ ref('marketing_targets') }}
 ),
 
@@ -63,9 +63,9 @@ select
     os4.margin                      as last_year_same_day_margin,
     os3.qty_ordered                 as last_year_qty_ordered,
     os4.qty_ordered                 as last_year_same_day_qty_ordered,
-    mt.new_members_forecast,
-    mt.all_orders_forecast,
-    mt.new_customers_forecast,
+    mt.new_members_target,
+    mt.all_orders_target,
+    mt.new_customers_target,
     dt.gmv_target,
     dt.sales_amount_target,
     dt.margin_target,
