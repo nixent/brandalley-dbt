@@ -51,6 +51,10 @@ models:
         meta:
           dimension:
             type: boolean
+      - name: is_existing_ifg_elapsed_user
+        meta:
+          dimension:
+            type: boolean
       - name: signup_source
       - name: signup_medium
       - name: customer_type
