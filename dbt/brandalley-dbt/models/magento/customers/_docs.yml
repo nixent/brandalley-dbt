@@ -10,7 +10,7 @@ models:
         - join: orders_enriched
           sql_on: ${orders_enriched.customer_id} = ${customers_enriched.customer_id} and ${orders_enriched.ba_site} = ${customers_enriched.ba_site}
         - join: OrderLines
-          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site} 
+          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site} and ${OrderLines.order_id} = ${Orders.order_id} 
         - join: customers
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id} and ${OrderLines.ba_site} = ${customers.ba_site}
     columns: 
