@@ -482,6 +482,30 @@ models:
               format: 'percent'
               sql: 'safe_divide(${total_margin_target},${total_sales_amount_target})'
               round: 1
+            margin_target_comparison:
+              type: number
+              sql: '${total_margin} - ${total_margin_target}'
+              label: 'Margin Target Comparison'
+              group_label: 'Margin'
+            margin_target_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_margin} - ${total_margin_target},${total_margin_target})'
+              label: 'Margin Target Comparison %'
+              group_label: 'Margin'
+              round: 1
+            margin_pct_target_comparison:
+              type: number
+              sql: '${total_margin_pct} - ${total_margin_pct_target}'
+              label: 'Margin (%) Target Comparison'
+              group_label: 'Margin'
+            margin_pct_target_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_margin_pct} - ${total_margin_pct_target},${total_margin_pct_target})'
+              label: 'Margin (%) Target Comparison %'
+              group_label: 'Margin'
+              round: 1
 
       #### QTY ORDERED
       - name: qty_ordered
