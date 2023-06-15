@@ -42,7 +42,7 @@ order_info as (
     min(created_at)   as first_purchase_at, 
     max(created_at)   as last_purchase_at,
     count(order_id)  as count_customer_orders,
-    max(if(created_at < '2023-04-29',created_at,null) as last_purchase_pre_ifg_acquisition
+    max(if(created_at < '2023-04-29',created_at,null)) as last_purchase_pre_ifg_acquisition
   from {{ ref('Orders') }}
   where customer_id is not null
   group by 1,2
