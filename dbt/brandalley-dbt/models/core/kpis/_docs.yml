@@ -144,7 +144,7 @@ models:
             total_new_customers_target_comparison:
               type: number
               sql: '${total_new_customers_count} - ${total_new_customers_target}'
-              label: 'New Customers Comparison'
+              label: 'New Customers Target Comparison'
               group_label: 'Customers'
             total_new_customers_target_comparison_pct:
               type: number
@@ -211,7 +211,7 @@ models:
             total_new_members_target_comparison:
               type: number
               sql: '${total_new_members_count} - ${total_new_members_target}'
-              label: 'New Members Comparison'
+              label: 'New Members Target Comparison'
               group_label: 'Members'
             total_new_members_target_comparison_pct:
               type: number
@@ -267,7 +267,7 @@ models:
             total_aov_target_comparison:
               type: number
               sql: '${total_aov_gmv} - ${total_aov_target}'
-              label: 'AOV GMV Comparison'
+              label: 'AOV GMV Target Comparison'
               group_label: 'AOV'
             total_aov_target_comparison_pct:
               type: number
@@ -341,9 +341,9 @@ models:
             total_gmv_target_comparison:
               type: number
               sql: '${total_gmv} - ${total_gmv_target}'
-              label: 'GMV Comparison'
+              label: 'GMV Target Comparison'
               group_label: 'GMV'
-            total_aov_target_comparison_pct:
+            total_gmv_target_comparison_pct:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_gmv} - ${total_gmv_target},${total_gmv_target})'
@@ -549,7 +549,7 @@ models:
             units_target_comparison:
               type: number
               sql: '${total_qty_ordered} - ${units_target}'
-              label: 'Units Comparison'
+              label: 'Units Target Comparison'
               group_label: 'Units'
             units_target_comparison_pct:
               type: number
