@@ -1,23 +1,25 @@
 with order_stats as (
     select
-        order_created_at_day,
-        ba_site,
-        total_order_count,
-        total_new_customer_count,
-        total_new_members,
-        gmv,
-        sales_amount,
-        margin,
-        qty_ordered
-    from {{ ref('kpis_daily')}}
+        kd.order_created_at_day,
+        kd.ba_site,
+        kd.total_order_count,
+        kd.total_new_customer_count,
+        kd.total_new_members,
+        kd.gmv,
+        kd.sales_amount,
+        kd.margin + if(kd.ba_site = 'FR', coalesce(ma.fr_amount,0) , coalesce(ma.uk_amount, 0)) as margin,
+        kd.qty_ordered
+    from {{ ref('kpis_daily')}} kd
+    left join {{ ref('stg__margin_adjustments') }} ma
+        on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
 ),
 
 marketing_targets as (
     select
         target_date,
-        new_members_forecast,
-        new_customers_order_forecast as new_customers_forecast,
-        returning_customers_order_forecast + new_customers_order_forecast as all_orders_forecast
+        new_members_forecast                                                as new_members_target,
+        new_customers_order_forecast                                        as new_customers_target,
+        returning_customers_order_forecast + new_customers_order_forecast   as all_orders_target
     from {{ ref('marketing_targets') }}
 ),
 
@@ -61,9 +63,15 @@ select
     os4.margin                      as last_year_same_day_margin,
     os3.qty_ordered                 as last_year_qty_ordered,
     os4.qty_ordered                 as last_year_same_day_qty_ordered,
-    mt.new_members_forecast,
-    mt.all_orders_forecast,
-    mt.new_customers_forecast
+    mt.new_members_target,
+    mt.all_orders_target,
+    mt.new_customers_target,
+    dt.gmv_target,
+    dt.sales_amount_target,
+    dt.margin_target,
+    dt.aov_target,
+    dt.avg_units_target,
+    dt.effective_avg_vat_rate
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -81,4 +89,6 @@ left join ga_stats gs1
     on gs1.ga_session_at_date = d.last_year_same_day and os.ba_site = 'UK'
 left join marketing_targets mt 
     on d.date_day = mt.target_date and os.ba_site = 'UK'
+left join {{ ref('daily_targets') }} dt
+    on d.date_day = dt.date_day and os.ba_site = dt.ba_site
 
