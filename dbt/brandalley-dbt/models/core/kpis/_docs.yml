@@ -535,6 +535,14 @@ models:
               type: sum
               label: 'LY Unique Visits (Day or WTD)'
               group_label: 'Visits'
+      - name: uv_target
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            unique_visits_target:
+              type: string
+              sql: '"N/A"'
       
 
   - name: kpis_daily
