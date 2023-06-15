@@ -237,7 +237,7 @@ models:
             hidden: true
           metrics:
             total_aov_target:
-              type: number
+              type: average
               group_label: 'AOV'
               label: 'AOV GMV Target'
           #   last_year_same_day_wtd_aov_gmv_comparison:
@@ -499,6 +499,17 @@ models:
               label: 'LY Units Comparison % (Day or WTD)'
               group_label: 'Units'
               round: 1
+      - name: avg_units_target
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            units_target:
+              type: sum
+              sql: '${all_orders_target}*${avg_units_target}'
+              round: 0
+              label: 'Units Target'
+              group_label: 'Units'
 
       #### UNIQUE VISITS
       - name: ga_unique_visits
