@@ -438,6 +438,13 @@ models:
               label: 'Margin Target'
               group_label: 'Margin'
               hidden: true
+            total_margin_pct_target:
+              type: number
+              label: 'Margin (%)'
+              group_label: 'Margin'
+              format: 'percent'
+              sql: 'safe_divide(${total_margin_target},${total_sales_amount_target})'
+              round: 1
 
       #### QTY ORDERED
       - name: qty_ordered
