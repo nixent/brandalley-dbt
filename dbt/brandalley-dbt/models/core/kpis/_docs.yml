@@ -486,6 +486,7 @@ models:
               label: 'LY Margin (%) Comparison (Day or WTD)'
               format: 'percent'
               group_label: 'Margin'
+              round: 1
             last_year_same_day_wtd_margin_comparison_pct:
               type: number
               format: 'percent'
@@ -534,6 +535,7 @@ models:
               label: 'Margin (%) Target Comparison'
               format: 'percent'
               group_label: 'Margin'
+              round: 1
             margin_pct_target_comparison_pct:
               type: number
               format: 'percent'
