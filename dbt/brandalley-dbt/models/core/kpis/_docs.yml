@@ -364,6 +364,12 @@ models:
               label: 'GMV + Gross Shipping'
               sql: '${total_gmv} + ${total_shipping_gmv}'
               group_label: 'Shipping'
+            total_shipping_gmv_per_order:
+              type: number
+              label: 'Gross Shipping / Order'
+              sql: 'safe_divide(${total_shipping_gmv},${total_orders_count}'
+              round: 2
+              group_label: 'Shipping'
 
       #### SALES AMOUNT ######
       - name: sales_amount
