@@ -350,6 +350,15 @@ models:
               label: 'GMV Target Comparison %'
               group_label: 'GMV'
               round: 1
+      - name: shipping_gmv
+        meta:
+          dimension:
+            hidden: true 
+          metrics:
+            total_shipping_gmv:
+              type: sum
+              label: 'Shipping GMV'
+              group_label: 'GMV'
 
       #### SALES AMOUNT ######
       - name: sales_amount
@@ -438,6 +447,13 @@ models:
               label: 'LY Margin Comparison % (MTD or YTD)'
               group_label: 'Margin'
               round: 1
+            last_year_mtd_ytd_total_margin_pct_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_margin_pct} - ${last_year_mtd_ytd_margin_pct},${last_year_mtd_ytd_margin_pct})'
+              label: 'LY Margin (%) Comparison % (MTD or YTD)'
+              group_label: 'Margin'
+              round: 1
       - name: last_year_same_day_margin
         meta:
           dimension:
@@ -459,11 +475,23 @@ models:
               sql: '${total_margin} - ${last_year_same_day_wtd_margin}'
               label: 'LY Margin Comparison (Day or WTD)'
               group_label: 'Margin'
+            last_year_same_day_wtd_margin_pct_comparison:
+              type: number
+              sql: '${total_margin_pct} - ${last_year_same_day_wtd_margin_pct}'
+              label: 'LY Margin (%) Comparison (Day or WTD)'
+              group_label: 'Margin'
             last_year_same_day_wtd_margin_comparison_pct:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_margin} - ${last_year_same_day_wtd_margin},${last_year_same_day_wtd_margin})'
               label: 'LY Margin Comparison % (Day or WTD)'
+              group_label: 'Margin'
+              round: 1
+            last_year_same_day_wtd_margin_pct_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_margin_pct} - ${last_year_same_day_wtd_margin_pct},${last_year_same_day_wtd_margin_pct})'
+              label: 'LY Margin (%) Comparison % (Day or WTD)'
               group_label: 'Margin'
               round: 1
       - name: margin_target
@@ -498,6 +526,7 @@ models:
               type: number
               sql: '${total_margin_pct} - ${total_margin_pct_target}'
               label: 'Margin (%) Target Comparison'
+              format: 'percent'
               group_label: 'Margin'
             margin_pct_target_comparison_pct:
               type: number
