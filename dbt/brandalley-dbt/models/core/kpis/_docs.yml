@@ -359,6 +359,11 @@ models:
               type: sum
               label: 'Shipping GMV'
               group_label: 'GMV'
+            total_gmv_and_shipping:
+              type: number
+              label: 'GMV + Shipping'
+              sql: '${total_gmv} + ${total_shipping_gmv}'
+              group_label: 'GMV'
 
       #### SALES AMOUNT ######
       - name: sales_amount
@@ -481,6 +486,7 @@ models:
               label: 'LY Margin (%) Comparison (Day or WTD)'
               format: 'percent'
               group_label: 'Margin'
+              round: 1
             last_year_same_day_wtd_margin_comparison_pct:
               type: number
               format: 'percent'
@@ -529,6 +535,7 @@ models:
               label: 'Margin (%) Target Comparison'
               format: 'percent'
               group_label: 'Margin'
+              round: 1
             margin_pct_target_comparison_pct:
               type: number
               format: 'percent'
