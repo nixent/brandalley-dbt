@@ -88,7 +88,7 @@ config:
       type: standard
   configVersion: 0
   externalIdMapping:
-    to: '61883'
+    to: '53590'
     from: customerId
 schedule:
   type: manual

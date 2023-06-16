@@ -7,8 +7,10 @@ models:
       joins:
         - join: Orders
           sql_on: ${Orders.customer_id} = ${customers_enriched.customer_id} and ${Orders.ba_site} = ${customers_enriched.ba_site}
+        - join: orders_enriched
+          sql_on: ${orders_enriched.customer_id} = ${customers_enriched.customer_id} and ${orders_enriched.ba_site} = ${customers_enriched.ba_site} and ${orders_enriched.order_id} = ${Orders.order_id} 
         - join: OrderLines
-          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site} 
+          sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site} and ${OrderLines.order_id} = ${Orders.order_id} 
         - join: customers
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id} and ${OrderLines.ba_site} = ${customers.ba_site}
     columns: 
@@ -48,6 +50,10 @@ models:
           dimension:
             type: boolean
       - name: is_new_ifg_user
+        meta:
+          dimension:
+            type: boolean
+      - name: is_existing_ifg_elapsed_user
         meta:
           dimension:
             type: boolean

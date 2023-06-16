@@ -41,7 +41,8 @@ order_info as (
     ba_site,
     min(created_at)   as first_purchase_at, 
     max(created_at)   as last_purchase_at,
-    count(order_id)  as count_customer_orders
+    count(order_id)  as count_customer_orders,
+    max(if(created_at < '2023-04-29',created_at,null)) as last_purchase_pre_ifg_acquisition
   from {{ ref('Orders') }}
   where customer_id is not null
   group by 1,2
@@ -82,6 +83,7 @@ customers_joined as (
     c.cocosa_signup_at,
     if(ifg.email_hash is not null, true, false) as is_existing_ifg_user,
     if(c.signup_medium='referral-ifg' or (date(c.signed_up_at) >= '2023-04-29' and ifg.email_hash is not null), true, false) as is_new_ifg_user,
+    if(ifg.email_hash is not null and oi.last_purchase_pre_ifg_acquisition < '2022-04-29', true, false) as is_existing_ifg_elapsed_user,
     coalesce(if(ifg.ifg_source is not null and date(c.signed_up_at) >= '2023-04-29', replace(ifg.ifg_source, '_', ''), null), c.signup_source)                       as signup_source,
     if(ifg.ifg_source is not null and date(c.signed_up_at) >= '2023-04-29', 'referral-ifg', c.signup_medium)                   as signup_medium,
     oi.first_purchase_at,
