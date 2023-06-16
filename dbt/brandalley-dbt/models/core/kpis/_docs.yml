@@ -350,6 +350,15 @@ models:
               label: 'GMV Target Comparison %'
               group_label: 'GMV'
               round: 1
+      - name: shipping_gmv
+        meta:
+          dimension:
+            hidden: true 
+          metrics:
+            total_shipping_gmv:
+              type: sum
+              label: 'Shipping GMV'
+              group_label: 'GMV'
 
       #### SALES AMOUNT ######
       - name: sales_amount

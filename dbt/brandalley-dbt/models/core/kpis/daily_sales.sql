@@ -8,7 +8,8 @@ with order_stats as (
         kd.gmv,
         kd.sales_amount,
         kd.margin + if(kd.ba_site = 'FR', coalesce(ma.fr_amount,0) , coalesce(ma.uk_amount, 0)) as margin,
-        kd.qty_ordered
+        kd.qty_ordered,
+        kd.shipping_amount as shipping_gmv
     from {{ ref('kpis_daily')}} kd
     left join {{ ref('stg__margin_adjustments') }} ma
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
@@ -48,6 +49,7 @@ select
     os.sales_amount,
     os.margin,
     os.qty_ordered,
+    os.shipping_gmv,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
