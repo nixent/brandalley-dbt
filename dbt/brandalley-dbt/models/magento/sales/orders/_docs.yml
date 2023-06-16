@@ -828,6 +828,21 @@ models:
               hidden: false
               round: 2
               group_label: 'Sales'     
+ 
+      - name: line_discount_amount_exc_vat
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            line_discount_amount_exc_vat_metric:
+              label: 'Total Discount (£/€) (exc VAT)'
+              type: sum
+              description: "Amount of discount granted exc VAT"
+              hidden: false
+              round: 2   
+              group_label: 'Sales'
+
       - name: line_shipping_incl_tax
         description: ""
         meta:
