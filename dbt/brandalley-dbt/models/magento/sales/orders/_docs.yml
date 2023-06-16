@@ -823,7 +823,7 @@ models:
           dimension:
             hidden: true
           metrics:
-            line_discount_amount_metric:
+            line_discount_amount_exc_vat_metric:
               label: 'Total Discount (£/€) (exc VAT)'
               type: sum
               description: "Amount of discount granted exc VAT"
