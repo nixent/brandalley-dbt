@@ -479,6 +479,7 @@ models:
               type: number
               sql: '${total_margin_pct} - ${last_year_same_day_wtd_margin_pct}'
               label: 'LY Margin (%) Comparison (Day or WTD)'
+              format: 'percent'
               group_label: 'Margin'
             last_year_same_day_wtd_margin_comparison_pct:
               type: number
