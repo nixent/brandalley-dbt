@@ -8,7 +8,7 @@ models:
           - unique
           - not_null
 
-  - name: fx_rates
+  - name: daily_targets
     columns:
       - name: date_day
       - name: fx_date_month
@@ -21,3 +21,30 @@ models:
       - name: gbp_to_usd
       - name: gbp_to_eur_budget
       - name: eur_to_gbp
+
+  - name: dates
+    columns:
+      - name: date_day
+      - name: last_year
+      - name: last_month
+      - name: last_week
+      - name: last_year_same_day
+
+  - name: stg__fx_rates
+    columns:
+      - name: date
+      - name: gbp_to_aud
+      - name: gbp_to_cad
+      - name: gbp_to_chf
+      - name: gbp_to_eur
+      - name: gbp_to_hkd
+      - name: gbp_to_usd
+      - name: gbp_to_eur_budget
+      - name: eur_to_gbp
+      - name: updated_at
+
+  - name: stg__margin_adjustments
+    columns:
+      - name: date
+      - name: uk_amount
+      - name: fr_amount
