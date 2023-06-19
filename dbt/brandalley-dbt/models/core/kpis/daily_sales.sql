@@ -18,6 +18,7 @@ with order_stats as (
 marketing_targets as (
     select
         target_date,
+        ba_site,
         new_members_forecast                                                as new_members_target,
         new_customers_order_forecast                                        as new_customers_target,
         returning_customers_order_forecast + new_customers_order_forecast   as all_orders_target
@@ -90,7 +91,7 @@ left join ga_stats gs
 left join ga_stats gs1
     on gs1.ga_session_at_date = d.last_year_same_day and os.ba_site = 'UK'
 left join marketing_targets mt 
-    on d.date_day = mt.target_date and os.ba_site = 'UK'
+    on d.date_day = mt.target_date and os.ba_site = mt.ba_site
 left join {{ ref('daily_targets') }} dt
     on d.date_day = dt.date_day and os.ba_site = dt.ba_site
 
