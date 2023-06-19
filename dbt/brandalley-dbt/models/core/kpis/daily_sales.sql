@@ -35,12 +35,8 @@ ga_stats as (
 
 select
     d.date_day,
-    {# for dev purposes #}
     d.last_year_same_day,
-    {# d.last_week, #}
     d.last_year,
-    {# d.last_month, #}
-    {# end for dev #}
     os.ba_site,
     gs.ga_unique_visits,
     os.total_order_count,

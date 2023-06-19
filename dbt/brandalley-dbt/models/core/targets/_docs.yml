@@ -1,5 +1,5 @@
 version: 2
 
 models:
-  - name: marketing_spend
+  - name: daily_targets
   - name: marketing_targets
