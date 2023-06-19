@@ -357,13 +357,19 @@ models:
           metrics:
             total_shipping_gmv:
               type: sum
-              label: 'Shipping GMV'
-              group_label: 'GMV'
+              label: 'Gross Shipping'
+              group_label: 'Shipping'
             total_gmv_and_shipping:
               type: number
-              label: 'GMV + Shipping'
+              label: 'GMV + Gross Shipping'
               sql: '${total_gmv} + ${total_shipping_gmv}'
-              group_label: 'GMV'
+              group_label: 'Shipping'
+            total_shipping_gmv_per_order:
+              type: number
+              label: 'Gross Shipping / Order'
+              sql: 'safe_divide(${total_shipping_gmv},${total_orders_count}'
+              round: 2
+              group_label: 'Shipping'
 
       #### SALES AMOUNT ######
       - name: sales_amount
