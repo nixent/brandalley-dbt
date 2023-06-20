@@ -17,7 +17,7 @@ models:
           dimension:
             hidden: true
           metrics:
-            all_sales_launched_ly:
+            all_sales_launched:
               type: string
               label: 'Sales Launched'
               group_label: 'Sales Launched'
