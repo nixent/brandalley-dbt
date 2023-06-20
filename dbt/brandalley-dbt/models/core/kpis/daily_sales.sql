@@ -15,6 +15,15 @@ with order_stats as (
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
 ),
 
+products_sales as (
+    select
+        string_agg(distinct category_name) as sales_launched,
+        date(sale_start_at)                as date
+    from {{ ref('products_sales') }}
+    where sale_type = 3
+    group by 2
+)
+
 marketing_targets as (
     select
         target_date,
@@ -70,7 +79,9 @@ select
     dt.margin_target,
     dt.aov_target,
     dt.avg_units_target,
-    dt.effective_avg_vat_rate
+    dt.effective_avg_vat_rate,
+    ps.sales_launched,
+    ps_ly.sales_launched            as sales_launched_ly
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -90,4 +101,8 @@ left join marketing_targets mt
     on d.date_day = mt.target_date and os.ba_site = mt.ba_site
 left join {{ ref('daily_targets') }} dt
     on d.date_day = dt.date_day and os.ba_site = dt.ba_site
+left join products_sales ps
+    on d.date_day = ps.date
+left join products_sales ps_ly
+    on d.last_year_same_day = ps_ly.date
 
