@@ -1793,7 +1793,7 @@ models:
       - name: ba_site_increment_id
         meta:
           dimension:
-            hidde: true
+            hidden: true
           metrics:
             total_order_count:
               label: 'Total Orders'
@@ -1866,7 +1866,7 @@ models:
             orders_total_tax:
               label: 'Subtotal inc Tax Amount (£/€)'
               type: sum
-              description: "Order's total tax amount"
+              description: "Subtotal inc Tax Amount"
               hidden: false
               round: 2   
               group_label: 'Sales'
@@ -1879,7 +1879,7 @@ models:
             orders_total_exc_tax:
               label: 'Subtotal Exc Tax Amount (£/€)'
               type: sum
-              description: "Order's total excluding tax amount"
+              description: "Subtotal Exc Tax Amount"
               hidden: false
               round: 2   
               group_label: 'Sales'
