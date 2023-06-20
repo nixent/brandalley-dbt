@@ -1523,8 +1523,7 @@ models:
       - name: ba_site_increment_id
         meta:
           dimension:
-            label: 'BA Site Increment ID'
-            group_label: 'Order Info'
+            hidden: true
         tests:
           - not_null
           - unique
@@ -1573,13 +1572,13 @@ models:
       - name: order_number_excl_full_refunds
         meta:
           dimension:
-            label: 'Order Number Exc. Cancellations'
+            label: 'Order Number Exc Refunds'
             type: number
             group_label: 'Customer Info'
       - name: order_number_incl_cancellations
         meta:
           dimension:
-            label: 'Order Number Inc. Cancellations'
+            label: 'Order Number Inc Cancellations'
             type: number
             group_label: 'Customer Info'
       - name: days_since_first_purchase
@@ -1623,7 +1622,7 @@ models:
             hidden: true
           metrics:
             average_order_value_metric:
-              label: 'AOV'
+              label: 'Sales AOV'
               type: average
               description: "AOV"
               hidden: false
@@ -1669,9 +1668,9 @@ models:
             hidden: true
           metrics:
             total_order_count_metric:
-              label: 'Total Number of Orders'
+              label: 'Total Number of Order Lines'
               type: sum
-              description: 'Total number of orders'
+              description: 'Total number of orders lines in an order'
               hidden: false
               group_label: 'Sales'
       - name: count_refunds
@@ -1794,8 +1793,7 @@ models:
       - name: ba_site_increment_id
         meta:
           dimension:
-            label: 'BA Site Increment ID'
-            group_label: 'Order Info'
+            hidde: true
           metrics:
             total_order_count:
               label: 'Total Orders'
@@ -1866,7 +1864,7 @@ models:
             hidden: true
           metrics:
             orders_total_tax:
-              label: 'Total Orders Tax Amount (£/€)'
+              label: 'Subtotal inc Tax Amount (£/€)'
               type: sum
               description: "Order's total tax amount"
               hidden: false
@@ -1879,7 +1877,7 @@ models:
             hidden: true
           metrics:
             orders_total_exc_tax:
-              label: 'Total Orders Exc. Tax Amount (£/€)'
+              label: 'Subtotal Exc Tax Amount (£/€)'
               type: sum
               description: "Order's total excluding tax amount"
               hidden: false
@@ -2121,7 +2119,7 @@ models:
         description: "Expected delivery days, nullable"
         meta:
           dimension:
-            label: 'Expected Delivery Date'
+            label: 'Expected Delivery Days'
             group_label: 'Shipping Info'
       - name: created_at
         description: ""
