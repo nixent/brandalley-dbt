@@ -4,5 +4,5 @@ sources:
   - name: analytics
     database: datawarehouse-358408
     tables:
-      - name: marketing_spend_gsheet
       - name: marketing_targets_gsheet
+      - name: daily_sales_targets

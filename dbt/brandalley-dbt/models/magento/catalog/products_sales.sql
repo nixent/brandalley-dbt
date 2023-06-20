@@ -11,6 +11,8 @@ select
     p.sku,
     p.variant_sku,
     p.ba_site,
+    p.brand,
+    cceh.type as sale_type,
     case
         when cceh.name in ('', 'Women', 'Men', 'Kids', 'Lingerie', 'Home', 'Beauty', 'Z_NoData', 'Archieved outlet products', 'Holding review')
             or cceh.name is null

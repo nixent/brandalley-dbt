@@ -12,6 +12,14 @@ models:
         meta:
           dimension:
             label: 'BA Site'
+      - name: sales_launched
+        meta:
+          dimension:
+            label: 'Sales Launched'
+      - name: sales_launched_ly
+        meta:
+          dimension:
+            label: 'Sales Launched LY'
 
       ######### ORDERS #########
       - name: total_order_count
