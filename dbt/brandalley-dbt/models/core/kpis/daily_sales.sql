@@ -22,7 +22,7 @@ products_sales as (
     from {{ ref('products_sales') }}
     where sale_type = 3
     group by 2
-)
+),
 
 marketing_targets as (
     select
