@@ -21,7 +21,7 @@ models:
               type: string
               label: 'Sales Launched'
               group_label: 'Sales Launched'
-              sql: 'string_agg(${sales_launched})'
+              sql: 'string_agg(daily_sales.sales_launched)'
       - name: sales_launched_ly
         meta:
           dimension:
@@ -31,7 +31,7 @@ models:
               type: string
               label: 'Sales Launched LY'
               group_label: 'Sales Launched'
-              sql: 'string_agg(${sales_launched_ly})'
+              sql: 'string_agg(daily_sales.sales_launched_ly)'
 
       ######### ORDERS #########
       - name: total_order_count
