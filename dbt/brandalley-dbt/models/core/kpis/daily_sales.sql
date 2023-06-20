@@ -18,10 +18,11 @@ with order_stats as (
 products_sales as (
     select
         string_agg(distinct category_name) as sales_launched,
+        ba_site,
         date(sale_start_at)                as date
     from {{ ref('products_sales') }}
     where sale_type = 3
-    group by 2
+    group by 2,3
 ),
 
 marketing_targets as (
@@ -102,7 +103,7 @@ left join marketing_targets mt
 left join {{ ref('daily_targets') }} dt
     on d.date_day = dt.date_day and os.ba_site = dt.ba_site
 left join products_sales ps
-    on d.date_day = ps.date
+    on d.date_day = ps.date and os.ba_site = ps.ba_site
 left join products_sales ps_ly
-    on d.last_year_same_day = ps_ly.date
+    on d.last_year_same_day = ps_ly.date and os.ba_site = ps_ly.ba_site
 
