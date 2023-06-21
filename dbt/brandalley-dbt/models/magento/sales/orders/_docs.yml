@@ -2048,7 +2048,7 @@ models:
         description: "Coupon code, nullable"
         meta:
           dimension:
-            label: 'Coupon Rule'
+            label: 'Coupon Code'
             group_label: 'Coupon Info'
       - name: method
         description: "Method, nullable"
