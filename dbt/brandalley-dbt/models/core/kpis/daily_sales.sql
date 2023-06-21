@@ -17,11 +17,11 @@ with order_stats as (
 
 products_sales as (
     select
-        string_agg(distinct category_name) as sales_launched,
+        string_agg(distinct name) as sales_launched,
         ba_site,
-        date(sale_start_at)                as date
-    from {{ ref('products_sales') }}
-    where sale_type = 3
+        date(sale_start)          as date
+    from {{ ref('stg__catalog_category_entity_history') }}
+    where type = 3
     group by 2,3
 ),
 
