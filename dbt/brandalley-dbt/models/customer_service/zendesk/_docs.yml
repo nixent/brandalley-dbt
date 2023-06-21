@@ -4,6 +4,8 @@ models:
   
   - name: zendesk_tickets_detailed
     description: "A detailed view of all tickets for zendesk"
+    meta:
+      group_label: 'Customer Service'
     columns:
       - name: id
         description: "Primary key"
@@ -158,6 +160,7 @@ models:
                            
   - name: zendesk_call_metric
     meta:
+      group_label: 'Customer Service'
       joins:
         - join: call_leg_overwrite
           sql_on: ${zendesk_call_metric.id} = ${call_leg_overwrite.call_id}
@@ -392,6 +395,8 @@ models:
             sql: ifnull(${zendesk_call_metric.wait_time}, 0) + ifnull(${zendesk_call_metric.talk_time}, 0) + ifnull(${zendesk_call_metric.time_to_answer}, 0) + ifnull(${zendesk_call_metric.wrap_up_time}, 0)
 
   - name: daily_zendesk_call
+    meta:
+      group_label: 'Customer Service'
     columns:
       - name: created_at
         description: "created_at"
@@ -529,6 +534,7 @@ models:
   - name: zendesk__ticket_metrics_overwrite
     description: Each record represents a Zendesk ticket, enriched with metrics about reply times, resolution times and work times.  Calendar and business hours are supported
     meta:
+      group_label: 'Customer Service'
       joins:
         - join: zendesk_tickets_detailed
           sql_on: ${zendesk__ticket_metrics_overwrite.ticket_id} = ${zendesk_tickets_detailed.id}
@@ -988,6 +994,7 @@ models:
   - name: zendesk__sla_policies_overwrite
     description: Each record represents an SLA policy event and additional sla breach and achievement metrics. Calendar and business hour SLA breaches are supported.
     meta:
+      group_label: 'Customer Service'
       joins:
         - join: zendesk__ticket_metrics
           sql_on: ${zendesk__sla_policies_overwrite.ticket_id} = ${zendesk__ticket_metrics.ticket_id}
@@ -1034,6 +1041,7 @@ models:
             sql: ${zendesk__sla_policies_overwrite.sla_elapsed_time}-${zendesk__sla_policies_overwrite.target}
   - name: call_leg_overwrite
     meta:
+      group_label: 'Customer Service'
       joins:
         - join: zendesk_call_metric
           sql_on: ${zendesk_call_metric.id} = ${call_leg_overwrite.call_id}
@@ -1138,6 +1146,8 @@ models:
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(zendesk__sla_policies_overwrite.updated_at, "Europe/London")'            
   - name: user_overwrite
+    meta:
+      group_label: 'Customer Service'
     columns:
       - name: id
         data_type: <integer>

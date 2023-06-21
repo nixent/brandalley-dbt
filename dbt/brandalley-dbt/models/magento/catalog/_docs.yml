@@ -3,6 +3,8 @@ version: 2
 models:
   - name: catalog_product_negotiation_item
     description: ""
+    meta:
+      group_label: 'Products'
     columns:
       - name: ba_site
       - name: negotiation_item_id
@@ -71,6 +73,8 @@ models:
         description: "Quantity exported"
 
   - name: catalog_product_negotiation
+    meta:
+      group_label: 'Products'
     description: ""
     columns:
       - name: ba_site
@@ -237,6 +241,8 @@ models:
 
   - name: products
     description: ""
+    meta:
+      group_label: 'Products'
     columns:
       - name: ba_site_variant_sku
         description: ""
@@ -246,34 +252,61 @@ models:
         meta:
           dimension:
             format: id
+            hidden: true
       - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
       - name: product_id
         description: "Product id"
         meta:
           dimension:
             format: id
+            label: 'Parent Product ID'
       - name: dt_cr
         description: ""
+        meta:
+          dimension:
+            label: "Product Created At"
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: variant_product_id
         description: ""
         meta:
           dimension:
             format: id
+            label: 'Variant Product ID'
       - name: sku
         description: "SKU, nullable"
+        meta:
+          dimension:
+            label: 'Parent SKU'
       - name: variant_sku
         description: ""
+        meta:
+          dimension:
+            label: 'Variant SKU'
       - name: sap_product_id
         description: ""
         meta:
           dimension:
             format: id
+            label: 'SAP Product ID'
       - name: name
         description: "Name"
+        meta:
+          dimension:
+            label: 'Product Name'
       - name: description
         description: ""
+        meta:
+          dimension:
+            label: 'Product Description'
       - name: brand
         description: ""
+        meta:
+          dimension:
+            label: 'Product Brand'
       - name: supplier
         description: ""
       - name: outlet_category
@@ -284,24 +317,43 @@ models:
         description: ""
       - name: outlet_price
         description: ""
+        meta:
+          dimension:
+            group_label: 'Prices'
       - name: color
         description: ""
+        meta:
+          dimension:
+            label: 'Product Color'
       - name: size
         description: ""
+        meta:
+          dimension:
+            label: 'Product Size'
       - name: stock
         description: ""
       - name: price
         description: ""
+        meta:
+          dimension:
+            group_label: 'Prices'
       - name: sale_price
         description: ""
+        meta:
+          dimension:
+            group_label: 'Prices'
       - name: cost
         description: ""
+        meta:
+          dimension:
+            label: 'Product Cost'
       - name: tax_class
         description: ""
       - name: updated_at
         description: "Update time"
         meta:
           dimension:
+            label: 'Product Updated At'
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: supplier_id
@@ -309,10 +361,14 @@ models:
         meta:
           dimension:
             format: id
+            label: 'Supplier ID'
       - name: supplier_name
         description: ""
       - name: barcode
         description: ""
+        meta:
+          dimension:
+            label: 'Product Barcode'
       - name: is_deleted
         description: 'If the product still exists in the Magento table currently'
         meta:
@@ -321,6 +377,8 @@ models:
 
   - name: inventory_items
     description: ""
+    meta:
+      group_label: 'Products'
     columns:
       - name: ba_site
       - name: item_id
@@ -413,6 +471,8 @@ models:
 
   - name: nego_quotas
     description: 'Details on initial negotiation quantities and subsequent units sold'
+    meta:
+      group_label: 'Products'
     columns:
       - name: ba_site_negotiation_item_id
         tests:
@@ -476,8 +536,13 @@ models:
 
   - name: products_sales
     description: ""
+    meta:
+      group_label: 'Products'
     columns:
       - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
       - name: unique_id
         description: "Primary Key"
         meta:
@@ -487,7 +552,13 @@ models:
       - name: product_id
       - name: variant_product_id
       - name: sku
+        meta:
+          dimension:
+            label: 'Parent SKU'
       - name: variant_sku
+        meta:
+          dimension:
+            label: 'Variant SKU'
       - name: category_name
       - name: category_id
       - name: sale_start_at
@@ -506,6 +577,8 @@ models:
           
   - name: stock_file
     description: ""
+    meta:
+      group_label: 'Products'
     columns:
       - name: ba_site_child_entity_id
         description: "Primary Key"
