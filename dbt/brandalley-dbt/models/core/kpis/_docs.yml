@@ -38,11 +38,13 @@ models:
         meta:
           dimension:
             hidden: true
-          # metrics:
-          #   total_orders_count:
-          #     type: sum
-          #     label: 'Total Orders'
-          #     group_label: 'Orders'
+          metrics:
+            total_orders_count:
+              type: sum
+              label: 'Total Orders'
+              group_label: 'Orders'
+            total_orders_count_to_break:
+              type: sum
       - name: last_year_total_order_count
         meta:
           dimension:
