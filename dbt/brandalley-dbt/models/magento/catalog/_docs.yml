@@ -369,6 +369,9 @@ models:
         meta:
           dimension:
             label: 'Product Barcode'
+      - name: product_image
+      - name: buyer_id
+      - name: buyer
       - name: is_deleted
         description: 'If the product still exists in the Magento table currently'
         meta:
