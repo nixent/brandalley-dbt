@@ -46,6 +46,8 @@ models:
     marketing:
       emarsys:
         +schema: emarsys
+      facebook_ads:
+        +schema: facebook_ads
     customer_service:
       +schema: customer_service
       zendesk:
