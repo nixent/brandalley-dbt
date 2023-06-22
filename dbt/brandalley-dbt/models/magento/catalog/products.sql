@@ -26,6 +26,7 @@ with products as (
         timestamp(cpe.updated_at)                       as updated_at,
         cps_supplier.sup_id                             as supplier_id,
         cps_supplier.name                               as supplier_name,
+        cpni.reference                                  as nego_reference,
         eaov_gender.value                               as gender,
         cpev_barcode.value                              as barcode, 
         if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as product_image,
