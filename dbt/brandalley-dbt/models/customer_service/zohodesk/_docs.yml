@@ -4,6 +4,8 @@ models:
 
   - name: zohodesk_tickets_detailed
     description: "A detailed view of all tickets for zohodesk"
+    meta:
+      group_label: 'Customer Service'
     columns:
       - name: id
         description: "Primary key"

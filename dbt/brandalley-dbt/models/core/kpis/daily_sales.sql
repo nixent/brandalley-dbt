@@ -17,11 +17,11 @@ with order_stats as (
 
 products_sales as (
     select
-        string_agg(distinct category_name) as sales_launched,
+        string_agg(distinct name) as sales_launched,
         ba_site,
-        date(sale_start_at)                as date
-    from {{ ref('products_sales') }}
-    where sale_type = 3
+        date(sale_start)          as date
+    from {{ ref('stg__catalog_category_entity_history') }}
+    where type = 3
     group by 2,3
 ),
 
@@ -86,10 +86,6 @@ select
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
-{# left join order_stats os1
-    on os1.order_created_at_day = d.last_week and os.ba_site = os1.ba_site
-left join order_stats os2
-    on os2.order_created_at_day = d.last_month and os.ba_site = os2.ba_site #}
 left join order_stats os3
     on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site
 left join order_stats os4

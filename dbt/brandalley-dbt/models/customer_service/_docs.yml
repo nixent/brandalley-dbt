@@ -4,6 +4,8 @@ models:
 
   - name: tickets_daily
     description: "A view of tickets KPIs, based off of ticket creation day"
+    meta:
+      group_label: 'Customer Service'
     columns:
       - name: date
         meta:
