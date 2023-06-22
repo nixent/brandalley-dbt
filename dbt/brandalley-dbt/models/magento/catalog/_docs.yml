@@ -372,6 +372,10 @@ models:
       - name: product_image
       - name: buyer_id
       - name: buyer
+      - name: gender
+      - name: product_category_level_1
+      - name: product_category_level_2
+      - name: product_category_level_3
       - name: is_deleted
         description: 'If the product still exists in the Magento table currently'
         meta:
