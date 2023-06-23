@@ -561,12 +561,13 @@ models:
   - name: stg__catalog_product_reference
     description: ""
     columns:
-      - name: reference_id
-        data_type: <integer>
+      - name: ba_site_reference_id
         description: "Primary key"
         tests:
           - unique
           - not_null
+      - name: reference_id
+        data_type: <integer>
       - name: entity_id
         data_type: <integer>
         description: "Entity id"
