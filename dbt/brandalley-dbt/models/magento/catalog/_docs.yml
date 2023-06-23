@@ -364,6 +364,7 @@ models:
             label: 'Supplier ID'
       - name: supplier_name
         description: ""
+      - name: supplier_reference
       - name: barcode
         description: ""
         meta:

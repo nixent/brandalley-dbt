@@ -26,6 +26,7 @@ with products as (
         timestamp(cpe.updated_at)                       as updated_at,
         cps_supplier.sup_id                             as supplier_id,
         cps_supplier.name                               as supplier_name,
+        cpr.reference                                   as supplier_reference,
         eaov_gender.value                               as gender,
         cpev_barcode.value                              as barcode, 
         if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as product_image,
@@ -198,6 +199,15 @@ with products as (
     left join {{ ref('stg__admin_user') }} au 
         on cpn.buyer = au.user_id
             and cpn.ba_site = au.ba_site
+    left join {{ ref('stg__catalog_product_entity') }} cpe_ref
+		on cpe_child.sku = cpe_ref.sku
+		and cpe_ref.ba_site = cpe_child.ba_site
+	left join (
+			select entity_id, ba_site, reference from {{ ref('stg__catalog_product_reference') }}
+			qualify row_number() over (partition by entity_id, ba_site order by reference_id desc) = 1
+		) cpr
+		on cpe_ref.entity_id = cpr.entity_id
+		and cpe_ref.ba_site = cpr.ba_site
     where cpe.type_id = 'configurable' and cpe_child.sku is not null
 )
 
