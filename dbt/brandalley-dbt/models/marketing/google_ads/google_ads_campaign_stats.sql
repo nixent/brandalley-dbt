@@ -47,4 +47,4 @@ campaign_stats as (
     group by 1,2,3,4,10,11
 )
 
-select sum(spend), date from campaign_stats group by 2 order by date
+select * from campaign_stats
