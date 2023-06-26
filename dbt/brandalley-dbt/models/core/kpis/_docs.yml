@@ -2,6 +2,8 @@ version: 2
 
 models:
   - name: daily_sales
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: date_day
         meta:
@@ -684,6 +686,8 @@ models:
 
   - name: kpis_daily
     description: "A view of all KPIs, based off of order creation day"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:
@@ -787,6 +791,8 @@ models:
 
   - name: kpis_weekly
     description: "A view of all KPIs, based off of order creation week"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:
@@ -882,6 +888,8 @@ models:
 
   - name: kpis_monthly
     description: "A view of all KPIs, based off of order creation month"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:
@@ -977,6 +985,8 @@ models:
 
   - name: kpis_quarterly
     description: "A view of all KPIs, based off of order creation quarter"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:

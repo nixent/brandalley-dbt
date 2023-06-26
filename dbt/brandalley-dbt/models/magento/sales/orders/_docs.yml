@@ -814,7 +814,8 @@ models:
               type: sum
               description: "Amount of discount granted inc VAT"
               hidden: false
-              round: 2    
+              round: 2 
+              group_label: 'Sales'   
       - name: line_discount_amount_exc_vat
         description: ""
         meta:
@@ -1520,40 +1521,72 @@ models:
   - name: orders_enriched
     columns:
       - name: ba_site_increment_id
+        meta:
+          dimension:
+            hidden: true
         tests:
           - not_null
           - unique
       - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
+            group_label: 'Order Info'
       - name: order_id
         meta:
           dimension:
+            label: 'Order ID'
             format: id
+            group_label: 'Order Info'
       - name: increment_id
+        meta:
+          dimension:
+            label: 'Increment ID'
+            group_label: 'Order Info'
       - name: customer_id
         meta:
           dimension:
+            label: 'Customer ID'
             format: id
+            group_label: 'Customer Info'
       - name: order_at
+        meta:
+          dimension:
+            label: 'Ordered At'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: 'if(orders_enriched.ba_site = "FR",datetime(timestamp(orders_enriched.order_at), "Europe/Paris"),datetime(timestamp(orders_enriched.order_at), "Europe/London"))'
+            group_label: 'Order Info'
       - name: order_sequence
         meta:
           dimension:
+            label: 'Order Sequence'
             type: number
+            group_label: 'Customer Info'
       - name: is_first_order
         meta:
           dimension:
+            label: 'Is First Order'
             type: boolean
+            group_label: 'Customer Info'
       - name: order_number_excl_full_refunds
         meta:
           dimension:
+            label: 'Order Number Exc Refunds'
             type: number
+            group_label: 'Customer Info'
       - name: order_number_incl_cancellations
         meta:
           dimension:
+            label: 'Order Number Inc Cancellations'
             type: number
+            group_label: 'Customer Info'
       - name: days_since_first_purchase
         meta:
           dimension:
+            label: 'Days Since First Purchase'
             type: number
+            group_label: 'Customer Info'
           metrics:
             average_days_since_first_purchase_metric:
               label: 'Average days since first purchase'
@@ -1561,42 +1594,65 @@ models:
               description: "Average days since first purchase"
               hidden: false
               round: 0
+              group_label: 'Customers'
       - name: coupon_code
+        meta:
+          dimension:
+            label: 'Coupon Code'
+            group_label: 'Coupon Info'
       - name: coupon_name
+        meta:
+          dimension:
+            label: 'Coupon Name'
+            group_label: 'Coupon Info'
       - name: coupon_type
+        meta:
+          dimension:
+            label: 'Coupon Type'
+            group_label: 'Coupon Info'
       - name: coupon_type_label
+        meta:
+          dimension:
+            label: 'Coupon Type Label'
+            group_label: 'Coupon Info'
       - name: order_revenue_excl_tax_after_vouchers
         meta:
           dimension:
             type: number
+            hidden: true
           metrics:
             average_order_value_metric:
-              label: 'AOV'
+              label: 'Sales AOV'
               type: average
               description: "AOV"
               hidden: false
               round: 2 
+              group_label: 'Sales'
             total_order_value_metric:
               label: 'Total Order Revenue'
               type: average
               description: "Total Order Revenue"
               hidden: false
               round: 2 
+              group_label: 'Sales'
       - name: order_product_costs_excl_tax
         meta:
           dimension:
             type: number
+            hidden: true
           metrics:
             total_product_costs_metric:
               label: 'Total product costs'
               type: sum
               description: "Total product costs"
               hidden: false
-              round: 2 
+              round: 2
+              group_label: 'Costs'
       - name: order_margin
         meta:
           dimension:
             type: number
+            hidden: true
           metrics:
             total_order_margin_metric:
               label: 'Total margin'
@@ -1604,23 +1660,36 @@ models:
               description: "Total margin"
               hidden: false
               round: 2 
+              group_label: 'Sales'
       - name: count_order_lines
         meta:
+          dimension:
+            type: number
+            hidden: true
           metrics:
-            dimension:
-              type: number
+            total_order_count_metric:
+              label: 'Total Number of Order Lines'
+              type: sum
+              description: 'Total number of orders lines in an order'
+              hidden: false
+              group_label: 'Sales'
       - name: count_refunds
         meta:
+          dimension:
+            type: number
+            hidden: true
           metrics:
-            dimension:
-              type: number
             total_refunds_count_metric:
-              label: 'Total number of refunds'
+              label: 'Total Number of Refunds'
               type: sum
               description: "Total number of refunds"
               hidden: false
+              group_label: 'Sales'
       - name: count_refunds_split_per_order_item
         meta:
+          dimension:
+            type: number
+            hidden: true
           metrics:
             total_refunds_split_per_order_item_count_metric:
               label: 'Total number of refunds split per order item'
@@ -1629,18 +1698,24 @@ models:
               sql: "${count_refunds}/${count_order_lines}"
               hidden: false
               round: 0
+              group_label: 'Sales'
       - name: count_item_refunds
         meta:
+          dimension:
+            type: number
+            hidden: true
           metrics:
-            dimension:
-              type: number
             total_item_refunds_count_metric:
               label: 'Total number of item refunds'
               type: sum
               description: "Total number of item refunds"
               hidden: false
+              group_label: 'Sales'
       - name: count_item_refunds_split_per_order_item
         meta:
+          dimension:
+            type: number
+            hidden: true
           metrics:
             total_item_refunds_split_per_order_item_count_metric:
               label: 'Total number of item refunds split per order item'
@@ -1649,26 +1724,39 @@ models:
               sql: "${count_item_refunds}/${count_order_lines}"
               hidden: false
               round: 0
+              group_label: 'Sales'
       - name: total_refund_amount_split_per_order_item
         meta:
+          dimension:
+            type: number
+            hidden: true
           metrics:
             total_refund_amount_split_per_order_item_metric:
               label: 'Total refund amount split per order item'
               type: sum
               description: "Total refund amount split per order item"
               sql: "${total_refund_amount}/${count_order_lines}"
+              hidden: false
               round: 0 
+              group_label: 'Sales'
       - name: total_refund_amount
         meta:
+          dimension:
+            type: number
+            hidden: true
           metrics:
             total_refund_amount_metric:
               label: 'Total Refund Amount'
               type: sum
               description: "Total refund amount" 
+              hidden: false
+              group_label: 'Sales'
       - name: has_ordered_since
         meta:
           dimension:
+            label: 'Has Ordered Since'
             type: boolean
+            group_label: 'Customer Info'
           metrics:
             total_customers_with_subsequent_order:
               label: 'Customers with subsequent order'
@@ -1676,12 +1764,14 @@ models:
               description: "Number of customers who have returned to make another order"
               hidden: false
               sql: "if(${has_ordered_since}, ${customer_id}, null)"
+              group_label: 'Customers'
             total_new_customers_with_subsequent_order:
               label: 'New customers with subsequent order'
               type: count_distinct
               description: "Number of new customers who have returned to make another order"
               hidden: false
               sql: "if(${has_ordered_since} and ${order_sequence} = 1, ${customer_id}, null)"
+              group_label: 'Customers'
 
   - name: Orders
     description: "A table of order information, unique at order id level"
@@ -1701,59 +1791,122 @@ models:
           sql_on: ${Orders.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${Orders.ba_site} = ${stg__sales_payment_transaction.ba_site}
     columns:
       - name: ba_site_increment_id
-        tests:
-          - not_null
-          - unique
         meta:
+          dimension:
+            hidden: true
           metrics:
             total_order_count:
               label: 'Total Orders'
               type: count_distinct
               description: "Number of orders"
               round: 0
+              group_label: 'Sales'
             total_new_order_count:
               label: 'Total New Orders'
               type: count_distinct
               description: "Number of new orders"
               sql: "IF(${orderno}=1, ${ba_site_increment_id}, null)"
               round: 0
+              group_label: 'Sales'
             total_returning_order_count:
               label: 'Total Returning Orders'
               type: count_distinct
               description: "Number of returning orders"
               sql: "IF(${orderno}>1, ${ba_site_increment_id}, null)"
               round: 0
+              group_label: 'Sales'
+        tests:
+          - not_null
+          - unique
       - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
+            group_label: 'Order Info'
       - name: increment_id
         description: "Increment id, nullable"
+        meta:
+          dimension:
+            label: 'Increment ID'
+            group_label: 'Order Info'
       - name: order_id
         description: ""
         meta:
           dimension:
+            label: 'Order ID'
             format: id
+            group_label: 'Order Info'
       - name: store_id
         description: "Store id, foreign key, nullable"
         meta:
           dimension:
+            label: 'Store ID'
             format: id
+            group_label: 'Order Info'
       - name: billing_address_id
         description: "Id of the billing address, foreign key, nullable"
         meta:
           dimension:
+            label: 'Billing Address ID'
             format: id
+            group_label: 'Customer Info'
       - name: shipping_address_id
         description: "Shipping address id, foreign key, nullable"
         meta:
           dimension:
+            label: 'Shipping Address ID'
             format: id
+            group_label: 'Shipping Info'
       - name: subtotal_incl_tax
         description: "Adjustment negative, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            orders_total_tax:
+              label: 'Subtotal inc Tax Amount (£/€)'
+              type: sum
+              description: "Subtotal inc Tax Amount"
+              hidden: false
+              round: 2   
+              group_label: 'Sales'
       - name: subtotal_excl_tax
         description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            orders_total_exc_tax:
+              label: 'Subtotal Exc Tax Amount (£/€)'
+              type: sum
+              description: "Subtotal Exc Tax Amount"
+              hidden: false
+              round: 2   
+              group_label: 'Sales'
       - name: total_discount_amount
         description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_discount_amount_metric:
+              label: 'Total Orders Discount Amount (£/€)'
+              type: sum
+              hidden: false
+              round: 2   
+              group_label: 'Sales'
       - name: shipping_discount_amount
         description: "Adjustment negative, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            shipping_discount_amount_metric:
+              label: 'Shipping Discount Amount (£/€)'
+              type: sum
+              hidden: false
+              round: 2  
+              group_label: 'Sales' 
       - name: total_tax
         description: ""
         meta:
@@ -1765,9 +1918,21 @@ models:
               type: sum
               description: "Order's total tax amount"
               hidden: false
-              round: 2      
+              round: 2 
+              group_label: 'Sales'     
       - name: total_qty_ordered
         description: "Total quantity ordered"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            orders_total_tax:
+              label: 'Total Quantity Ordered'
+              type: sum
+              description: "Sum of quantity ordered"
+              hidden: false
+              round: 0
+              group_label: 'Sales'  
       - name: shipping_excl_tax
         description: ""
         meta:
@@ -1779,14 +1944,16 @@ models:
               type: sum
               description: "Shipping exc Tax"
               hidden: false
-              round: 2      
+              round: 2 
+              group_label: 'Sales'     
             shipping_excl_tax_per_qty_metric:
               label: 'Shipping excl Tax per unit'
               type: sum
               description: "Shipping excl Tax per unit"
               sql: "safe_divide(${shipping_excl_tax},${total_qty_ordered})"
               hidden: false
-              round: 2      
+              round: 2 
+              group_label: 'Sales'     
       - name: shipping_incl_tax
         description: "Shipping including tax, nullable"
         meta:
@@ -1798,14 +1965,16 @@ models:
               type: sum
               description: "Shipping inc Tax"
               hidden: false
-              round: 2      
+              round: 2   
+              group_label: 'Sales'   
             shipping_incl_tax_per_qty_metric:
               label: 'Shipping inc Tax per unit'
               type: sum
               description: "Shipping inc Tax per unit"
               sql: "safe_divide(${shipping_incl_tax},${total_qty_ordered})"
               hidden: false
-              round: 2      
+              round: 2    
+              group_label: 'Sales'  
       - name: grand_total
         description: "Grand total, nullable"
         meta:
@@ -1817,91 +1986,211 @@ models:
               type: sum
               description: "Order grand total"
               hidden: false
-              round: 2      
+              round: 2  
+              group_label: Sales    
       - name: total_paid
         description: "Total paid, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_paid_metric:
+              label: 'Total Paid'
+              type: sum
+              hidden: false
+              group_label: 'Sales'
       - name: total_refunded
         description: "Total refunded, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_refunded_metric:
+              label: 'Total Refunded'
+              type: sum
+              hidden: false
+              group_label: 'Sales'
       - name: total_due
         description: "Adjustment negative, nullable"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_due_metric:
+              label: 'Total Due'
+              type: sum
+              hidden: false
+              group_label: 'Sales'
       - name: total_invoiced_cost
         description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_invoiced_metric:
+              label: 'Total Invoiced Cost'
+              type: sum
+              hidden: false
+              group_label: 'Sales'
       - name: status
         description: "Status, nullable"
+        meta:
+          dimension:
+            label: 'Status'
+            group_label: 'Order Info'
       - name: coupon_rule_name
         description: "Coupon rule name, nullable"
+        meta:
+          dimension:
+            label: 'Coupon Rule'
+            group_label: 'Coupon Info'
       - name: coupon_code
         description: "Coupon code, nullable"
+        meta:
+          dimension:
+            label: 'Coupon Code'
+            group_label: 'Coupon Info'
       - name: method
         description: "Method, nullable"
+        meta:
+          dimension:
+            label: 'Payment Method'
+            group_label: 'Order Info'
       - name: shipping_method
         description: "Shipping method, nullable"
+        meta:
+          dimension:
+            label: 'Shipping Method'
+            group_label: 'Shipping Info'
       - name: shipping_description
         description: "Shipping description, nullable"
+        meta:
+          dimension:
+            label: 'Shipping Description'
+            group_label: 'Shipping Info'
       - name: customer_id
         description: "Customer id, foreign key, nullable"
         meta: 
+          dimension:
+            label: 'Customer ID'
+            group_label: 'Customer Info'
           metrics:
             total_customers_count:
               label: 'Total Customers'
               type: count_distinct
               description: "Number of customers"
               sql: "${ba_site} || ${customer_id}"
+              group_label: 'Customers'
             new_customers:
               label: 'Total New Customers'
               type: count_distinct
               description: "Number of new customers"
               sql: "IF(${orderno}=1, ${ba_site} || ${customer_id}, null)"
-              hidden: false    
+              hidden: false
+              group_label: 'Customers'    
             returning_customers:
               label: 'Total Returning Customers'
               type: count_distinct
               description: "Number of new customers"
               sql: "IF(${orderno}>1, ${ba_site} || ${customer_id}, null)"
               hidden: false
+              group_label: 'Customers'
             new_customers_pct:
               label: 'New Customer (%)'
               type: number
               sql: 'safe_divide(${new_customers},${total_customers_count})'
               format: percent
+              group_label: 'Customers'
       - name: delivery_postcode
         description: ""
+        meta:
+          dimension:
+            label: 'Delivery Postcode'
+            group_label: 'Customer Info'
       - name: expected_delivery_date
         description: "Expected delivery date"
         meta:
           dimension:
+            label: 'Expected Delivery Date'
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            group_label: 'Shipping Info'
       - name: expected_delivery_days
         description: "Expected delivery days, nullable"
+        meta:
+          dimension:
+            label: 'Expected Delivery Days'
+            group_label: 'Shipping Info'
       - name: created_at
         description: ""
         meta:
           dimension:
+            label: 'Ordered At'
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'if(Orders.ba_site = "FR",datetime(Orders.created_at, "Europe/Paris"),datetime(Orders.created_at, "Europe/London"))'
+            group_label: 'Order Info'
       - name: updated_at
         description: "Update date of the order, nullable"
+        meta:
+          dimension:
+            label: 'Updated At'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: 'if(Orders.ba_site = "FR",datetime(Orders.created_at, "Europe/Paris"),datetime(Orders.created_at, "Europe/London"))'
+            group_label: 'Order Info'
       - name: orderno
         description: "Order index placed by the client at Brandalley"
+        meta:
+          dimension:
+            label: 'Order Number by Customer'
+            group_label: 'Customer Info'
       - name: order_number_incl_cancellations
+        meta:
+          dimension:
+            label: 'Order Number by Customer inc Cancellations'
+            group_label: 'Customer Info'
       - name: cc_trans_id
         description: "CC Transaction Id"
         meta:
           dimension:
+            label: "CC Transaction ID"
             format: id
+            group_label: 'Order Info'
       - name: additional_information
         description: "Additional information"
+        meta:
+          dimension:
+            label: 'Additional Information'
+            group_label: 'Order Info'
       - name: base_grand_total
         data_type: <decimal>
         description: "Base Grand Total"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            base_grand_total_metric:
+              label: 'Base Grand Total'
+              type: sum
+              round: 2
+              group_label: 'Sales'
       - name: interval_between_orders
         description: " customer interval between orders (in days) "
+        meta:
+          dimension:
+            label: 'Interval Between Orders (Days)'
+            group_label: 'Customer Info'
       - name: total_interval_between_orders_for_each_customer
         description: " the total count of intervals between orders for each customer (in days)"
         meta: 
           dimension:
+            label: 'Total Count of Intervals between Customer Orders (Days)'
             type: number
+            group_label: 'Customer Info'
       - name: country_id
         description: "shipping country"
+        meta:
+          dimension:
+            label: 'Shipping Country ID'
+            group_label: 'Shipping Info'
