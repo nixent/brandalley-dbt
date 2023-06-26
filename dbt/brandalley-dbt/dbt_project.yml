@@ -48,6 +48,8 @@ models:
         +schema: emarsys
       facebook_ads:
         +schema: facebook_ads
+      google_ads:
+        +schema: google_ads
     customer_service:
       +schema: customer_service
       zendesk:

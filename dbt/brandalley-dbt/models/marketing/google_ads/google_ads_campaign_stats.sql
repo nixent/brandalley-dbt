@@ -1,3 +1,8 @@
+{{ config(
+  schema = 'google_ads',
+  materialized='table'
+)}}
+
 with campaign_label as (
 
     select campaign_id, 
