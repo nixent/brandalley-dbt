@@ -354,24 +354,12 @@ models:
       - name: wrap_up_time
         data_type: <integer>
         description: "Wrap up time"
-      - name: created_at_day_of_week
-        description: "Day of the week"
-        meta:
-          dimension:
-            type: string
-            sql: FORMAT_DATE('%a', datetime(${zendesk_call_metric.created_at}, "Europe/London"))          
       - name: created_at_hour_of_the_day
         description: "Hour of the day"
         meta:
           dimension:
             type: number
-            sql: extract(hour from datetime(${zendesk_call_metric.created_at}, "Europe/London"))          
-      - name: created_at_mon_of_the_year
-        description: "Month of the year in letters"
-        meta:
-          dimension:
-            type: string
-            sql: FORMAT_DATETIME("%B", DATETIME(${zendesk_call_metric.created_at}, "Europe/London"))          
+            sql: extract(hour from datetime(${zendesk_call_metric.created_at})          
       - name: wait_time_bucket
         description: "Wait time bucket in s"
         meta:
