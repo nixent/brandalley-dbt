@@ -2,6 +2,8 @@ version: 2
 
 models:
   - name: daily_sales
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: date_day
         meta:
@@ -12,6 +14,26 @@ models:
         meta:
           dimension:
             label: 'BA Site'
+      - name: sales_launched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            all_sales_launched:
+              type: string
+              label: 'Sales Launched'
+              group_label: 'Sales Launched'
+              sql: 'string_agg(daily_sales.sales_launched)'
+      - name: sales_launched_ly
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            all_sales_launched_ly:
+              type: string
+              label: 'Sales Launched LY'
+              group_label: 'Sales Launched'
+              sql: 'string_agg(daily_sales.sales_launched_ly)'
 
       ######### ORDERS #########
       - name: total_order_count
@@ -664,6 +686,8 @@ models:
 
   - name: kpis_daily
     description: "A view of all KPIs, based off of order creation day"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:
@@ -767,6 +791,8 @@ models:
 
   - name: kpis_weekly
     description: "A view of all KPIs, based off of order creation week"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:
@@ -862,6 +888,8 @@ models:
 
   - name: kpis_monthly
     description: "A view of all KPIs, based off of order creation month"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:
@@ -957,6 +985,8 @@ models:
 
   - name: kpis_quarterly
     description: "A view of all KPIs, based off of order creation quarter"
+    meta:
+      group_label: 'KPIs'
     columns:
       - name: ba_site_created_date
         tests:

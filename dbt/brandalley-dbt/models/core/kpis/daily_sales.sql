@@ -15,6 +15,16 @@ with order_stats as (
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
 ),
 
+products_sales as (
+    select
+        string_agg(distinct name) as sales_launched,
+        ba_site,
+        date(sale_start)          as date
+    from {{ ref('stg__catalog_category_entity_history') }}
+    where type = 3
+    group by 2,3
+),
+
 marketing_targets as (
     select
         target_date,
@@ -35,12 +45,8 @@ ga_stats as (
 
 select
     d.date_day,
-    {# for dev purposes #}
     d.last_year_same_day,
-    {# d.last_week, #}
     d.last_year,
-    {# d.last_month, #}
-    {# end for dev #}
     os.ba_site,
     gs.ga_unique_visits,
     os.total_order_count,
@@ -74,14 +80,12 @@ select
     dt.margin_target,
     dt.aov_target,
     dt.avg_units_target,
-    dt.effective_avg_vat_rate
+    dt.effective_avg_vat_rate,
+    ps.sales_launched,
+    ps_ly.sales_launched            as sales_launched_ly
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
-{# left join order_stats os1
-    on os1.order_created_at_day = d.last_week and os.ba_site = os1.ba_site
-left join order_stats os2
-    on os2.order_created_at_day = d.last_month and os.ba_site = os2.ba_site #}
 left join order_stats os3
     on os3.order_created_at_day = d.last_year and os.ba_site = os3.ba_site
 left join order_stats os4
@@ -94,4 +98,8 @@ left join marketing_targets mt
     on d.date_day = mt.target_date and os.ba_site = mt.ba_site
 left join {{ ref('daily_targets') }} dt
     on d.date_day = dt.date_day and os.ba_site = dt.ba_site
+left join products_sales ps
+    on d.date_day = ps.date and os.ba_site = ps.ba_site
+left join products_sales ps_ly
+    on d.last_year_same_day = ps_ly.date and os.ba_site = ps_ly.ba_site
 

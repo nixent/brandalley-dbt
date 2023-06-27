@@ -26,8 +26,12 @@ with products as (
         timestamp(cpe.updated_at)                       as updated_at,
         cps_supplier.sup_id                             as supplier_id,
         cps_supplier.name                               as supplier_name,
+        cpr.reference                                   as supplier_reference,
         eaov_gender.value                               as gender,
         cpev_barcode.value                              as barcode, 
+        if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as product_image,
+        cpn.buyer                                       as buyer_id,
+        concat(au.firstname, ' ', au.lastname)          as buyer,
         coalesce(cpe_child.__deleted, cpe.__deleted)    as is_deleted
     from {{ ref('stg__catalog_product_entity') }} cpe
     left join (
@@ -174,6 +178,36 @@ with products as (
             and cpev_barcode.attribute_id = 252
             and cpev_barcode.store_id = 0
             and cpe.ba_site = cpev_barcode.ba_site
+    left join {{ ref('stg__catalog_product_entity_varchar') }} image 
+        on image.attribute_id = 85
+            and image.entity_id = cpe.entity_id
+            and image.ba_site = cpe.ba_site
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_nego 
+        on cpev_nego.attribute_id = 204
+            and cpev_nego.entity_id = cpe.entity_id
+            and cpe.ba_site = cpev_nego.ba_site
+        left join {{ ref('stg__catalog_product_negotiation') }} cpn 
+        on cast(cpn.negotiation_id as string) = cpev_nego.value
+            and cpn.ba_site = cpev_nego.ba_site
+    left join (
+        select distinct negotiation_id, parrent_sku, sku, ba_site 
+        from {{ ref('stg__catalog_product_negotiation_item') }} ) cpni 
+        on cast(cpni.negotiation_id as string) = cpev_nego.value
+            and cpni.parrent_sku = cpe.sku
+            and cpe.sku = cpni.sku
+            and cpe.ba_site = cpni.ba_site
+    left join {{ ref('stg__admin_user') }} au 
+        on cpn.buyer = au.user_id
+            and cpn.ba_site = au.ba_site
+    left join {{ ref('stg__catalog_product_entity') }} cpe_ref
+		on cpe_child.sku = cpe_ref.sku
+		and cpe_ref.ba_site = cpe_child.ba_site
+	left join (
+			select entity_id, ba_site, reference from {{ ref('stg__catalog_product_reference') }}
+			qualify row_number() over (partition by entity_id, ba_site order by reference_id desc) = 1
+		) cpr
+		on cpe_ref.entity_id = cpr.entity_id
+		and cpe_ref.ba_site = cpr.ba_site
     where cpe.type_id = 'configurable' and cpe_child.sku is not null
 )
 
