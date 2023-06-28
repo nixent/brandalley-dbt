@@ -682,6 +682,27 @@ models:
               sql: '"N/A"'
               label: 'Unique Visits Target'
               group_label: 'Visits'
+              
+      #### CR
+      - name: conversion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            conversion_rate:
+              type: average
+              label: 'Conversion Rate GA'
+              group_label: 'Visits'
+      - name: last_year_same_day_conersion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_conversion_rate:
+              type: average
+              label: 'LY Conversion Rate GA'
+              group_label: 'Visits'
+
       
 
   - name: kpis_daily
