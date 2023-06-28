@@ -39,7 +39,8 @@ ga_stats as (
     select 
         ga_session_at_date,
         ga_unique_visits,
-        conversion_rate
+        conversion_rate,
+        ga_unique_visitors
     from {{ ref('ga_conversion_rate') }}
     where date_aggregation_type = 'day'
 )
@@ -50,6 +51,7 @@ select
     d.last_year,
     os.ba_site,
     gs.ga_unique_visits,
+    gs.ga_unique_visitors,
     gs.conversion_rate,
     os.total_order_count,
     os.total_new_customer_count,
@@ -60,6 +62,7 @@ select
     os.qty_ordered,
     os.shipping_gmv,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
+    gs1.ga_unique_visitors          as last_year_same_day_ga_unique_visitors,
     gs1.conversion_rate             as last_year_same_day_conversion_rate,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,

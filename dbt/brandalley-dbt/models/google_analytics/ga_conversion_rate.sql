@@ -7,6 +7,7 @@ select
     'month'                                                                                     as date_aggregation_type,
     date_trunc(date, month)                                                                     as ga_session_at_date,
     count(distinct unique_visit_id)                                                             as ga_unique_visits,
+    count(distinct visitor_id)                                                                  as ga_unique_visitors,
     count(distinct transaction_id)                                                              as ga_orders,
     round(100*safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
 from {{ ref('ga_daily_stats') }}
@@ -21,6 +22,7 @@ select
     'week'                                                                                      as date_aggregation_type,
     date_trunc(date, week(monday))                                                              as ga_session_at_date,
     count(distinct unique_visit_id)                                                             as ga_unique_visits,
+    count(distinct visitor_id)                                                                  as ga_unique_visitors,
     count(distinct transaction_id)                                                              as ga_orders,
     round(100*safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
 from {{ ref('ga_daily_stats') }}
@@ -35,6 +37,7 @@ select
     'day'                                                                                       as date_aggregation_type,
     date_trunc(date, day)                                                                       as ga_session_at_date,
     count(distinct unique_visit_id)                                                             as ga_unique_visits,
+    count(distinct visitor_id)                                                                  as ga_unique_visitors,
     count(distinct transaction_id)                                                              as ga_orders,
     round(100*safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
 from {{ ref('ga_daily_stats') }}
@@ -50,6 +53,7 @@ select
     'quarter'                                                                                   as date_aggregation_type,
     date_trunc(date, quarter)                                                                   as ga_session_at_date,
     count(distinct unique_visit_id)                                                             as ga_unique_visits,
+    count(distinct visitor_id)                                                                  as ga_unique_visitors,
     count(distinct transaction_id)                                                              as ga_orders,
     round(100*safe_divide(count(distinct transaction_id),count(distinct unique_visit_id)),2)    as conversion_rate
 from {{ ref('ga_daily_stats') }}
