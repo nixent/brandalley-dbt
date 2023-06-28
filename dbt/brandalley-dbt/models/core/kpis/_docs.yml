@@ -689,7 +689,7 @@ models:
           dimension:
             hidden: true
           metrics:
-            conversion_rate:
+            conversion_rate_ga:
               type: average
               label: 'Conversion Rate GA'
               group_label: 'Visits'
@@ -698,7 +698,7 @@ models:
           dimension:
             hidden: true
           metrics:
-            last_year_same_day_conversion_rate:
+            last_year_same_day_conversion_rate_ga:
               type: average
               label: 'LY Conversion Rate GA'
               group_label: 'Visits'
@@ -809,7 +809,6 @@ models:
         meta:
           dimension:
             label: 'Conversion Rate - GA (%)'
-            hidden: true
 
 
   - name: kpis_weekly
