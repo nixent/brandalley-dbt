@@ -693,7 +693,7 @@ models:
               type: average
               label: 'Conversion Rate GA'
               group_label: 'Visits'
-      - name: last_year_same_day_conersion_rate
+      - name: last_year_same_day_conversion_rate
         meta:
           dimension:
             hidden: true
@@ -809,6 +809,8 @@ models:
         meta:
           dimension:
             label: 'Conversion Rate - GA (%)'
+            hidden: true
+
 
   - name: kpis_weekly
     description: "A view of all KPIs, based off of order creation week"
