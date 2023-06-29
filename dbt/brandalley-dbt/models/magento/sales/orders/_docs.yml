@@ -415,7 +415,7 @@ models:
         - join: Orders
           sql_on: ${OrderLines.order_number} = ${Orders.increment_id} and ${OrderLines.ba_site} = ${Orders.ba_site}
         - join: products
-          sql_on: ${OrderLines.sku} = ${products.sku} and ${OrderLines.ba_site} = ${products.ba_site}
+          sql_on: ${OrderLines.parent_sku} = ${products.sku} and ${OrderLines.ba_site} = ${products.ba_site}
         - join: shipment_items
           sql_on: ${OrderLines.parent_item_id} = ${shipment_items.order_item_id} and ${OrderLines.ba_site} = ${shipment_items.ba_site}           
         - join: shipments
