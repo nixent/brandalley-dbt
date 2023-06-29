@@ -1549,7 +1549,7 @@ models:
             label: 'Customer ID'
             format: id
             group_label: 'Customer Info'
-          metric:
+          metrics:
             total_new_customers:
               label: 'Total New Customers'
               type: count_distinct
