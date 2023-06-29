@@ -1,4 +1,6 @@
-/* Dont think this logic is right, bounce rate of around 10% seems a bit low */
+/* Dont think this logic is right, bounce rate of around 10% seems a bit low.
+
+Realised I can probably get this from page_views */
 
 with pages_per_visit as (
 

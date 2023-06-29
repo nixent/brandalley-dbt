@@ -2109,6 +2109,12 @@ models:
               sql: 'safe_divide(${new_customers},${total_customers_count})'
               format: percent
               group_label: 'Customers'
+            returning_customers_pct:
+              label: 'Returning Customer (%)'
+              type: number
+              sql: 'safe_divide(${returning_customers},${total_customers_count})'
+              format: percent
+              group_label: 'Customers'
       - name: delivery_postcode
         description: ""
         meta:
