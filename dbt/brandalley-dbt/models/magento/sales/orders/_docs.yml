@@ -1713,7 +1713,6 @@ models:
               type: average
               description: "Total number of refunds split per order item"
               sql: "${count_refunds}/${count_order_lines}"
-              format: percent
               hidden: false
               round: 1
               group_label: 'Sales'
