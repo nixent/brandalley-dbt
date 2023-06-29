@@ -1555,6 +1555,7 @@ models:
               type: distinct_count
               description: "Number of new customers"
               sql: "if(${order_sequence} = 1, ${customer_id}, null)"
+              hidden: false
               group_label: 'Customers'
       - name: order_at
         meta:
