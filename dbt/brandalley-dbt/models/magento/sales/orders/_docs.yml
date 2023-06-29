@@ -1707,12 +1707,12 @@ models:
               hidden: false
               round: 0
               group_label: 'Sales'
-            metrics:
             total_refunds_rate:
               label: 'Refund Rate (%)'
               type: average
               description: "Total number of refunds split per order item"
               sql: "${count_refunds}/${count_order_lines}"
+              format: percent
               hidden: false
               round: 1
               group_label: 'Sales'
