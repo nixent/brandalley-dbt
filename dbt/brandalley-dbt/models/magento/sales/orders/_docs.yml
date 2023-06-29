@@ -1712,9 +1712,10 @@ models:
               label: 'Refund Rate (%)'
               type: average
               description: "Total number of refunds split per order item"
-              sql: "(${count_refunds}/${count_order_lines})*100"
+              sql: "${count_refunds}/${count_order_lines}"
+              format: percent
               hidden: false
-              round: 0
+              round: 1
               group_label: 'Sales'
       - name: count_item_refunds
         meta:
