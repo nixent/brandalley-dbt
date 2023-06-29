@@ -1552,7 +1552,7 @@ models:
           metric:
             total_new_customers:
               label: 'Total New Customers'
-              type: distinct_count
+              type: count_distinct
               description: "Number of new customers"
               sql: "if(${order_sequence} = 1, ${customer_id}, null)"
               hidden: false
