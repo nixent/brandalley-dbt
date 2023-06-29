@@ -1549,6 +1549,13 @@ models:
             label: 'Customer ID'
             format: id
             group_label: 'Customer Info'
+          metric:
+            total_new_customers:
+              label: 'Total New Customers'
+              type: distinct_count
+              description: "Number of new customers"
+              sql: "if(${order_sequence} = 1, ${customer_id}, null)"
+              group_label: 'Customers'
       - name: order_at
         meta:
           dimension:
