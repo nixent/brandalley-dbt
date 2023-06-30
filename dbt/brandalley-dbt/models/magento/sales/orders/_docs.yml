@@ -1935,7 +1935,7 @@ models:
               label: "Return Rate %"
               type: sum
               description: "percent of orders that turn into refunds"
-              sql: "sum(isnull(${count_refunds},0)/sum(isnull(${count_order_lines},0)"
+              sql: "sum(isnull(${count_refunds},0))/sum(isnull(${count_order_lines},0))"
               hidden: false
               group_label: "Sales"
       - name: count_refunds_split_per_order_item
