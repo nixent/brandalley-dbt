@@ -1935,7 +1935,7 @@ models:
               label: "Return Rate %"
               type: average
               description: "percent of orders that turn into refunds"
-              sql: "ifnull(${count_refunds},0)/(${count_order_lines}"
+              sql: "ifnull(${count_refunds},0)/${count_order_lines}"
               hidden: false
               format: percent
               group_label: "Sales"
