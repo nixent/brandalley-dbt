@@ -1938,6 +1938,7 @@ models:
               sql: "ifnull(${count_refunds},0)/${count_order_lines}"
               hidden: false
               format: percent
+              round: 2
               group_label: "Sales"
       - name: count_refunds_split_per_order_item
         meta:
