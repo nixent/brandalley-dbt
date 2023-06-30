@@ -38,6 +38,7 @@ select
     po.purchase_order_export_process_id, 
     po.purchase_order_in_wh_b, 
     spg.grn_id, 
+    spg.date                                        as grn_date,
     spg.magento_process_id, 
     spgi.grn_item_id, 
     spgi.in_sap, 
@@ -61,9 +62,9 @@ select
 from {{ ref('stg__catalog_product_po_item') }} poi
 inner join {{ ref('stg__catalog_product_po') }} po 
     on poi.po_id = po.po_id and poi.ba_site = po.ba_site
-inner join {{ ref('stg__stock_prism_grn') }} spg 
+left join {{ ref('stg__stock_prism_grn') }} spg 
     on CAST(spg.purchase_order_reference as integer) = po.po_id and po.ba_site = spg.ba_site
-inner join {{ ref('stg__stock_prism_grn_item') }} spgi 
+left join {{ ref('stg__stock_prism_grn_item') }} spgi 
     on spgi.grn_id = spg.grn_id and spgi.sku = poi.sku and poi.ba_site = spgi.ba_site
 left join {{ ref('stg__catalog_product_negotiation') }} nego 
     on po.negotiation_id = nego.negotiation_id and nego.ba_site = po.ba_site
