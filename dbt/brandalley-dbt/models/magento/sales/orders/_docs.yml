@@ -746,10 +746,7 @@ models:
               description: "Total consignment product cost"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${product_cost_exc_vat},0)"
               round: 0
-<<<<<<< HEAD
-              group_label: "Costs"
-=======
-              group_label: 'Costs'        
+              group_label: "Costs"     
             consignment_margin_metric:
               label: 'Consignment Margin (£/€)'
               type: sum
@@ -764,7 +761,6 @@ models:
               sql: "if(${consignment_qty} > 0, 100*${consignment_qty}*safe_divide(${margin}, ${total_local_currency_ex_tax_after_vouchers})/${qty_ordered},0)"
               round: 1
               group_label: 'Sales'
->>>>>>> 601a3185bb10571f13c24c000f418ff7ea153102
       - name: selffulfill_qty
         description: ""
         meta:
@@ -798,10 +794,7 @@ models:
               description: "Total selffulfill product cost"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${product_cost_exc_vat},0)"
               round: 0
-<<<<<<< HEAD
-              group_label: "Costs"
-=======
-              group_label: 'Costs'         
+              group_label: "Costs"        
             selffulfill_margin_metric:
               label: 'Self-fulfill Margin (£/€)'
               type: sum
@@ -816,7 +809,6 @@ models:
               sql: "if(${selffulfill_qty} > 0, 100*${selffulfill_qty}*safe_divide(${margin}, ${total_local_currency_ex_tax_after_vouchers})/${qty_ordered},0)"
               round: 1
               group_label: 'Sales'
->>>>>>> 601a3185bb10571f13c24c000f418ff7ea153102
       - name: warehouse_qty
         description: ""
         meta:
@@ -850,9 +842,6 @@ models:
               description: "Total warehouse product cost"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${product_cost_exc_vat},0)"
               round: 0
-<<<<<<< HEAD
-              group_label: "Costs"
-=======
               group_label: 'Costs'     
             warehouse_margin_metric:
               label: 'Warehouse Margin (£/€)'
@@ -868,7 +857,6 @@ models:
               sql: "if(${warehouse_qty} > 0, 100*${warehouse_qty}*safe_divide(${margin}, ${total_local_currency_ex_tax_after_vouchers})/${qty_ordered},0)"
               round: 1
               group_label: 'Sales'
->>>>>>> 601a3185bb10571f13c24c000f418ff7ea153102
       - name: order_placed_date
         description: ""
         meta:
