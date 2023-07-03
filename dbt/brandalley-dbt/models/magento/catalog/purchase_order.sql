@@ -38,7 +38,7 @@ select
     po.purchase_order_export_process_id, 
     po.purchase_order_in_wh_b, 
     spg.grn_id, 
-    spg.date                                        as grn_date,
+    safe_cast(spg.date as timestamp)                as grn_date,
     spg.magento_process_id, 
     spgi.grn_item_id, 
     spgi.in_sap, 
