@@ -1113,6 +1113,10 @@ models:
         description: "Negotiation type"
       - name: supplier
         description: "Supplier"
+      - name: supplier_id
+        description: "Supplier ID"
+      - name: supplier_name
+        description: "Supplier Name"
       - name: nego_currency
         description: "Nego currency"         
       - name: buyer
