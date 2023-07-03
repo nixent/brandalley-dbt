@@ -527,7 +527,7 @@ models:
         - join: Orders
           sql_on: ${OrderLines.order_number} = ${Orders.increment_id} and ${OrderLines.ba_site} = ${Orders.ba_site}
         - join: products
-          sql_on: ${OrderLines.parent_sku} = ${products.sku} and ${OrderLines.ba_site} = ${products.ba_site}
+          sql_on: ${OrderLines.sku} = ${products.variant_sku} and ${OrderLines.ba_site} = ${products.ba_site}
         - join: shipment_items
           sql_on: ${OrderLines.parent_item_id} = ${shipment_items.order_item_id} and ${OrderLines.ba_site} = ${shipment_items.ba_site}
         - join: shipments
@@ -746,7 +746,25 @@ models:
               description: "Total consignment product cost"
               sql: "if(${consignment_qty} > 0, ${consignment_qty}*${product_cost_exc_vat},0)"
               round: 0
+<<<<<<< HEAD
               group_label: "Costs"
+=======
+              group_label: 'Costs'        
+            consignment_margin_metric:
+              label: 'Consignment Margin (£/€)'
+              type: sum
+              description: "Total consignment Margin"
+              sql: "if(${consignment_qty} > 0, ${consignment_qty}*${margin}/${qty_ordered},0)"
+              round: 0
+              group_label: 'Sales'
+            consignment_margin_pct_metric:
+              label: 'Consignment Margin (%)'
+              type: sum
+              description: "Total consignment Margin (%)"
+              sql: "if(${consignment_qty} > 0, 100*${consignment_qty}*safe_divide(${margin}, ${total_local_currency_ex_tax_after_vouchers})/${qty_ordered},0)"
+              round: 1
+              group_label: 'Sales'
+>>>>>>> 601a3185bb10571f13c24c000f418ff7ea153102
       - name: selffulfill_qty
         description: ""
         meta:
@@ -780,7 +798,25 @@ models:
               description: "Total selffulfill product cost"
               sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${product_cost_exc_vat},0)"
               round: 0
+<<<<<<< HEAD
               group_label: "Costs"
+=======
+              group_label: 'Costs'         
+            selffulfill_margin_metric:
+              label: 'Self-fulfill Margin (£/€)'
+              type: sum
+              description: "Total selffulfill Margin"
+              sql: "if(${selffulfill_qty} > 0, ${selffulfill_qty}*${margin}/${qty_ordered},0)"
+              round: 0
+              group_label: 'Sales'
+            selffulfill_margin_pct_metric:
+              label: 'Self-fulfill Margin (%)'
+              type: sum
+              description: "Total selffulfill Margin (%)"
+              sql: "if(${selffulfill_qty} > 0, 100*${selffulfill_qty}*safe_divide(${margin}, ${total_local_currency_ex_tax_after_vouchers})/${qty_ordered},0)"
+              round: 1
+              group_label: 'Sales'
+>>>>>>> 601a3185bb10571f13c24c000f418ff7ea153102
       - name: warehouse_qty
         description: ""
         meta:
@@ -814,7 +850,25 @@ models:
               description: "Total warehouse product cost"
               sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${product_cost_exc_vat},0)"
               round: 0
+<<<<<<< HEAD
               group_label: "Costs"
+=======
+              group_label: 'Costs'     
+            warehouse_margin_metric:
+              label: 'Warehouse Margin (£/€)'
+              type: sum
+              description: "Total warehouse Margin"
+              sql: "if(${warehouse_qty} > 0, ${warehouse_qty}*${margin}/${qty_ordered},0)"
+              round: 0
+              group_label: 'Sales'
+            warehouse_margin_pct_metric:
+              label: 'Warehouse Margin (%)'
+              type: sum
+              description: "Total warehouse Margin (%)"
+              sql: "if(${warehouse_qty} > 0, 100*${warehouse_qty}*safe_divide(${margin}, ${total_local_currency_ex_tax_after_vouchers})/${qty_ordered},0)"
+              round: 1
+              group_label: 'Sales'
+>>>>>>> 601a3185bb10571f13c24c000f418ff7ea153102
       - name: order_placed_date
         description: ""
         meta:
