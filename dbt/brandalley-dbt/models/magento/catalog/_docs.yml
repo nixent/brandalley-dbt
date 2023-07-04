@@ -1070,6 +1070,13 @@ models:
         meta:
           dimension:
             format: id
+      - name: grn_date
+        description: grn_date
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: 'if(purchase_order.ba_site = "FR",datetime(purchase_order.grn_date, "Europe/Paris"),datetime(purchase_order.grn_date, "Europe/London"))'        
       - name: magento_process_id
         description: "Magento process id"
         meta:
@@ -1106,6 +1113,10 @@ models:
         description: "Negotiation type"
       - name: supplier
         description: "Supplier"
+      - name: supplier_id
+        description: "Supplier ID"
+      - name: supplier_name
+        description: "Supplier Name"
       - name: nego_currency
         description: "Nego currency"         
       - name: buyer
