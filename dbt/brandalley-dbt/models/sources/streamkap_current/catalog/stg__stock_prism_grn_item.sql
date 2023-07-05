@@ -40,7 +40,7 @@ select
     in_sap,
     sku,
     delivery_number,
-    date(null) as delivery_date,
+    date('1970-01-01') + delivery_date as delivery_date,
     stock_type_ss,
     stock_type_qc,
     _streamkap_source_ts_ms,
