@@ -9,13 +9,13 @@ select
     'UK'                                                            as ba_site,
     po_id,
     negotiation_id,
-    created_at,
-    updated_at,
+    timestamp(created_at) as created_at,
+    timestamp(updated_at) as updated_at,
     status,
     sap_ref,
     sap_message,
-    delivery_date,
-    date_exported,
+    timestamp(delivery_date) as delivery_date,
+    timestamp(date_exported) as date_exported,
     products_in_wh_b,
     products_export_process_id,
     purchase_order_export_process_id,
@@ -31,7 +31,7 @@ from {{ ref('stg_uk__catalog_product_po') }}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-{# union all
+union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
@@ -58,4 +58,4 @@ select
 from {{ ref('stg_fr__catalog_product_po') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %} #}
+{% endif %}
