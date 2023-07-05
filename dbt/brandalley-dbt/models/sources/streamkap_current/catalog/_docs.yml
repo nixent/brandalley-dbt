@@ -744,12 +744,13 @@ models:
   - name: stg__stock_prism_grn_item
     description: "Stock Prism GRN item"
     columns:
-      - name: id
-        data_type: <integer>
+      - name: ba_site_id
         description: "Primary key"
         tests: 
           - unique
           - not_null
+      - name: id
+        data_type: <integer>
       - name: grn_id
         data_type: <integer>
         description: "GRN Id"
