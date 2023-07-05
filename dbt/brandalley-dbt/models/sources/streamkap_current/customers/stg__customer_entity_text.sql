@@ -28,7 +28,7 @@ from {{ ref('stg_uk__customer_entity_text') }}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-{# union all
+union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
@@ -47,4 +47,4 @@ select
 from {{ ref('stg_fr__customer_entity_text') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %} #}
+{% endif %}

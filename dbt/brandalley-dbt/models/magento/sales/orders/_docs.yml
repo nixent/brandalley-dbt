@@ -1955,7 +1955,7 @@ models:
           dimension:
             hidden: true
           metrics:
-            orders_total_tax:
+            orders_total_tax_amount:
               label: 'Total Orders Tax Amount (£/€)'
               type: sum
               description: "Order's total tax amount"

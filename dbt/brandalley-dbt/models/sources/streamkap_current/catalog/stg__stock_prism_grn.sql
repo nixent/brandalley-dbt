@@ -24,7 +24,7 @@ from {{ ref('stg_uk__stock_prism_grn') }}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-{# union all
+union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
@@ -32,8 +32,8 @@ select
     grn_id,
     purchase_order_reference,
     purchase_order_instance,
-    date,
-    time,
+    date(null) as date,
+    time(null) as time,
     magento_process_id,
     _streamkap_source_ts_ms,
     _streamkap_ts_ms,
@@ -44,4 +44,4 @@ select
 from {{ ref('stg_fr__stock_prism_grn') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %} #}
+{% endif %}
