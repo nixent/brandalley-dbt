@@ -612,6 +612,9 @@ models:
         description: "Quantity min, nullable"
       - name: qty
         description: "Quantity, nullable"
+      - name: stock_kettering
+      - name: stock_prism
+      - name: stock_sed
       - name: image_value
         description: "Image value, nullable"
       - name: name
