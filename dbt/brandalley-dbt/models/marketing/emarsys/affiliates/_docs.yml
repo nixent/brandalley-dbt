@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: affiliate_publishers
+    columns:
+      - name: publisher_id
+        tests:
+          - unique
+          - not_null
+      - name: publisher_name
