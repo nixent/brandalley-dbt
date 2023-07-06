@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: analytics
+    database: datawarehouse-358408
+    description: "Affiliate Publishers"
+    tables:
+      - name: affiliate_publishers_gsheet
