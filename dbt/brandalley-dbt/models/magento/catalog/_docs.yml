@@ -613,8 +613,38 @@ models:
       - name: qty
         description: "Quantity, nullable"
       - name: stock_kettering
+        meta:
+          metrics:
+            total_stock_kettering:
+              type: sum
+            total_ttl_flash_kettering:
+              type: sum
+              sql: '${special_price}*${stock_kettering}'
+            total_ttl_cost_kettering:
+              type: sum
+              sql: '${cost}*${stock_kettering}'
       - name: stock_prism
+        meta:
+          metrics:
+            total_stock_prism:
+              type: sum
+            total_ttl_flash_prism:
+              type: sum
+              sql: '${special_price}*${stock_prism}'
+            total_ttl_cost_prism:
+              type: sum
+              sql: '${cost}*${stock_prism}'
       - name: stock_sed
+        meta:
+          metrics:
+            total_stock_sed:
+              type: sum
+            total_ttl_flash_sed:
+              type: sum
+              sql: '${special_price}*${stock_sed}'
+            total_ttl_cost_sed:
+              type: sum
+              sql: '${cost}*${stock_sed}'
       - name: image_value
         description: "Image value, nullable"
       - name: name
