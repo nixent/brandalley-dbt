@@ -1,6 +1,6 @@
 {{config(
     materialized='incremental',
-    unique_key='ba_site_wh_stock_id'
+    unique_key='ba_site_sku'
 )}}
 
 select
