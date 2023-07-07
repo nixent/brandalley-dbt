@@ -1433,7 +1433,7 @@ models:
 
       - name: stg__warehouse_stock_running_balance
         columns:
-          - name: ba_site_wh_stock_id
+          - name: ba_site_sku
             description: "Primary key"
             tests:
               - unique
@@ -1441,7 +1441,6 @@ models:
           - name: ba_site
             description: "Brand Alley Site"
           - name: wh_stock_id
-            description: "Primary key"
           - name: sku
           - name: qty_stock_received_prism
           - name: qty_stock_received_sed

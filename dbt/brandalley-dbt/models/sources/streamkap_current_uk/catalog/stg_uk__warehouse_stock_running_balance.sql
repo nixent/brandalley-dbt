@@ -1,7 +1,7 @@
 {{config(
     materialized='incremental',
-    unique_key='wh_stock_id',
-	cluster_by='wh_stock_id',
+    unique_key='sku',
+	cluster_by='sku',
     
 )}}
 
