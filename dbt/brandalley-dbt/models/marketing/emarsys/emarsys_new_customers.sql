@@ -28,7 +28,7 @@ SELECT * FROM
     )),
 CUSTOMERS AS (SELECT * 
     FROM
-        {{ ref('stg_uk__customer_entity') }} AS e WHERE e.entity_id NOT IN (select customer_id from {{ ref('customers_enriched') }} where is_existing_ifg_user=True) and e.entity_type_id = 1 
+        {{ ref('stg_uk__customer_entity') }} AS e WHERE e.entity_type_id = 1 
         {% if is_incremental() %}
             and  
             e._streamkap_loaded_at_ts > (SELECT MAX(_streamkap_loaded_at_ts) FROM {{ this }})
