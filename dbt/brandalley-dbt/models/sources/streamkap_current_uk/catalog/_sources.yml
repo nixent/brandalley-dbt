@@ -1232,6 +1232,8 @@ sources:
             description: ""
           - name: __deleted
             description: ""
+      - name: warehouse_stock_running_balance
+
   - name: utils
     database: datawarehouse-358408
     description: "Utils table, for example hardcoded mapping tables"

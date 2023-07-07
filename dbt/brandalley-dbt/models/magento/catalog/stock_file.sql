@@ -6,6 +6,9 @@ with stock_file_raw as (
         e.ba_site,
         stock.min_qty,
         stock.qty,
+        wsrb.qty_remaining_kettering                    as stock_kettering,
+        wsrb.qty_remaining_prism                        as stock_prism,
+        wsrb.qty_remaining_sed                          as stock_sed,
         ifnull(parent_relation.parent_id, e.entity_id)  as parent_id,
         parent_entity_relation.sku                      as child_parent_sku,
         if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as image_value,
@@ -193,9 +196,12 @@ with stock_file_raw as (
             and cpei_menu_type_3.entity_id = category.category_id
             and cpei_menu_type_3.value=3
             and cpei_menu_type_3.ba_site = category.ba_site
+    left join {{ ref('stg__warehouse_stock_running_balance') }} wsrb 
+        on wsrb.sku = e.sku
+            and wsrb.ba_site = e.ba_site
     where e.type_id = 'simple'
         and stock.qty > 0
-    {{ dbt_utils.group_by(39) }}, category.product_id
+    {{ dbt_utils.group_by(42) }}, category.product_id
  )
 
 select  
@@ -211,6 +217,6 @@ left join {{ source('utils', 'category_mapping') }} cat_map
     on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label 
         and coalesce(stock.level_2,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(3)],split(flashsale_category, '>')[safe_offset(3)]) = cat_map.level_2 
         and coalesce(stock.level_3,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(4)],split(flashsale_category, '>')[safe_offset(4)]) = cat_map.level_3
-{{ dbt_utils.group_by(36) }}
+{{ dbt_utils.group_by(39) }}
 
 
