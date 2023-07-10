@@ -14,33 +14,47 @@ models:
       - name: ba_site
         description: "Brand Alley Site"
       - name: id
+        data_type: <integer>
         description: "Primary key"
       - name: order_item_number
+        data_type: <integer>
         description: "Order item number"
       - name: sku
+        data_type: <string>
         description: "SKU"
       - name: order_increment_id
+        data_type: <integer>
         description: "Order increment id"
       - name: qty
+        data_type: <integer>
         description: "Quantity"
       - name: return_code
+        data_type: <integer>
         description: "Return code"
       - name: created_at
+        data_type: <timestamp>
         description: "Created date"
       - name: xml_created_at
+        data_type: <timestamp>
         description: "Created date of the xml"
       - name: exported_to_sap
+        data_type: <integer>
         description: "Flag indicating if exported to SAP"
       - name: wh_line_id
+        data_type: <string>
         description: "Warehouse Line ID"
       - name: return_service
+        data_type: <string>
         description: "Return service"
       - name: creditmemo_id
+        data_type: <integer>
         description: "Credit memo Id"
       - name: _streamkap_source_ts_ms
         description: ""
       - name: __deleted
         description: ""
+
+
 
   - name: stg__invent_referer
     description: ""
@@ -53,28 +67,40 @@ models:
       - name: ba_site
         description: "Brand Alley Site"
       - name: referer_id
+        data_type: <integer>
         description: "Primary key"
       - name: entity_id
+        data_type: <integer>
         description: "Entity id"
       - name: entity_type
+        data_type: <integer>
         description: "Entity type"
       - name: event_type
+        data_type: <integer>
         description: "Event type"
       - name: source
+        data_type: <string>
         description: "Source"
       - name: medium
+        data_type: <string>
         description: "Medium"
       - name: term
+        data_type: <string>
         description: "Term"
       - name: content
+        data_type: <string>
         description: "Content"
       - name: campaign
+        data_type: <string>
         description: "Campaign"
       - name: gclid
+        data_type: <string>
         description: "Gclid"
       - name: device_category
+        data_type: <integer>
         description: "Device categoy, nullable"
       - name: operating_system
+        data_type: <string>
         description: "Operating system, nullable"
       - name: _streamkap_source_ts_ms
         description: ""
