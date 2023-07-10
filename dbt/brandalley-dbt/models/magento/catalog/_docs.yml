@@ -731,6 +731,9 @@ models:
         description: "Category as defined by buyers"
       - name: tax
         description: "Tax percentage"
+        meta:
+          dimension:
+            label: 'Tax Rate'
 
   - name: catalog_category_flat_store_1_enriched
     description: ""
