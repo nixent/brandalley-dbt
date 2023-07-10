@@ -1,0 +1,10 @@
+name: Emarsys predict
+source: google-big-query-5x13w
+type: raw_sql
+rawSql: |-
+  SELECT
+    *
+  FROM
+    emarsys.emarsys_new_customers_predict
+isSchema: false
+primaryKey: customerId
