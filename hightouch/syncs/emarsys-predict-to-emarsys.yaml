@@ -1,0 +1,17 @@
+model: emarsys-predict
+destination: emarsys-1gyu1
+config:
+  mode: update
+  type: object
+  object: contact
+  mappings:
+    - to: '19938'
+      from: predict_session
+      type: standard
+  configVersion: 0
+  externalIdMapping:
+    to: '17506'
+    from: customerId
+schedule:
+  type: manual
+schedulePaused: false
