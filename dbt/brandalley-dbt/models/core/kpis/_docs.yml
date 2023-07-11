@@ -689,7 +689,7 @@ models:
           dimension: 
             hidden: true 
           metrics:
-            total_new_achica_members:
+            new_achica_members:
               type: sum
               label: 'New Achica Members'
               group_label: 'Achica'
