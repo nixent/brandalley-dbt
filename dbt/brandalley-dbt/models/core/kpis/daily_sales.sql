@@ -93,6 +93,7 @@ select
     os.total_new_achica_members,
     os.total_new_cocosa_members,
     os.total_new_ifg_members,
+    os.total_new_ba_members,
     os.gmv,
     os.sales_amount,
     os.margin,
