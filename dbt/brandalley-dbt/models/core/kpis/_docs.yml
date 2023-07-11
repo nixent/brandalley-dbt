@@ -684,6 +684,7 @@ models:
               group_label: 'Visits'
 
       ### INDEPENDENT TOTALS
+      ### ACHICA
       - name: total_new_achica_members
         meta: 
           dimension: 
@@ -720,6 +721,12 @@ models:
               type: sum
               label: 'Achica GMV'
               group_label: 'Achica'
+            achica_gmv_aov:
+              type: number
+              label: 'Achica AOV GMV'
+              group_label: 'Achica'
+              sql: 'safe_divide(${total_achica_gmv},${total_achica_orders})'
+              round: 1
       - name: achica_sales_amount
         meta:
           dimension:
@@ -745,6 +752,213 @@ models:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_achica_margin},${total_achica_sales_amount})'
+              round: 1
+      ### COCOSA
+      - name: total_new_cocosa_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            new_cocosa_members:
+              type: sum
+              label: 'New Cocosa Members'
+              group_label: 'Cocosa'
+      - name: cocosa_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_cocosa_orders:
+              type: sum
+              label: 'Cocosa Orders'
+              group_label: 'Cocosa'
+      - name: total_new_cocosa_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_cocosa_orders:
+              type: sum
+              label: 'New Cocosa Orders'
+              group_label: 'Cocosa'
+      - name: cocosa_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_cocosa_gmv:
+              type: sum
+              label: 'Cocosa GMV'
+              group_label: 'Cocosa'
+            cocosa_gmv_aov:
+              type: number
+              label: 'Cocosa AOV GMV'
+              group_label: 'Cocosa'
+              sql: 'safe_divide(${total_cocosa_gmv},${total_cocosa_orders})'
+              round: 1
+      - name: cocosa_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_cocosa_sales_amount:
+              type: sum
+              label: 'Cocosa Sales Amount'
+              group_label: 'Cocosa'
+              hidden: true
+      - name: cocosa_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_cocosa_margin:
+              type: sum
+              label: 'Cocosa Margin'
+              group_label: 'Cocosa'
+            total_cocosa_margin_pct:
+              label: 'Cocosa Margin (%)'
+              group_label: 'Cocosa'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_cocosa_margin},${total_cocosa_sales_amount})'
+              round: 1
+      ### IFG
+      - name: total_new_ifg_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            new_ifg_members:
+              type: sum
+              label: 'New IFG Members'
+              group_label: 'IFG'
+      - name: ifg_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ifg_orders:
+              type: sum
+              label: 'IFG Orders'
+              group_label: 'IFG'
+      - name: total_new_ifg_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_ifg_orders:
+              type: sum
+              label: 'New IFG Orders'
+              group_label: 'IFG'
+      - name: ifg_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ifg_gmv:
+              type: sum
+              label: 'IFG GMV'
+              group_label: 'IFG'
+            ifg_gmv_aov:
+              type: number
+              label: 'IFG AOV GMV'
+              group_label: 'IFG'
+              sql: 'safe_divide(${total_ifg_gmv},${total_ifg_orders})'
+              round: 1
+      - name: ifg_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ifg_sales_amount:
+              type: sum
+              label: 'IFG Sales Amount'
+              group_label: 'IFG'
+              hidden: true
+      - name: ifg_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ifg_margin:
+              type: sum
+              label: 'IFG Margin'
+              group_label: 'IFG'
+            total_ifg_margin_pct:
+              label: 'IFG Margin (%)'
+              group_label: 'IFG'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_ifg_margin},${total_ifg_sales_amount})'
+              round: 1
+      ### BA
+      - name: total_new_ba_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            new_ba_members:
+              type: sum
+              label: 'New BA Members'
+              group_label: 'BA'
+      - name: ba_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ba_orders:
+              type: sum
+              label: 'BA Orders'
+              group_label: 'BA'
+      - name: total_new_ba_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_ba_orders:
+              type: sum
+              label: 'New BA Orders'
+              group_label: 'BA'
+      - name: ba_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ba_gmv:
+              type: sum
+              label: 'BA GMV'
+              group_label: 'BA'
+            ba_gmv_aov:
+              type: number
+              label: 'BA AOV GMV'
+              group_label: 'BA'
+              sql: 'safe_divide(${total_ba_gmv},${total_ba_orders})'
+              round: 1
+      - name: ba_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ba_sales_amount:
+              type: sum
+              label: 'BA Sales Amount'
+              group_label: 'BA'
+              hidden: true
+      - name: ba_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ba_margin:
+              type: sum
+              label: 'BA Margin'
+              group_label: 'BA'
+            total_ba_margin_pct:
+              label: 'BA Margin (%)'
+              group_label: 'BA'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_ba_margin},${total_ba_sales_amount})'
               round: 1
       
 
