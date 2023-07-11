@@ -1,55 +1,56 @@
 {{config(
     materialized='incremental',
-    unique_key='ba_site_id',
-	cluster_by='ba_site_id',
+    unique_key='ba_site_sku'
 )}}
 
 select
     'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'UK'                                                            as ba_site,
-    id,
-    grn_id,
-    grn_item_id,
-    unique_reference,
-    in_sap,
-    sku,
-    delivery_number,
-    delivery_date,
-    stock_type_ss,
-    stock_type_qc,
+    wh_stock_id,
+    cast(sku as string) as sku,
+    qty_stock_received_prism,
+    qty_stock_received_sed,
+    qty_stock_received_kettering,
+    qty_allocated_prism,
+    qty_allocated_sed,
+    qty_allocated_kettering,
+    qty_remaining_prism,
+    qty_remaining_sed,
+    qty_remaining_kettering,
     _streamkap_source_ts_ms,
     _streamkap_ts_ms,
     _streamkap_offset,
     _streamkap_loaded_at_ts,
     __deleted,
     bq_last_processed_at
-from {{ ref('stg_uk__stock_prism_grn_item') }}
+from {{ ref('stg_uk__warehouse_stock_running_balance') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-union all
+{# union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'FR'                                                            as ba_site,
-    id,
-    grn_id,
-    grn_item_id,
-    unique_reference,
-    in_sap,
+    wh_stock_id,
     sku,
-    delivery_number,
-    date('1970-01-01') + delivery_date as delivery_date,
-    stock_type_ss,
-    stock_type_qc,
+    qty_stock_received_prism,
+    qty_stock_received_sed,
+    qty_stock_received_kettering,
+    qty_allocated_prism,
+    qty_allocated_sed,
+    qty_allocated_kettering,
+    qty_remaining_prism,
+    qty_remaining_sed,
+    qty_remaining_kettering,
     _streamkap_source_ts_ms,
     _streamkap_ts_ms,
     _streamkap_offset,
     _streamkap_loaded_at_ts,
     __deleted,
     bq_last_processed_at
-from {{ ref('stg_fr__stock_prism_grn_item') }}
+from {{ ref('stg_fr__eav_attribute_option_value') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %}
+{% endif %} #}
