@@ -682,6 +682,70 @@ models:
               sql: '"N/A"'
               label: 'Unique Visits Target'
               group_label: 'Visits'
+
+      ### INDEPENDENT TOTALS
+      - name: total_new_achica_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_achica_members:
+              type: sum
+              label: 'New Achica Members'
+              group_label: 'Achica'
+      - name: achica_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_achica_orders:
+              type: sum
+              label: 'Achica Orders'
+              group_label: 'Achica'
+      - name: total_new_achica_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_achica_orders:
+              type: sum
+              label: 'New Achica Orders'
+              group_label: 'Achica'
+      - name: achica_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_achica_gmv:
+              type: sum
+              label: 'Achica GMV'
+              group_label: 'Achica'
+      - name: achica_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_achica_sales_amount:
+              type: sum
+              label: 'Achica Sales Amount'
+              group_label: 'Achica'
+              hidden: true
+      - name: achica_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_achica_margin:
+              type: sum
+              label: 'Achica Margin'
+              group_label: 'Achica'
+            total_achica_margin_pct:
+              label: 'Achica Margin (%)'
+              group_label: 'Achica'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_achica_margin},${total_achica_sales_amount})'
+              round: 1
       
 
   - name: kpis_daily
