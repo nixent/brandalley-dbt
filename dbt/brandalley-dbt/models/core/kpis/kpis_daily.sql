@@ -8,9 +8,10 @@ with order_stats as (
         o.ba_site,
         count(distinct o.increment_id)                                                  as total_order_count,
         count(distinct if(o.orderno = 1, o.increment_id, null))                         as total_new_order_count,
-        count(distinct if(ce.achica_user is not null and o.orderno = 1, o.customer_id, null))   as total_new_achica_order_count,
-        count(distinct if(ce.cocosa_user is not null and o.orderno = 1, o.customer_id, null))   as total_new_cocosa_order_count,
-        count(distinct if(ce.is_new_ifg_user = true and o.orderno = 1, o.customer_id, null))    as total_new_ifg_order_count,
+        count(distinct if(ce.customer_type = 'Achica' and o.orderno = 1, o.customer_id, null))   as total_new_achica_order_count,
+        count(distinct if(ce.customer_type = 'Cocosa' and o.orderno = 1, o.customer_id, null))   as total_new_cocosa_order_count,
+        count(distinct if(ce.customer_type = 'IFG' and o.orderno = 1, o.customer_id, null))    as total_new_ifg_order_count,
+        count(distinct if(ce.customer_type = 'BA' and o.orderno = 1, o.customer_id, null))    as total_new_ba_order_count,
         count(distinct if(o.orderno = 1, o.customer_id, null))                          as total_new_customer_count,
         count(distinct if(o.orderno > 1, o.customer_id, null))                          as total_existing_customer_count,
         sum(o.shipping_incl_tax)                                                        as shipping_amount
@@ -25,9 +26,10 @@ customer_stats as (
         coalesce(date(crds.date), date(ce.achica_migration_date), date(ce.cocosa_signup_at), date(if(ce.ba_site = 'FR',datetime(ce.signed_up_at, "Europe/Paris"),datetime(ce.signed_up_at, "Europe/London")))) as customer_created_at_day,
         ce.ba_site,
         count(ce.customer_id)                                                                                       as total_new_members,
-        count(if(ce.achica_user is not null, ce.customer_id, null))                                                 as total_new_achica_members,
-        count(if(ce.cocosa_user is not null, ce.customer_id, null))                                                 as total_new_cocosa_members,
-        count(if(ce.is_new_ifg_user = true, ce.customer_id, null))                                                  as total_new_ifg_members
+        count(if(ce.customer_type = 'Achica', ce.customer_id, null))                                                 as total_new_achica_members,
+        count(if(ce.customer_type = 'Cocosa', ce.customer_id, null))                                                 as total_new_cocosa_members,
+        count(if(ce.customer_type = 'IFG', ce.customer_id, null))                                                  as total_new_ifg_members,
+        count(if(ce.customer_type = 'BA', ce.customer_id, null))                                                  as total_new_ba_members
     from {{ ref('customers_enriched') }} ce
     left join {{ ref('customers_record_data_source') }} crds 
         on ce.customer_id = crds.cst_id
@@ -110,12 +112,14 @@ select
     os.total_new_achica_order_count,
     os.total_new_cocosa_order_count,
     os.total_new_ifg_order_count,
+    os.total_new_ba_order_count,
     os.total_new_customer_count,
     os.total_existing_customer_count,
     cs2.total_new_members,
     cs2.total_new_achica_members,
     cs2.total_new_cocosa_members,
     cs2.total_new_ifg_members,
+    cs2.total_new_ba_members,
     os.shipping_amount,
     rs.total_refund_count,
     rs.total_item_refund_count,
