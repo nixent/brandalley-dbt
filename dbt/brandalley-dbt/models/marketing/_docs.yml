@@ -111,4 +111,32 @@ models:
               description: "Total Marketing Spend"
               round: 2
               hidden: false
+            cpa_metric:
+              label: 'CPA'
+              type: sum
+              description: "Marketing Spend per New Customer"
+              sql: "${total_spend}/${total_new_customers}"
+              round: 2
+              hidden: false
+            cpc_metric:
+              label: 'CPC'
+              type: sum
+              description: "Marketing Spend per Click"
+              sql: "${total_spend}/${total_click}"
+              round: 2
+              hidden: false
+            roas_metric:
+              label: 'ROAS'
+              type: sum
+              description: "Return on ad spend"
+              sql: "${gmv}/${total_spend}"
+              round: 2
+              hidden: false
+            cps_metric:
+              label: 'Cost Per Sale'
+              type: sum
+              description: "Marketing Spend per Transaction"
+              sql: "${total_spend}/${transaction_count}"
+              round: 2
+              hidden: false
    
