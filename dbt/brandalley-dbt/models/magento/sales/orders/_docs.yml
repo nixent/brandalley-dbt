@@ -1138,7 +1138,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in local currency after taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'
       # - name: TOTAL_GBP_before_vouchers   
       - name: total_local_currency_before_vouchers
