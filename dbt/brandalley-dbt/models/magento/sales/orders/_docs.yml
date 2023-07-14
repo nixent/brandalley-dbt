@@ -1140,6 +1140,11 @@ models:
               hidden: false
               round: 0
               group_label: 'Sales'
+            total_ifg_revenue:
+              label: 'IFG GMV (£/€)'
+              type: sum
+              sql: 'if(${customers_enriched.is_existing_ifg_user} or ${customers_enriched.is_new_ifg_user}, ${total_local_currency_after_vouchers}, 0)'
+              group_label: 'Sales'
       # - name: TOTAL_GBP_before_vouchers   
       - name: total_local_currency_before_vouchers
         meta:
