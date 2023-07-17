@@ -7,5 +7,5 @@ rawSql: |
   FROM
     `emarsys.emarsys_new_customers`
   WHERE
-    DATE(_streamkap_loaded_at_ts) >= CURRENT_DATE()-4
+    DATE(_streamkap_loaded_at_ts) >= CURRENT_DATE()
 primaryKey: hightouch_customerId
