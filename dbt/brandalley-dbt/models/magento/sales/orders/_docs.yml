@@ -282,7 +282,7 @@ models:
           metrics:
             total_margin:
               type: sum
-              round: 0 
+              round: 2
               label: 'Margin'
       - name: total_order_count
       - name: rc_gmv
@@ -428,6 +428,8 @@ models:
           sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site}
         - join: orders_enriched
           sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id} and ${OrderLines.ba_site} = ${orders_enriched.ba_site}
+        - join: stg__sales_payment_transaction 
+          sql_on: ${OrderLines.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${OrderLines.ba_site} = ${stg__sales_payment_transaction.ba_site}
 
     columns:
       - name: ba_site
@@ -1156,7 +1158,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in local currency before taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'
       # - name: TOTAL_GBP_ex_tax_after_vouchers 
       - name: total_local_currency_ex_tax_after_vouchers
@@ -1169,7 +1171,7 @@ models:
               type: sum
               description: "Total revenue exc VAT in local currency after taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'
             average_order_value:
               label: 'AOV Sales (£/€)'
@@ -1189,7 +1191,7 @@ models:
               type: sum
               description: "Total revenue ex VAT in local currency before taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'
       - name: qty_to_ship
         data_type: <integer>
