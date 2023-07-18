@@ -83,7 +83,7 @@ config:
     - to: '61881'
       from: recordSource
       type: standard
-    - to: '61882'
+    - to: '61883'
       from: hightouch_customerId
       type: standard
   configVersion: 0
