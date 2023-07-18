@@ -133,6 +133,18 @@ models:
               type: sum
               label: 'LY New Customers (MTD or YTD)'
               group_label: 'Customers'
+            last_year_mtd_ytd_new_customer_comparison:
+              type: number
+              sql: '${total_new_customers_count} - ${last_year_mtd_ytd_total_new_customer_count}'
+              label: 'LY New Customers Comparison (MTD or YTD)'
+              group_label: 'Customers'
+            last_year_mtd_ytd_new_customer_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_customers_count} - ${last_year_mtd_ytd_total_new_customer_count},${last_year_mtd_ytd_total_new_customer_count})'
+              label: 'LY New Customers Comparison % (MTD or YTD)'
+              group_label: 'Customers'
+              round: 1
       - name: last_year_same_day_total_new_customer_count
         meta:
           dimension:
@@ -200,6 +212,18 @@ models:
               type: sum
               label: 'LY New Members (MTD or YTD)'
               group_label: 'Members'
+            last_year_mtd_ytd_total_new_member_count_comparison:
+              type: number
+              sql: '${total_new_members_count} - ${last_year_mtd_ytd_total_new_member_count}'
+              label: 'LY New Members Comparison (MTD or YTD)'
+              group_label: 'Members'
+            last_year_mtd_ytd_total_new_member_count_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_members_count} - ${last_year_mtd_ytd_total_new_member_count},${last_year_mtd_ytd_total_new_member_count})'
+              label: 'LY New Members Comparison % (MTD or YTD)'
+              group_label: 'Members'
+              round: 1
       - name: last_year_same_day_total_new_member_count
         meta:
           dimension:
@@ -478,6 +502,13 @@ models:
               format: 'percent'
               sql: 'safe_divide(${total_margin} - ${last_year_mtd_ytd_margin},${last_year_mtd_ytd_margin})'
               label: 'LY Margin Comparison % (MTD or YTD)'
+              group_label: 'Margin'
+              round: 1
+            last_year_mtd_ytd_total_margin_pct_comparison:
+              type: number
+              format: 'percent'
+              sql: '${total_margin_pct} - ${last_year_mtd_ytd_margin_pct}'
+              label: 'LY Margin (%) Comparison (MTD or YTD)'
               group_label: 'Margin'
               round: 1
             last_year_mtd_ytd_total_margin_pct_comparison_pct:
