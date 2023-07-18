@@ -20,7 +20,7 @@ config:
     - to: '61869'
       from: firstPurchaseDate
       type: standard
-    - to: '61870'
+    - to: '53923'
       from: lastPurchaseDate
       type: standard
     - to: '57613'
