@@ -11,9 +11,6 @@ config:
     - to: '61867'
       from: baTitle
       type: standard
-    - to: '61868'
-      from: rdpEmails
-      type: standard
     - to: '53589'
       from: dailyEmails
       type: standard
@@ -26,7 +23,7 @@ config:
     - to: '61870'
       from: lastPurchaseDate
       type: standard
-    - to: '61871'
+    - to: '57613'
       from: numberTransactions
       type: standard
     - to: '61872'
