@@ -83,6 +83,9 @@ config:
     - to: '61883'
       from: hightouch_customerId
       type: standard
+    - to: '3'
+      from: email
+      type: standard
   configVersion: 0
   externalIdMapping:
     to: '53590'
