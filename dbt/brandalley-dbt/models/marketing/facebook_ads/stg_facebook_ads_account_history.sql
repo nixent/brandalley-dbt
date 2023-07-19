@@ -11,7 +11,7 @@ with account_recent_record as (
         timezone_name,
         row_number() over (partition by id order by _fivetran_synced desc) = 1 as is_most_recent_record
     from {{ source(
-        'facebook_ads',
+        'facebook_ads_5x',
         'account_history'
     ) }} 
 

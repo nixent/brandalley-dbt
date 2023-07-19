@@ -14,7 +14,7 @@ with campaign_recent_record as (
         budget_remaining,
         row_number() over (partition by id order by updated_time desc) = 1 as is_most_recent_record
     from {{ source(
-        'facebook_ads',
+        'facebook_ads_5x',
         'campaign_history'
     ) }} 
 

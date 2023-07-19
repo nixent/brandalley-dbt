@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: facebook_ads
+  - name: facebook_ads_5x
     database: datawarehouse-358408
     description: "facebook_ads_tables"
     tables:

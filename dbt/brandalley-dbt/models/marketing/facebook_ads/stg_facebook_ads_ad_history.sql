@@ -11,7 +11,7 @@ with ad_recent_record as (
         cast(creative_id as {{ dbt.type_bigint() }}) as creative_id,
         row_number() over (partition by id order by updated_time desc) = 1 as is_most_recent_record
     from {{ source(
-        'facebook_ads',
+        'facebook_ads_5x',
         'ad_history'
     ) }} 
 )

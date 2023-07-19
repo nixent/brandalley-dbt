@@ -12,7 +12,7 @@ with basic_ad as (
         reach,
         frequency
     from {{ source(
-        'facebook_ads',
+        'facebook_ads_5x',
         'basic_ad_daily'
     ) }} 
 )
