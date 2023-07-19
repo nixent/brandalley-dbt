@@ -382,6 +382,16 @@ models:
         meta:
           dimension:
             type: boolean
+      - name: parent_sku_visibility
+      - name: is_variant_sku_enabled
+        meta:
+          dimension:
+            type: boolean
+      - name: is_parent_sku_enabled
+        meta:
+          dimension:
+            type: boolean
+        
 
   - name: inventory_items
     description: ""
@@ -684,6 +694,9 @@ models:
         description: "Outlet category, nullable"
       - name: canUseForWHSale
         description: "Can use for warehouse sale flag, nullable"
+        meta:
+          dimension:
+            label: 'Can Use For WH Sale'
       - name: barcode
         description: "Barcode, nullable"
       - name: nego
