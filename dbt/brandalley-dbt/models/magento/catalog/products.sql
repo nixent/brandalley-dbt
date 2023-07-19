@@ -32,7 +32,15 @@ with products as (
         if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as product_image,
         cpn.buyer                                       as buyer_id,
         concat(au.firstname, ' ', au.lastname)          as buyer,
-        coalesce(cpe_child.__deleted, cpe.__deleted)    as is_deleted
+        coalesce(cpe_child.__deleted, cpe.__deleted)    as is_deleted,
+        case 
+            when cpei_visibility.value = 1 then 'Not Visible Individually'
+            when cpei_visibility.value = 2 then 'Catalogue' 
+            when cpei_visibility.value = 3 then 'Search' 
+            when cpei_visibility.value = 4 then 'Catalogue, Search'                            
+        end                                             as parent_sku_visibility,
+        cast(cpei_status.value as bool)                 as is_variant_sku_enabled,
+        cast(cpei_parent_status.value as bool)          as is_parent_sku_enabled
     from {{ ref('stg__catalog_product_entity') }} cpe
     left join (
 		select * from {{ ref('stg__catalog_product_super_link') }}
@@ -208,6 +216,21 @@ with products as (
 		) cpr
 		on cpe_ref.entity_id = cpr.entity_id
 		and cpe_ref.ba_site = cpr.ba_site
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_status
+        on cpei_status.entity_id = cpe_child.entity_id
+            and cpei_status.attribute_id = 96
+            and cpei_status.store_id = 0
+            and cpe.ba_site = cpei_status.ba_site
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_parent_status
+        on cpei_parent_status.entity_id = cpe.entity_id
+            and cpei_parent_status.attribute_id = 96
+            and cpei_parent_status.store_id = 0
+            and cpe.ba_site = cpei_parent_status.ba_site
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_visibility
+        on cpei_visibility.entity_id = cpe.entity_id
+            and cpei_visibility.attribute_id = 102
+            and cpei_visibility.store_id = 0
+            and cpe.ba_site = cpei_visibility.ba_site
     where cpe.type_id = 'configurable' and cpe_child.sku is not null
 )
 

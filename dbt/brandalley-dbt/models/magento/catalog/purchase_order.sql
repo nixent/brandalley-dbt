@@ -74,4 +74,4 @@ left join {{ ref('stg__catalog_product_negotiation_item') }} nego_item
     on po.negotiation_id = nego_item.negotiation_id and poi.sku=nego_item.sku and nego_item.ba_site = po.ba_site
 left join {{ ref('stg__catalog_product_supplier') }} sup
     on nego.supplier = sup.supplier_id and nego.ba_site = sup.ba_site
-qualify row_number() over (partition by poi.po_item_id order by spgi.delivery_date desc) = 1
+qualify row_number() over (partition by poi.po_item_id, poi.ba_site order by spgi.delivery_date desc) = 1

@@ -282,7 +282,7 @@ models:
           metrics:
             total_margin:
               type: sum
-              round: 0 
+              round: 2
               label: 'Margin'
       - name: total_order_count
       - name: rc_gmv
@@ -405,7 +405,7 @@ models:
       label: 'Order Lines'
       joins:
         - join: ba_core_stock_return
-          sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id} and ${OrderLines.ba_site} = ${ba_core_stock_return.ba_site}
+          sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id} and ${OrderLines.sku} = ${ba_core_stock_return.sku} and ${OrderLines.ba_site} = ${ba_core_stock_return.ba_site}
         - join: sales_flat_creditmemo_item
           sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.order_id}=${OrderLines.order_id} and ${sales_flat_creditmemo_item.refund_status}='approved' and ${OrderLines.ba_site} = ${sales_flat_creditmemo_item.ba_site}
         - join: sales_flat_creditmemo
@@ -428,6 +428,8 @@ models:
           sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site}
         - join: orders_enriched
           sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id} and ${OrderLines.ba_site} = ${orders_enriched.ba_site}
+        - join: stg__sales_payment_transaction 
+          sql_on: ${OrderLines.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${OrderLines.ba_site} = ${stg__sales_payment_transaction.ba_site}
 
     columns:
       - name: ba_site
@@ -1138,7 +1140,12 @@ models:
               type: sum
               description: "Total revenue inc VAT in local currency after taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
+              group_label: 'Sales'
+            total_ifg_revenue:
+              label: 'IFG GMV (£/€)'
+              type: sum
+              sql: 'if(${customers_enriched.is_existing_ifg_user} or ${customers_enriched.is_new_ifg_user}, ${total_local_currency_after_vouchers}, 0)'
               group_label: 'Sales'
       # - name: TOTAL_GBP_before_vouchers   
       - name: total_local_currency_before_vouchers
@@ -1151,7 +1158,7 @@ models:
               type: sum
               description: "Total revenue inc VAT in local currency before taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'
       # - name: TOTAL_GBP_ex_tax_after_vouchers 
       - name: total_local_currency_ex_tax_after_vouchers
@@ -1164,7 +1171,7 @@ models:
               type: sum
               description: "Total revenue exc VAT in local currency after taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'
             average_order_value:
               label: 'AOV Sales (£/€)'
@@ -1184,7 +1191,7 @@ models:
               type: sum
               description: "Total revenue ex VAT in local currency before taking vouchers into account"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'
       - name: qty_to_ship
         data_type: <integer>
@@ -1877,6 +1884,19 @@ models:
           dimension:
             label: 'Order ID'
             format: id
+            group_label: 'Order Info'
+      - name: pe_order_id
+        description: ""
+        meta:
+          dimension:
+            label: 'Order ID in PE system for FR'
+            format: id
+            group_label: 'Order Info'
+      - name: exported_to_mageorder
+        description: ""
+        meta:
+          dimension:
+            label: 'Has the order been processed in SAGE for FR'
             group_label: 'Order Info'
       - name: store_id
         description: "Store id, foreign key, nullable"
