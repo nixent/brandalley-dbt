@@ -60,6 +60,8 @@ order_info as (
 	select
 		sfo.increment_id,
 		sfo.entity_id 														as order_id,
+        sfo.ext_order_id                                                    as pe_order_id,
+        sfo.exported_to_mageorder,
 		sfo.store_id,
 		sfo.ba_site,
 		sfo.billing_address_id,

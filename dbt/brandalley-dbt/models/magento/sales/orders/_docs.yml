@@ -1885,6 +1885,19 @@ models:
             label: 'Order ID'
             format: id
             group_label: 'Order Info'
+      - name: pe_order_id
+        description: ""
+        meta:
+          dimension:
+            label: 'Order ID in PE system for FR'
+            format: id
+            group_label: 'Order Info'
+      - name: exported_to_mageorder
+        description: ""
+        meta:
+          dimension:
+            label: 'Has the order been processed in SAGE for FR'
+            group_label: 'Order Info'
       - name: store_id
         description: "Store id, foreign key, nullable"
         meta:
