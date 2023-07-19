@@ -27,7 +27,7 @@ Run using
         catalog_name, 
         schema_name
     from datawarehouse-358408.region-europe-west2.INFORMATION_SCHEMA.SCHEMATA
-    where schema_name not in ('streamkap')
+    where schema_name not in ('streamkap', 'streamkap_fr', 'google_ads','facebook_ads', 'analytics_280799085') and schema_name not like '%fivetran%' and schema_name not like '%dbt_cloud%'
 {% endset %}
 
 {% set prod_schema_results = run_query(schemas_in_prod) %}
@@ -44,7 +44,7 @@ Run using
         table_catalog, 
         table_schema||'.'||table_name as table_name
     from region-europe-west2.INFORMATION_SCHEMA.TABLES 
-    where table_type = 'BASE TABLE' and table_schema not in ('streamkap') and table_name not like '%dbt_tmp%'
+    where table_type = 'BASE TABLE' and table_schema not in ('streamkap', 'streamkap_fr', 'google_ads','facebook_ads', 'analytics_280799085') and table_name not like '%dbt_tmp%' and schema_name not like '%fivetran%' and schema_name not like '%dbt_cloud%'
 {% endset %}
 
 {% set prod_tables_results = run_query(tables_in_prod) %}
