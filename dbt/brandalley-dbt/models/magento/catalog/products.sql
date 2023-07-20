@@ -39,8 +39,16 @@ with products as (
             when cpei_visibility.value = 3 then 'Search' 
             when cpei_visibility.value = 4 then 'Catalogue, Search'                            
         end                                             as parent_sku_visibility,
-        cast(cpei_status.value as bool)                 as is_variant_sku_enabled,
-        cast(cpei_parent_status.value as bool)          as is_parent_sku_enabled
+        case
+            when cpei_status.value = 1 then true  
+            when cpei_status.value = 2 then false
+            else false
+        end                                             as is_variant_sku_enabled,
+        case 
+            when cpei_parent_status.value = 1 then true
+            when cpei_parent_status.value = 2 then false
+            else false
+        end                                             as is_parent_sku_enabled
     from {{ ref('stg__catalog_product_entity') }} cpe
     left join (
 		select * from {{ ref('stg__catalog_product_super_link') }}
