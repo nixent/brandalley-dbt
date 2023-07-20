@@ -69,12 +69,23 @@ marketing_targets as (
     from {{ ref('marketing_targets') }}
 ),
 
+yesterday_ga_stats as (
+    select 
+        parse_date("%Y%m%d", date)                  as ga_session_at_date,
+        count(distinct fullVisitorId || visitId)    as ga_unique_visits
+    from {{ source('76149814', 'ga_sessions_*') }}
+    where _table_suffix = format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
+        and totals.visits = 1
+    group by 1
+),
+
 ga_stats as (
     select 
-        ga_session_at_date,
-        ga_unique_visits
-    from {{ ref('ga_conversion_rate') }}
-    where date_aggregation_type = 'day'
+        gcr.ga_session_at_date,
+        coalesce(gcr.ga_unique_visits, ygs.ga_unique_visits) as ga_unique_visits
+    from {{ ref('ga_conversion_rate') }} gcr
+    left join yesterday_ga_stats ygs on gcr.ga_session_at_date = ygs.ga_session_at_date
+    where gcr.date_aggregation_type = 'day'
 )
 
 select
