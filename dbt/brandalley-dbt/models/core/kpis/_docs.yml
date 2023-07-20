@@ -290,6 +290,18 @@ models:
               group_label: 'AOV'
               sql: 'safe_divide(${last_year_mtd_ytd_gmv},${last_year_mtd_ytd_total_order_count})'
               round: 1
+            last_year_mtd_ytd_aov_gmv_comparison:
+              type: number
+              sql: '${total_aov_gmv} - ${last_year_mtd_ytd_aov_gmv}'
+              label: 'LY AOV Comparison (MTD or YTD)'
+              group_label: 'AOV'
+            last_year_mtd_ytd_aov_gmv_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_aov_gmv} - ${last_year_mtd_ytd_aov_gmv},${last_year_mtd_ytd_aov_gmv})'
+              label: 'LY AOV Comparison % (MTD or YTD)'
+              group_label: 'AOV'
+              round: 1
       - name: last_year_same_day_aov_gmv
         meta:
           dimension:
@@ -300,6 +312,18 @@ models:
               label: 'LY AOV GMV (Day or WTD)'
               group_label: 'AOV'
               sql: 'safe_divide(${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_total_order_count})'
+              round: 1
+            last_year_same_day_wtd_aov_gmv_comparison:
+              type: number
+              sql: '${total_aov_gmv} - ${last_year_same_day_wtd_aov_gmv}'
+              label: 'LY AOV Comparison (Day or WTD)'
+              group_label: 'AOV'
+            last_year_same_day_wtd_aov_gmv_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_aov_gmv},${last_year_same_day_wtd_aov_gmv})'
+              label: 'LY AOV Comparison % (Day or WTD)'
+              group_label: 'AOV'
               round: 1
       - name: aov_target
         meta:
@@ -702,6 +726,15 @@ models:
             last_year_same_day_wtd_ga_unique_visits:
               type: sum
               label: 'LY Unique Visits (Day or WTD)'
+              group_label: 'Visits'
+      - name: last_year_ga_unique_visits
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_ga_unique_visits:
+              type: sum
+              label: 'LY Unique Visits (MTD or YTD)'
               group_label: 'Visits'
       - name: uv_target
         meta: 
