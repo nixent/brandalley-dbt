@@ -551,6 +551,12 @@ models:
             total_nego_qty_sold:
               type: sum
 
+  - name: product_fulfillment_types_daily
+    columns:
+      - name: date_day
+      - name: ba_site
+      - name: parent_sku
+      - name: shipment_type
 
   - name: products_sales
     description: ""

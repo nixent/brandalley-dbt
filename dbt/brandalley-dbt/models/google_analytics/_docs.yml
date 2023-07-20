@@ -20,6 +20,8 @@ models:
           sql_on: ${OrderLines.customer_id} = ${customers.cst_id} and ${customers.ba_site} = 'UK'
         - join: affiliate_publishers
           sql_on: ${ga_daily_stats.traffic_campaign} = ${affiliate_publishers.publisher_id}
+        - join: product_fulfillment_types_daily
+          sql_on: ${ga_daily_stats.date} = ${product_fulfillment_types_daily.date_day} and ${product_fulfillment_types_daily.ba_site} = 'UK' and ${ga_daily_stats.product_sku} = ${product_fulfillment_types_daily.parent_sku}
     columns:
       - name: unique_key
         tests:
