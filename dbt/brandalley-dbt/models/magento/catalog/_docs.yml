@@ -365,6 +365,7 @@ models:
       - name: supplier_name
         description: ""
       - name: supplier_reference
+      - name: original_size
       - name: barcode
         description: ""
         meta:
