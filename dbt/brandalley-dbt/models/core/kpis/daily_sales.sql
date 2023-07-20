@@ -116,6 +116,7 @@ select
     ctos.ba_sales_amount,
     ctos.ba_margin,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
+    gs2.ga_unique_visits            as last_year_ga_unique_visits,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
     os3.total_new_customer_count    as last_year_total_new_customer_count,
@@ -152,6 +153,8 @@ left join ga_stats gs
     on gs.ga_session_at_date = d.date_day and os.ba_site = 'UK'
 left join ga_stats gs1
     on gs1.ga_session_at_date = d.last_year_same_day and os.ba_site = 'UK'
+left join ga_stats gs2
+    on gs2.ga_session_at_date = d.last_year and os.ba_site = 'UK'
 left join marketing_targets mt 
     on d.date_day = mt.target_date and os.ba_site = mt.ba_site
 left join {{ ref('daily_targets') }} dt
