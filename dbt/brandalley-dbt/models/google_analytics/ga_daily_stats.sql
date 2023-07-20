@@ -25,14 +25,10 @@ select
     timestamp_seconds(cast(visitStartTime + hits.time/1000 as int))                                           as view_at,
     channelGrouping                                                                                           as traffic_channel,
     trafficSource.medium                                                                                      as traffic_medium,
-<<<<<<< HEAD
-    trafficSource.campaign                                                                                    as traffic_campaign
-=======
     trafficSource.campaign                                                                                    as traffic_campaign,
     trafficSource.campaignCode                                                                                as traffic_campaign_id,
->>>>>>> 904239a74307387e8f912d225cbdeaafeb4e2a81
     trafficSource.source                                                                                      as traffic_source,
-    trafficSource.adContent                                                                                   as traffic_ad_content,
+    trafficSource.adContent                                                                                   as traffic_ad_content,     
     device.browser                                                                                            as device_browser,
     device.operatingSystem                                                                                    as device_os,
     product.productSKU                                                                                        as product_sku,
