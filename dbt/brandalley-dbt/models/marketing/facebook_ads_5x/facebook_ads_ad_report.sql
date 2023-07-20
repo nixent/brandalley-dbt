@@ -14,7 +14,6 @@ accounts as (
 
     select *
     from {{ ref('stg_facebook_ads_account_history') }} 
-    where is_most_recent_record = true
 
 ),
 
@@ -22,7 +21,6 @@ campaigns as (
 
     select *
     from {{ ref('stg_facebook_ads_campaign_history') }} 
-    where is_most_recent_record = true
 
 ),
 
@@ -30,7 +28,6 @@ ad_sets as (
 
     select *
     from {{ ref('stg_facebook_ads_ad_set_history') }} 
-    where is_most_recent_record = true
 
 ),
 
@@ -38,7 +35,6 @@ ads as (
 
     select *
     from {{ ref('stg_facebook_ads_ad_history') }} 
-    where is_most_recent_record = true
 
 ),
 

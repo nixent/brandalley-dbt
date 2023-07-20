@@ -5,29 +5,29 @@ with
     ga as (
 
         select
-            a.traffic_campaign,
-            a.date,
-            a.traffic_source,
+            gds.traffic_campaign,
+            gds.date,
+            gds.traffic_source,
             count(distinct transaction_id) as transaction_count,
             count(distinct visitor_id) as visitor_count,
             count(distinct visit_id) as visit_count,
-            sum(
-                case when c.is_first_order = true then 1 else 0 end
-            ) as total_new_customers,
-            sum(b.total_local_currency_after_vouchers) as gmv
-        from {{ ref("ga_daily_stats") }} a
+            --sum(case when oe.is_first_order = true then 1 else 0 end) as total_new_customers,
+            count(distinct case when oe.is_first_order = true then oe.customer_id else null end) as total_new_customers,
+            sum(ol.total_local_currency_after_vouchers) as gmv
+        from {{ ref("ga_daily_stats") }} gds
         left join
-            {{ ref("OrderLines") }} b
-            on a.transaction_id = b.order_number
-            and a.product_sku = b.parent_sku
-            and a.product_sku_offset = b.parent_sku_offset
-            and b.ba_site = 'UK'
+            {{ ref("OrderLines") }} ol
+            on gds.transaction_id = ol.order_number
+            and gds.product_sku = ol.parent_sku
+            and gds.product_sku_offset = ol.parent_sku_offset
+            and ol.ba_site = 'UK'
         left join
-            {{ ref("orders_enriched") }} c
-            on b.order_id = c.order_id
-            and b.ba_site = c.ba_site
-        where a.date >= '2022-01-01'
-        group by a.traffic_campaign, a.date, a.traffic_source
+            {{ ref("orders_enriched") }} oe
+            on ol.order_id = oe.order_id
+            and ol.ba_site = oe.ba_site
+        where gds.date >= '2022-01-01'
+        {% if is_incremental() %} and date >= (select max(date) from {{ this }}) {% endif %}
+        group by gds.traffic_campaign, gds.date, gds.traffic_source
 
     ),
 
@@ -40,8 +40,8 @@ with
             sum(clicks) as total_click,
             sum(impressions) as total_impressions,
             sum(spend) as total_spend
-        from {{ ref("google_ads_campaign_stats") }} a
-        where a.date >= '2022-01-01'
+        from {{ ref("google_ads_campaign_stats") }} gacs
+        where gacs.date >= '2022-01-01'
         group by campaign_name, date
 
         union all
@@ -53,29 +53,28 @@ with
             sum(clicks) as total_click,
             sum(impressions) as total_impressions,
             sum(spend) as total_spend
-        from {{ ref("facebook_ads_ad_report") }} a
-        where a.date_day >= '2022-01-01'
+        from {{ ref("facebook_ads_ad_report") }} faar
+        where faar.date_day >= '2022-01-01'
         group by campaign_name, date_day
 
     )
 
 select
-    a.traffic_campaign,
-    a.date,
-    ifnull(a.traffic_source, b.traffic_source) as traffic_source,
-    a.transaction_count,
-    a.visitor_count,
-    a.visit_count,
-    a.total_new_customers,
-    a.gmv,
-    b.total_click,
-    b.total_impressions,
-    b.total_spend
-from ga a
+    ga.traffic_campaign,
+    ga.date,
+    ifnull(ga.traffic_source, ads.traffic_source) as traffic_source,
+    ga.transaction_count,
+    ga.visitor_count,
+    ga.visit_count,
+    ga.total_new_customers,
+    ga.gmv,
+    ads.total_click,
+    ads.total_impressions,
+    ads.total_spend
+from ga 
 full outer join
-    ads b
-    on a.traffic_campaign = b.campaign_name
-    and a.date = b.date
-    and a.traffic_source = b.traffic_source
+    ads
+    on ga.traffic_campaign = ads.campaign_name
+    and ga.date = ads.date
+    and ga.traffic_source = ads.traffic_source
 
-{% if is_incremental() %} where date >= (select max(date) from {{ this }}) {% endif %}

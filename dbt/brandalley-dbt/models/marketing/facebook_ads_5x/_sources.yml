@@ -46,6 +46,8 @@ sources:
           - name: id
             data_type: <integer>
             description: "ad_id"
+            tests:
+              - not_null   
           - name: account_id
             data_type: <integer>
             description: "account_id"
@@ -73,6 +75,8 @@ sources:
           - name: id
             data_type: <integer>
             description: "account_id"
+            tests:
+              - not_null  
           - name: name
             data_type: <string>
             description: "name"
@@ -100,6 +104,8 @@ sources:
           - name: id
             data_type: <integer>
             description: "adset_id"
+            tests:
+              - not_null  
           - name: account_id
             data_type: <integer>
             description: "account_id"
@@ -139,6 +145,8 @@ sources:
           - name: id
             data_type: <integer>
             description: "campaign_id"
+            tests:
+              - not_null  
           - name: account_id
             data_type: <integer>
             description: "account_id"
