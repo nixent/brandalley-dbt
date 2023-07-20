@@ -1142,6 +1142,13 @@ models:
               hidden: false
               round: 2
               group_label: 'Sales'
+            ol_gmv_aov:
+              label: 'AOV GMV (£/€)'
+              type: number 
+              description: 'Average order value (incl. VAT after discount)'
+              sql: "${total_revenue}/${total_orders_count}"
+              round: 0
+              group_label: 'Sales'
             total_ifg_revenue:
               label: 'IFG GMV (£/€)'
               type: sum
