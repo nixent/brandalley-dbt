@@ -361,6 +361,7 @@ models:
               type: sum
               label: 'GMV'
               group_label: 'GMV'
+              round: 2
       - name: last_year_gmv
         meta:
           dimension:
@@ -370,11 +371,13 @@ models:
               type: sum
               label: 'LY GMV (MTD or YTD)'
               group_label: 'GMV'
+              round: 2
             last_year_mtd_ytd_total_gmv_comparison:
               type: number
               sql: '${total_gmv} - ${last_year_mtd_ytd_gmv}'
               label: 'LY GMV Comparison (MTD or YTD)'
               group_label: 'GMV'
+              round: 2
             last_year_mtd_ytd_total_gmv_comparison_pct:
               type: number
               format: 'percent'
@@ -391,11 +394,13 @@ models:
               type: sum
               label: 'LY GMV (Day or WTD)'
               group_label: 'GMV'
+              round: 2
             last_year_same_day_wtd_gmv_comparison:
               type: number
               sql: '${total_gmv} - ${last_year_same_day_wtd_gmv}'
               label: 'LY GMV Comparison (Day or WTD)'
               group_label: 'GMV'
+              round: 2
             last_year_same_day_wtd_gmv_comparison_pct:
               type: number
               format: 'percent'
@@ -412,11 +417,13 @@ models:
               type: sum
               label: 'GMV Target'
               group_label: 'GMV'
+              round: 2
             total_gmv_target_comparison:
               type: number
               sql: '${total_gmv} - ${total_gmv_target}'
               label: 'GMV Target Comparison'
               group_label: 'GMV'
+              round: 2
             total_gmv_target_comparison_pct:
               type: number
               format: 'percent'
@@ -456,6 +463,7 @@ models:
               label: 'Sales Amount'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
       - name: last_year_sales_amount
         meta:
           dimension:
@@ -466,6 +474,7 @@ models:
               label: 'LY Sales Amount (MTD or YTD)'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
       - name: last_year_same_day_sales_amount
         meta:
           dimension:
@@ -476,6 +485,7 @@ models:
               label: 'LY Sales Amount (Day or WTD)'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
       - name: sales_amount_target
         meta:
           dimension:
@@ -486,6 +496,7 @@ models:
               label: 'Sales Amount Target'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
 
       ##### MARGIN #######
       - name: margin
@@ -497,6 +508,7 @@ models:
               type: sum
               label: 'Margin'
               group_label: 'Margin'
+              round: 2
             total_margin_pct:
               type: number
               label: 'Margin (%)'
@@ -513,6 +525,7 @@ models:
               type: sum
               label: 'LY Margin (MTD or YTD)'
               group_label: 'Margin'
+              round: 2
             last_year_mtd_ytd_margin_pct:
               type: number
               label: 'LY Margin (%) (MTD or YTD)'
@@ -525,6 +538,7 @@ models:
               sql: '${total_margin} - ${last_year_mtd_ytd_margin}'
               label: 'LY Margin Comparison (MTD or YTD)'
               group_label: 'Margin'
+              round: 2
             last_year_mtd_ytd_total_margin_comparison_pct:
               type: number
               format: 'percent'
@@ -555,6 +569,7 @@ models:
               type: sum
               label: 'LY Margin (Day or WTD)'
               group_label: 'Margin'
+              round: 2
             last_year_same_day_wtd_margin_pct:
               type: number
               label: 'LY Margin (%) (Day or WTD)'
@@ -567,6 +582,7 @@ models:
               sql: '${total_margin} - ${last_year_same_day_wtd_margin}'
               label: 'LY Margin Comparison (Day or WTD)'
               group_label: 'Margin'
+              round: 2
             last_year_same_day_wtd_margin_pct_comparison:
               type: number
               sql: '${total_margin_pct} - ${last_year_same_day_wtd_margin_pct}'
@@ -597,6 +613,7 @@ models:
               type: sum
               label: 'Margin Target'
               group_label: 'Margin'
+              round: 2
             total_margin_pct_target:
               type: number
               label: 'Margin Target (%)'
@@ -609,6 +626,7 @@ models:
               sql: '${total_margin} - ${total_margin_target}'
               label: 'Margin Target Comparison'
               group_label: 'Margin'
+              round: 2
             margin_target_comparison_pct:
               type: number
               format: 'percent'
@@ -795,7 +813,7 @@ models:
               label: 'Achica AOV GMV'
               group_label: 'Achica'
               sql: 'safe_divide(${total_achica_gmv},${total_achica_orders})'
-              round: 1
+              round: 2
       - name: achica_sales_amount
         meta:
           dimension:
@@ -821,7 +839,7 @@ models:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_achica_margin},${total_achica_sales_amount})'
-              round: 1
+              round: 2
       ### COCOSA
       - name: total_new_cocosa_members
         meta: 
@@ -864,7 +882,7 @@ models:
               label: 'Cocosa AOV GMV'
               group_label: 'Cocosa'
               sql: 'safe_divide(${total_cocosa_gmv},${total_cocosa_orders})'
-              round: 1
+              round: 2
       - name: cocosa_sales_amount
         meta:
           dimension:
@@ -890,7 +908,7 @@ models:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_cocosa_margin},${total_cocosa_sales_amount})'
-              round: 1
+              round: 2
       ### IFG
       - name: total_new_ifg_members
         meta: 
@@ -933,7 +951,7 @@ models:
               label: 'IFG AOV GMV'
               group_label: 'IFG'
               sql: 'safe_divide(${total_ifg_gmv},${total_ifg_orders})'
-              round: 1
+              round: 2
       - name: ifg_sales_amount
         meta:
           dimension:
@@ -959,7 +977,7 @@ models:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_ifg_margin},${total_ifg_sales_amount})'
-              round: 1
+              round: 2
       ### BA
       - name: total_new_ba_members
         meta: 
@@ -1002,7 +1020,7 @@ models:
               label: 'BA AOV GMV'
               group_label: 'BA'
               sql: 'safe_divide(${total_ba_gmv},${total_ba_orders})'
-              round: 1
+              round: 2
       - name: ba_sales_amount
         meta:
           dimension:
@@ -1028,7 +1046,7 @@ models:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_ba_margin},${total_ba_sales_amount})'
-              round: 1
+              round: 2
       
 
   - name: kpis_daily
