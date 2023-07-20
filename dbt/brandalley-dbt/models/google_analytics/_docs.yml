@@ -21,7 +21,7 @@ models:
         - join: affiliate_publishers
           sql_on: ${ga_daily_stats.traffic_campaign} = ${affiliate_publishers.publisher_id}
         - join: product_fulfillment_types_daily
-          sql_on: ${ga_daily_stats.date} = ${product_fulfillment_types_daily.date_day} and ${product_fulfillment_types_daily.ba_site} = 'UK' and ${ga_daily_stats.product_sku} = ${product_fulfillment_types_daily.parent_sku}
+          sql_on: date(${ga_daily_stats.view_at}) = ${product_fulfillment_types_daily.date_day} and ${product_fulfillment_types_daily.ba_site} = 'UK' and ${ga_daily_stats.product_sku} = ${product_fulfillment_types_daily.parent_sku}
     columns:
       - name: unique_key
         tests:
@@ -47,6 +47,12 @@ models:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             sql: 'datetime(ga_daily_stats.visit_start_at, "Europe/London")'
+      - name: view_at
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: 'datetime(ga_daily_stats.view_at, "Europe/London")'
       - name: traffic_channel
       - name: traffic_medium
       - name: traffic_campaign
