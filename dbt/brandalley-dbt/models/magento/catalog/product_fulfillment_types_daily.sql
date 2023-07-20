@@ -17,6 +17,7 @@ select
     case 
         when greatest(total_consignment_items, total_warehouse_items, total_selffulfill_items) = total_consignment_items then 'Consignment'
         when greatest(total_consignment_items, total_warehouse_items, total_selffulfill_items) = total_selffulfill_items then 'Self Fulfill'
-        else 'Warehouse'
+        when greatest(total_consignment_items, total_warehouse_items, total_selffulfill_items) = total_warehouse_items then 'Warehouse'
+        else 'Unknown'
     end as shipment_type
 from daily_order_counts
