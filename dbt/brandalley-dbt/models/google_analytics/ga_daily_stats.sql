@@ -24,10 +24,8 @@ select
     timestamp_seconds(visitStartTime)                                                                         as visit_start_at,
     channelGrouping                                                                                           as traffic_channel,
     trafficSource.medium                                                                                      as traffic_medium,
-    trafficSource.campaign                                                                                    as traffic_campaign,
-    trafficSource.campaignCode                                                                                as traffic_campaign_id,
+    trafficSource.campaign                                                                                    as traffic_campaign
     trafficSource.source                                                                                      as traffic_source,
-    trafficSource.adContent                                                                                   as traffic_ad_content,
     device.browser                                                                                            as device_browser,
     device.operatingSystem                                                                                    as device_os,
     product.productSKU                                                                                        as product_sku,
