@@ -744,12 +744,13 @@ models:
   - name: stg__stock_prism_grn_item
     description: "Stock Prism GRN item"
     columns:
-      - name: id
-        data_type: <integer>
+      - name: ba_site_id
         description: "Primary key"
         tests: 
           - unique
           - not_null
+      - name: id
+        data_type: <integer>
       - name: grn_id
         data_type: <integer>
         description: "GRN Id"
@@ -1429,3 +1430,24 @@ models:
           - name: stock_type_qc
             data_type: <string>
             description: "Stock type qc"
+
+      - name: stg__warehouse_stock_running_balance
+        columns:
+          - name: ba_site_sku
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: ba_site
+            description: "Brand Alley Site"
+          - name: wh_stock_id
+          - name: sku
+          - name: qty_stock_received_prism
+          - name: qty_stock_received_sed
+          - name: qty_stock_received_kettering
+          - name: qty_allocated_prism
+          - name: qty_allocated_sed
+          - name: qty_allocated_kettering
+          - name: qty_remaining_prism
+          - name: qty_remaining_sed
+          - name: qty_remaining_kettering

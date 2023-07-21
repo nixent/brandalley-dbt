@@ -11,9 +11,6 @@ config:
     - to: '61867'
       from: baTitle
       type: standard
-    - to: '61868'
-      from: rdpEmails
-      type: standard
     - to: '53589'
       from: dailyEmails
       type: standard
@@ -23,10 +20,10 @@ config:
     - to: '61869'
       from: firstPurchaseDate
       type: standard
-    - to: '61870'
+    - to: '53923'
       from: lastPurchaseDate
       type: standard
-    - to: '61871'
+    - to: '57613'
       from: numberTransactions
       type: standard
     - to: '61872'
@@ -83,8 +80,11 @@ config:
     - to: '61881'
       from: recordSource
       type: standard
-    - to: '61882'
+    - to: '61883'
       from: hightouch_customerId
+      type: standard
+    - to: '3'
+      from: email
       type: standard
   configVersion: 0
   externalIdMapping:

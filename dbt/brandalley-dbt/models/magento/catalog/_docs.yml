@@ -365,6 +365,7 @@ models:
       - name: supplier_name
         description: ""
       - name: supplier_reference
+      - name: original_size
       - name: barcode
         description: ""
         meta:
@@ -382,6 +383,16 @@ models:
         meta:
           dimension:
             type: boolean
+      - name: parent_sku_visibility
+      - name: is_variant_sku_enabled
+        meta:
+          dimension:
+            type: boolean
+      - name: is_parent_sku_enabled
+        meta:
+          dimension:
+            type: boolean
+        
 
   - name: inventory_items
     description: ""
@@ -541,6 +552,12 @@ models:
             total_nego_qty_sold:
               type: sum
 
+  - name: product_fulfillment_types_daily
+    columns:
+      - name: date_day
+      - name: ba_site
+      - name: parent_sku
+      - name: shipment_type
 
   - name: products_sales
     description: ""
@@ -612,6 +629,39 @@ models:
         description: "Quantity min, nullable"
       - name: qty
         description: "Quantity, nullable"
+      - name: stock_kettering
+        meta:
+          metrics:
+            total_stock_kettering:
+              type: sum
+            total_ttl_flash_kettering:
+              type: sum
+              sql: '${special_price}*${stock_kettering}'
+            total_ttl_cost_kettering:
+              type: sum
+              sql: '${cost}*${stock_kettering}'
+      - name: stock_prism
+        meta:
+          metrics:
+            total_stock_prism:
+              type: sum
+            total_ttl_flash_prism:
+              type: sum
+              sql: '${special_price}*${stock_prism}'
+            total_ttl_cost_prism:
+              type: sum
+              sql: '${cost}*${stock_prism}'
+      - name: stock_sed
+        meta:
+          metrics:
+            total_stock_sed:
+              type: sum
+            total_ttl_flash_sed:
+              type: sum
+              sql: '${special_price}*${stock_sed}'
+            total_ttl_cost_sed:
+              type: sum
+              sql: '${cost}*${stock_sed}'
       - name: image_value
         description: "Image value, nullable"
       - name: name
@@ -651,6 +701,9 @@ models:
         description: "Outlet category, nullable"
       - name: canUseForWHSale
         description: "Can use for warehouse sale flag, nullable"
+        meta:
+          dimension:
+            label: 'Can Use For WH Sale'
       - name: barcode
         description: "Barcode, nullable"
       - name: nego
@@ -698,6 +751,9 @@ models:
         description: "Category as defined by buyers"
       - name: tax
         description: "Tax percentage"
+        meta:
+          dimension:
+            label: 'Tax Rate'
 
   - name: catalog_category_flat_store_1_enriched
     description: ""
@@ -1113,6 +1169,10 @@ models:
         description: "Negotiation type"
       - name: supplier
         description: "Supplier"
+      - name: supplier_id
+        description: "Supplier ID"
+      - name: supplier_name
+        description: "Supplier Name"
       - name: nego_currency
         description: "Nego currency"         
       - name: buyer

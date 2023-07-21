@@ -1,61 +1,56 @@
 {{config(
     materialized='incremental',
-    unique_key='ba_site_po_id',
-	cluster_by='ba_site_po_id',
+    unique_key='ba_site_sku'
 )}}
 
 select
     'UK-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'UK'                                                            as ba_site,
-    po_id,
-    negotiation_id,
-    timestamp(created_at) as created_at,
-    timestamp(updated_at) as updated_at,
-    status,
-    sap_ref,
-    sap_message,
-    timestamp(delivery_date) as delivery_date,
-    timestamp(date_exported) as date_exported,
-    products_in_wh_b,
-    products_export_process_id,
-    purchase_order_export_process_id,
-    purchase_order_in_wh_b,
+    wh_stock_id,
+    cast(sku as string) as sku,
+    qty_stock_received_prism,
+    qty_stock_received_sed,
+    qty_stock_received_kettering,
+    qty_allocated_prism,
+    qty_allocated_sed,
+    qty_allocated_kettering,
+    qty_remaining_prism,
+    qty_remaining_sed,
+    qty_remaining_kettering,
     _streamkap_source_ts_ms,
     _streamkap_ts_ms,
     _streamkap_offset,
     _streamkap_loaded_at_ts,
     __deleted,
     bq_last_processed_at
-from {{ ref('stg_uk__catalog_product_po') }}
+from {{ ref('stg_uk__warehouse_stock_running_balance') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-union all
+{# union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
     'FR'                                                            as ba_site,
-    po_id,
-    negotiation_id,
-    created_at,
-    updated_at,
-    status,
-    sap_ref,
-    sap_message,
-    delivery_date,
-    date_exported,
-    products_in_wh_b,
-    products_export_process_id,
-    purchase_order_export_process_id,
-    purchase_order_in_wh_b,
+    wh_stock_id,
+    sku,
+    qty_stock_received_prism,
+    qty_stock_received_sed,
+    qty_stock_received_kettering,
+    qty_allocated_prism,
+    qty_allocated_sed,
+    qty_allocated_kettering,
+    qty_remaining_prism,
+    qty_remaining_sed,
+    qty_remaining_kettering,
     _streamkap_source_ts_ms,
     _streamkap_ts_ms,
     _streamkap_offset,
     _streamkap_loaded_at_ts,
     __deleted,
     bq_last_processed_at
-from {{ ref('stg_fr__catalog_product_po') }}
+from {{ ref('stg_fr__eav_attribute_option_value') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %}
+{% endif %} #}

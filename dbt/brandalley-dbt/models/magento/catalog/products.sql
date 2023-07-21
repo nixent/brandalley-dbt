@@ -17,7 +17,7 @@ with products as (
         eaov_availability.value                         as availability,
         cped_outletprice.value                          as outlet_price,
         eaov_color.value                                as color,
-        ifnull(eaov_size.value, eaov_size_child.value)  as size,
+        eaov_size.value                                 as size,
         if(csi_child.qty > 0, csi_child.qty, csi.qty)   as stock,
         cped_price.value                                as price,
         cped_sprice.value                               as sale_price,
@@ -27,12 +27,29 @@ with products as (
         cps_supplier.sup_id                             as supplier_id,
         cps_supplier.name                               as supplier_name,
         cpr.reference                                   as supplier_reference,
+        cpev_supplier_size.value                        as original_size,
         eaov_gender.value                               as gender,
         cpev_barcode.value                              as barcode, 
         if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as product_image,
         cpn.buyer                                       as buyer_id,
         concat(au.firstname, ' ', au.lastname)          as buyer,
-        coalesce(cpe_child.__deleted, cpe.__deleted)    as is_deleted
+        coalesce(cpe_child.__deleted, cpe.__deleted)    as is_deleted,
+        case 
+            when cpei_visibility.value = 1 then 'Not Visible Individually'
+            when cpei_visibility.value = 2 then 'Catalogue' 
+            when cpei_visibility.value = 3 then 'Search' 
+            when cpei_visibility.value = 4 then 'Catalogue, Search'                            
+        end                                             as parent_sku_visibility,
+        case
+            when cpei_status.value = 1 then true  
+            when cpei_status.value = 2 then false
+            else false
+        end                                             as is_variant_sku_enabled,
+        case 
+            when cpei_parent_status.value = 1 then true
+            when cpei_parent_status.value = 2 then false
+            else false
+        end                                             as is_parent_sku_enabled
     from {{ ref('stg__catalog_product_entity') }} cpe
     left join (
 		select * from {{ ref('stg__catalog_product_super_link') }}
@@ -104,13 +121,13 @@ with products as (
         on eaov_color.option_id = cpei_color.value
             and eaov_color.store_id = 0
             and cpe.ba_site = eaov_color.ba_site
-    left join {{ ref('stg__catalog_product_entity_int') }} cpei_gender
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpei_gender
         on cpei_gender.entity_id = cpe_child.entity_id
-            and cpei_gender.attribute_id = 96
+            and cpei_gender.attribute_id = 180
             and cpei_gender.store_id = 0
             and cpe.ba_site = cpei_gender.ba_site
     left join {{ ref('stg__eav_attribute_option_value') }} eaov_gender
-        on eaov_gender.option_id = cpei_gender.value
+        on cast(eaov_gender.option_id as string) = cpei_gender.value
             and eaov_gender.store_id = 0
             and cpe.ba_site = eaov_gender.ba_site
     left join {{ ref('stg__catalog_product_entity_int') }} cpei_size
@@ -122,15 +139,11 @@ with products as (
         on eaov_size.option_id = cpei_size.value
             and eaov_size.store_id = 0
             and cpe.ba_site = eaov_size.ba_site
-    left join {{ ref('stg__catalog_product_entity_int') }} cpei_size_child
-        on cpei_size_child.entity_id = cpe_child.entity_id
-            and cpei_size_child.attribute_id = 177
-            and cpei_size_child.store_id = 0
-            and cpe.ba_site = cpei_size_child.ba_site
-    left join {{ ref('stg__eav_attribute_option_value') }} eaov_size_child
-        on eaov_size_child.option_id = cpei_size_child.value
-            and eaov_size_child.store_id = 0
-            and cpe.ba_site = eaov_size_child.ba_site
+    left join {{ ref('stg__catalog_product_entity_varchar') }} cpev_supplier_size
+        on cpev_supplier_size.entity_id = cpe_child.entity_id
+            and cpev_supplier_size.attribute_id = 242
+            and cpev_supplier_size.store_id = 0
+            and cpe.ba_site = cpev_supplier_size.ba_site
     left join {{ ref('stg__cataloginventory_stock_item') }} csi
         on csi.product_id = cpe.entity_id
         and cpe.ba_site = csi.ba_site
@@ -208,6 +221,21 @@ with products as (
 		) cpr
 		on cpe_ref.entity_id = cpr.entity_id
 		and cpe_ref.ba_site = cpr.ba_site
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_status
+        on cpei_status.entity_id = cpe_child.entity_id
+            and cpei_status.attribute_id = 96
+            and cpei_status.store_id = 0
+            and cpe.ba_site = cpei_status.ba_site
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_parent_status
+        on cpei_parent_status.entity_id = cpe.entity_id
+            and cpei_parent_status.attribute_id = 96
+            and cpei_parent_status.store_id = 0
+            and cpe.ba_site = cpei_parent_status.ba_site
+    left join {{ ref('stg__catalog_product_entity_int') }} cpei_visibility
+        on cpei_visibility.entity_id = cpe.entity_id
+            and cpei_visibility.attribute_id = 102
+            and cpei_visibility.store_id = 0
+            and cpe.ba_site = cpei_visibility.ba_site
     where cpe.type_id = 'configurable' and cpe_child.sku is not null
 )
 

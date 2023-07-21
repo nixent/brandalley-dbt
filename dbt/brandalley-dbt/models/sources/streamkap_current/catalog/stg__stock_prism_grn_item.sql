@@ -28,7 +28,7 @@ from {{ ref('stg_uk__stock_prism_grn_item') }}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-{# union all
+union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
@@ -40,7 +40,7 @@ select
     in_sap,
     sku,
     delivery_number,
-    delivery_date,
+    date('1970-01-01') + delivery_date as delivery_date,
     stock_type_ss,
     stock_type_qc,
     _streamkap_source_ts_ms,
@@ -52,4 +52,4 @@ select
 from {{ ref('stg_fr__stock_prism_grn_item') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %} #}
+{% endif %}

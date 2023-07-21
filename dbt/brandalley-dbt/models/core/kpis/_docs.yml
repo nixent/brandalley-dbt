@@ -133,6 +133,18 @@ models:
               type: sum
               label: 'LY New Customers (MTD or YTD)'
               group_label: 'Customers'
+            last_year_mtd_ytd_new_customer_comparison:
+              type: number
+              sql: '${total_new_customers_count} - ${last_year_mtd_ytd_total_new_customer_count}'
+              label: 'LY New Customers Comparison (MTD or YTD)'
+              group_label: 'Customers'
+            last_year_mtd_ytd_new_customer_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_customers_count} - ${last_year_mtd_ytd_total_new_customer_count},${last_year_mtd_ytd_total_new_customer_count})'
+              label: 'LY New Customers Comparison % (MTD or YTD)'
+              group_label: 'Customers'
+              round: 1
       - name: last_year_same_day_total_new_customer_count
         meta:
           dimension:
@@ -200,6 +212,18 @@ models:
               type: sum
               label: 'LY New Members (MTD or YTD)'
               group_label: 'Members'
+            last_year_mtd_ytd_total_new_member_count_comparison:
+              type: number
+              sql: '${total_new_members_count} - ${last_year_mtd_ytd_total_new_member_count}'
+              label: 'LY New Members Comparison (MTD or YTD)'
+              group_label: 'Members'
+            last_year_mtd_ytd_total_new_member_count_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_members_count} - ${last_year_mtd_ytd_total_new_member_count},${last_year_mtd_ytd_total_new_member_count})'
+              label: 'LY New Members Comparison % (MTD or YTD)'
+              group_label: 'Members'
+              round: 1
       - name: last_year_same_day_total_new_member_count
         meta:
           dimension:
@@ -254,7 +278,7 @@ models:
               label: 'AOV GMV'
               group_label: 'AOV'
               sql: 'safe_divide(${total_gmv},${total_orders_count})'
-              round: 1
+              round: 2
       - name: last_year_aov_gmv
         meta:
           dimension:
@@ -265,6 +289,19 @@ models:
               label: 'LY AOV GMV (MTD or YTD)'
               group_label: 'AOV'
               sql: 'safe_divide(${last_year_mtd_ytd_gmv},${last_year_mtd_ytd_total_order_count})'
+              round: 2
+            last_year_mtd_ytd_aov_gmv_comparison:
+              type: number
+              sql: '${total_aov_gmv} - ${last_year_mtd_ytd_aov_gmv}'
+              label: 'LY AOV Comparison (MTD or YTD)'
+              group_label: 'AOV'
+              round: 2
+            last_year_mtd_ytd_aov_gmv_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_aov_gmv} - ${last_year_mtd_ytd_aov_gmv},${last_year_mtd_ytd_aov_gmv})'
+              label: 'LY AOV Comparison % (MTD or YTD)'
+              group_label: 'AOV'
               round: 1
       - name: last_year_same_day_aov_gmv
         meta:
@@ -276,6 +313,19 @@ models:
               label: 'LY AOV GMV (Day or WTD)'
               group_label: 'AOV'
               sql: 'safe_divide(${last_year_same_day_wtd_gmv},${last_year_same_day_wtd_total_order_count})'
+              round: 2
+            last_year_same_day_wtd_aov_gmv_comparison:
+              type: number
+              sql: '${total_aov_gmv} - ${last_year_same_day_wtd_aov_gmv}'
+              label: 'LY AOV Comparison (Day or WTD)'
+              group_label: 'AOV'
+              round: 2
+            last_year_same_day_wtd_aov_gmv_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_aov_gmv} - ${last_year_same_day_wtd_aov_gmv},${last_year_same_day_wtd_aov_gmv})'
+              label: 'LY AOV Comparison % (Day or WTD)'
+              group_label: 'AOV'
               round: 1
       - name: aov_target
         meta:
@@ -286,11 +336,13 @@ models:
               type: average
               group_label: 'AOV'
               label: 'AOV GMV Target'
+              round: 2
             total_aov_target_comparison:
               type: number
               sql: '${total_aov_gmv} - ${total_aov_target}'
               label: 'AOV GMV Target Comparison'
               group_label: 'AOV'
+              round: 2
             total_aov_target_comparison_pct:
               type: number
               format: 'percent'
@@ -309,6 +361,12 @@ models:
               type: sum
               label: 'GMV'
               group_label: 'GMV'
+              round: 2
+            avg_daily_gmv:
+              type: average
+              label: 'Avg GMV'
+              group_label: 'GMV'
+              round: 2
       - name: last_year_gmv
         meta:
           dimension:
@@ -318,11 +376,13 @@ models:
               type: sum
               label: 'LY GMV (MTD or YTD)'
               group_label: 'GMV'
+              round: 2
             last_year_mtd_ytd_total_gmv_comparison:
               type: number
               sql: '${total_gmv} - ${last_year_mtd_ytd_gmv}'
               label: 'LY GMV Comparison (MTD or YTD)'
               group_label: 'GMV'
+              round: 2
             last_year_mtd_ytd_total_gmv_comparison_pct:
               type: number
               format: 'percent'
@@ -339,11 +399,13 @@ models:
               type: sum
               label: 'LY GMV (Day or WTD)'
               group_label: 'GMV'
+              round: 2
             last_year_same_day_wtd_gmv_comparison:
               type: number
               sql: '${total_gmv} - ${last_year_same_day_wtd_gmv}'
               label: 'LY GMV Comparison (Day or WTD)'
               group_label: 'GMV'
+              round: 2
             last_year_same_day_wtd_gmv_comparison_pct:
               type: number
               format: 'percent'
@@ -360,11 +422,13 @@ models:
               type: sum
               label: 'GMV Target'
               group_label: 'GMV'
+              round: 2
             total_gmv_target_comparison:
               type: number
               sql: '${total_gmv} - ${total_gmv_target}'
               label: 'GMV Target Comparison'
               group_label: 'GMV'
+              round: 2
             total_gmv_target_comparison_pct:
               type: number
               format: 'percent'
@@ -404,6 +468,7 @@ models:
               label: 'Sales Amount'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
       - name: last_year_sales_amount
         meta:
           dimension:
@@ -414,6 +479,7 @@ models:
               label: 'LY Sales Amount (MTD or YTD)'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
       - name: last_year_same_day_sales_amount
         meta:
           dimension:
@@ -424,6 +490,7 @@ models:
               label: 'LY Sales Amount (Day or WTD)'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
       - name: sales_amount_target
         meta:
           dimension:
@@ -434,6 +501,7 @@ models:
               label: 'Sales Amount Target'
               group_label: 'Sales Amount'
               hidden: true
+              round: 2
 
       ##### MARGIN #######
       - name: margin
@@ -445,6 +513,7 @@ models:
               type: sum
               label: 'Margin'
               group_label: 'Margin'
+              round: 2
             total_margin_pct:
               type: number
               label: 'Margin (%)'
@@ -452,6 +521,11 @@ models:
               format: 'percent'
               sql: 'safe_divide(${total_margin},${total_sales_amount})'
               round: 1
+            avg_daily_margin:
+              type: average
+              label: 'Avg Margin'
+              group_label: 'Margin'
+              round: 2
       - name: last_year_margin
         meta:
           dimension:
@@ -461,6 +535,7 @@ models:
               type: sum
               label: 'LY Margin (MTD or YTD)'
               group_label: 'Margin'
+              round: 2
             last_year_mtd_ytd_margin_pct:
               type: number
               label: 'LY Margin (%) (MTD or YTD)'
@@ -473,11 +548,19 @@ models:
               sql: '${total_margin} - ${last_year_mtd_ytd_margin}'
               label: 'LY Margin Comparison (MTD or YTD)'
               group_label: 'Margin'
+              round: 2
             last_year_mtd_ytd_total_margin_comparison_pct:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_margin} - ${last_year_mtd_ytd_margin},${last_year_mtd_ytd_margin})'
               label: 'LY Margin Comparison % (MTD or YTD)'
+              group_label: 'Margin'
+              round: 1
+            last_year_mtd_ytd_total_margin_pct_comparison:
+              type: number
+              format: 'percent'
+              sql: '${total_margin_pct} - ${last_year_mtd_ytd_margin_pct}'
+              label: 'LY Margin (%) Comparison (MTD or YTD)'
               group_label: 'Margin'
               round: 1
             last_year_mtd_ytd_total_margin_pct_comparison_pct:
@@ -496,6 +579,7 @@ models:
               type: sum
               label: 'LY Margin (Day or WTD)'
               group_label: 'Margin'
+              round: 2
             last_year_same_day_wtd_margin_pct:
               type: number
               label: 'LY Margin (%) (Day or WTD)'
@@ -508,6 +592,7 @@ models:
               sql: '${total_margin} - ${last_year_same_day_wtd_margin}'
               label: 'LY Margin Comparison (Day or WTD)'
               group_label: 'Margin'
+              round: 2
             last_year_same_day_wtd_margin_pct_comparison:
               type: number
               sql: '${total_margin_pct} - ${last_year_same_day_wtd_margin_pct}'
@@ -538,6 +623,7 @@ models:
               type: sum
               label: 'Margin Target'
               group_label: 'Margin'
+              round: 2
             total_margin_pct_target:
               type: number
               label: 'Margin Target (%)'
@@ -550,6 +636,7 @@ models:
               sql: '${total_margin} - ${total_margin_target}'
               label: 'Margin Target Comparison'
               group_label: 'Margin'
+              round: 2
             margin_target_comparison_pct:
               type: number
               format: 'percent'
@@ -639,6 +726,7 @@ models:
               type: number
               sql: '${total_qty_ordered} - ${units_target}'
               label: 'Units Target Comparison'
+              round: 0
               group_label: 'Units'
             units_target_comparison_pct:
               type: number
@@ -672,6 +760,15 @@ models:
               type: sum
               label: 'LY Unique Visits (Day or WTD)'
               group_label: 'Visits'
+      - name: last_year_ga_unique_visits
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_mtd_ytd_ga_unique_visits:
+              type: sum
+              label: 'LY Unique Visits (MTD or YTD)'
+              group_label: 'Visits'
       - name: uv_target
         meta: 
           dimension: 
@@ -682,6 +779,7 @@ models:
               sql: '"N/A"'
               label: 'Unique Visits Target'
               group_label: 'Visits'
+<<<<<<< HEAD
       - name: ga_unique_visitors
         meta:
           dimension:
@@ -726,6 +824,286 @@ models:
               label: 'LY Conversion Rate GA'
               group_label: 'Visits'
 
+=======
+
+      ### INDEPENDENT TOTALS
+      ### ACHICA
+      - name: total_new_achica_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            new_achica_members:
+              type: sum
+              label: 'New Achica Members'
+              group_label: 'Achica'
+      - name: achica_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_achica_orders:
+              type: sum
+              label: 'Achica Orders'
+              group_label: 'Achica'
+      - name: total_new_achica_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_achica_orders:
+              type: sum
+              label: 'New Achica Orders'
+              group_label: 'Achica'
+      - name: achica_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_achica_gmv:
+              type: sum
+              label: 'Achica GMV'
+              group_label: 'Achica'
+            achica_gmv_aov:
+              type: number
+              label: 'Achica AOV GMV'
+              group_label: 'Achica'
+              sql: 'safe_divide(${total_achica_gmv},${total_achica_orders})'
+              round: 2
+      - name: achica_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_achica_sales_amount:
+              type: sum
+              label: 'Achica Sales Amount'
+              group_label: 'Achica'
+              hidden: true
+      - name: achica_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_achica_margin:
+              type: sum
+              label: 'Achica Margin'
+              group_label: 'Achica'
+            total_achica_margin_pct:
+              label: 'Achica Margin (%)'
+              group_label: 'Achica'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_achica_margin},${total_achica_sales_amount})'
+              round: 2
+      ### COCOSA
+      - name: total_new_cocosa_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            new_cocosa_members:
+              type: sum
+              label: 'New Cocosa Members'
+              group_label: 'Cocosa'
+      - name: cocosa_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_cocosa_orders:
+              type: sum
+              label: 'Cocosa Orders'
+              group_label: 'Cocosa'
+      - name: total_new_cocosa_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_cocosa_orders:
+              type: sum
+              label: 'New Cocosa Orders'
+              group_label: 'Cocosa'
+      - name: cocosa_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_cocosa_gmv:
+              type: sum
+              label: 'Cocosa GMV'
+              group_label: 'Cocosa'
+            cocosa_gmv_aov:
+              type: number
+              label: 'Cocosa AOV GMV'
+              group_label: 'Cocosa'
+              sql: 'safe_divide(${total_cocosa_gmv},${total_cocosa_orders})'
+              round: 2
+      - name: cocosa_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_cocosa_sales_amount:
+              type: sum
+              label: 'Cocosa Sales Amount'
+              group_label: 'Cocosa'
+              hidden: true
+      - name: cocosa_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_cocosa_margin:
+              type: sum
+              label: 'Cocosa Margin'
+              group_label: 'Cocosa'
+            total_cocosa_margin_pct:
+              label: 'Cocosa Margin (%)'
+              group_label: 'Cocosa'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_cocosa_margin},${total_cocosa_sales_amount})'
+              round: 2
+      ### IFG
+      - name: total_new_ifg_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            new_ifg_members:
+              type: sum
+              label: 'New IFG Members'
+              group_label: 'IFG'
+      - name: ifg_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ifg_orders:
+              type: sum
+              label: 'IFG Orders'
+              group_label: 'IFG'
+      - name: total_new_ifg_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_ifg_orders:
+              type: sum
+              label: 'New IFG Orders'
+              group_label: 'IFG'
+      - name: ifg_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ifg_gmv:
+              type: sum
+              label: 'IFG GMV'
+              group_label: 'IFG'
+            ifg_gmv_aov:
+              type: number
+              label: 'IFG AOV GMV'
+              group_label: 'IFG'
+              sql: 'safe_divide(${total_ifg_gmv},${total_ifg_orders})'
+              round: 2
+      - name: ifg_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ifg_sales_amount:
+              type: sum
+              label: 'IFG Sales Amount'
+              group_label: 'IFG'
+              hidden: true
+      - name: ifg_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ifg_margin:
+              type: sum
+              label: 'IFG Margin'
+              group_label: 'IFG'
+            total_ifg_margin_pct:
+              label: 'IFG Margin (%)'
+              group_label: 'IFG'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_ifg_margin},${total_ifg_sales_amount})'
+              round: 2
+      ### BA
+      - name: total_new_ba_members
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            new_ba_members:
+              type: sum
+              label: 'New BA Members'
+              group_label: 'BA'
+      - name: ba_orders
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ba_orders:
+              type: sum
+              label: 'BA Orders'
+              group_label: 'BA'
+      - name: total_new_ba_order_count
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_new_ba_orders:
+              type: sum
+              label: 'New BA Orders'
+              group_label: 'BA'
+      - name: ba_gmv
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ba_gmv:
+              type: sum
+              label: 'BA GMV'
+              group_label: 'BA'
+            ba_gmv_aov:
+              type: number
+              label: 'BA AOV GMV'
+              group_label: 'BA'
+              sql: 'safe_divide(${total_ba_gmv},${total_ba_orders})'
+              round: 2
+      - name: ba_sales_amount
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ba_sales_amount:
+              type: sum
+              label: 'BA Sales Amount'
+              group_label: 'BA'
+              hidden: true
+      - name: ba_margin
+        meta: 
+          dimension: 
+            hidden: true 
+          metrics:
+            total_ba_margin:
+              type: sum
+              label: 'BA Margin'
+              group_label: 'BA'
+            total_ba_margin_pct:
+              label: 'BA Margin (%)'
+              group_label: 'BA'
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_ba_margin},${total_ba_sales_amount})'
+              round: 2
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       
 
   - name: kpis_daily

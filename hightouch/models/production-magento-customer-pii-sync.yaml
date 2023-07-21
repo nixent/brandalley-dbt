@@ -30,5 +30,4 @@ rawSql: |-
     AND cei_db.attribute_id = 13
     LEFT JOIN customer_address_entity_varchar caev_phone ON caev_phone.entity_id = cei_db.value
     AND caev_phone.attribute_id = 31
-isSchema: false
 primaryKey: entity_id

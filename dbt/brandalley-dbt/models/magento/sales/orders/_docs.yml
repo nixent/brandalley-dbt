@@ -380,8 +380,13 @@ models:
           metrics:
             total_margin:
               type: sum
+<<<<<<< HEAD
               round: 0
               label: "Margin"
+=======
+              round: 2
+              label: 'Margin'
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       - name: total_order_count
       - name: rc_gmv
         meta:
@@ -517,7 +522,7 @@ models:
       label: "Order Lines"
       joins:
         - join: ba_core_stock_return
-          sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id} and ${OrderLines.ba_site} = ${ba_core_stock_return.ba_site}
+          sql_on: ${OrderLines.order_number} = ${ba_core_stock_return.order_increment_id} and ${OrderLines.sku} = ${ba_core_stock_return.sku} and ${OrderLines.ba_site} = ${ba_core_stock_return.ba_site}
         - join: sales_flat_creditmemo_item
           sql_on: ${OrderLines.sku} = ${sales_flat_creditmemo_item.sku} and ${sales_flat_creditmemo_item.order_id}=${OrderLines.order_id} and ${sales_flat_creditmemo_item.refund_status}='approved' and ${OrderLines.ba_site} = ${sales_flat_creditmemo_item.ba_site}
         - join: sales_flat_creditmemo
@@ -540,6 +545,8 @@ models:
           sql_on: ${OrderLines.customer_id} = ${customers_enriched.customer_id} and ${OrderLines.ba_site} = ${customers_enriched.ba_site}
         - join: orders_enriched
           sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id} and ${OrderLines.ba_site} = ${orders_enriched.ba_site}
+        - join: stg__sales_payment_transaction 
+          sql_on: ${OrderLines.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${OrderLines.ba_site} = ${stg__sales_payment_transaction.ba_site}
 
     columns:
       - name: ba_site
@@ -1076,8 +1083,13 @@ models:
               type: sum
               description: "Total Margin"
               hidden: false
+<<<<<<< HEAD
               round: 0
               group_label: "Sales"
+=======
+              round: 2
+              group_label: 'Sales'      
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
             total_margin_pct:
               label: "Margin (%)"
               type: number
@@ -1320,9 +1332,27 @@ models:
               type: sum
               description: "Total revenue inc VAT in local currency after taking vouchers into account"
               hidden: false
+<<<<<<< HEAD
               round: 0
               group_label: "Sales"
       # - name: TOTAL_GBP_before_vouchers
+=======
+              round: 2
+              group_label: 'Sales'
+            ol_gmv_aov:
+              label: 'AOV GMV (£/€)'
+              type: number 
+              description: 'Average order value (incl. VAT after discount)'
+              sql: "${total_revenue}/${total_orders_count}"
+              round: 2
+              group_label: 'Sales'
+            total_ifg_revenue:
+              label: 'IFG GMV (£/€)'
+              type: sum
+              sql: 'if(${customers_enriched.is_existing_ifg_user} or ${customers_enriched.is_new_ifg_user}, ${total_local_currency_after_vouchers}, 0)'
+              group_label: 'Sales'
+      # - name: TOTAL_GBP_before_vouchers   
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       - name: total_local_currency_before_vouchers
         meta:
           dimension:
@@ -1333,9 +1363,15 @@ models:
               type: sum
               description: "Total revenue inc VAT in local currency before taking vouchers into account"
               hidden: false
+<<<<<<< HEAD
               round: 0
               group_label: "Sales"
       # - name: TOTAL_GBP_ex_tax_after_vouchers
+=======
+              round: 2
+              group_label: 'Sales'
+      # - name: TOTAL_GBP_ex_tax_after_vouchers 
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       - name: total_local_currency_ex_tax_after_vouchers
         meta:
           dimension:
@@ -1346,15 +1382,25 @@ models:
               type: sum
               description: "Total revenue exc VAT in local currency after taking vouchers into account"
               hidden: false
+<<<<<<< HEAD
               round: 0
               group_label: "Sales"
+=======
+              round: 2
+              group_label: 'Sales'
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
             average_order_value:
               label: "AOV Sales (£/€)"
               type: number
               description: "Average order value (excluding VAT after discount)"
               sql: "${total_revenue_exc_tax}/${total_orders_count}"
+<<<<<<< HEAD
               round: 0
               group_label: "Sales"
+=======
+              round: 2
+              group_label: 'Sales'
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       # - name: TOTAL_GBP_ex_tax_before_vouchers
       - name: total_local_currency_ex_tax_before_vouchers
         meta:
@@ -1366,8 +1412,13 @@ models:
               type: sum
               description: "Total revenue ex VAT in local currency before taking vouchers into account"
               hidden: false
+<<<<<<< HEAD
               round: 0
               group_label: "Sales"
+=======
+              round: 2
+              group_label: 'Sales'
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       - name: qty_to_ship
         data_type: <integer>
         description: "number of items still to ship"
@@ -2132,7 +2183,24 @@ models:
           dimension:
             label: "Order ID"
             format: id
+<<<<<<< HEAD
             group_label: "Order Info"
+=======
+            group_label: 'Order Info'
+      - name: pe_order_id
+        description: ""
+        meta:
+          dimension:
+            label: 'Order ID in PE system for FR'
+            format: id
+            group_label: 'Order Info'
+      - name: exported_to_mageorder
+        description: ""
+        meta:
+          dimension:
+            label: 'Has the order been processed in SAGE for FR'
+            group_label: 'Order Info'
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       - name: store_id
         description: "Store id, foreign key, nullable"
         meta:
@@ -2210,8 +2278,13 @@ models:
           dimension:
             hidden: true
           metrics:
+<<<<<<< HEAD
             orders_total_tax:
               label: "Total Orders Tax Amount (£/€)"
+=======
+            orders_total_tax_amount:
+              label: 'Total Orders Tax Amount (£/€)'
+>>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
               type: sum
               description: "Order's total tax amount"
               hidden: false

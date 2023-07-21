@@ -9,7 +9,7 @@ select
     'UK'                                                            as ba_site,
     po_item_id,
     po_id,
-    updated_at,
+    timestamp(updated_at) as updated_at,
     product_id,
     configurable_product_id,
     sku,
@@ -47,7 +47,7 @@ from {{ ref('stg_uk__catalog_product_po_item') }}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
 
-{# union all
+union all
 
 select
     'FR-' || {{ config.get('unique_key')|replace('ba_site_', '') }} as {{ config.get('unique_key') }},
@@ -90,4 +90,4 @@ select
 from {{ ref('stg_fr__catalog_product_po_item') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
-{% endif %} #}
+{% endif %}
