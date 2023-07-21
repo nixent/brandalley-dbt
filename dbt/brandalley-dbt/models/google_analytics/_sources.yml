@@ -6,3 +6,4 @@ sources:
     description: "Streamkap Current tables relating to Magento sales"
     tables:
       - name: ga_sessions_*
+      - name: ga_sessions_intraday_*

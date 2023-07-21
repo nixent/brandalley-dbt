@@ -73,7 +73,7 @@ yesterday_ga_stats as (
     select 
         parse_date("%Y%m%d", date)                  as ga_session_at_date,
         count(distinct fullVisitorId || visitId)    as ga_unique_visits
-    from {{ source('76149814', 'ga_sessions_*') }}
+    from {{ source('76149814', 'ga_sessions_intraday_*') }}
     where _table_suffix = format_date('%Y%m%d', date_sub(current_date(), interval 1 day))
         and totals.visits = 1
     group by 1
