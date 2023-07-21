@@ -362,6 +362,11 @@ models:
               label: 'GMV'
               group_label: 'GMV'
               round: 2
+            avg_daily_gmv:
+              type: average
+              label: 'Avg GMV'
+              group_label: 'GMV'
+              round: 2
       - name: last_year_gmv
         meta:
           dimension:
@@ -516,6 +521,11 @@ models:
               format: 'percent'
               sql: 'safe_divide(${total_margin},${total_sales_amount})'
               round: 1
+            avg_daily_margin:
+              type: average
+              label: 'Avg Margin'
+              group_label: 'Margin'
+              round: 2
       - name: last_year_margin
         meta:
           dimension:
