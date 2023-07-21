@@ -81,20 +81,11 @@ yesterday_ga_stats as (
 
 ga_stats as (
     select 
-<<<<<<< HEAD
-        ga_session_at_date,
-        ga_unique_visits,
-        conversion_rate,
-        ga_unique_visitors
-    from {{ ref('ga_conversion_rate') }}
-    where date_aggregation_type = 'day'
-=======
         gcr.ga_session_at_date,
         coalesce(gcr.ga_unique_visits, ygs.ga_unique_visits) as ga_unique_visits
     from {{ ref('ga_conversion_rate') }} gcr
     left join yesterday_ga_stats ygs on gcr.ga_session_at_date = ygs.ga_session_at_date
     where gcr.date_aggregation_type = 'day'
->>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
 )
 
 select
@@ -103,8 +94,6 @@ select
     d.last_year,
     os.ba_site,
     gs.ga_unique_visits,
-    gs.ga_unique_visitors,
-    gs.conversion_rate,
     os.total_order_count,
     os.total_new_customer_count,
     os.total_new_achica_order_count,
@@ -138,12 +127,7 @@ select
     ctos.ba_sales_amount,
     ctos.ba_margin,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
-<<<<<<< HEAD
-    gs1.ga_unique_visitors          as last_year_same_day_ga_unique_visitors,
-    gs1.conversion_rate             as last_year_same_day_conversion_rate,
-=======
     gs2.ga_unique_visits            as last_year_ga_unique_visits,
->>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
     os3.total_new_customer_count    as last_year_total_new_customer_count,
@@ -192,4 +176,3 @@ left join products_sales ps_ly
     on d.last_year_same_day = ps_ly.date and os.ba_site = ps_ly.ba_site
 left join customer_type_order_stats ctos 
     on d.date_day = ctos.order_created_at_day and os.ba_site = ctos.ba_site
-

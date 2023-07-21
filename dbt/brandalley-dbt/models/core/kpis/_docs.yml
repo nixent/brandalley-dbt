@@ -779,52 +779,6 @@ models:
               sql: '"N/A"'
               label: 'Unique Visits Target'
               group_label: 'Visits'
-<<<<<<< HEAD
-      - name: ga_unique_visitors
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            total_ga_unique_visitors:
-              type: sum
-              label: 'Unique Visitors'
-              group_label: 'Visits'
-            avg_ga_unique_visitors:
-              type: average
-              label: 'Avg Unique Visitors'
-              group_label: 'Visits'
-              round: 0
-      - name: last_year_same_day_ga_unique_visitors
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            last_year_same_day_wtd_ga_unique_visits:
-              type: sum
-              label: 'LY Unique Visitors (Day or WTD)'
-              group_label: 'Visits'
-              
-      #### CR
-      - name: conversion_rate
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            conversion_rate_ga:
-              type: average
-              label: 'Conversion Rate GA'
-              group_label: 'Visits'
-      - name: last_year_same_day_conversion_rate
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            last_year_same_day_conversion_rate_ga:
-              type: average
-              label: 'LY Conversion Rate GA'
-              group_label: 'Visits'
-
-=======
 
       ### INDEPENDENT TOTALS
       ### ACHICA
@@ -1103,7 +1057,6 @@ models:
               format: 'percent'
               sql: 'safe_divide(${total_ba_margin},${total_ba_sales_amount})'
               round: 2
->>>>>>> 61c63479bd191bac928ad44e5287c05d71824418
       
 
   - name: kpis_daily
@@ -1210,7 +1163,6 @@ models:
         meta:
           dimension:
             label: 'Conversion Rate - GA (%)'
-
 
   - name: kpis_weekly
     description: "A view of all KPIs, based off of order creation week"
