@@ -779,6 +779,49 @@ models:
               sql: '"N/A"'
               label: 'Unique Visits Target'
               group_label: 'Visits'
+      - name: ga_unique_visitors
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ga_unique_visitors:
+              type: sum
+              label: 'Unique Visitors'
+              group_label: 'Visits'
+            avg_ga_unique_visitors:
+              type: average
+              label: 'Avg Unique Visitors'
+              group_label: 'Visits'
+              round: 0
+      - name: last_year_same_day_ga_unique_visitors
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_ga_unique_visits:
+              type: sum
+              label: 'LY Unique Visitors (Day or WTD)'
+              group_label: 'Visits'
+
+      #### CR
+      - name: conversion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            conversion_rate_ga:
+              type: average
+              label: 'Conversion Rate GA'
+              group_label: 'Visits'
+      - name: last_year_same_day_conversion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_conversion_rate_ga:
+              type: average
+              label: 'LY Conversion Rate GA'
+              group_label: 'Visits'
 
       ### INDEPENDENT TOTALS
       ### ACHICA

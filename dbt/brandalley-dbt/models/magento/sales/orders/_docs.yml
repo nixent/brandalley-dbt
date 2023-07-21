@@ -1605,6 +1605,14 @@ models:
             label: 'Customer ID'
             format: id
             group_label: 'Customer Info'
+          metrics:
+            total_new_customers:
+              label: "Total New Customers"
+              type: count_distinct
+              description: "Number of new customers"
+              sql: "if(${order_sequence} = 1, ${customer_id}, null)"
+              hidden: false
+              group_label: "Customers"
       - name: order_at
         meta:
           dimension:
@@ -1741,6 +1749,15 @@ models:
               description: "Total number of refunds"
               hidden: false
               group_label: 'Sales'
+            total_refunds_rate:
+              label: "Return Rate %"
+              type: average
+              description: "percent of orders that turn into refunds"
+              sql: "ifnull(${count_refunds},0)/${count_order_lines}"
+              hidden: false
+              format: percent
+              round: 2
+              group_label: "Sales"
       - name: count_refunds_split_per_order_item
         meta:
           dimension:
@@ -2170,6 +2187,12 @@ models:
               sql: 'safe_divide(${new_customers},${total_customers_count})'
               format: percent
               group_label: 'Customers'
+            returning_customers_pct:
+              label: "Returning Customer (%)"
+              type: number
+              sql: "safe_divide(${returning_customers},${total_customers_count})"
+              format: percent
+              group_label: "Customers"
       - name: delivery_postcode
         description: ""
         meta:

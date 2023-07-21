@@ -82,6 +82,8 @@ yesterday_ga_stats as (
 ga_stats as (
     select 
         gcr.ga_session_at_date,
+        gcr.conversion_rate,
+        gcr.ga_unique_visitors,
         coalesce(gcr.ga_unique_visits, ygs.ga_unique_visits) as ga_unique_visits
     from {{ ref('ga_conversion_rate') }} gcr
     left join yesterday_ga_stats ygs on gcr.ga_session_at_date = ygs.ga_session_at_date
@@ -94,6 +96,8 @@ select
     d.last_year,
     os.ba_site,
     gs.ga_unique_visits,
+    gs.ga_unique_visitors,
+    gs.conversion_rate,
     os.total_order_count,
     os.total_new_customer_count,
     os.total_new_achica_order_count,
@@ -127,6 +131,8 @@ select
     ctos.ba_sales_amount,
     ctos.ba_margin,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
+    gs1.ga_unique_visitors          as last_year_same_day_ga_unique_visitors,
+    gs1.conversion_rate             as last_year_same_day_conversion_rate,
     gs2.ga_unique_visits            as last_year_ga_unique_visits,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
