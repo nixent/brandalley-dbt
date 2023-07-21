@@ -25,7 +25,7 @@ with
             {{ ref("orders_enriched") }} oe
             on ol.order_id = oe.order_id
             and ol.ba_site = oe.ba_site
-        where gds.date >= '2022-01-01'
+        where gds.date >= '2022-06-01'
         {% if is_incremental() %} and date >= (select max(date) from {{ this }}) {% endif %}
         group by gds.traffic_campaign, gds.date, gds.traffic_source
 
@@ -41,27 +41,27 @@ with
             sum(impressions) as total_impressions,
             sum(spend) as total_spend
         from {{ ref("google_ads_campaign_stats") }} gacs
-        where gacs.date >= '2022-01-01'
+        where gacs.date >= '2022-06-01'
         group by campaign_name, date
 
         union all
 
         select
             campaign_name,
-            date_day as day,
+            date_day as date,
             'facebook' as traffic_source,
             sum(clicks) as total_click,
             sum(impressions) as total_impressions,
             sum(spend) as total_spend
         from {{ ref("facebook_ads_ad_report") }} faar
-        where faar.date_day >= '2022-01-01'
+        where faar.date_day >= '2022-06-01'
         group by campaign_name, date_day
 
     )
 
 select
-    ga.traffic_campaign,
-    ga.date,
+    ifnull(ga.traffic_campaign,ads.campaign_name) as traffic_campaign,
+    ifnull(ga.date, ads.date) as date,
     ifnull(ga.traffic_source, ads.traffic_source) as traffic_source,
     ga.transaction_count,
     ga.visitor_count,
