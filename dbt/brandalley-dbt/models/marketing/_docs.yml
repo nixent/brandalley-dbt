@@ -116,27 +116,27 @@ models:
               type: sum
               description: "Marketing Spend per New Customer"
               sql: "safe_divide(${total_spend},${total_new_customers})"
-              round: 0
+              round: 1
               hidden: false
             cpc_metric:
               label: 'CPC'
               type: sum
               description: "Marketing Spend per Click"
               sql: "safe_divide(${total_spend},${total_click})"
-              round: 0
+              round: 1
               hidden: false
             roas_metric:
               label: 'ROAS'
               type: sum
               description: "Return on ad spend"
               sql: "safe_divide(${gmv},${total_spend})"
-              round: 0
+              round: 1
               hidden: false
             cps_metric:
               label: 'Cost Per Sale'
               type: sum
               description: "Marketing Spend per Transaction"
               sql: "safe_divide(${total_spend},${transaction_count})"
-              round: 0
+              round: 1
               hidden: false
    
