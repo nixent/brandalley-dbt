@@ -600,12 +600,12 @@ models:
       - name: item_id
         data_type: <integer>
         description: "Primary key"
-        tests:
-          - unique
-          - not_null
       - name: product_id
         data_type: <integer>
         description: "Product id"
+        tests:
+          - unique
+          - not_null
       - name: stock_id
         data_type: <integer>
         description: "Stock id"

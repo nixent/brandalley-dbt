@@ -938,7 +938,7 @@ models:
               type: sum
               description: "Total Margin"
               hidden: false
-              round: 0
+              round: 2
               group_label: 'Sales'      
             total_margin_pct:
               label: 'Margin (%)'
@@ -1142,6 +1142,13 @@ models:
               hidden: false
               round: 2
               group_label: 'Sales'
+            ol_gmv_aov:
+              label: 'AOV GMV (£/€)'
+              type: number 
+              description: 'Average order value (incl. VAT after discount)'
+              sql: "${total_revenue}/${total_orders_count}"
+              round: 2
+              group_label: 'Sales'
             total_ifg_revenue:
               label: 'IFG GMV (£/€)'
               type: sum
@@ -1178,7 +1185,7 @@ models:
               type: number 
               description: 'Average order value (excluding VAT after discount)'
               sql: "${total_revenue_exc_tax}/${total_orders_count}"
-              round: 0
+              round: 2
               group_label: 'Sales'
       # - name: TOTAL_GBP_ex_tax_before_vouchers
       - name: total_local_currency_ex_tax_before_vouchers
