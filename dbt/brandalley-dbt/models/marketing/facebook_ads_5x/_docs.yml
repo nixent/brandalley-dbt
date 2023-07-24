@@ -1,0 +1,143 @@
+version: 2
+
+models:
+  - name: facebook_ads_ad_report
+    description: "facebook ads data grouped at ad level"
+    columns:
+      - name: date_day
+        description: "date"
+      - name: account_id
+        description: "account id"
+      - name: account_name
+        description: "account name"
+      - name: camapaign_id
+        description: "campaign id"
+      - name: campaign_name
+        description: "campaign name"
+      - name: ad_set_id
+        description: "ad set id"
+      - name: ad_set_name
+        description: "ad set name"
+      - name: ad_id
+        description: "ad id"
+      - name: ad_name
+        description: "ad name"
+      - name: clicks
+        description: "clicks"
+      - name: impressions
+        description: "impressions"
+      - name: spend
+        description: "spend"
+
+  - name: stg_facebook_ads_account_history
+    description: "staging facebook ads account details"
+    columns:
+      - name: account_id
+        description: "account id"
+      - name: _fivetran_synced
+        description: "synced at"
+      - name: account_name
+        description: "account name"
+      - name: account_status
+        description: "account status"
+      - name: business_country_code
+        description: "business country"
+      - name: created_at
+        description: "created at"
+      - name: currency
+        description: "currency"
+      - name: timezone_name
+        description: "timezone"
+
+  - name: stg_facebook_ads_ad_history
+    description: "staging facebook ads ad details"
+    columns:
+      - name: updated_at
+        description: "updated at"
+      - name: ad_id
+        description: "ad id"
+      - name: ad_name
+        description: "ad name"
+      - name: account_id
+        description: "account id"
+      - name: ad_set_id
+        description: "ad set id"
+      - name: campaign_id
+        description: "campaign id"
+      - name: creative_id
+        description: "creative id"
+
+  - name: stg_facebook_ads_ad_set_history
+    description: "staging facebook ads ad set details"
+    columns:
+      - name: ad_set_id
+        description: "ad set id"
+      - name: ad_set_name
+        description: "ad set name"
+      - name: account_id
+        description: "account id"
+      - name: campaign_id
+        description: "campaign id"
+      - name: start_at
+        description: "start at"
+      - name: end_at
+        description: "end at"
+      - name: bid_strategy
+        description: "bid strategy"
+      - name: daily_budget
+        description: "daily budget"
+      - name: budget_remaining
+        description: "budget remaining"
+      - name: status
+        description: "status"
+
+  - name: stg_facebook_ads_campaign_history
+    description: "staging facebook ads campaign details"
+    columns:
+      - name: updated_at
+        description: "updated at"
+      - name: created_at
+        description: "created at"
+      - name: account_id
+        description: "account id"
+      - name: campaign_id
+        description: "campaign id"
+      - name: campaign_name
+        description: "campaign name"
+      - name: start_at
+        description: "start at"
+      - name: end_at
+        description: "end at"
+      - name: status
+        description: "status"
+      - name: daily_budget
+        description: "daily budget"
+      - name: lifetime_budget
+        description: "lifetime budget"
+      - name: budget_remaining
+        description: "budget remaining"
+
+  - name: stg_facebook_ads_basic_ad
+    description: "staging facebook ads stats"
+    columns:
+      - name: ad_id
+        description: "ad id"
+      - name: ad_name
+        description: "ad name"
+      - name: ad_set_name
+        description: "ad set name"
+      - name: date_day
+        description: "date"
+      - name: account_id
+        description: "account id"
+      - name: impressions
+        description: "impressions"
+      - name: clicks
+        description: "clicks"
+      - name: spend
+        description: "spend"
+      - name: reach
+        description: "reach"
+      - name: frequency
+        description: "frequency"
+

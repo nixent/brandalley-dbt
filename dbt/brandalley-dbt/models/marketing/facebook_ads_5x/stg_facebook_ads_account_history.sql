@@ -1,3 +1,5 @@
+{{ config(schema='marketing', materialized='view') }}
+
 select
     cast(id as {{ dbt.type_bigint() }}) as account_id,
     _fivetran_synced,

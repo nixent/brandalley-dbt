@@ -1,5 +1,5 @@
 {{ config(
-  schema = 'facebook_ads_5x',
+  schema = 'marketing',
   materialized='table'
 )}}
 

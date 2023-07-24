@@ -1,3 +1,5 @@
+{{ config(schema='marketing', materialized='view') }}
+
 select
     updated_time as updated_at,
     created_time as created_at,

@@ -1,3 +1,5 @@
+{{ config(schema='marketing', materialized='view') }}
+
 with basic_ad as (
     
     select 

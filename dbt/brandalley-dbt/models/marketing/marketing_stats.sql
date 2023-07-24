@@ -1,4 +1,4 @@
-{{ config(materialized="incremental") }}
+{{ config(schema='marketing', materialized='incremental') }}
 
 
 with
@@ -26,7 +26,7 @@ with
             on ol.order_id = oe.order_id
             and ol.ba_site = oe.ba_site
         where gds.date >= '2022-06-01'
-        {% if is_incremental() %} and date >= (select max(date) from {{ this }}) {% endif %}
+        {% if is_incremental() %} and date > (select max(date) from {{ this }}) {% endif %}
         group by gds.traffic_campaign, gds.date, gds.traffic_source
 
     ),

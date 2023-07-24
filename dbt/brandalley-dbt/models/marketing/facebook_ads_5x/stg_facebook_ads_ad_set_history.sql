@@ -1,3 +1,5 @@
+{{ config(schema='marketing', materialized='view') }}
+
 select
     updated_time as updated_at,
     cast(id as {{ dbt.type_bigint() }}) as ad_set_id,

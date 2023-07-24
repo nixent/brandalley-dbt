@@ -1,5 +1,5 @@
 {{ config(
-  schema = 'google_ads',
+  schema = 'marketing',
   materialized='table'
 )}}
 

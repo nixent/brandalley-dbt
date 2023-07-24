@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: google_ads_campaign_stats
+    description: "google ads data grouped at campaign level"
+    columns:
+      - name: camapaign_id
+        description: "campaign id"
+      - name: campaign_name
+        description: "campaign name"
+      - name: customer_id
+        description: "customer id"
+      - name: account_name
+        description: "account name"
+      - name: clicks
+        description: "clicks"
+      - name: impressions
+        description: "impressions"
+      - name: spend
+        description: "spend"
+      - name: interactions
+        description: "interactions"
+      - name: conversions
+        description: "conversions"
+      - name: device
+        description: "device"
+      - name: date
+        description: "date"
