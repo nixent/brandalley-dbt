@@ -91,9 +91,9 @@ models:
             hidden: true
           metrics:
             reach_metric:
-              label: 'Amount of people who see ad'
+              label: 'Total Reach'
               type: sum
-              description: "Total Reach"
+              description: "Amount of people who see ad"
               hidden: false
       - name: frequency
         description: "frequency"
