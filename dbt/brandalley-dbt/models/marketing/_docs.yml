@@ -75,7 +75,7 @@ models:
               label: 'GMV (£/€)'
               type: sum
               description: "GMV"
-              round: 2
+              round: 0
               hidden: false
       - name: total_click
         description: ""
@@ -109,34 +109,34 @@ models:
               label: 'Total Marketing spend'
               type: sum
               description: "Total Marketing Spend"
-              round: 2
+              round: 0
               hidden: false
             cpa_metric:
               label: 'CPA'
               type: sum
               description: "Marketing Spend per New Customer"
               sql: "${total_spend}/${total_new_customers}"
-              round: 2
+              round: 0
               hidden: false
             cpc_metric:
               label: 'CPC'
               type: sum
               description: "Marketing Spend per Click"
               sql: "${total_spend}/${total_click}"
-              round: 2
+              round: 0
               hidden: false
             roas_metric:
               label: 'ROAS'
               type: sum
               description: "Return on ad spend"
               sql: "${gmv}/${total_spend}"
-              round: 2
+              round: 0
               hidden: false
             cps_metric:
               label: 'Cost Per Sale'
               type: sum
               description: "Marketing Spend per Transaction"
               sql: "${total_spend}/${transaction_count}"
-              round: 2
+              round: 0
               hidden: false
    

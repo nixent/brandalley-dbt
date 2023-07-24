@@ -52,7 +52,9 @@ joined as (
         ads.ad_name,
         sum(report.clicks) as clicks,
         sum(report.impressions) as impressions,
-        sum(report.spend) as spend
+        sum(report.spend) as spend,
+        sum(report.reach) as reach,
+        avg(report.frequency) as frequency
     from report 
     left join accounts
         on report.account_id = accounts.account_id

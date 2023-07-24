@@ -6,28 +6,106 @@ models:
     columns:
       - name: date_day
         description: "date"
+        meta:
+          dimension:
+            label: 'Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']         
       - name: account_id
         description: "account id"
+        meta:
+          dimension:
+            hiddden: True
       - name: account_name
         description: "account name"
+        meta:
+          dimension:
+            label: 'Account Name'
       - name: camapaign_id
         description: "campaign id"
+        meta:
+          dimension:
+            hiddden: True
       - name: campaign_name
         description: "campaign name"
+        meta:
+          dimension:
+            label: 'Campaign Name'
       - name: ad_set_id
         description: "ad set id"
+        meta:
+          dimension:
+            hiddden: True
       - name: ad_set_name
         description: "ad set name"
+        meta:
+          dimension:
+            label: 'Ad Set Name'
       - name: ad_id
         description: "ad id"
+        meta:
+          dimension:
+            hiddden: True
       - name: ad_name
         description: "ad name"
+        meta:
+          dimension:
+            label: 'Ad Name'
       - name: clicks
         description: "clicks"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            clicks_metric:
+              label: 'Total Clicks'
+              type: sum
+              description: "Number of clicks"
+              hidden: false
       - name: impressions
         description: "impressions"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            impressions_metric:
+              label: 'Total Impressions'
+              type: sum
+              description: "Number of Impressions"
+              hidden: false
       - name: spend
         description: "spend"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            spend_metric:
+              label: 'Total Facebook Spend'
+              type: sum
+              description: "Total amount spent on facebook ads"
+              hidden: false
+      - name: reach
+        description: "reach"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            reach_metric:
+              label: 'Amount of people who see ad'
+              type: sum
+              description: "Total Reach"
+              hidden: false
+      - name: frequency
+        description: "frequency"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            frequency_metric:
+              label: 'Average Frequency'
+              type: average
+              description: "Average amount of times a user sees ad"
+              hidden: false
 
   - name: stg_facebook_ads_account_history
     description: "staging facebook ads account details"
