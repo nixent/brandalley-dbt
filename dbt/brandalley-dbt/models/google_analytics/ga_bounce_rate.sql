@@ -1,39 +1,35 @@
-/* Dont think this logic is right, bounce rate of around 10% seems a bit low.
+{{ config(
+  materialized='table'
+)}}
 
-Realised I can probably get this from page_views */
-
-with pages_per_visit as (
-
-select date,
-       visit_id,
-       count(distinct page_path) as pages_count, 
-from {{ ref('ga_daily_stats') }}
-group by 1,2
-
-),
-
-one_page_visits as (
-
-select date,
-       count(distinct visit_id) as visits_with_one_page
-from pages_per_visit 
-where pages_count=1
-group by 1
-
-),
-
-joined as (
-
-select a.date,
-       count(distinct a.visit_id) as visits_count,
-       b.visits_with_one_page
-from {{ ref('ga_daily_stats') }} a
-left join one_page_visits b on a.date=b.date
-group by 1,3
-
-)
-
-select *, 
-       round(100*safe_divide(visits_with_one_page,visits_count),2) as bounce_rate
+with
+    number_of_pages_per_sessions as (
+        select
+            cast(a.original_event_at as date) as date,
+            a.session_id,
+            count(distinct a.page_url) as number_of_pages
+        from {{ ref('page_views')}} a
+        group by 1,2
+    ),
+    sessions_with_one_page as (
+        select 
+            a.date, 
+            count(distinct a.session_id) as number_of_sessions_with_one_page
+        from number_of_pages_per_sessions a
+        where number_of_pages = 1
+        group by 1
+    ),
+    joined as (
+        select
+            cast(original_event_at as date) as date,
+            count(distinct session_id) as no_of_sessions,
+            b.number_of_sessions_with_one_page
+        from {{ ref('page_views')}} a
+        left join sessions_with_one_page b on cast(original_event_at as date) = b.date
+        group by cast(original_event_at as date), b.number_of_sessions_with_one_page
+    )
+select
+    *,
+    safe_divide(number_of_sessions_with_one_page, no_of_sessions)*100 as bounce_rate
 from joined
 
