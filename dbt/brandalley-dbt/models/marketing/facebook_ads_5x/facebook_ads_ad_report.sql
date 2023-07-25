@@ -8,6 +8,7 @@ with report as (
 
     select *
     from {{ ref('stg_facebook_ads_basic_ad') }} 
+    where date_day<>current_date()
 
 ), 
 

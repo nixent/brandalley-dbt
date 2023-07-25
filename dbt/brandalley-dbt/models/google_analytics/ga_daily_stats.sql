@@ -6,7 +6,7 @@
       "field": "date",
       "data_type": "date",
       "granularity": "day"
-    }
+    },
   tags=["job_daily"]
 )}}
 
