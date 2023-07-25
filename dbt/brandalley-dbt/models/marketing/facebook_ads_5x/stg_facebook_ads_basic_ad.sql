@@ -1,4 +1,4 @@
-{{ config(schema='marketing', materialized='view') }}
+{{ config(schema='marketing', materialized='view', tags=["job_daily"]) }}
 
 with basic_ad as (
     

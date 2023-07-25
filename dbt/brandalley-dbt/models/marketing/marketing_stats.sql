@@ -1,4 +1,4 @@
-{{ config(schema='marketing', materialized='incremental') }}
+{{ config(schema='marketing', materialized='incremental', tags=["job_daily"]) }}
 
 
 with

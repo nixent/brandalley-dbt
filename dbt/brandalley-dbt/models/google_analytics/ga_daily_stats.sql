@@ -7,6 +7,7 @@
       "data_type": "date",
       "granularity": "day"
     }
+  tags=["job_daily"]
 )}}
 
 {% if execute and is_incremental() %}

@@ -1,6 +1,7 @@
 {{ config(
   schema = 'marketing',
-  materialized='table'
+  materialized='table',
+  tags=["job_daily"]
 )}}
 
 with campaign_label as (

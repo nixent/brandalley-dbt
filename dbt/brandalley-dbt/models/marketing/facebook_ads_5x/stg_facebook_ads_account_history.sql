@@ -1,4 +1,4 @@
-{{ config(schema='marketing', materialized='view') }}
+{{ config(schema='marketing', materialized='view', tags=["job_daily"]) }}
 
 select
     cast(id as {{ dbt.type_bigint() }}) as account_id,
