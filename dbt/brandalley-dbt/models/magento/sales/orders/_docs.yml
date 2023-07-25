@@ -772,8 +772,11 @@ models:
       - name: product_cost_exc_vat
         description: ""
         meta:
-          dimension:
-            hidden: true
+          dimension:    
+            type: number
+            label: 'Unit Cost' 
+            description: 'Cost for 1 item'
+            group_label: 'Product Details'
           metrics:
             product_cost_exc_vat_metric:
               label: 'Total Product Cost (1 Unit)'
