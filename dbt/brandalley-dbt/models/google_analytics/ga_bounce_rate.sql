@@ -23,6 +23,7 @@ with
         select
             cast(original_event_at as date) as date,
             count(distinct session_id) as no_of_sessions,
+            count(distinct concat(session_id, page_url))  as page_views_total
             b.number_of_sessions_with_one_page
         from {{ ref('page_views')}} a
         left join sessions_with_one_page b on cast(original_event_at as date) = b.date

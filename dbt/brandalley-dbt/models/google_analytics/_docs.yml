@@ -165,5 +165,16 @@ models:
               description: "Bounce Rate from Page Views"
               hidden: false
               round: 2
+      - name: page_views_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            page_views_metric:
+              label: 'Page Views Total'
+              type: sum
+              description: "Total Page Views"
+              hidden: false
+              round: 0
 
         
