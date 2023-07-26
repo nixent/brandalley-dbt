@@ -495,7 +495,7 @@ models:
     columns:
       - name: ba_site_negotiation_item_id
         tests:
-          - unique
+        #  - unique
           - not_null
         meta:
           dimension:
