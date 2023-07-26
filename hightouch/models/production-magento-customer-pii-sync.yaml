@@ -20,7 +20,7 @@ rawSql: |-
       FROM
         customer_entity
       WHERE
-        updated_at >= (NOW() - INTERVAL 8 HOUR)
+        updated_at >= (NOW() - INTERVAL 14 HOUR)
     ) e
     LEFT JOIN customer_entity_varchar caev_fn ON caev_fn.entity_id = e.entity_id
     AND caev_fn.attribute_id = 5
