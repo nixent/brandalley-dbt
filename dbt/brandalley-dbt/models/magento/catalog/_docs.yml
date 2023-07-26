@@ -247,7 +247,7 @@ models:
       - name: ba_site_variant_sku
         description: ""
         tests:
-          # - unique
+          - unique
           - not_null
         meta:
           dimension:
