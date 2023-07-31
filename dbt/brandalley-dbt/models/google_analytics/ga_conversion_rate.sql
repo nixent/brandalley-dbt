@@ -1,6 +1,7 @@
 {{ config(
     materialized='incremental',
-    unique_key=['date_aggregation_type', 'ga_session_at_date']
+    unique_key=['date_aggregation_type', 'ga_session_at_date'],
+    tags=["job_daily"]
 )}}
 
 select

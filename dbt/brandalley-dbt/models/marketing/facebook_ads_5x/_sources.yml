@@ -1,0 +1,183 @@
+version: 2
+
+sources:
+  - name: facebook_ads_5x
+    database: datawarehouse-358408
+    description: "facebook_ads_tables"
+    tables:
+      - name: basic_ad_daily
+        columns:
+          - name: ad_id
+            data_type: <string>
+            description: "ad_id"
+          - name: date
+            data_type: <date>
+            description: "date"
+          - name: account_id
+            data_type: <integer>
+            description: "account_id"
+          - name: impressions
+            data_type: <integer>
+            description: "impressions"
+          - name: inline_link_clicks
+            data_type: <integer>
+            description: "inline_link_clicks"
+          - name: spend
+            data_type: <float>
+            description: "spend"
+          - name: ad_name
+            data_type: <string>
+            description: "ad_name"
+          - name: adset_name
+            data_type: <string>
+            description: "adset_name"
+          - name: reach
+            data_type: <integer>
+            description: "reach"
+          - name: frequency
+            data_type: <float>
+            description: "frequency"
+          - name: _fivetran_synced
+            data_type: <timestamp>
+            description: "fivetran_synced"
+          
+      - name: ad_history
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "ad_id"
+            tests:
+              - not_null   
+          - name: account_id
+            data_type: <integer>
+            description: "account_id"
+          - name: adset_id
+            data_type: <integer>
+            description: "adset_id"
+          - name: campaign_id
+            data_type: <integer>
+            description: "campaign_id"
+          - name: creative_id
+            data_type: <integer>
+            description: "creative_id"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: _fivetran_synced
+            data_type: <timestamp>
+            description: "fivetran_synced"
+          - name: updated_time
+            data_type: <timestamp>
+            description: "updated_time"
+                 
+      - name: account_history
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "account_id"
+            tests:
+              - not_null  
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: _fivetran_synced
+            data_type: <timestamp>
+            description: "fivetran_synced"
+          - name: account_status
+            data_type: <string>
+            description: "account_status"
+          - name: business_country_code
+            data_type: <string>
+            description: "business_country_code"
+          - name: created_time
+            data_type: <timestamp>
+            description: "created_time"
+          - name: currency
+            data_type: <string>
+            description: "currency"
+          - name: timezone_name
+            data_type: <string>
+            description: "timezone_name"
+                       
+      - name: ad_set_history
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "adset_id"
+            tests:
+              - not_null  
+          - name: account_id
+            data_type: <integer>
+            description: "account_id"
+          - name: campaign_id
+            data_type: <integer>
+            description: "campaign_id"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: _fivetran_synced
+            data_type: <timestamp>
+            description: "fivetran_synced"
+          - name: updated_time
+            data_type: <timestamp>
+            description: "updated_time"
+          - name: start_time
+            data_type: <timestamp>
+            description: "start_time"
+          - name: end_time
+            data_type: <timestamp>
+            description: "end_time"
+          - name: bid_strategy
+            data_type: <string>
+            description: "bid_strategy"
+          - name: daily_budget
+            data_type: <integer>
+            description: "daily_budget"
+          - name: budget_remaining
+            data_type: <integer>
+            description: "budget_remaining"
+          - name: status
+            data_type: <string>
+            description: "status"
+                                   
+      - name: campaign_history
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "campaign_id"
+            tests:
+              - not_null  
+          - name: account_id
+            data_type: <integer>
+            description: "account_id"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: _fivetran_synced
+            data_type: <timestamp>
+            description: "fivetran_synced"
+          - name: updated_time
+            data_type: <timestamp>
+            description: "updated_time"
+          - name: created_time
+            data_type: <timestamp>
+            description: "created_time"
+          - name: start_time
+            data_type: <timestamp>
+            description: "start_time"
+          - name: stop_time
+            data_type: <timestamp>
+            description: "stop_time"
+          - name: daily_budget
+            data_type: <integer>
+            description: "daily_budget"
+          - name: budget_remaining
+            data_type: <float>
+            description: "budget_remaining"
+          - name: lifetime_budget
+            data_type: <integer>
+            description: "lifetime_budget"
+          - name: status
+            data_type: <string>
+            description: "status"
+          
