@@ -64,6 +64,4 @@ left join
     on fss.week_num = fss1.week_num
     and fss.ba_site = fss1.ba_site
     and fss.date_day < fss1.date_day
-where fs.week_num=31
 group by 1, 2, 3, 4, 5
-order by ba_site, date_day desc
