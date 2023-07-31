@@ -6,7 +6,8 @@
       "field": "date",
       "data_type": "date",
       "granularity": "day"
-    }
+    },
+  tags=["job_daily"]
 )}}
 
 {% if execute and is_incremental() %}
@@ -28,7 +29,7 @@ select
     trafficSource.campaign                                                                                    as traffic_campaign,
     trafficSource.campaignCode                                                                                as traffic_campaign_id,
     trafficSource.source                                                                                      as traffic_source,
-    trafficSource.adContent                                                                                   as traffic_ad_content,
+    trafficSource.adContent                                                                                   as traffic_ad_content,     
     device.browser                                                                                            as device_browser,
     device.operatingSystem                                                                                    as device_os,
     product.productSKU                                                                                        as product_sku,

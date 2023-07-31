@@ -1,0 +1,221 @@
+version: 2
+
+models:
+  - name: facebook_ads_ad_report
+    description: "facebook ads data grouped at ad level"
+    columns:
+      - name: date_day
+        description: "date"
+        meta:
+          dimension:
+            label: 'Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']         
+      - name: account_id
+        description: "account id"
+        meta:
+          dimension:
+            hiddden: true
+      - name: account_name
+        description: "account name"
+        meta:
+          dimension:
+            label: 'Account Name'
+      - name: camapaign_id
+        description: "campaign id"
+        meta:
+          dimension:
+            hiddden: true
+      - name: campaign_name
+        description: "campaign name"
+        meta:
+          dimension:
+            label: 'Campaign Name'
+      - name: ad_set_id
+        description: "ad set id"
+        meta:
+          dimension:
+            hiddden: true
+      - name: ad_set_name
+        description: "ad set name"
+        meta:
+          dimension:
+            label: 'Ad Set Name'
+      - name: ad_id
+        description: "ad id"
+        meta:
+          dimension:
+            hiddden: true
+      - name: ad_name
+        description: "ad name"
+        meta:
+          dimension:
+            label: 'Ad Name'
+      - name: clicks
+        description: "clicks"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            clicks_metric:
+              label: 'Total Clicks'
+              type: sum
+              description: "Number of clicks"
+              hidden: false
+      - name: impressions
+        description: "impressions"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            impressions_metric:
+              label: 'Total Impressions'
+              type: sum
+              description: "Number of Impressions"
+              hidden: false
+      - name: spend
+        description: "spend"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            spend_metric:
+              label: 'Total Facebook Spend'
+              type: sum
+              description: "Total amount spent on facebook ads"
+              hidden: false
+      - name: reach
+        description: "reach"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            reach_metric:
+              label: 'Total Reach'
+              type: sum
+              description: "Amount of people who see ad"
+              hidden: false
+      - name: frequency
+        description: "frequency"
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            frequency_metric:
+              label: 'Average Frequency'
+              type: average
+              description: "Average amount of times a user sees ad"
+              hidden: false
+
+  - name: stg_facebook_ads_account_history
+    description: "staging facebook ads account details"
+    columns:
+      - name: account_id
+        description: "account id"
+      - name: _fivetran_synced
+        description: "synced at"
+      - name: account_name
+        description: "account name"
+      - name: account_status
+        description: "account status"
+      - name: business_country_code
+        description: "business country"
+      - name: created_at
+        description: "created at"
+      - name: currency
+        description: "currency"
+      - name: timezone_name
+        description: "timezone"
+
+  - name: stg_facebook_ads_ad_history
+    description: "staging facebook ads ad details"
+    columns:
+      - name: updated_at
+        description: "updated at"
+      - name: ad_id
+        description: "ad id"
+      - name: ad_name
+        description: "ad name"
+      - name: account_id
+        description: "account id"
+      - name: ad_set_id
+        description: "ad set id"
+      - name: campaign_id
+        description: "campaign id"
+      - name: creative_id
+        description: "creative id"
+
+  - name: stg_facebook_ads_ad_set_history
+    description: "staging facebook ads ad set details"
+    columns:
+      - name: ad_set_id
+        description: "ad set id"
+      - name: ad_set_name
+        description: "ad set name"
+      - name: account_id
+        description: "account id"
+      - name: campaign_id
+        description: "campaign id"
+      - name: start_at
+        description: "start at"
+      - name: end_at
+        description: "end at"
+      - name: bid_strategy
+        description: "bid strategy"
+      - name: daily_budget
+        description: "daily budget"
+      - name: budget_remaining
+        description: "budget remaining"
+      - name: status
+        description: "status"
+
+  - name: stg_facebook_ads_campaign_history
+    description: "staging facebook ads campaign details"
+    columns:
+      - name: updated_at
+        description: "updated at"
+      - name: created_at
+        description: "created at"
+      - name: account_id
+        description: "account id"
+      - name: campaign_id
+        description: "campaign id"
+      - name: campaign_name
+        description: "campaign name"
+      - name: start_at
+        description: "start at"
+      - name: end_at
+        description: "end at"
+      - name: status
+        description: "status"
+      - name: daily_budget
+        description: "daily budget"
+      - name: lifetime_budget
+        description: "lifetime budget"
+      - name: budget_remaining
+        description: "budget remaining"
+
+  - name: stg_facebook_ads_basic_ad
+    description: "staging facebook ads stats"
+    columns:
+      - name: ad_id
+        description: "ad id"
+      - name: ad_name
+        description: "ad name"
+      - name: ad_set_name
+        description: "ad set name"
+      - name: date_day
+        description: "date"
+      - name: account_id
+        description: "account id"
+      - name: impressions
+        description: "impressions"
+      - name: clicks
+        description: "clicks"
+      - name: spend
+        description: "spend"
+      - name: reach
+        description: "reach"
+      - name: frequency
+        description: "frequency"
+

@@ -1,0 +1,142 @@
+version: 2
+
+models:
+  - name: marketing_stats
+    description: "Daily spend, traffic and transactional data at campaign level"
+    columns:
+      - name: traffic_campaign
+        description: "Campaign Name"
+        meta:
+          dimension:
+            label: 'Campaign Name'
+      - name: date
+        description: "Date"
+        meta:
+          dimension:
+            label: 'Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']           
+      - name: traffic_source
+        description: "Campaign Source"
+        meta:
+          dimension:
+            label: 'Campaign Source'
+      - name: transaction_count
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            transaction_count_metric:
+              label: 'No. of Transactions'
+              type: sum
+              description: "Number of transactions"
+              hidden: false
+      - name: visitor_count
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            visitor_count_metric:
+              label: 'No. of Unique Visitors'
+              type: sum
+              description: "Number of Unique Visitors"
+              hidden: false
+      - name: visit_count
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            visit_count_metric:
+              label: 'No. of Unique Visits'
+              type: sum
+              description: "Number of Unique Visits"
+              hidden: false
+      - name: total_new_customers
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            new_customers_metric:
+              label: 'Total New Customers'
+              type: sum
+              description: "Total New Customers"
+              hidden: false
+      - name: gmv
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            gmv_metric:
+              label: 'GMV (£/€)'
+              type: sum
+              description: "GMV"
+              round: 0
+              hidden: false
+      - name: total_click
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_click_metric:
+              label: 'Total clicks'
+              type: sum
+              description: "Total Clicks on ad"
+              hidden: false
+      - name: total_impressions
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_impressions_metric:
+              label: 'Total Impressions'
+              type: sum
+              description: "Total impressions on ad"
+              hidden: false
+      - name: total_spend
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_spend_metric:
+              label: 'Total Marketing spend'
+              type: sum
+              description: "Total Marketing Spend"
+              round: 0
+              hidden: false
+            cpa_metric:
+              label: 'CPA'
+              type: sum
+              description: "Marketing Spend per New Customer"
+              sql: "safe_divide(${total_spend},${total_new_customers})"
+              round: 1
+              hidden: false
+            cpc_metric:
+              label: 'CPC'
+              type: sum
+              description: "Marketing Spend per Click"
+              sql: "safe_divide(${total_spend},${total_click})"
+              round: 1
+              hidden: false
+            roas_metric:
+              label: 'ROAS'
+              type: sum
+              description: "Return on ad spend"
+              sql: "safe_divide(${gmv},${total_spend})"
+              round: 1
+              hidden: false
+            cps_metric:
+              label: 'Cost Per Sale'
+              type: sum
+              description: "Marketing Spend per Transaction"
+              sql: "safe_divide(${total_spend},${transaction_count})"
+              round: 1
+              hidden: false
+   
