@@ -17,7 +17,7 @@ with order_stats as (
         sum(o.shipping_incl_tax)                                                        as shipping_amount
     from {{ ref('Orders')}} o
     left join {{ ref('customers_enriched') }} ce
-        on o.customer_id = ce.customer_id
+        on o.customer_id = ce.customer_id and o.ba_site = ce.ba_site
     group by 1,2
 ),
 
@@ -32,7 +32,7 @@ customer_stats as (
         count(if(ce.customer_type = 'BA', ce.customer_id, null))                                                  as total_new_ba_members
     from {{ ref('customers_enriched') }} ce
     left join {{ ref('customers_record_data_source') }} crds 
-        on ce.customer_id = crds.cst_id
+        on ce.customer_id = crds.cst_id and ce.ba_site = crds.ba_site
     group by 1,2
 ),
 
