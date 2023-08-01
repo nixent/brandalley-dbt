@@ -10,7 +10,7 @@ with
             gds.traffic_source,
             count(distinct transaction_id) as transaction_count,
             count(distinct visitor_id) as visitor_count,
-            count(distinct visit_id) as visit_count,
+            count(distinct unique_visit_id) as visit_count,
             --sum(case when oe.is_first_order = true then 1 else 0 end) as total_new_customers,
             count(distinct case when oe.is_first_order = true then oe.customer_id else null end) as total_new_customers,
             sum(ol.total_local_currency_after_vouchers) as gmv
@@ -42,6 +42,7 @@ with
             sum(spend) as total_spend
         from {{ ref("google_ads_campaign_stats") }} gacs
         where gacs.date >= '2022-06-01'
+        {% if is_incremental() %} and date > (select max(date) from {{ this }}) {% endif %}
         group by campaign_name, date
 
         union all
@@ -55,6 +56,7 @@ with
             sum(spend) as total_spend
         from {{ ref("facebook_ads_ad_report") }} faar
         where faar.date_day >= '2022-06-01'
+        {% if is_incremental() %} and date > (select max(date) from {{ this }}) {% endif %}
         group by campaign_name, date_day
 
     )
