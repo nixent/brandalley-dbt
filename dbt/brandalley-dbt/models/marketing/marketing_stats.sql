@@ -56,7 +56,7 @@ with
             sum(spend) as total_spend
         from {{ ref("facebook_ads_ad_report") }} faar
         where faar.date_day >= '2022-06-01'
-        {% if is_incremental() %} and date > (select max(date) from {{ this }}) {% endif %}
+        {% if is_incremental() %} and date_day > (select max(date) from {{ this }}) {% endif %}
         group by campaign_name, date_day
 
     )
