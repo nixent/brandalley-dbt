@@ -3,7 +3,7 @@
     schema='zendesk_5x'
 ) }}
 
-with unioned as (
+{# with unioned as (
     {{ dbt_utils.union_relations(
         relations=[source('zendesk_uk_5x', 'ivr'), source('zendesk_fr_5x', 'ivr')]
     ) }}
@@ -21,4 +21,11 @@ select
     _fivetran_deleted,
     _fivetran_synced,
     name
-from site_group
+from site_group #}
+
+select 
+'UK' || '-'  || id as id,
+    _fivetran_deleted,
+    _fivetran_synced,
+    name
+from {{ source('zendesk_uk_5x', 'ivr') }}

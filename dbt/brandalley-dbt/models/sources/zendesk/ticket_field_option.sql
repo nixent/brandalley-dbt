@@ -20,7 +20,7 @@ select
     ba_site || '-'  || id as id,
     value,
     _fivetran_synced,
-    default,
+    `default`,
     name,
     ba_site || '-'  || ticket_custom_field_id as ticket_custom_field_id
 from site_group

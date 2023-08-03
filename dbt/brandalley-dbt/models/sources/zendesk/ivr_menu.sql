@@ -3,7 +3,7 @@
     schema='zendesk_5x'
 ) }}
 
-with unioned as (
+{# with unioned as (
     {{ dbt_utils.union_relations(
         relations=[source('zendesk_uk_5x', 'ivr_menu'), source('zendesk_fr_5x', 'ivr_menu')]
     ) }}
@@ -24,4 +24,14 @@ select
     ba_site || '-'  || greeting_id as greeting_id,
     name,
     system_default
-from site_group
+from site_group #}
+
+select
+'UK' || '-'  || id as id,
+    'UK' || '-'  || ivr_id as ivr_id,
+    _fivetran_deleted,
+    _fivetran_synced,
+    'UK' || '-'  || greeting_id as greeting_id,
+    name,
+    system_default
+ from {{ source('zendesk_uk_5x', 'ivr_menu') }}

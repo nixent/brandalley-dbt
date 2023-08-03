@@ -22,7 +22,7 @@ select
     _fivetran_synced,
     active,
     brand_url,
-    default,
+    `default`,
     has_help_center,
     help_center_state,
     logo_content_type,

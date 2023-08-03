@@ -1,6 +1,7 @@
 {{ config(
     materialized='table',
-    schema='zendesk_5x'
+    schema='zendesk_5x',
+    enabled=false
 ) }}
 
 with unioned as (

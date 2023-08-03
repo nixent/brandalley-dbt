@@ -22,7 +22,7 @@ select
     active,
     agent_label,
     created_at,
-    default,
+    `default`,
     description,
     end_user_description,
     end_user_label,

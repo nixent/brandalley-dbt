@@ -3,7 +3,7 @@
     schema='zendesk_5x'
 ) }}
 
-with unioned as (
+{# with unioned as (
     {{ dbt_utils.union_relations(
         relations=[source('zendesk_uk_5x', 'ivr_menu_route'), source('zendesk_fr_5x', 'ivr_menu_route')]
     ) }}
@@ -29,4 +29,19 @@ select
     options_phone_number,
     options_sms_textstring,
     options_textback_phone_number_id
-from site_group
+from site_group #}
+
+select
+'UK' || '-'  || id as id,
+    _fivetran_deleted,
+    _fivetran_synced,
+    action,
+    greeting,
+    'UK' || '-'  || ivr_menu_id as ivr_menu_id,
+    keypress,
+    option_text,
+    options_menu_id,
+    options_phone_number,
+    options_sms_textstring,
+    options_textback_phone_number_id
+ from {{ source('zendesk_uk_5x', 'ivr_menu_route') }}

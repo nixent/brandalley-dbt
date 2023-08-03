@@ -23,7 +23,7 @@ select
     _fivetran_synced,
     active,
     created_at,
-    default,
+    `default`,
     display_name,
     end_user_visible,
     in_all_brands,
