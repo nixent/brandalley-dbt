@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: 'zendesk'
+  - name: zendesk
     # database: datawarehouse-358408
     description: ""
     tables:
