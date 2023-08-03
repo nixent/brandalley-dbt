@@ -18,6 +18,7 @@ site_group as (
 
 select
     ba_site || '-'  || id as id,
+    ba_site,
     _fivetran_synced,
     active,
     alias,

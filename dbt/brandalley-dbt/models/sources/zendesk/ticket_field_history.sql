@@ -17,7 +17,7 @@ site_group as (
 )
 
 select
-    ba_site || '-'  || field_name as field_name,
+    field_name,
     ba_site || '-'  || ticket_id as ticket_id,
     updated,
     _fivetran_synced,

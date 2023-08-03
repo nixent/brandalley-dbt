@@ -79,6 +79,8 @@ models:
           +post-hook: "delete {{this}} where __deleted = true"
       zendesk:
         +schema: zendesk
+        +tags: 
+          - "zendesk_uk_fr_merge"
 
 vars:
   # Needed to keep the surrogate_key function treating null as empty strings following upgrade of db-utils

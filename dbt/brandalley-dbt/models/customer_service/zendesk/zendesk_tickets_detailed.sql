@@ -3,70 +3,64 @@
 	unique_key='id'
 ) }}
 
-with tickets as (
-    select  ticket.id,
-            ticket.created_at,
-            ticket.description,
-            ticket.due_at,
-            ticket.is_public,
-            ticket.merged_ticket_ids,
-            ticket.status,
-            ticket.subject,
-            ticket.updated_at,
-            ticket.type,
-            ticket.url,
-            ticket.via_channel,
-            ticket.via_source_rel,
-            if(ticket.via_channel='voice', 1, 0) as phone_ticket,
-            if(ticket.via_channel='native_messaging', 1, 0) as chat_ticket,
-            if(ticket.via_channel in ('web','email'), 1, 0) as web_email_ticket,
-            if(ticket.via_channel='web', 1, 0) as web_ticket,
-            if(ticket.via_channel='email', 1, 0) as email_ticket,
-            ticket.custom_carrier,
-            ticket.custom_client_contact_reason_no_order,
-            ticket.custom_client_contact_reason_order,
-            ticket.custom_contact_reason,
-            ticket.custom_coupon_code,
-            ticket.custom_needs_senior_help,
-            ticket.custom_order_id,
-            ticket.custom_order_number,
-            ticket.custom_order_related,
-            ticket.custom_product_issue_type,
-            ticket.custom_shipping_issue_type,
-            ticket.custom_solution,
-            ticket.custom_status_id,
-            ticket.custom_tracking_,
-            orderlines.consignment_qty, 
-            orderlines.warehouse_qty, 
-            orderlines.selffulfill_qty,
-            orderlines.order_id,
-            carrier_codes,
-            title
-    from {{ source(
-        'zendesk',
-        'ticket'
-    ) }} ticket
-    left outer join (
-        select sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty, order_number, order_id
-        from {{ ref('OrderLines') }} 
-        -- At the moment filtering on UK only but we'll need to add join on site when FR data is in
-        where ba_site='UK'
-        group by order_number, order_id
-    ) orderlines
-        on ifnull(ticket.custom_order_id, ticket.custom_order_number) = orderlines.order_number
-    left outer join (
-        select 
-            string_agg(distinct carrier_code) as carrier_codes, 
-            string_agg(distinct title) as title, 
-            order_id 
-        from {{ ref('stg__sales_flat_shipment_track') }}
-        group by 3
-    ) track
-        on orderlines.order_id = track.order_id
-	where 1=1
-/*	{% if is_incremental() %}
-		and updated_at >= '{{min_ts}}'
-	{% endif %}*/
-)
 
-select * from tickets
+select  
+    t.id,
+    t.ba_site,
+    t.created_at,
+    t.description,
+    t.due_at,
+    t.is_public,
+    t.merged_ticket_ids,
+    t.status,
+    t.subject,
+    t.updated_at,
+    t.type,
+    t.url,
+    t.via_channel,
+    t.via_source_rel,
+    if(t.via_channel='voice', 1, 0) as phone_ticket,
+    if(t.via_channel='native_messaging', 1, 0) as chat_ticket,
+    if(t.via_channel in ('web','email'), 1, 0) as web_email_ticket,
+    if(t.via_channel='web', 1, 0) as web_ticket,
+    if(t.via_channel='email', 1, 0) as email_ticket,
+    t.custom_carrier,
+    t.custom_client_contact_reason_no_order,
+    t.custom_client_contact_reason_order,
+    t.custom_contact_reason,
+    t.custom_coupon_code,
+    t.custom_needs_senior_help,
+    t.custom_order_id,
+    t.custom_order_number,
+    t.custom_order_related,
+    t.custom_product_issue_type,
+    t.custom_shipping_issue_type,
+    t.custom_solution,
+    t.custom_status_id,
+    t.custom_tracking_,
+    ol.consignment_qty, 
+    ol.warehouse_qty, 
+    ol.selffulfill_qty,
+    ol.order_id,
+    tr.carrier_codes,
+    tr.title
+from {{ source('zendesk', 'ticket') }} t
+left outer join (
+    select order_number, order_id, ba_site, sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty
+    from {{ ref('OrderLines') }} 
+    group by 1,2,3
+) ol
+    on ifnull(t.custom_order_id, t.custom_order_number) = ol.order_number and t.ba_site = ol.ba_site
+left outer join (
+    select 
+        string_agg(distinct carrier_code) as carrier_codes, 
+        string_agg(distinct title) as title, 
+        ba_site,
+        order_id 
+    from {{ ref('stg__sales_flat_shipment_track') }}
+    group by 3,4 
+) tr
+    on ol.order_id = tr.order_id and ol.ba_site = tr.ba_site
+/*	{% if is_incremental() %}
+    and updated_at >= '{{min_ts}}'
+{% endif %}*/

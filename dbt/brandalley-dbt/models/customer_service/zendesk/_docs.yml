@@ -7,6 +7,7 @@ models:
     meta:
       group_label: 'Customer Service'
     columns:
+      - name: ba_site
       - name: id
         description: "Primary key"
         tests:
@@ -167,6 +168,7 @@ models:
         - join: user_overwrite
           sql_on: ${zendesk_call_metric.agent_id} = ${user_overwrite.id}
     columns:
+      - name: ba_site
       - name: id
         data_type: <integer>
         description: "Primary key"
@@ -386,6 +388,7 @@ models:
     meta:
       group_label: 'Customer Service'
     columns:
+      - name: ba_site
       - name: created_at
         description: "created_at"
         meta:
@@ -527,6 +530,7 @@ models:
         - join: zendesk_tickets_detailed
           sql_on: ${zendesk__ticket_metrics_overwrite.ticket_id} = ${zendesk_tickets_detailed.id}
     columns:
+      - name: ba_site
       - name: first_reply_time_calendar_minutes
         description: "The number of calendar minutes between when the ticket was created and when the first public agent response occurred"
       - name: first_reply_time_business_minutes
@@ -987,6 +991,7 @@ models:
         - join: zendesk__ticket_metrics
           sql_on: ${zendesk__sla_policies_overwrite.ticket_id} = ${zendesk__ticket_metrics.ticket_id}
     columns:
+      - name: ba_site
       - name: sla_event_id
         description: "A surrogate key generated from the combination of ticket_id, metric, and sla_applied_at fields"
         tests:
@@ -1034,6 +1039,7 @@ models:
         - join: zendesk_call_metric
           sql_on: ${zendesk_call_metric.id} = ${call_leg_overwrite.call_id}
     columns:
+      - name: ba_site
       - name: id
         data_type: <integer>
         description: "id"
@@ -1137,6 +1143,7 @@ models:
     meta:
       group_label: 'Customer Service'
     columns:
+      - name: ba_site
       - name: id
         data_type: <integer>
         description: "primary key"
