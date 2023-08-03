@@ -1,6 +1,6 @@
 {{ config(
     materialized='table',
-    schema='zendesk_5x',
+    schema='zendesk',
     enabled=false
 ) }}
 
