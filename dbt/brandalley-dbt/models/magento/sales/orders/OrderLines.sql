@@ -196,11 +196,11 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
-			when vs.brand is not null then ptd.product_department
+			when vs.brand is not null then pcd.product_department
 			when lower(ccfse.path_name) like '%>clearance>%' then 'CLEARANCE'
 			when lower(cceh.name) = 'outlet' then 'OUTLET'
 			when eaov_brand.value = 'N°· Eleven' then 'OWN BRAND'
-			when cceh.name is not null then ptd.product_department
+			when cceh.name is not null then pcd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
 		sfo.updated_at,
@@ -266,8 +266,8 @@ with order_lines as (
 		on cpev_pt_con.value = cast(eaov_pt_con.option_id as string)
 			and eaov_pt_con.store_id = 0
 			and cpev_pt_con.ba_site = eaov_pt_con.ba_site
-	left join {{ ref('product_type_department') }} ptd
-		on lower(coalesce(eaov_pt_con.value,eaov_pt_sim.value)) = lower(ptd.product_type)
+	left join {{ ref('product_category_department') }} pcd
+		on lower(coalesce(cpev_outletcat_con.value, cpev_outletcat_sim.value)) = lower(pcd.product_category_path)
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_brand
 		on cpei_brand.entity_id = sfoi_con.product_id
 			and cpei_brand.attribute_id = 178
