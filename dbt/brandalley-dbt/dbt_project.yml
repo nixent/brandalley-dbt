@@ -47,6 +47,10 @@ models:
       +schema: marketing
       emarsys:
         +schema: emarsys
+      emarsys_us:
+        +schema: emarsys_us
+        +tags:
+          - "emarsys_us"
     customer_service:
       +schema: customer_service
       zendesk:
