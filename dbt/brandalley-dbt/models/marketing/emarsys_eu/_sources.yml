@@ -7,3 +7,4 @@ sources:
       - name: email_sends_523470888
       - name: email_opens_523470888
       - name: email_campaigns_v2_523470888
+      - name: email_clicks_523470888
