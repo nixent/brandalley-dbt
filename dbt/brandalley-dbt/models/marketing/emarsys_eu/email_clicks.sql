@@ -8,7 +8,7 @@
 )}}
 
 select 
-    {{dbt_utils.generate_surrogate_key(['customer_id', 'message_id', 'launch_id'])}} as unique_key,
+    {# {{dbt_utils.generate_surrogate_key(['customer_id', 'message_id', 'launch_id'])}} as unique_key, #}
     contact_id,
     launch_id,
     domain,
