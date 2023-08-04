@@ -430,6 +430,8 @@ models:
           sql_on: ${OrderLines.order_id} = ${orders_enriched.order_id} and ${OrderLines.ba_site} = ${orders_enriched.ba_site}
         - join: stg__sales_payment_transaction 
           sql_on: ${OrderLines.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${OrderLines.ba_site} = ${stg__sales_payment_transaction.ba_site}
+        - join: stock_file 
+          sql_on: ${OrderLines.sku} = ${stock_file.child_sku} and ${OrderLines.ba_site} = ${stock_file.ba_site}
 
     columns:
       - name: ba_site
