@@ -1,6 +1,5 @@
 {{ config(
     materialized='incremental',
-    schema='emarsys_opendata_eu',
     partition_by = {
       "field": "loaded_at",
       "data_type": "timestamp",
