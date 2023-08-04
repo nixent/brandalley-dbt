@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: email_sends
+    columns:
+      - name: unique_key
+        tests:
+          - unique
+          - not_null
+  - name: email_opens
+    # columns:
+    # NO UNIQUE KEY?
+      # - name: unique_key
+      #   tests:
+      #     - unique
+      #     - not_null
