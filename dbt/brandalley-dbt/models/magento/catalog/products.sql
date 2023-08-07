@@ -213,7 +213,7 @@ with products as (
         on cpn.buyer = au.user_id
             and cpn.ba_site = au.ba_site
     left join {{ ref('stg__catalog_product_entity') }} cpe_ref
-		on cpe_child.sku = cpe_ref.sku
+		on cpe_child.entity_id = cpe_ref.entity_id
 		and cpe_ref.ba_site = cpe_child.ba_site
 	left join (
 			select entity_id, ba_site, reference from {{ ref('stg__catalog_product_reference') }}
