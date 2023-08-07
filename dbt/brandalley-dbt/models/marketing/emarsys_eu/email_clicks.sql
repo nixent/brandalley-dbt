@@ -1,10 +1,16 @@
+{% set partitions_to_replace = [
+  'timestamp(current_date)',
+  'timestamp(date_sub(current_date, interval 1 day))'] %}
+
 {{ config(
     materialized='incremental',
+    incremental_strategy='insert_overwrite',
     partition_by = {
-      "field": "loaded_at",
+      "field": "partitiontime",
       "data_type": "timestamp",
       "granularity": "day"
-    }    
+    },
+    partitions=partitions_to_replace
 )}}
 
 select 
@@ -41,5 +47,5 @@ where 1=1
   -- for dev
   and date(partitiontime) >= current_date - 2 
 {% if is_incremental() %}
-  and date(partitiontime) >= current_date - 1 and loaded_at > (select max(loaded_at) from {{this}})
+  and date(partitiontime) >= current_date - 1
 {% endif %}
