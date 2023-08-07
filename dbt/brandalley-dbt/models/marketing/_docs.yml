@@ -65,6 +65,17 @@ models:
               type: sum
               description: "Total New Customers"
               hidden: false
+      - name: total_new_registrations
+        description: ""
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            new_registrations_metric:
+              label: 'Total Registrations'
+              type: sum
+              description: "Total New Registrations"
+              hidden: false
       - name: gmv
         description: ""
         meta:
@@ -113,28 +124,35 @@ models:
               hidden: false
             cpa_metric:
               label: 'CPA'
-              type: sum
+              type: average
               description: "Marketing Spend per New Customer"
               sql: "safe_divide(${total_spend},${total_new_customers})"
               round: 1
               hidden: false
+            cpr_metric:
+              label: 'CPR'
+              type: average
+              description: "Marketing Spend per New Registration"
+              sql: "safe_divide(${total_spend},${total_new_registrations})"
+              round: 1
+              hidden: false
             cpc_metric:
               label: 'CPC'
-              type: sum
+              type: average
               description: "Marketing Spend per Click"
               sql: "safe_divide(${total_spend},${total_click})"
               round: 1
               hidden: false
             roas_metric:
               label: 'ROAS'
-              type: sum
+              type: average
               description: "Return on ad spend"
               sql: "safe_divide(${gmv},${total_spend})"
               round: 1
               hidden: false
             cps_metric:
               label: 'Cost Per Sale'
-              type: sum
+              type: average
               description: "Marketing Spend per Transaction"
               sql: "safe_divide(${total_spend},${transaction_count})"
               round: 1
