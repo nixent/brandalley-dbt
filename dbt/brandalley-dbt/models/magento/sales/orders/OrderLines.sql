@@ -66,6 +66,7 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
+		woak.qty_allocated 																																	as qty_allocated_kettering_wh, 
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
 		sfoi_con.dispatch_date 																																as dispatch_due_date,
 		cast((sfoi_sim.base_cost) as decimal) 																												as product_cost_exc_vat,
@@ -366,6 +367,8 @@ with order_lines as (
 		and cpe_ref.ba_site = cpr.ba_site
 	left join {{ ref('vip_sales') }} vs
 		on date(if(sfo.ba_site = "FR",datetime(timestamp(sfo.created_at), "Europe/Paris"),datetime(timestamp(sfo.created_at), "Europe/London"))) = vs.date and lower(eaov_brand.value) = lower(vs.brand)
+	left join {{ ref('stg__warehouse_order_allocation_kettering') }} woak
+		on sfo.ba_site = 'UK' and woak.order_id = sfo.order_id and woak.sku = sfoi_sim.sku
 
 	where 1=1
 	{% if is_incremental() %}

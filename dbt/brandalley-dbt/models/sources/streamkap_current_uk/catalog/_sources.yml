@@ -1233,6 +1233,7 @@ sources:
           - name: __deleted
             description: ""
       - name: warehouse_stock_running_balance
+      - name: warehouse_order_allocation_kettering
 
   - name: utils
     database: datawarehouse-358408
