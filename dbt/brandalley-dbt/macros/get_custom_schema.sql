@@ -5,7 +5,7 @@
 
         {{ default_schema }}_{{ custom_schema_name | trim }}
 
-    {%- elif env_var('DBT_LOCATION', 'EU') == 'EU' -%}
+    {%- elif env_var('DBT_LOCATION', false) == 'EU' -%}
 
         emarsys_eu
 

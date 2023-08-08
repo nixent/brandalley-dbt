@@ -7,10 +7,75 @@ models:
         tests:
           - unique
           - not_null
+      - name: contact_id
+      - name: launch_id
+      - name: campaign_type
+      - name: domain
+      - name: campaign_id
+      - name: message_id
+      - name: event_time
+      - name: customer_id
+
+  - name: email_campaigns
+    columns:
+      - name: campaign_id
+      - name: origin_campaign_id
+      - name: is_recurring
+      - name: name
+      - name: timezone
+      - name: version_name
+      - name: language
+      - name: program_id
+      - name: program_version_id
+      - name: suite_type
+      - name: suite_event
+      - name: campaign_type
+      - name: defined_type
+      - name: category_name
+      - name: event_time
+      - name: customer_id
+      - name: subject
+
   - name: email_opens
-    # columns:
-    # NO UNIQUE KEY?
-      # - name: unique_key
-      #   tests:
-      #     - unique
-      #     - not_null
+    columns:
+      - name: contact_id
+      - name: launch_id
+      - name: domain
+      - name: email_sent_at
+      - name: campaign_type
+      - name: platform
+      - name: is_mobile
+      - name: is_anonymized
+      - name: user_agent
+      - name: campaign_id
+      - name: message_id
+      - name: event_time
+      - name: customer_id
+
+  - name: email_clicks
+    columns:
+      - name: contact_id
+      - name: launch_id
+      - name: domain
+      - name: email_sent_at
+      - name: campaign_type
+      - name: geo
+      - name: platform
+      - name: md5
+      - name: is_mobile
+      - name: is_anonymized
+      - name: uid
+      - name: ip
+      - name: user_agent
+      - name: section_id
+      - name: link_id
+      - name: category_id
+      - name: is_img
+      - name: campaign_id
+      - name: message_id
+      - name: event_time
+      - name: customer_id
+      - name: category_name
+      - name: link_name
+      - name: link_analysis_name
+      - name: relative_link_id
