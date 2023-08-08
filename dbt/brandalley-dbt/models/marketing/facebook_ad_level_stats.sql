@@ -2,7 +2,7 @@
 
 
 with
-    facebook_ads as (
+    ads as (
 
         select
             campaign_name,
@@ -11,7 +11,9 @@ with
             'facebook' as traffic_source,
             sum(clicks) as total_click,
             sum(impressions) as total_impressions,
-            sum(spend) as total_spend
+            sum(spend) as total_spend,
+            sum(reach) as reach,
+            avg(frequency) as frequency
         from {{ ref("facebook_ads_ad_report") }} faar
         where faar.date_day >= '2022-06-01'
         {% if is_incremental() %} and date_day > (select max(date) from {{ this }}) {% endif %}
@@ -45,15 +47,15 @@ with
             and ol.ba_site = oe.ba_site
         where gds.date >= '2022-06-01' and gds.traffic_source='facebook'
         {% if is_incremental() %} and date > (select max(date) from {{ this }}) {% endif %}
-        group by gds.traffic_campaign, gds.date, gds.traffic_source
+        group by 1,2,3,4
 
     )
 
 select
-    isnull(ads.campaign_name, ga.traffic_campaign) as traffic_campaign,
-    isnull(ads.ad_name, ga.traffic_ad_content) as ad_name,
-    isnull(ads.date, ga.date) as date,
-    isnull(ads.traffic_source, ga.traffic_source) as traffic_source,
+    ifnull(ads.campaign_name, ga.traffic_campaign) as traffic_campaign,
+    ifnull(ads.ad_name, ga.traffic_ad_content) as ad_name,
+    ifnull(ads.date, ga.date) as date,
+    ifnull(ads.traffic_source, ga.traffic_source) as traffic_source,
     ga.transaction_count,
     ga.visitor_count,
     ga.visit_count,
@@ -62,7 +64,9 @@ select
     ga.gmv,
     ads.total_click,
     ads.total_impressions,
-    ads.total_spend
+    ads.total_spend,
+    ads.reach,
+    ads.frequency
 from ads
 full outer join
     ga
