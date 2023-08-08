@@ -48,7 +48,7 @@ models:
       emarsys:
         +schema: emarsys
       emarsys_eu:
-        +schema: emarsys_eu
+        +schema: emarsys_opendata
         +tags:
           - "emarsys_eu"
     customer_service:
