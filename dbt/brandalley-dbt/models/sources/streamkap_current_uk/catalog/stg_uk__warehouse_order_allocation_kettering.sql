@@ -1,7 +1,7 @@
 {{config(
     materialized='incremental',
-    unique_key='allocation_id',
-	cluster_by='allocation_id',
+    unique_key=['order_id', 'sku'],
+	cluster_by=['order_id'],
     
 )}}
 
