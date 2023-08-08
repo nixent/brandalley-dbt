@@ -13,8 +13,15 @@ models:
       - name: domain
       - name: campaign_id
       - name: message_id
+        meta:
+          metrics:
+            total_email_sends:
+              type: count
+            total_distinct_email_sends:
+              type: count_distinct
       - name: event_time
       - name: customer_id
+        
 
   - name: email_campaigns
     columns:
