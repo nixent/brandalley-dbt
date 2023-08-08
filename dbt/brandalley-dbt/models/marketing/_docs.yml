@@ -338,7 +338,7 @@ models:
           metrics:
             frequency_metric:
               label: 'Average Frequency'
-              type: avergae
+              type: average
               description: "Average amount of time a user sees the ad"
               hidden: false
    
