@@ -158,7 +158,7 @@ models:
               round: 1
               hidden: false
 
-  - name: marketing_stats
+  - name: facebook_ad_level_stats
     description: "Daily spend, traffic and transactional data at ad level for facebook"
     columns:
       - name: traffic_campaign
