@@ -1,5 +1,6 @@
 select 
     date(safe_cast(created_at as datetime))                                                                                      as created_at,
+    ba_site,
     count (distinct id)                                                                                                          as number_of_calls,
     count (IF(direction='inbound', id, null))                                                                                    as inbound_calls,
     count (IF(direction='outbound', id, null))                                                                                   as outbound_calls,
