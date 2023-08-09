@@ -29,6 +29,10 @@
     {% set source_schema = 'streamkap_fr' %}
 {% endif %}
 
+{% if '/streamkap_current_reactor/' in model.path %}
+    {% set source_schema = 'streamkap_reactor' %}
+{% endif %}
+
 SELECT
     {{ dbt_utils.star(
         source(

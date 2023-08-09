@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: streamkap_reactor
+    database: datawarehouse-358408
+    tables:
+      - name: deliveryconsignment

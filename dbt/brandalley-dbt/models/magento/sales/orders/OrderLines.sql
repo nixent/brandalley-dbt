@@ -66,6 +66,7 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
+		woak.qty_allocated 																																	as qty_allocated_kettering_wh, 
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
 		sfoi_con.dispatch_date 																																as dispatch_due_date,
 		cast((sfoi_sim.base_cost) as decimal) 																												as product_cost_exc_vat,
@@ -196,11 +197,11 @@ with order_lines as (
 			else cceh.name
 		end 																																				as category_name,
 		case
-			when vs.brand is not null then ptd.product_department
+			when vs.brand is not null then pcd.product_department
 			when lower(ccfse.path_name) like '%>clearance>%' then 'CLEARANCE'
 			when lower(cceh.name) = 'outlet' then 'OUTLET'
 			when eaov_brand.value = 'N°· Eleven' then 'OWN BRAND'
-			when cceh.name is not null then ptd.product_department
+			when cceh.name is not null then pcd.product_department
 			else 'OUTLET'
 		end 																																				as department_type,
 		sfo.updated_at,
@@ -266,8 +267,8 @@ with order_lines as (
 		on cpev_pt_con.value = cast(eaov_pt_con.option_id as string)
 			and eaov_pt_con.store_id = 0
 			and cpev_pt_con.ba_site = eaov_pt_con.ba_site
-	left join {{ ref('product_type_department') }} ptd
-		on lower(coalesce(eaov_pt_con.value,eaov_pt_sim.value)) = lower(ptd.product_type)
+	left join {{ ref('product_category_department') }} pcd
+		on lower(coalesce(cpev_outletcat_con.value, cpev_outletcat_sim.value)) = lower(pcd.product_category_path)
 	left join {{ ref('stg__catalog_product_entity_int') }} cpei_brand
 		on cpei_brand.entity_id = sfoi_con.product_id
 			and cpei_brand.attribute_id = 178
@@ -366,6 +367,8 @@ with order_lines as (
 		and cpe_ref.ba_site = cpr.ba_site
 	left join {{ ref('vip_sales') }} vs
 		on date(if(sfo.ba_site = "FR",datetime(timestamp(sfo.created_at), "Europe/Paris"),datetime(timestamp(sfo.created_at), "Europe/London"))) = vs.date and lower(eaov_brand.value) = lower(vs.brand)
+	left join {{ ref('stg__warehouse_order_allocation_kettering') }} woak
+		on sfo.ba_site = 'UK' and woak.order_id = sfo.order_id and woak.sku = sfoi_sim.sku
 
 	where 1=1
 	{% if is_incremental() %}

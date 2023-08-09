@@ -47,6 +47,10 @@ models:
       +schema: marketing
       emarsys:
         +schema: emarsys
+      emarsys_eu:
+        +schema: emarsys_opendata
+        +tags:
+          - "emarsys_eu"
     customer_service:
       +schema: customer_service
       zendesk:
@@ -54,6 +58,9 @@ models:
       zohodesk:
         +schema: zohodesk_model
     sources:
+      streamkap_current_reactor:
+        +on_schema_change: "append_new_columns"
+        +schema: streamkap_current_reactor
       streamkap_current:
         +schema: streamkap_current
       streamkap_current_uk:
