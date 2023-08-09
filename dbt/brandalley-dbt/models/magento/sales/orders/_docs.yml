@@ -747,6 +747,16 @@ models:
               sql: "if(${warehouse_qty} > 0, 100*${warehouse_qty}*safe_divide(${margin}, ${total_local_currency_ex_tax_after_vouchers})/${qty_ordered},0)"
               round: 1
               group_label: 'Sales'
+      - name: qty_sent_to_warehouse
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_sent_kettering_metric:
+              type: sum
+              sql: 'if(${qty_allocated_kettering_wh} > 0, ${qty_sent_to_warehouse}, 0)'
+              group_label: 'Units'
+              label: 'Units Sent To Kettering'
       - name: qty_allocated_kettering_wh
         description: "Quantity allocated to Kettering WH"
         meta:
