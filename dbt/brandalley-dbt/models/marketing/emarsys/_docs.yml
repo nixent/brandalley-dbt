@@ -1,4 +1,4 @@
-version: 2 #gui this stays 2, its not our version it's the types of .yml files that dbt supports
+version: 2
 
 models:
   - name: new_customers
@@ -12,3 +12,22 @@ models:
               config:
                 severity: warn
                 warn_if: "> 100"
+
+  - name: daily_email_stats
+    columns:
+      - name: action
+      - name: contact_id 
+      - name: launch_id 
+      - name: campaign_type 
+      - name: campaign_name
+      - name: campaign_category
+      - name: campaign_subject
+      - name: domain 
+      - name: campaign_id 
+      - name: message_id 
+      - name: event_time 
+      - name: customer_id
+      - name: link_id
+      - name: category_name
+      - name: link_name
+
