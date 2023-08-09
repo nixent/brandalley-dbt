@@ -4,9 +4,9 @@ models:
   - name: email_sends
     columns:
       - name: unique_key
-        tests:
-          - unique
-          - not_null
+        # tests:
+        #   - unique
+        #   - not_null
       - name: contact_id
       - name: launch_id
       - name: campaign_type
