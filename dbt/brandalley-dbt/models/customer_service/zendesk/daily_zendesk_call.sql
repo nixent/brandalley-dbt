@@ -35,4 +35,4 @@ select
         'zendesk',
         'call_metric'
     ) }} 
-    {{dbt_utils.group_by(1,2)}}
+    {{dbt_utils.group_by(2)}}
