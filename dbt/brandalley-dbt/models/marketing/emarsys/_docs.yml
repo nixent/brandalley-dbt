@@ -24,8 +24,15 @@ models:
       - name: campaign_subject
       - name: domain 
       - name: campaign_id 
-      - name: message_id 
+      - name: message_id
+        meta:
+          metrics:
+            action_count:
+              type: count
       - name: event_time 
+        meta:
+          dimension:
+            type: timestamp
       - name: customer_id
       - name: link_id
       - name: category_name
