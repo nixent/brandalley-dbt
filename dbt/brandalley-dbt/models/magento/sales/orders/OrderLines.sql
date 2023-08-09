@@ -66,6 +66,7 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
+		sfoi_sim.qty_warehouse_sent																															as qty_sent_to_warehouse,
 		woak.qty_allocated 																																	as qty_allocated_kettering_wh, 
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
 		sfoi_con.dispatch_date 																																as dispatch_due_date,
