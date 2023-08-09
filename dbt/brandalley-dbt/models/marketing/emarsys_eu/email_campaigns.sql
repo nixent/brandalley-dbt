@@ -35,8 +35,6 @@ select
   subject
 from {{ source('emarsys_brandalley_523470888', 'email_campaigns_v2_523470888') }}
 where 1=1
-  -- for dev
-  and date(partitiontime) >= current_date - 2 
 {% if is_incremental() %}
   and date(partitiontime) >= current_date - 1
 {% endif %}

@@ -36,8 +36,6 @@ select
     partitiontime
 from {{ source('emarsys_brandalley_523470888', 'email_opens_523470888') }}
 where 1=1
-  -- for dev
-  and date(partitiontime) >= current_date - 2 
 {% if is_incremental() %}
   and date(partitiontime) >= current_date - 1
 {% endif %}
