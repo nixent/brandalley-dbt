@@ -72,4 +72,3 @@ left join
     and fss.ba_site = fss1.ba_site
     and fss.date_day < fss1.date_day
 group by 1, 2, 3, 4, 5, 6
-order by fs.date_day desc, fs.ba_site
