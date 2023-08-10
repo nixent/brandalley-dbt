@@ -13,7 +13,7 @@ models:
                 severity: warn
                 warn_if: "> 100"
 
-  - name: daily_email_stats
+  - name: email_events
     columns:
       - name: action
       - name: contact_id 
