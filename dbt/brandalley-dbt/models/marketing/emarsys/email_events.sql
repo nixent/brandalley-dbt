@@ -21,6 +21,7 @@ select
 from {{ ref('email_sends') }} es
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on es.campaign_id = ecp.campaign_id
+where date(es.partitiontime) >= '2022-01-01'
 
 
 union all
@@ -44,6 +45,7 @@ select
 from {{ ref('email_clicks') }} ec
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on ec.campaign_id = ecp.campaign_id
+where date(ec.partitiontime) >= '2022-01-01'
 
 
 union all
@@ -67,3 +69,4 @@ select
 from {{ ref('email_opens') }} eo
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eo.campaign_id = ecp.campaign_id
+where date(eo.partitiontime) >= '2022-01-01'
