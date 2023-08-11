@@ -157,6 +157,16 @@ models:
         description: "carrier_codes"
       - name: title
         description: "carrier title"     
+      - name: split_consignment_units
+        description: "Number of lines coming from different consignments"     
+      - name: split_sf_units
+        description: "Number of lines coming from different Self-fulfill"     
+      - name: split_type
+        description: "Split order type"
+        meta:
+          dimension:
+            type: string
+            sql: if((${consignment_qty}>0 and ${warehouse_qty}>0) or (${selffulfill_qty}>0 and ${warehouse_qty}>0) or (${selffulfill_qty}>0 and ${consignment_qty}>0) or ${split_consignmt_units}>1 or ${split_sf_units}>1, 'Split', 'Single')
                            
   - name: zendesk_call_metric
     meta:

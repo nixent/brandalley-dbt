@@ -41,13 +41,20 @@ with tickets as (
             orderlines.selffulfill_qty,
             orderlines.order_id,
             carrier_codes,
-            title
+            title,
+            orderlines.split_consignment_units,
+            orderlines.split_sf_units
     from {{ source(
         'zendesk',
         'ticket'
     ) }} ticket
     left outer join (
-        select sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty, order_number, order_id
+        select  sum(consignment_qty)                    as consignment_qty, 
+                sum(warehouse_qty)                      as warehouse_qty, 
+                sum(selffulfill_qty)                    as selffulfill_qty,
+                count(if(consignment_qty>0, sku, null)) as split_consignment_units, 
+                count(if(selffulfill_qty>0, sku, null)) as split_sf_units, 
+                order_number, order_id
         from {{ ref('OrderLines') }} 
         -- At the moment filtering on UK only but we'll need to add join on site when FR data is in
         where ba_site='UK'

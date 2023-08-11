@@ -1221,6 +1221,19 @@ models:
         meta:
           dimension:
             group_label: 'Shipping'
+      - name: pass_due_date
+        description: "Flag indicating if the order is pass due date or not"
+        meta:
+          dimension:
+            type: boolean
+            sql: '${OrderLines.dispatch_due_date} < IFNULL(${shipping.created_at}, current_timestamp)'
+            group_label: 'Shipping'
+      - name: nb_shipment
+        description: "Number of shipments for the order"
+        meta:
+          dimension:
+            group_label: 'Shipping'
+
 
   - name: OrderLinesNullParent
     description: ""
