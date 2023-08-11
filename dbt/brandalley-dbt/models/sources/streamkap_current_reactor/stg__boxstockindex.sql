@@ -1,6 +1,6 @@
 {{config(
     materialized='incremental',
-    unique_key=['boxid','stockid']
+    unique_key=['boxid','stockid'],
 	cluster_by=['boxid','stockid'],
 )}}
 
