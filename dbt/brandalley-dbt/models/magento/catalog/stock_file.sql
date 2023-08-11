@@ -43,11 +43,11 @@ with stock_file_raw as (
         date(stock_prism_first.delivery_date)           as first_stock_delivery_date,
         date(stock_prism_first_ty.delivery_date)        as first_stock_delivery_date_ty,
         cpei_menu_type_3.value as value_3, 
-        category_details.sale_end,
+        cceh.sale_end,
         replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,
         if(sum(stock_child.min_qty) < 0, 'No', 'Yes')    as canUseForWHSale,
-        string_agg(distinct cast(category_id as string)) as parent_child_category_ids,
-        row_number() over (partition by e.entity_id, e.ba_site order by category_details.sale_end desc) as rn
+        string_agg(distinct cast(category.category_id as string)) as parent_child_category_ids,
+        row_number() over (partition by e.entity_id, e.ba_site order by cceh.sale_end desc) as rn
     from {{ ref('stg__catalog_product_entity') }} e
     inner join {{ ref('stg__cataloginventory_stock_item') }} stock 
         on stock.product_id = e.entity_id
@@ -87,6 +87,7 @@ with stock_file_raw as (
     left join {{ ref('stg__catalog_category_product') }} category 
         on category.product_id = parent_relation.parent_id
             and category.ba_site = parent_relation.ba_site
+            and category.__deleted = false
     left join {{ ref('stg__catalog_product_entity_varchar') }} image 
         on image.attribute_id = 85
             and image.entity_id = parent_entity_relation.entity_id
@@ -213,6 +214,8 @@ with stock_file_raw as (
             and cpei_menu_type_3.entity_id = category.category_id
             and cpei_menu_type_3.value=3
             and cpei_menu_type_3.ba_site = category.ba_site
+    left join {{ ref('stg__catalog_category_entity_history') }} cceh
+		on category.category_id = cceh.category_id and category.ba_site = cceh.ba_site and cceh.sale_end >= current_timestamp
     left join {{ ref('stg__warehouse_stock_running_balance') }} wsrb 
         on wsrb.sku = e.sku
             and wsrb.ba_site = e.ba_site
