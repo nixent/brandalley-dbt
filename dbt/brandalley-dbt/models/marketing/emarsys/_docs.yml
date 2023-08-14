@@ -33,6 +33,10 @@ models:
         meta:
           dimension:
             type: timestamp
+      - name: email_sent_at
+        meta:
+          dimension:
+            type: timestamp
       - name: customer_id
       - name: link_id
       - name: category_name
