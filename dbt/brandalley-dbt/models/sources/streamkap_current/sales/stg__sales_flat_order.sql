@@ -338,7 +338,7 @@ select
     subtotal_incl_tax,
     total_due,
     weight,
-    timestamp_micros(unix_micros(timestamp(date('1970-01-01') + customer_dob))) as customer_dob,
+    timestamp_millis(customer_dob) as customer_dob,
     increment_id,
     applied_rule_ids,
     base_currency_code,
