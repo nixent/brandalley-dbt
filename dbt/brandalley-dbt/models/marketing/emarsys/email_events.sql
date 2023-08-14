@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table'
+    materialized='incremental'
 )}}
 
 select
@@ -28,6 +28,9 @@ from {{ ref('email_sends') }} es
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on es.campaign_id = ecp.campaign_id
 where date(es.partitiontime) >= '2023-01-01'
+{% if is_incremental() %}
+    and date(es.partitiontime) > (select date(max(partitiontime)) from {{ this }} where action = 'sent' )
+{% endif %}
 
 
 union all
@@ -58,6 +61,9 @@ from {{ ref('email_clicks') }} ec
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on ec.campaign_id = ecp.campaign_id
 where date(ec.partitiontime) >= '2023-01-01'
+{% if is_incremental() %}
+    and date(ec.partitiontime) > (select date(max(partitiontime)) from {{ this }} where action = 'clicked' )
+{% endif %}
 
 
 union all
@@ -88,6 +94,9 @@ from {{ ref('email_opens') }} eo
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eo.campaign_id = ecp.campaign_id
 where date(eo.partitiontime) >= '2023-01-01'
+{% if is_incremental() %}
+    and date(eo.partitiontime) > (select date(max(partitiontime)) from {{ this }} where action = 'opened' )
+{% endif %}
 
 union all
 
@@ -117,3 +126,6 @@ from {{ ref('email_bounces') }} eb
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eb.campaign_id = ecp.campaign_id
 where date(eb.partitiontime) >= '2023-01-01'
+{% if is_incremental() %}
+    and date(eb.partitiontime) > (select date(max(partitiontime)) from {{ this }} where action = 'bounced' )
+{% endif %}
