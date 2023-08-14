@@ -629,6 +629,8 @@ models:
         description: "Quantity min, nullable"
       - name: qty
         description: "Quantity, nullable"
+        tests:
+          - stock_file_qty
       - name: stock_kettering
         meta:
           metrics:
