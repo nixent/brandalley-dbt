@@ -22,7 +22,7 @@ select
 from {{ ref('email_sends') }} es
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on es.campaign_id = ecp.campaign_id
-where date(es.partitiontime) >= '2022-01-01'
+where date(es.partitiontime) >= '2023-01-01'
 
 
 union all
@@ -47,7 +47,7 @@ select
 from {{ ref('email_clicks') }} ec
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on ec.campaign_id = ecp.campaign_id
-where date(ec.partitiontime) >= '2022-01-01'
+where date(ec.partitiontime) >= '2023-01-01'
 
 
 union all
@@ -72,4 +72,28 @@ select
 from {{ ref('email_opens') }} eo
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eo.campaign_id = ecp.campaign_id
-where date(eo.partitiontime) >= '2022-01-01'
+where date(eo.partitiontime) >= '2023-01-01'
+
+union all
+
+select 
+    'bounced' as action,
+    eb.contact_id, 
+    eb.launch_id, 
+    coalesce(eb.campaign_type, ecp.campaign_type) as campaign_type, 
+    ecp.name            as campaign_name,
+    ecp.category_name   as campaign_category,
+    ecp.subject         as campaign_subject,
+    eb.domain, 
+    eb.campaign_id, 
+    eb.message_id, 
+    eb.event_time, 
+    eb.email_sent_at, 
+    eb.customer_id,
+    null as link_id,
+    null as category_name,
+    null as link_name
+from {{ ref('email_bounces') }} eb
+left join {{ ref('email_campaigns_latest_version') }} ecp
+    on eb.campaign_id = ecp.campaign_id
+where date(eb.partitiontime) >= '2023-01-01'
