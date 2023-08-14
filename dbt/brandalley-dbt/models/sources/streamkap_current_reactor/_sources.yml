@@ -28,15 +28,6 @@ sources:
           - name: consignmentreturncode
             data_type: <string>
             description: "consignmentreturncode"
-          - name: delname
-            data_type: <string>
-            description: "delivery name"
-          - name: deladdr1
-            data_type: <string>
-            description: "delivery address first line"
-          - name: deladdr2
-            data_type: <string>
-            description: "delivery address second line"
           - name: delcity
             data_type: <string>
             description: "delivery city"
@@ -49,15 +40,6 @@ sources:
           - name: delcountry
             data_type: <string>
             description: "delivery country"
-          - name: delemail
-            data_type: <string>
-            description: "delivery email"
-          - name: deltel
-            data_type: <string>
-            description: "delivery telephone"
-          - name: delmobiletel
-            data_type: <string>
-            description: "delivery mobile"
           - name: charge
             data_type: <bignumeric>
             description: "delivery charge"
@@ -807,18 +789,6 @@ sources:
           - name: customerid
             data_type: <integer>
             description: "primary key"
-          - name: name
-            data_type: <string>
-            description: "name"
-          - name: address
-            data_type: <string>
-            description: "address"
-          - name: phonenumbers
-            data_type: <string>
-            description: "phonenumbers"
-          - name: email
-            data_type: <string>
-            description: "email"
           - name: cardtype
             data_type: <string>
             description: "card type"
@@ -828,15 +798,6 @@ sources:
           - name: siteid
             data_type: <integer>
             description: "site id"
-          - name: deliveryname
-            data_type: <string>
-            description: "delivery name"
-          - name: deliveryadd1
-            data_type: <string>
-            description: "delivery address 1st line"
-          - name: deliveryadd2
-            data_type: <string>
-            description: "delivery address 2nd line"
           - name: dcity
             data_type: <string>
             description: "delivery city"
