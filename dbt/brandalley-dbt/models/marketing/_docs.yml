@@ -39,9 +39,9 @@ models:
             hidden: true
           metrics:
             visitor_count_metric:
-              label: 'No. of Unique Visitors'
+              label: 'No. of Visitors'
               type: sum
-              description: "Number of Unique Visitors"
+              description: "Number of Unique Visitors per day"
               hidden: false
       - name: visit_count
         description: ""
@@ -50,9 +50,9 @@ models:
             hidden: true
           metrics:
             visit_count_metric:
-              label: 'No. of Unique Visits'
+              label: 'No. of Visits'
               type: sum
-              description: "Number of Unique Visits"
+              description: "Number of Unique Visits per Day"
               hidden: false
       - name: total_new_customers
         description: ""
@@ -201,9 +201,9 @@ models:
             hidden: true
           metrics:
             visitor_count_metric:
-              label: 'No. of Unique Visitors'
+              label: 'No. of Visitors'
               type: sum
-              description: "Number of Unique Visitors"
+              description: "Number of Unique Visitors per day"
               hidden: false
       - name: visit_count
         description: ""
@@ -212,9 +212,9 @@ models:
             hidden: true
           metrics:
             visit_count_metric:
-              label: 'No. of Unique Visits'
+              label: 'No. of Visits'
               type: sum
-              description: "Number of Unique Visits"
+              description: "Number of Unique Visits per day"
               hidden: false
       - name: total_new_customers
         description: ""
