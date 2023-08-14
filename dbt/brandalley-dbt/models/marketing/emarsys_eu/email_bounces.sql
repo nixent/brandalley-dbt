@@ -14,28 +14,23 @@
 )}}
 
 select 
-    {# uid as unique_key, #}
-    contact_id, 
-    launch_id,
-    domain,
-    email_sent_at,
-    campaign_type,
-    {# geo, #}
-    platform,
-    {# md5, #}
-    is_mobile,
-    is_anonymized,
-    {# ip, #}
-    user_agent,
-    {# generated_from,  #}
-    campaign_id, 
-    message_id, 
-    event_time, 
-    customer_id, 
-    loaded_at,
-    partitiontime
-from {{ source('emarsys_brandalley_523470888', 'email_opens_523470888') }}
+  bounce_type,
+  campaign_id,
+  campaign_type,
+  contact_id,
+  customer_id,
+  domain,
+  email_sent_at,
+  event_time,
+  launch_id,
+  loaded_at,
+  message_id,
+  partitiontime
+from {{ source('emarsys_brandalley_523470888', 'email_bounces_523470888') }}
 where 1=1
 {% if is_incremental() %}
   and date(partitiontime) >= current_date - 1
 {% endif %}
+
+
+
