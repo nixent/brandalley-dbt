@@ -12,10 +12,9 @@ with
             sum(clicks) as total_click,
             sum(impressions) as total_impressions,
             sum(spend) as total_spend,
-            sum(reach) as reach,
-            avg(frequency) as frequency
+            sum(reach) as reach
         from {{ ref("facebook_ads_ad_report") }} faar
-        where faar.date_day >= '2022-06-01'
+        where faar.date_day >= '2022-06-01' and faar.date_day<current_date
         {% if is_incremental() %} and date_day > (select max(date) from {{ this }}) {% endif %}
         group by 1,2,3
 
@@ -65,8 +64,7 @@ select
     ads.total_click,
     ads.total_impressions,
     ads.total_spend,
-    ads.reach,
-    ads.frequency
+    ads.reach
 from ads
 full outer join
     ga

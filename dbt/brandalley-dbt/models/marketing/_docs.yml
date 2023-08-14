@@ -330,15 +330,12 @@ models:
               type: sum
               description: "Amount of people who see Ad"
               hidden: false
-      - name: frequency
-        description: ""
-        meta:
-          dimension:
-            hidden: true
-          metrics:
             frequency_metric:
               label: 'Average Frequency'
               type: average
-              description: "Average amount of time a user sees the ad"
+              description: 'Average Daily Frequency'
+              sql: "safe_divide(${total_impressions},${reach})"
+              round: 2
               hidden: false
+
    
