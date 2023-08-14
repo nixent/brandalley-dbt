@@ -2,5 +2,6 @@
 select
     sum({{column_name}}) as total_sum
 from {{ model }}
+where ba_site = 'UK'
 having not(total_sum between 300000 and 400000)
 {% endtest %}
