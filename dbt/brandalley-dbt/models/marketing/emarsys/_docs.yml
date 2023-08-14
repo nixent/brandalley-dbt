@@ -20,6 +20,7 @@ models:
       - name: launch_id 
       - name: campaign_type 
       - name: campaign_name
+      - name: email_type
       - name: campaign_category
       - name: campaign_subject
       - name: domain 
