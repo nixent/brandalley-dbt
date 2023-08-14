@@ -726,7 +726,7 @@ sources:
         columns:
           - name: boxid
             data_type: <integer>
-            description: "primary key"
+            description: "boxid"
           - name: stockid
             data_type: <integer>
             description: "stockid"
