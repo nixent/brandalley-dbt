@@ -8,6 +8,11 @@ select
     es.launch_id, 
     es.campaign_type, 
     ecp.name            as campaign_name,
+    case 
+        when lower(ecp.name) like '%am%' then 'AM'
+        when lower(ecp.name) like '%pm%' then 'PM'
+        else 'Life Cycle'
+    end as email_type,
     ecp.category_name   as campaign_category,
     ecp.subject         as campaign_subject,
     es.domain, 
@@ -33,6 +38,11 @@ select
     ec.launch_id,
     ec.campaign_type,
     ecp.name            as campaign_name,
+    case 
+        when lower(ecp.name) like '%am%' then 'AM'
+        when lower(ecp.name) like '%pm%' then 'PM'
+        else 'Life Cycle'
+    end as email_type,
     ecp.category_name   as campaign_category,
     ecp.subject         as campaign_subject,
     ec.domain,
@@ -58,6 +68,11 @@ select
     eo.launch_id, 
     coalesce(eo.campaign_type, ecp.campaign_type) as campaign_type, 
     ecp.name            as campaign_name,
+    case 
+        when lower(ecp.name) like '%am%' then 'AM'
+        when lower(ecp.name) like '%pm%' then 'PM'
+        else 'Life Cycle'
+    end as email_type,
     ecp.category_name   as campaign_category,
     ecp.subject         as campaign_subject,
     eo.domain, 
@@ -82,6 +97,11 @@ select
     eb.launch_id, 
     coalesce(eb.campaign_type, ecp.campaign_type) as campaign_type, 
     ecp.name            as campaign_name,
+    case 
+        when lower(ecp.name) like '%am%' then 'AM'
+        when lower(ecp.name) like '%pm%' then 'PM'
+        else 'Life Cycle'
+    end as email_type,
     ecp.category_name   as campaign_category,
     ecp.subject         as campaign_subject,
     eb.domain, 
