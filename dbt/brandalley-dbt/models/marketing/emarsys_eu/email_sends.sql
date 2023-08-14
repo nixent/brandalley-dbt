@@ -27,8 +27,6 @@ select
     loaded_at
 from {{ source('emarsys_brandalley_523470888', 'email_sends_523470888') }}
 where 1=1
-  -- for dev
-  and date(partitiontime) >= current_date - 2 
 {% if is_incremental() %}
   and date(partitiontime) >= current_date - 1
 {% endif %}
