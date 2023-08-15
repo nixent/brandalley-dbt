@@ -167,7 +167,7 @@ models:
         meta:
           dimension:
             type: string
-            sql: if((${consignment_qty}>0 and ${warehouse_qty}>0) or (${selffulfill_qty}>0 and ${warehouse_qty}>0) or (${selffulfill_qty}>0 and ${consignment_qty}>0) or ${split_consignmt_units}>1 or ${split_sf_units}>1, 'Split', 'Single')
+            sql: if((${consignment_qty}>0 and ${warehouse_qty}>0) or (${selffulfill_qty}>0 and ${warehouse_qty}>0) or (${selffulfill_qty}>0 and ${consignment_qty}>0) or ${split_consignment_units}>1 or ${split_sf_units}>1, 'Split', 'Single')
       - name: brand
         description: "Brand of the items ordered in a comma separated list"     
       - name: dispatch_due_date
