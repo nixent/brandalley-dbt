@@ -5,6 +5,7 @@
 
 with tickets as (
     select  ticket.id,
+            left(ticket.id, 2) as ba_site,
             ticket.created_at,
             ticket.description,
             ticket.due_at,

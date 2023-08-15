@@ -32,6 +32,8 @@ models:
             sql: 'if(zendesk_tickets_detailed.ba_site = "FR",datetime(zendesk_tickets_detailed.created_at, "Europe/Paris"),datetime(zendesk_tickets_detailed.created_at, "Europe/London"))'            
       - name: description
         description: "description"
+      - name: ba_site
+        description: "ba_site"
       - name: due_at
         description: "Due date of the ticket"
         meta:
