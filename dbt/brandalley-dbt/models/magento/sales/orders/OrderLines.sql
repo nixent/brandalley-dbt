@@ -194,6 +194,7 @@ with order_lines as (
 		case
 			when cceh.name in ('', 'Women', 'Men', 'Kids', 'Lingerie', 'Home', 'Beauty', 'Z_NoData', 'Archieved outlet products', 'Holding review')
 				or cceh.name is null
+			when vs.brand is not null then vs.brand || ' VIP Sale'
 			then 'Outlet'
 			else cceh.name
 		end 																																				as category_name,
