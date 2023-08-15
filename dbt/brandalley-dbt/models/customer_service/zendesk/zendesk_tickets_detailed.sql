@@ -67,17 +67,15 @@ with tickets as (
                 max(s.shipment_date)                                                                        as shipment_date,
                 max(ol.dispatch_due_date) < IFNULL(DATE(max(s.shipment_date)), current_date)                as past_dispatch_date,
                 o.expected_delivery_date < IFNULL(DATE(max(s.shipment_date)), current_date)                 as past_delivery_date,
-                ol.order_number, ol.order_id
+                ol.order_number, ol.order_id, ol.ba_site
         from {{ ref('OrderLines') }} ol
         left outer join {{ ref('Orders') }} o
         on o.order_id=ol.order_id and o.ba_site=ol.ba_site
         left outer join {{ ref('shipping')}} s
         on o.increment_id=s.order_id and ol.sku=s.sku and ol.ba_site=s.ba_site
-        -- At the moment filtering on UK only but we'll need to add join on site when FR data is in
-        where ol.ba_site='UK'
-        group by order_number, order_id, o.expected_delivery_date
+        group by order_number, order_id, o.expected_delivery_date, ol.ba_site
     ) orders
-        on ifnull(ticket.custom_order_id, ticket.custom_order_number) = orders.order_number
+        on ifnull(ticket.custom_order_id, ticket.custom_order_number) = orders.order_number and orders.ba_site=left(ticket.id, 2)
     left outer join (
         select 
             string_agg(distinct carrier_code) as carrier_codes, 

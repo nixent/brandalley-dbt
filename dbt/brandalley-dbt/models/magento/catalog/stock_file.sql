@@ -39,7 +39,7 @@ with stock_file_raw as (
         split(cpev_outlet_category.value, '>')[safe_offset(2)] as level_3,
         cpni.tax_rate                                   as tax,
         cpei_tax.value                                  as tax_class,
-        date(stock_prism.delivery_date)                 as stock_delivery_date,
+        date(stock_prism.delivery_date)                 as last_stock_delivery_date,
         cpei_menu_type_3.value as value_3, 
         cceh.sale_end,
         replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,

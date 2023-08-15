@@ -228,8 +228,7 @@ with order_lines as (
 		(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount 																as total_local_currency_after_vouchers,
 		sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax 																								as total_local_currency_before_vouchers,
 		sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))			                		as total_local_currency_ex_tax_after_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as total_local_currency_ex_tax_before_vouchers,
-        ship.cnt                                                                                                                                            as nb_shipment
+		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as total_local_currency_ex_tax_before_vouchers
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
@@ -369,15 +368,6 @@ with order_lines as (
 		and cpe_ref.ba_site = cpr.ba_site
 	left join {{ ref('vip_sales') }} vs
 		on date(if(sfo.ba_site = "FR",datetime(timestamp(sfo.created_at), "Europe/Paris"),datetime(timestamp(sfo.created_at), "Europe/London"))) = vs.date and lower(eaov_brand.value) = lower(vs.brand)
-    left outer join (
-        select
-            ba_site,
-            order_id,
-            count(*) as cnt
-        from {{ ref('stg__sales_flat_shipment_track') }}
-        group by 1, 2
-    ) ship
-        on sfo.order_id=ship.order_id and sfo.ba_site=ship.ba_site
 	left join {{ ref('stg__warehouse_order_allocation_kettering') }} woak
 		on sfo.ba_site = 'UK' and woak.order_id = sfo.order_id and woak.sku = sfoi_sim.sku
 

@@ -125,8 +125,18 @@ select
 	os.order_number_excl_full_refunds,
 	os.order_number_incl_cancellations,
 	os.interval_between_orders,
-	os.days_since_first_purchase
+	os.days_since_first_purchase,
+    ship.cnt as nb_shipment
 from order_info oi
 left join order_sequencing os
 	on oi.increment_id = os.increment_id
 		and oi.ba_site = os.ba_site
+left join (
+        select
+            ba_site,
+            order_id,
+            count(*) as cnt
+        from {{ ref('stg__sales_flat_shipment_track') }}
+        group by 1, 2
+    ) ship
+        on oi.order_id=ship.order_id and os.ba_site=ship.ba_site
