@@ -192,7 +192,7 @@ models:
           dimension:
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            sql: 'if(zendesk_tickets_detailed.ba_site = "FR",datetime(zendesk_tickets_detailed.shipment_date, "Europe/Paris"),datime(zendesk_tickets_detailed.shipment_date, "Europe/London"))'            
+            sql: 'if(zendesk_tickets_detailed.ba_site = "FR",datetime(zendesk_tickets_detailed.shipment_date, "Europe/Paris"),datetime(zendesk_tickets_detailed.shipment_date, "Europe/London"))'            
       - name: past_dispatch_date
         description: "Boolean indicating if the dispatch date is past due date"     
       - name: past_delivery_date
