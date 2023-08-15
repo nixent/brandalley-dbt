@@ -39,9 +39,7 @@ with stock_file_raw as (
         split(cpev_outlet_category.value, '>')[safe_offset(2)] as level_3,
         cpni.tax_rate                                   as tax,
         cpei_tax.value                                  as tax_class,
-        date(stock_prism_last.delivery_date)            as last_stock_delivery_date,
-        date(stock_prism_first.delivery_date)           as first_stock_delivery_date,
-        date(stock_prism_first_ty.delivery_date)        as first_stock_delivery_date_ty,
+        date(stock_prism.delivery_date)                 as stock_delivery_date,
         cpei_menu_type_3.value as value_3, 
         cceh.sale_end,
         replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,
@@ -63,24 +61,9 @@ with stock_file_raw as (
         select sku, delivery_date, ba_site
         from {{ ref('stg__stock_prism_grn_item') }}
         qualify row_number() over (partition by sku, ba_site order by delivery_date desc) = 1
-        ) stock_prism_last 
-        on e.sku = stock_prism_last.sku
-            and e.ba_site = stock_prism_last.ba_site
-    left join (
-        select sku, delivery_date, ba_site
-        from {{ ref('stg__stock_prism_grn_item') }}
-        qualify row_number() over (partition by sku, ba_site order by delivery_date asc) = 1
-        ) stock_prism_first 
-        on e.sku = stock_prism_first.sku
-            and e.ba_site = stock_prism_first.ba_site
-    left join (
-        select sku, delivery_date, ba_site
-        from {{ ref('stg__stock_prism_grn_item') }}
-        where delivery_date >= date_sub(date_trunc(current_date(), YEAR), INTERVAL 1 YEAR)
-        qualify row_number() over (partition by sku, ba_site order by delivery_date asc) = 1
-        ) stock_prism_first_ty 
-        on e.sku = stock_prism_first_ty.sku
-            and e.ba_site = stock_prism_first_ty.ba_site
+        ) stock_prism 
+        on e.sku = stock_prism.sku
+            and e.ba_site = stock_prism.ba_site
     inner join {{ ref('stg__catalog_product_entity') }} parent_entity_relation 
         on parent_entity_relation.entity_id = parent_relation.parent_id
             and parent_entity_relation.ba_site = parent_relation.ba_site
@@ -221,7 +204,7 @@ with stock_file_raw as (
             and wsrb.ba_site = e.ba_site
     where e.type_id = 'simple'
         and stock.qty > 0
-    {{ dbt_utils.group_by(44) }}, category.product_id
+    {{ dbt_utils.group_by(42) }}, category.product_id
  )
 
 select  
