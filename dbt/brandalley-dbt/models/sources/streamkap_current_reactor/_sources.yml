@@ -901,3 +901,68 @@ sources:
           - name: __deleted
             data_type: <string>
             description: "deleted"
+
+      - name: unsellableboxstockindex
+        description: ""
+        columns:
+          - name: boxid
+            data_type: <integer>
+            description: "boxid"
+          - name: stockid
+            data_type: <integer>
+            description: "stockid"
+          - name: quantity
+            data_type: <integer>
+            description: "qty"
+          - name: timestamp
+            data_type: <integer>
+            description: "timestamp"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: orderboxindex
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: boxid
+            data_type: <integer>
+            description: "boxid"
+          - name: orderid
+            data_type: <integer>
+            description: "orderid"
+          - name: pickstatus
+            data_type: <integer>
+            description: "pickstatus"
+          - name: lastaction
+            data_type: <timestamp>
+            description: "last action"
+          - name: pickuser
+            data_type: <integer>
+            description: "pick user"
+          - name: package_index
+            data_type: <integer>
+            description: "package index"
+          - name: deliveryproductid
+            data_type: <integer>
+            description: "deliveryproductid"
+          - name: picksessionid
+            data_type: <integer>
+            description: "picksessionid"
+          - name: pickcart_volumeid
+            data_type: <integer>
+            description: "pickcart_volumeid"
+          - name: pickbox_typeid
+            data_type: <integer>
+            description: "pickbox_typeid"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
