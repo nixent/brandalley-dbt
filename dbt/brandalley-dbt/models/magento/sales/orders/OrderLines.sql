@@ -192,9 +192,9 @@ with order_lines as (
 		ifnull(eaov_size.value, eaov_size_child.value) 																										as SIZE,
 		sfoi_con.nego,
 		case
+			when vs.brand is not null then vs.brand || ' VIP Sale'
 			when cceh.name in ('', 'Women', 'Men', 'Kids', 'Lingerie', 'Home', 'Beauty', 'Z_NoData', 'Archieved outlet products', 'Holding review')
 				or cceh.name is null
-			when vs.brand is not null then vs.brand || ' VIP Sale'
 			then 'Outlet'
 			else cceh.name
 		end 																																				as category_name,
