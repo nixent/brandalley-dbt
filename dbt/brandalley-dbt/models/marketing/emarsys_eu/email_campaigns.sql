@@ -14,7 +14,7 @@
 )}}
 
 select 
-  {{ dbt_utils.generate_surrogate_key('campaign_id', 'name', 'event_time') }} as unique_key,
+  {{ dbt_utils.generate_surrogate_key(['campaign_id', 'name', 'event_time']) }} as unique_key,
   campaign_id,
   origin_campaign_id,
   is_recurring,
