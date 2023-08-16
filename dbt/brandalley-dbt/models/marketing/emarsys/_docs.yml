@@ -34,6 +34,7 @@ models:
               label: 'Opens'
             opened_pct:
               type: number
+              format: 'percent'
               sql: 'safe_divide(${opened_count},${sent_count})'
               label: 'Open Rate (%)'
             clicked_count:
@@ -42,6 +43,7 @@ models:
               label: 'Clicks'
             clicked_pct:
               type: number
+              format: 'percent'
               sql: 'safe_divide(${clicked_count},${opened_count})'
               label: 'Click Rate (%)'
             sent_count:
@@ -50,7 +52,7 @@ models:
               label: 'Sends'
             bounced_count:
               type: count
-              sql: 'if(${action} = "sent", ${message_id}, null)'
+              sql: 'if(${action} = "bounced", ${message_id}, null)'
               label: 'Bounces'
       - name: event_time 
         meta:
