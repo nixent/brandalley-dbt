@@ -9,7 +9,7 @@
 
 select
     'sent' as action,
-    es.campaign_id || '-' || es.contact_id || '-' ||  es.launch_id || '-' || es.email_sent_at as distinct_count_key,
+    es.campaign_id || '-' || es.contact_id || '-' ||  es.launch_id || '-' || es.event_time as distinct_count_key,
     es.contact_id, 
     es.launch_id, 
     es.campaign_type, 
