@@ -31,21 +31,27 @@ models:
             opened_count:
               type: count
               sql: 'if(${action} = "opened", ${message_id}, null)'
+              label: 'Opens'
             opened_pct:
               type: number
               sql: 'safe_divide(${opened_count},${sent_count})'
+              label: 'Open Rate (%)'
             clicked_count:
               type: count
               sql: 'if(${action} = "clicked", ${message_id}, null)'
+              label: 'Clicks'
             clicked_pct:
               type: number
               sql: 'safe_divide(${clicked_count},${opened_count})'
+              label: 'Click Rate (%)'
             sent_count:
               type: count
               sql: 'if(${action} = "sent", ${message_id}, null)'
+              label: 'Sends'
             bounced_count:
               type: count
               sql: 'if(${action} = "sent", ${message_id}, null)'
+              label: 'Bounces'
       - name: event_time 
         meta:
           dimension:
