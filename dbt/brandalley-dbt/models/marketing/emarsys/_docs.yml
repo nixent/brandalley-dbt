@@ -28,8 +28,24 @@ models:
       - name: message_id
         meta:
           metrics:
-            action_count:
+            opened_count:
               type: count
+              sql: 'if(${action} = 'opened', ${message_id}, null)'
+            opened_pct:
+              type: number
+              sql: 'safe_divide(${opened_count},${sent_count})'
+            clicked_count:
+              type: count
+              sql: 'if(${action} = 'clicked', ${message_id}, null)'
+            clicked_pct:
+              type: number
+              sql: 'safe_divide(${clicked_count},${opened_count})'
+            sent_count:
+              type: count
+              sql: 'if(${action} = 'sent', ${message_id}, null)'
+            bounced_count:
+              type: count
+              sql: 'if(${action} = 'sent', ${message_id}, null)'
       - name: event_time 
         meta:
           dimension:
