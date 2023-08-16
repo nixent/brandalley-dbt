@@ -26,11 +26,14 @@ models:
       - name: domain 
       - name: campaign_id 
       - name: message_id
+      - name: distinct_count_key
         meta:
+          dimension:
+            hidden: true
           metrics:
             opened_count:
-              type: count
-              sql: 'if(${action} = "opened", ${message_id}, null)'
+              type: count_distinct
+              sql: 'if(${action} = "opened", ${distinct_count_key}, null)'
               label: 'Opens'
             opened_pct:
               type: number
@@ -39,7 +42,7 @@ models:
               label: 'Open Rate (%)'
             clicked_count:
               type: count
-              sql: 'if(${action} = "clicked", ${message_id}, null)'
+              sql: 'if(${action} = "clicked", ${distinct_count_key}, null)'
               label: 'Clicks'
             clicked_pct:
               type: number
@@ -48,11 +51,11 @@ models:
               label: 'Click Rate (%)'
             sent_count:
               type: count
-              sql: 'if(${action} = "sent", ${message_id}, null)'
+              sql: 'if(${action} = "sent", ${distinct_count_key}, null)'
               label: 'Sends'
             bounced_count:
               type: count
-              sql: 'if(${action} = "bounced", ${message_id}, null)'
+              sql: 'if(${action} = "bounced", ${distinct_count_key}, null)'
               label: 'Bounces'
       - name: event_time 
         meta:

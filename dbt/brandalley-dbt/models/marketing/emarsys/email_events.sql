@@ -1,9 +1,15 @@
 {{ config(
-    materialized='incremental'
+    materialized='incremental',
+    partition_by = {
+      "field": "email_sent_at",
+      "data_type": "timestamp",
+      "granularity": "day"
+    },
 )}}
 
 select
     'sent' as action,
+    es.campaign_id || '-' || es.contact_id || '-' ||  es.launch_id || '-' || es.email_sent_at as distinct_count_key,
     es.contact_id, 
     es.launch_id, 
     es.campaign_type, 
@@ -29,8 +35,9 @@ from {{ ref('email_sends') }} es
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on es.campaign_id = ecp.campaign_id
 where date(es.partitiontime) >= '2023-01-01'
+and date(es.partitiontime) < current_date
 {% if is_incremental() %}
-    and date(es.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'sent' )
+    and date(es.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'sent' ) 
 {% endif %}
 
 
@@ -38,6 +45,7 @@ union all
 
 select 
     'clicked' as action,
+    ec.campaign_id || '-' || ec.contact_id || '-' ||  ec.launch_id || '-' || ec.email_sent_at as distinct_count_key,
     ec.contact_id,
     ec.launch_id,
     ec.campaign_type,
@@ -63,6 +71,7 @@ from {{ ref('email_clicks') }} ec
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on ec.campaign_id = ecp.campaign_id
 where date(ec.partitiontime) >= '2023-01-01'
+and date(ec.partitiontime) < current_date
 {% if is_incremental() %}
     and date(ec.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'clicked' )
 {% endif %}
@@ -72,6 +81,7 @@ union all
 
 select 
     'opened' as action,
+    eo.campaign_id || '-' || eo.contact_id || '-' ||  eo.launch_id || '-' || eo.email_sent_at as distinct_count_key,
     eo.contact_id, 
     eo.launch_id, 
     coalesce(eo.campaign_type, ecp.campaign_type) as campaign_type, 
@@ -97,6 +107,7 @@ from {{ ref('email_opens') }} eo
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eo.campaign_id = ecp.campaign_id
 where date(eo.partitiontime) >= '2023-01-01'
+and date(eo.partitiontime) < current_date
 {% if is_incremental() %}
     and date(eo.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'opened' )
 {% endif %}
@@ -105,6 +116,7 @@ union all
 
 select 
     'bounced' as action,
+    eb.campaign_id || '-' || eb.contact_id || '-' ||  eb.launch_id || '-' || eb.email_sent_at as distinct_count_key,
     eb.contact_id, 
     eb.launch_id, 
     coalesce(eb.campaign_type, ecp.campaign_type) as campaign_type, 
@@ -130,6 +142,7 @@ from {{ ref('email_bounces') }} eb
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eb.campaign_id = ecp.campaign_id
 where date(eb.partitiontime) >= '2023-01-01'
+and date(eb.partitiontime) < current_date
 {% if is_incremental() %}
     and date(eb.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'bounced' )
 {% endif %}

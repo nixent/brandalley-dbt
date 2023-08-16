@@ -14,7 +14,7 @@
 )}}
 
 select 
-    {# uid as unique_key, #}
+    {{dbt_utils.generate_surrogate_key(['campaign_id', 'contact_id', 'event_time', 'launch_id'])}} as unique_key,
     contact_id, 
     launch_id,
     domain,
