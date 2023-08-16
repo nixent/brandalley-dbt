@@ -14,6 +14,7 @@
 )}}
 
 select 
+  {{ dbt_utils.generate_surrogate_key(['campaign_id', 'event_time', 'contact_id', 'launch_id']) }} as unique_key,
   bounce_type,
   campaign_id,
   campaign_type,
