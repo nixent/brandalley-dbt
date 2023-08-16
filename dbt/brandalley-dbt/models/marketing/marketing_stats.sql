@@ -13,6 +13,7 @@ with
             count(distinct unique_visit_id) as visit_count,
             --sum(case when oe.is_first_order = true then 1 else 0 end) as total_new_customers,
             count(distinct case when oe.is_first_order = true then oe.customer_id else null end) as total_new_customers,
+            count(distinct case when gds.is_new_user_registration = true then gds.visitor_id else null end) as total_new_registrations,
             sum(ol.total_local_currency_after_vouchers) as gmv
         from {{ ref("ga_daily_stats") }} gds
         left join
@@ -69,6 +70,7 @@ select
     ga.visitor_count,
     ga.visit_count,
     ga.total_new_customers,
+    ga.total_new_registrations,
     ga.gmv,
     ads.total_click,
     ads.total_impressions,
