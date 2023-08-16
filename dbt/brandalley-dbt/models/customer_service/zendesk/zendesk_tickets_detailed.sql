@@ -64,14 +64,14 @@ with tickets as (
                 string_agg(distinct ol.brand)                                                               as brand,
                 max(ol.dispatch_due_date)                                                                   as dispatch_due_date,
                 o.expected_delivery_date                                                                    as expected_delivery_date,
-                max(s.shipment_date)                                                                        as shipment_date,
-                max(ol.dispatch_due_date) < IFNULL(DATE(max_shipment_date), current_date)                as past_dispatch_date,
-                o.expected_delivery_date < IFNULL(DATE(max_shipment_date), current_date)                 as past_delivery_date,
+                max(s.max_shipment_date)                                                                    as shipment_date,
+                max(ol.dispatch_due_date) < IFNULL(DATE(max(s.max_shipment_date)), current_date)                 as past_dispatch_date,
+                o.expected_delivery_date < IFNULL(DATE(max(s.max_shipment_date)), current_date)                  as past_delivery_date,
                 ol.order_number, ol.order_id, ol.ba_site
         from {{ ref('OrderLines') }} ol
         left outer join {{ ref('Orders') }} o
         on o.order_id=ol.order_id and o.ba_site=ol.ba_site
-        left outer join (select max(s.shipment_date) max_shipment_date, order_id, sku, ba_site from {{ ref('shipping')}} group by order_id, ba_site, sku) s
+        left outer join (select max(shipment_date) max_shipment_date, order_id, sku, ba_site from {{ ref('shipping')}} group by order_id, ba_site, sku) s
         on o.increment_id=s.order_id and ol.sku=s.sku and ol.ba_site=s.ba_site
         group by order_number, order_id, o.expected_delivery_date, ol.ba_site
     ) orders
