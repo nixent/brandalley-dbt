@@ -50,7 +50,7 @@ models:
               label: 'Sends'
             bounced_count:
               type: count
-              sql: 'if(${action} = "sent", ${message_id}, null)'
+              sql: 'if(${action} = "bounced", ${message_id}, null)'
               label: 'Bounces'
       - name: event_time 
         meta:
