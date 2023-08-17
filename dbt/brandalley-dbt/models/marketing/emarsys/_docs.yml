@@ -40,6 +40,7 @@ models:
               format: 'percent'
               sql: 'safe_divide(${opened_count},${sent_count})'
               label: 'Open Rate (%)'
+              round: 1
             clicked_count:
               type: count
               sql: 'if(${action} = "clicked", ${distinct_count_key}, null)'
@@ -49,6 +50,7 @@ models:
               format: 'percent'
               sql: 'safe_divide(${clicked_count},${opened_count})'
               label: 'Click Rate (%)'
+              round: 1
             sent_count:
               type: count
               sql: 'if(${action} = "sent", ${distinct_count_key}, null)'
