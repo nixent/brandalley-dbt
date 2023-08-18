@@ -1861,6 +1861,30 @@ models:
               hidden: false
               sql: "if(${has_ordered_since} and ${order_sequence} = 1, ${customer_id}, null)"
               group_label: 'Customers'
+      - name: order_qty_ordered
+        meta:
+          dimension:
+            type: number
+            hidden: true
+          metrics:
+            order_qty_ordered_metric:
+              label: 'Sum of quantity ordered of Order Lines'
+              type: sum
+              description: 'Total number of units ordered in an order'
+              hidden: false
+              group_label: 'Sales'
+      - name: qty_returned_to_warehouse
+        meta:
+          dimension:
+            type: number
+            hidden: true
+          metrics:
+            qty_returned_to_warehouse_metric:
+              label: 'Total Number of units returned to the warehouse'
+              type: sum
+              description: 'Total Number of units returned to the warehouse'
+              hidden: false
+              group_label: 'Sales'
 
   - name: Orders
     description: "A table of order information, unique at order id level"
