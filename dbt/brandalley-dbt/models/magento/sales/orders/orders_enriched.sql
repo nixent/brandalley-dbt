@@ -20,7 +20,6 @@ order_refunds_agg as (
     sfc.ba_site,
     count(sfc.entity_id)                 as count_refunds,
     count(sfci.entity_id)                as count_item_refunds,
-    sum(sfci.qty_returned_to_warehouse)  as qty_returned_to_warehouse,
     sum(row_total)                       as total_refund_amount,
   from {{ ref('sales_flat_creditmemo') }} sfc
   left join {{ ref('sales_flat_creditmemo_item') }} sfci

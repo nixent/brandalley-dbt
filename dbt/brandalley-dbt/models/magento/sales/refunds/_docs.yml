@@ -272,6 +272,12 @@ models:
 
   - name: sales_flat_creditmemo
     description: ""
+    meta:
+      joins:
+        - join: Orders
+          sql_on: ${sales_flat_creditmemo.order_id} = ${Orders.order_id} and ${sales_flat_creditmemo.ba_site} = ${Orders.ba_site}
+        - join: orders_enriched
+          sql_on: ${Orders.order_id} = ${orders_enriched.order_id} and ${sales_flat_creditmemo.ba_site} = ${orders_enriched.ba_site}
     columns:
       - name: ba_site_entity_id
         description: "Primary Key"
@@ -489,3 +495,7 @@ models:
         description: "Canceled at, nullable"
       - name: is_batch
         description: "Is batch, nullable"
+      - name: count_sku_refunded
+        description: "Number of SKU refunded"
+      - name: qty_returned_to_warehouse
+        description: "Number of units returned to Warehouse"
