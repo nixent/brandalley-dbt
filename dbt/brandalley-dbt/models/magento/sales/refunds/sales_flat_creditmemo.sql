@@ -83,13 +83,15 @@ SELECT
     canceled_at,
     is_batch,
     count_sku_refunded,
-    qty_returned_to_warehouse
+    qty_returned_to_warehouse,
+    qty_refunded
 FROM
     {{ ref(
         'stg__sales_flat_creditmemo'
     ) }} sfc
     left join (select   count(entity_id)                as count_sku_refunded,
                         sum(qty_returned_to_warehouse)  as qty_returned_to_warehouse,
+                        sum(qty)                        as qty_refunded,
                         parent_id,
                         ba_site from
     {{ ref(
