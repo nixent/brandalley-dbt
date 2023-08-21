@@ -14,19 +14,24 @@
 )}}
 
 select 
-    {{dbt_utils.generate_surrogate_key(['campaign_id', 'contact_id', 'launch_id', 'event_time'])}} as unique_key,
-    contact_id, 
-    launch_id, 
-    campaign_type, 
-    domain, 
-    campaign_id, 
-    message_id, 
-    event_time, 
-    customer_id, 
-    partitiontime, 
-    loaded_at
-from {{ source('emarsys_brandalley_523470888', 'email_sends_523470888') }}
+  {{ dbt_utils.generate_surrogate_key(['campaign_id', 'event_time', 'contact_id', 'launch_id']) }} as unique_key,
+  bounce_type,
+  campaign_id,
+  campaign_type,
+  contact_id,
+  customer_id,
+  domain,
+  email_sent_at,
+  event_time,
+  launch_id,
+  loaded_at,
+  message_id,
+  partitiontime
+from {{ source('emarsys_brandalley_523470888', 'email_bounces_523470888') }}
 where 1=1
 {% if is_incremental() %}
   and date(partitiontime) >= current_date - 1
 {% endif %}
+
+
+
