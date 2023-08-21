@@ -629,8 +629,8 @@ models:
         description: "Quantity min, nullable"
       - name: qty
         description: "Quantity, nullable"
-        ##tests:
-        ##  - stock_file_qty don't know what this test is there for, why is stock qty being tested to be between 300k-400k??
+        tests:
+          - stock_file_qty 
       - name: stock_kettering
         meta:
           metrics:
