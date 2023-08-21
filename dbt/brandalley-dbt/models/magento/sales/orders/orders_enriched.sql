@@ -57,8 +57,7 @@ select
     when lead(o.created_at) over (partition by o.customer_id order by o.created_at) is not null then true 
     else false 
   end as has_ordered_since,
-  ola.order_qty_ordered,
-  ora.qty_returned_to_warehouse
+  ola.order_qty_ordered
 from {{ ref('Orders') }} o
 left join order_line_agg ola 
   on o.order_id = ola.order_id and o.ba_site = ola.ba_site
