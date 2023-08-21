@@ -1890,8 +1890,6 @@ models:
           sql_on: ${Orders.order_id} = ${orders_enriched.order_id} and ${Orders.ba_site} = ${orders_enriched.ba_site}
         - join: stg__sales_payment_transaction 
           sql_on: ${Orders.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${Orders.ba_site} = ${stg__sales_payment_transaction.ba_site}
-        - join: sales_flat_creditmemo
-          sql_on: ${Orders.order_id} = ${sales_flat_creditmemo.order_id} and ${OrderLines.ba_site} = ${sales_flat_creditmemo.ba_site}
     columns:
       - name: ba_site_increment_id
         meta:
