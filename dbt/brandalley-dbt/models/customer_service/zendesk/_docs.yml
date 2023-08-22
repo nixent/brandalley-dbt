@@ -403,7 +403,7 @@ models:
         meta:
           dimension:
             type: number
-            sql: extract(hour from datetime(${zendesk_call_metric.created_at})          
+            sql: extract(hour from datetime(${zendesk_call_metric.created_at}))          
       - name: wait_time_bucket
         description: "Wait time bucket in s"
         meta:
@@ -969,13 +969,13 @@ models:
         meta:
           dimension:
             type: string
-            sql: FORMAT_DATE('%a', ${zendesk__ticket_metrics_overwrite.created_at}, "Europe/London")
+            sql: FORMAT_DATE('%a', ${zendesk__ticket_metrics_overwrite.created_at})
       - name: created_at_hour_of_the_day
         description: "Hour of the day the ticket was created"
         meta:
           dimension:
             type: number
-            sql: extract(hour from ${zendesk__ticket_metrics_overwrite.created_at}, "Europe/London") 
+            sql: extract(hour from ${zendesk__ticket_metrics_overwrite.created_at}) 
       - name: first_reply_time_hours_business_bucket
         description: "Bucket depending on business time spent on first reply in hours"
         meta:
