@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: order_issues_alert
+    description: ""
+    columns:
+      - name: orderid
+      - name: customerid
+      - name: sku
+      - name: ext_order_number
