@@ -5,6 +5,26 @@ models:
     description: ""
     columns:
       - name: orderid
+        description: ""
+        meta:
+          dimension:
+            label: 'Order ID'
+            format: id
       - name: customerid
+        description: ""
+        meta:
+          dimension:
+            label: 'Customer ID'
+            format: id
       - name: sku
+        description: ""
+        meta:
+          dimension:
+            label: 'SKU'
+            format: id
       - name: ext_order_number
+        description: ""
+        meta:
+          dimension:
+            label: 'Ext. Order ID'
+            format: id
