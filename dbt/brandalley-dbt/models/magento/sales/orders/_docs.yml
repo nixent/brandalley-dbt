@@ -1115,6 +1115,28 @@ models:
             label: 'RRP' 
             description: 'Recommended Price'
             group_label: 'Product Details'
+          metrics:
+            total_rrp:
+              label: 'Total RRP'
+              type: sum
+              description: "Sum of RRP"
+              sql: '${rrp}*${qty_ordered}'
+              round: 2
+              group_label: 'Sales'  
+            average_rrp_units:
+              label: 'Average Unit RRP'
+              type: number
+              description: "Average of RRP of sold units"
+              sql: '${total_rrp} / ${qty_ordered_metric}'
+              round: 2
+              group_label: 'Sales'  
+            average_rrp_orders:
+              label: 'Average Order RRP'
+              type: number
+              description: "Average of RRP of Orders"
+              sql: '${total_rrp} / ${total_orders_count}'
+              round: 2
+              group_label: 'Sales' 
       - name: parent_sku
         description: ""
         meta:
