@@ -1688,7 +1688,7 @@ models:
             label: 'Is First Order'
             type: boolean
             group_label: 'Customer Info'
-      - name: is_first_order
+      - name: new_customer
         meta:
           dimension:
             label: 'New or Repeat Customer'
