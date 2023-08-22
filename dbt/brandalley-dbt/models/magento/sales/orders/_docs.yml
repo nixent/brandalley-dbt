@@ -1666,6 +1666,11 @@ models:
             label: 'Is First Order'
             type: boolean
             group_label: 'Customer Info'
+      - name: is_first_order
+        meta:
+          dimension:
+            label: 'New or Repeat Customer'
+            group_label: 'Customer Info'
       - name: order_number_excl_full_refunds
         meta:
           dimension:
