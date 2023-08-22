@@ -566,6 +566,14 @@ models:
               hidden: false
               round: 0
               group_label: 'Units'
+            average_units_per_order_metric:
+              label: 'Average Units per Order'
+              type: average 
+              description: "Average number of units per order"
+              sql: " ${qty_ordered_metric} / ${total_orders_count} "
+              hidden: false
+              round: 2
+              group_label: 'Units'
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
         meta:
