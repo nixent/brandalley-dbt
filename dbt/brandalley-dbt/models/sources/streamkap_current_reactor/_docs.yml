@@ -1063,7 +1063,7 @@ models:
         data_type: <string>
         description: "deleted"
 
-  - name: paas_orders
+  - name: stg__paas_orders
     description: ""
     meta:
       group_label: "Reactor Stg tables"
