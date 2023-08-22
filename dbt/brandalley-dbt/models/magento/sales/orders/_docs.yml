@@ -570,7 +570,7 @@ models:
               label: 'Average Units per Order'
               type: average 
               description: "Average number of units per order"
-              sql: " sum(${qty_ordered}) / ${total_orders_count} "
+              sql: " sum(${qty_ordered}) / count(distinct ${ba_site} || ${order_id}) "
               hidden: false
               round: 2
               group_label: 'Units'
