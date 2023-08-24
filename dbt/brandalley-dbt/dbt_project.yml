@@ -57,6 +57,8 @@ models:
         +schema: zendesk_model
       zohodesk:
         +schema: zohodesk_model
+    reactor:
+      +schema: reactor
     sources:
       streamkap_current_reactor:
         +on_schema_change: "append_new_columns"

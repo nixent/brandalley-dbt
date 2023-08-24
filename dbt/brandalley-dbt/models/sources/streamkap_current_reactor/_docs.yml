@@ -1023,6 +1023,9 @@ models:
       - name: id
         data_type: <integer>
         description: "primary key"
+        tests:
+          - unique
+          - not_null
       - name: boxid
         data_type: <integer>
         description: "boxid"
@@ -1053,6 +1056,36 @@ models:
       - name: pickbox_typeid
         data_type: <integer>
         description: "pickbox_typeid"
+      - name: _streamkap_source_ts_ms
+        data_type: <timestamp>
+        description: "_streamkap_source_ts_ms"
+      - name: __deleted
+        data_type: <string>
+        description: "deleted"
+
+  - name: stg__paas_orders
+    description: ""
+    meta:
+      group_label: "Reactor Stg tables"
+    columns:
+      - name: id
+        data_type: <integer>
+        description: "id"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        data_type: <integer>
+        description: "customer_id"
+      - name: ext_delivery_number
+        data_type: <string>
+        description: "ext_delivery_number"
+      - name: ext_order_number
+        data_type: <string>
+        description: "ext_order_number"
+      - name: ext_batch_number
+        data_type: <string>
+        description: "ext_batch_number"
       - name: _streamkap_source_ts_ms
         data_type: <timestamp>
         description: "_streamkap_source_ts_ms"
