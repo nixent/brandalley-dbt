@@ -1562,7 +1562,11 @@ models:
             format: id
       - name: boreco_or_reswhb
         description: "Flag indicating if qty_backorder_reconciliation > 0  or qty_reserved_by_wh_b > 0"
-
+      - name: is_late_delivery
+        description: "Flag indicating if delivery is late"
+      - name: late_days
+        description: "Number of days for a late delivery (negative for early delivery)"
+        
   - name: OrderLinesWithParent
     description: ""
     meta:
