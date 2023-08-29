@@ -1289,7 +1289,7 @@ models:
         description: "Number of days for a late delivery (negative for early delivery)"
         meta:
           dimension:
-            type: integer
+            type: number
             group_label: 'Shipping'
 
   - name: OrderLinesNullParent
