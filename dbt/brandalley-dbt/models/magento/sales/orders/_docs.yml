@@ -1275,7 +1275,7 @@ models:
           dimension:
             group_label: 'Shipping'
       - name: nb_shipment
-        description: "Number of shipments for the order"
+        description: "Number of shipments for the  order"
         meta:
           dimension:
             group_label: 'Shipping'
@@ -1283,11 +1283,13 @@ models:
         description: "Flag indicating if delivery is late"
         meta:
           dimension:
+            type: boolean
             group_label: 'Shipping'
       - name: late_days
         description: "Number of days for a late delivery (negative for early delivery)"
         meta:
           dimension:
+            type: number
             group_label: 'Shipping'
 
   - name: OrderLinesNullParent

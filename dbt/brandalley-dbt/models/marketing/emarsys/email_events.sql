@@ -5,6 +5,7 @@
       "data_type": "timestamp",
       "granularity": "day"
     },
+    pre_hook='delete from {{this}} where date(partitiontime) >= current_date - 1'
 )}}
 
 select
@@ -35,7 +36,6 @@ from {{ ref('email_sends') }} es
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on es.campaign_id = ecp.campaign_id
 where date(es.partitiontime) >= '2023-01-01'
-and date(es.partitiontime) < current_date
 {% if is_incremental() %}
     and date(es.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'sent' ) 
 {% endif %}
@@ -71,7 +71,6 @@ from {{ ref('email_clicks') }} ec
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on ec.campaign_id = ecp.campaign_id
 where date(ec.partitiontime) >= '2023-01-01'
-and date(ec.partitiontime) < current_date
 {% if is_incremental() %}
     and date(ec.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'clicked' )
 {% endif %}
@@ -107,7 +106,6 @@ from {{ ref('email_opens') }} eo
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eo.campaign_id = ecp.campaign_id
 where date(eo.partitiontime) >= '2023-01-01'
-and date(eo.partitiontime) < current_date
 {% if is_incremental() %}
     and date(eo.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'opened' )
 {% endif %}
@@ -142,7 +140,6 @@ from {{ ref('email_bounces') }} eb
 left join {{ ref('email_campaigns_latest_version') }} ecp
     on eb.campaign_id = ecp.campaign_id
 where date(eb.partitiontime) >= '2023-01-01'
-and date(eb.partitiontime) < current_date
 {% if is_incremental() %}
     and date(eb.partitiontime) > (select max(date(partitiontime)) from {{ this }} where action = 'bounced' )
 {% endif %}

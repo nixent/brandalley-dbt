@@ -1,0 +1,212 @@
+model: ifg-country-attire
+destination: emarsys-1gyu1
+config:
+  mode: upsert
+  type: object
+  object: contact
+  mappings:
+    - to: '17510'
+      from: Account_Creation_Date_
+      type: standard
+    - to: '46911'
+      from: IETF_language_tag
+      type: standard
+    - to: '56671'
+      from: Do_not_track_me_in_Email
+      type: standard
+    - to: '44371'
+      from: Do_not_track_me
+      type: standard
+    - to: '19937'
+      from: predict_top_categories
+      type: standard
+    - to: '19938'
+      from: predict_last_session_date
+      type: standard
+    - to: '19939'
+      from: predict_last_session_time_spent
+      type: standard
+    - to: '19940'
+      from: predict_last_session_products
+      type: standard
+    - to: '19941'
+      from: predict_last_session_categories
+      type: standard
+    - to: '19942'
+      from: predict_last_abandoned_date
+      type: standard
+    - to: '19943'
+      from: predict_last_abandoned_products
+      type: standard
+    - to: '19944'
+      from: predict_last_abandoned_categories
+      type: standard
+    - to: '19945'
+      from: predict_last_abandoned_total_price
+      type: standard
+    - to: '19946'
+      from: predict_last_purchase_date
+      type: standard
+    - to: '19947'
+      from: predict_last_purchase_products
+      type: standard
+    - to: '19948'
+      from: predict_last_purchase_categories
+      type: standard
+    - to: '19949'
+      from: predict_last_purchase_total_price
+      type: standard
+    - to: '17512'
+      from: First_Purchase_Date_
+      type: standard
+    - to: '17511'
+      from: Last_Purchase_Date_
+      type: standard
+    - to: '49319'
+      from: Mobile_Advertising_ID
+      type: standard
+    - to: '9'
+      from: Title
+      type: standard
+    - to: '46'
+      from: Salutation
+      type: standard
+    - to: '1'
+      from: First_Name
+      type: standard
+    - to: '2'
+      from: Last_Name
+      type: standard
+    - to: '3'
+      from: Email
+      type: standard
+    - to: '26'
+      from: Preferred_email_format
+      type: standard
+    - to: '10'
+      from: Address
+      type: standard
+    - to: '13'
+      from: ZIP_Code
+      type: standard
+    - to: '11'
+      from: City
+      type: standard
+    - to: '12'
+      from: State
+      type: standard
+    - to: '14'
+      from: Country_or_region
+      type: standard
+    - to: '15'
+      from: Phone
+      type: standard
+    - to: '37'
+      from: Mobile
+      type: standard
+    - to: '16'
+      from: Fax
+      type: standard
+    - to: '5'
+      from: Gender
+      type: standard
+    - to: '4'
+      from: Date_of_Birth
+      type: standard
+    - to: '8'
+      from: Education
+      type: standard
+    - to: '6'
+      from: Marital_Status
+      type: standard
+    - to: '38'
+      from: First_Name_of_Partner
+      type: standard
+    - to: '39'
+      from: Birthdate_of_Partner
+      type: standard
+    - to: '40'
+      from: Anniversary
+      type: standard
+    - to: '7'
+      from: Children
+      type: standard
+    - to: '18'
+      from: Company
+      type: standard
+    - to: '41'
+      from: Company_Address
+      type: standard
+    - to: '42'
+      from: Zip_Code__office_
+      type: standard
+    - to: '43'
+      from: City__office_
+      type: standard
+    - to: '44'
+      from: State__office_
+      type: standard
+    - to: '45'
+      from: Country_or_region__office_
+      type: standard
+    - to: '21'
+      from: Phone__office_
+      type: standard
+    - to: '22'
+      from: Fax__office_
+      type: standard
+    - to: '25'
+      from: URL
+      type: standard
+    - to: '17'
+      from: Job_Position
+      type: standard
+    - to: '31'
+      from: Opt_In
+      type: standard
+    - to: '19'
+      from: Department
+      type: standard
+    - to: '20'
+      from: Industry
+      type: standard
+    - to: '23'
+      from: Number_of_Employees
+      type: standard
+    - to: '24'
+      from: Annual_Revenue__in_000_EUR_
+      type: standard
+    - to: '35'
+      from: Registration_Language
+      type: standard
+    - to: '47'
+      from: Email_valid
+      type: standard
+    - to: '48'
+      from: Date_of_first_registration
+      type: standard
+    - to: '62252'
+      from: predictUserID
+      type: standard
+    - to: '62253'
+      from: predictSecret
+      type: standard
+    - to: '62254'
+      from: Locale
+      type: standard
+    - to: '62255'
+      from: Subscription_Source_
+      type: standard
+    - to: '62256'
+      from: Is_Existing_Customer
+      type: standard
+    - to: '62257'
+      from: ifg_account_name
+      type: standard
+  configVersion: 0
+  externalIdMapping:
+    to: '17506'
+    from: customer_id
+schedule:
+  type: manual
+schedulePaused: false
