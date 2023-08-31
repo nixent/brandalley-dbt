@@ -201,6 +201,7 @@ with order_lines as (
 		case
 			when vs.brand is not null then pcd.product_department
 			when lower(ccfse.path_name) like '%>clearance>%' then 'Clearance'
+			when eaov_brand.value = 'DockATot' then 'Decorative Home'
 			when lower(cceh.name) = 'outlet' then 'Outlet'
 			when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
 			when cceh.name is not null then pcd.product_department
