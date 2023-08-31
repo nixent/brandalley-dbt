@@ -8,9 +8,6 @@ config:
     - to: '17510'
       from: Account_Creation_Date_
       type: standard
-    - to: '46911'
-      from: IETF_language_tag
-      type: standard
     - to: '56671'
       from: Do_not_track_me_in_Email
       type: standard
