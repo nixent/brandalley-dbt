@@ -63,6 +63,7 @@ models:
       streamkap_current_reactor:
         +on_schema_change: "append_new_columns"
         +schema: streamkap_current_reactor
+        +post-hook: "delete {{this}} where __deleted = true"
       streamkap_current:
         +schema: streamkap_current
       streamkap_current_uk:

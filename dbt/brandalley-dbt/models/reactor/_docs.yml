@@ -28,3 +28,24 @@ models:
           dimension:
             label: 'Ext. Order ID'
             format: id
+
+  - name: stg__reactor_stock_profile
+    description: ""
+    columns:
+      - name: logged_date
+      - name: sku
+      - name: reactor_sku_id
+      - name: on_hand
+      - name: allocated
+      - name: available
+      - name: goods_in_quarantine
+      - name: rack
+      - name: rack_number
+      - name: aisle_id
+      - name: aisle_number
+      - name: zone_id
+      - name: zone_name
+      - name: zone_abbr
+      - name: zone_colour
+      - name: is_zone_pickable
+      - name: stock_type
