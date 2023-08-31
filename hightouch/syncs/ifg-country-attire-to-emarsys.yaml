@@ -93,7 +93,7 @@ config:
       from: State
       type: standard
     - to: '14'
-      from: Country_or_region
+      from: country_code
       type: standard
     - to: '15'
       from: Phone
