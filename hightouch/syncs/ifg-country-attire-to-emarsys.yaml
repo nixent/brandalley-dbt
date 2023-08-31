@@ -179,12 +179,6 @@ config:
     - to: '35'
       from: Registration_Language
       type: standard
-    - to: '47'
-      from: Email_valid
-      type: standard
-    - to: '48'
-      from: Date_of_first_registration
-      type: standard
     - to: '62252'
       from: predictUserID
       type: standard
