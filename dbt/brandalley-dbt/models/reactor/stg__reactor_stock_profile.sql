@@ -115,7 +115,7 @@ left join {{ ref("stg__box") }} as b on ubsi.boxid = b.id
 left join {{ ref("stg__boxracking") }} as br on br.id = b.boxrackingid
 left join {{ ref("stg__adboxaisle") }} as aba on aba.aisleid = br.aisleid
 left join {{ ref("stg__adboxzone") }} as abz on abz.zoneid = aba.zoneid
-left join {{ ref("stg__stocklist") }} sl on o.stockid = sl.id
+left join {{ ref("stg__stocklist") }} sl on ubsi.stockid = sl.id
 where abz.name <> 'z Bulk Zone GI Bay'
 )
 select
@@ -133,5 +133,4 @@ select
 		then rsp.quantity
 	    else 0 end) as unsellable,
 from raw_stock_profile as rsp
-
 group by 1,2,3
