@@ -90,6 +90,33 @@ where
     < '2000-01-01'
     and obi.id is null
 group by o.stockid, sl.legacy_id
+
+union all
+
+select cast(current_date as date) as logged_date,
+       ubsi.stockid as reactor_sku_id,
+       sl.legacy_id as sku,
+       ubsi.quantity as quantity,
+       ubsi.boxid, 
+       br.id as rack_id,
+       br.row as rack_row,
+       br.rack as rack,
+       br.racknumber as rack_number,
+       aba.aisleid as aisle_id,
+       aba.aislenumber as aisle_number,
+       abz.zoneid as zone_id,
+       abz.name as zone_name,
+       abz.abbr as zone_abbr,
+       abz.color as zone_colour,
+       abz.pickable as is_zone_pickable,
+       'unsellable' as stock_type       
+from {{ ref("stg__unsellableboxstockindex") }} ubsi
+left join {{ ref("stg__box") }} as b on ubsi.boxid = b.id
+left join {{ ref("stg__boxracking") }} as br on br.id = b.boxrackingid
+left join {{ ref("stg__adboxaisle") }} as aba on aba.aisleid = br.aisleid
+left join {{ ref("stg__adboxzone") }} as abz on abz.zoneid = aba.zoneid
+left join {{ ref("stg__stocklist") }} sl on o.stockid = sl.id
+where abz.name <> 'z Bulk Zone GI Bay'
 )
 select
 	rsp.logged_date,
@@ -102,10 +129,9 @@ select
 	sum(case when rsp.stock_type = 'available'
 		then rsp.quantity
 	    else 0 end) as available,
-	0 as goods_in_quarantine,
-	0 as returns_quarantine,
-	0 as faulty_quarantine,
-	0 as other_quarantine
+    sum(case when rsp.stock_type = 'unsellable'
+		then rsp.quantity
+	    else 0 end) as unsellable,
 from raw_stock_profile as rsp
---where rsp.logged_date >= convert(date, @date)
+
 group by 1,2,3
