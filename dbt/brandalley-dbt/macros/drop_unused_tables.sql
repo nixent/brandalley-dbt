@@ -29,9 +29,10 @@
     from region-europe-west2.INFORMATION_SCHEMA.TABLES t
     left join last_queries lq 
         on t.table_schema = lq.dataset_id and t.table_name = lq.table_id
-    where (t.table_schema not in ('streamkap', 'streamkap_current', 'prod', 'analytics_280799085')
+    where (t.table_schema not in ('streamkap', 'streamkap_fr', 'streamkap_reactor', 'streamkap_m2' 'streamkap_current', 'prod', 'analytics_280799085')
         and date_diff(current_date, date(coalesce(lq.start_time, t.creation_time)), day) >= 30
         and table_type in ('BASE TABLE', 'VIEW', 'CLONE'))
+        and table_name not like 'ifg_%'
         or (t.table_schema like '%dbt_cloud_pr%' and date_diff(current_date, date(coalesce(lq.start_time, t.creation_time)), day) >= 3)
 {% endset %}
 
