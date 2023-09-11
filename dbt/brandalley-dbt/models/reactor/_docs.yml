@@ -39,3 +39,5 @@ models:
       - name: allocated
       - name: available
       - name: unsellable
+      - name: unsellable_good
+      - name: unsellable_bad

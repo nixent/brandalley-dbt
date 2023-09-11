@@ -1,4 +1,4 @@
-{{ config(materialized="table") }}
+{{ config(materialized="table", tags=["reactor_stock_daily"]) }}
 
 with raw_stock_profile as (
 select
@@ -97,7 +97,7 @@ select cast(current_date as date) as logged_date,
        ubsi.stockid as reactor_sku_id,
        sl.legacy_id as sku,
        ubsi.quantity as quantity,
-       ubsi.boxid, 
+       ubsi.boxid as box_id, 
        br.id as rack_id,
        br.row as rack_row,
        br.rack as rack,
@@ -132,5 +132,11 @@ select
     sum(case when rsp.stock_type = 'unsellable'
 		then rsp.quantity
 	    else 0 end) as unsellable,
+    sum(case when rsp.stock_type = 'unsellable' and rsp.box_id not in (-32, -33, -34, -35, -41, -42)
+		then rsp.quantity
+	    else 0 end) as unsellable_good,
+    sum(case when rsp.stock_type = 'unsellable' and rsp.box_id in (-32, -33, -34, -35, -41, -42)
+		then rsp.quantity
+	    else 0 end) as unsellable_bad
 from raw_stock_profile as rsp
 group by 1,2,3
