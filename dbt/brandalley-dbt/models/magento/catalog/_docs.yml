@@ -664,6 +664,24 @@ models:
             total_ttl_cost_sed:
               type: sum
               sql: '${cost}*${stock_sed}'
+      - name: stock_kettering_allocated
+        meta:
+          metrics:
+            total_stock_kettering_allocated:
+              type: sum
+              label: 'Allocated Stock Qty'
+      - name: stock_kettering_unsellable_good
+        meta:
+          metrics:
+            total_stock_kettering_unsellable_good:
+              type: sum
+              label: 'Unsellable Location Stock Qty'
+      - name: stock_kettering_unsellable_bad
+        meta:
+          metrics:
+            total_stock_kettering_unsellable_bad:
+              type: sum
+              label: 'Unsellable Damaged Stock Qty'
       - name: image_value
         description: "Image value, nullable"
       - name: name

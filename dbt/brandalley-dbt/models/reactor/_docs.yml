@@ -28,3 +28,16 @@ models:
           dimension:
             label: 'Ext. Order ID'
             format: id
+
+  - name: stg__reactor_stock_profile
+    description: ""
+    columns:
+      - name: logged_date
+      - name: sku
+      - name: reactor_sku_id
+      - name: on_hand
+      - name: allocated
+      - name: available
+      - name: unsellable
+      - name: unsellable_good
+      - name: unsellable_bad
