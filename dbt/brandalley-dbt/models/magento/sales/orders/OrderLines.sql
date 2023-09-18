@@ -233,7 +233,6 @@ with order_lines as (
 		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as total_local_currency_ex_tax_before_vouchers,
         if(shipping.shipment_date is null, sfo.expected_delivery_date < current_date, sfo.expected_delivery_date < date(shipping.shipment_date))            as is_late_delivery,
         if(shipping.shipment_date is null, DATE_DIFF(current_date, sfo.expected_delivery_date, DAY), DATE_DIFF(date(shipping.shipment_date), sfo.expected_delivery_date, DAY))                  as late_days
-
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
@@ -383,8 +382,20 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-)
+),
 
+-- Adding a step to get the number of suppliers per order
+order_suppliers as (
+select max(rn) max_suppliers_nb, order_id, ba_site from (
+select
+    order_id,
+    supplier_id,
+    ba_site,
+    row_number() over(partition by order_id, ba_site order by order_id) rn
+from order_lines ol
+group by 1,2,3)
+group by 2,3
+)
 
 select 
 	ol.*,
@@ -397,8 +408,11 @@ select
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_before_vouchers)				as TOTAL_GBP_before_vouchers,
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_after_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_after_vouchers)	as TOTAL_GBP_ex_tax_after_vouchers,
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_before_vouchers)	as TOTAL_GBP_ex_tax_before_vouchers,
-	line_shipping_incl_tax - line_shipping_excl_tax																									as line_shipping_tax
+	line_shipping_incl_tax - line_shipping_excl_tax																									as line_shipping_tax,
+    os.max_suppliers_nb
 from order_lines ol
+left join order_suppliers os 
+on ol.order_id=os.order_id and ol.ba_site=os.ba_site
 left join {{ ref('fx_rates') }} fx
 	on date(ol.created_at) = fx.date_day
 
