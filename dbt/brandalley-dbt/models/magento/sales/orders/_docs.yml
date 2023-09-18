@@ -1291,6 +1291,8 @@ models:
           dimension:
             type: number
             group_label: 'Shipping'
+      - name: max_suppliers_nb
+        description: "Number of suppliers tied to the order"
 
   - name: OrderLinesNullParent
     description: ""
