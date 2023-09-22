@@ -1,4 +1,4 @@
-{{ config(materialized="table", tags=["reactor_stock_daily"]) }}
+{{ config(materialized="table", tags=["job_daily"]) }}
 
 with
     kettering_goods_in as (
@@ -18,7 +18,7 @@ with
         select
             poi.po_id as purchase_id,
             poi.sku as magento_sku,
-            cast(spgi.delivery_date as date) as date_arrived,
+            ifnull(cast(spgi.delivery_date as date), cast(po.delivery_date as date)) as date_arrived,
             sum(to_order) as qty_arrived
         from {{ ref("stg__catalog_product_po_item") }} poi
         inner join
