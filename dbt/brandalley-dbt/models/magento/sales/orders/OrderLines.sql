@@ -389,7 +389,7 @@ with order_lines as (
 
 ),
 
--- Adding a step to get the number of suppliers per order
+-- Adding a step to get the max number of suppliers per order
 order_suppliers as (
 select max(rn) max_shipment_type, order_id, ba_site from (
 select
