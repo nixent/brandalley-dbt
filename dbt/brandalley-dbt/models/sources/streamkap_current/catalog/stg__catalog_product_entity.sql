@@ -51,8 +51,5 @@ from {{ ref('stg_fr__catalog_product_entity') }}
 {% if is_incremental() %}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
 {% endif %}
-<<<<<<< HEAD
-qualify row_number() over (partition by sku order by updated_at desc) = 1
-=======
 qualify row_number() over (partition by sku, ba_site order by updated_at desc) = 1
->>>>>>> c9d70a1e5cd0a20da80fe95ab8b8229b010f6760
+
