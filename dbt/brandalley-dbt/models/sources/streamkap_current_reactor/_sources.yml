@@ -1,0 +1,993 @@
+version: 2
+
+sources:
+  - name: streamkap_reactor
+    database: datawarehouse-358408
+    tables:
+      - name: deliveryconsignment
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: deliverytype
+            data_type: <string>
+            description: "Delivery Type"
+          - name: customerid
+            data_type: <integer>
+            description: "customerid"
+          - name: warehouseid
+            data_type: <integer>
+            description: "warehouseid"
+          - name: status
+            data_type: <integer>
+            description: "delivery status"
+          - name: consignmentcode
+            data_type: <string>
+            description: "consignmentcode"
+          - name: consignmentreturncode
+            data_type: <string>
+            description: "consignmentreturncode"
+          - name: delcity
+            data_type: <string>
+            description: "delivery city"
+          - name: delstate
+            data_type: <string>
+            description: "delivery state"
+          - name: delpostcode
+            data_type: <string>
+            description: "delivery postcode"
+          - name: delcountry
+            data_type: <string>
+            description: "delivery country"
+          - name: charge
+            data_type: <bignumeric>
+            description: "delivery charge"
+          - name: actual_cost
+            data_type: <bignumeric>
+            description: "delivery cost"
+          - name: actual_taxes
+            data_type: <bignumeric>
+            description: "delivery tax"
+          - name: created
+            data_type: <timestamp>
+            description: "created at"
+          - name: printed
+            data_type: <timestamp>
+            description: "printed at"
+          - name: manifested
+            data_type: <timestamp>
+            description: "manifested at"
+          - name: languageid
+            data_type: <integer>
+            description: "created by"
+          - name: frontpage_branding
+            data_type: <integer>
+            description: "frontpage_branding"
+          - name: uploaded
+            data_type: <integer>
+            description: "uploaded"
+          - name: service_code
+            data_type: <string>
+            description: "service_code"
+          - name: signature
+            data_type: <integer>
+            description: "signature"
+          - name: is_ioss
+            data_type: <integer>
+            description: "is_ioss"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: deliveryconsignmentstatus
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: name
+            data_type: <string>
+            description: "status name"
+          - name: orderby
+            data_type: <integer>
+            description: "order by"
+          - name: defaultselected
+            data_type: <integer>
+            description: "defaultselected"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: deliverypackage
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: deliveryconsignmentid
+            data_type: <integer>
+            description: "deliveryconsignmentid"
+          - name: packagecode
+            data_type: <string>
+            description: "packagecode"
+          - name: packagereturncode
+            data_type: <string>
+            description: "packagereturncode"
+          - name: weight
+            data_type: <integer>
+            description: "package weight"
+          - name: length
+            data_type: <integer>
+            description: "package length"
+          - name: width
+            data_type: <integer>
+            description: "package width"
+          - name: height
+            data_type: <integer>
+            description: "package height"
+          - name: package_sizeid
+            data_type: <integer>
+            description: "packagesizeid"
+          - name: orderby
+            data_type: <integer>
+            description: "orderby"
+          - name: aux_barcode
+            data_type: <string>
+            description: "aux_barcode"
+          - name: aux_barcode_seq_number
+            data_type: <string>
+            description: "aux_barcode_seq_number"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: deliveryproduct
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: deliverypackageid
+            data_type: <integer>
+            description: "deliverypackageid"
+          - name: orderid
+            data_type: <integer>
+            description: "orderid"
+          - name: shortdescription
+            data_type: <string>
+            description: "shortdescription"
+          - name: longdescription
+            data_type: <string>
+            description: "longdescription"
+          - name: unitvalue
+            data_type: <bignumeric>
+            description: "unitvalue"
+          - name: origin
+            data_type: <string>
+            description: "origin"
+          - name: unitweight
+            data_type: <integer>
+            description: "unitweight"
+          - name: htscode
+            data_type: <string>
+            description: "htscode"
+          - name: quantity
+            data_type: <integer>
+            description: "quantity"
+          - name: composition
+            data_type: <string>
+            description: "composition"
+          - name: sku
+            data_type: <string>
+            description: "sku"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: deliverytypes
+        description: ""
+        columns:
+          - name: code
+            data_type: <string>
+            description: "primary key"
+          - name: title
+            data_type: <string>
+            description: "title"
+          - name: details
+            data_type: <string>
+            description: "details"
+          - name: short_name
+            data_type: <string>
+            description: "short name"
+          - name: collectiontime
+            data_type: <integer>
+            description: "longdescription"
+          - name: ordercutofftime
+            data_type: <integer>
+            description: "ordercutofftime"
+          - name: advertisedordercutofftime
+            data_type: <integer>
+            description: "advertisedordercutofftime"
+          - name: hidden
+            data_type: <integer>
+            description: "hidden"
+          - name: hidden_in_warehouse
+            data_type: <integer>
+            description: "hidden_in_warehouse"
+          - name: pickable
+            data_type: <integer>
+            description: "pickable"
+          - name: nopack
+            data_type: <integer>
+            description: "nopack"
+          - name: bagtype
+            data_type: <integer>
+            description: "bagtype"
+          - name: courier
+            data_type: <string>
+            description: "courier"
+          - name: trackable
+            data_type: <string>
+            description: "trackable"
+          - name: courierid
+            data_type: <integer>
+            description: "courierid"
+          - name: default_finalmilecarrierid
+            data_type: <integer>
+            description: "default_finalmilecarrierid"
+          - name: machine_packable
+            data_type: <integer>
+            description: "machine_packable"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: purchasestock
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: purchaseid
+            data_type: <integer>
+            description: "purchase id"
+          - name: brandid
+            data_type: <integer>
+            description: "brand id"
+          - name: supplierid
+            data_type: <integer>
+            description: "supplier id"
+          - name: userid
+            data_type: <integer>
+            description: "user id"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: potype
+            data_type: <string>
+            description: "potype"
+          - name: adpriorityid
+            data_type: <integer>
+            description: "adpriority"
+          - name: postatus
+            data_type: <string>
+            description: "po status"
+          - name: ordertime
+            data_type: <integer>
+            description: "ordertime"
+          - name: expectedtime
+            data_type: <integer>
+            description: "expectedtime"
+          - name: info
+            data_type: <string>
+            description: "info"
+          - name: purchasesubid
+            data_type: <integer>
+            description: "purchasesubid"
+          - name: stockid
+            data_type: <integer>
+            description: "stockid"
+          - name: status
+            data_type: <string>
+            description: "status"
+          - name: orderquantity
+            data_type: <integer>
+            description: "orderquantity"
+          - name: receivedquantity
+            data_type: <integer>
+            description: "receivedquantity"
+          - name: arrivedtime
+            data_type: <integer>
+            description: "arrivedtime"
+          - name: lastquantity
+            data_type: <integer>
+            description: "lastquantity"
+          - name: warehouseid
+            data_type: <integer>
+            description: "warehouseid"
+          - name: deleted
+            data_type: <integer>
+            description: "deleted"
+          - name: companyid
+            data_type: <integer>
+            description: "company_id"
+          - name: generated_by
+            data_type: <string>
+            description: "generated_by"
+          - name: tenant_id
+            data_type: <integer>
+            description: "tenant_id"
+          - name: ordercurrency
+            data_type: <string>
+            description: "dordercurrency"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: purchasestocklog
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: purchaseid
+            data_type: <integer>
+            description: "po number"
+          - name: psid
+            data_type: <integer>
+            description: "psid"
+          - name: userid
+            data_type: <integer>
+            description: "userid"
+          - name: timestamp
+            data_type: <integer>
+            description: "date arrived"
+          - name: actiontime
+            data_type: <integer>
+            description: "actiontime"
+          - name: existing_quantity
+            data_type: <integer>
+            description: "existing quantity"
+          - name: newly_received_quantity
+            data_type: <integer>
+            description: "new quantity received"
+          - name: total_received_quantity
+            data_type: <integer>
+            description: "total received quantity"
+          - name: workstationid
+            data_type: <integer>
+            description: "workstationid"
+          - name: warehouseid
+            data_type: <integer>
+            description: "warehouseid"
+          - name: stockid
+            data_type: <integer>
+            description: "sku id"
+          - name: grn_id
+            data_type: <integer>
+            description: "grn number"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: stockist
+        description: ""
+        columns:
+          - name: stockistid
+            data_type: <integer>
+            description: "primary key"
+          - name: name
+            data_type: <string>
+            description: "stockist name"
+          - name: company
+            data_type: <string>
+            description: "company"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: stocklist
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: productid
+            data_type: <integer>
+            description: "product id"
+          - name: barcode
+            data_type: <string>
+            description: "barcode"
+          - name: supplierref
+            data_type: <string>
+            description: "supplier ref"
+          - name: size
+            data_type: <integer>
+            description: "size"
+          - name: quantity
+            data_type: <integer>
+            description: "quantity"
+          - name: item_price
+            data_type: <bignumeric>
+            description: "item_price"
+          - name: item_cost
+            data_type: <bignumeric>
+            description: "item_cost"
+          - name: item_rrp
+            data_type: <bignumeric>
+            description: "item_rrp"
+          - name: item_trade_price
+            data_type: <bignumeric>
+            description: "item_trade_price"
+          - name: oos_action
+            data_type: <string>
+            description: "oos_action"
+          - name: legacy_id
+            data_type: <string>
+            description: "legacy_id"
+          - name: modified
+            data_type: <timestamp>
+            description: "modified"
+          - name: import_source
+            data_type: <string>
+            description: "import_source"
+          - name: vatrateid
+            data_type: <integer>
+            description: "vatrateid"
+          - name: iso_country_code
+            data_type: <string>
+            description: "country code"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: warehouse
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: name
+            data_type: <string>
+            description: "warehouse name"
+          - name: address1
+            data_type: <string>
+            description: "1st line address"
+          - name: address2
+            data_type: <string>
+            description: "2nd line address"
+          - name: address3
+            data_type: <string>
+            description: "3rd line address"
+          - name: city
+            data_type: <string>
+            description: "city"
+          - name: postcode
+            data_type: <string>
+            description: "postcode"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: adboxaisle
+        description: ""
+        columns:
+          - name: aisleid
+            data_type: <integer>
+            description: "primary key"
+          - name: zoneid
+            data_type: <integer>
+            description: "zoneid"
+          - name: aislenumber
+            data_type: <integer>
+            description: "aislenumber"
+          - name: aislelabel
+            data_type: <string>
+            description: "aisle label"
+          - name: inoutpick
+            data_type: <integer>
+            description: "inoutpick"
+          - name: reversepick
+            data_type: <integer>
+            description: "reversepick"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: adboxzone
+        description: ""
+        columns:
+          - name: zoneid
+            data_type: <integer>
+            description: "primary key"
+          - name: name
+            data_type: <string>
+            description: "zone name"
+          - name: color
+            data_type: <string>
+            description: "color"
+          - name: pickable
+            data_type: <integer>
+            description: "pickable"
+          - name: deleteable
+            data_type: <integer>
+            description: "deleteable"
+          - name: abbr
+            data_type: <string>
+            description: "abbreviation"
+          - name: hidden
+            data_type: <integer>
+            description: "hidden"
+          - name: allocationorder
+            data_type: <integer>
+            description: "allocationorder"
+          - name: future_all_picked
+            data_type: <integer>
+            description: "future_all_picked"
+          - name: warehouseid
+            data_type: <integer>
+            description: "warehouseid"
+          - name: has_min_stock
+            data_type: <integer>
+            description: "has_min_stock"
+          - name: pickcart_typeid
+            data_type: <integer>
+            description: "pickcart_typeid"
+          - name: pickorder
+            data_type: <integer>
+            description: "pickorder"
+          - name: tenant_id
+            data_type: <integer>
+            description: "tenantid"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: box
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: boxrackingid
+            data_type: <integer>
+            description: "box racking id"
+          - name: shelf
+            data_type: <integer>
+            description: "shelf"
+          - name: position
+            data_type: <integer>
+            description: "position"
+          - name: pickorder
+            data_type: <integer>
+            description: "pickorder"
+          - name: longterm
+            data_type: <integer>
+            description: "longterm"
+          - name: laststockcheck
+            data_type: <timestamp>
+            description: "laststockcheck"
+          - name: deleteable
+            data_type: <integer>
+            description: "deleteable"
+          - name: width
+            data_type: <integer>
+            description: "box width"
+          - name: height
+            data_type: <integer>
+            description: "box height"
+          - name: depth
+            data_type: <integer>
+            description: "box depth"
+          - name: warehouse_id
+            data_type: <integer>
+            description: "warehouseid"
+          - name: company_id
+            data_type: <integer>
+            description: "company id"
+          - name: tenant_id
+            data_type: <integer>
+            description: "tenantid"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: boxracking
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: aisleid
+            data_type: <integer>
+            description: "aisle id"
+          - name: racknumber
+            data_type: <integer>
+            description: "rack number"
+          - name: width
+            data_type: <integer>
+            description: "box width"
+          - name: height
+            data_type: <integer>
+            description: "box height"
+          - name: depth
+            data_type: <integer>
+            description: "box depth"
+          - name: x
+            data_type: <integer>
+            description: "x"
+          - name: y
+            data_type: <integer>
+            description: "y"
+          - name: direction
+            data_type: <integer>
+            description: "direction"
+          - name: shelves
+            data_type: <integer>
+            description: "shelves"
+          - name: storage_width
+            data_type: <integer>
+            description: "storage width"
+          - name: storage_depth
+            data_type: <integer>
+            description: "storage_depth"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: boxstockchecklog
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: boxid
+            data_type: <integer>
+            description: "box id"
+          - name: stockid
+            data_type: <integer>
+            description: "sku"
+          - name: previous
+            data_type: <integer>
+            description: "previous qty"
+          - name: timestamp
+            data_type: <integer>
+            description: "logged date"
+          - name: userid
+            data_type: <integer>
+            description: "user id"
+          - name: workstation_id
+            data_type: <integer>
+            description: "workstation id"
+          - name: scanned
+            data_type: <integer>
+            description: "scanned qty"
+          - name: difference
+            data_type: <integer>
+            description: "difference qty"
+          - name: via
+            data_type: <string>
+            description: "via method"
+          - name: warehouseid
+            data_type: <integer>
+            description: "warehouse id"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: boxstockindex
+        description: ""
+        columns:
+          - name: boxid
+            data_type: <integer>
+            description: "boxid"
+          - name: stockid
+            data_type: <integer>
+            description: "stockid"
+          - name: quantity
+            data_type: <integer>
+            description: "qty"
+          - name: timestamp
+            data_type: <integer>
+            description: "timestamp"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: courier
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: name
+            data_type: <string>
+            description: "courier name"
+          - name: deleted
+            data_type: <integer>
+            description: "deleted"
+          - name: manifestable
+            data_type: <integer>
+            description: "manifestable"
+          - name: last_manifest
+            data_type: <integer>
+            description: "last manifest"
+          - name: expenses_supplierid
+            data_type: <integer>
+            description: "expenses supplier"
+          - name: admincolor
+            data_type: <string>
+            description: "admincolor"
+          - name: packable
+            data_type: <integer>
+            description: "packable"
+          - name: show_manifest_status
+            data_type: <integer>
+            description: "show manifest status"
+          - name: wh_action_id
+            data_type: <integer>
+            description: "warehouse action id"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: customers
+        description: ""
+        columns:
+          - name: customerid
+            data_type: <integer>
+            description: "primary key"
+          - name: cardtype
+            data_type: <string>
+            description: "card type"
+          - name: ordertime
+            data_type: <integer>
+            description: "order time"
+          - name: siteid
+            data_type: <integer>
+            description: "site id"
+          - name: dcity
+            data_type: <string>
+            description: "delivery city"
+          - name: dcountry
+            data_type: <string>
+            description: "delivery country"
+          - name: dpostcode
+            data_type: <string>
+            description: "delivery postcode"
+          - name: deliverycharge
+            data_type: <string>
+            description: "delivery charge"
+          - name: company_id
+            data_type: <integer>
+            description: "company id"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated at"
+          - name: lang_code
+            data_type: <string>
+            description: "lang code"
+          - name: memberid
+            data_type: <integer>
+            description: "member id"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: orders
+        description: ""
+        columns:
+          - name: orderid
+            data_type: <integer>
+            description: "primary key"
+          - name: suborderid
+            data_type: <integer>
+            description: "order line no."
+          - name: customerid
+            data_type: <integer>
+            description: "customer id"
+          - name: stockid
+            data_type: <integer>
+            description: "sku"
+          - name: productid
+            data_type: <integer>
+            description: "productid"
+          - name: qunatity
+            data_type: <integer>
+            description: "quantity"
+          - name: leftwarehouse_timestamp
+            data_type: <integer>
+            description: "leftwarehouse_timestamp"
+          - name: price
+            data_type: <string>
+            description: "price"
+          - name: price_adjust
+            data_type: <string>
+            description: "price_adjust"
+          - name: ordered_timestamp
+            data_type: <integer>
+            description: "ordered_timestamp"
+          - name: completed_timestamp
+            data_type: <integer>
+            description: "completed_timestamp"
+          - name: dispatch_warehouseid
+            data_type: <integer>
+            description: "dispatch warehouse id"
+          - name: ext_order_id
+            data_type: <string>
+            description: "external order id"
+          - name: vat
+            data_type: <bignumeric>
+            description: "vat"
+          - name: exhange_rate
+            data_type: <bignumeric>
+            description: "exchange rate"
+          - name: currency
+            data_type: <string>
+            description: "currency"
+          - name: eur_rate
+            data_type: <bignumeric>
+            description: "eur_rate"
+          - name: deliverytype
+            data_type: <string>
+            description: "delivery type"
+          - name: updated_at
+            data_type: <timestamp>
+            description: "updated at"
+          - name: ship_by
+            data_type: <integer>
+            description: "ship by"
+          - name: priority
+            data_type: <string>
+            description: "priority"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: unsellableboxstockindex
+        description: ""
+        columns:
+          - name: boxid
+            data_type: <integer>
+            description: "boxid"
+          - name: stockid
+            data_type: <integer>
+            description: "stockid"
+          - name: quantity
+            data_type: <integer>
+            description: "qty"
+          - name: timestamp
+            data_type: <integer>
+            description: "timestamp"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: orderboxindex
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: boxid
+            data_type: <integer>
+            description: "boxid"
+          - name: orderid
+            data_type: <integer>
+            description: "orderid"
+          - name: pickstatus
+            data_type: <integer>
+            description: "pickstatus"
+          - name: lastaction
+            data_type: <timestamp>
+            description: "last action"
+          - name: pickuser
+            data_type: <integer>
+            description: "pick user"
+          - name: package_index
+            data_type: <integer>
+            description: "package index"
+          - name: deliveryproductid
+            data_type: <integer>
+            description: "deliveryproductid"
+          - name: picksessionid
+            data_type: <integer>
+            description: "picksessionid"
+          - name: pickcart_volumeid
+            data_type: <integer>
+            description: "pickcart_volumeid"
+          - name: pickbox_typeid
+            data_type: <integer>
+            description: "pickbox_typeid"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: paas_orders
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "id"
+          - name: customer_id
+            data_type: <integer>
+            description: "customer_id"
+          - name: ext_delivery_number
+            data_type: <string>
+            description: "ext_delivery_number"
+          - name: ext_order_number
+            data_type: <string>
+            description: "ext_order_number"
+          - name: ext_batch_number
+            data_type: <string>
+            description: "ext_batch_number"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"

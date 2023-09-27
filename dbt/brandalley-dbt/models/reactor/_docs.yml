@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: order_issues_alert
+    description: ""
+    columns:
+      - name: orderid
+        description: ""
+        meta:
+          dimension:
+            label: 'Order ID'
+            format: id
+      - name: customerid
+        description: ""
+        meta:
+          dimension:
+            label: 'Customer ID'
+            format: id
+      - name: sku
+        description: ""
+        meta:
+          dimension:
+            label: 'SKU'
+            format: id
+      - name: ext_order_number
+        description: ""
+        meta:
+          dimension:
+            label: 'Ext. Order ID'
+            format: id
+
+  - name: stg__reactor_stock_profile
+    description: ""
+    columns:
+      - name: logged_date
+      - name: sku
+      - name: reactor_sku_id
+      - name: on_hand
+      - name: allocated
+      - name: available
+      - name: unsellable
+      - name: unsellable_good
+      - name: unsellable_bad

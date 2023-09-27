@@ -48,7 +48,7 @@ models:
       emarsys:
         +schema: emarsys
       emarsys_eu:
-        +schema: emarsys_eu
+        +schema: emarsys_opendata
         +tags:
           - "emarsys_eu"
     customer_service:
@@ -57,7 +57,13 @@ models:
         +schema: zendesk_model
       zohodesk:
         +schema: zohodesk_model
+    reactor:
+      +schema: reactor
     sources:
+      streamkap_current_reactor:
+        +on_schema_change: "append_new_columns"
+        +schema: streamkap_current_reactor
+        +post-hook: "delete {{this}} where __deleted = true"
       streamkap_current:
         +schema: streamkap_current
       streamkap_current_uk:
@@ -74,11 +80,15 @@ models:
           +post-hook: "delete {{this}} where __deleted = true"
         customers:
           +post-hook: "delete {{this}} where __deleted = true"
+      zendesk:
+        +schema: zendesk
+        +tags: 
+          - "zendesk_uk_fr_merge"
 
 vars:
   # Needed to keep the surrogate_key function treating null as empty strings following upgrade of db-utils
-  zendesk_schema: zendesk_uk_5x
   surrogate_key_treat_nulls_as_empty_strings: true
   using_domain_names:         False         #Disable if you are not using domain names
   using_organization_tags:    False         #Disable if you are not using organization tags
   zendesk__ticket_passthrough_columns: [custom_contact_reason,custom_coupon_code,custom_order_number,custom_carrier,custom_client_contact_reason_no_order,custom_client_contact_reason_order]
+  ticket_field_history_columns: [status,priority]

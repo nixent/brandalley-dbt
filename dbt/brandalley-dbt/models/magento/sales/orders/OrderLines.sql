@@ -66,6 +66,8 @@ with order_lines as (
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
+		sfoi_sim.qty_warehouse_sent																															as qty_sent_to_warehouse,
+		woak.qty_allocated 																																	as qty_allocated_kettering_wh, 
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
 		sfoi_con.dispatch_date 																																as dispatch_due_date,
 		cast((sfoi_sim.base_cost) as decimal) 																												as product_cost_exc_vat,
@@ -190,6 +192,7 @@ with order_lines as (
 		ifnull(eaov_size.value, eaov_size_child.value) 																										as SIZE,
 		sfoi_con.nego,
 		case
+			when vs.brand is not null then vs.brand || ' VIP Sale'
 			when cceh.name in ('', 'Women', 'Men', 'Kids', 'Lingerie', 'Home', 'Beauty', 'Z_NoData', 'Archieved outlet products', 'Holding review')
 				or cceh.name is null
 			then 'Outlet'
@@ -197,11 +200,12 @@ with order_lines as (
 		end 																																				as category_name,
 		case
 			when vs.brand is not null then pcd.product_department
-			when lower(ccfse.path_name) like '%>clearance>%' then 'CLEARANCE'
-			when lower(cceh.name) = 'outlet' then 'OUTLET'
-			when eaov_brand.value = 'N°· Eleven' then 'OWN BRAND'
+			when lower(ccfse.path_name) like '%>clearance>%' then 'Clearance'
+			when eaov_brand.value = 'DockATot' then 'Decorative Home'
+			when lower(cceh.name) = 'outlet' then 'Outlet'
+			when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
 			when cceh.name is not null then pcd.product_department
-			else 'OUTLET'
+			else 'Outlet'
 		end 																																				as department_type,
 		sfo.updated_at,
 		safe_cast(sfo.created_at as timestamp) 																												as created_at,
@@ -226,7 +230,10 @@ with order_lines as (
 		(sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax) - sfoi_con.base_discount_amount 																as total_local_currency_after_vouchers,
 		sfoi_sim.qty_ordered * sfoi_con.base_price_incl_tax 																								as total_local_currency_before_vouchers,
 		sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))			                		as total_local_currency_ex_tax_after_vouchers,
-		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as total_local_currency_ex_tax_before_vouchers
+		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as total_local_currency_ex_tax_before_vouchers,
+        if(shipping.shipment_date is null, sfo.expected_delivery_date < current_date, sfo.expected_delivery_date < date(shipping.shipment_date))            as is_late_delivery,
+        if(shipping.shipment_date is null, DATE_DIFF(current_date, sfo.expected_delivery_date, DAY), DATE_DIFF(date(shipping.shipment_date), sfo.expected_delivery_date, DAY))                  as late_days
+
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
@@ -366,7 +373,11 @@ with order_lines as (
 		and cpe_ref.ba_site = cpr.ba_site
 	left join {{ ref('vip_sales') }} vs
 		on date(if(sfo.ba_site = "FR",datetime(timestamp(sfo.created_at), "Europe/Paris"),datetime(timestamp(sfo.created_at), "Europe/London"))) = vs.date and lower(eaov_brand.value) = lower(vs.brand)
-
+	left join {{ ref('stg__warehouse_order_allocation_kettering') }} woak
+		on sfo.ba_site = 'UK' and woak.order_id = sfo.order_id and woak.sku = sfoi_sim.sku
+    left join (select ba_site, order_id, sku, max(shipment_date) shipment_date from {{ ref('shipping') }} 
+                    group by 1, 2, 3) shipping
+        on shipping.order_id=sfo.increment_id and shipping.sku=sfoi_sim.sku and shipping.ba_site=sfoi_sim.ba_site
 	where 1=1
 	{% if is_incremental() %}
 		and sfo.created_at >= '{{min_ts}}'

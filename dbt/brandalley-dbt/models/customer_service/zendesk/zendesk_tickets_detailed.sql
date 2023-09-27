@@ -5,6 +5,7 @@
 
 with tickets as (
     select  ticket.id,
+            left(ticket.id, 2) as ba_site,
             ticket.created_at,
             ticket.description,
             ticket.due_at,
@@ -36,24 +37,45 @@ with tickets as (
             ticket.custom_solution,
             ticket.custom_status_id,
             ticket.custom_tracking_,
-            orderlines.consignment_qty, 
-            orderlines.warehouse_qty, 
-            orderlines.selffulfill_qty,
-            orderlines.order_id,
+            orders.consignment_qty, 
+            orders.warehouse_qty, 
+            orders.selffulfill_qty,
+            orders.order_id,
             carrier_codes,
-            title
+            title,
+            orders.split_consignment_units,
+            orders.split_sf_units,
+            orders.brand,
+            orders.dispatch_due_date,
+            orders.expected_delivery_date,
+            orders.shipment_date,
+            orders.past_dispatch_date,
+            orders.past_delivery_date
     from {{ source(
         'zendesk',
         'ticket'
     ) }} ticket
     left outer join (
-        select sum(consignment_qty) as consignment_qty, sum(warehouse_qty) as warehouse_qty, sum(selffulfill_qty) as selffulfill_qty, order_number, order_id
-        from {{ ref('OrderLines') }} 
-        -- At the moment filtering on UK only but we'll need to add join on site when FR data is in
-        where ba_site='UK'
-        group by order_number, order_id
-    ) orderlines
-        on ifnull(ticket.custom_order_id, ticket.custom_order_number) = orderlines.order_number
+        select  sum(ol.consignment_qty)                                                                     as consignment_qty, 
+                sum(ol.warehouse_qty)                                                                       as warehouse_qty, 
+                sum(ol.selffulfill_qty)                                                                     as selffulfill_qty,
+                count(if(ol.consignment_qty>0, ol.sku, null))                                               as split_consignment_units, 
+                count(if(ol.selffulfill_qty>0, ol.sku, null))                                               as split_sf_units, 
+                string_agg(distinct ol.brand)                                                               as brand,
+                max(ol.dispatch_due_date)                                                                   as dispatch_due_date,
+                o.expected_delivery_date                                                                    as expected_delivery_date,
+                max(s.max_shipment_date)                                                                    as shipment_date,
+                max(ol.dispatch_due_date) < IFNULL(DATE(max(s.max_shipment_date)), current_date)                 as past_dispatch_date,
+                o.expected_delivery_date < IFNULL(DATE(max(s.max_shipment_date)), current_date)                  as past_delivery_date,
+                ol.order_number, ol.order_id, ol.ba_site
+        from {{ ref('OrderLines') }} ol
+        left outer join {{ ref('Orders') }} o
+        on o.order_id=ol.order_id and o.ba_site=ol.ba_site
+        left outer join (select max(shipment_date) max_shipment_date, order_id, sku, ba_site from {{ ref('shipping')}} group by order_id, ba_site, sku) s
+        on o.increment_id=s.order_id and ol.sku=s.sku and ol.ba_site=s.ba_site
+        group by order_number, order_id, o.expected_delivery_date, ol.ba_site
+    ) orders
+        on ifnull(ticket.custom_order_id, ticket.custom_order_number) = orders.order_number and orders.ba_site=left(ticket.id, 2)
     left outer join (
         select 
             string_agg(distinct carrier_code) as carrier_codes, 
@@ -62,7 +84,7 @@ with tickets as (
         from {{ ref('stg__sales_flat_shipment_track') }}
         group by 3
     ) track
-        on orderlines.order_id = track.order_id
+        on orders.order_id = track.order_id
 	where 1=1
 /*	{% if is_incremental() %}
 		and updated_at >= '{{min_ts}}'

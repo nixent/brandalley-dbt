@@ -1,8 +1,8 @@
 version: 2
 
 sources:
-  - name: 'zendesk'
-    database: datawarehouse-358408
+  - name: zendesk
+    # database: datawarehouse-358408
     description: ""
     tables:
       - name: alert_recipient

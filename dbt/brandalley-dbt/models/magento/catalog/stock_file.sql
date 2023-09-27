@@ -9,6 +9,9 @@ with stock_file_raw as (
         wsrb.qty_remaining_kettering                    as stock_kettering,
         wsrb.qty_remaining_prism                        as stock_prism,
         wsrb.qty_remaining_sed                          as stock_sed,
+        rsp.allocated                                   as stock_kettering_allocated,
+        rsp.unsellable_good                             as stock_kettering_unsellable_good,
+        rsp.unsellable_bad                              as stock_kettering_unsellable_bad,
         ifnull(parent_relation.parent_id, e.entity_id)  as parent_id,
         parent_entity_relation.sku                      as child_parent_sku,
         if(image.value is not null and image.value!='no_selection', 'https://media.brandalley.co.uk/catalog/product'||image.value,  image.value) as image_value,
@@ -41,11 +44,11 @@ with stock_file_raw as (
         cpei_tax.value                                  as tax_class,
         date(stock_prism.delivery_date)                 as last_stock_delivery_date,
         cpei_menu_type_3.value as value_3, 
-        category_details.sale_end,
+        cceh.sale_end,
         replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,
         if(sum(stock_child.min_qty) < 0, 'No', 'Yes')    as canUseForWHSale,
-        string_agg(distinct cast(category_id as string)) as parent_child_category_ids,
-        row_number() over (partition by e.entity_id, e.ba_site order by category_details.sale_end desc) as rn
+        string_agg(distinct cast(category.category_id as string)) as parent_child_category_ids,
+        row_number() over (partition by e.entity_id, e.ba_site order by cceh.sale_end desc) as rn
     from {{ ref('stg__catalog_product_entity') }} e
     inner join {{ ref('stg__cataloginventory_stock_item') }} stock 
         on stock.product_id = e.entity_id
@@ -70,6 +73,7 @@ with stock_file_raw as (
     left join {{ ref('stg__catalog_category_product') }} category 
         on category.product_id = parent_relation.parent_id
             and category.ba_site = parent_relation.ba_site
+            and category.__deleted = false
     left join {{ ref('stg__catalog_product_entity_varchar') }} image 
         on image.attribute_id = 85
             and image.entity_id = parent_entity_relation.entity_id
@@ -196,14 +200,18 @@ with stock_file_raw as (
             and cpei_menu_type_3.entity_id = category.category_id
             and cpei_menu_type_3.value=3
             and cpei_menu_type_3.ba_site = category.ba_site
+    left join {{ ref('stg__catalog_category_entity_history') }} cceh
+		on category.category_id = cceh.category_id and category.ba_site = cceh.ba_site and cceh.sale_end >= current_timestamp
     left join {{ ref('stg__warehouse_stock_running_balance') }} wsrb 
         on wsrb.sku = e.sku
             and wsrb.ba_site = e.ba_site
+    left join {{ ref('stg__reactor_stock_profile') }} rsp
+        on e.sku=rsp.sku
+            and e.ba_site='UK'
     where e.type_id = 'simple'
-        and stock.qty > 0
-    {{ dbt_utils.group_by(42) }}, category.product_id
+        and (stock.qty > 0 or rsp.allocated>0 or rsp.unsellable>0)
+    {{ dbt_utils.group_by(45) }}, category.product_id
  )
-
 select  
     stock.* except (flashsale_category, child_parent_sku, special_price, parent_child_category_ids, value_3, rn, sale_end),
     cat_map.category,
@@ -217,6 +225,5 @@ left join {{ source('utils', 'category_mapping') }} cat_map
     on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label 
         and coalesce(stock.level_2,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(3)],split(flashsale_category, '>')[safe_offset(3)]) = cat_map.level_2 
         and coalesce(stock.level_3,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(4)],split(flashsale_category, '>')[safe_offset(4)]) = cat_map.level_3
-{{ dbt_utils.group_by(39) }}
-
+{{ dbt_utils.group_by(42) }}
 

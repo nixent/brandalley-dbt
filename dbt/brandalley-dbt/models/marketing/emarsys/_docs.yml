@@ -1,4 +1,4 @@
-version: 2 #gui this stays 2, its not our version it's the types of .yml files that dbt supports
+version: 2
 
 models:
   - name: new_customers
@@ -12,3 +12,63 @@ models:
               config:
                 severity: warn
                 warn_if: "> 100"
+
+  - name: email_events
+    columns:
+      - name: action
+      - name: contact_id 
+      - name: launch_id 
+      - name: campaign_type 
+      - name: campaign_name
+      - name: email_type
+      - name: campaign_category
+      - name: campaign_subject
+      - name: domain 
+      - name: campaign_id 
+      - name: message_id
+      - name: distinct_count_key
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            opened_count:
+              type: count_distinct
+              sql: 'if(${action} = "opened", ${distinct_count_key}, null)'
+              label: 'Opens'
+            opened_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${opened_count},${sent_count})'
+              label: 'Open Rate (%)'
+              round: 1
+            clicked_count:
+              type: count
+              sql: 'if(${action} = "clicked", ${distinct_count_key}, null)'
+              label: 'Clicks'
+            clicked_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${clicked_count},${opened_count})'
+              label: 'Click Rate (%)'
+              round: 1
+            sent_count:
+              type: count
+              sql: 'if(${action} = "sent", ${distinct_count_key}, null)'
+              label: 'Sends'
+            bounced_count:
+              type: count
+              sql: 'if(${action} = "bounced", ${distinct_count_key}, null)'
+              label: 'Bounces'
+      - name: event_time 
+        meta:
+          dimension:
+            type: timestamp
+      - name: email_sent_at
+        meta:
+          dimension:
+            type: timestamp
+      - name: customer_id
+      - name: link_id
+      - name: category_name
+      - name: link_name
+

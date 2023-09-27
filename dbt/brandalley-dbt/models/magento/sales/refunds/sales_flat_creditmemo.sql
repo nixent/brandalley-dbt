@@ -1,7 +1,7 @@
 SELECT
-    ba_site || '-' || entity_id as ba_site_entity_id,
+    sfc.ba_site || '-' || entity_id as ba_site_entity_id,
     entity_id,
-    ba_site,
+    sfc.ba_site,
     store_id,
     adjustment_positive,
     base_shipping_tax_amount,
@@ -81,8 +81,20 @@ SELECT
     flag,
     approved_by,
     canceled_at,
-    is_batch
+    is_batch,
+    count_sku_refunded,
+    qty_returned_to_warehouse,
+    qty_refunded
 FROM
     {{ ref(
         'stg__sales_flat_creditmemo'
-    ) }}
+    ) }} sfc
+    left join (select   count(entity_id)                as count_sku_refunded,
+                        sum(qty_returned_to_warehouse)  as qty_returned_to_warehouse,
+                        sum(qty)                        as qty_refunded,
+                        parent_id,
+                        ba_site from
+    {{ ref(
+        'stg__sales_flat_creditmemo_item'
+    ) }} group by parent_id, ba_site) sfci
+    on sfci.parent_id = sfc.entity_id and sfc.ba_site = sfci.ba_site

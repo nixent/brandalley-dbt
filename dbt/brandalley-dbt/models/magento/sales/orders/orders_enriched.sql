@@ -8,7 +8,8 @@ with order_line_agg as (
     ba_site,
     count(*)                             as count_order_lines,
     sum(total_local_currency_ex_tax_after_vouchers) as order_revenue_excl_tax_after_vouchers,
-    sum(line_product_cost_exc_vat)       as order_product_costs_excl_tax
+    sum(line_product_cost_exc_vat)       as order_product_costs_excl_tax,
+    sum(qty_ordered)                     as order_qty_ordered
   from {{ ref('OrderLines') }}
   group by 1,2
 ),
@@ -17,9 +18,9 @@ order_refunds_agg as (
   select
     sfc.order_id,
     sfc.ba_site,
-    count(sfc.entity_id)  as count_refunds,
-    count(sfci.entity_id) as count_item_refunds,
-    sum(row_total)        as total_refund_amount
+    count(sfc.entity_id)                 as count_refunds,
+    count(sfci.entity_id)                as count_item_refunds,
+    sum(row_total)                       as total_refund_amount,
   from {{ ref('sales_flat_creditmemo') }} sfc
   left join {{ ref('sales_flat_creditmemo_item') }} sfci
     on sfci.parent_id = sfc.entity_id and sfc.ba_site = sfci.ba_site
@@ -36,6 +37,7 @@ select
   o.status                        as order_status,
   o.orderno                       as order_sequence,
   if(o.order_number_incl_cancellations = 1, true, false)  as is_first_order,
+  if(o.order_number_incl_cancellations = 1, 'New Customer', 'Repeat Customer')  as new_customer,
 	o.order_number_excl_full_refunds,
 	o.order_number_incl_cancellations,
   o.interval_between_orders,
@@ -55,7 +57,8 @@ select
   case 
     when lead(o.created_at) over (partition by o.customer_id order by o.created_at) is not null then true 
     else false 
-  end as has_ordered_since
+  end as has_ordered_since,
+  ola.order_qty_ordered
 from {{ ref('Orders') }} o
 left join order_line_agg ola 
   on o.order_id = ola.order_id and o.ba_site = ola.ba_site
