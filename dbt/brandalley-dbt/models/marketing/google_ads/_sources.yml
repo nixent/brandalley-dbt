@@ -1,0 +1,96 @@
+version: 2
+
+sources:
+  - name: google_ads
+    database: datawarehouse-358408
+    description: "google_ads_tables"
+    tables:
+      - name: p_ads_AdGroupBasicStats_2357552990
+        columns:
+          - name: ad_group_id
+            data_type: <integer>
+            description: "ad_group_id"
+          - name: campaign_id
+            data_type: <integer>
+            description: "campaign_id"
+          - name: customer_id
+            data_type: <integer>
+            description: "account_id"
+          - name: metrics_clicks
+            data_type: <integer>
+            description: "clicks"
+          - name: metrics_cost_micros
+            data_type: <integer>
+            description: "cost in micros"
+          - name: metrics_conversions
+            data_type: <float>
+            description: "conversions"
+          - name: metrics_impressions
+            data_type: <integer>
+            description: "impressions"
+          - name: metrics_interactions
+            data_type: <integer>
+            description: "interactions"
+          - name: segments_date
+            data_type: <date>
+            description: "date"
+          - name: segments_device
+            data_type: <string>
+            description: "device"
+                      
+      - name: p_ads_CampaignBasicStats_2357552990
+        columns:
+          - name: campaign_id
+            data_type: <integer>
+            description: "campaign_id"
+          - name: customer_id
+            data_type: <integer>
+            description: "account_id"
+          - name: metrics_clicks
+            data_type: <integer>
+            description: "clicks"
+          - name: metrics_cost_micros
+            data_type: <integer>
+            description: "cost in micros"
+          - name: metrics_conversions
+            data_type: <float>
+            description: "conversions"
+          - name: metrics_impressions
+            data_type: <integer>
+            description: "impressions"
+          - name: metrics_interactions
+            data_type: <integer>
+            description: "interactions"
+          - name: segments_date
+            data_type: <date>
+            description: "date"
+          - name: segments_device
+            data_type: <string>
+            description: "device"
+                                  
+      - name: p_ads_Customer_2357552990
+        columns:
+          - name: customer_id
+            data_type: <integer>
+            description: "account_id"
+          - name: customer_descriptive_name
+            data_type: <string>
+            description: "Account name"
+                                              
+      - name: p_ads_CampaignLabel_2357552990
+        columns:
+          - name: campaign_id
+            data_type: <integer>
+            description: "campaign_id"
+          - name: campaign_name
+            data_type: <string>
+            description: 'campaign name'
+                                                          
+      - name: p_ads_AdGroupLabel_2357552990
+        columns:
+          - name: ad_group_id
+            data_type: <integer>
+            description: "ad_group_id"
+          - name: ad_group_name
+            data_type: <string>
+            description: 'adgroup name'

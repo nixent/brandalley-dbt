@@ -44,8 +44,13 @@ models:
       +tags:
         - "lightdash"
     marketing:
+      +schema: marketing
       emarsys:
         +schema: emarsys
+      emarsys_eu:
+        +schema: emarsys_eu
+        +tags:
+          - "emarsys_eu"
     customer_service:
       +schema: customer_service
       zendesk:
