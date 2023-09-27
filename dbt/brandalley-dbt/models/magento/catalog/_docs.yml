@@ -1280,3 +1280,78 @@ models:
               description: 'The average weighted age when comparing multiple skus'
               type: average
               round: 2
+
+  - name: stock_age_daily
+    description: ""
+    columns:
+      - name: processed_at
+        meta:
+          dimension:
+            hidden: true
+      - name: logged_date
+        meta:
+          dimension:
+            label: 'Logged Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: sku
+        description: "Sku"
+      - name: ba_site
+      - name: qty_split
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            stock_qty:
+              label: 'Stock Qty'
+              description: 'Qty in Stock'
+              type: number
+            summed_stock_qty:
+              label: 'Sum of Stock Qty'
+              description: 'Sum of Stock Qty'
+              type: sum
+      - name: date_arrived
+        meta:
+          dimension:
+            label: 'Date Arrived'
+            description: 'Date of Sku arriving'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: days_old
+        meta:
+          dimension:
+            label: 'Days Old'
+            description: 'Difference between current date and date of arrival'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+            description: 'Cost of Sku'
+          metrics:
+            stock_value_metric:
+              label: 'Stock Value'
+              description: 'Unit cost multiplied by the quantity'
+              type: number
+              sql: "${unit_cost}*${qty_split}"
+              round: 2
+            summed_stock_value_metric:
+              label: 'Sum of Stock Value'
+              description: 'Sum of Stock Value'
+              type: sum
+              sql: "${unit_cost}*${qty_split}"
+              round: 2
+      - name: age_bucket
+        meta:
+          dimension:
+            label: 'Age Bucket'
+      - name: sku_avg_weighted_age
+        meta:
+          dimension:
+            label: 'Average Weighted Age'
+            description: 'The Average Age of the Sku weighted to qty arriving at different times'
+          metrics:
+            avg_weighted_age_metric:
+              label: 'Average Weighted Age Metric'
+              description: 'The average weighted age when comparing multiple skus'
+              type: average
+              round: 2
