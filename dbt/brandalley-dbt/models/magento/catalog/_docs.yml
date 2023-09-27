@@ -1214,6 +1214,8 @@ models:
 
   - name: stock_age
     description: ""
+    meta:
+      group_label: 'Products'
     columns:
       - name: logged_date
         meta:
