@@ -52,4 +52,3 @@ from {{ ref('stg_fr__catalog_product_entity') }}
     where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
 {% endif %}
 qualify row_number() over (partition by sku, ba_site order by updated_at desc) = 1
-
