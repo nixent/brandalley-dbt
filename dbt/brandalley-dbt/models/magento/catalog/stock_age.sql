@@ -71,6 +71,6 @@ select
          when a.days_old > 90 and a.days_old <= 180 then '4-6 Months'
          when a.days_old is null then 'No Deliveries'
          else '0-3 Months' end as age_bucket,
-    (sum((qty_split * days_old)) over (partition by sku, ba_site)) / (sum(qty_split) over (partition by sku, ba_site)) as sku_avg_weighted_age
+    round((sum((qty_split * days_old)) over (partition by sku, ba_site)) / (sum(qty_split) over (partition by sku, ba_site)),2) as sku_avg_weighted_age
 from skus_seperated a
 --where sku in ('18278977','18448568') happy with weighted age
