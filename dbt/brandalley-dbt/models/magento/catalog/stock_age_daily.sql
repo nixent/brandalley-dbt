@@ -2,7 +2,8 @@
 {{ config(
     full_refresh=false,
     on_schema_change='sync_all_columns',
-    materialized='incremental'
+    materialized='incremental',
+    tags=["job_daily"]
 ) }}
 
 select 
