@@ -235,8 +235,8 @@ with order_lines as (
         if(shipping.shipment_date is null, DATE_DIFF(current_date, sfo.expected_delivery_date, DAY), DATE_DIFF(date(shipping.shipment_date), sfo.expected_delivery_date, DAY))                  as late_days,
 		case 
             when sfoi_sim.qty_backordered is null or sfoi_sim.qty_backordered=0 then 'BA'
-            when cpn.type!=30 then 'CT_' || eaov_brand.value
-            else 'SF_' || eaov_brand.value
+            when cpn.type!=30 then 'CT_' || ifnull(eaov_brand.value, 'Unknown Supplier')
+            else 'SF_' || ifnull(eaov_brand.value, 'Unknown Supplier')
         end                                                                                                                                                 as shipment_type
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
@@ -387,19 +387,6 @@ with order_lines as (
 		and sfo.created_at >= '{{min_ts}}'
 	{% endif %}
 
-),
-
--- Adding a step to get the max number of suppliers per order
-order_suppliers as (
-select max(rn) max_shipment_type, order_id, ba_site from (
-select
-    order_id,
-    shipment_type,
-    ba_site,
-    row_number() over(partition by order_id, ba_site order by order_id) rn
-from order_lines ol
-group by 1,2,3)
-group by 2,3
 )
 
 select 
@@ -413,11 +400,8 @@ select
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_before_vouchers)				as TOTAL_GBP_before_vouchers,
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_after_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_after_vouchers)	as TOTAL_GBP_ex_tax_after_vouchers,
 	if(ol.ba_site = 'FR', round(ol.total_local_currency_ex_tax_before_vouchers * fx.eur_to_gbp,2), ol.total_local_currency_ex_tax_before_vouchers)	as TOTAL_GBP_ex_tax_before_vouchers,
-	line_shipping_incl_tax - line_shipping_excl_tax																									as line_shipping_tax,
-    os.max_shipment_type
+	line_shipping_incl_tax - line_shipping_excl_tax																									as line_shipping_tax
 from order_lines ol
-left join order_suppliers os 
-on ol.order_id=os.order_id and ol.ba_site=os.ba_site
 left join {{ ref('fx_rates') }} fx
 	on date(ol.created_at) = fx.date_day
 
