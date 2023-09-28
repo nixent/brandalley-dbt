@@ -1242,7 +1242,7 @@ models:
               description: 'Qty in Stock'
             summed_stock_qty:
               label: 'Sum of Stock Qty'
-              type: number
+              type: sum
               description: 'Sum of Stock Qty'
       - name: date_arrived
         meta:
@@ -1319,7 +1319,7 @@ models:
               description: 'Qty in Stock'
             summed_stock_qty:
               label: 'Sum of Stock Qty'
-              type: number
+              type: sum
               description: 'Sum of Stock Qty'
       - name: date_arrived
         meta:
