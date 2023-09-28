@@ -1,3 +1,5 @@
+{{ config(materialized="table", tags=["job_daily"]) }}
+
 with stock_file_raw as (
     select 
         e.ba_site || '-' || e.entity_id                 as ba_site_child_entity_id,
