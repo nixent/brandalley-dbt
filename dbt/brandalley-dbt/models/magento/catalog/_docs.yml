@@ -1235,6 +1235,7 @@ models:
         meta:
           dimension:
             hidden: true
+          metrics:
             stock_qty_metric:
               label: 'Stock Qty'
               type: sum
@@ -1301,6 +1302,7 @@ models:
         meta:
           dimension:
             hidden: true
+          metrics:
             stock_qty_metric:
               label: 'Stock Qty'
               type: sum
