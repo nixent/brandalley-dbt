@@ -3,7 +3,7 @@
 with goods_in_join as (
     select
         cast(current_date as date) as logged_date,
-        e.sku,
+        e.sku as sku,
         e.ba_site,
         wsrb.qty_remaining_kettering as stock_qty,
         cpedcost.value as unit_cost,
@@ -55,7 +55,6 @@ skus_seperated as (
     where case when running_quantity <= stock_qty then qty_arrived
                when running_quantity is null then stock_qty
                else stock_qty - (running_quantity - qty_arrived) end > 0
---and days_old is null
 )
 select
     a.logged_date,
@@ -73,4 +72,3 @@ select
          else '0-3 Months' end as age_bucket,
     round((sum((qty_split * days_old)) over (partition by sku, ba_site)) / (sum(qty_split) over (partition by sku, ba_site)),2) as sku_avg_weighted_age
 from skus_seperated a
---where sku in ('18278977','18448568') happy with weighted age
