@@ -1,7 +1,6 @@
 version: 2
 
 models:
- 
   - name: catalog_product_negotiation_item
     description: ""
     meta:
