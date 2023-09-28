@@ -3,23 +3,19 @@
 with goods_in_join as (
     select
         cast(current_date as date) as logged_date,
-        e.sku as sku,
-        e.ba_site,
+        p.variant_sku as sku,
+        p.ba_site,
         wsrb.qty_remaining_kettering as stock_qty,
-        cpedcost.value as unit_cost,
+        p.cost as unit_cost,
         rgi.qty_arrived,
         rgi.date_arrived
-    from {{ ref("stg__catalog_product_entity") }} e
+    from {{ ref("products") }} p
     left join {{ ref("stg__warehouse_stock_running_balance") }} wsrb
-            on wsrb.sku = e.sku
-            and wsrb.ba_site = e.ba_site
-    left join {{ ref("stg__catalog_product_entity_decimal") }} cpedcost
-            on cpedcost.attribute_id = 79
-            and cpedcost.entity_id = e.entity_id
-            and e.ba_site = cpedcost.ba_site
+            on wsrb.sku = p.variant_sku
+            and wsrb.ba_site = p.ba_site
     left join {{ ref("stg__reactor_goods_in") }} rgi
-            on e.sku = rgi.sku
-            and cast(current_date as date) >= rgi.date_arrived  -- might need to think about this when france warehouse closes?
+            on p.variant_sku = rgi.sku
+            and cast(current_date as date) >= rgi.date_arrived  -- might need to think about this when france warehouse closes? join to reactor on sku?
     where wsrb.qty_remaining_kettering > 0
 ),
 running_qty as (
