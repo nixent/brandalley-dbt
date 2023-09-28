@@ -1,84 +1,86 @@
-date,brand
-2022-01-14,Melissa Odabash
-2022-01-21,Boden
-2022-01-27,Whistles
-2022-02-03,Levi's
-2022-02-18,Reiss
-2022-02-24,Hush
-2022-03-02,Ralph Lauren
-2022-03-02,Polo Ralph Lauren
-2022-03-02,Lauren Ralph Lauren
-2022-03-03,Longchamp
-2022-03-24,Phase Eight
-2022-03-28,Reiss
-2022-04-26,Boden
-2022-04-29,Phase Eight
-2022-05-12,Reiss
-2022-05-27,Ralph Lauren
-2022-05-27,Polo Ralph Lauren
-2022-05-27,Lauren Ralph Lauren
-2022-05-30,Boden
-2022-07-05,Reiss
-2022-07-11,Levi's
-2022-07-14,Boden
-2022-07-21,Melissa Odabash
-2022-08-03,Stuart Weitzman
-2022-08-10,Vip Launch Of Christmas
-2022-08-22,Crew Clothing
-2022-08-24,Ted Baker
-2022-08-26,Ralph Lauren
-2022-08-26,Polo Ralph Lauren
-2022-08-26,Lauren Ralph Lauren
-2022-09-02,Lacoste
-2022-09-06,Reiss
-2022-09-07,Sweaty Betty
-2022-09-12,Whistles
-2022-09-14,Levi's
-2022-09-16,L K Bennett
-2023-01-09,Sweaty Betty
-2023-01-13,L K Bennett
-2023-01-16,Vince
-2023-01-19,Melissa Odabash
-2023-01-25,Lacoste
-2023-01-27,Vilbrequin
-2023-01-30,Tommy Hilfiger
-2023-01-31,Boden
-2023-02-16,Reiss
-2023-02-20,Whistles
-2023-02-22,Michael Kors
-2023-02-28,Ralph Lauren
-2023-02-28,Polo Ralph Lauren
-2023-02-28,Lauren Ralph Lauren
-2023-03-01,Ralph Lauren
-2023-03-01,Polo Ralph Lauren
-2023-03-01,Lauren Ralph Lauren
-2023-03-07,Jack Wolfskin
-2023-03-09,Mulberry
-2023-03-23,Sweaty Betty
-2023-03-28,Reiss
-2023-04-21,Melissa Odabash
-2023-05-17,Reiss
-2023-05-24,Gant
-2023-05-24,Ralph Lauren
-2023-05-24,Polo Ralph Lauren
-2023-05-24,Lauren Ralph Lauren
-2023-05-25,Molton Brown
-2023-06-02,Mulberry
-2023-07-14,Sweaty Betty
-2023-07-20,Reiss
-2023-08-15,Gant
-2023-08-18,Mulberry
-2023-08-22,Lacoste
-2023-08-25,Seafolly
-2023-08-29,Ralph Lauren
-2023-08-29,Polo Ralph Lauren
-2023-08-29,Lauren Ralph Lauren
-2023-08-30,Ralph Lauren
-2023-08-30,Polo Ralph Lauren
-2023-08-30,Lauren Ralph Lauren
-2023-09-04,All Saints
-2023-09-05,Whistles
-2023-09-08,Reiss
-2023-09-12,Whistles
-2023-09-14,Victoria Beckham
-2023-09-22,Vilebrequin
+date,brand,sale_name
+2022-01-14,Melissa Odabash,
+2022-01-21,Boden,
+2022-01-27,Whistles,
+2022-02-03,Levi's,
+2022-02-18,Reiss,
+2022-02-24,Hush,
+2022-03-02,Ralph Lauren,
+2022-03-02,Polo Ralph Lauren,
+2022-03-02,Lauren Ralph Lauren,
+2022-03-03,Longchamp,
+2022-03-24,Phase Eight,
+2022-03-28,Reiss,
+2022-04-26,Boden,
+2022-04-29,Phase Eight,
+2022-05-12,Reiss,
+2022-05-27,Ralph Lauren,
+2022-05-27,Polo Ralph Lauren,
+2022-05-27,Lauren Ralph Lauren,
+2022-05-30,Boden,
+2022-07-05,Reiss,
+2022-07-11,Levi's,
+2022-07-14,Boden,
+2022-07-21,Melissa Odabash,
+2022-08-03,Stuart Weitzman,
+2022-08-10,Vip Launch Of Christmas,
+2022-08-22,Crew Clothing,
+2022-08-24,Ted Baker,
+2022-08-26,Ralph Lauren,
+2022-08-26,Polo Ralph Lauren,
+2022-08-26,Lauren Ralph Lauren,
+2022-09-02,Lacoste,
+2022-09-06,Reiss,
+2022-09-07,Sweaty Betty,
+2022-09-12,Whistles,
+2022-09-14,Levi's,
+2022-09-16,L K Bennett,
+2023-01-09,Sweaty Betty,
+2023-01-13,L K Bennett,
+2023-01-16,Vince,
+2023-01-19,Melissa Odabash,
+2023-01-25,Lacoste,
+2023-01-27,Vilbrequin,
+2023-01-30,Tommy Hilfiger,
+2023-01-31,Boden,
+2023-02-16,Reiss,
+2023-02-20,Whistles,
+2023-02-22,Michael Kors,
+2023-02-28,Ralph Lauren,
+2023-02-28,Polo Ralph Lauren,
+2023-02-28,Lauren Ralph Lauren,
+2023-03-01,Ralph Lauren,
+2023-03-01,Polo Ralph Lauren,
+2023-03-01,Lauren Ralph Lauren,
+2023-03-07,Jack Wolfskin,
+2023-03-09,Mulberry,
+2023-03-23,Sweaty Betty,
+2023-03-28,Reiss,
+2023-04-21,Melissa Odabash,
+2023-05-17,Reiss,
+2023-05-24,Gant,
+2023-05-24,Ralph Lauren,
+2023-05-24,Polo Ralph Lauren,
+2023-05-24,Lauren Ralph Lauren,
+2023-05-25,Molton Brown,
+2023-06-02,Mulberry,
+2023-07-14,Sweaty Betty,
+2023-07-20,Reiss,
+2023-08-15,Gant,
+2023-08-18,Mulberry,
+2023-08-22,Lacoste,
+2023-08-25,Seafolly,
+2023-08-29,Ralph Lauren,
+2023-08-29,Polo Ralph Lauren,
+2023-08-29,Lauren Ralph Lauren,
+2023-08-30,Ralph Lauren,
+2023-08-30,Polo Ralph Lauren,
+2023-08-30,Lauren Ralph Lauren,
+2023-09-04,All Saints,
+2023-09-05,Whistles,
+2023-09-08,Reiss,
+2023-09-12,Whistles,
+2023-09-14,Victoria Beckham,
+2023-09-22,Vilebrequin,
+2023-09-27,7 For All Mankind,Early Access
+2023-10-03,Rains,
