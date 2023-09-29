@@ -232,8 +232,12 @@ with order_lines as (
 		sfoi_sim.qty_ordered * sfoi_con.base_price - (sfoi_con.base_discount_amount - IFNULL(sfoi_con.hidden_tax_amount,0))			                		as total_local_currency_ex_tax_after_vouchers,
 		sfoi_sim.qty_ordered * sfoi_con.base_price											                                                        		as total_local_currency_ex_tax_before_vouchers,
         if(shipping.shipment_date is null, sfo.expected_delivery_date < current_date, sfo.expected_delivery_date < date(shipping.shipment_date))            as is_late_delivery,
-        if(shipping.shipment_date is null, DATE_DIFF(current_date, sfo.expected_delivery_date, DAY), DATE_DIFF(date(shipping.shipment_date), sfo.expected_delivery_date, DAY))                  as late_days
-
+        if(shipping.shipment_date is null, DATE_DIFF(current_date, sfo.expected_delivery_date, DAY), DATE_DIFF(date(shipping.shipment_date), sfo.expected_delivery_date, DAY))                  as late_days,
+		case 
+            when sfoi_sim.qty_backordered is null or sfoi_sim.qty_backordered=0 then 'BA'
+            when cpn.type!=30 then 'CT_' || ifnull(eaov_brand.value, 'Unknown Supplier')
+            else 'SF_' || ifnull(eaov_brand.value, 'Unknown Supplier')
+        end                                                                                                                                                 as shipment_type
 	from {{ ref('Orders') }} sfo
 	left join {{ ref('customers') }} ce 
 		on ce.cst_id = sfo.customer_id and ce.ba_site = sfo.ba_site
@@ -384,7 +388,6 @@ with order_lines as (
 	{% endif %}
 
 )
-
 
 select 
 	ol.*,
