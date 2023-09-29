@@ -7,10 +7,9 @@
 ) }}
 
 select 
-    current_date      as stock_file_date,
     current_timestamp as processed_at,
     * 
-from {{ ref('stock_file') }}
+from {{ ref('stock_age') }}
 {% if is_incremental() %}
-where current_date > (select max(stock_file_date) from {{this}})
+where current_date > (select max(logged_date) from {{this}})
 {% endif %}
