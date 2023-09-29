@@ -19,7 +19,7 @@ with goods_in_join as (
     left join {{ ref("stg__reactor_goods_in") }} rgi
             on p.variant_sku = rgi.sku
             and cast(current_date as date) >= rgi.date_arrived  -- might need to think about this when france warehouse closes? join to reactor on sku?
-    where stock.qty > 0
+    where stock.qty > 0 
     group by 1,2,3,4,5,7
 ),
 running_qty as (
