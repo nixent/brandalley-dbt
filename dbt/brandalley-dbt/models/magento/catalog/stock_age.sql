@@ -7,16 +7,20 @@ with goods_in_join as (
         p.ba_site,
         wsrb.qty_remaining_kettering as stock_qty,
         p.cost as unit_cost,
-        rgi.qty_arrived,
+        sum(rgi.qty_arrived) as qty_arrived, ---need to sum this here as causing issues in the sum() over when a sku has multiple arrivals on same day
         rgi.date_arrived
     from {{ ref("products") }} p
     left join {{ ref("stg__warehouse_stock_running_balance") }} wsrb
             on wsrb.sku = p.variant_sku
             and wsrb.ba_site = p.ba_site
+    inner join {{ ref('stg__cataloginventory_stock_item') }} stock 
+            on stock.product_id = p.variant_product_id
+            and p.ba_site = stock.ba_site
     left join {{ ref("stg__reactor_goods_in") }} rgi
             on p.variant_sku = rgi.sku
             and cast(current_date as date) >= rgi.date_arrived  -- might need to think about this when france warehouse closes? join to reactor on sku?
-    where wsrb.qty_remaining_kettering > 0
+    where stock.qty > 0 
+    group by 1,2,3,4,5,7
 ),
 running_qty as (
     select
