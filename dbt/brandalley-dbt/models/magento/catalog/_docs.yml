@@ -1216,6 +1216,10 @@ models:
     description: ""
     meta:
       group_label: 'Products'
+      joins:
+        - join: stock_file
+          sql_on: ${stock_age.sku} = ${stock_file.child_sku} and ${stock_age.ba_site} = ${stock_file.ba_site}
+          
     columns:
       - name: logged_date
         meta:
@@ -1282,6 +1286,10 @@ models:
     description: ""
     meta:
       group_label: 'Products'
+      joins:
+        - join: stock_file_daily
+          sql_on: ${stock_age_daily.logged_date} = ${stock_file_daily.stock_file_date} and ${stock_age_daily.sku} = ${stock_file_daily.child_sku} and ${stock_age_daily.ba_site} = ${stock_file_daily.ba_site}
+
     columns:
       - name: processed_at
       - name: logged_date

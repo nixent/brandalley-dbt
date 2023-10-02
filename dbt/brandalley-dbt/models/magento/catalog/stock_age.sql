@@ -1,7 +1,7 @@
 {{ config(materialized="table", tags=["job_daily"]) }}
 
 with goods_in_join as (
-    select
+   select
         cast(current_date as date) as logged_date,
         p.variant_sku as sku,
         p.ba_site,
@@ -45,6 +45,7 @@ skus_seperated as (
         logged_date,
         sku,
         ba_site,
+        stock_qty,
         case when running_quantity <= stock_qty then qty_arrived
              when running_quantity is null then stock_qty
              else stock_qty - (running_quantity - qty_arrived) end as qty_split,
@@ -55,6 +56,10 @@ skus_seperated as (
     where case when running_quantity <= stock_qty then qty_arrived
                when running_quantity is null then stock_qty
                else stock_qty - (running_quantity - qty_arrived) end > 0
+),
+missing_deliveries as (
+select *, sum(qty_split) over (partition by sku, ba_site) as summed_qty_split
+from skus_seperated --fix skus which have some deliveries but not enough to cover the qty in stock. Find the difference and append it in the union with the bucket 'no deliveries'
 )
 select
     a.logged_date,
@@ -72,3 +77,18 @@ select
          else '0-3 Months' end as age_bucket,
     round((sum((qty_split * days_old)) over (partition by sku, ba_site)) / (sum(qty_split) over (partition by sku, ba_site)),2) as sku_avg_weighted_age
 from skus_seperated a
+union all
+select 
+    a.logged_date,
+    a.sku,
+    a.ba_site,
+    a.stock_qty - summed_qty_split as qty_split,
+    cast(null as date) as date_arrived,
+    null as days_old,
+    a.unit_cost,
+    'No Deliveries'
+          as age_bucket,
+    null as sku_avg_weighted_age
+from missing_deliveries a
+where a.stock_qty>summed_qty_split
+group by 1,2,3,4,5,6,7,8,9
