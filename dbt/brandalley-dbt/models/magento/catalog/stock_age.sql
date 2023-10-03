@@ -75,7 +75,13 @@ select
          when a.days_old > 90 and a.days_old <= 180 then '4-6 Months'
          when a.days_old is null then 'No Deliveries'
          else '0-3 Months' end as age_bucket,
-    round((sum((qty_split * days_old)) over (partition by sku, ba_site)) / (sum(qty_split) over (partition by sku, ba_site)),2) as sku_avg_weighted_age
+    round((sum((qty_split * days_old)) over (partition by sku, ba_site)) / (sum(qty_split) over (partition by sku, ba_site)),2) as sku_avg_weighted_age,
+    case when a.days_old > 365 then 5
+         when a.days_old > 274 and a.days_old <= 365 then 4
+         when a.days_old > 180 and a.days_old <= 274 then 3
+         when a.days_old > 90 and a.days_old <= 180 then 2
+         when a.days_old is null then 6
+         else 1 end as age_bucket_sort_order
 from skus_seperated a
 union all
 select 
@@ -88,7 +94,8 @@ select
     a.unit_cost,
     'No Deliveries'
           as age_bucket,
-    null as sku_avg_weighted_age
+    null as sku_avg_weighted_age,
+    6 as age_bucket_sort_order
 from missing_deliveries a
 where a.stock_qty>summed_qty_split
 group by 1,2,3,4,5,6,7,8,9
