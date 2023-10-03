@@ -1462,6 +1462,15 @@ models:
               type: average
               description: 'The average weighted age when comparing multiple skus'
               round: 2
+      - name: age_bucket_sort_order
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            age_bucket_sort:
+              label: 'Age Bucket Sort'
+              type: number
+              description: 'Integer to sort age buckets for reporting'
   
   - name: stock_age_daily
     description: ""
@@ -1533,3 +1542,12 @@ models:
               type: average
               description: 'The average weighted age when comparing multiple skus'
               round: 2
+      - name: age_bucket_sort_order
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            age_bucket_sort:
+              label: 'Age Bucket Sort'
+              type: number
+              description: 'Integer to sort age buckets for reporting'
