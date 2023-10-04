@@ -1469,7 +1469,7 @@ models:
           metrics:
             age_bucket_sort:
               label: 'Age Bucket Sort'
-              type: number
+              type: min
               description: 'Integer to sort age buckets for reporting'
   
   - name: stock_age_daily
@@ -1549,5 +1549,5 @@ models:
           metrics:
             age_bucket_sort:
               label: 'Age Bucket Sort'
-              type: number
+              type: min
               description: 'Integer to sort age buckets for reporting'
