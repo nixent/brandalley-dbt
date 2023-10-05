@@ -1,5 +1,5 @@
 name: IFG_Country_Attire
 source: google-big-query-5x13w
 type: raw_sql
-rawSql: select * from emarsys_ifg.ifg_surfdome_ireland_transformed
+rawSql: select * from emarsys_ifg.ifg_derby_house_transformed
 primaryKey: customer_id
