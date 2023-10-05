@@ -121,7 +121,7 @@ models:
             last_12_months_avg_total_order_count_comparison_metric:
               type: number
               format: 'percent'
-              sql: 'safe_divide(${total_orders_count} - ${last_12_months_avg_total_order_count},${last_12_months_avg_total_order_count})'
+              sql: 'safe_divide(${total_orders_count} - ${last_12_months_avg_total_order_count_metric},${last_12_months_avg_total_order_count_metric})'
               label: 'L12 Months Daily Average Orders Comparison %'
               group_label: 'Orders'
               round: 2
@@ -486,7 +486,7 @@ models:
             last_12_months_avg_gmv_comparison_metric:
               type: number
               format: 'percent'
-              sql: 'safe_divide(${gmv} - ${last_12_months_avg_gmv},${last_12_months_avg_gmv})'
+              sql: 'safe_divide(${total_gmv} - ${last_12_months_avg_gmv_metric},${last_12_months_avg_gmv_metric})'
               label: 'L12 Months Daily Average GMV Comparison %'
               group_label: 'GMV'
               round: 2
