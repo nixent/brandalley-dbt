@@ -478,7 +478,7 @@ models:
           dimension:
             hidden: true
           metrics:
-            last_12_months_avg_gmv:
+            last_12_months_avg_gmv_metric:
               type: sum
               label: 'L12 Months Daily Average GMV'
               group_label: 'GMV'
