@@ -23,6 +23,18 @@ with order_stats as (
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
 ),
 
+order_stats_yearly_average as (
+    select
+        kd.ba_site,
+        round(avg(kd.total_order_count),2) as total_order_count,
+        round(avg(kd.gmv),2) as gmv
+    from {{ ref('kpis_daily')}} kd
+    left join {{ ref('stg__margin_adjustments') }} ma
+        on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
+    inner join {{ ref('dates') }} d on kd.order_created_at_day=d.date_day and d.last_12_months_flag=1
+    group by 1
+),
+
 customer_type_order_stats as (
     select
         date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day) as order_created_at_day,
@@ -158,7 +170,9 @@ select
     dt.avg_units_target,
     dt.effective_avg_vat_rate,
     ps.sales_launched,
-    ps_ly.sales_launched            as sales_launched_ly
+    ps_ly.sales_launched            as sales_launched_ly,
+    osya.total_order_count          as last_12_months_avg_total_order_count,
+    osya.gmv                        as last_12_months_avg_gmv
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -182,3 +196,5 @@ left join products_sales ps_ly
     on d.last_year_same_day = ps_ly.date and os.ba_site = ps_ly.ba_site
 left join customer_type_order_stats ctos 
     on d.date_day = ctos.order_created_at_day and os.ba_site = ctos.ba_site
+left join order_stats_yearly_average osya
+    on os.ba_site = osya.ba_site

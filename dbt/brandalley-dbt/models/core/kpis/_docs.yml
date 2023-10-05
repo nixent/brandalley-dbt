@@ -108,6 +108,23 @@ models:
               label: 'Orders Target Comparison %'
               group_label: 'Orders'
               round: 1
+      - name: last_12_months_avg_total_order_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_total_order_count_metric:
+              type: sum
+              label: 'L12 Months Daily Average Total Orders'
+              group_label: 'Orders'
+              round: 0
+            last_12_months_avg_total_order_count_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${last_12_months_avg_total_order_count},${last_12_months_avg_total_order_count})'
+              label: 'L12 Months Daily Average Orders Comparison %'
+              group_label: 'Orders'
+              round: 2
 
       ##### CUSTOMERS #######
       - name: total_new_customer_count
@@ -456,6 +473,23 @@ models:
               sql: 'safe_divide(${total_shipping_gmv},${total_orders_count})'
               round: 2
               group_label: 'Shipping'
+      - name: last_12_months_avg_gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_gmv:
+              type: sum
+              label: 'L12 Months Daily Average GMV'
+              group_label: 'GMV'
+              round: 2
+            last_12_months_avg_gmv_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${gmv} - ${last_12_months_avg_gmv},${last_12_months_avg_gmv})'
+              label: 'L12 Months Daily Average GMV Comparison %'
+              group_label: 'GMV'
+              round: 2
 
       #### SALES AMOUNT ######
       - name: sales_amount
