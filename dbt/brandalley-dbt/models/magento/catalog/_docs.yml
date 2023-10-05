@@ -664,6 +664,24 @@ models:
             total_ttl_cost_sed:
               type: sum
               sql: '${cost}*${stock_sed}'
+      - name: stock_kettering_allocated
+        meta:
+          metrics:
+            total_stock_kettering_allocated:
+              type: sum
+              label: 'Allocated Stock Qty'
+      - name: stock_kettering_unsellable_good
+        meta:
+          metrics:
+            total_stock_kettering_unsellable_good:
+              type: sum
+              label: 'Unsellable Location Stock Qty'
+      - name: stock_kettering_unsellable_bad
+        meta:
+          metrics:
+            total_stock_kettering_unsellable_bad:
+              type: sum
+              label: 'Unsellable Damaged Stock Qty'
       - name: image_value
         description: "Image value, nullable"
       - name: name
@@ -757,6 +775,187 @@ models:
           dimension:
             label: 'Tax Rate'
 
+  - name: stock_file_daily
+    description: ""
+    meta:
+      group_label: 'Products'
+    columns:
+      - name: stock_file_date
+        meta:
+          dimension:
+            label: 'Stock File Date'
+            description: 'Stock file at specified date'
+      - name: processed_at
+        meta:
+          dimension:
+            hidden: true
+      - name: ba_site_child_entity_id
+        description: "Primary Key"
+        tests:
+          - not_null
+        meta:
+          dimension:
+            format: id
+          metrics:
+            count_refunds_metric:
+              label: 'Total number of entity id'
+              type: count_distinct
+              description: "Number of entity id"
+              hidden: false
+              round: 0 
+      - name: ba_site
+      - name: child_entity_id
+        description: "Primary Key at site level"
+      - name: child_sku
+        description: "child sku, nullable"
+      - name: min_qty
+        description: "Quantity min, nullable"
+      - name: qty
+        description: "Quantity, nullable"
+      - name: stock_kettering
+        meta:
+          metrics:
+            total_stock_kettering:
+              type: sum
+            total_ttl_flash_kettering:
+              type: sum
+              sql: '${special_price}*${stock_kettering}'
+            total_ttl_cost_kettering:
+              type: sum
+              sql: '${cost}*${stock_kettering}'
+      - name: stock_prism
+        meta:
+          metrics:
+            total_stock_prism:
+              type: sum
+            total_ttl_flash_prism:
+              type: sum
+              sql: '${special_price}*${stock_prism}'
+            total_ttl_cost_prism:
+              type: sum
+              sql: '${cost}*${stock_prism}'
+      - name: stock_sed
+        meta:
+          metrics:
+            total_stock_sed:
+              type: sum
+            total_ttl_flash_sed:
+              type: sum
+              sql: '${special_price}*${stock_sed}'
+            total_ttl_cost_sed:
+              type: sum
+              sql: '${cost}*${stock_sed}'
+      - name: stock_kettering_allocated
+        meta:
+          metrics:
+            total_stock_kettering_allocated:
+              type: sum
+              label: 'Allocated Stock Qty'
+      - name: stock_kettering_unsellable_good
+        meta:
+          metrics:
+            total_stock_kettering_unsellable_good:
+              type: sum
+              label: 'Unsellable Location Stock Qty'
+      - name: stock_kettering_unsellable_bad
+        meta:
+          metrics:
+            total_stock_kettering_unsellable_bad:
+              type: sum
+              label: 'Unsellable Damaged Stock Qty'
+      - name: image_value
+        description: "Image value, nullable"
+      - name: name
+        description: "name, nullable"
+      - name: value
+        description: "Base adjustement negative, nullable"
+      - name: suplier_id
+        description: "suplier id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: brand
+        description: "Brand, nullable"
+      - name: country_of_manufacture
+        description: "Country of manufacture, nullable"
+      - name: cost
+        description: "cost, nullable"
+      - name: parent_gender
+        description: "Parent gender, nullable"
+      - name: simple_gender
+        description: "Gender of the simple item, nullable"
+      - name: simple_product_type
+        description: "Simple product type, nullable"
+      - name: parent_product_type
+        description: "Parent product type, nullable"
+      - name: size
+        description: "Size, nullable"
+      - name: colour
+        description: "Colour, nullable"
+      - name: price
+        description: "Price, nullable"
+      - name: special_price
+        description: "Special price, nullable"
+      - name: outlet_price
+        description: "Outlet price, nullable"
+      - name: outlet_category
+        description: "Outlet category, nullable"
+      - name: canUseForWHSale
+        description: "Can use for warehouse sale flag, nullable"
+        meta:
+          dimension:
+            label: 'Can Use For WH Sale'
+      - name: barcode
+        description: "Barcode, nullable"
+      - name: nego
+        description: "Nego number, nullable"
+      - name: buyer_id
+        description: "Buyer id, nullable"
+        meta:
+          dimension:
+            format: id
+      - name: buyer
+        description: "Buyer, nullable"
+      - name: level_1
+        description: "Level 1 of categories"
+      - name: level_2
+        description: "Level 2 of categories"
+      - name: level_3
+        description: "Level 3 of categories"
+      - name: parent_category
+        description: "Parent category"
+      - name: flashsale_category
+        description: "Flash sale category"
+      - name: supplier_name
+        description: "Supplier name"
+      - name: child_parent_sku
+        description: "Child parent SKU"
+      - name: last_stock_delivery_date
+      - name: child_parent_sku_age_days
+        meta:
+          dimension:
+            sql: 'date_diff(current_date, ${last_stock_delivery_date}, day)'
+      - name: child_parent_sku_age_bucket
+        meta:
+          dimension:
+            sql: > 
+              case 
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 365 then 'Over 1 Year'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 274 then '9 - 12 Months'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 180 then '6 - 9 Months'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 89 then '3 - 6 Months'
+                when date_diff(current_date, ${last_stock_delivery_date}, day) > 30 then '1 - 3 Months'
+                when ${last_stock_delivery_date} is null then 'No Deliveries'
+                else 'Up to 1 Month'
+              end
+      - name: category
+        description: "Category as defined by buyers"
+      - name: tax
+        description: "Tax percentage"
+        meta:
+          dimension:
+            label: 'Tax Rate'
+            
   - name: catalog_category_flat_store_1_enriched
     description: ""
     columns:
@@ -1193,3 +1392,162 @@ models:
         description: "To order qty linked to nego"
       - name: qty_exported
         description: "Quantity exported"
+
+  - name: stock_age
+    description: ""
+    meta:
+      group_label: 'Products'
+      joins:
+        - join: stock_file
+          sql_on: ${stock_age.sku} = ${stock_file.child_sku} and ${stock_age.ba_site} = ${stock_file.ba_site}
+          
+    columns:
+      - name: logged_date
+        meta:
+          dimension:
+            label: 'Current Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: sku
+        meta:
+          dimension:
+            label: 'Sku'
+      - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
+      - name: qty_split
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            stock_qty_metric:
+              label: 'Stock Qty'
+              type: sum
+              description: 'Stock Qty'
+      - name: date_arrived
+        meta:
+          dimension:
+            label: 'Arrived Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: days_old
+        meta:
+          dimension:
+            label: 'Days Old'
+      - name: unit_cost
+        meta:
+          dimension:
+            type: number
+            label: 'Unit Cost'
+          metrics:
+            stock_value_metric:
+              label: 'Stock Value'
+              type: sum
+              description: 'Sum of Stock Value'
+              sql: "${unit_cost}*${qty_split}"
+              round: 2
+      - name: age_bucket
+        meta:
+          dimension:
+            label: 'Age Bucket'
+      - name: sku_avg_weighted_age
+        meta:
+          dimension:
+            label: 'Average Weighted Age'
+            description: 'The Average Age of the Sku weighted to qty arriving at different times'
+          metrics:
+            avg_weighted_age_metric:
+              label: 'Average Weighted Age Metric'
+              type: average
+              description: 'The average weighted age when comparing multiple skus'
+              round: 2
+      - name: age_bucket_sort_order
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            age_bucket_sort:
+              label: 'Age Bucket Sort'
+              type: min
+              description: 'Integer to sort age buckets for reporting'
+  
+  - name: stock_age_daily
+    description: ""
+    meta:
+      group_label: 'Products'
+      joins:
+        - join: stock_file_daily
+          sql_on: ${stock_age_daily.logged_date} = ${stock_file_daily.stock_file_date} and ${stock_age_daily.sku} = ${stock_file_daily.child_sku} and ${stock_age_daily.ba_site} = ${stock_file_daily.ba_site}
+
+    columns:
+      - name: processed_at
+      - name: logged_date
+        meta:
+          dimension:
+            label: 'Logged Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: sku
+        meta:
+          dimension:
+            label: 'Sku'
+      - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
+      - name: qty_split
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            stock_qty_metric:
+              label: 'Stock Qty'
+              type: sum
+              description: 'Stock Qty'
+      - name: date_arrived
+        meta:
+          dimension:
+            label: 'Arrived Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: days_old
+        meta:
+          dimension:
+            label: 'Days Old'
+      - name: unit_cost
+        meta:
+          dimension:
+            type: number
+            label: 'Unit Cost'
+          metrics:
+            stock_value_metric:
+              label: 'Stock Value'
+              type: sum
+              description: 'Sum of Stock Value'
+              sql: "${unit_cost}*${qty_split}"
+              round: 2
+      - name: age_bucket
+        meta:
+          dimension:
+            label: 'Age Bucket'
+      - name: sku_avg_weighted_age
+        meta:
+          dimension:
+            label: 'Average Weighted Age'
+            description: 'The Average Age of the Sku weighted to qty arriving at different times'
+          metrics:
+            avg_weighted_age_metric:
+              label: 'Average Weighted Age Metric'
+              type: average
+              description: 'The average weighted age when comparing multiple skus'
+              round: 2
+      - name: age_bucket_sort_order
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            age_bucket_sort:
+              label: 'Age Bucket Sort'
+              type: min
+              description: 'Integer to sort age buckets for reporting'

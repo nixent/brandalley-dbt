@@ -1291,6 +1291,11 @@ models:
           dimension:
             type: number
             group_label: 'Shipping'
+      - name: shipment_type
+        description: "Type of shipment depending on order type (WH, CSGT or SF) and supplier"
+        meta:
+          dimension:
+            group_label: 'Shipping'
 
   - name: OrderLinesNullParent
     description: ""
@@ -1937,6 +1942,11 @@ models:
               description: 'Total number of units ordered in an order'
               hidden: false
               group_label: 'Sales'
+      - name: max_shipment_type
+        description: "Number of shipments tied to the order"
+        meta:
+          dimension:
+            group_label: 'Shipping'
 
   - name: Orders
     description: "A table of order information, unique at order id level"

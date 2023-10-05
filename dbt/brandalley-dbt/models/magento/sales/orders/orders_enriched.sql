@@ -7,6 +7,8 @@ with order_line_agg as (
     order_id,
     ba_site,
     count(*)                             as count_order_lines,
+    -- Adding a step to get the max number of suppliers per order
+    count(distinct shipment_type)        as max_shipment_type,
     sum(total_local_currency_ex_tax_after_vouchers) as order_revenue_excl_tax_after_vouchers,
     sum(line_product_cost_exc_vat)       as order_product_costs_excl_tax,
     sum(qty_ordered)                     as order_qty_ordered
@@ -58,7 +60,8 @@ select
     when lead(o.created_at) over (partition by o.customer_id order by o.created_at) is not null then true 
     else false 
   end as has_ordered_since,
-  ola.order_qty_ordered
+  ola.order_qty_ordered,
+  ola.max_shipment_type
 from {{ ref('Orders') }} o
 left join order_line_agg ola 
   on o.order_id = ola.order_id and o.ba_site = ola.ba_site
@@ -68,4 +71,3 @@ left join {{ ref('stg__salesrule_coupon') }} src
   on lower(o.coupon_code) = lower(src.code) and o.ba_site = src.ba_site
 left join {{ ref('stg__salesrule') }} sr
   on src.rule_id = sr.rule_id and sr.ba_site = src.ba_site
-
