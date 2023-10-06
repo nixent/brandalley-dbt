@@ -859,7 +859,7 @@ models:
               label: 'L12 Months Daily Average Unique Visitors'
               group_label: 'Visits'
               round: 0
-          last_12_months_avg_unique_visitors_comparison_metric:
+            last_12_months_avg_unique_visitors_comparison_metric:
               type: number
               format: 'percent'
               sql: 'safe_divide(${total_ga_unique_visitors} - ${last_12_months_avg_unique_visitors_metric},${last_12_months_avg_unique_visitors_metric})'
@@ -896,7 +896,7 @@ models:
               label: 'L12 Months Daily Average Conversion Rate'
               group_label: 'Visits'
               round: 2
-          last_12_months_avg_conversion_rate_comparison_metric:
+            last_12_months_avg_conversion_rate_comparison_metric:
               type: number
               format: 'percent'
               sql: 'safe_divide(${conversion_rate_ga} - ${last_12_months_avg_conversion_rate_metric},${last_12_months_avg_conversion_rate_metric})'
