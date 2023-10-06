@@ -96,7 +96,7 @@ models:
           metrics:
             l12_months_avg_bounce_rate_metric:
               label: 'L12 Months Average Daily Bounce Rate'
-              type: average
+              type: number
               description: "The average Daily Bounce Rate over the last 12 months"
               hidden: false
               round: 0
