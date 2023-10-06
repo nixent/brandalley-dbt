@@ -21,7 +21,7 @@ with
             count(distinct session_id) as sessions_total,
             count(distinct concat(session_id, page_url)) as page_views_total,
             b.number_of_sessions_with_one_page,
-            safe_divide(number_of_sessions_with_one_page, count(distinct session_id)) as bounce_rate
+            safe_divide(number_of_sessions_with_one_page, count(distinct session_id))*100 as bounce_rate
         from {{ ref("page_views") }} a
         left join sessions_with_one_page b on cast(original_event_at as date) = b.date
         group by 1, 4

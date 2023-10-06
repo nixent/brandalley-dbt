@@ -51,9 +51,7 @@ models:
             bounce_rate_metric:
               label: 'Bounce Rate %'
               type: average
-              format: 'percent'
               description: "Bounce Rate from Page Views"
-              hidden: false
               round: 2
       - name: last_12_months_avg_sessions_total
         meta:  
@@ -64,7 +62,6 @@ models:
               label: 'L12 Months Average Daily Sessions'
               type: sum
               description: "The average of daily sessions over the last 12 months"
-              hidden: false
               round: 0
             l12_months_avg_sessions_comparison_metric:
               type: number
@@ -81,7 +78,6 @@ models:
               label: 'L12 Months Average Daily Page Views'
               type: sum
               description: "The average Daily Page Views over the last 12 months"
-              hidden: false
               round: 0
             l12_months_avg_page_views_comparison_metric:
               type: number
@@ -98,10 +94,9 @@ models:
               label: 'L12 Months Average Daily Bounce Rate'
               type: average
               description: "The average Daily Bounce Rate over the last 12 months"
-              hidden: false
               round: 0
             l12_months_avg_Bounce Rate_comparison_metric:
-              type: average
+              type: number
               format: 'percent'
               sql: 'safe_divide(${bounce_rate_metric} - ${l12_months_avg_bounce_rate_metric},${l12_months_avg_bounce_rate_metric})'
               label: 'L12 Months Average Daily Bounce Rate Comparison %'
