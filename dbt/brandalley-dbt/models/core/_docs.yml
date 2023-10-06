@@ -8,7 +8,7 @@ models:
           - unique
           - not_null
 
-  - name: ga_bounce_rate
+  - name: bounce_rate
     description: "bounce rate per day"
     meta:
       label: 'Bounce Rate Daily'
