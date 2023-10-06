@@ -7,3 +7,103 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: ga_bounce_rate
+    description: "bounce rate per day"
+    meta:
+      label: 'Bounce Rate Daily'
+      group_label: 'KPIs'
+    columns:
+      - name: logged_date
+        description: "Logged Date"
+        meta:
+          dimension:
+            label: 'Logged Date'
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: sessions_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            sessions_metric:
+              label: 'No. of Sessions'
+              type: sum
+              description: "Sum of Sessions from Page Views"
+              hidden: false
+              round: 0
+      - name: page_views_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            page_views_metric:
+              label: 'Page Views Total'
+              type: sum
+              description: "Total Page Views"
+              hidden: false
+              round: 0
+      - name: bounce_rate
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            bounce_rate_metric:
+              label: 'Bounce Rate %'
+              type: number
+              format: 'percent'
+              description: "Bounce Rate from Page Views"
+              hidden: false
+              round: 2
+      - name: last_12_months_avg_sessions_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            l12_months_avg_sessions_metric:
+              label: 'L12 Months Average Daily Sessions'
+              type: sum
+              description: "The average of daily sessions over the last 12 months"
+              hidden: false
+              round: 0
+            l12_months_avg_sessions_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${sessions_metric} - ${l12_months_avg_sessions_metric},${l12_months_avg_sessions_metric})'
+              label: 'L12 Months Average Daily Sessions Comparison %'
+              round: 2
+      - name: last_12_months_avg_page_views_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            l12_months_avg_page_views_metric:
+              label: 'L12 Months Average Daily Page Views'
+              type: sum
+              description: "The average Daily Page Views over the last 12 months"
+              hidden: false
+              round: 0
+            l12_months_avg_page_views_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${page_views_metric} - ${l12_months_avg_page_views_metric},${l12_months_avg_page_views_metric})'
+              label: 'L12 Months Average Daily Page Views Comparison %'
+              round: 2
+      - name: last_12_months_avg_bounce_rate
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            l12_months_avg_bounce_rate_metric:
+              label: 'L12 Months Average Daily Bounce Rate'
+              type: average
+              description: "The average Daily Bounce Rate over the last 12 months"
+              hidden: false
+              round: 0
+            l12_months_avg_Bounce Rate_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${bounce_rate_metric} - ${l12_months_avg_bounce_rate_metric},${l12_months_avg_bounce_rate_metric})'
+              label: 'L12 Months Average Daily Bounce Rate Comparison %'
+              round: 2
+      
