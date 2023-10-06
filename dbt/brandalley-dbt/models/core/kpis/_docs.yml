@@ -849,6 +849,23 @@ models:
               type: sum
               label: 'LY Unique Visitors (Day or WTD)'
               group_label: 'Visits'
+      - name: last_12_months_avg_unique_visitors
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_unique_visitors_metric:
+              type: sum
+              label: 'L12 Months Daily Average Unique Visitors'
+              group_label: 'Visits'
+              round: 0
+          last_12_months_avg_unique_visitors_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_ga_unique_visitors} - ${last_12_months_avg_unique_visitors_metric},${last_12_months_avg_unique_visitors_metric})'
+              label: 'L12 Months Daily Average Unique Visitors Comparison %'
+              group_label: 'Visits'
+              round: 2
 
       #### CR
       - name: conversion_rate
@@ -869,6 +886,23 @@ models:
               type: average
               label: 'LY Conversion Rate GA'
               group_label: 'Visits'
+      - name: last_12_months_avg_conversion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_conversion_rate_metric:
+              type: average
+              label: 'L12 Months Daily Average Conversion Rate'
+              group_label: 'Visits'
+              round: 2
+          last_12_months_avg_conversion_rate_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${conversion_rate_ga} - ${last_12_months_avg_conversion_rate_metric},${last_12_months_avg_conversion_rate_metric})'
+              label: 'L12 Months Daily Average Conversion Rate Comparison %'
+              group_label: 'Visits'
+              round: 2
 
       ### INDEPENDENT TOTALS
       ### ACHICA

@@ -100,6 +100,16 @@ ga_stats as (
     from {{ ref('ga_conversion_rate') }} gcr
     left join yesterday_ga_stats ygs on gcr.ga_session_at_date = ygs.ga_session_at_date
     where gcr.date_aggregation_type = 'day'
+),
+
+ga_stats_yearly_average as (
+    select 
+        'UK' as ba_site,
+        round(avg(gcr.conversion_rate),2) as conversion_rate,
+        round(avg(gcr.ga_unique_visitors),0) as unique_visitors
+    from {{ ref('ga_conversion_rate') }} gcr
+    inner join {{ ref('dates') }} d on gcr.ga_session_at_date=d.date_day and d.last_12_months_flag=1
+    where gcr.date_aggregation_type = 'day'
 )
 
 select
@@ -172,7 +182,9 @@ select
     ps.sales_launched,
     ps_ly.sales_launched            as sales_launched_ly,
     osya.total_order_count          as last_12_months_avg_total_order_count,
-    osya.gmv                        as last_12_months_avg_gmv
+    osya.gmv                        as last_12_months_avg_gmv,
+    gsya.conversion_rate            as last_12_months_avg_conversion_rate,
+    gsya.unique_visitors            as last_12_months_avg_unique_visitors
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -198,3 +210,5 @@ left join customer_type_order_stats ctos
     on d.date_day = ctos.order_created_at_day and os.ba_site = ctos.ba_site
 left join order_stats_yearly_average osya
     on os.ba_site = osya.ba_site
+left join ga_stats_yearly_average gsya 
+    on os.ba_site = gsya.ba_site
