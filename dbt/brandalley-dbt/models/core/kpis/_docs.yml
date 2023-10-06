@@ -296,6 +296,19 @@ models:
               group_label: 'AOV'
               sql: 'safe_divide(${total_gmv},${total_orders_count})'
               round: 2
+            last_12_months_avg_aov_gmv:
+              type: number
+              label: 'L12 Months Avg AOV GMV'
+              group_label: 'AOV'
+              sql: 'safe_divide(${last_12_months_avg_gmv_metric},${last_12_months_avg_total_order_count_metric})'
+              round: 2
+            last_12_months_avg_aov_gmv_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_aov_gmv} - ${last_12_months_avg_aov_gmv},${last_12_months_avg_aov_gmv})'
+              label: 'L12 Months Daily Average AOV GMV Comparison %'
+              group_label: 'AOV'
+              round: 2
       - name: last_year_aov_gmv
         meta:
           dimension:
