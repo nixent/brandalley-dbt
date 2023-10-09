@@ -1623,6 +1623,12 @@ models:
               type: sum
               description: 'The average sales that are live daily in the last year'
               round: 0
+            last_12_months_avg_live_sales_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${live_sales_count_metric} - ${avg_last_12_months_live_sales_metric},${avg_last_12_months_live_sales_metric})'
+              label: 'L12 Months Daily Average Live Sales Comparison %'
+              round: 2
       - name: sales_starting_at_date
         meta:
           dimension:
