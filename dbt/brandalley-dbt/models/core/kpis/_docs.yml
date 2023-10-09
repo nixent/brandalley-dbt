@@ -1358,7 +1358,7 @@ models:
           dimension:
             label: 'Conversion Rate - GA (%)'
 
-  - name: kpis_quarterly
+  - name: daily_ytd_l4w_orderlines
     description: "A view of all KPIs, based off of order creation quarter"
     meta:
       group_label: 'KPIs'
@@ -1368,11 +1368,11 @@ models:
           - unique
           - not_null
       - name: ba_site
-      - name: order_created_at_quarter
+      - name: date_day
         meta:
           dimension:
             type: date
-            time_intervals: ['RAW']
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: total_order_count
       - name: total_new_order_count
       - name: total_new_members
@@ -1455,4 +1455,57 @@ models:
           dimension:
             label: 'Conversion Rate - GA (%)'
 
-  
+  - name: daily_ytd_l4w_orderlines
+    description: "The cumulative value of quantities per SKU for YTD (year to date) and L4W (Last 4 weeks)"
+    columns:
+      - name: ba_site_created_date
+        tests:
+          - unique
+          - not_null
+      - name: ba_site
+      - name: date_day
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW']
+      - name: sku
+      - name: parent_sku
+      - name: brand
+      - name: name
+      - name: product_type
+      - name: qty_invoiced_ytd
+        meta:
+          metrics:
+            qty_invoiced_ytd_metric:
+              type: sum
+              label: 'YTD Quantity invoiced'
+      - name: warehouse_qty_ytd
+        meta:
+          metrics:
+            warehouse_qty_ytd_metric:
+              type: sum
+              label: 'YTD Warehouse quantity invoiced'
+      - name: qty_invoiced_l4w
+        meta:
+          metrics:
+            qty_invoiced_l4w_metric:
+              type: sum
+              label: 'L4W Quantity invoiced'
+      - name: warehouse_qty_l4w
+        meta:
+          metrics:
+            warehouse_qty_l4w_metric:
+              type: sum
+              label: 'L4W Warehouse quantity invoiced'
+      - name: total_product_cost_exc_vat
+        meta:
+          metrics:
+            total_flash_price_inc_vat_metric:
+              type: sum
+              label: 'Total Cost'
+      - name: total_flash_price_inc_vat
+        meta:
+          metrics:
+            total_flash_price_inc_vat_metric:
+              type: sum
+              label: 'Total Flash Price inc VAT'
