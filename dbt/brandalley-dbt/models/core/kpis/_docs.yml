@@ -1461,7 +1461,7 @@ models:
         - join: stock_file
           sql_on: ${daily_ytd_l4w_orderlines.sku} = ${stock_file.child_sku} and ${daily_ytd_l4w_orderlines.ba_site} = ${stock_file.ba_site}
         - join: products
-          sql_on: ${daily_ytd_l4w_orderlines.sku} = ${products.sku} and ${daily_ytd_l4w_orderlines.ba_site} = ${products.ba_site}
+          sql_on: ${daily_ytd_l4w_orderlines.sku} = ${products.variant_sku} and ${daily_ytd_l4w_orderlines.ba_site} = ${products.ba_site}
     description: "The cumulative value of quantities per SKU for YTD (year to date) and L4W (Last 4 weeks)"
     columns:
       - name: ba_site
