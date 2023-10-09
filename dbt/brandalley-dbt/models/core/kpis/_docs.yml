@@ -1602,7 +1602,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             live_sales_count_metric:
               label: 'Daily Live Sales'
               type: sum
@@ -1617,7 +1617,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             avg_last_12_months_live_sales_metric:
               label: 'L12 Months Average Live Daily Sales'
               type: sum
@@ -1627,7 +1627,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             sales_starting_at_metric:
               label: 'Sales Starting Total'
               type: sum
@@ -1642,7 +1642,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             sales_ending_at_metric:
               label: 'Sales Ending Total'
               type: sum
@@ -1657,7 +1657,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             same_week_future_sales_starting_metric:
               label: 'Sales Starting rest of Week'
               type: sum
@@ -1667,7 +1667,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             same_week_future_sales_ending_metric:
               label: 'Sales Ending rest of Week'
               type: sum
