@@ -1372,7 +1372,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            time_intervals: ['RAW']
       - name: total_order_count
       - name: total_new_order_count
       - name: total_new_members
@@ -1460,6 +1460,8 @@ models:
       joins:
         - join: stock_file
           sql_on: ${daily_ytd_l4w_orderlines.sku} = ${stock_file.child_sku} and ${daily_ytd_l4w_orderlines.ba_site} = ${stock_file.ba_site}
+        - join: products
+          sql_on: ${daily_ytd_l4w_orderlines.sku} = ${products.sku} and ${daily_ytd_l4w_orderlines.ba_site} = ${products.ba_site}
     description: "The cumulative value of quantities per SKU for YTD (year to date) and L4W (Last 4 weeks)"
     columns:
       - name: ba_site
@@ -1467,13 +1469,16 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['RAW']
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: sku
       - name: parent_sku
       - name: brand
-      - name: name
       - name: product_type
       - name: min_ytd_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: qty_invoiced_ytd
         meta:
           metrics:
@@ -1501,7 +1506,7 @@ models:
       - name: total_product_cost_exc_vat
         meta:
           metrics:
-            total_flash_price_inc_vat_metric:
+            total_product_cost_exc_vat_metric:
               type: sum
               label: 'Total Cost'
       - name: total_flash_price_inc_vat

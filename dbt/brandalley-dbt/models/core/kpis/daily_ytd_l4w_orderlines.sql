@@ -5,7 +5,6 @@ with order_line_ytd as (
         ol.sku,
         ol.parent_sku,
         ol.brand,
-        ol.name,
         ol.product_type,
         min(date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)) as min_ytd_date,
         sum(ol.qty_invoiced)     as qty_invoiced,
@@ -18,7 +17,7 @@ where
 date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)>=
 DATE_TRUNC(d.date_day, YEAR)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
-group by 1,2,3,4,5,6,7 
+group by 1,2,3,4,5,6
 order by d.date_day, sku
 ),
 
@@ -29,7 +28,6 @@ order_line_l4w as (
         ol.sku,
         ol.parent_sku,
         ol.brand,
-        ol.name,
         ol.product_type,
         sum(ol.qty_invoiced)     as qty_invoiced,
         sum(ol.warehouse_qty)    as warehouse_qty
@@ -40,7 +38,7 @@ date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime
 date_sub(d.date_day, interval 28 day)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
 --and ol.sku in ('17488148','17056467')
-group by 1,2,3,4,5,6,7 
+group by 1,2,3,4,5,6
 --order by d.date_day, sku
 )
 
@@ -50,7 +48,6 @@ select
     COALESCE(ytd.sku, l4w.sku) AS sku,
     COALESCE(ytd.parent_sku, l4w.parent_sku) AS parent_sku,
     COALESCE(ytd.brand, l4w.brand) AS brand,
-    COALESCE(ytd.name, l4w.name) AS name,
     COALESCE(ytd.product_type, l4w.product_type) AS product_type,
     ytd.min_ytd_date, 
     ytd.qty_invoiced AS qty_invoiced_ytd,
