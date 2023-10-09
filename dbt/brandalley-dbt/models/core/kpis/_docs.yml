@@ -1358,7 +1358,7 @@ models:
           dimension:
             label: 'Conversion Rate - GA (%)'
 
-  - name: daily_ytd_l4w_orderlines
+  - name: kpis_quarterly
     description: "A view of all KPIs, based off of order creation quarter"
     meta:
       group_label: 'KPIs'
@@ -1456,12 +1456,12 @@ models:
             label: 'Conversion Rate - GA (%)'
 
   - name: daily_ytd_l4w_orderlines
+    meta:
+      joins:
+        - join: stock_file
+          sql_on: ${daily_ytd_l4w_orderlines.sku} = ${stock_file.child_sku} and ${daily_ytd_l4w_orderlines.ba_site} = ${stock_file.ba_site}
     description: "The cumulative value of quantities per SKU for YTD (year to date) and L4W (Last 4 weeks)"
     columns:
-      - name: ba_site_created_date
-        tests:
-          - unique
-          - not_null
       - name: ba_site
       - name: date_day
         meta:
