@@ -1473,6 +1473,7 @@ models:
       - name: brand
       - name: name
       - name: product_type
+      - name: min_ytd_date
       - name: qty_invoiced_ytd
         meta:
           metrics:

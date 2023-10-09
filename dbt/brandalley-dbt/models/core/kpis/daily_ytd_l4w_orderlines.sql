@@ -7,6 +7,7 @@ with order_line_ytd as (
         ol.brand,
         ol.name,
         ol.product_type,
+        min(date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)) as min_ytd_date,
         sum(ol.qty_invoiced)     as qty_invoiced,
         sum(ol.warehouse_qty)    as warehouse_qty,
         sum(ol.line_product_cost_exc_vat)    as total_product_cost_exc_vat,
@@ -18,7 +19,7 @@ date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime
 DATE_TRUNC(d.date_day, YEAR)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
 group by 1,2,3,4,5,6,7 
---order by d.date_day, sku
+order by d.date_day, sku
 ),
 
 order_line_l4w as (
@@ -51,6 +52,7 @@ select
     COALESCE(ytd.brand, l4w.brand) AS brand,
     COALESCE(ytd.name, l4w.name) AS name,
     COALESCE(ytd.product_type, l4w.product_type) AS product_type,
+    ytd.min_ytd_date, 
     ytd.qty_invoiced AS qty_invoiced_ytd,
     ytd.warehouse_qty AS warehouse_qty_ytd,
     l4w.qty_invoiced AS qty_invoiced_l4w,
