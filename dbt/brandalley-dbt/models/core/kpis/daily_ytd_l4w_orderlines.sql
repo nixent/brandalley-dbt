@@ -1,3 +1,4 @@
+-- Getting YTD details (so for each day, details from 01/01/[year of the day] to [day date])
 with order_line_ytd as (
     select distinct
         d.date_day,
@@ -18,9 +19,9 @@ date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime
 DATE_TRUNC(d.date_day, YEAR)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
 group by 1,2,3,4,5,6
-order by d.date_day, sku
 ),
 
+-- Getting L4W details (so for each day, details [day date - 28 days] to [day date])
 order_line_l4w as (
     select distinct
         d.date_day,
@@ -37,11 +38,10 @@ where
 date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)>=
 date_sub(d.date_day, interval 28 day)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
---and ol.sku in ('17488148','17056467')
 group by 1,2,3,4,5,6
---order by d.date_day, sku
 )
 
+-- full outer join so if there is data for 1 day in YTD but no data for L4W, a line will be populated. Same the other way round
 select
     COALESCE(ytd.date_day, l4w.date_day) as date_day,
     COALESCE(ytd.ba_site, l4w.ba_site) AS ba_site,
@@ -58,6 +58,3 @@ select
     ytd.total_flash_price_inc_vat
 from order_line_ytd ytd 
 full outer join order_line_l4w l4w on ytd.date_day = l4w.date_day and ytd.sku=l4w.sku
--- and ytd.parent_sku=l4w.parent_sku and ytd.brand=l4w.brand and ytd.name=l4w.name and ytd.product_type=l4w.product_type
---where ytd.sku in ('17488148','17056467')
---order by ytd.date_day
