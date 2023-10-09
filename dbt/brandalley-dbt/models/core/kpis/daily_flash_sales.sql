@@ -59,6 +59,7 @@ select
     fs.week_num,
     fs.ba_site,
     fs.live_sales_count,
+    round(avg_l12.avg_last_12_months_live_sales, 2) as avg_last_12_months_live_sales,
     ifnull(fss.sales_starting_at_date, 0) as sales_starting_at_date,
     ifnull(fss.sales_ending_at_date, 0) as sales_ending_at_date,
     sum(ifnull(fss1.sales_starting_at_date, 0)) as same_week_future_sales_starting,
@@ -71,4 +72,7 @@ left join
     on fss.week_num = fss1.week_num
     and fss.ba_site = fss1.ba_site
     and fss.date_day < fss1.date_day
-group by 1, 2, 3, 4, 5, 6
+left join 
+    (select ba_site, avg(live_sales_count) as avg_last_12_months_live_sales from flash_sales where date_day between date_sub(cast(current_date as date), interval 1 year) and cast(current_date as date) group by 1) avg_l12
+    on fs.ba_site=avg_l12.ba_site
+group by 1, 2, 3, 4, 5, 6, 7

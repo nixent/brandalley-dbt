@@ -1613,6 +1613,16 @@ models:
               type: average
               description: 'Average live sales over time period'
               round: 0
+      - name: avg_last_12_months_live_sales
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            avg_last_12_months_live_sales_metric:
+              label: 'L12 Months Average Live Daily Sales'
+              type: sum
+              description: 'The average sales that are live daily in the last year'
+              round: 0
       - name: sales_starting_at_date
         meta:
           dimension:
