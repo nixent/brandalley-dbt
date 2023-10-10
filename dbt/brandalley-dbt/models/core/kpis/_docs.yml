@@ -158,12 +158,14 @@ models:
               format: 'percent'
               sql: 'safe_divide(${total_refunds_count},${total_orders_count})'
               label: 'Refund Rate'
+              group_label: 'Refunds'
               round: 2
             l12_months_average_refund_rate_metric:
               type: number
               format: 'percent'
               sql: 'safe_divide(${last_12_months_avg_total_refund_count_metric},${last_12_months_avg_total_order_count_metric})'
               label: 'L12 Months Average Daily Refund Rate'
+              group_label: 'Refunds'
               round: 2
 
       ##### CUSTOMERS #######
