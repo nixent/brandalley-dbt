@@ -1368,7 +1368,7 @@ models:
           - unique
           - not_null
       - name: ba_site
-      - name: date_day
+      - name: order_created_at_quarter
         meta:
           dimension:
             type: date

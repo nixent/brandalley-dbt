@@ -1,3 +1,6 @@
+{{ config(
+    materialized='view', tags=["job_daily"]
+)}}
 -- Getting YTD details (so for each day, details from 01/01/[year of the day] to [day date])
 with order_line_ytd as (
     select distinct
