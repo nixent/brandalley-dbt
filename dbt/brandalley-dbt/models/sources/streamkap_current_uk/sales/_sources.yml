@@ -429,6 +429,15 @@ sources:
       
       - name: sales_flat_order
         description: "Fact table for the weight, quantity, value, cost, price, tax, discount, refunds of orders by customer, store, address, created and updated date with hourly details and expected delivery date with daily details"
+        freshness:
+          warn_after:
+            count: 30 
+            period: minute
+          error_after: 
+            count: 30
+            period: minute
+          filter: date_diff(current_date, date(_streamkap_source_ts_ms), DAY) < 2
+        loaded_at_field: _streamkap_loaded_at_ts
         columns:
           - name: entity_id
             data_type: <integer>
