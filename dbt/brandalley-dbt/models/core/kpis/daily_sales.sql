@@ -17,7 +17,8 @@ with order_stats as (
         kd.sales_amount,
         kd.margin + if(kd.ba_site = 'FR', coalesce(ma.fr_amount,0) , coalesce(ma.uk_amount, 0)) as margin,
         kd.qty_ordered,
-        kd.shipping_amount as shipping_gmv
+        kd.shipping_amount as shipping_gmv,
+        kd.total_refund_count
     from {{ ref('kpis_daily')}} kd
     left join {{ ref('stg__margin_adjustments') }} ma
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
@@ -27,7 +28,8 @@ order_stats_yearly_average as (
     select
         kd.ba_site,
         round(avg(kd.total_order_count),2) as total_order_count,
-        round(avg(kd.gmv),2) as gmv
+        round(avg(kd.gmv),2) as gmv,
+        round(avg(kd.total_refund_count),2) as total_refund_count
     from {{ ref('kpis_daily')}} kd
     left join {{ ref('stg__margin_adjustments') }} ma
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
@@ -121,6 +123,7 @@ select
     gs.ga_unique_visitors,
     gs.conversion_rate,
     os.total_order_count,
+    os.total_refund_count,
     os.total_new_customer_count,
     os.total_new_achica_order_count,
     os.total_new_cocosa_order_count,
@@ -182,6 +185,7 @@ select
     ps.sales_launched,
     ps_ly.sales_launched            as sales_launched_ly,
     osya.total_order_count          as last_12_months_avg_total_order_count,
+    osya.total_refund_count         as last_12_months_avg_total_refund_count,
     osya.gmv                        as last_12_months_avg_gmv,
     gsya.conversion_rate            as last_12_months_avg_conversion_rate,
     gsya.unique_visitors            as last_12_months_avg_unique_visitors
