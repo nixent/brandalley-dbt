@@ -469,6 +469,8 @@ models:
         meta:
           dimension:
             group_label: 'Order Info' 
+            label: 'Order Increment ID'
+            description: 'external Magento ID, used for communication with customers'
       - name: customer_id
         description: "Customer id, foreign key, nullable" 
         meta:
@@ -505,8 +507,10 @@ models:
         description: "Id of the order, foreign key"
         meta:
           dimension:
+            label: 'Order Internal ID'
             format: id
             group_label: 'Order Info'
+            description: 'internal Magento ID'
           metrics:
             total_orders_count:
               label: 'Total Orders'
@@ -1671,14 +1675,16 @@ models:
       - name: order_id
         meta:
           dimension:
-            label: 'Order ID'
             format: id
             group_label: 'Order Info'
+            label: 'Order Internal ID'
+            description: 'internal Magento ID'
       - name: increment_id
         meta:
           dimension:
-            label: 'Increment ID'
             group_label: 'Order Info'
+            label: 'Order Increment ID'
+            description: 'external Magento ID, used for communication with customers'
       - name: customer_id
         meta:
           dimension:
@@ -1985,15 +1991,17 @@ models:
         description: "Increment id, nullable"
         meta:
           dimension:
-            label: 'Increment ID'
             group_label: 'Order Info'
+            label: 'Order Increment ID'
+            description: 'external Magento ID, used for communication with customers'
       - name: order_id
         description: ""
         meta:
           dimension:
-            label: 'Order ID'
             format: id
             group_label: 'Order Info'
+            label: 'Order Internal ID'
+            description: 'internal Magento ID'
       - name: pe_order_id
         description: ""
         meta:
