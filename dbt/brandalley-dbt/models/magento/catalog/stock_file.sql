@@ -9,8 +9,6 @@ with stock_file_raw as (
         stock.min_qty,
         stock.qty,
         wsrb.qty_remaining_kettering                    as stock_kettering,
-        wsrb.qty_remaining_prism                        as stock_prism,
-        wsrb.qty_remaining_sed                          as stock_sed,
         rsp.allocated                                   as stock_kettering_allocated,
         rsp.unsellable_good                             as stock_kettering_unsellable_good,
         rsp.unsellable_bad                              as stock_kettering_unsellable_bad,
@@ -50,6 +48,7 @@ with stock_file_raw as (
         replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,
         if(sum(stock_child.min_qty) < 0, 'No', 'Yes')    as canUseForWHSale,
         string_agg(distinct cast(category.category_id as string)) as parent_child_category_ids,
+        awa.sku_avg_weighted_age                        as average_weighted_age_days,
         row_number() over (partition by e.entity_id, e.ba_site order by cceh.sale_end desc) as rn
     from {{ ref('stg__catalog_product_entity') }} e
     inner join {{ ref('stg__cataloginventory_stock_item') }} stock 
@@ -210,6 +209,15 @@ with stock_file_raw as (
     left join {{ ref('stg__reactor_stock_profile') }} rsp
         on e.sku=rsp.sku
             and e.ba_site='UK'
+    left join ( Select 
+                    logged_date,
+                    sku,
+                    ba_site,
+                    sku_avg_weighted_age,
+                from {{ ref('stock_age') }} a
+                where sku_avg_weighted_age is not null and logged_date<=cast(current_date as date)
+                group by 1,2,3,4 
+                qualify row_number() over (partition by sku, ba_site order by logged_date desc) = 1) awa on e.child_sku=awa.sku and e.ba_site=awa.ba_site
     where e.type_id = 'simple'
         and (stock.qty > 0 or rsp.allocated>0 or rsp.unsellable>0)
     {{ dbt_utils.group_by(45) }}, category.product_id
