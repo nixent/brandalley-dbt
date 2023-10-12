@@ -733,6 +733,9 @@ models:
           dimension:
             sql: 'date_diff(current_date, ${last_stock_delivery_date}, day)'
       - name: average_weighted_age_days
+        meta:
+          dimension:
+            label: 'Average Weighted Age (days)'
       - name: child_parent_sku_age_bucket
         meta:
           dimension:
@@ -913,6 +916,10 @@ models:
         meta:
           dimension:
             sql: 'date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)'
+      - name: average_weighted_age_days
+        meta:
+          dimension:
+            label: 'Average Weighted Age (days)'
       - name: child_parent_sku_age_bucket
         meta:
           dimension:
