@@ -45,7 +45,7 @@ with stock_file_raw as (
         date(stock_prism.delivery_date)                 as last_stock_delivery_date,
         cpei_menu_type_3.value as value_3, 
         cceh.sale_end,
-        awa.sku_avg_weighted_age                        as average_weighted_age_days,
+        awa.sku_avg_weighted_age                        as sku_avg_weighted_age,
         replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,
         if(sum(stock_child.min_qty) < 0, 'No', 'Yes')    as canUseForWHSale,
         string_agg(distinct cast(category.category_id as string)) as parent_child_category_ids,

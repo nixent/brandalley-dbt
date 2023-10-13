@@ -732,7 +732,7 @@ models:
         meta:
           dimension:
             sql: 'date_diff(current_date, ${last_stock_delivery_date}, day)'
-      - name: average_weighted_age_days
+      - name: sku_avg_weighted_age
         meta:
           dimension:
             label: 'Average Weighted Age (days)'
@@ -741,11 +741,11 @@ models:
           dimension:
             sql: > 
               case 
-                when ifnull(${average_weighted_age_days},date_diff(current_date, ${last_stock_delivery_date}, day)) > 365 then 'Over 12 Months'
-                when ifnull(${average_weighted_age_days},date_diff(current_date, ${last_stock_delivery_date}, day)) > 274 then '10 - 12 Months'
-                when ifnull(${average_weighted_age_days},date_diff(current_date, ${last_stock_delivery_date}, day)) > 180 then '7 - 9 Months'
-                when ifnull(${average_weighted_age_days},date_diff(current_date, ${last_stock_delivery_date}, day)) > 90 then '4 - 6 Months'
-                when ifnull(${average_weighted_age_days},date_diff(current_date, ${last_stock_delivery_date}, day)) > 0 then '0 - 3 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(current_date, ${last_stock_delivery_date}, day)) > 365 then 'Over 12 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(current_date, ${last_stock_delivery_date}, day)) > 274 then '10 - 12 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(current_date, ${last_stock_delivery_date}, day)) > 180 then '7 - 9 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(current_date, ${last_stock_delivery_date}, day)) > 90 then '4 - 6 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(current_date, ${last_stock_delivery_date}, day)) > 0 then '0 - 3 Months'
                 else 'No Deliveries'
               end
       - name: category
@@ -916,7 +916,7 @@ models:
         meta:
           dimension:
             sql: 'date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)'
-      - name: average_weighted_age_days
+      - name: sku_avg_weighted_age
         meta:
           dimension:
             label: 'Average Weighted Age (days)'
@@ -925,11 +925,11 @@ models:
           dimension:
             sql: > 
               case 
-                when ifnull(${average_weighted_age_days},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 365 then 'Over 12 Months'
-                when ifnull(${average_weighted_age_days},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 274 then '10 - 12 Months'
-                when ifnull(${average_weighted_age_days},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 180 then '7 - 9 Months'
-                when ifnull(${average_weighted_age_days},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 90 then '4 - 6 Months'
-                when ifnull(${average_weighted_age_days},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 0 then '0 - 3 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 365 then 'Over 12 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 274 then '10 - 12 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 180 then '7 - 9 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 90 then '4 - 6 Months'
+                when ifnull(${sku_avg_weighted_age},date_diff(${stock_file_date}, ${last_stock_delivery_date}, day)) > 0 then '0 - 3 Months'
                 else 'No Deliveries'
               end
       - name: category
