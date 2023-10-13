@@ -9,8 +9,6 @@ with stock_file_raw as (
         stock.min_qty,
         stock.qty,
         wsrb.qty_remaining_kettering                    as stock_kettering,
-        wsrb.qty_remaining_prism                        as stock_prism,
-        wsrb.qty_remaining_sed                          as stock_sed,
         rsp.allocated                                   as stock_kettering_allocated,
         rsp.unsellable_good                             as stock_kettering_unsellable_good,
         rsp.unsellable_bad                              as stock_kettering_unsellable_bad,
@@ -47,6 +45,7 @@ with stock_file_raw as (
         date(stock_prism.delivery_date)                 as last_stock_delivery_date,
         cpei_menu_type_3.value as value_3, 
         cceh.sale_end,
+        awa.sku_avg_weighted_age                        as sku_avg_weighted_age,
         replace(category_details.path_name, 'Root Catalog>Brand Alley UK>', '') as flashsale_category,
         if(sum(stock_child.min_qty) < 0, 'No', 'Yes')    as canUseForWHSale,
         string_agg(distinct cast(category.category_id as string)) as parent_child_category_ids,
@@ -210,9 +209,18 @@ with stock_file_raw as (
     left join {{ ref('stg__reactor_stock_profile') }} rsp
         on e.sku=rsp.sku
             and e.ba_site='UK'
+    left join ( Select 
+                    logged_date,
+                    sku,
+                    ba_site,
+                    sku_avg_weighted_age,
+                from {{ ref('stock_age') }} a
+                where sku_avg_weighted_age is not null and logged_date<=cast(current_date as date)
+                group by 1,2,3,4 
+                qualify row_number() over (partition by sku, ba_site order by logged_date desc) = 1) awa on e.sku=awa.sku and e.ba_site=awa.ba_site
     where e.type_id = 'simple'
         and (stock.qty > 0 or rsp.allocated>0 or rsp.unsellable>0)
-    {{ dbt_utils.group_by(45) }}, category.product_id
+    {{ dbt_utils.group_by(44) }}, category.product_id
  )
 select  
     stock.* except (flashsale_category, child_parent_sku, special_price, parent_child_category_ids, value_3, rn, sale_end),
@@ -227,5 +235,5 @@ left join {{ source('utils', 'category_mapping') }} cat_map
     on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label 
         and coalesce(stock.level_2,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(3)],split(flashsale_category, '>')[safe_offset(3)]) = cat_map.level_2 
         and coalesce(stock.level_3,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(4)],split(flashsale_category, '>')[safe_offset(4)]) = cat_map.level_3
-{{ dbt_utils.group_by(42) }}
+{{ dbt_utils.group_by(41) }}
 
