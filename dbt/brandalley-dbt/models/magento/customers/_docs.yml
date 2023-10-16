@@ -71,6 +71,12 @@ models:
           dimension:
             type: string
             sql: array_to_string(first_purchase_brands, ', ')
+      - name: last_purchase_at
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            sql: 'if(customers_enriched.ba_site = "FR",datetime(customers_enriched.last_purchase_at, "Europe/Paris"),datetime(customers_enriched.last_purchase_at, "Europe/London"))'
       - name: second_purchase_at
         meta:
           dimension:
