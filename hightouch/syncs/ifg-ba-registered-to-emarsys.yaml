@@ -1,0 +1,17 @@
+model: ifg-ba-registered
+destination: emarsys-1gyu1
+config:
+  mode: update
+  type: object
+  object: contact
+  mappings:
+    - to: '31'
+      from: ifg_optin
+      type: standard
+  configVersion: 0
+  externalIdMapping:
+    to: '17506'
+    from: ifg_customer_id
+schedule:
+  type: manual
+schedulePaused: false
