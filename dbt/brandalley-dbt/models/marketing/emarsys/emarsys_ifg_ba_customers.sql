@@ -27,4 +27,4 @@ select
     *
 from ba_customers ba
 inner join ifg_customers ifg
-on ba.email=ifg.ifg_email and ba.optin=1
+on lower(ba.email)=lower(ifg.ifg_email) and ba.optin=1
