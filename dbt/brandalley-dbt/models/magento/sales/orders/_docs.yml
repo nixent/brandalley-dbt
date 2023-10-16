@@ -432,6 +432,8 @@ models:
           sql_on: ${OrderLines.order_id} = ${stg__sales_payment_transaction.order_id} and ${stg__sales_payment_transaction.parent_id} is null  and ${OrderLines.ba_site} = ${stg__sales_payment_transaction.ba_site}
         - join: stock_file 
           sql_on: ${OrderLines.sku} = ${stock_file.child_sku} and ${OrderLines.ba_site} = ${stock_file.ba_site}
+        - join: stock_file_daily
+          sql_on: cast(${OrderLines.created_at} as date) = ${stock_file_daily.stock_file_date} and ${OrderLines.sku} = ${stock_file_daily.child_sku} and ${OrderLines.ba_site} = ${stock_file_daily.ba_site}
 
     columns:
       - name: ba_site
