@@ -1,0 +1,6 @@
+name: IFG BA registered
+source: google-big-query-5x13w
+type: raw_sql
+rawSql: |
+  select ifg_customer_id,ifg_optin from emarsys.emarsys_ifg_ba_customers
+primaryKey: ifg_customer_id
