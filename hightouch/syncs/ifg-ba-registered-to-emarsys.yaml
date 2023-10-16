@@ -13,5 +13,9 @@ config:
     to: '17506'
     from: ifg_customer_id
 schedule:
-  type: manual
+  type: interval
+  schedule:
+    interval:
+      unit: hour
+      quantity: 6
 schedulePaused: false
