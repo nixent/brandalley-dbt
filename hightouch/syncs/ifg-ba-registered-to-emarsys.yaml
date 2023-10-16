@@ -18,4 +18,4 @@ schedule:
     interval:
       unit: hour
       quantity: 6
-schedulePaused: false
+schedulePaused: true
