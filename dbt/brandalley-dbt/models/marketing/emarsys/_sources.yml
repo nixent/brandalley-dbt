@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: emarsys_ifg
+    database: datawarehouse-358408
+    description: "Emarsys ifg users"
+    tables:
+      - name: ifg_*
