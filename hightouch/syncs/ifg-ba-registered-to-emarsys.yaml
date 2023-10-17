@@ -17,5 +17,5 @@ schedule:
   schedule:
     interval:
       unit: hour
-      quantity: 6
+      quantity: 8
 schedulePaused: false
