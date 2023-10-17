@@ -1,4 +1,4 @@
-{{ config(materialized="table") }}
+{{ config(materialized="table", tags=["job_daily"]) }}
 
 with
     number_of_pages_per_sessions as (
