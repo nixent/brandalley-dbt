@@ -1,17 +1,10 @@
 with
 
     daily_dates as (
-        select date_day, cast(format_date('%V', date_day) as int64) as week_num
-        from
-            unnest(
-                generate_date_array(
-                    '2020-12-01',
-                    date_add(current_date, interval 1 month),
-                    interval 1 day
-                )
-            ) as date_day
+        select date_day, week_num
+        from {{ ref("dates") }}
     ),
-
+    
     grouped_sales as (
         select ba_site, category_name, sale_start_at, sale_end_at
         from {{ ref("products_sales") }} ps
@@ -28,8 +21,8 @@ with
         from daily_dates d
         left join
             grouped_sales gs
-            on d.date_day >= cast(gs.sale_start_at as date)
-            and d.date_day <= cast(gs.sale_end_at as date)
+            on d.date_day >= date(gs.sale_start_at)
+            and d.date_day <= date(gs.sale_end_at)
         group by 1, 2, 3
     ),
 
@@ -37,19 +30,21 @@ with
         select
             d.date_day,
             week_num,
-            ps.ba_site,
+            site.ba_site,
             ifnull(count(distinct gs_start.category_name), 0) as sales_starting_at_date,
             ifnull(count(distinct gs_end.category_name), 0) as sales_ending_at_date,
         from daily_dates d
-        cross join (select distinct ba_site from {{ ref("products_sales") }}) ps
+        cross join (select 'UK' as ba_site
+                    union all
+                    select 'FR' as ba_site) site
         left join
             grouped_sales gs_start
-            on d.date_day = cast(gs_start.sale_start_at as date)
-            and ps.ba_site = gs_start.ba_site
+            on d.date_day = date(gs_start.sale_start_at)
+            and site.ba_site = gs_start.ba_site
         left join
             grouped_sales gs_end
-            on d.date_day = cast(gs_end.sale_end_at as date)
-            and ps.ba_site = gs_end.ba_site
+            on d.date_day = date(gs_end.sale_end_at)
+            and site.ba_site = gs_end.ba_site
         group by 1, 2, 3
 
     )
@@ -73,6 +68,6 @@ left join
     and fss.ba_site = fss1.ba_site
     and fss.date_day < fss1.date_day
 left join 
-    (select ba_site, avg(live_sales_count) as avg_last_12_months_live_sales from flash_sales where date_day between date_sub(cast(current_date as date), interval 1 year) and cast(current_date as date) group by 1) avg_l12
+    (select ba_site, avg(live_sales_count) as avg_last_12_months_live_sales from flash_sales where date_day between date_sub(current_date, interval 1 year) and current_date group by 1) avg_l12
     on fs.ba_site=avg_l12.ba_site
 group by 1, 2, 3, 4, 5, 6, 7

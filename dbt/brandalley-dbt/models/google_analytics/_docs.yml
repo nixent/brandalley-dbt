@@ -207,7 +207,7 @@ models:
               type: average
               description: "The average Daily Bounce Rate over the last 12 months"
               round: 0
-            l12_months_avg_Bounce Rate_comparison_metric:
+            l12_months_avg_bounce_rate_comparison_metric:
               type: number
               format: 'percent'
               sql: 'safe_divide(${bounce_rate_metric} - ${l12_months_avg_bounce_rate_metric},${l12_months_avg_bounce_rate_metric})'

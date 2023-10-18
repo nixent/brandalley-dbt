@@ -1633,8 +1633,7 @@ models:
         meta:
           dimension:
             label: 'Date'
-            type: timestamp
-            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            type: date
       - name: week_num
         meta:
           dimension:
