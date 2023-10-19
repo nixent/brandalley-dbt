@@ -115,7 +115,8 @@ models:
           metrics:
             last_12_months_avg_total_order_count_metric:
               type: sum
-              label: 'L12 Months Daily Average Total Orders'
+              label: 'L12 Months Average Total Orders'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
               group_label: 'Orders'
               round: 0
             last_12_months_avg_total_order_count_comparison_metric:
@@ -143,7 +144,8 @@ models:
           metrics:
             last_12_months_avg_total_refund_count_metric:
               type: sum
-              label: 'L12 Months Daily Average Total Refunds'
+              label: 'L12 Months Average Total Refunds'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
               group_label: 'Refunds'
               round: 0
             last_12_months_avg_total_refund_count_comparison_metric:
@@ -165,6 +167,7 @@ models:
               format: 'percent'
               sql: 'safe_divide(${last_12_months_avg_total_refund_count_metric},${last_12_months_avg_total_order_count_metric})'
               label: 'L12 Months Average Daily Refund Rate'
+              description: 'Last 12 Month daily average from current date'
               group_label: 'Refunds'
               round: 2
 
@@ -341,6 +344,7 @@ models:
             last_12_months_avg_aov_gmv:
               type: number
               label: 'L12 Months Avg AOV GMV'
+              description: 'Last 12 Month daily average from current date'
               group_label: 'AOV'
               sql: 'safe_divide(${last_12_months_avg_gmv_metric},${last_12_months_avg_total_order_count_metric})'
               round: 2
@@ -535,7 +539,8 @@ models:
           metrics:
             last_12_months_avg_gmv_metric:
               type: sum
-              label: 'L12 Months Daily Average GMV'
+              label: 'L12 Months Average GMV'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
               group_label: 'GMV'
               round: 2
             last_12_months_avg_gmv_comparison_metric:
@@ -898,7 +903,8 @@ models:
           metrics:
             last_12_months_avg_unique_visitors_metric:
               type: sum
-              label: 'L12 Months Daily Average Unique Visitors'
+              label: 'L12 Months Average Unique Visitors'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
               group_label: 'Visits'
               round: 0
             last_12_months_avg_unique_visitors_comparison_metric:
@@ -936,6 +942,7 @@ models:
             last_12_months_avg_conversion_rate_metric:
               type: average
               label: 'L12 Months Daily Average Conversion Rate'
+              description: 'Last 12 Month daily average from current date'
               group_label: 'Visits'
               round: 2
             last_12_months_avg_conversion_rate_comparison_metric:
