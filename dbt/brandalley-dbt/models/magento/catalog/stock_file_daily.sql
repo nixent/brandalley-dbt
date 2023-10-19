@@ -8,7 +8,7 @@
       "data_type": "date",
       "granularity": "day"
     },
-    pre_hook='delete from {{this}} where stock_file_date = current_date'
+    pre_hook='{% if is_incremental() %}delete from {{this}} where stock_file_date = current_date{% endif %}',
     tags=["job_daily"]
 ) }}
 
