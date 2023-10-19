@@ -65,7 +65,7 @@ with order_lines as (
         sfoi_sim.qty_ordered-sfoi_con.qty_canceled-sfoi_con.qty_refunded-sfoi_con.qty_shipped                                                               as qty_to_ship,
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
-		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_ordered, sfoi_sim.qty_ordered - sfoi_sim.qty_backordered) 										as warehouse_qty,
+		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_invoiced, sfoi_sim.qty_invoiced - sfoi_sim.qty_backordered) 										as warehouse_qty,
 		sfoi_sim.qty_warehouse_sent																															as qty_sent_to_warehouse,
 		woak.qty_allocated 																																	as qty_allocated_kettering_wh, 
 		safe_cast(sfo.created_at as datetime) 																												as order_placed_date,
@@ -202,8 +202,8 @@ with order_lines as (
 			when vs.brand is not null then pcd.product_department
 			when lower(ccfse.path_name) like '%>clearance>%' then 'Clearance'
 			when eaov_brand.value = 'DockATot' then 'Decorative Home'
+		    when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
 			when lower(cceh.name) = 'outlet' then 'Outlet'
-			when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
 			when cceh.name is not null then pcd.product_department
 			else 'Outlet'
 		end 																																				as department_type,
