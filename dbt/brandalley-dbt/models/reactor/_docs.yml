@@ -50,3 +50,41 @@ models:
       - name: date_arrived
       - name: qty_arrived
       - name: src
+
+  - name: stock_exited
+    description: ""
+    columns:
+      - name: logged_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Logged Date'
+      - name: reactor_sku
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: qty_exited
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            qty_exited_metric:
+              type: sum
+              label: 'Qty Exited'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+      - name: exit_route
+        meta:
+          dimension:
+            label: 'Exit Route'
+      - name: exit_details
+        meta:
+          dimension:
+            label: 'Exit Details'

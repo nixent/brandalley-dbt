@@ -991,3 +991,65 @@ sources:
           - name: __deleted
             data_type: <string>
             description: "deleted"
+
+      - name: stock_exit_route
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: name
+            data_type: <string>
+            description: "name"
+          - name: supplier_id
+            data_type: <integer>
+            description: "supplier id"
+          - name: details
+            data_type: <string>
+            description: "details"
+          - name: user_id
+            data_type: <integer>
+            description: "user id"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
+
+      - name: stock_exit_ledger
+        description: ""
+        columns:
+          - name: id
+            data_type: <integer>
+            description: "primary key"
+          - name: stock_id
+            data_type: <integer>
+            description: "stock id"
+          - name: boxstockchecklog_id
+            data_type: <integer>
+            description: "boxstockchecklog id"
+          - name: stock_exit_route_id
+            data_type: <integer>
+            description: "stock exit route id"
+          - name: type
+            data_type: <string>
+            description: "type"
+          - name: details
+            data_type: <string>
+            description: "details"
+          - name: user_id
+            data_type: <integer>
+            description: "user id"
+          - name: date
+            data_type: <integer>
+            description: "date"
+          - name: warehouse_id
+            data_type: <integer>
+            description: "warehouse id"
+          - name: _streamkap_source_ts_ms
+            data_type: <timestamp>
+            description: "_streamkap_source_ts_ms"
+          - name: __deleted
+            data_type: <string>
+            description: "deleted"
