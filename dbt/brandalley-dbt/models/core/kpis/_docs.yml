@@ -1641,6 +1641,7 @@ models:
           dimension:
             label: 'Date'
             type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: week_num
         meta:
           dimension:
