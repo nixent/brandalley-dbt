@@ -1,12 +1,15 @@
 with
 
     daily_dates as (
-        select date_day, week_num
+        select date_day, week_num, ba_site   --all dates
         from {{ ref("dates") }}
+        cross join (select 'UK' as ba_site
+                    union all
+                    select 'FR' as ba_site) site
     ),
     
     grouped_sales as (
-        select ba_site, category_name, sale_start_at, sale_end_at
+        select ba_site, category_name, sale_start_at, sale_end_at   --all flash sales with start and end dates
         from {{ ref("products_sales") }} ps
         where category_name <> 'Outlet'
         group by 1, 2, 3, 4
@@ -16,35 +19,33 @@ with
         select
             d.date_day,
             d.week_num,
-            gs.ba_site,
-            count(distinct gs.category_name) as live_sales_count
+            d.ba_site,
+            count(distinct gs.category_name) as live_sales_count --number of sales that are live at any given date
         from daily_dates d
         left join
             grouped_sales gs
             on d.date_day >= date(gs.sale_start_at)
             and d.date_day <= date(gs.sale_end_at)
+            and d.ba_site=gs.ba_site
         group by 1, 2, 3
     ),
 
     flash_sales_start as (
         select
             d.date_day,
-            week_num,
-            site.ba_site,
+            d.week_num,
+            d.ba_site,
             ifnull(count(distinct gs_start.category_name), 0) as sales_starting_at_date,
             ifnull(count(distinct gs_end.category_name), 0) as sales_ending_at_date,
         from daily_dates d
-        cross join (select 'UK' as ba_site
-                    union all
-                    select 'FR' as ba_site) site
         left join
             grouped_sales gs_start
             on d.date_day = date(gs_start.sale_start_at)
-            and site.ba_site = gs_start.ba_site
+            and d.ba_site = gs_start.ba_site
         left join
             grouped_sales gs_end
             on d.date_day = date(gs_end.sale_end_at)
-            and site.ba_site = gs_end.ba_site
+            and d.ba_site = gs_end.ba_site
         group by 1, 2, 3
 
     )
