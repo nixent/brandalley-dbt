@@ -2,7 +2,7 @@
 
 select 
     cast(datetime_add('1970-01-01', interval bscl.timestamp second) as date) as logged_date,
-    bscl.stockid as reactor_sku,
+    cast(bscl.stockid as string) as reactor_sku,
     sl.legacy_id as magento_sku,
     sum(bscl.difference) as qty_exited,
     sl.item_cost as unit_cost,
