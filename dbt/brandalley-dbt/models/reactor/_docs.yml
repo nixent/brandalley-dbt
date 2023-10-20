@@ -64,6 +64,7 @@ models:
         meta:
           dimension:
             label: 'Reactor Sku'
+            type: string
       - name: magento_sku
         meta:
           dimension:
