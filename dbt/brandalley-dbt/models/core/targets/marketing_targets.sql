@@ -1,10 +1,14 @@
-
 {{ config(
-    materialized='table'
+    materialized='incremental'
 ) }}
 
+select
+ *
+from {{this}}
+where 1 = 0
 
-select 
+
+{# select 
     Date                   as target_date,
     'UK'                   as ba_site,
     UK_Orders_RC_Forecast  as returning_customers_order_forecast,
@@ -22,4 +26,4 @@ select
     FR_NC_Forecast         as new_customers_order_forecast,
     FR_Members_Forecast    as new_members_forecast
 from {{ source('analytics', 'marketing_targets_gsheet') }}
-where Date is not null
+where Date is not null #}
