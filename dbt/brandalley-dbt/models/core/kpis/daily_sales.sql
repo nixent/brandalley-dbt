@@ -33,7 +33,7 @@ order_stats_yearly_average as (
     from {{ ref('kpis_daily')}} kd
     left join {{ ref('stg__margin_adjustments') }} ma
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
-    inner join {{ ref('dates') }} d on kd.order_created_at_day=d.date_day and d.last_12_months_flag=True
+    where kd.order_created_at_day > date_sub(current_date, interval 1 year)
     group by 1
 ),
 
@@ -110,8 +110,7 @@ ga_stats_yearly_average as (
         round(avg(gcr.conversion_rate),2) as conversion_rate,
         round(avg(gcr.ga_unique_visitors),0) as unique_visitors
     from {{ ref('ga_conversion_rate') }} gcr
-    inner join {{ ref('dates') }} d on gcr.ga_session_at_date=d.date_day and d.last_12_months_flag=True
-    where gcr.date_aggregation_type = 'day'
+    where gcr.date_aggregation_type = 'day' and gcr.ga_session_at_date > date_sub(current_date, interval 1 year)
 )
 
 select
