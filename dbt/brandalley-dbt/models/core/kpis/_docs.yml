@@ -108,6 +108,68 @@ models:
               label: 'Orders Target Comparison %'
               group_label: 'Orders'
               round: 1
+      - name: last_12_months_avg_total_order_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_total_order_count_metric:
+              type: sum
+              label: 'L12 Months Average Total Orders'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
+              group_label: 'Orders'
+              round: 0
+            last_12_months_avg_total_order_count_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_orders_count} - ${last_12_months_avg_total_order_count_metric},${last_12_months_avg_total_order_count_metric})'
+              label: 'L12 Months Daily Average Orders Comparison %'
+              group_label: 'Orders'
+              round: 2
+        
+              ##### REFUNDS ######
+      - name: total_refund_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_refunds_count:
+              type: sum
+              label: 'Total Refunds'
+              group_label: 'Refunds'
+      - name: last_12_months_avg_total_refund_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_total_refund_count_metric:
+              type: sum
+              label: 'L12 Months Average Total Refunds'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
+              group_label: 'Refunds'
+              round: 0
+            last_12_months_avg_total_refund_count_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_refunds_count} - ${last_12_months_avg_total_refund_count_metric},${last_12_months_avg_total_refund_count_metric})'
+              label: 'L12 Months Daily Average Refunds Comparison %'
+              group_label: 'Refunds'
+              round: 2
+            refund_rate_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_refunds_count},${total_orders_count})'
+              label: 'Refund Rate'
+              group_label: 'Refunds'
+              round: 2
+            l12_months_average_refund_rate_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${last_12_months_avg_total_refund_count_metric},${last_12_months_avg_total_order_count_metric})'
+              label: 'L12 Months Average Daily Refund Rate'
+              description: 'Last 12 Month daily average from current date'
+              group_label: 'Refunds'
+              round: 2
 
       ##### CUSTOMERS #######
       - name: total_new_customer_count
@@ -278,6 +340,20 @@ models:
               label: 'AOV GMV'
               group_label: 'AOV'
               sql: 'safe_divide(${total_gmv},${total_orders_count})'
+              round: 2
+            last_12_months_avg_aov_gmv:
+              type: number
+              label: 'L12 Months Avg AOV GMV'
+              description: 'Last 12 Month daily average from current date'
+              group_label: 'AOV'
+              sql: 'safe_divide(${last_12_months_avg_gmv_metric},${last_12_months_avg_total_order_count_metric})'
+              round: 2
+            last_12_months_avg_aov_gmv_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_aov_gmv} - ${last_12_months_avg_aov_gmv},${last_12_months_avg_aov_gmv})'
+              label: 'L12 Months Daily Average AOV GMV Comparison %'
+              group_label: 'AOV'
               round: 2
       - name: last_year_aov_gmv
         meta:
@@ -456,6 +532,24 @@ models:
               sql: 'safe_divide(${total_shipping_gmv},${total_orders_count})'
               round: 2
               group_label: 'Shipping'
+      - name: last_12_months_avg_gmv
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_gmv_metric:
+              type: sum
+              label: 'L12 Months Average GMV'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
+              group_label: 'GMV'
+              round: 2
+            last_12_months_avg_gmv_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_gmv} - ${last_12_months_avg_gmv_metric},${last_12_months_avg_gmv_metric})'
+              label: 'L12 Months Daily Average GMV Comparison %'
+              group_label: 'GMV'
+              round: 2
 
       #### SALES AMOUNT ######
       - name: sales_amount
@@ -779,6 +873,85 @@ models:
               sql: '"N/A"'
               label: 'Unique Visits Target'
               group_label: 'Visits'
+      - name: ga_unique_visitors
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            total_ga_unique_visitors:
+              type: sum
+              label: 'Unique Visitors'
+              group_label: 'Visits'
+            avg_ga_unique_visitors:
+              type: average
+              label: 'Avg Unique Visitors'
+              group_label: 'Visits'
+              round: 0
+      - name: last_year_same_day_ga_unique_visitors
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_wtd_ga_unique_visits:
+              type: sum
+              label: 'LY Unique Visitors (Day or WTD)'
+              group_label: 'Visits'
+      - name: last_12_months_avg_unique_visitors
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_unique_visitors_metric:
+              type: sum
+              label: 'L12 Months Average Unique Visitors'
+              description: 'Last 12 Month daily average from current date, sums over multiple dates'
+              group_label: 'Visits'
+              round: 0
+            last_12_months_avg_unique_visitors_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_ga_unique_visitors} - ${last_12_months_avg_unique_visitors_metric},${last_12_months_avg_unique_visitors_metric})'
+              label: 'L12 Months Daily Average Unique Visitors Comparison %'
+              group_label: 'Visits'
+              round: 2
+
+      #### CR
+      - name: conversion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            conversion_rate_ga:
+              type: average
+              label: 'Conversion Rate GA'
+              group_label: 'Visits'
+      - name: last_year_same_day_conversion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_year_same_day_conversion_rate_ga:
+              type: average
+              label: 'LY Conversion Rate GA'
+              group_label: 'Visits'
+      - name: last_12_months_avg_conversion_rate
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_12_months_avg_conversion_rate_metric:
+              type: average
+              label: 'L12 Months Daily Average Conversion Rate'
+              description: 'Last 12 Month daily average from current date'
+              group_label: 'Visits'
+              round: 2
+            last_12_months_avg_conversion_rate_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${conversion_rate_ga} - ${last_12_months_avg_conversion_rate_metric},${last_12_months_avg_conversion_rate_metric})'
+              label: 'L12 Months Daily Average Conversion Rate Comparison %'
+              group_label: 'Visits'
+              round: 2
 
       ### INDEPENDENT TOTALS
       ### ACHICA
@@ -1457,6 +1630,108 @@ models:
           dimension:
             label: 'Conversion Rate - GA (%)'
 
+
+  - name: daily_flash_sales
+    description: "Live and future flash sales at a daily and site level"
+    meta:
+      group_label: 'KPIs'
+    columns:
+      - name: date_day
+        meta:
+          dimension:
+            label: 'Date'
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: week_num
+        meta:
+          dimension:
+            hidden: true
+      - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
+      - name: live_sales_count
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            live_sales_count_metric:
+              label: 'Daily Live Sales'
+              type: sum
+              description: 'Sales Live at Day'
+              round: 0
+            live_sales_avg_metric:
+              label: 'Average Live Sales per Day'
+              type: average
+              description: 'Average live sales over time period'
+              round: 0
+      - name: avg_last_12_months_live_sales
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            avg_last_12_months_live_sales_metric:
+              label: 'L12 Months Average Live Daily Sales'
+              type: sum
+              description: 'The average sales that are live daily in the last year'
+              round: 0
+            last_12_months_avg_live_sales_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${live_sales_count_metric} - ${avg_last_12_months_live_sales_metric},${avg_last_12_months_live_sales_metric})'
+              label: 'L12 Months Daily Average Live Sales Comparison %'
+              round: 2
+      - name: sales_starting_at_date
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            sales_starting_at_metric:
+              label: 'Sales Starting Total'
+              type: sum
+              description: 'Total of sales starting'
+              round: 0
+            avg_daily_sales_starting_metric:
+              label: 'Average Sales Starting per Day'
+              type: average
+              description: 'Average live sales starting over time period'
+              round: 0
+      - name: sales_ending_at_date
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            sales_ending_at_metric:
+              label: 'Sales Ending Total'
+              type: sum
+              description: 'Total of sales ending'
+              round: 0
+            avg_daily_sales_ending_metric:
+              label: 'Average Sales Ending per Day'
+              type: average
+              description: 'Average live sales ending over time period'
+              round: 0
+      - name: same_week_future_sales_starting
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            same_week_future_sales_starting_metric:
+              label: 'Sales Starting rest of Week'
+              type: sum
+              description: 'Total sales that are due to start this week after today'
+              round: 0
+      - name: same_week_future_sales_ending
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            same_week_future_sales_ending_metric:
+              label: 'Sales Ending rest of Week'
+              type: sum
+              description: 'Total sales that are due to end this week after today'
+              round: 0
+  
   - name: daily_ytd_l4w_orderlines
     meta:
       joins:

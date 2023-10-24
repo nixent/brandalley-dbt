@@ -17,10 +17,24 @@ with order_stats as (
         kd.sales_amount,
         kd.margin + if(kd.ba_site = 'FR', coalesce(ma.fr_amount,0) , coalesce(ma.uk_amount, 0)) as margin,
         kd.qty_ordered,
-        kd.shipping_amount as shipping_gmv
+        kd.shipping_amount as shipping_gmv,
+        kd.total_refund_count
     from {{ ref('kpis_daily')}} kd
     left join {{ ref('stg__margin_adjustments') }} ma
         on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
+),
+
+order_stats_yearly_average as (
+    select
+        kd.ba_site,
+        round(avg(kd.total_order_count),2) as total_order_count,
+        round(avg(kd.gmv),2) as gmv,
+        round(avg(kd.total_refund_count),2) as total_refund_count
+    from {{ ref('kpis_daily')}} kd
+    left join {{ ref('stg__margin_adjustments') }} ma
+        on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
+    where kd.order_created_at_day > date_sub(current_date, interval 1 year)
+    group by 1
 ),
 
 customer_type_order_stats as (
@@ -82,10 +96,21 @@ yesterday_ga_stats as (
 ga_stats as (
     select 
         gcr.ga_session_at_date,
+        gcr.conversion_rate,
+        gcr.ga_unique_visitors,
         coalesce(gcr.ga_unique_visits, ygs.ga_unique_visits) as ga_unique_visits
     from {{ ref('ga_conversion_rate') }} gcr
     left join yesterday_ga_stats ygs on gcr.ga_session_at_date = ygs.ga_session_at_date
     where gcr.date_aggregation_type = 'day'
+),
+
+ga_stats_yearly_average as (
+    select 
+        'UK' as ba_site,
+        round(avg(gcr.conversion_rate),2) as conversion_rate,
+        round(avg(gcr.ga_unique_visitors),0) as unique_visitors
+    from {{ ref('ga_conversion_rate') }} gcr
+    where gcr.date_aggregation_type = 'day' and gcr.ga_session_at_date > date_sub(current_date, interval 1 year)
 )
 
 select
@@ -94,7 +119,10 @@ select
     d.last_year,
     os.ba_site,
     gs.ga_unique_visits,
+    gs.ga_unique_visitors,
+    gs.conversion_rate,
     os.total_order_count,
+    os.total_refund_count,
     os.total_new_customer_count,
     os.total_new_achica_order_count,
     os.total_new_cocosa_order_count,
@@ -127,6 +155,8 @@ select
     ctos.ba_sales_amount,
     ctos.ba_margin,
     gs1.ga_unique_visits            as last_year_same_day_ga_unique_visits,
+    gs1.ga_unique_visitors          as last_year_same_day_ga_unique_visitors,
+    gs1.conversion_rate             as last_year_same_day_conversion_rate,
     gs2.ga_unique_visits            as last_year_ga_unique_visits,
     os3.total_order_count           as last_year_total_order_count,
     os4.total_order_count           as last_year_same_day_total_order_count,
@@ -152,7 +182,12 @@ select
     dt.avg_units_target,
     dt.effective_avg_vat_rate,
     ps.sales_launched,
-    ps_ly.sales_launched            as sales_launched_ly
+    ps_ly.sales_launched            as sales_launched_ly,
+    osya.total_order_count          as last_12_months_avg_total_order_count,
+    osya.total_refund_count         as last_12_months_avg_total_refund_count,
+    osya.gmv                        as last_12_months_avg_gmv,
+    gsya.conversion_rate            as last_12_months_avg_conversion_rate,
+    gsya.unique_visitors            as last_12_months_avg_unique_visitors
 from {{ ref('dates') }} d
 left join order_stats os
     on os.order_created_at_day = d.date_day
@@ -176,4 +211,8 @@ left join products_sales ps_ly
     on d.last_year_same_day = ps_ly.date and os.ba_site = ps_ly.ba_site
 left join customer_type_order_stats ctos 
     on d.date_day = ctos.order_created_at_day and os.ba_site = ctos.ba_site
-
+left join order_stats_yearly_average osya
+    on os.ba_site = osya.ba_site
+left join ga_stats_yearly_average gsya 
+    on os.ba_site = gsya.ba_site
+where d.up_to_current_date_flag=True

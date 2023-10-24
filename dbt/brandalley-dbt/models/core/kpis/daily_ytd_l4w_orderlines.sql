@@ -21,6 +21,7 @@ where
 date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)>=
 DATE_TRUNC(d.date_day, YEAR)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
+and up_to_current_date_flag=True
 group by 1,2,3,4,5,6
 ),
 
@@ -41,6 +42,7 @@ where
 date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)>=
 date_sub(d.date_day, interval 28 day)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
+and up_to_current_date_flag=True
 group by 1,2,3,4,5,6
 )
 

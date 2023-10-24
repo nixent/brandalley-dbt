@@ -110,6 +110,14 @@ models:
               type: sum
               description: "Total impressions on ad"
               hidden: false
+            click_through_rate_metric:
+              label: 'CTR'
+              type: average
+              description: 'Rate of impressions that lead to a click through to site'
+              sql: "safe_divide(${total_click},${total_impressions})"
+              hidden: false
+              round: 2
+              format: 'percent'
       - name: total_spend
         description: ""
         meta:
