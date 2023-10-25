@@ -8,3 +8,27 @@ models:
           - unique
           - not_null
       - name: publisher_name
+    
+  - name: cj_affiliate_lines
+    columns:
+      - name: date
+      - name: commission_id
+      - name: order_id
+      - name: posting_date
+      - name: publisher_id
+      - name: publisher_name
+      - name: website_name
+      - name: ad_id
+      - name: action_id
+      - name: action_name
+      - name: status
+      - name: sales_amount_before_vouchers
+      - name: order_discount
+      - name: adv_commission_amount
+      - name: pub_commission_amount
+      - name: cj_fee_amount
+      - name: transaction_type
+      - name: coupon
+      - name: new_to_file
+      - name: is_cross_device
+      - name: sales_amount_after_vouchers

@@ -6,3 +6,9 @@ sources:
     description: "Affiliate Publishers"
     tables:
       - name: affiliate_publishers_gsheet
+  
+  - name: cj_affiliates
+    database: datawarehouse-358408
+    description: "Affiliate Data from CJ"
+    tables:
+      - name: cj_affiliates_commission
