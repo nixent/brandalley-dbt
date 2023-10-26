@@ -24,9 +24,12 @@ select date,
        new_to_file,
        is_cross_device        
 from {{ source('cj_affiliates', 'cj_affiliates_commission') }}
-)
-select *
+),
+final as (
+select *,
        sales_amount_before_vouchers - order_discount as sales_amount_after_vouchers,
        adv_commission_amount + pub_commission_amount + cj_fee_amount as total_fee
 from cj_affiliates 
-where date between '2023-06-01' and '2023-06-30' and publisher_name='Honey Science Corporation'
+where date between '2023-06-01' and '2023-06-30'
+)
+select case when total_fee=0 then 'matches' else ' no match' end as matches_sheet, count(*) from final group by 1

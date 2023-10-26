@@ -12,23 +12,141 @@ models:
   - name: cj_affiliate_lines
     columns:
       - name: date
+        meta:
+          dimension:
+            label: 'Logged Date'
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: commission_id
+        meta:
+          dimension:
+            label: 'Commission ID'
+            format: id
       - name: order_id
+        meta:
+          dimension:
+            label: 'Order ID'
+            format: id
       - name: posting_date
+        meta:
+          dimension:
+            label: 'Posting Date'
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: publisher_id
+        meta:
+          dimension:
+            label: 'Publisher ID'
+            format: id
       - name: publisher_name
+        meta:
+          dimension:
+            label: 'Publsiher Name'
       - name: website_name
+        meta:
+          dimension:
+            label: 'Website Name'
       - name: ad_id
+        meta:
+          dimension:
+            label: 'Ad ID'
+            format: id
       - name: action_id
+        meta:
+          dimension:
+            label: 'Action ID'
+            format: id
       - name: action_name
+        meta:
+          dimension:
+            label: 'Action Name'
       - name: status
+        meta:
+          dimension:
+            label: 'Action Name'
       - name: sales_amount_before_vouchers
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            sales_amount_before_vouchers_sum_metric:
+              label: 'Sales Amount Before Coupon'
+              description: 'The sum of sales amount before vouchers'
+              type: sum
+              round: 2
       - name: order_discount
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            order_discount_sum_metric:
+              label: 'Order Discount'
+              description: 'The sum of the Order Discount'
+              type: sum
+              round: 2
       - name: adv_commission_amount
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            adv_commission_amount_sum_metric:
+              label: 'Advertisement Commission Amount'
+              description: 'The sum of the total commission amount of the ad'
+              type: sum
+              round: 2
+            margin_amount_before_vouchers_sum_metric:
+              label: 'Sales Amount after marketing costs'
+              description: 'The sales amount minus cj fees and commission'
+              type: sum
+              sql: "${sales_amount_before_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
       - name: pub_commission_amount
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            pub_commission_amount_sum_metric:
+              label: 'Publisher Commission Amount'
+              description: 'The sum of the publisher commission amount'
+              type: sum
+              round: 2
       - name: cj_fee_amount
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            cj_fee_amount_sum_metric:
+              label: 'CJ Fee Commission Amount'
+              description: 'The sum of the CJ Fee amoun'
+              type: sum
+              round: 2
       - name: transaction_type
+        meta:
+          dimension:
+            label: 'Transaction Type'
       - name: coupon
+        meta:
+          dimension:
+            label: 'Coupon'
       - name: new_to_file
+        meta:
+          dimension:
+            label: 'New to File'
       - name: is_cross_device
+        meta:
+          dimension:
+            label: 'Is Cross Device'
       - name: sales_amount_after_vouchers
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            sales_amount_after_vouchers_sum_metric:
+              label: 'Sales Amount After Coupon'
+              description: 'The sum of sales amount after vouchers'
+              type: sum
+              round: 2
+            margin_amount_after_vouchers_sum_metric:
+              label: 'Sales Amount after discount and marketing costs'
+              description: 'The sales amount minus the discount and cj fees and commission'
+              type: sum
+              sql: "${sales_amount_after_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
