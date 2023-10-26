@@ -23,7 +23,7 @@ with order_stats as (
 
 customer_stats as (
     select
-        coalesce(date(crds.date), date(ce.achica_migration_date), date(ce.cocosa_signup_at), date(if(ce.ba_site = 'FR',datetime(ce.signed_up_at, "Europe/Paris"),datetime(ce.signed_up_at, "Europe/London")))) as customer_created_at_day,
+        date(if(ce.ba_site = 'FR',datetime(ce.signed_up_at, "Europe/Paris"),datetime(ce.signed_up_at, "Europe/London"))) as customer_created_at_day,
         ce.ba_site,
         count(ce.customer_id)                                                                                       as total_new_members,
         count(if(ce.customer_type = 'Achica', ce.customer_id, null))                                                 as total_new_achica_members,
