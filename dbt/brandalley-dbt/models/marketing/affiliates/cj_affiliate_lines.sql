@@ -16,8 +16,8 @@ select date,
        action_tracker_name as action_name,
        action_status as status,
        cast(sale_amount_adv_currency as numeric) as sales_amount_before_vouchers,
-       case when cast(sale_amount_adv_currency as numeric) > 0 then cast(order_discount_adv_currency as numeric) else cast(order_discount_adv_currency as numeric)*-1 end as order_discount,
-       cast(adv_commission_amount_adv_currency as numeric) as adv_commission_amount, --need to make sure this is this all gbp
+       case when cast(sale_amount_adv_currency as numeric) > 0 then cast(order_discount_adv_currency as numeric) else cast(order_discount_adv_currency as numeric)*-1 end as order_discount, --this is because there are return lines and the discount amount is positive for both
+       cast(adv_commission_amount_adv_currency as numeric) as adv_commission_amount,
        cast(cj_fee_adv_currency as numeric) as cj_fee_amount,
        case when cast(sale_amount_adv_currency as numeric) > 0 then 'Order' else 'Return' end as transaction_type,
        coupon,
