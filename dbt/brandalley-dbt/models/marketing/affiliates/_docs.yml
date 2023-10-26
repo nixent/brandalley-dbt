@@ -27,6 +27,11 @@ models:
           dimension:
             label: 'Order ID'
             format: id
+          metric:
+            order_count_metric:
+              label: 'Total Orders'
+              descriptions: 'A count of the number of orders'
+              type: count_distinct
       - name: posting_date
         meta:
           dimension:
