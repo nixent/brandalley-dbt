@@ -46,7 +46,7 @@ models:
       - name: publisher_name
         meta:
           dimension:
-            label: 'Publsiher Name'
+            label: 'Publisher Name'
       - name: website_name
         meta:
           dimension:
@@ -69,13 +69,13 @@ models:
         meta:
           dimension:
             label: 'Action Name'
-      - name: sales_amount_before_vouchers
+      - name: gmv_before_vouchers
         meta:
           dimension:
             hidden: true
           metric:
-            sales_amount_before_vouchers_sum_metric:
-              label: 'Sales Amount Before Coupon'
+            gmv_before_vouchers_sum_metric:
+              label: 'GMV Before Coupon'
               description: 'The sum of sales amount before vouchers'
               type: sum
               round: 2
@@ -100,10 +100,10 @@ models:
               type: sum
               round: 2
             margin_amount_before_vouchers_sum_metric:
-              label: 'Sales Amount after marketing costs'
+              label: 'GMV after marketing costs'
               description: 'The sales amount minus cj fees and commission'
               type: sum
-              sql: "${sales_amount_before_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
+              sql: "${gmv_before_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
       - name: pub_commission_amount
         meta:
           dimension:
@@ -140,18 +140,18 @@ models:
         meta:
           dimension:
             label: 'Is Cross Device'
-      - name: sales_amount_after_vouchers
+      - name: gmv_after_vouchers
         meta:
           dimension:
             hidden: true
           metric:
-            sales_amount_after_vouchers_sum_metric:
-              label: 'Sales Amount After Coupon'
+            gmv_after_vouchers_sum_metric:
+              label: 'GMV After Coupon'
               description: 'The sum of sales amount after vouchers'
               type: sum
               round: 2
             margin_amount_after_vouchers_sum_metric:
-              label: 'Sales Amount after discount and marketing costs'
+              label: 'GMV after discount and marketing costs'
               description: 'The sales amount minus the discount and cj fees and commission'
               type: sum
-              sql: "${sales_amount_after_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
+              sql: "${gmv_after_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
