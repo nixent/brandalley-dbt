@@ -99,11 +99,11 @@ models:
               description: 'The sum of the total commission amount of the ad'
               type: sum
               round: 2
-            margin_amount_before_vouchers_sum_metric:
+            margin_amount_after_vouchers_sum_metric:
               label: 'Sales Amount after marketing costs'
               description: 'The sales amount minus cj fees and commission'
               type: sum
-              sql: "${sales_amount_after_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
+              sql: "${sales_amount_after_vouchers_sum_metric}+${adv_commission_amount_sum_metric}"
       - name: pub_commission_amount
         meta:
           dimension:
