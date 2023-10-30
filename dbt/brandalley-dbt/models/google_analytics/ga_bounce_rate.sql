@@ -11,7 +11,7 @@ with
             a.unique_visit_id,
             count(distinct a.page_path) as number_of_pages
         from {{ ref("ga_daily_stats") }} a
-        where cast(a.visit_start_at as date) < current_date --so we only load full previous day at a time
+        where cast(a.visit_start_at as date) < current_date and cast(a.visit_start_at as date) > date_sub(current_date, interval 1 month) --so we only load full previous day at a time
         {% if is_incremental() %}
         and cast(a.visit_start_at as date) >= (select max(logged_date) from {{this}})
         {% endif %}
@@ -32,7 +32,8 @@ with
             avg(sessions_total) as last_12_months_avg_sessions_total,
             avg(page_views_total) as last_12_months_avg_page_views_total,
             avg(bounce_rate) as last_12_months_avg_bounce_rate
-        from bounce_rate a
+        {% if is_incremental() %}
+        from {{this}} a {% else %} from bounce_rate a {% endif %}
         where a.logged_date > date_sub(current_date, interval 1 year)
     )
 select
