@@ -27,7 +27,7 @@ models:
           dimension:
             label: 'Order ID'
             format: id
-          metric:
+          metrics:
             order_count_metric:
               label: 'Total Orders'
               descriptions: 'A count of the number of orders'
@@ -73,7 +73,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             sales_amount_after_vouchers_sum_metric:
               label: 'Sales Amount after Vouchers'
               description: 'The sum of sales amount after vouchers'
@@ -83,7 +83,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             order_discount_sum_metric:
               label: 'Order Discount'
               description: 'The sum of the Order Discount'
@@ -93,7 +93,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             adv_commission_amount_sum_metric:
               label: 'Advertisement Commission Amount'
               description: 'The sum of the total commission amount of the ad'
@@ -108,7 +108,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             pub_commission_amount_sum_metric:
               label: 'Publisher Commission Amount'
               description: 'The sum of the publisher commission amount'
@@ -118,7 +118,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             cj_fee_amount_sum_metric:
               label: 'CJ Fee Commission Amount'
               description: 'The sum of the CJ Fee amoun'
