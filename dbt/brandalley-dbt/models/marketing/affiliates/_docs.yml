@@ -69,14 +69,14 @@ models:
         meta:
           dimension:
             label: 'Action Name'
-      - name: gmv_before_vouchers
+      - name: sales_amount_after_vouchers
         meta:
           dimension:
             hidden: true
           metric:
-            gmv_before_vouchers_sum_metric:
-              label: 'GMV Before Coupon'
-              description: 'The sum of sales amount before vouchers'
+            sales_amount_after_vouchers_sum_metric:
+              label: 'Sales Amount after Vouchers'
+              description: 'The sum of sales amount after vouchers'
               type: sum
               round: 2
       - name: order_discount
@@ -100,10 +100,10 @@ models:
               type: sum
               round: 2
             margin_amount_before_vouchers_sum_metric:
-              label: 'GMV after marketing costs'
+              label: 'Sales Amount after marketing costs'
               description: 'The sales amount minus cj fees and commission'
               type: sum
-              sql: "${gmv_before_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
+              sql: "${sales_amount_after_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
       - name: pub_commission_amount
         meta:
           dimension:
@@ -140,18 +140,3 @@ models:
         meta:
           dimension:
             label: 'Is Cross Device'
-      - name: gmv_after_vouchers
-        meta:
-          dimension:
-            hidden: true
-          metric:
-            gmv_after_vouchers_sum_metric:
-              label: 'GMV After Coupon'
-              description: 'The sum of sales amount after vouchers'
-              type: sum
-              round: 2
-            margin_amount_after_vouchers_sum_metric:
-              label: 'GMV after discount and marketing costs'
-              description: 'The sales amount minus the discount and cj fees and commission'
-              type: sum
-              sql: "${gmv_after_vouchers_sum_metric}-${adv_commission_amount_sum_metric}"
