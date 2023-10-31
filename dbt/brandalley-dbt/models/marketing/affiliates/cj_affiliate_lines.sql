@@ -5,10 +5,10 @@
 )}}
 
 with cj_affiliates as (
-select date,
+select cast(date as timestamp) as date,
        order_id,
        commission_id,
-       posting_date,
+       cast(posting_date as timestamp) as posting_date,
        publisher_id,
        publisher_name,
        website_name,
@@ -20,7 +20,9 @@ select date,
        case when cast(sale_amount_adv_currency as numeric) > 0 then cast(order_discount_adv_currency as numeric) else cast(order_discount_adv_currency as numeric)*-1 end as order_discount, --this is because there are return lines and the discount amount is positive for both
        cast(adv_commission_amount_adv_currency as numeric) as adv_commission_amount,
        cast(cj_fee_adv_currency as numeric)*-1 as cj_fee_amount, --formatting so its in line with other fees/commission
-       case when cast(sale_amount_adv_currency as numeric) > 0 then 'Order' else 'Return' end as transaction_type,
+       case when cast(sale_amount_adv_currency as numeric) > 0 then 'Order' 
+            when cast(sale_amount_adv_currency as numeric) = 0 then 'Registration'
+            else 'Return' end as transaction_type,
        coupon,
        new_to_file,
        is_cross_device        
