@@ -68,7 +68,7 @@ models:
       - name: status
         meta:
           dimension:
-            label: 'Action Name'
+            label: 'Status'
       - name: sales_amount_after_vouchers
         meta:
           dimension:
