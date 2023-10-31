@@ -36,12 +36,12 @@ models:
               label: 'Total Orders'
               descriptions: 'A count of the number of orders'
               type: count_distinct
-              sql: 'if(${transaction_type} <> "Registration", {order_id}, null)'
+              sql: 'if(${transaction_type} <> "Registration", ${order_id}, null)'
             registrations_only_count_metric:
               label: 'Total Registrations'
               descriptions: 'A count of the number of Registrations'
               type: count_distinct
-              sql: 'if(${transaction_type} = "Registration", {order_id}, null)'
+              sql: 'if(${transaction_type} = "Registration", ${order_id}, null)'
       - name: posting_date
         meta:
           dimension:
