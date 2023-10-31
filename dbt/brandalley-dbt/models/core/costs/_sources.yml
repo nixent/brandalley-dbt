@@ -4,5 +4,4 @@ sources:
   - name: analytics
     database: datawarehouse-358408
     tables:
-      - name: marketing_spend_gsheet
       - name: margin_adjustments_gsheet
