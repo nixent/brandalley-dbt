@@ -1164,3 +1164,150 @@ models:
       - name: __deleted
         data_type: <string>
         description: "deleted"
+
+  - name: stg__boxstockchecklogvia
+    description: ""
+    meta:
+      group_label: "Reactor Stg tables"
+    columns:
+      - name: code
+        data_type: <string>
+        description: "primary key"
+      - name: name
+        data_type: <string>
+        description: "name"
+      - name: add_action_text
+        data_type: <string>
+        description: "add_action_text"
+      - name: remove_action_text
+        data_type: <string>
+        description: "remove_action_text"
+      - name: _streamkap_source_ts_ms
+        data_type: <timestamp>
+        description: "_streamkap_source_ts_ms"
+      - name: __deleted
+        data_type: <string>
+        description: "deleted"
+
+  - name: returns
+    description: ""
+    meta:
+      group_label: "Reactor Stg tables"
+    columns:
+      - name: id
+        data_type: <integer>
+        description: "primary key"
+      - name: customerid
+        data_type: <integer>
+        description: "customer id"
+      - name: orderid
+        data_type: <integer>
+        description: "orderid"
+      - name: quantity
+        data_type: <integer>
+        description: "quantity"
+      - name: reason
+        data_type: <string>
+        description: "reason"
+      - name: explanation
+        data_type: <string>
+        description: "explanation"
+      - name: timestamp
+        data_type: <integer>
+        description: "timestamp"
+      - name: completed
+        data_type: <string>
+        description: "completed"
+      - name: received
+        data_type: <integer>
+        description: "received"
+      - name: resaleable_qty
+        data_type: <integer>
+        description: "resaleable qty"
+      - name: damaged_qty
+        data_type: <integer>
+        description: "damaged qty"
+      - name: courier_code
+        data_type: <string>
+        description: "courier code"
+      - name: courier_service
+        data_type: <string>
+        description: "courier service"
+      - name: courier_tracking
+        data_type: <string>
+        description: "courier tracking"
+      - name: zigzag_order_action
+        data_type: <integer>
+        description: "zigzag_order_action"
+      - name: zigzag_cancellation_reason
+        data_type: <integer>
+        description: "zigzag_cancellation_reason"
+      - name: zigzag_return_reason
+        data_type: <string>
+        description: "zigzag_return_reason"
+      - name: zigzag_return_option
+        data_type: <integer>
+        description: "zigzag_return_option"
+      - name: zigzag_return_charge
+        data_type: <bignumeric>
+        description: "zigzag_return_charge"
+      - name: _streamkap_source_ts_ms
+        data_type: <timestamp>
+        description: "_streamkap_source_ts_ms"
+      - name: __deleted
+        data_type: <string>
+        description: "deleted"
+
+  - name: stg__product
+    description: ""
+    meta:
+      group_label: "Reactor Stg tables"
+    columns:
+      - name: productid
+        data_type: <integer>
+        description: "primary key"
+      - name: productname
+        data_type: <string>
+        description: "productname"
+      - name: brandid
+        data_type: <integer>
+        description: "brandid"
+      - name: weight
+        data_type: <integer>
+        description: "weight"
+      - name: commodity_code
+        data_type: <string>
+        description: "commodity code"
+      - name: _streamkap_source_ts_ms
+        data_type: <timestamp>
+        description: "_streamkap_source_ts_ms"
+      - name: __deleted
+        data_type: <string>
+        description: "deleted"
+
+  - name: stg__paas_returns
+    description: ""
+    meta:
+      group_label: "Reactor Stg tables"
+    columns:
+      - name: id
+        data_type: <integer>
+        description: "primary key"
+      - name: return_id
+        data_type: <integer>
+        description: "return_id"
+      - name: ext_return_id
+        data_type: <string>
+        description: "ext_return_id"
+      - name: warehouse_reference
+        data_type: <string>
+        description: "warehouse_reference"
+      - name: tracking_number
+        data_type: <string>
+        description: "tracking_number"
+      - name: _streamkap_source_ts_ms
+        data_type: <timestamp>
+        description: "_streamkap_source_ts_ms"
+      - name: __deleted
+        data_type: <string>
+        description: "deleted"
