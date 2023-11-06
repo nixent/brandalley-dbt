@@ -1189,7 +1189,7 @@ models:
         data_type: <string>
         description: "deleted"
 
-  - name: returns
+  - name: stg__returns
     description: ""
     meta:
       group_label: "Reactor Stg tables"
