@@ -131,7 +131,7 @@ select
     ols.sales_amount,
     ols.shipped_sales_amount,
     ols.total_discount_amount,
-    ols.margin,
+    ols.margin + if(ols.ba_site = 'FR', coalesce(ma.fr_amount,0) , coalesce(ma.uk_amount, 0)) as margin,
     round(ols.gmv/os.total_order_count,2)                as aov_gmv,
     round(ols.sales_amount/os.total_order_count,2)       as aov_sales,
     round(ols.qty_ordered/os.total_order_count,2)        as avg_items_per_order,
@@ -151,3 +151,5 @@ left join customer_stats cs2
     on os.order_created_at_day = cs2.customer_created_at_day and os.ba_site = cs2.ba_site
 left join cs_stats css
     on os.order_created_at_day = css.cs_tickets_day and os.ba_site = 'UK'
+left join {{ ref('stg__margin_adjustments') }} ma
+    on os.order_created_at_day = ma.date and os.ba_site = 'UK'

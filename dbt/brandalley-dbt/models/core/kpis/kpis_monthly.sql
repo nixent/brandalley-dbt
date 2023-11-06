@@ -88,6 +88,15 @@ cs_stats as (
         sum(phone_ticket)              as phone_tickets
     from {{ref('tickets_daily') }}
     group by 1
+),
+
+margin_adjustments as (
+    select 
+        date_trunc(date, month) as margin_month,
+        sum(uk_amount)       as uk_adjustment,
+        sum(fr_amount)       as fr_adjustment
+    from {{ ref('stg__margin_adjustments') }}
+    group by 1
 )
 
 select
@@ -108,7 +117,7 @@ select
     ols.sales_amount,
     ols.shipped_sales_amount,
     ols.total_discount_amount,
-    ols.margin,
+    ols.margin + if(ols.ba_site = 'FR', coalesce(ma.fr_adjustment,0) , coalesce(ma.uk_adjustment, 0)) as margin,
     round(ols.gmv/os.total_order_count,2)                as aov_gmv,
     round(ols.sales_amount/os.total_order_count,2)       as aov_sales,
     round(ols.qty_ordered/os.total_order_count,2)        as avg_items_per_order,
@@ -128,3 +137,5 @@ left join customer_stats cs2
     on os.order_created_at_month = cs2.customer_created_at_month and os.ba_site = cs2.ba_site
 left join cs_stats css
     on os.order_created_at_month = css.cs_tickets_month and os.ba_site = 'UK'
+left join margin_adjustments ma
+    on os.order_created_at_month = ma.margin_month and os.ba_site = 'UK'
