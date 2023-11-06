@@ -939,6 +939,9 @@ models:
       - name: quantity
         data_type: <integer>
         description: "quantity"
+      - name: dispatched
+        data_type: <integer>
+        description: "dispatched"
       - name: leftwarehouse_timestamp
         data_type: <timestamp>
         description: "leftwarehouse_timestamp"

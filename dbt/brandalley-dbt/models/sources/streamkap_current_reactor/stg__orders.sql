@@ -11,6 +11,7 @@ select
     stockid,
     productid,
     quantity,
+    dispatched,
     TIMESTAMP_MILLIS(leftwarehouse_timestamp) as leftwarehouse_timestamp,
     price,
     price_adjust,

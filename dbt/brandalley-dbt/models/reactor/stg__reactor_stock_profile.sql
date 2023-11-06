@@ -86,8 +86,7 @@ left join
 left join {{ ref("stg__stocklist") }} sl on o.stockid = sl.id
 where
     o.completed_timestamp is not null
-    and datetime_add('1970-01-01', interval o.leftwarehouse_timestamp second)
-    < '2000-01-01'
+    and o.leftwarehouse_timestamp < '2000-01-01'
     and obi.id is null
 group by o.stockid, sl.legacy_id
 
