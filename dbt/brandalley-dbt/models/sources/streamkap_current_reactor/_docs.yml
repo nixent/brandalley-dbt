@@ -993,6 +993,9 @@ models:
       - name: priority
         data_type: <string>
         description: "priority"
+      - name: carrier_service_identifier
+        data_type: <string>
+        description: "carrier_service_identifier"
       - name: _streamkap_source_ts_ms
         data_type: <timestamp>
         description: "_streamkap_source_ts_ms"

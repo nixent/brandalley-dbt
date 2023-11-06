@@ -29,6 +29,7 @@ select
     updated_at,
     date_add('1970-01-01', interval ship_by day) as ship_by,
     priority,
+    carrier_service_identifier,
     _streamkap_source_ts_ms,
     _streamkap_ts_ms,
     cast(__deleted as boolean) as __deleted,
