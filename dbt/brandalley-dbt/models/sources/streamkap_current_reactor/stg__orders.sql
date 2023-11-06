@@ -19,6 +19,7 @@ select
     TIMESTAMP_MILLIS(ordered_timestamp) as ordered_timestamp,
     TIMESTAMP_MILLIS(completed_timestamp) as completed_timestamp,
     dispatch_warehouseid,
+    referenceid,
     ext_order_id,
     vat,
     exchange_rate,

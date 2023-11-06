@@ -874,6 +874,9 @@ sources:
           - name: dispatch_warehouseid
             data_type: <integer>
             description: "dispatch warehouse id"
+          - name: referenceid
+            data_type: <integer>
+            description: "referenceid"
           - name: ext_order_id
             data_type: <string>
             description: "external order id"
