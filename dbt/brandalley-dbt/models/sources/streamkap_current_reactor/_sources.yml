@@ -923,6 +923,9 @@ sources:
           - name: __deleted
             data_type: <string>
             description: "deleted"
+          - name: _streamkap_ts_ms
+            data_type: <integer>
+            description: "_streamkap_ts_ms"
 
       - name: orderboxindex
         description: ""
