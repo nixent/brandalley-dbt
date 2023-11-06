@@ -936,11 +936,11 @@ models:
       - name: productid
         data_type: <integer>
         description: "productid"
-      - name: qunatity
+      - name: quantity
         data_type: <integer>
         description: "quantity"
       - name: leftwarehouse_timestamp
-        data_type: <integer>
+        data_type: <timestamp>
         description: "leftwarehouse_timestamp"
       - name: price
         data_type: <string>
@@ -949,10 +949,10 @@ models:
         data_type: <string>
         description: "price_adjust"
       - name: ordered_timestamp
-        data_type: <integer>
+        data_type: <timestamp>
         description: "ordered_timestamp"
       - name: completed_timestamp
-        data_type: <integer>
+        data_type: <timestamp>
         description: "completed_timestamp"
       - name: dispatch_warehouseid
         data_type: <integer>
@@ -963,7 +963,7 @@ models:
       - name: vat
         data_type: <bignumeric>
         description: "vat"
-      - name: exhange_rate
+      - name: exchange_rate
         data_type: <bignumeric>
         description: "exchange rate"
       - name: currency
@@ -979,7 +979,7 @@ models:
         data_type: <timestamp>
         description: "updated at"
       - name: ship_by
-        data_type: <integer>
+        data_type: <date>
         description: "ship by"
       - name: priority
         data_type: <string>
