@@ -853,6 +853,9 @@ sources:
           - name: dispatched
             data_type: <integer>
             description: "dispatched"
+          - name: status
+            data_type: <string>
+            description: "status"
           - name: leftwarehouse_timestamp
             data_type: <integer>
             description: "leftwarehouse_timestamp"

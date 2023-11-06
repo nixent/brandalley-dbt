@@ -12,6 +12,7 @@ select
     productid,
     quantity,
     dispatched,
+    status,
     TIMESTAMP_MILLIS(leftwarehouse_timestamp) as leftwarehouse_timestamp,
     price,
     price_adjust,
