@@ -89,3 +89,160 @@ models:
         meta:
           dimension:
             label: 'Exit Details'
+
+  - name: delivery_consignment
+    description: ""
+    columns:
+      - name: customerid
+        meta:
+          dimension:
+            label: 'Customer ID'
+      - name: ext_order_id
+        meta:
+          dimension:
+            label: 'Magento Order ID'
+      - name: reactor_pid
+        meta:
+          dimension:
+            label: 'Reactor PID'
+      - name: productname
+        meta:
+          dimension:
+            label: 'Product Name'
+      - name: units_qty
+        meta:
+          dimension:
+            label: 'Unit Qty'
+          metrics:
+            units_dispatched_sum:
+              label: 'Units Dispatched'
+              type: sum
+              description: 'Number of Items Dispatched'
+              sql: "if(${status} = 'Shipped', ${units_qty}, 0)"
+              round: 0
+            express_units_dispatched_sum:
+              label: 'Express Units Dispatched'
+              type: sum
+              description: 'Number of Express Items Dispatched'
+              sql: "if(${status} = 'Shipped' and ${service_level} = 'Express', ${units_qty}, 0)"
+              round: 0
+      - name: delivery_consignment_id
+        meta:
+          dimension:
+            label: 'Delivery Consignment ID'
+          metrics:
+            shipments_dispatched_sum:
+              label: 'Shipments Dispatched'
+              type: count_distinct
+              description: 'Number of Shipments Dispatched'
+              sql: "if(${status} = 'Shipped', ${delivery_consignment_id}, null)"
+              round: 0
+            express_shipments_dispatched_sum:
+              label: 'Express Shipments Dispatched'
+              type: count_distinct
+              description: 'Number of Express Shipments Dispatched'
+              sql: "if(${status} = 'Shipped' and ${service_level} = 'Express', ${delivery_consignment_id}, null)"
+              round: 0
+            express_shipments_pct:
+              label: '% Shipments Express'
+              type: number
+              format: 'percent'
+              description: '% of Shipments which are Express'
+              sql: "safe_divide(${express_shipments_dispatched_sum}/$shipments_dispatched_sum})"
+              round: 0
+            average_units_per_shipment:
+              label: 'Shipments Dispatched'
+              type: number
+              description: 'Number of Shipments Dispatched'
+              sql: "safe_divide(${units_dispatched_sum}/${shipments_dispatched_sum})"
+              round: 2
+      - name: delivery_type
+        meta:
+          dimension:
+            label: 'Delivery Type'
+      - name: created_at
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Created At'
+      - name: left_warehouse_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Left Warehouse Date'
+      - name: ship_by
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Ship By'
+      - name: charge
+        meta:
+          dimension:
+            label: 'Delivery Charge'
+      - name: package_id
+        meta:
+          dimension:
+            label: 'Package ID'
+      - name: weight
+        meta:
+          dimension:
+            label: 'Weight'
+      - name: length
+        meta:
+          dimension:
+            label: 'Length'
+      - name: width
+        meta:
+          dimension:
+            label: 'Width'
+      - name: height
+        meta:
+          dimension:
+            label: 'Height'
+      - name: dispatch_time_hours
+        meta:
+          dimension:
+            label: 'Dispatch Time Hours'
+      - name: dispatch_time_days
+        meta:
+          dimension:
+            label: 'Dispatch Time Days'
+      - name: status
+        meta:
+          dimension:
+            label: 'Status'
+      - name: shipped_on_time
+        meta:
+          dimension:
+            label: 'Shipped on Time'
+      - name: undispatched_days_old
+        meta:
+          dimension:
+            label: 'Undispatched Days Old'
+      - name: late_unshipped_flag
+        meta:
+          dimension:
+            label: 'Unshipped and Late'
+      - name: service_level
+        meta:
+          dimension:
+            label: 'Service Level'
+      - name: ship_to_postcode
+        meta:
+          dimension:
+            label: 'Delivery Postcode'
+      - name: package_code
+        meta:
+          dimension:
+            label: 'Package Code'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'

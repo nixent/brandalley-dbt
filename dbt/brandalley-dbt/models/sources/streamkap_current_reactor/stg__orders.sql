@@ -13,7 +13,7 @@ select
     quantity,
     dispatched,
     status,
-    TIMESTAMP_MILLIS(leftwarehouse_timestamp) as leftwarehouse_timestamp,
+    TIMESTAMP_SECONDS(leftwarehouse_timestamp) as leftwarehouse_timestamp,
     price,
     price_adjust,
     TIMESTAMP_MILLIS(ordered_timestamp) as ordered_timestamp,
