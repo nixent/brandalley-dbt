@@ -2,11 +2,12 @@
     materialized='incremental',
     unique_key='unique_key',
     cluster_by='unique_key',
-	partition_by = {
-      "field": "event_at",
-      "data_type": "timestamp",
-      "granularity": "day"
-    }
+    partition_by = {
+        "field": "event_at",
+        "data_type": "timestamp",
+        "granularity": "day"
+      },
+      enabled=false
 )}}
 
 select
