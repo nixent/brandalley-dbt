@@ -5,7 +5,8 @@
       "data_type": "timestamp",
       "granularity": "day"
     },
-    pre_hook='delete from {{this}} where date(partitiontime) >= current_date - 1'
+    pre_hook='delete from {{this}} where date(partitiontime) >= current_date - 1',
+    tags=["job_daily"]
 )}}
 
 select
