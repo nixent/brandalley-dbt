@@ -217,7 +217,7 @@ where 1=1
 )
 
 select 
-	* except(dt_cr),
+	ce.* except(dt_cr),
 	coalesce(safe_cast(date(crds.date) as datetime), safe_cast(date(ce.achica_migration_date) as datetime), safe_cast(date(ce.cocosa_signup_at) as datetime), datetime(if(ce.ba_site = 'FR',timestamp(ce.dt_cr, "Europe/Paris"),timestamp(ce.dt_cr, "Europe/London")))) 	   as dt_cr
 from customers ce
 left join {{ ref('customers_record_data_source') }} crds 
