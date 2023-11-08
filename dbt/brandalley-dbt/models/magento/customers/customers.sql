@@ -44,8 +44,13 @@ with customers_updated as (
 		customer_id, ba_site, bq_last_processed_at
 	from {{ ref('stg__newsletter_subscriber') }} 
 	where bq_last_processed_at > ( select max(subscriber_bq_last_processed_at) from {{this}} )
-)
+),
+
+customers as
+{% else %}
+with customers as
 {% endif %}
+(
 
 select
 	ce.ba_site || '-' || ce.entity_id 								   as ba_site_customer_id,
@@ -209,3 +214,11 @@ where 1=1
 	and ce.entity_id || '-' || ce.ba_site in (select customer_id || '-' || ba_site from customers_updated)
 	and ce.bq_last_processed_at >= (select min(bq_last_processed_at) from customers_updated)
 {% endif %}
+)
+
+select 
+	* except(dt_cr),
+	coalesce(safe_cast(date(crds.date) as datetime), safe_cast(date(ce.achica_migration_date) as datetime), safe_cast(date(ce.cocosa_signup_at) as datetime), datetime(if(ce.ba_site = 'FR',timestamp(ce.dt_cr, "Europe/Paris"),timestamp(ce.dt_cr, "Europe/London")))) 	   as dt_cr
+from customers ce
+left join {{ ref('customers_record_data_source') }} crds 
+        on ce.cst_id = crds.cst_id and ce.ba_site = crds.ba_site
