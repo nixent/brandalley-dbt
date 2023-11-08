@@ -122,6 +122,11 @@ models:
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: packages
         description: "Number of packages, nullable"
+      - name: is_wh_shipment
+        description: 'Whether the shipment came from the warehouse'
+        meta:
+          dimension:
+            type: boolean
 
   - name: shipping
     description: ""
