@@ -46,10 +46,68 @@ models:
     description: ""
     columns:
       - name: po_id
+        meta:
+          dimension:
+            label: 'PO ID'
+          metrics:
+            goods_in_pos:
+              label: 'Goods In POs'
+              type: count_distinct
+              description: 'Number of POs Checked in'
+              round: 0
       - name: sku
+        meta:
+          dimension:
+            label: 'Magento SKU'
       - name: date_arrived
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Arrived Date'
       - name: qty_arrived
+        meta:
+          dimension:
+            label: 'Qty Arrived'
+          metrics:
+            goods_in_qty_sum:
+              label: 'Goods In Qty'
+              type: sum
+              description: 'Number of Units Checked in'
+              round: 0
+            x_dock_goods_in_qty_sum:
+              label: 'X Dock Goods In Qty'
+              type: sum
+              description: 'Number of X Dock units checked in'
+              sql: "if(${stock_type} = 'X Dock', ${qty_arrived}, 0)"
+              round: 0
+            pct_of_goods_in_x_dock:
+              label: '% X Dock Goods In'
+              type: number
+              format: 'percent'
+              description: 'Percent of units checked in which are x dock'
+              sql: "safe_divide(${x_dock_goods_in_qty_sum},${goods_in_qty_sum})"
+              round: 2
       - name: src
+        meta:
+          dimension:
+            label: 'Data Source'
+      - name: warehouse
+        meta:
+          dimension:
+            label: 'Warehouse'
+      - name: supplier
+        meta:
+          dimension:
+            label: 'Supplier'
+      - name: company
+        meta:
+          dimension:
+            label: 'Company'
+      - name: stock_type
+        meta:
+          dimension:
+            label: 'Stock Type'
 
   - name: stock_exited
     description: ""
@@ -148,13 +206,13 @@ models:
               type: number
               format: 'percent'
               description: '% of Shipments which are Express'
-              sql: "safe_divide(${express_shipments_dispatched_sum}/$shipments_dispatched_sum})"
+              sql: "safe_divide(${express_shipments_dispatched_sum},$shipments_dispatched_sum})"
               round: 0
             average_units_per_shipment:
               label: 'Shipments Dispatched'
               type: number
               description: 'Number of Shipments Dispatched'
-              sql: "safe_divide(${units_dispatched_sum}/${shipments_dispatched_sum})"
+              sql: "safe_divide(${units_dispatched_sum},${shipments_dispatched_sum})"
               round: 2
       - name: delivery_type
         meta:
@@ -206,6 +264,13 @@ models:
         meta:
           dimension:
             label: 'Dispatch Time Hours'
+          metrics:
+            average_dispatch_time:
+              label: 'Average Dispatch Time'
+              type: average
+              description: 'The average time it takes to dispatch an order'
+              sql: "if(${status} = 'Shipped', ${dispatch_time_hours}, null)"
+              round: 2
       - name: dispatch_time_days
         meta:
           dimension:
@@ -222,6 +287,13 @@ models:
         meta:
           dimension:
             label: 'Undispatched Days Old'
+          metrics:
+            average_undispatched_days:
+              label: 'Average Undispatched Days'
+              type: average
+              description: 'The average days that current undispatched items have been waiting for'
+              sql: "if(${status} = 'Unshipped', ${undispatched_days_old}, null)"
+              round: 2
       - name: late_unshipped_flag
         meta:
           dimension:
@@ -246,3 +318,184 @@ models:
         meta:
           dimension:
             label: 'Unit Cost'
+
+  - name: return_rans
+    description: ""
+    columns:
+      - name: customerid
+        meta:
+          dimension:
+            label: 'Customer ID'
+          metrics:
+            returns_processed:
+              label: 'Returns Processed'
+              type: count_distinct
+              description: 'Number of Returns we have processed'
+              sql: "if(${completed} = 'Returned', ${customerid}, null)"
+              round: 0
+            returns_outstanding:
+              label: 'Returns Outstanding'
+              type: count_distinct
+              description: 'Number of Returns that are outstanding'
+              sql: "if(${completed} = 'Outstanding', ${customerid}, null)"
+              round: 0
+      - name: quantity
+        meta:
+          dimension:
+            label: 'Quantity'
+          metrics:
+            returned_units_sum:
+              label: 'Returns Units Processed'
+              type: sum
+              description: 'Number of Units Returned'
+              sql: "if(${completed} = 'Returned', ${quantity}, 0)"
+              round: 0
+            outstanding_units_sum:
+              label: 'Outstanding Units'
+              type: sum
+              description: 'Number of Units Outstanding'
+              sql: "if(${completed} = 'Outstanding', ${quantity}, 0)"
+              round: 0
+            units_per_return:
+              label: 'Units Per Return'
+              type: number
+              format: 'percent'
+              description: 'Average number of units in a return'
+              sql: "safe_divide(${returned_units_sum},${returns_processed})"
+              round: 2
+      - name: completed
+        meta:
+          dimension:
+            label: 'Completed'
+      - name: received_at_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Received at Date'
+      - name: resaleable_qty
+        meta:
+          dimension:
+            label: 'Resaleable Qty'
+          metrics:
+            resaleable_units_sum:
+              label: 'Resaleable Units Processed'
+              type: sum
+              description: 'Number of Resaleable Units Returned'
+              sql: "if(${completed} = 'Returned', ${resaleable_qty}, 0)"
+              round: 0
+      - name: damaged_qty
+        meta:
+          dimension:
+            label: 'Damaged Qty'
+          metrics:
+            damaged_units_sum:
+              label: 'Damaged Units Processed'
+              type: sum
+              description: 'Number of Damaged Units Returned'
+              sql: "if(${completed} = 'Returned', ${damaged_qty}, 0)"
+              round: 0
+      - name: created_at_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'RAN Created Date'
+      - name: order_posting_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Ordered At Date'
+      - name: return_reason
+        meta:
+          dimension:
+            label: 'Return Reason'
+      - name: ext_order_id
+        meta:
+          dimension:
+            label: 'Order ID'
+      - name: reactor_sku
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: product_name
+        meta:
+          dimension:
+            label: 'Product Name'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+      - name: tracking_number
+        meta:
+          dimension:
+            label: 'Tracking Number'
+
+  - name: purchase_orders
+    description: ""
+    columns:
+      - name: po_number
+        meta:
+          dimension:
+            label: 'PO Number'
+      - name: reactor_sku
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: productname
+        meta:
+          dimension:
+            label: 'Product Name'
+      - name: created_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Created Date'
+      - name: arrived_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Arrived Date'
+      - name: status
+        meta:
+          dimension:
+            label: 'Status'
+      - name: qty_ordered
+        meta:
+          dimension:
+            label: 'Qty Ordered'
+      - name: qty_received
+        meta:
+          dimension:
+            label: 'Qty Received'
+      - name: qty_outstanding
+        meta:
+          dimension:
+            label: 'Qty Outstanding'      
+      - name: supplier
+        meta:
+          dimension:
+            label: 'Supplier'
+      - name: stock_type
+        meta:
+          dimension:
+            label: 'Stock Type'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+      - name: whistl_stock_type
+        meta:
+          dimension:
+            label: 'Whistl Stock Type'

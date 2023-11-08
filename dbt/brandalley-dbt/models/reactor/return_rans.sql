@@ -3,13 +3,7 @@
 select
     a.customerid,
     a.quantity,
-    case
-        when a.completed = 'Y'
-        then 'Returned'
-        when a.completed = 'N'
-        then 'Not returned'
-        else 'Outstanding'
-    end as completed,
+    case when a.completed is null then 'Outstanding' else 'Returned' end as completed,
     cast(timestamp_seconds(a.received) as date) as received_at_date,
     a.resaleable_qty,
     a.damaged_qty,

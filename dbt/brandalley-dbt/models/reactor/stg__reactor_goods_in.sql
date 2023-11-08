@@ -85,8 +85,7 @@ with
             and poi.sku = kgic.magento_sku
         where kgic.purchase_id is null
         group by 1, 2, 3, 5
-    ),
-final as (
+    )
 select
     cast(
         substring(
@@ -118,5 +117,4 @@ select
     null,
     null
 from pre_kettering
-)
-select count(*) from final
+
