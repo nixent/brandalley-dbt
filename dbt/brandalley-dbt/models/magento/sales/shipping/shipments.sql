@@ -17,4 +17,4 @@ select
     if(pdos.warehouse_id is not null, true, false) as is_wh_shipment
 from {{ ref('stg__sales_flat_shipment') }} sfs
 left join {{ ref('stg_uk__prism_dispatch_order_shipments') }} pdos
-on sfs.entity_id = pdos.magento_shipment_id and sfs.ba_site = 'UK'
+on sfs.increment_id = cast(pdos.magento_shipment_id as string) and sfs.ba_site = 'UK'
