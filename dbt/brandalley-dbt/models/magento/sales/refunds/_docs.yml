@@ -193,6 +193,14 @@ models:
         description: "Base price incl tax, nullable"
       - name: qty
         description: "Quantity, nullable"
+        meta:
+          metrics:
+            warehouse_cancels:
+              label: 'Warehouse Cancelled Units'
+              type: sum
+              description: 'Number of Units Cancelled in Warehouse'
+              sql: "if(${refund_reason} = 'Out of stock', ${qty}, 0)"
+              round: 0
       - name: base_cost
         description: "Base cost, nullable"
       - name: price
