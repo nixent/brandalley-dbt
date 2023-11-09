@@ -659,7 +659,7 @@ models:
         meta:
           dimension:
             label: 'Qty'
-            sql: 'if(min(${logged_date}) over (order by ${logged_date}) = ${logged_date} or max(${logged_date}) over (order by ${logged_date} desc) = ${logged_date}, ${on_hand}, null})'
+            sql: "if(min(box_stock_locations.logged_date) over (order by box_stock_locations.logged_date) = box_stock_locations.logged_date or max(box_stock_locations.logged_date) over (order by box_stock_locations.logged_date desc) = box_stock_locations.logged_date, box_stock_locations.on_hand, null})"
           metrics:
             qty_sum:
               label: 'Total Qty'
