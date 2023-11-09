@@ -499,3 +499,120 @@ models:
         meta:
           dimension:
             label: 'Whistl Stock Type'
+
+  - name: box_names
+    description: ""
+    columns:
+      - name: box_id
+        tests:
+          - unique
+          - not_null
+        meta:
+          dimension:
+            label: 'Box ID'
+      - name: aislenumber
+        meta:
+          dimension:
+            label: 'Aisle Number'
+      - name: racknumber
+        meta:
+          dimension:
+            label: 'Rack Number'
+      - name: zone_
+        meta:
+          dimension:
+            label: 'Zone'
+      - name: box_name
+        meta:
+          dimension:
+            label: 'Box Name'
+      - name: last_checked
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Last Checked'
+      - name: last_stock_check_month
+        meta:
+          dimension:
+            label: 'Stock Last Checked Month'
+
+  - name: stocklist_product_info
+    description: ""
+    columns:
+      - name: reactor_sku
+        tests:
+          - unique
+          - not_null
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: barcode
+        meta:
+          dimension:
+            label: 'Barcode'
+      - name: productid
+        meta:
+          dimension:
+            label: 'Product ID'
+      - name: productname
+        meta:
+          dimension:
+            label: 'Product Name'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+
+  - name: box_stock_logs
+    description: ""
+    meta:
+      label: 'Box Stock Logs'
+      joins:
+        - join: box_names
+          sql_on: ${box_stock_logs.boxid} = ${box_names.box_id}
+        - join: stocklist_product_info
+          sql_on: ${box_stock_logs.reactor_sku} = ${stocklist_product_info.reactor_sku}
+    columns:
+      - name: boxid
+        meta:
+          dimension:
+            label: 'Box ID'
+      - name: reactor_sku
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: previous_qty
+        meta:
+          dimension:
+            label: 'Qty Before Log'
+      - name: logged_at
+        meta:
+          dimension:
+            type: timestamp
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Logged At'
+      - name: scanned_qty
+        meta:
+          dimension:
+            label: 'Qty After Log'
+      - name: difference_qty
+        meta:
+          dimension:
+            label: 'Qty Scanned'
+      - name: name
+        meta:
+          dimension:
+            label: 'Log Name'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+      - name: difference_value
+        meta:
+          dimension:
+            label: 'Value Scanned'
