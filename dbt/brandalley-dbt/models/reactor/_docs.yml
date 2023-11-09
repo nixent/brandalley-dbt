@@ -643,7 +643,6 @@ models:
             type: date
             time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             label: 'Logged Date'
-            sql: 'if(min(${logged_date}) over (order by ${logged_date}) = ${logged_date} or max(${logged_date}) over (order by ${logged_date} desc) = ${logged_date}, ${logged_date}, null})' ## Hopefully this works if I filter on the report where logged_date is not null?
       - name: sku
         meta:
           dimension:
@@ -660,6 +659,7 @@ models:
         meta:
           dimension:
             label: 'Qty'
+            sql: 'if(min(${logged_date}) over (order by ${logged_date}) = ${logged_date} or max(${logged_date}) over (order by ${logged_date} desc) = ${logged_date}, ${on_hand}, null})'
           metrics:
             qty_sum:
               label: 'Total Qty'
