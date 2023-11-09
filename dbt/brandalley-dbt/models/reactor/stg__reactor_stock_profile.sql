@@ -120,7 +120,7 @@ where abz.name <> 'z Bulk Zone GI Bay'
 select
 	rsp.logged_date,
 	rsp.sku,
-	rsp.reactor_sku_id as reactor_sku_id,
+	max(rsp.reactor_sku_id) as reactor_sku_id,
 	sum(rsp.quantity) as on_hand,
 	sum(case when rsp.stock_type in ('allocated', 'pending dispatch')
 		then rsp.quantity
@@ -138,4 +138,4 @@ select
 		then rsp.quantity
 	    else 0 end) as unsellable_bad
 from raw_stock_profile as rsp
-group by 1,2,3
+group by 1,2
