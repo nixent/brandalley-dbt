@@ -604,6 +604,12 @@ models:
         meta:
           dimension:
             label: 'Qty Scanned'
+          metrics:
+            difference_qty_sum:
+              label: 'Sum Qty Scanned'
+              type: sum
+              description: 'The sum of the difference qty'
+              round: 0
       - name: name
         meta:
           dimension:
@@ -616,3 +622,64 @@ models:
         meta:
           dimension:
             label: 'Value Scanned'
+          metrics:
+            difference_value_sum:
+              label: 'Sum Value Scanned'
+              type: sum
+              description: 'The sum of the difference valu'
+              round: 0
+
+  - name: box_stock_locations
+    description: ""
+    meta:
+      label: 'Box Stock Locations'
+      joins:
+        - join: box_names
+          sql_on: ${box_stock_locations.box_id} = ${box_names.box_id}
+    columns:
+      - name: logged_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Logged Date'
+            sql: 'if(min(${logged_date}) over (order by ${logged_date}) = ${logged_date} or max(${logged_date}) over (order by ${logged_date} desc) = ${logged_date}, ${logged_date}, null})' ## Hopefully this works if I filter on the report where logged_date is not null?
+      - name: sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: reactor_sku_id
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: box_id
+        meta:
+          dimension:
+            label: 'Box ID'
+      - name: on_hand
+        meta:
+          dimension:
+            label: 'Qty'
+          metrics:
+            qty_sum:
+              label: 'Total Qty'
+              type: sum
+              description: 'Sum of total qty'
+      - name: allocated
+        meta:
+          dimension:
+            label: 'Qty Allocated'
+          metrics:
+            qty_allocated_sum:
+              label: 'Total Qty Allocated'
+              type: sum
+              description: 'Sum of total allocated qty'
+      - name: available
+        meta:
+          dimension:
+            label: 'Qty Available'
+          metrics:
+            qty_available_sum:
+              label: 'Total Qty Available'
+              type: sum
+              description: 'Sum of total available qty'
