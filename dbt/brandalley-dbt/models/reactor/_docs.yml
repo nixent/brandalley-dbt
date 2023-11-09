@@ -659,12 +659,21 @@ models:
         meta:
           dimension:
             label: 'Qty'
-            sql: "if(min(box_stock_locations.logged_date) over (order by box_stock_locations.logged_date) = box_stock_locations.logged_date or max(box_stock_locations.logged_date) over (order by box_stock_locations.logged_date desc) = box_stock_locations.logged_date, box_stock_locations.on_hand, null)"
           metrics:
             qty_sum:
               label: 'Total Qty'
               type: sum
               description: 'Sum of total qty'
+            qty_latest_date:
+              label: 'Total Qty at Latest Date'
+              type: sum
+              description: 'Sum of total qty at latest selected date'
+              sql: "if(max(box_stock_locations.logged_date) over (order by box_stock_locations.logged_date desc) = box_stock_locations.logged_date, box_stock_locations.on_hand, null)"
+            qty_earliest_date:
+              label: 'Total Qty at Earliest Date'
+              type: sum
+              description: 'Sum of total qty at earliest selected date'
+              sql: "if(min(box_stock_locations.logged_date) over (order by box_stock_locations.logged_date) = box_stock_locations.logged_date, box_stock_locations.on_hand, null)"
       - name: allocated
         meta:
           dimension:
