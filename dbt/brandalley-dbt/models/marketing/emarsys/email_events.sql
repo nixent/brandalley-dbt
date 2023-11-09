@@ -5,8 +5,8 @@
       "data_type": "timestamp",
       "granularity": "day"
     },
-    pre_hook='delete from {{this}} where date(partitiontime) >= current_date - 1',
-    tags=["job_daily"]
+    pre_hook='{% if is_incremental() %}delete from {{this}} where date(partitiontime) >= current_date - 1{% endif %}',
+    tags=["emarsys_eu"]
 )}}
 
 select
