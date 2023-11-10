@@ -5,7 +5,8 @@
 
 with unioned as (
     {{ dbt_utils.union_relations(
-        relations=[source('zendesk_uk_5x', 'ticket_tag_history'), source('zendesk_fr_5x', 'ticket_tag_history')]
+        relations=[source('zendesk_uk_5x', 'ticket_tag_history'), source('zendesk_fr_5x', 'ticket_tag_history')],
+        exclude=["via_source_to_email_ccs"]
     ) }}
 ),
 
