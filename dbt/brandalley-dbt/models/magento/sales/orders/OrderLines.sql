@@ -62,7 +62,7 @@ with order_lines as (
 		sfoi_sim.qty_invoiced,
 		sfoi_con.qty_refunded,
 		sfoi_con.qty_shipped,
-        sfoi_sim.qty_ordered-sfoi_con.qty_canceled-sfoi_con.qty_refunded-sfoi_con.qty_shipped                                                               as qty_to_ship,
+        sfoi_sim.qty_invoiced-sfoi_con.qty_canceled-sfoi_con.qty_refunded-sfoi_con.qty_shipped                                                              as qty_to_ship,
 		if(sfoi_sim.qty_backordered is null or cpn.type=30, 0, sfoi_sim.qty_backordered) 																	as consignment_qty,
 		if(sfoi_sim.qty_backordered is null or cpn.type!=30, 0, sfoi_sim.qty_backordered) 																	as selffulfill_qty,
 		if(sfoi_sim.qty_backordered is null, sfoi_sim.qty_invoiced, sfoi_sim.qty_invoiced - sfoi_sim.qty_backordered) 										as warehouse_qty,
@@ -390,7 +390,8 @@ with order_lines as (
 )
 
 select 
-	ol.*,
+	ol.* except(qty_to_ship),
+	if(qty_to_ship < 0, 0, qty_to_ship) 																											as qty_to_ship,
 	ol.total_local_currency_ex_tax_after_vouchers - ol.line_product_cost_exc_vat 																	as margin,
 	initcap(split(ol.category_path, '>')[safe_offset(0)]) 																							as product_category_level_1, 
 	initcap(split(ol.category_path, '>')[safe_offset(1)]) 																							as product_category_level_2,
