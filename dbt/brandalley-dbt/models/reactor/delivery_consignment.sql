@@ -20,7 +20,7 @@ SELECT b.customerid,
 	   case when date(leftwarehouse_timestamp)<>'1970-01-01' then datetime_diff(e.leftwarehouse_timestamp, b.created, hour) else null end as dispatch_time_hours,
 	   case when date(leftwarehouse_timestamp)<>'1970-01-01' and leftwarehouse_timestamp>b.created then datetime_diff(e.leftwarehouse_timestamp, b.created, day) 
 			when date(leftwarehouse_timestamp)<>'1970-01-01' and leftwarehouse_timestamp<b.created then 0 else null end as dispatch_time_days,
-	   case when date(leftwarehouse_timestamp)<>'1970-01-01' then 'shipped' else 'unshipped' end as status,
+	   case when date(leftwarehouse_timestamp)<>'1970-01-01' then 'Shipped' else 'Unshipped' end as status,
 	   case when date(leftwarehouse_timestamp)<cast(ship_by as date) then 'Early'
 			when date(leftwarehouse_timestamp)>cast(ship_by as date) then 'Late' else 'On Time' end as shipped_on_time,
 	   case when date(leftwarehouse_timestamp)<>'1970-01-01' then null else date_diff(current_date, date(b.created), day) end as undispatched_days_old,
