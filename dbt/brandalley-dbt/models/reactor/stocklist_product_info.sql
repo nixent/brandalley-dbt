@@ -1,4 +1,4 @@
-{{ config(materialized="table") }}
+{{ config(materialized="table"), tags=["job_daily"] }}
 
 
 select

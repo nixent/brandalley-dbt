@@ -1,4 +1,4 @@
-{{ config(materialized="table", tags=["reactor_stock_daily"]) }}
+{{ config(materialized="table", tags=["job_daily"]) }}
 
 with raw_stock_profile as (
 select

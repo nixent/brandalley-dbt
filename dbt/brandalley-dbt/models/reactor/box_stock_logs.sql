@@ -1,4 +1,4 @@
-{{ config(materialized="table") }}
+{{ config(materialized="table", tags=["job_daily"]) }}
 
 SELECT a.boxid,
        a.stockid as reactor_sku,

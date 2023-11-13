@@ -436,7 +436,7 @@ models:
           dimension:
             label: 'Tracking Number'
 
-  - name: purchase_orders
+  - name: reactor_purchase_orders
     description: ""
     columns:
       - name: po_number
