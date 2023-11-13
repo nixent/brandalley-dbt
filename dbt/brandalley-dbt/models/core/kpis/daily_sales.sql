@@ -15,7 +15,7 @@ with order_stats as (
         kd.total_new_ba_members,
         kd.gmv,
         kd.sales_amount,
-        kd.margin + if(kd.ba_site = 'FR', coalesce(ma.fr_amount,0) , coalesce(ma.uk_amount, 0)) as margin,
+        kd.margin,
         kd.qty_ordered,
         kd.shipping_amount as shipping_gmv,
         kd.total_refund_count
@@ -31,8 +31,6 @@ order_stats_yearly_average as (
         round(avg(kd.gmv),2) as gmv,
         round(avg(kd.total_refund_count),2) as total_refund_count
     from {{ ref('kpis_daily')}} kd
-    left join {{ ref('stg__margin_adjustments') }} ma
-        on kd.order_created_at_day = ma.date and kd.ba_site = 'UK'
     where kd.order_created_at_day > date_sub(current_date, interval 1 year)
     group by 1
 ),
