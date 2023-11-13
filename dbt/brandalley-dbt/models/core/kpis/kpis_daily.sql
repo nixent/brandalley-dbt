@@ -88,9 +88,10 @@ order_line_stats as (
 conversion_stats as (
     select
         ga_session_at_date as ga_session_at_day,
-        conversion_rate
+        round(100*safe_divide(sum(ga_orders),sum(ga_unique_visits)),2) as conversion_rate
     from {{ ref('ga_conversion_rate') }}
     where date_aggregation_type = 'day'
+    group by 1
 ),
 
 cs_stats as (
