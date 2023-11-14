@@ -1280,11 +1280,6 @@ models:
         meta:
           dimension:
             group_label: 'Shipping'
-      - name: nb_shipment
-        description: "Number of shipments for the  order"
-        meta:
-          dimension:
-            group_label: 'Shipping'
       - name: is_late_delivery
         description: "Flag indicating if delivery is late"
         meta:
@@ -1699,6 +1694,11 @@ models:
             label: 'Shipping Address ID'
             format: id
             group_label: 'Shipping Info'
+      - name: nb_shipment
+        description: "Number of shipments for the  order"
+        meta:
+          dimension:
+            group_label: 'Shipping'
       - name: subtotal_incl_tax
         description: "Adjustment negative, nullable"
         meta:
