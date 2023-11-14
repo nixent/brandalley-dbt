@@ -804,17 +804,6 @@ models:
             total_ttl_cost_kettering:
               type: sum
               sql: '${cost}*${stock_kettering}'
-      - name: stock_prism
-        meta:
-          metrics:
-            total_stock_prism:
-              type: sum
-            total_ttl_flash_prism:
-              type: sum
-              sql: '${special_price}*${stock_prism}'
-            total_ttl_cost_prism:
-              type: sum
-              sql: '${cost}*${stock_prism}'
       - name: stock_kettering_allocated
         meta:
           metrics:
