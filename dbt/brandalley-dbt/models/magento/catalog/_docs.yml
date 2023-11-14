@@ -890,6 +890,10 @@ models:
       - name: child_parent_sku
         description: "Child parent SKU"
       - name: last_stock_delivery_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
       - name: child_parent_sku_age_days
         meta:
           dimension:
