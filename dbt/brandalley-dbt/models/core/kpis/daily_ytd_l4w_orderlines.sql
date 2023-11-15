@@ -10,6 +10,7 @@ with order_line_ytd as (
         ol.parent_sku,
         ol.brand,
         ol.product_type,
+        ol.department_type,
         min(date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)) as min_ytd_date,
         sum(ol.qty_invoiced)     as qty_invoiced,
         sum(ol.warehouse_qty)    as warehouse_qty,
@@ -22,7 +23,7 @@ date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime
 DATE_TRUNC(d.date_day, YEAR)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
 and up_to_current_date_flag=True
-group by 1,2,3,4,5,6
+group by 1,2,3,4,5,6,7
 ),
 
 -- Getting L4W details (so for each day, details [day date - 28 days] to [day date])
@@ -34,6 +35,7 @@ order_line_l4w as (
         ol.parent_sku,
         ol.brand,
         ol.product_type,
+        ol.department_type,
         sum(ol.qty_invoiced)     as qty_invoiced,
         sum(ol.warehouse_qty)    as warehouse_qty
     from {{ ref('dates') }} d
@@ -43,7 +45,7 @@ date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime
 date_sub(d.date_day, interval 28 day)
 and d.date_day>=date_trunc(if(ol.ba_site = 'FR',datetime(ol.created_at, "Europe/Paris"),datetime(ol.created_at, "Europe/London")), day)
 and up_to_current_date_flag=True
-group by 1,2,3,4,5,6
+group by 1,2,3,4,5,6,7
 )
 
 -- full outer join so if there is data for 1 day in YTD but no data for L4W, a line will be populated. Same the other way round
@@ -54,6 +56,7 @@ select
     COALESCE(ytd.parent_sku, l4w.parent_sku) AS parent_sku,
     COALESCE(ytd.brand, l4w.brand) AS brand,
     COALESCE(ytd.product_type, l4w.product_type) AS product_type,
+    COALESCE(ytd.department_type, l4w.department_type) AS department_type,
     ytd.min_ytd_date, 
     ytd.qty_invoiced AS qty_invoiced_ytd,
     ytd.warehouse_qty AS warehouse_qty_ytd,
