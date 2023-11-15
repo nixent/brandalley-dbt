@@ -693,6 +693,10 @@ models:
             type: date
             time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
             label: 'Logged Date'
+      - name: type
+        meta:
+          dimension:
+            label: 'Type'
       - name: shipments_dispatched
         meta:
           dimension:

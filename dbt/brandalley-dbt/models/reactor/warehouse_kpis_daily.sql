@@ -38,7 +38,8 @@ with
         group by 1
     )
 select
-    d.date_day,
+    d.date_day as logged_date,
+    'Value' as type,
     ok.shipments_dispatched,
     ok.units_dispatched,
     ok.express_shipments_dispatched,
