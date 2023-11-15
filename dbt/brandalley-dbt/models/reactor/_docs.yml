@@ -683,3 +683,721 @@ models:
               label: 'Total Qty Available'
               type: sum
               description: 'Sum of total available qty'
+
+  - name: warehouse_kpis_daily
+    description: ""
+    columns:
+      - name: logged_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Logged Date'
+      - name: type
+        meta:
+          dimension:
+            label: 'Type'
+      - name: shipments_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            shipments_dispatched_sum:
+              label: 'Shipments Dispatched'
+              type: sum
+              description: 'Number of Shipments Dispatched'
+              group_label: 'Outbound KPIs'
+      - name: units_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            units_dispatched_sum:
+              label: 'Units Dispatched'
+              type: sum
+              description: 'Number of Units Dispatched'
+              group_label: 'Outbound KPIs'
+      - name: express_shipments_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            express_shipments_dispatched_sum:
+              label: 'Express Shipments Dispatched'
+              type: sum
+              description: 'Number of Express Shipments Dispatched'
+              group_label: 'Outbound KPIs'
+      - name: express_units_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            express_units_dispatched_sum:
+              label: 'Express Units Dispatched'
+              type: sum
+              description: 'Number of Express Units Dispatched'
+              group_label: 'Outbound KPIs'
+      - name: pct_express_shipments
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            pct_express_shipments_metric:
+              label: '% Express Shipments'
+              type: number
+              description: 'The percentage of shipments which are express'    
+              group_label: 'Outbound KPIs' 
+      - name: avg_units_per_shipment
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            avg_units_per_shipment_metric:
+              label: 'Average Units per Shipment'
+              type: number
+              description: 'Average Units per Shipment'
+              group_label: 'Outbound KPIs'
+      - name: average_dispatch_time
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            average_dispatch_time_metric:
+              label: 'Average Dispatch Time'
+              type: number
+              description: 'Average days it takes to dispatch item'
+              group_label: 'Outbound KPIs'
+      - name: last_weeks_shipments_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_shipments_dispatched_sum:
+              label: 'LW Shipments Dispatched'
+              type: sum
+              description: 'Number of Shipments Dispatched LW'
+              group_label: 'Outbound KPIs'
+            last_weeks_shipments_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${shipments_dispatched_sum} - ${last_weeks_shipments_dispatched_sum},${last_weeks_shipments_dispatched_sum})'
+              label: 'LW Shipments Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: last_weeks_units_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_units_dispatched_sum:
+              label: 'LW Units Dispatched'
+              type: sum
+              description: 'Number of Units Dispatched LW'
+              group_label: 'Outbound KPIs'
+            last_weeks_units_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${units_dispatched_sum} - ${last_weeks_units_dispatched_sum},${last_weeks_units_dispatched_sum})'
+              label: 'LW units Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: last_weeks_express_shipments_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_express_shipments_dispatched_sum:
+              label: 'LW Express Shipments Dispatched'
+              type: sum
+              description: 'Number of Express Shipments Dispatched LW'
+              group_label: 'Outbound KPIs'
+            last_weeks_express_shipments_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${express_shipments_dispatched_sum} - ${last_weeks_express_shipments_dispatched_sum},${last_weeks_express_shipments_dispatched_sum})'
+              label: 'LW Express Shipments Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: last_weeks_express_units_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_express_units_dispatched_sum:
+              label: 'LW Express Units Dispatched'
+              type: sum
+              description: 'Number of Express Units Dispatched LW'
+              group_label: 'Outbound KPIs'
+            last_weeks_express_units_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${express_units_dispatched_sum} - ${last_weeks_express_units_dispatched_sum},${last_weeks_express_units_dispatched_sum})'
+              label: 'LW Express Units Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: last_weeks_pct_express_shipments
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_pct_express_shipments_metric:
+              label: 'LW % Express Shipments'
+              type: number
+              description: 'The percentage of shipments which are express LW'
+              group_label: 'Outbound KPIs'
+            last_weeks_pct_express_shipments_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${pct_express_shipments_metric} - ${last_weeks_pct_express_shipments_metric},${last_weeks_pct_express_shipments_metric})'
+              label: 'LW % Express Shipments Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2     
+      - name: last_weeks_avg_units_per_shipment
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_avg_units_per_shipment_metric:
+              label: 'LW Average Units per Shipment'
+              type: number
+              description: 'Average Units per Shipment LW'
+              group_label: 'Outbound KPIs'
+            last_weeks_avg_units_per_shipment_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${avg_units_per_shipment_metric} - ${last_weeks_avg_units_per_shipment_metric},${last_weeks_avg_units_per_shipment_metric})'
+              label: 'LW % Average Units per Shipment Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2     
+      - name: last_weeks_average_dispatch_time
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_average_dispatch_time_metric:
+              label: 'LW Average Dispatch Time'
+              type: number
+              description: 'Average days it takes to dispatch item LW'
+              group_label: 'Outbound KPIs'
+            last_weeks_average_dispatch_time_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${average_dispatch_time_metric} - ${last_weeks_average_dispatch_time_metric},${last_weeks_average_dispatch_time_metric})'
+              label: 'LW % Average Dispatch Time Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2     
+      - name: l4_weeks_shipments_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_shipments_dispatched_sum:
+              label: 'L4W Shipments Dispatched'
+              type: sum
+              description: 'Number of Shipments Dispatched L4W'
+              group_label: 'Outbound KPIs'
+            l4_weeks_shipments_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${shipments_dispatched_sum} - ${l4_weeks_shipments_dispatched_sum},${l4_weeks_shipments_dispatched_sum})'
+              label: 'L4W Shipments Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: l4_weeks_units_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_units_dispatched_sum:
+              label: 'L4W Units Dispatched'
+              type: sum
+              description: 'Number of Units Dispatched L4W'
+              group_label: 'Outbound KPIs'
+            l4_weeks_units_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${units_dispatched_sum} - ${l4_weeks_units_dispatched_sum},${l4_weeks_units_dispatched_sum})'
+              label: 'L4W units Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: l4_weeks_express_shipments_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_express_shipments_dispatched_sum:
+              label: 'L4W Express Shipments Dispatched'
+              type: sum
+              description: 'Number of Express Shipments Dispatched L4W'
+              group_label: 'Outbound KPIs'
+            l4_weeks_express_shipments_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${express_shipments_dispatched_sum} - ${l4_weeks_express_shipments_dispatched_sum},${l4_weeks_express_shipments_dispatched_sum})'
+              label: 'L4W Express Shipments Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: l4_weeks_express_units_dispatched
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_express_units_dispatched_sum:
+              label: 'L4W Express Units Dispatched'
+              type: sum
+              description: 'Number of Express Units Dispatched L4W'
+              group_label: 'Outbound KPIs'
+            l4_weeks_express_units_dispatched_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${express_units_dispatched_sum} - ${l4_weeks_express_units_dispatched_sum},${l4_weeks_express_units_dispatched_sum})'
+              label: 'L4W Express Units Dispatched Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2
+      - name: l4_weeks_pct_express_shipments
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_pct_express_shipments_metric:
+              label: 'L4W % Express Shipments'
+              type: number
+              description: 'The percentage of shipments which are express L4W'     
+              group_label: 'Outbound KPIs'
+            l4_weeks_pct_express_shipments_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${pct_express_shipments_metric} - ${l4_weeks_pct_express_shipments_metric},${l4_weeks_pct_express_shipments_metric})'
+              label: 'L4W % Express Shipments Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2     
+      - name: l4_weeks_avg_units_per_shipment
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_avg_units_per_shipment_metric:
+              label: 'L4W Average Units per Shipment'
+              type: number
+              description: 'Average Units per Shipment L4W'
+              group_label: 'Outbound KPIs'
+            l4_weeks_avg_units_per_shipment_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${avg_units_per_shipment_metric} - ${l4_weeks_avg_units_per_shipment_metric},${l4_weeks_avg_units_per_shipment_metric})'
+              label: 'L4W % Average Units per Shipment Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2  
+      - name: l4_weeks_average_dispatch_time
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_average_dispatch_time_metric:
+              label: 'L4W Average Dispatch Time'
+              type: number
+              description: 'Average days it takes to dispatch item L4W'
+              group_label: 'Outbound KPIs'
+            l4_weeks_average_dispatch_time_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${average_dispatch_time_metric} - ${l4_weeks_average_dispatch_time_metric},${l4_weeks_average_dispatch_time_metric})'
+              label: 'L4W % Average Dispatch Time Comparison %'
+              group_label: 'Outbound KPIs'
+              round: 2    
+      - name: goods_in_pos
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            goods_in_pos_sum:
+              label: 'Goods in Pos'
+              type: sum
+              description: 'Number of POs checked in'
+              group_label: 'Inbound KPIs'
+      - name: goods_in_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            goods_in_qty_sum:
+              label: 'Goods in Qty'
+              type: sum
+              description: 'Number of Units checked in'
+              group_label: 'Inbound KPIs'
+      - name: x_dock_goods_in_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            x_dock_goods_in_qty_sum:
+              label: 'X Dock Goods in Qty'
+              type: sum
+              description: 'Number of X Dock Units checked in'
+              group_label: 'Inbound KPIs'
+      - name: pct_goods_in_x_dock
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            pct_goods_in_x_dock_metric:
+              label: '% Goods in X-Dock'
+              type: number
+              description: 'Percent of units checked in which are X dock'
+              group_label: 'Inbound KPIs'
+      - name: last_weeks_goods_in_pos
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_goods_in_pos_sum:
+              label: 'LW Goods in Pos'
+              type: sum
+              description: 'Number of POs checked in LW'
+              group_label: 'Inbound KPIs'
+            last_weeks_goods_in_pos_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${goods_in_pos_sum} - ${last_weeks_goods_in_pos_sum},${last_weeks_goods_in_pos_sum})'
+              label: 'LW Goods in Pos Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: last_weeks_goods_in_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_goods_in_qty_sum:
+              label: 'LW Goods in Qty'
+              type: sum
+              description: 'Number of Units checked in LW'
+              group_label: 'Inbound KPIs'
+            last_weeks_goods_in_qty_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${goods_in_qty_sum} - ${last_weeks_goods_in_qty_sum},${last_weeks_goods_in_qty_sum})'
+              label: 'LW Goods in Qty Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: last_weeks_x_dock_goods_in_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_x_dock_goods_in_qty_sum:
+              label: 'LW X-Dock Goods in Qty'
+              type: sum
+              description: 'Number of X Dock Units checked in LW'
+              group_label: 'Inbound KPIs'
+            last_weeks_goods_in_qty_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${x_dock_goods_in_qty_sum} - ${last_weeks_x_dock_goods_in_qty_sum},${last_weeks_x_dock_goods_in_qty_sum})'
+              label: 'LW X-Dock Goods in Qty Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: last_weeks_pct_goods_in_x_dock
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_pct_goods_in_x_dock_metric:
+              label: 'LW % Goods in X-Dock'
+              type: number
+              description: 'Percent of units checked in which are X dock LW'
+              group_label: 'Inbound KPIs'
+            last_weeks_pct_goods_in_x_dock_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${pct_goods_in_x_dock_metric} - ${last_weeks_pct_goods_in_x_dock_metric},${last_weeks_pct_goods_in_x_dock_metric})'
+              label: 'LW % Goods in X-Dock Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: l4_weeks_goods_in_pos
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_goods_in_pos_sum:
+              label: 'L4W Goods in Pos'
+              type: sum
+              description: 'Number of POs checked in L4W'
+              group_label: 'Inbound KPIs'
+            l4_weeks_goods_in_pos_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${goods_in_pos_sum} - ${l4_weeks_goods_in_pos_sum},${l4_weeks_goods_in_pos_sum})'
+              label: 'L4W Goods in Pos Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: l4_weeks_goods_in_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_goods_in_qty_sum:
+              label: 'L4W Goods in Qty'
+              type: sum
+              description: 'Number of Units checked in L4W'
+              group_label: 'Inbound KPIs'
+            l4_weeks_goods_in_qty_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${goods_in_qty_sum} - ${l4_weeks_goods_in_qty_sum},${l4_weeks_goods_in_qty_sum})'
+              label: 'L4W Goods in Qty Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: l4_weeks_x_dock_goods_in_qty
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_x_dock_goods_in_qty_sum:
+              label: 'L4W X-Dock Goods in Qty'
+              type: sum
+              description: 'Number of X Dock Units checked in L4W'
+              group_label: 'Inbound KPIs'
+            l4_weeks_goods_in_qty_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${x_dock_goods_in_qty_sum} - ${l4_weeks_x_dock_goods_in_qty_sum},${l4_weeks_x_dock_goods_in_qty_sum})'
+              label: 'L4W X-Dock Goods in Qty Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: l4_weeks_pct_goods_in_x_dock
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_pct_goods_in_x_dock_metric:
+              label: 'L4W % Goods in X-Dock'
+              type: number
+              description: 'Percent of units checked in which are X dock L4W'
+              group_label: 'Inbound KPIs'
+            l4_weeks_pct_goods_in_x_dock_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${pct_goods_in_x_dock_metric} - ${l4_weeks_pct_goods_in_x_dock_metric},${l4_weeks_pct_goods_in_x_dock_metric})'
+              label: 'L4W % Goods in X-Dock Comparison %'
+              group_label: 'Inbound KPIs'
+              round: 2
+      - name: returns_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            returns_processed_sum:
+              label: 'Returns Processed'
+              type: sum
+              description: 'Number of Returns Processed'
+              group_label: 'Returns KPIs'
+      - name: returns_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            returns_units_processed_sum:
+              label: 'Returns Units Processed'
+              type: sum
+              description: 'Number of Returns Units Processed'
+              group_label: 'Returns KPIs'
+      - name: units_per_return
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            units_per_return_metric:
+              label: 'Units per Return'
+              type: number
+              description: 'Average units per return'
+              group_label: 'Returns KPIs'
+      - name: resaleable_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            resaleable_units_processed_sum:
+              label: 'Resaleable Units Processed'
+              type: sum
+              description: 'Number of Resaleable Units Processed'
+              group_label: 'Returns KPIs'
+      - name: damaged_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            damaged_units_processed_sum:
+              label: 'Damaged Units Processed'
+              type: sum
+              description: 'Number of Damaged Units Processed'
+              group_label: 'Returns KPIs'
+      - name: last_weeks_returns_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_returns_processed_sum:
+              label: 'LW Returns Processed'
+              type: sum
+              description: 'Number of Returns Processed LW'
+              group_label: 'Returns KPIs'
+            last_weeks_returns_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${returns_processed_sum} - ${last_weeks_returns_processed_sum},${last_weeks_returns_processed_sum})'
+              label: 'LW Returns Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: last_weeks_returns_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_returns_units_processed_sum:
+              label: 'LW Returns Units Processed'
+              type: sum
+              description: 'Number of Returns Units Processed LW'
+              group_label: 'Returns KPIs'
+            last_weeks_returns_units_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${returns_units_processed_sum} - ${last_weeks_returns_units_processed_sum},${last_weeks_returns_units_processed_sum})'
+              label: 'LW Returns Units Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: last_weeks_units_per_return
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_units_per_return_metric:
+              label: 'LW Units per Return'
+              type: number
+              description: 'Average units per return LW'
+              group_label: 'Returns KPIs'
+            last_weeks_units_per_return_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${units_per_return_metric} - ${last_weeks_units_per_return_metric},${last_weeks_units_per_return_metric})'
+              label: 'LW Units per Return Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: last_weeks_resaleable_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_resaleable_units_processed_sum:
+              label: 'LW Resaleable Units Processed'
+              type: sum
+              description: 'Number of Resaleable Units Processed LW'
+              group_label: 'Returns KPIs'
+            last_weeks_resaleable_units_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${resaleable_units_processed_sum} - ${last_weeks_resaleable_units_processed_sum},${last_weeks_resaleable_units_processed_sum})'
+              label: 'LW Resaleable Units Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: last_weeks_damaged_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            last_weeks_damaged_units_processed_sum:
+              label: 'LW Damaged Units Processed'
+              type: sum
+              description: 'Number of Damaged Units Processed LW'
+              group_label: 'Returns KPIs'
+            last_weeks_damaged_units_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${damaged_units_processed_sum} - ${last_weeks_damaged_units_processed_sum},${last_weeks_damaged_units_processed_sum})'
+              label: 'LW Damaged Units Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: l4_weeks_returns_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_returns_processed_sum:
+              label: 'L4W Returns Processed'
+              type: sum
+              description: 'Number of Returns Processed L4W'
+              group_label: 'Returns KPIs'
+            l4_weeks_returns_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${returns_processed_sum} - ${l4_weeks_returns_processed_sum},${l4_weeks_returns_processed_sum})'
+              label: 'L4W Returns Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: l4_weeks_returns_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_returns_units_processed_sum:
+              label: 'L4W Returns Units Processed'
+              type: sum
+              description: 'Number of Returns Units Processed L4W'
+              group_label: 'Returns KPIs'
+            l4_weeks_returns_units_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${returns_units_processed_sum} - ${l4_weeks_returns_units_processed_sum},${l4_weeks_returns_units_processed_sum})'
+              label: 'L4W Returns Units Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: l4_weeks_units_per_return
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_units_per_return_metric:
+              label: 'L4W Units per Return'
+              type: number
+              description: 'Average units per return L4W'
+              group_label: 'Returns KPIs'
+            l4_weeks_units_per_return_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${units_per_return_metric} - ${l4_weeks_units_per_return_metric},${l4_weeks_units_per_return_metric})'
+              label: 'L4W Units per Return Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: l4_weeks_resaleable_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_resaleable_units_processed_sum:
+              label: 'L4W Resaleable Units Processed'
+              type: sum
+              description: 'Number of Resaleable Units Processed L4W'
+              group_label: 'Returns KPIs'
+            l4_weeks_resaleable_units_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${resaleable_units_processed_sum} - ${l4_weeks_resaleable_units_processed_sum},${l4_weeks_resaleable_units_processed_sum})'
+              label: 'L4W Resaleable Units Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
+      - name: l4_weeks_damaged_units_processed
+        meta:
+          dimension:
+            hidden: true
+          metrics:
+            l4_weeks_damaged_units_processed_sum:
+              label: 'L4W Damaged Units Processed'
+              type: sum
+              description: 'Number of Damaged Units Processed L4W'
+              group_label: 'Returns KPIs'
+            l4_weeks_damaged_units_processed_comparison_pct:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${damaged_units_processed_sum} - ${l4_weeks_damaged_units_processed_sum},${l4_weeks_damaged_units_processed_sum})'
+              label: 'L4W Damaged Units Processed Comparison %'
+              group_label: 'Returns KPIs'
+              round: 2
