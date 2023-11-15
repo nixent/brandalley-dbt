@@ -1751,6 +1751,7 @@ models:
       - name: parent_sku
       - name: brand
       - name: product_type
+      - name: department_type
       - name: min_ytd_date
         meta:
           dimension:
