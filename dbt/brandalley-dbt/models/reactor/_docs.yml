@@ -206,7 +206,7 @@ models:
               type: number
               format: 'percent'
               description: '% of Shipments which are Express'
-              sql: "safe_divide(${express_shipments_dispatched_sum},$shipments_dispatched_sum})"
+              sql: "safe_divide(${express_shipments_dispatched_sum},${shipments_dispatched_sum})"
               round: 0
             average_units_per_shipment:
               label: 'Shipments Dispatched'
@@ -266,7 +266,7 @@ models:
             label: 'Dispatch Time Hours'
           metrics:
             average_dispatch_time:
-              label: 'Average Dispatch Time'
+              label: 'Average Dispatch Time (hours)'
               type: average
               description: 'The average time it takes to dispatch an order'
               sql: "if(${status} = 'Shipped', ${dispatch_time_hours}, null)"
@@ -275,6 +275,13 @@ models:
         meta:
           dimension:
             label: 'Dispatch Time Days'
+          metrics:
+            average_dispatch_time_days:
+              label: 'Average Dispatch Time (days)'
+              type: average
+              description: 'The average days it takes to dispatch an order'
+              sql: "if(${status} = 'Shipped', ${dispatch_time_days}, null)"
+              round: 2
       - name: status
         meta:
           dimension:
