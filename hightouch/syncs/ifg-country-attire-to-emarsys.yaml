@@ -200,4 +200,4 @@ config:
     from: customer_id
 schedule:
   type: manual
-schedulePaused: true
+schedulePaused: false
