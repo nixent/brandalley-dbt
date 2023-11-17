@@ -186,7 +186,7 @@ config:
       from: Locale
       type: standard
     - to: '62255'
-      from: Subscription_Source_
+      from: Subscription_Source
       type: standard
     - to: '62256'
       from: Is_Existing_Contact
