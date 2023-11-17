@@ -6,7 +6,7 @@ config:
   object: contact
   mappings:
     - to: '17510'
-      from: Account_Creation_Date_
+      from: Account_Creation_Date
       type: standard
     - to: '56671'
       from: Do_not_track_me_in_Email
@@ -54,10 +54,10 @@ config:
       from: predict_last_purchase_total_price
       type: standard
     - to: '17512'
-      from: First_Purchase_Date_
+      from: First_Purchase_Date
       type: standard
     - to: '17511'
-      from: Last_Purchase_Date_
+      from: Last_Purchase_Date
       type: standard
     - to: '49319'
       from: Mobile_Advertising_ID
@@ -186,10 +186,10 @@ config:
       from: Locale
       type: standard
     - to: '62255'
-      from: Subscription_Source_
+      from: Subscription_Source
       type: standard
     - to: '62256'
-      from: Is_Existing_Contact
+      from: Is_Existing_Customer
       type: standard
     - to: '62257'
       from: ifg_account_name
