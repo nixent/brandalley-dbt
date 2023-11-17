@@ -2,7 +2,7 @@
 
 SELECT b.customerid, 
        e.ext_order_id,
-	   f.productid as reactor_pid,
+	   cast(f.productid as string) as reactor_pid,
 	   f.productname,
 	   aa.quantity as units_qty,
 	   b.id AS delivery_consignment_id,
