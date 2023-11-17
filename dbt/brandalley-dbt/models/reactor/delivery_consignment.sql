@@ -2,7 +2,7 @@
 
 SELECT b.customerid, 
        e.ext_order_id,
-	   f.productid as reactor_pid,
+	   cast(f.productid as string) as reactor_pid,
 	   f.productname,
 	   aa.quantity as units_qty,
 	   b.id AS delivery_consignment_id,
@@ -27,7 +27,7 @@ SELECT b.customerid,
 	   if(date(leftwarehouse_timestamp)='1970-01-01' and cast(e.ship_by as date)<current_date, True, False)  as late_unshipped_flag,
 	   case when e.priority='E' then 'Standard' when e.priority='P' then 'Express' when e.priority='S' then 'Standard' else 'Other' end as service_level,
 	   b.delpostcode as ship_to_postcode,
-	   a.packagecode,
+	   a.packagecode as package_code,
 	   g.site,
 	   j.legacy_id as magento_sku,
 	   j.item_cost as unit_cost

@@ -15,7 +15,7 @@ select
         length(a.explanation) - strpos(a.explanation, '-') + 1
     ) as return_reason,
     b.ext_order_id,
-    d.id as reactor_sku,
+    cast(d.id as string) as reactor_sku,
     d.legacy_id as magento_sku,
     e.productname as product_name,
     d.item_cost as unit_cost,
