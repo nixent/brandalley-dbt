@@ -6,7 +6,7 @@ config:
   object: contact
   mappings:
     - to: '17510'
-      from: Account_Creation_Date_
+      from: Account_Creation_Date
       type: standard
     - to: '56671'
       from: Do_not_track_me_in_Email
