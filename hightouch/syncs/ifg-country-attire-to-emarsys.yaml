@@ -54,10 +54,10 @@ config:
       from: predict_last_purchase_total_price
       type: standard
     - to: '17512'
-      from: First_Purchase_Date
+      from: First_Purchase_Date_
       type: standard
     - to: '17511'
-      from: Last_Purchase_Date
+      from: Last_Purchase_Date_
       type: standard
     - to: '49319'
       from: Mobile_Advertising_ID
@@ -186,7 +186,7 @@ config:
       from: Locale
       type: standard
     - to: '62255'
-      from: Subscription_Source
+      from: Subscription_Source_
       type: standard
     - to: '62256'
       from: Is_Existing_Customer
