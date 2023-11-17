@@ -22,8 +22,8 @@ with
             = 1
     )
 select
-    a.purchaseid as po_number,
-    a.stockid as reactor_sku,
+    cast(a.purchaseid as string) as po_number,
+    cast(a.stockid as string) as reactor_sku,
     c.legacy_id as magento_sku,
     d.productname as productname,
     date(timestamp_seconds(a.ordertime)) as created_date,
