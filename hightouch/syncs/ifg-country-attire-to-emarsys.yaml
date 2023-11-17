@@ -54,10 +54,10 @@ config:
       from: predict_last_purchase_total_price
       type: standard
     - to: '17512'
-      from: First_Purchase_Date_
+      from: First_Purchase_Date
       type: standard
     - to: '17511'
-      from: Last_Purchase_Date_
+      from: Last_Purchase_Date
       type: standard
     - to: '49319'
       from: Mobile_Advertising_ID
