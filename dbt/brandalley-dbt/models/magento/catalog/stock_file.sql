@@ -186,7 +186,7 @@ with stock_file_raw as (
     left join (
         select distinct negotiation_id, parrent_sku, sku, tax_rate, ba_site 
         from {{ ref('stg__catalog_product_negotiation_item') }} 
-        qualify row_number() over (partition by negotiation_id, sku, ba_site order by parrent_sku desc) = 1) cpni 
+        qualify row_number() over (partition by negotiation_id, sku, ba_site order by parrent_sku desc) = 1) cpni --not needed but for safety
         on cast(cpni.negotiation_id as string) = cpev_nego.value
             and e.sku = cpni.sku
             and e.ba_site = cpni.ba_site
