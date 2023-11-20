@@ -24,7 +24,8 @@ SELECT
     sfs.increment_id as shipment_id,
     sfo.created_at as order_date,
     sfs.created_at as shipment_date,
-    sfs.updated_at
+    sfs.updated_at,
+    row_number() over (partition by sfo.increment_id, sfsi.sku, sfsi.ba_site order by sfs.created_at) as sku_shipment_number
 FROM
     {{ ref(
         'stg__sales_flat_shipment_item'
