@@ -83,7 +83,7 @@ with
                 char_length(cast(kgic.purchase_id as string)) - 2
             )
             and poi.sku = kgic.magento_sku
-        where kgic.purchase_id is null
+        where kgic.purchase_id is null and ifnull(cast(spgi.delivery_date as date), cast(po.delivery_date as date)) < current_date
         group by 1, 2, 3, 5
     )
 select
