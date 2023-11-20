@@ -232,7 +232,7 @@ select
 from stock_file_raw stock
 left join {{ source('utils', 'category_mapping') }} cat_map 
     -- join on cat_mapping level that corresponds to level of path in outlet_category, then parent_category and then flashsale_category
-    on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label
+    on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label 
         and coalesce(stock.level_2,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(3)],split(flashsale_category, '>')[safe_offset(3)]) = cat_map.level_2 
         and coalesce(stock.level_3,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(4)],split(flashsale_category, '>')[safe_offset(4)]) = cat_map.level_3
 {{ dbt_utils.group_by(41) }}
