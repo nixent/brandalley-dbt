@@ -2,9 +2,9 @@
 
 
 select
-    a.id as reactor_sku,
+    cast(a.id as string) as reactor_sku,
     a.barcode,
-    b.productid,
+    cast(b.productid as string) as productid,
     b.productname,
     a.legacy_id as magento_sku,
     item_cost as unit_cost
