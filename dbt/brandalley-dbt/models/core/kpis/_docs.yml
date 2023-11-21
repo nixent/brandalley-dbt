@@ -1793,3 +1793,30 @@ models:
             total_flash_price_inc_vat_metric:
               type: sum
               label: 'Total Flash Price inc VAT'
+
+  - name: live_sales_reporting
+    meta:
+      group_label: 'KPIs'
+    columns:
+      - name: timestamp
+        meta:
+          dimension:
+            type: timestamp
+            label: 'Timestamp'
+            time_intervals: ['RAW','MINUTE', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: period
+        meta:
+          dimension:
+            label: 'Period'
+      - name: gmv
+        meta:
+          metrics:
+            gmv_metric:
+              type: sum
+              label: 'GMV'
+      - name: total_order_count
+        meta:
+          metrics:
+            total_order_count_metric:
+              type: sum
+              label: 'Total Orders'

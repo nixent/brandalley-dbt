@@ -1,13 +1,13 @@
 with
     every_15_mins as (
         select
-            timestamp_add(
+            timestamp_sub(timestamp_add(
                 cast(current_date as timestamp), interval x minute
-            ) as lower_boundary,
-            datetime_add(
+            ), interval 7 day) as lower_boundary,
+            timestamp_sub(datetime_add(
                 timestamp_add(cast(current_date as timestamp), interval x minute),
                 interval 899 second
-            ) as upper_boundary
+            ), interval 7 day) as upper_boundary
         from
             unnest(
                 generate_array(
@@ -25,8 +25,10 @@ with
                 from timestamp_add(cast(current_date as timestamp), interval x minute)
             )
             in (0, 15, 30, 45)
-            and date(timestamp_add(cast(current_date as timestamp), interval x minute))
-            = current_date
+            and date(timestamp_sub(timestamp_add(
+                cast(current_date as timestamp), interval x minute
+            ), interval 7 day))
+            = date_sub(current_date, interval 7 day)
     )
 select
     d.upper_boundary as timestamp,
