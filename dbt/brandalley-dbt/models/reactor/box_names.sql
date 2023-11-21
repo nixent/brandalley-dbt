@@ -2,9 +2,9 @@
 
 
 select
-    b.id as box_id,
-    a.aislenumber,
-    r.racknumber,
+    cast(b.id as string) as box_id,
+    cast(a.aislenumber as string) as aislenumber,
+    cast(r.racknumber as string) as racknumber,
     z.name as zone_,
     concat(
         'Zone: ', z.name, ', Aisle: ', a.aislenumber, ', Rack: ', r.racknumber

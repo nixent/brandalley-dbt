@@ -188,9 +188,6 @@ config:
     - to: '62255'
       from: Subscription_Source_
       type: standard
-    - to: '62256'
-      from: Is_Existing_Contact
-      type: standard
     - to: '62257'
       from: ifg_account_name
       type: standard

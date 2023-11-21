@@ -1269,7 +1269,8 @@ models:
         description: "number of items still to ship"
         meta:
           dimension:
-            hidden: true
+            label: 'Units To Ship'
+            group_label: 'Shipping'
           metrics:
             total_qty_to_ship:
               type: sum
@@ -1277,11 +1278,6 @@ models:
               label: 'Units To Ship'
       - name: shipping_order
         description: "Index of the shipment for orders"
-        meta:
-          dimension:
-            group_label: 'Shipping'
-      - name: nb_shipment
-        description: "Number of shipments for the  order"
         meta:
           dimension:
             group_label: 'Shipping'
@@ -1699,6 +1695,11 @@ models:
             label: 'Shipping Address ID'
             format: id
             group_label: 'Shipping Info'
+      - name: nb_shipment
+        description: "Number of shipments for the  order"
+        meta:
+          dimension:
+            group_label: 'Shipping'
       - name: subtotal_incl_tax
         description: "Adjustment negative, nullable"
         meta:
