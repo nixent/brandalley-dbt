@@ -22,7 +22,7 @@ with
             sum(gi.qty_arrived) as goods_in_qty,
             sum(if(gi.stock_type = 'X Dock', qty_arrived, 0)) as x_dock_goods_in_qty,
             round(sum(if(gi.stock_type = 'X Dock', qty_arrived, 0)) / sum(gi.qty_arrived),2) as pct_goods_in_x_dock
-        from {{ ref("stg__reactor_goods_in") }} gi
+        from {{ ref("stg__reactor_goods_in_checked_date") }} gi
         group by 1
     ),
     returns_kpis as (

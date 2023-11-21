@@ -1,5 +1,7 @@
 {{ config(materialized="table", tags=["job_daily"]) }}
 
+--Essentially the same as goods in without removing whistl stock transfers and getting them from magento. This model is for units checked in at kettering whereas goods in is for aging purposes so includes the original arrived at (even if it is pre kettering)
+
 with
     kettering_goods_in as (
         select
@@ -24,7 +26,6 @@ with
             ) d
             on psl.purchaseid = d.purchaseid
             and psl.stockid = d.stockid
-        where length(cast(psl.purchaseid as string)) > 8
         group by 1, 2, 3, 5, 6, 7, 8
     ),
     negative_goods_in as (
@@ -51,70 +52,17 @@ with
             end as qty_arrived
         from negative_goods_in a
         where a.qty_arrived > 0  -- this has been added as occassionally kettering check in more than they actually got and thus create a correction with a negative number. So here we are taking that negative number off previous row.
-    ),
-    pre_kettering as (
-        select
-            poi.po_id as purchase_id,
-            poi.sku as magento_sku,
-            ifnull(
-                cast(spgi.delivery_date as date), cast(po.delivery_date as date)
-            ) as date_arrived,
-            sum(to_order) as qty_arrived,
-            poi.cost_gbp
-        from {{ ref("stg__catalog_product_po_item") }} poi
-        inner join
-            {{ ref("stg__catalog_product_po") }} po
-            on poi.po_id = po.po_id
-            and poi.ba_site = po.ba_site
-        left join
-            {{ ref("stg__stock_prism_grn") }} spg
-            on cast(spg.purchase_order_reference as integer) = po.po_id
-            and po.ba_site = spg.ba_site
-        left join
-            {{ ref("stg__stock_prism_grn_item") }} spgi
-            on spgi.grn_id = spg.grn_id
-            and spgi.sku = poi.sku
-            and poi.ba_site = spgi.ba_site
-        left join
-            kettering_goods_in_correction kgic
-            on cast(poi.po_id as string) = substring(
-                cast(kgic.purchase_id as string),
-                1,
-                char_length(cast(kgic.purchase_id as string)) - 2
-            )
-            and poi.sku = kgic.magento_sku
-        where kgic.purchase_id is null and ifnull(cast(spgi.delivery_date as date), cast(po.delivery_date as date)) < current_date and spg.purchase_order_reference is not null
-        group by 1, 2, 3, 5
     )
-select
-    cast(
-        substring(
-            cast(purchase_id as string), 1, char_length(cast(purchase_id as string)) - 2
-        ) as int
-    ) as po_id,
-    magento_sku as sku,
-    date_arrived,
-    qty_arrived,
-    unit_cost,
-    qty_arrived * unit_cost as cost_arrived,
-    'reactor' as src,
-    'Kettering' as warehouse,
-    supplier,
-    company,
-    stock_type
-from kettering_goods_in_correction
-union all
 select
     purchase_id as po_id,
     magento_sku as sku,
     date_arrived,
     qty_arrived,
-    cost_gbp,
-    qty_arrived * cost_gbp as cost_arrived,
-    'magento' as src,
-    null as warehouse,
-    null,
-    null,
-    null
-from pre_kettering
+    unit_cost,
+    qty_arrived * unit_cost as cost_arrived,
+    supplier,
+    company,
+    stock_type
+from kettering_goods_in_correction
+
 
