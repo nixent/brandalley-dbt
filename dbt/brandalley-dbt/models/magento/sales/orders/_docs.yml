@@ -1269,7 +1269,8 @@ models:
         description: "number of items still to ship"
         meta:
           dimension:
-            hidden: true
+            label: 'Units To Ship'
+            group_label: 'Shipping'
           metrics:
             total_qty_to_ship:
               type: sum

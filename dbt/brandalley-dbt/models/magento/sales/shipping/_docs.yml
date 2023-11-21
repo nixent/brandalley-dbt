@@ -196,3 +196,7 @@ models:
               round: 0  
       - name: updated_at
         description: "Update date of the order, nullable"
+      - name: sku_shipment_number
+        meta:
+          dimension:
+            type: number
