@@ -33,33 +33,36 @@ with
 select
     d.upper_boundary as timestamp,
     'Today' as period,
+    ol.ba_site,
     count(distinct ol.order_number) as total_order_count,
     round(sum(ol.total_local_currency_after_vouchers), 2) as gmv,
 from every_15_mins d
 left join
     {{ ref("OrderLines") }} ol
     on ol.created_at between d.lower_boundary and d.upper_boundary
-group by 1, 2
+group by 1, 2, 3
 union all
 select
     d.upper_boundary as timestamp,
     'Last Week' as period,
+    ol.ba_site,
     count(distinct ol.order_number) as total_order_count,
     round(sum(ol.total_local_currency_after_vouchers), 2) as gmv,
 from every_15_mins d
 left join
     {{ ref("OrderLines") }} ol
     on timestamp_add(ol.created_at, interval 7 day) between d.lower_boundary and d.upper_boundary
-group by 1, 2
+group by 1, 2, 3
 union all
 select
     d.upper_boundary as timestamp,
     'Same Date LY' as period,
+    ol.ba_site,
     count(distinct ol.order_number) as total_order_count,
     round(sum(ol.total_local_currency_after_vouchers), 2) as gmv,
 from every_15_mins d
 left join
     {{ ref("OrderLines") }} ol
     on timestamp_add(ol.created_at, interval 364 day) between d.lower_boundary and d.upper_boundary
-group by 1, 2
+group by 1, 2, 3
 order by 1  

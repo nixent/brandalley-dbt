@@ -1808,6 +1808,10 @@ models:
         meta:
           dimension:
             label: 'Period'
+      - name: ba_site
+        meta:
+          dimension:
+            label: 'BA Site'
       - name: gmv
         meta:
           metrics:
