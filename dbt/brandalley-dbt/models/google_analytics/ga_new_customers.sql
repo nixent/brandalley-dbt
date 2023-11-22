@@ -1,5 +1,6 @@
 {{ config(
     materialized='incremental',
+    unique_key=['logged_date','traffic_channel'],
     tags=["job_daily"]
 )}}
 
