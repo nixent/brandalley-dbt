@@ -405,7 +405,7 @@ models:
               label: 'L12 Months Average New Customers per Day'
               type: average
               description: "The average daily new customers over the last 12 months from current dat from GA"
-              sql: 'sum(${last_12_months_avg_new_customers_total} over (partition by ${logged_date}))'
+              sql: 'sum(${last_12_months_avg_new_customers_total} over (partition by ${logged_date} order by ${traffic_channel}))'
               round: 0
             l12_months_avg_new_customers_comparison_metric:
               type: number
@@ -427,7 +427,7 @@ models:
               label: 'L12 Months Average New Registrations per Day'
               type: average
               description: "The average daily new registrations over the last 12 months from current dat from GA"
-              sql: 'sum(${last_12_months_avg_new_registrations_total} over (partition by ${logged_date}))'
+              sql: 'sum(${last_12_months_avg_new_registrations_total} over (partition by ${logged_date} order by ${traffic_channel}))'
               round: 0
             l12_months_avg_new_registrations_comparison_metric:
               type: number
