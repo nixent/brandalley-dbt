@@ -35,7 +35,7 @@ with
         select
             a.traffic_channel,
             avg(sessions_total) as last_12_months_avg_sessions_total,
-            avg(unique_visitors) as last_12_months_avg_unique_visitors_total,
+            avg(unique_visitors_total) as last_12_months_avg_unique_visitors_total,
             avg(page_views_total) as last_12_months_avg_page_views_total,
             avg(bounce_rate) as last_12_months_avg_bounce_rate
         {% if is_incremental() %}
