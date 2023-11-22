@@ -94,21 +94,22 @@ yesterday_ga_stats as (
 ga_stats as (
     select 
         gcr.ga_session_at_date,
-        gcr.conversion_rate,
-        gcr.ga_unique_visitors,
-        coalesce(gcr.ga_unique_visits, ygs.ga_unique_visits) as ga_unique_visits
+        round(100*safe_divide(sum(gcr.ga_orders),sum(gcr.ga_unique_visits)),2)  as conversion_rate,
+        sum(gcr.ga_unique_visitors) as ga_unique_visitors,
+        coalesce(sum(gcr.ga_unique_visits), sum(ygs.ga_unique_visits)) as ga_unique_visits
     from {{ ref('ga_conversion_rate') }} gcr
     left join yesterday_ga_stats ygs on gcr.ga_session_at_date = ygs.ga_session_at_date
     where gcr.date_aggregation_type = 'day'
+    group by 1
 ),
 
 ga_stats_yearly_average as (
     select 
         'UK' as ba_site,
-        round(avg(gcr.conversion_rate),2) as conversion_rate,
-        round(avg(gcr.ga_unique_visitors),0) as unique_visitors
-    from {{ ref('ga_conversion_rate') }} gcr
-    where gcr.date_aggregation_type = 'day' and gcr.ga_session_at_date > date_sub(current_date, interval 1 year)
+        round(avg(gs.conversion_rate),2) as conversion_rate,
+        round(avg(gs.ga_unique_visitors),0) as unique_visitors
+    from ga_stats gs
+    where gs.ga_session_at_date > date_sub(current_date, interval 1 year)
 )
 
 select
