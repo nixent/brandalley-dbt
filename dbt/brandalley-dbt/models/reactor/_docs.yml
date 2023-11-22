@@ -109,6 +109,65 @@ models:
           dimension:
             label: 'Stock Type'
 
+  - name: stg__reactor_goods_in_checked_date
+    description: ""
+    columns:
+      - name: po_id
+        meta:
+          dimension:
+            label: 'PO ID'
+          metrics:
+            goods_in_pos:
+              label: 'Goods In POs'
+              type: count_distinct
+              description: 'Number of POs Checked in'
+              round: 0
+      - name: sku
+        meta:
+          dimension:
+            label: 'Magento SKU'
+      - name: date_arrived
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Arrived Date'
+      - name: qty_arrived
+        meta:
+          dimension:
+            label: 'Qty Arrived'
+          metrics:
+            goods_in_qty_sum:
+              label: 'Goods In Qty'
+              type: sum
+              description: 'Number of Units Checked in'
+              round: 0
+            x_dock_goods_in_qty_sum:
+              label: 'X Dock Goods In Qty'
+              type: sum
+              description: 'Number of X Dock units checked in'
+              sql: "if(${stock_type} = 'X Dock', ${qty_arrived}, 0)"
+              round: 0
+            pct_of_goods_in_x_dock:
+              label: '% X Dock Goods In'
+              type: number
+              format: 'percent'
+              description: 'Percent of units checked in which are x dock'
+              sql: "safe_divide(${x_dock_goods_in_qty_sum},${goods_in_qty_sum})"
+              round: 2
+      - name: supplier
+        meta:
+          dimension:
+            label: 'Supplier'
+      - name: company
+        meta:
+          dimension:
+            label: 'Company'
+      - name: stock_type
+        meta:
+          dimension:
+            label: 'Stock Type'
+
   - name: stock_exited
     description: ""
     columns:
