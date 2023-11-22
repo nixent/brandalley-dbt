@@ -52,7 +52,7 @@ select
     number_of_sessions_with_one_page,
     bounce_rate,
     round(last_12_months_avg_sessions_total, 2) as last_12_months_avg_sessions_total,
-    round(last_12_months_avg_unique_visitors_total, 2) as last_12_months_avg_sessions_total,
+    round(last_12_months_avg_unique_visitors_total, 2) as last_12_months_avg_unique_visitors_total,
     round(last_12_months_avg_page_views_total, 2) as last_12_months_avg_page_views_total,
     round(last_12_months_avg_bounce_rate, 2) as last_12_months_avg_bounce_rate
 from bounce_rate a
