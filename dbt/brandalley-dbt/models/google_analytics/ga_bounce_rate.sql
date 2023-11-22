@@ -24,7 +24,7 @@ with
             a.logged_date,
             a.traffic_channel,
             count(distinct a.unique_visit_id) as sessions_total,
-            count(distinct a.visitor_id) as unique_visitors,
+            count(distinct a.visitor_id) as unique_visitors_total,
             sum(a.number_of_pages) as page_views_total,
             count(distinct (if (a.number_of_pages = 1, a.unique_visit_id, null))) as number_of_sessions_with_one_page,
             safe_divide(count(distinct (if (a.number_of_pages = 1, a.unique_visit_id, null))), count(distinct a.unique_visit_id))*100 as bounce_rate
