@@ -383,7 +383,7 @@ models:
             hidden: true
           metrics:
             l12_months_avg_new_customers_metric:
-              label: 'L12 Months Average New Customers'
+              label: 'L12 Months Average Daily New Customers'
               type: average
               description: "The average daily new customers over the last 12 months from current dat from GA"
               round: 0
@@ -409,7 +409,7 @@ models:
               description: "The average daily new registrations over the last 12 months from current dat from GA"
               round: 0
             l12_months_avg_new_registrations_sum_metric:
-              label: 'L12 Months Average Daily New Registrations per day'
+              label: 'L12 Months Average New Registrations per day'
               type: sum
               description: "The average daily new registrations over the last 12 months from current dat from GA"
               round: 0
