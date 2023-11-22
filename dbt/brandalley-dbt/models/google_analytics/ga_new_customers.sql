@@ -23,7 +23,7 @@ with
             on ol.order_id = oe.order_id
             and ol.ba_site = oe.ba_site
         where gds.date >= '2022-11-01'
-        {% if is_incremental() %} and date > (select max(date) from {{ this }}) {% endif %}
+        {% if is_incremental() %} and gds.date > (select max(logged_date) from {{ this }}) {% endif %}
         group by 1, 2
     ),
     previous_period as (
