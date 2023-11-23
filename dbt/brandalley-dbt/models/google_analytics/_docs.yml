@@ -330,7 +330,7 @@ models:
               label: 'L12 Months Average Daily Conversion Rate'
               type: average
               description: "The average Conversion Rate over the last 12 months from current date"
-              round: 0
+              round: 2
             l12_months_avg_conversion_rate_comparison_metric:
               type: number
               format: 'percent'
