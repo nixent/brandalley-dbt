@@ -32,6 +32,7 @@ with stock_file_raw as (
         cpedsprice.value                                as special_price,
         cpedoprice.value                                as outlet_price,
         cpev_outlet_category.value                      as outlet_category,
+        pcd.product_department                          as department_type,
         cpev_barcode.value                              as barcode,
         cpev_nego.value                                 as nego,
         cpn.buyer                                       as buyer_id,
@@ -209,7 +210,7 @@ with stock_file_raw as (
     left join {{ ref('stg__reactor_stock_profile') }} rsp
         on e.sku=rsp.sku
             and e.ba_site='UK'
-    left join ( Select 
+    left join ( select 
                     logged_date,
                     sku,
                     ba_site,
@@ -218,9 +219,11 @@ with stock_file_raw as (
                 where sku_avg_weighted_age is not null and logged_date<=cast(current_date as date)
                 group by 1,2,3,4 
                 qualify row_number() over (partition by sku, ba_site order by logged_date desc) = 1) awa on e.sku=awa.sku and e.ba_site=awa.ba_site
+    left join {{ ref('product_category_department') }} pcd
+		on lower(cpev_outlet_category.value) = lower(pcd.product_category_path)
     where e.type_id = 'simple'
         and (stock.qty > 0 or rsp.allocated>0 or rsp.unsellable>0)
-    {{ dbt_utils.group_by(44) }}, category.product_id
+    {{ dbt_utils.group_by(45) }}, category.product_id
  )
 select  
     stock.* except (flashsale_category, child_parent_sku, special_price, parent_child_category_ids, value_3, rn, sale_end),
@@ -235,5 +238,5 @@ left join {{ source('utils', 'category_mapping') }} cat_map
     on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label 
         and coalesce(stock.level_2,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(3)],split(flashsale_category, '>')[safe_offset(3)]) = cat_map.level_2 
         and coalesce(stock.level_3,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(4)],split(flashsale_category, '>')[safe_offset(4)]) = cat_map.level_3
-{{ dbt_utils.group_by(41) }}
+{{ dbt_utils.group_by(42) }}
 
