@@ -666,7 +666,7 @@ models:
         description: "name, nullable"
       - name: value
         description: "Base adjustement negative, nullable"
-    - name: suplier_id
+      - name: suplier_id
         description: "suplier id, nullable"
         meta:
           dimension:
