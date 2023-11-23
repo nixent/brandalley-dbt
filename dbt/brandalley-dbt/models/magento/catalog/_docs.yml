@@ -697,6 +697,7 @@ models:
         description: "Outlet price, nullable"
       - name: outlet_category
         description: "Outlet category, nullable"
+      - name: department_type
       - name: canUseForWHSale
         description: "Can use for warehouse sale flag, nullable"
         meta:
@@ -859,6 +860,7 @@ models:
         description: "Outlet price, nullable"
       - name: outlet_category
         description: "Outlet category, nullable"
+      - name: department_type
       - name: canUseForWHSale
         description: "Can use for warehouse sale flag, nullable"
         meta:
