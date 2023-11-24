@@ -68,6 +68,6 @@ left join order_line_agg ola
 left join order_refunds_agg ora
   on o.order_id = ora.order_id and o.ba_site = ora.ba_site
 left join {{ ref('stg__salesrule_coupon') }} src
-  on lower(o.coupon_code) = lower(src.code) and o.ba_site = src.ba_site
+  on lower(o.coupon_code) = lower(src.code) and o.ba_site = src.ba_site and o.coupon_code is not null and o.coupon_code != 'FRIDAY25'
 left join {{ ref('stg__salesrule') }} sr
   on src.rule_id = sr.rule_id and sr.ba_site = src.ba_site
