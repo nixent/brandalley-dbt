@@ -268,9 +268,9 @@ models:
               sql: "safe_divide(${express_shipments_dispatched_sum},${shipments_dispatched_sum})"
               round: 0
             average_units_per_shipment:
-              label: 'Shipments Dispatched'
+              label: 'Average Units per Shipment'
               type: number
-              description: 'Number of Shipments Dispatched'
+              description: Average Units per Shipment'
               sql: "safe_divide(${units_dispatched_sum},${shipments_dispatched_sum})"
               round: 2
       - name: delivery_type
