@@ -32,7 +32,11 @@ with stock_file_raw as (
         cpedsprice.value                                as special_price,
         cpedoprice.value                                as outlet_price,
         cpev_outlet_category.value                      as outlet_category,
-        pcd.product_department                          as department_type,
+        case
+			when eaov_brand.value = 'DockATot' then 'Decorative Home'
+		    when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
+			else pcd.product_department
+		end                          as department_type,
         cpev_barcode.value                              as barcode,
         cpev_nego.value                                 as nego,
         cpn.buyer                                       as buyer_id,
