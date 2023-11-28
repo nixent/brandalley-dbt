@@ -168,9 +168,13 @@ models:
           dimension:
             label: 'Stock Type'
 
-  - name: stock_exited
+  - name: stock_adjustments
     description: ""
     columns:
+      - name: movement_type
+        meta:
+          dimension:
+            label: 'Movement Type'
       - name: logged_date
         meta:
           dimension:
@@ -186,14 +190,14 @@ models:
         meta:
           dimension:
             label: 'Magento Sku'
-      - name: qty_exited
+      - name: qty_change
         meta:
           dimension:
             hidden: true
           metrics:
-            qty_exited_metric:
+            qty_change_metric:
               type: sum
-              label: 'Qty Exited'
+              label: 'Qty Difference'
       - name: unit_cost
         meta:
           dimension:
