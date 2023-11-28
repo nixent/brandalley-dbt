@@ -548,7 +548,19 @@ models:
       - name: qty_outstanding
         meta:
           dimension:
-            label: 'Qty Outstanding'      
+            label: 'Qty Outstanding'
+      - name: value_ordered
+        meta:
+          dimension:
+            label: 'Value Ordered'
+      - name: value_received
+        meta:
+          dimension:
+            label: 'Value Received'
+      - name: value_outstanding
+        meta:
+          dimension:
+            label: 'Value Outstanding'      
       - name: supplier
         meta:
           dimension:
