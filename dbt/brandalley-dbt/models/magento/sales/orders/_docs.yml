@@ -1189,7 +1189,7 @@ models:
               group_label: 'Product Details'
             level_1_categories_distinct:
               type: string
-              sql: 'string_agg(distinct ${product_category_level_1})'
+              sql: 'string_agg(distinct product_category_level_1)'
               group_label: 'Product Details'
       - name: product_category_level_2
         description: "Second highest level of product category"
@@ -1202,7 +1202,7 @@ models:
               group_label: 'Product Details'
             level_2_categories_distinct:
               type: string
-              sql: 'string_agg(distinct ${product_category_level_2})'
+              sql: 'string_agg(distinct product_category_level_2)'
               group_label: 'Product Details'
       - name: product_category_level_3
         description: "Lowest level of product category"
@@ -1215,7 +1215,7 @@ models:
               group_label: 'Product Details'
             level_3_categories_distinct:
               type: string
-              sql: 'string_agg(distinct ${product_category_level_3})'
+              sql: 'string_agg(distinct product_category_level_3)'
               group_label: 'Product Details'
       # - name: TOTAL_GBP_after_vouchers
       - name: total_local_currency_after_vouchers
