@@ -198,11 +198,23 @@ models:
               description: 'Number of Items Dispatched'
               sql: "if(${status} = 'Shipped', ${units_qty}, 0)"
               round: 0
+            value_dispatched_sum:
+              label: 'Value Dispatched'
+              type: sum
+              description: 'Value of Items Dispatched'
+              sql: "if(${status} = 'Shipped', ${units_qty}*${unit_cost}, 0)"
+              round: 0
             express_units_dispatched_sum:
               label: 'Express Units Dispatched'
               type: sum
               description: 'Number of Express Items Dispatched'
               sql: "if(${status} = 'Shipped' and ${service_level} = 'Express', ${units_qty}, 0)"
+              round: 0
+            express_value_dispatched_sum:
+              label: 'Express Value Dispatched'
+              type: sum
+              description: 'Value of Express Items Dispatched'
+              sql: "if(${status} = 'Shipped' and ${service_level} = 'Express', ${units_qty}*${unit_cost}, 0)"
               round: 0
       - name: delivery_consignment_id
         meta:
@@ -233,6 +245,12 @@ models:
               type: number
               description: Average Units per Shipment'
               sql: "safe_divide(${units_dispatched_sum},${shipments_dispatched_sum})"
+              round: 2
+            average_value_per_shipment:
+              label: 'Average Value per Shipment'
+              type: number
+              description: Average Value per Shipment'
+              sql: "safe_divide(${value_dispatched_sum},${shipments_dispatched_sum})"
               round: 2
       - name: delivery_type
         meta:
@@ -377,6 +395,12 @@ models:
               description: 'Number of Units Returned'
               sql: "if(${completed} = 'Returned', ${quantity}, 0)"
               round: 0
+            returned_value_sum:
+              label: 'Returns Value Processed'
+              type: sum
+              description: 'Value of Units Returned'
+              sql: "if(${completed} = 'Returned', ${quantity}*${unit_cost}, 0)"
+              round: 0
             outstanding_units_sum:
               label: 'Outstanding Units'
               type: sum
@@ -411,6 +435,12 @@ models:
               description: 'Number of Resaleable Units Returned'
               sql: "if(${completed} = 'Returned', ${resaleable_qty}, 0)"
               round: 0
+            resaleable_value_sum:
+              label: 'Resaleable Value Processed'
+              type: sum
+              description: 'Value of Resaleable Units Returned'
+              sql: "if(${completed} = 'Returned', ${resaleable_qty}*${unit_cost}, 0)"
+              round: 0
       - name: damaged_qty
         meta:
           dimension:
@@ -421,6 +451,12 @@ models:
               type: sum
               description: 'Number of Damaged Units Returned'
               sql: "if(${completed} = 'Returned', ${damaged_qty}, 0)"
+              round: 0
+            damaged_value_sum:
+              label: 'Damaged Value Processed'
+              type: sum
+              description: 'Value of Damaged Units Returned'
+              sql: "if(${completed} = 'Returned', ${damaged_qty}*${unit_cost}, 0)"
               round: 0
       - name: created_at_date
         meta:
