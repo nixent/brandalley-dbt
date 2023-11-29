@@ -1531,12 +1531,12 @@ models:
               label: 'Sample Order Office Difference'
               type: sum
               description: 'Sum of qty from Sample Orders to the office'
-              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Office" , ${qty_change}, 0)'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Office%" , ${qty_change}, 0)'
             influencer_sample_order_qty_sum:
               label: 'Sample Order Influencer Difference'
               type: sum
               description: 'Sum of qty from Sample Orders to influencers'
-              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Influencer" , ${qty_change}, 0)'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Influencer%" , ${qty_change}, 0)'
       - name: unit_cost
         meta:
           dimension:
@@ -1547,37 +1547,43 @@ models:
               type: sum
               description: 'Sum of total value'
               sql: '${qty_change}*${unit_cost}'
-              round: 2
+              round: 0
             stock_exits_value_sum:
               label: 'Stock Exit Difference Value'
               type: sum
               description: 'Sum of value from stock exit logs'
               sql: 'if(${movement_type} = "Stock Exit" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
             manual_updates_value_sum:
               label: 'Manual Update Difference Value'
               type: sum
               description: 'Sum of value from manual update logs'
               sql: 'if(${movement_type} = "Manual Update" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
             sor_value_sum:
               label: 'SOR Stock Adjustments Difference Value'
               type: sum
               description: 'Sum of value from SOR Stock Adjustments'
               sql: 'if(${movement_type} = "SOR Stock Adjustment" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
             sample_order_value_sum:
               label: 'Sample Order Difference Value'
               type: sum
               description: 'Sum of value from Sample Orders'
               sql: 'if(${movement_type} = "Sample Order" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
             office_sample_order_value_sum:
               label: 'Sample Order Office Difference Value'
               type: sum
               description: 'Sum of value from Sample Orders to the office'
-              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Office" , ${qty_change}*${unit_cost}, 0)'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Office%" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
             influencer_sample_order_value_sum:
               label: 'Sample Order Influencer Difference Value'
               type: sum
               description: 'Sum of value from Sample Orders to influencers'
-              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Influencer" , ${qty_change}*${unit_cost}, 0)'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Influencer%" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
       - name: reason
         meta:
           dimension:

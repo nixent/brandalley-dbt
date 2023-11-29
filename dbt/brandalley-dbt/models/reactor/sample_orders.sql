@@ -24,6 +24,7 @@ where c.siteid=659 and d.deliverytype<>'SOR' and b.status=4
 )
 select 
     'Order' as type,
+    a.customerid as reactor_order_number,
     a.stockid as reactor_sku,
     c.legacy_id as magento_sku,
     sum(a.quantity*-1) as qty_on_order,
@@ -36,12 +37,13 @@ from {{ ref('stg__orders') }} a
 left join {{ ref('stg__customers') }} b on a.customerid=b.customerid
 left join {{ ref('stg__stocklist') }} c on a.stockid=c.id
 where orderid in (select reactor_order_id from orders)
-group by 1,2,3,5,6,7,8,9
+group by 1,2,3,4,6,7,8,9,10
 
 union all
 
 select
     'Return' as type,
+    a.customerid as reactor_order_number,
     a.stockid as reactor_sku,
     c.legacy_id as magento_sku,
     sum(a.quantity*-1) as qty_on_order,
@@ -54,4 +56,4 @@ from {{ ref('stg__orders') }} a
 left join {{ ref('stg__customers') }} b on a.customerid=b.customerid
 left join {{ ref('stg__stocklist') }} c on a.stockid=c.id
 where a.referenceid in (select reactor_order_id from orders)
-group by 1,2,3,5,6,7,8,9
+group by 1,2,3,4,6,7,8,9,10

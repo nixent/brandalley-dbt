@@ -57,7 +57,8 @@ select
     magento_sku,
     sum(qty_on_order) as qty_change,
     unit_cost,
-    type as reason,
-    case when delivery_postcode='EC2A 4NW' then 'Sample Office' else 'Sample Influencer' end as details
+    case when delivery_postcode='EC2A 4NW' then concat('Sample Office ', type) else concat('Sample Influencer ', type) end as reason,
+    concat('Reactor Order ',cast(reactor_order_number as string)) as details
 from {{ ref('sample_orders') }}
 group by 1,2,3,4,6,7,8
+limit 10000
