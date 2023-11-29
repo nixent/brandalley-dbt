@@ -2,8 +2,8 @@
 
 with orders as (
 select 
-  c.customerid,
-  aa.orderid,
+  c.customerid as reactor_customer_id,
+  aa.orderid as reactor_order_id,
   d.stockid,
   b.created, 
   aa.quantity,
@@ -35,7 +35,7 @@ select
 from {{ ref('stg__orders') }} a
 left join {{ ref('stg__customers') }} b on a.customerid=b.customerid
 left join {{ ref('stg__stocklist') }} c on a.stockid=c.id
-where orderid in (select orderid from orders)
+where orderid in (select reactor_order_id from orders)
 group by 1,2,3,5,6,7,8,9
 
 union all
@@ -53,5 +53,5 @@ select
 from {{ ref('stg__orders') }} a
 left join {{ ref('stg__customers') }} b on a.customerid=b.customerid
 left join {{ ref('stg__stocklist') }} c on a.stockid=c.id
-where a.referenceid in (select orderid from orders)
+where a.referenceid in (select reactor_order_id from orders)
 group by 1,2,3,5,6,7,8,9
