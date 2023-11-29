@@ -42,7 +42,7 @@ select
     sum(a.quantity*-1) as qty_change,
     sl.item_cost as unit_cost,
     cast(null as string),
-    cast(null as string)
+    concat('Reactor Order ',cast(a.customerid as string)) as details
 from {{ ref('stg__orders') }} a
 left join {{ ref('stg__stocklist') }} sl on a.stockid=sl.id
 where customerid in (select customerid from {{ ref('stg__orders') }} where deliverytype='SOR')
@@ -57,7 +57,7 @@ select
     magento_sku,
     sum(qty_on_order) as qty_change,
     unit_cost,
-    type as reason,
-    case when delivery_postcode='EC2A 4NW' then 'Sample Office' else 'Sample Influencer' end as details
+    case when delivery_postcode='EC2A 4NW' then concat('Sample Office ', type) else concat('Sample Influencer ', type) end as reason,
+    concat('Reactor Order ',cast(reactor_order_number as string)) as details
 from {{ ref('sample_orders') }}
 group by 1,2,3,4,6,7,8
