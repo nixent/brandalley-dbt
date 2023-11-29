@@ -168,49 +168,6 @@ models:
           dimension:
             label: 'Stock Type'
 
-  - name: stock_adjustments
-    description: ""
-    columns:
-      - name: movement_type
-        meta:
-          dimension:
-            label: 'Movement Type'
-      - name: logged_date
-        meta:
-          dimension:
-            type: date
-            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            label: 'Logged Date'
-      - name: reactor_sku
-        meta:
-          dimension:
-            label: 'Reactor Sku'
-            type: string
-      - name: magento_sku
-        meta:
-          dimension:
-            label: 'Magento Sku'
-      - name: qty_change
-        meta:
-          dimension:
-            hidden: true
-          metrics:
-            qty_change_metric:
-              type: sum
-              label: 'Qty Difference'
-      - name: unit_cost
-        meta:
-          dimension:
-            label: 'Unit Cost'
-      - name: exit_route
-        meta:
-          dimension:
-            label: 'Exit Route'
-      - name: exit_details
-        meta:
-          dimension:
-            label: 'Exit Details'
-
   - name: delivery_consignment
     description: ""
     columns:
@@ -1483,3 +1440,113 @@ models:
               label: 'L4W Damaged Units Processed Comparison %'
               group_label: 'Returns KPIs'
               round: 2
+
+  - name: stock_adjustments
+    description: ""
+    columns:
+      - name: movement_type
+        meta:
+          dimension:
+            label: 'Movement Type'
+      - name: logged_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Logged Date'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: reactor_sku
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: qty_change
+        meta:
+          dimension:
+            label: 'Qty Difference'
+          metrics:
+            qty_sum:
+              label: 'Total Qty Difference'
+              type: sum
+              description: 'Sum of total qty'
+            stock_exits_qty_sum:
+              label: 'Stock Exit Difference'
+              type: sum
+              description: 'Sum of qty from stock exit logs'
+              sql: 'if(${movement_type} = "Stock Exit" , ${qty_change}, 0)'
+            manual_updates_qty_sum:
+              label: 'Manual Update Difference'
+              type: sum
+              description: 'Sum of qty from manual update logs'
+              sql: 'if(${movement_type} = "Manual Update" , ${qty_change}, 0)'
+            sor_qty_sum:
+              label: 'SOR Stock Adjustments Difference'
+              type: sum
+              description: 'Sum of qty from SOR Stock Adjustments'
+              sql: 'if(${movement_type} = "SOR Stock Adjustment" , ${qty_change}, 0)'
+            sample_order_qty_sum:
+              label: 'Sample Order Difference'
+              type: sum
+              description: 'Sum of qty from Sample Orders'
+              sql: 'if(${movement_type} = "Sample Order" , ${qty_change}, 0)'
+            office_sample_order_qty_sum:
+              label: 'Sample Order Office Difference'
+              type: sum
+              description: 'Sum of qty from Sample Orders to the office'
+              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Office" , ${qty_change}, 0)'
+            influencer_sample_order_qty_sum:
+              label: 'Sample Order Influencer Difference'
+              type: sum
+              description: 'Sum of qty from Sample Orders to influencers'
+              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Influencer" , ${qty_change}, 0)'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+          metrics:
+            value_sum:
+              label: 'Total Value Difference'
+              type: sum
+              description: 'Sum of total value'
+              sql: '${qty_change}*${unit_cost}'
+              round: 2
+            stock_exits_value_sum:
+              label: 'Stock Exit Difference Value'
+              type: sum
+              description: 'Sum of value from stock exit logs'
+              sql: 'if(${movement_type} = "Stock Exit" , ${qty_change}*${unit_cost}, 0)'
+            manual_updates_value_sum:
+              label: 'Manual Update Difference Value'
+              type: sum
+              description: 'Sum of value from manual update logs'
+              sql: 'if(${movement_type} = "Manual Update" , ${qty_change}*${unit_cost}, 0)'
+            sor_value_sum:
+              label: 'SOR Stock Adjustments Difference Value'
+              type: sum
+              description: 'Sum of value from SOR Stock Adjustments'
+              sql: 'if(${movement_type} = "SOR Stock Adjustment" , ${qty_change}*${unit_cost}, 0)'
+            sample_order_value_sum:
+              label: 'Sample Order Difference Value'
+              type: sum
+              description: 'Sum of value from Sample Orders'
+              sql: 'if(${movement_type} = "Sample Order" , ${qty_change}*${unit_cost}, 0)'
+            office_sample_order_value_sum:
+              label: 'Sample Order Office Difference Value'
+              type: sum
+              description: 'Sum of value from Sample Orders to the office'
+              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Office" , ${qty_change}*${unit_cost}, 0)'
+            influencer_sample_order_value_sum:
+              label: 'Sample Order Influencer Difference Value'
+              type: sum
+              description: 'Sum of value from Sample Orders to influencers'
+              sql: 'if(${movement_type} = "Sample Order" and ${details} = "Sample Influencer" , ${qty_change}*${unit_cost}, 0)'
+      - name: reason
+        meta:
+          dimension:
+            label: 'Reason'
+      - name: details
+        meta:
+          dimension:
+            label: 'Details'
