@@ -75,7 +75,7 @@ select
     cast(null as string)
 from {{ ref('stg__boxstockchecklog') }} bscl
 left join {{ ref('stg__stocklist') }} sl on bscl.stockid=sl.id
-where bscl.via='MU'
+where bscl.via='AH'
 group by 1,2,3,4,6,7,8
 
 union all
