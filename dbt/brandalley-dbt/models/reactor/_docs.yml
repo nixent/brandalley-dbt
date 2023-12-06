@@ -1537,6 +1537,16 @@ models:
               type: sum
               description: 'Sum of qty from Sample Orders to influencers'
               sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Influencer%" , ${qty_change}, 0)'
+            ad_hoc_locate_qty_sum:
+              label: 'Ad-hoc Locate Difference'
+              type: sum
+              description: 'Sum of qty from ad-hoc locate logs'
+              sql: 'if(${movement_type} = "Ad-hoc Locate" , ${qty_change}, 0)'
+            stock_check_qty_sum:
+              label: 'Stock Check Difference'
+              type: sum
+              description: 'Sum of qty from stock check adjustments'
+              sql: 'if(${movement_type} = "Stock Check" , ${qty_change}, 0)'
       - name: unit_cost
         meta:
           dimension:
@@ -1583,6 +1593,18 @@ models:
               type: sum
               description: 'Sum of value from Sample Orders to influencers'
               sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Influencer%" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            ad_hoc_locate_value_sum:
+              label: 'Ad-hoc Locate Difference Value'
+              type: sum
+              description: 'Sum of value from ad-hoc locate logs'
+              sql: 'if(${movement_type} = "Ad-hoc Locate" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            stock_check_value_sum:
+              label: 'Stock Check Difference Value'
+              type: sum
+              description: 'Sum of value from stock check adjustments'
+              sql: 'if(${movement_type} = "Stock Check" , ${qty_change}*${unit_cost}, 0)'
               round: 0
       - name: reason
         meta:
