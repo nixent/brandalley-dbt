@@ -1,7 +1,7 @@
 {{config(
     materialized='incremental',
-    unique_key='order_shipment_unique',
-	cluster_by='order_shipment_unique',
+    unique_key='entity_id',
+	cluster_by='entity_id',
     
 )}}
 
