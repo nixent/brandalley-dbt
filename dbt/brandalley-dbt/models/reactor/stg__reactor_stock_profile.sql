@@ -57,41 +57,6 @@ where obi.__deleted = false
 
 union all
 
-select
-    cast(current_date as date) as logged_date,
-    o.stockid as reactor_sku_id,
-    sl.legacy_id as sku,
-    sum(o.quantity) as quantity,
-    null as box_id,
-    null as rack_id,
-    null as rack_row,
-    null as rack,
-    null as rack_number,
-    null as aisle_id,
-    null as aisle_number,
-    null as zone_id,
-    null as zone_name,
-    null as zone_abbr,
-    null as zone_colour,
-    0 as is_zone_pickable,
-    'pending dispatch' as stock_type
-from {{ ref("stg__orders") }} as o
-inner join
-    {{ ref("stg__customers") }} as c
-    on c.customerid = o.customerid
-    and c.deleted is null
-left join
-    (select * from {{ ref("stg__orderboxindex") }} where __deleted = false) obi
-    on obi.orderid = o.orderid
-left join {{ ref("stg__stocklist") }} sl on o.stockid = sl.id
-where
-    o.completed_timestamp is not null
-    and o.leftwarehouse_timestamp < '2000-01-01'
-    and obi.id is null
-group by o.stockid, sl.legacy_id
-
-union all
-
 select cast(current_date as date) as logged_date,
        ubsi.stockid as reactor_sku_id,
        sl.legacy_id as sku,
