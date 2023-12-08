@@ -87,7 +87,7 @@ select
 	rsp.sku,
 	max(rsp.reactor_sku_id) as reactor_sku_id,
 	sum(rsp.quantity) as on_hand,
-	sum(case when rsp.stock_type in ('allocated', 'pending dispatch')
+	sum(case when rsp.stock_type = 'allocated'
 		then rsp.quantity
 	    else 0 end) as allocated,
 	sum(case when rsp.stock_type = 'available'
