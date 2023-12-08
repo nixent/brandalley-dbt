@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: core
+    database: datawarehouse-358408
+    tables:
+      - name: stock_sales_forecast_gsheet
