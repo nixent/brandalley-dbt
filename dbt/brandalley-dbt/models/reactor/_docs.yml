@@ -711,6 +711,8 @@ models:
       joins:
         - join: box_names
           sql_on: ${box_stock_locations.box_id} = ${box_names.box_id}
+        - join: stocklist_product_info
+          sql_on: ${box_stock_locations.reactor_sku_id} = ${stocklist_product_info.reactor_sku}
     columns:
       - name: logged_date
         meta:
@@ -758,6 +760,24 @@ models:
               label: 'Total Qty Available'
               type: sum
               description: 'Sum of total available qty'
+      - name: unsellable_good
+        meta:
+          dimension:
+            label: 'Qty Unsellable Location'
+          metrics:
+            qty_unsellable_good_sum:
+              label: 'Total Unsellable Location'
+              type: sum
+              description: 'Sum of total qty in an unsellable location'
+      - name: unsellable_bad
+        meta:
+          dimension:
+            label: 'Qty Unsellable Damaged'
+          metrics:
+            qty_unsellable_bad_sum:
+              label: 'Total Qty Unsellable Damaged'
+              type: sum
+              description: 'Sum of total available qty in an unsellable damaged location'
 
   - name: warehouse_kpis_daily
     description: ""
