@@ -197,7 +197,8 @@ with order_lines as (
 				or cceh.name is null
 			then 'Outlet'
 			else cceh.name
-		end 																																				as category_name,
+		end																																				as category_name,
+		ccfse.path_name,
 		case
 			when vs.brand is not null then pcd.product_department
 			when lower(ccfse.path_name) like '%>clearance>%' then 'Clearance'
