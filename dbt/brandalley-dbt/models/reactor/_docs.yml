@@ -1567,6 +1567,11 @@ models:
               type: sum
               description: 'Sum of qty from stock check adjustments'
               sql: 'if(${movement_type} = "Stock Check" , ${qty_change}, 0)'
+            reallocation_qty_sum:
+              label: 'Reallocation to Box Difference'
+              type: sum
+              description: 'Sum of qty from reallocation adjustments'
+              sql: 'if(${movement_type} = "Reallocation to Box" , ${qty_change}, 0)'
       - name: unit_cost
         meta:
           dimension:
@@ -1626,6 +1631,11 @@ models:
               description: 'Sum of value from stock check adjustments'
               sql: 'if(${movement_type} = "Stock Check" , ${qty_change}*${unit_cost}, 0)'
               round: 0
+            reallocation_value_sum:
+              label: 'Reallocation to box Difference Value'
+              type: sum
+              description: 'Sum of value from reallocation adjustments'
+              sql: 'if(${movement_type} = "Reallocation to Box" , ${qty_change}*${unit_cost}, 0)'
       - name: reason
         meta:
           dimension:

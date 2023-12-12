@@ -93,3 +93,19 @@ from {{ ref('stg__boxstockchecklog') }} bscl
 left join {{ ref('stg__stocklist') }} sl on bscl.stockid=sl.id
 where bscl.via='SC'
 group by 1,2,3,4,6,7,8
+
+union all
+
+select 
+    'Reallocation to Box',
+    cast(datetime_add('1970-01-01', interval bscl.timestamp second) as date) as logged_date,
+    cast(bscl.stockid as string) as reactor_sku,
+    sl.legacy_id as magento_sku,
+    sum(bscl.difference) as qty_change,
+    sl.item_cost as unit_cost,
+    cast(null as string),
+    cast(null as string)
+from {{ ref('stg__boxstockchecklog') }} bscl
+left join {{ ref('stg__stocklist') }} sl on bscl.stockid=sl.id
+where bscl.via='RA'
+group by 1,2,3,4,6,7,8
