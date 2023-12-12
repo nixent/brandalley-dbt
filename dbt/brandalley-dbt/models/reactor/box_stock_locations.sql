@@ -6,7 +6,7 @@ select
     cast(bsi.stockid as string) as reactor_sku_id,
     sl.legacy_id as sku,
     bsi.quantity as quantity,
-    bsi.boxid as box_id,
+    cast(bsi.boxid as string) as box_id,
     'available' as stock_type
 from {{ ref("stg__boxstockindex") }} as bsi
 left join {{ ref("stg__stocklist") }} sl on bsi.stockid = sl.id
@@ -18,7 +18,7 @@ select
     cast(o.stockid as string) as reactor_sku_id,
     sl.legacy_id as sku,
     o.quantity,
-    obi.boxid as box_id,
+    cast(obi.boxid as string) as box_id,
     'allocated' as stock_type
 from {{ ref("stg__orderboxindex") }} as obi
 inner join {{ ref("stg__orders") }} as o on obi.orderid = o.orderid
@@ -32,7 +32,7 @@ select cast(current_date as date) as logged_date,
        cast(ubsi.stockid as string) as reactor_sku_id,
        sl.legacy_id as sku,
        ubsi.quantity as quantity,
-       ubsi.boxid as box_id, 
+       cast(ubsi.boxid as string) as box_id, 
        'unsellable' as stock_type       
 from {{ ref("stg__unsellableboxstockindex") }} ubsi
 left join {{ ref("stg__box") }} as b on ubsi.boxid = b.id
@@ -54,10 +54,10 @@ select
 	sum(case when rsp.stock_type = 'available'
 		then rsp.quantity
 	    else 0 end) as available,
-    sum(case when rsp.stock_type = 'unsellable' and rsp.box_id not in (-32, -33, -34, -35, -41, -42)
+    sum(case when rsp.stock_type = 'unsellable' and rsp.box_id not in ('-32', '-33', '-34', '-35', '-41', '-42')
 		then rsp.quantity
 	    else 0 end) as unsellable_good,
-    sum(case when rsp.stock_type = 'unsellable' and rsp.box_id in (-32, -33, -34, -35, -41, -42)
+    sum(case when rsp.stock_type = 'unsellable' and rsp.box_id in ('-32', '-33', '-34', '-35', '-41', '-42')
 		then rsp.quantity
 	    else 0 end) as unsellable_bad,
 from raw_stock_profile as rsp
