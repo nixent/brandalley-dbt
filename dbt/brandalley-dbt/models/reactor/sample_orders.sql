@@ -28,7 +28,7 @@ select
     a.stockid as reactor_sku,
     c.legacy_id as magento_sku,
     sum(a.quantity*-1) as qty_on_order,
-    date(a.completed_timestamp) as logged_date,
+    date(a.leftwarehouse_timestamp) as logged_date,
     a.deliverytype as deliverytype,
     a.carrier_service_identifier as carrier_service,
     b.dpostcode as delivery_postcode,
