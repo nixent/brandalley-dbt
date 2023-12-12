@@ -3,7 +3,7 @@
 with raw_stock_profile as (
 select
     cast(current_date as date) as logged_date,
-    bsi.stockid as reactor_sku_id,
+    cast(bsi.stockid as string) as reactor_sku_id,
     sl.legacy_id as sku,
     bsi.quantity as quantity,
     bsi.boxid as box_id,
@@ -15,7 +15,7 @@ union all
 
 select
     cast(current_date as date) as logged_date,
-    o.stockid as reactor_sku_id,
+    cast(o.stockid as string) as reactor_sku_id,
     sl.legacy_id as sku,
     o.quantity,
     obi.boxid as box_id,
@@ -29,7 +29,7 @@ where obi.__deleted = false
 union all
 
 select cast(current_date as date) as logged_date,
-       ubsi.stockid as reactor_sku_id,
+       cast(ubsi.stockid as string) as reactor_sku_id,
        sl.legacy_id as sku,
        ubsi.quantity as quantity,
        ubsi.boxid as box_id, 
