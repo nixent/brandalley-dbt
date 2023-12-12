@@ -1636,6 +1636,7 @@ models:
               type: sum
               description: 'Sum of value from reallocation adjustments'
               sql: 'if(${movement_type} = "Reallocation to Box" , ${qty_change}*${unit_cost}, 0)'
+              round: 2
       - name: reason
         meta:
           dimension:
