@@ -13,4 +13,4 @@ FROM {{ ref('stg__boxstockchecklog')}} a
 LEFT JOIN {{ ref('stg__boxstockchecklogvia')}} b ON a.via=b.code
 LEFT JOIN {{ ref('stg__stocklist')}} d ON a.stockid=d.id
 LEFT JOIN {{ ref('stg__box')}} e ON a.boxid=e.id
-WHERE date(timestamp_seconds(timestamp))>='2023-06-01' and a.boxid>0
+WHERE date(timestamp_seconds(timestamp))>='2023-06-01'
