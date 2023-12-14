@@ -92,7 +92,7 @@ select
     __deleted,
     bq_last_processed_at
 from {{ ref('stg_uk__catalog_category_flat_store_1') }}
-where path not like '/190/'
+where path not like '%/190/%'
 -- ignoring sales ended
 {% if is_incremental() %}
     and bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
@@ -189,7 +189,7 @@ select
     __deleted,
     bq_last_processed_at
 from {{ ref('stg_fr__catalog_category_flat_store_1') }}
-where path not like '/190/'
+where path not like '%/190/%'
 -- ignoring sales ended
 {% if is_incremental() %}
     and bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
