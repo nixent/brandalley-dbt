@@ -92,9 +92,11 @@ select
     __deleted,
     bq_last_processed_at
 from {{ ref('stg_uk__catalog_category_flat_store_1') }}
+where path not like '/190/'
 {% if is_incremental() %}
-    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
+    and bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'UK' )
 {% endif %}
+qualify row_number() over (partition by entity_id order by updated_at desc) = 1
 
 union all
 
@@ -186,6 +188,8 @@ select
     __deleted,
     bq_last_processed_at
 from {{ ref('stg_fr__catalog_category_flat_store_1') }}
+where path not like '/190/'
 {% if is_incremental() %}
-    where bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
+    and bq_last_processed_at > (select max(bq_last_processed_at) from {{this}} where ba_site = 'FR' )
 {% endif %}
+qualify row_number() over (partition by entity_id order by updated_at desc) = 1
