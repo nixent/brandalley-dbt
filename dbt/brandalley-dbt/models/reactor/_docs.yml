@@ -545,6 +545,7 @@ models:
       - name: qty_newly_received
         meta:
           dimension:
+            type: number
             label: 'Qty Newly Received'
       - name: qty_outstanding
         meta:
