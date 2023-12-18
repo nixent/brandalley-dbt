@@ -28,6 +28,7 @@ select
     d.productname as productname,
     date(timestamp_seconds(a.ordertime)) as created_date,
     e.arrival_date as arrived_date,
+    e.sum_of_arrived as qty_newly_received,
     case
         when a.orderquantity = a.receivedquantity
         then 'fulfilled'
