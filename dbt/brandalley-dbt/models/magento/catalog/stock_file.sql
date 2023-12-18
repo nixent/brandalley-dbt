@@ -9,6 +9,7 @@ with stock_file_raw as (
         stock.min_qty,
         stock.qty,
         wsrb.qty_remaining_kettering                    as stock_kettering,
+        rsp.available                                   as stock_kettering_available,
         rsp.allocated                                   as stock_kettering_allocated,
         rsp.unsellable_good                             as stock_kettering_unsellable_good,
         rsp.unsellable_bad                              as stock_kettering_unsellable_bad,
@@ -227,7 +228,7 @@ with stock_file_raw as (
 		on lower(cpev_outlet_category.value) = lower(pcd.product_category_path)
     where e.type_id = 'simple'
         and (stock.qty > 0 or rsp.allocated>0 or rsp.unsellable>0)
-    {{ dbt_utils.group_by(45) }}, category.product_id
+    {{ dbt_utils.group_by(46) }}, category.product_id
  )
 select  
     stock.* except (flashsale_category, child_parent_sku, special_price, parent_child_category_ids, value_3, rn, sale_end),
@@ -242,5 +243,5 @@ left join {{ source('utils', 'category_mapping') }} cat_map
     on coalesce(stock.level_1,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(2)],split(flashsale_category, '>')[safe_offset(2)]) = cat_map.row_label 
         and coalesce(stock.level_2,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(3)],split(flashsale_category, '>')[safe_offset(3)]) = cat_map.level_2 
         and coalesce(stock.level_3,split(if(value_3 = 3, flashsale_category, null), '>')[safe_offset(4)],split(flashsale_category, '>')[safe_offset(4)]) = cat_map.level_3
-{{ dbt_utils.group_by(42) }}
+{{ dbt_utils.group_by(43) }}
 
