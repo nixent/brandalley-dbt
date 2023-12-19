@@ -201,7 +201,7 @@ with order_lines as (
 		ccfse.path_name,
 		case
 			when vs.brand is not null then pcd.product_department
-			when lower(ccfse.path_name) like '%>clearance>%' then 'Clearance'
+			when lower(ccfse.path_name) like '%>clearance>%' and date(created_at) not in ('2023-12-22', '2023-12-23', '2023-12-24') then 'Clearance'
 			when eaov_brand.value = 'DockATot' then 'Decorative Home'
 		    when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
 			when lower(cceh.name) = 'outlet' then 'Outlet'
