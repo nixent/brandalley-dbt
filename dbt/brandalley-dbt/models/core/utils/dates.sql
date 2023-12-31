@@ -29,5 +29,5 @@ select
     if(c1.date_day <= current_date, True, False) as up_to_current_date_flag 
  from cal c1
  inner join cal c2 
-  on c1.year = c2.year+1 and c1.week_num = c2.week_num and c1.weekday_name = c2.weekday_name
+  on c1.year = c2.year+1 and c1.week_num = c2.week_num and c1.weekday_name = c2.weekday_name and date_diff(c1.date_day, c2.date_day, month) < 15
 order by c1.date_day desc

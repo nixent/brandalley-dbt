@@ -1207,3 +1207,7 @@ sources:
           - name: __deleted
             data_type: <string>
             description: "deleted"
+
+      - name: stock_audit_allocated
+      - name: stock_audit_sellable
+      - name: stock_audit_unsellable
