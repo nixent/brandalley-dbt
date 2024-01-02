@@ -24,7 +24,8 @@ select
     date_sub(c1.date_day, interval 1 year)     as last_year, 
     date_sub(c1.date_day, interval 1 month)    as last_month, 
     date_sub(c1.date_day, interval 1 week)     as last_week,
-    c2.date_day                                as last_year_same_day,
+    -- override for New Year
+    if(c1.date_day = last_day(c1.date_day, year) and c2.date_day is null, date_trunc(c1.date_day, year), c2.date_day)                                as last_year_same_day,
     if(c1.date_day > date_sub(current_date, interval 1 year) and c1.date_day < current_date, True, False) as last_12_months_flag,
     if(c1.date_day <= current_date, True, False) as up_to_current_date_flag 
  from cal c1
