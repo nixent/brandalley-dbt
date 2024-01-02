@@ -205,6 +205,7 @@ with order_lines as (
 			when eaov_brand.value = 'DockATot' then 'Decorative Home'
 		    when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
 			when lower(cceh.name) = 'outlet' then 'Outlet'
+			when lower(eaov_brand.value) in ('rossignol', 'rains', 'dare2b', 'strobe skiwear') then 'RTW'
 			when cceh.name is not null then pcd.product_department
 			else 'Outlet'
 		end 																																				as department_type,
