@@ -51,6 +51,7 @@ select
     p2.product_type,
     p2.qty_invoiced_l4w,
     p2.warehouse_qty_l4w,
+    min(ol3.date_day)                     as min_ytd_date,
     sum(ol3.qty_invoiced)                 as qty_invoiced_ytd,
     sum(ol3.warehouse_qty)                as warehouse_qty_ytd,
     sum(ol3.total_product_cost_exc_vat)   as total_product_cost_exc_vat,
