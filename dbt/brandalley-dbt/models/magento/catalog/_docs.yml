@@ -631,6 +631,10 @@ models:
         description: "Quantity, nullable"
         tests:
           - stock_file_qty 
+        meta:
+          metrics:
+            total_stock_qty:
+              type: sum
       - name: stock_kettering
         meta:
           metrics:
