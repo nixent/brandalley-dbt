@@ -1,7 +1,11 @@
 {{ config(
     materialized='table', 
     tags=["job_daily"],
-    cluster_by='date_day'
+    partition_by = {
+      "field": "date_day",
+      "data_type": "date",
+      "granularity": "day"
+    },
 )}}
 
 with order_line_daily as (
