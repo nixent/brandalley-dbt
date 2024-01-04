@@ -9,16 +9,13 @@ with order_line_daily as (
         date(created_at) as date_day,
         ba_site,
         sku,
-        parent_sku,
-        brand,
-        product_type,
         sum(qty_invoiced)                 as qty_invoiced,
         sum(warehouse_qty)                as warehouse_qty,
         sum(line_product_cost_exc_vat)    as total_product_cost_exc_vat,
         sum(line_flash_price_inc_vat)     as total_flash_price_inc_vat
     from {{ ref('OrderLines') }}
     where date(created_at) >= '2022-12-01'
-    group by 1,2,3,4,5,6
+    group by 1,2,3
 ),
 
 order_line_recalc as (
@@ -36,6 +33,7 @@ order_line_recalc as (
     from (
         select ba_site, variant_sku as sku, sku as parent_sku, brand, product_type, name as product_name, department_type, min(date(dt_cr)) as min_date_day 
         from {{ ref('products') }} 
+        where is_deleted = false
         group by 1,2,3,4,5,6,7
     ) p,
     {{ ref('dates') }} d
