@@ -29,7 +29,7 @@
     from region-europe-west2.INFORMATION_SCHEMA.TABLES t
     left join last_queries lq 
         on t.table_schema = lq.dataset_id and t.table_name = lq.table_id
-    where (t.table_schema not in ('streamkap', 'streamkap_fr', 'streamkap_reactor', 'streamkap_m2', 'streamkap_current', 'prod', 'analytics_280799085', 'backfill')
+    where (t.table_schema not in ('streamkap', 'streamkap_fr', 'streamkap_reactor', 'streamkap_m2', 'streamkap_current', 'prod', 'analytics_280799085', 'backfill', 'google_ads')
         and date_diff(current_date, date(coalesce(lq.start_time, t.creation_time)), day) >= 30
         and table_type in ('BASE TABLE', 'VIEW', 'CLONE'))
         and table_name not like 'ifg_%'
@@ -53,7 +53,7 @@
     left join table_counts tc
         on tc.table_schema = s.schema_name
     where 
-        (lower(s.schema_name) not like 'ml_%' and lower(s.schema_name) not in ('kmeans', 'kmeans1', 'propensity', 'backfill'))
+        (lower(s.schema_name) not like 'ml_%' and lower(s.schema_name) not in ('kmeans', 'kmeans1', 'propensity', 'backfill', 'google_ads'))
         and ((date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 7 and tc.tables_in_schema is null)
             or (s.schema_name like '%dbt_cloud_pr%' and date_diff(current_date, date(coalesce(s.last_modified_time, s.creation_time)), day) >= 3))
 {% endset %}
