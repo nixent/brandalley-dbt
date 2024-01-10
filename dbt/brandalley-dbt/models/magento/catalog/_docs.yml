@@ -685,6 +685,7 @@ models:
           metrics:
             total_stock_cost:
               type: sum
+              sql: '${cost}*${qty}'
       - name: parent_gender
         description: "Parent gender, nullable"
       - name: simple_gender
@@ -705,6 +706,7 @@ models:
           metrics:
             total_stock_special_price:
               type: sum
+              sql: '${special_price}*${qty}'
       - name: outlet_price
         description: "Outlet price, nullable"
       - name: outlet_category
