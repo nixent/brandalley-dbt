@@ -686,6 +686,7 @@ models:
             total_stock_cost:
               type: sum
               sql: '${cost}*${qty}'
+              round: 2
       - name: parent_gender
         description: "Parent gender, nullable"
       - name: simple_gender
@@ -707,6 +708,7 @@ models:
             total_stock_special_price:
               type: sum
               sql: '${special_price}*${qty}'
+              round: 2
       - name: outlet_price
         description: "Outlet price, nullable"
       - name: outlet_category
