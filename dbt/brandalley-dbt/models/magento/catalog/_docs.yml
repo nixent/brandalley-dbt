@@ -681,6 +681,10 @@ models:
         description: "Country of manufacture, nullable"
       - name: cost
         description: "cost, nullable"
+        meta:
+          metrics:
+            total_stock_cost:
+              type: sum
       - name: parent_gender
         description: "Parent gender, nullable"
       - name: simple_gender
@@ -697,6 +701,10 @@ models:
         description: "Price, nullable"
       - name: special_price
         description: "Special price, nullable"
+        meta:
+          metrics:
+            total_stock_special_price:
+              type: sum
       - name: outlet_price
         description: "Outlet price, nullable"
       - name: outlet_category

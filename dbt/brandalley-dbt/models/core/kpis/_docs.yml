@@ -1758,6 +1758,10 @@ models:
           dimension:
             type: date
             time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+          metrics:
+            metric_min_ytd_date:
+              type: min
+              label: 'Min YTD Date'
       - name: qty_invoiced_ytd
         meta:
           metrics:
