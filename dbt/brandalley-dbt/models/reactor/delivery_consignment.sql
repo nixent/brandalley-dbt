@@ -39,4 +39,4 @@ left join {{ ref('stg__orders') }} e on aa.orderid=e.orderid
 left join {{ ref('stg__product') }} f on e.productid=f.productid
 left join {{ ref('stg__customers') }} g on b.customerid=g.customerid
 left join {{ ref('stg__stocklist') }} j on e.stockid=j.id
-WHERE b.created is not null
+WHERE b.created is not null and aa.id<>1337245 --dodgy value
