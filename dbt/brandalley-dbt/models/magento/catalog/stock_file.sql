@@ -192,9 +192,9 @@ with stock_file_raw as (
             and cpn.ba_site = cpev_nego.ba_site
     left join (
         select distinct negotiation_id, parrent_sku, sku, tax_rate, ba_site 
-        from {{ ref('stg__catalog_product_negotiation_item') }} 
-        qualify row_number() over (partition by negotiation_id, sku, ba_site order by parrent_sku desc) = 1) cpni --not needed but for safety
+        from {{ ref('stg__catalog_product_negotiation_item') }} ) cpni 
         on cast(cpni.negotiation_id as string) = cpev_nego.value
+            and cpni.parrent_sku = parent_entity_relation.sku
             and e.sku = cpni.sku
             and e.ba_site = cpni.ba_site
     left join {{ ref('stg__admin_user') }} au 
