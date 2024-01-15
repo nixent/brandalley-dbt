@@ -631,6 +631,10 @@ models:
         description: "Quantity, nullable"
         tests:
           - stock_file_qty 
+        meta:
+          metrics:
+            total_stock_qty:
+              type: sum
       - name: stock_kettering
         meta:
           metrics:
@@ -677,6 +681,12 @@ models:
         description: "Country of manufacture, nullable"
       - name: cost
         description: "cost, nullable"
+        meta:
+          metrics:
+            total_stock_cost:
+              type: sum
+              sql: '${cost}*${qty}'
+              round: 2
       - name: parent_gender
         description: "Parent gender, nullable"
       - name: simple_gender
@@ -693,10 +703,17 @@ models:
         description: "Price, nullable"
       - name: special_price
         description: "Special price, nullable"
+        meta:
+          metrics:
+            total_stock_special_price:
+              type: sum
+              sql: '${special_price}*${qty}'
+              round: 2
       - name: outlet_price
         description: "Outlet price, nullable"
       - name: outlet_category
         description: "Outlet category, nullable"
+      - name: department_type
       - name: canUseForWHSale
         description: "Can use for warehouse sale flag, nullable"
         meta:
@@ -859,6 +876,7 @@ models:
         description: "Outlet price, nullable"
       - name: outlet_category
         description: "Outlet category, nullable"
+      - name: department_type
       - name: canUseForWHSale
         description: "Can use for warehouse sale flag, nullable"
         meta:

@@ -28,6 +28,7 @@ select
     d.productname as productname,
     date(timestamp_seconds(a.ordertime)) as created_date,
     e.arrival_date as arrived_date,
+    e.sum_of_arrived as qty_newly_received,
     case
         when a.orderquantity = a.receivedquantity
         then 'fulfilled'
@@ -41,6 +42,9 @@ select
     a.orderquantity as qty_ordered,
     a.receivedquantity as qty_received,
     a.orderquantity-a.receivedquantity as qty_outstanding,
+    a.orderquantity*c.item_cost as value_ordered,
+    a.receivedquantity*c.item_cost as value_received,
+    (a.orderquantity-a.receivedquantity)*c.item_cost as value_outstanding,
     b.name as supplier,
     case when a.potype = 'bk2bk' then 'X Dock' else 'Stock' end as stock_type,
     c.item_cost as unit_cost,

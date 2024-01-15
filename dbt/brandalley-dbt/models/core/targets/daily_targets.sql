@@ -5,7 +5,7 @@
 with daily_dates as (
     select
         date_day
-    from unnest(generate_date_array('2023-01-01', '2023-12-31', interval 1 day))                 as date_day
+    from unnest(generate_date_array('2023-01-01', '2024-12-31', interval 1 day))                 as date_day
 )
 
 select

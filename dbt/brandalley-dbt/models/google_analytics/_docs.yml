@@ -124,7 +124,6 @@ models:
     description: "bounce rate per day"
     meta:
       label: 'GA Bounce Rate Daily'
-      group_label: 'KPIs'
     columns:
       - name: logged_date
         description: "Logged Date"
@@ -133,6 +132,11 @@ models:
             label: 'Logged Date'
             type: timestamp
             time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: traffic_channel
+        description: "Traffic Channel"
+        meta:
+          dimension:
+            label: 'Traffic Channel'
       - name: sessions_total
         meta:  
           dimension:
@@ -141,7 +145,18 @@ models:
             sessions_metric:
               label: 'No. of Sessions'
               type: sum
-              description: "Sum of Sessions from Page Views"
+              description: "Sum of Sessions from GA"
+              hidden: false
+              round: 0
+      - name: unique_visitors_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            unique_visitors_metric:
+              label: 'No. of Unique Visitors'
+              type: sum
+              description: "Sum of Unique Visitors from GA"
               hidden: false
               round: 0
       - name: page_views_total
@@ -192,6 +207,22 @@ models:
               sql: 'safe_divide(${sessions_metric} - ${l12_months_avg_sessions_metric},${l12_months_avg_sessions_metric})'
               label: 'L12 Months Average Daily Sessions Comparison %'
               round: 2
+      - name: last_12_months_avg_unique_visitors_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            l12_months_avg_unique_visitors_metric:
+              label: 'L12 Months Average Unique Visitors'
+              type: sum
+              description: "The average of daily unique visitors over the last 12 months from current date, sums over multiple dates"
+              round: 0
+            l12_months_avg_unique_visitors_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${unique_visitors_metric} - ${l12_months_avg_unique_visitors_metric},${l12_months_avg_unique_visitors_metric})'
+              label: 'L12 Months Average Unique Visitors Comparison %'
+              round: 2
       - name: last_12_months_avg_page_views_total
         meta:  
           dimension:
@@ -223,4 +254,169 @@ models:
               format: 'percent'
               sql: 'safe_divide(${bounce_rate_metric} - ${l12_months_avg_bounce_rate_metric},${l12_months_avg_bounce_rate_metric})'
               label: 'L12 Months Average Daily Bounce Rate Comparison %'
-              round: 2     
+              round: 2    
+
+  - name: ga_conversion_rate
+    description: "Conversion rate per day"
+    meta:
+      label: 'GA Conversion Rate'
+    columns:
+      - name: date_aggregation_type
+        description: "Date Aggregation Type"
+        meta:
+          dimension:
+            label: 'Date Aggregation Type'
+      - name: ga_session_at_date
+        description: "Logged Date"
+        meta:
+          dimension:
+            label: 'Logged Date'
+            type: date
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: traffic_channel
+        description: "Traffic Channel"
+        meta:
+          dimension:
+            label: 'Traffic Channel'
+      - name: ga_unique_visits
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            unique_visits_metric:
+              label: 'No. of Unique Visits'
+              type: sum
+              description: "Sum of Unique Visits from GA"
+              hidden: false
+              round: 0
+      - name: ga_unique_visitors
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            unique_visitors_metric:
+              label: 'No. of Unique Visitors'
+              type: sum
+              description: "Sum of Unique Visitors from GA"
+              hidden: false
+              round: 0
+      - name: ga_orders
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            orders_metric:
+              label: 'No. of Orders'
+              type: sum
+              description: "Sum of orders from GA"
+              hidden: false
+              round: 0
+      - name: conversion_rate
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            conversion_rate_metric:
+              label: 'Conversion Rate %'
+              type: average
+              description: "Conversion Rate from Page Views"
+              round: 2
+      - name: last_12_months_avg_conversion_rate
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            l12_months_avg_conversion_rate_metric:
+              label: 'L12 Months Average Daily Conversion Rate'
+              type: average
+              description: "The average Conversion Rate over the last 12 months from current date"
+              round: 2
+            l12_months_avg_conversion_rate_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${conversion_rate_metric} - ${l12_months_avg_conversion_rate_metric},${l12_months_avg_conversion_rate_metric})'
+              label: 'L12 Months Average Conversion Rate Comparison %'
+              round: 2
+
+  - name: ga_new_customers
+    description: "New Customers and Registrations per day"
+    meta:
+      label: 'GA New Customers'
+    columns:
+      - name: logged_date
+        description: "Logged Date"
+        meta:
+          dimension:
+            label: 'Logged Date'
+            type: date
+            time_intervals: ['RAW', 'SECOND', 'MINUTE', 'HOUR', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+      - name: traffic_channel
+        description: "Traffic Channel"
+        meta:
+          dimension:
+            label: 'Traffic Channel'
+      - name: total_new_customers
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            total_new_customers_metric:
+              label: 'Sum of New Customers'
+              type: sum
+              description: "Sum of New Customers from GA"
+              hidden: false
+              round: 0
+      - name: total_new_registrations
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            total_new_registrations_metric:
+              label: 'Sum of New Registrations'
+              type: sum
+              description: "Sum of New Registrations from GA"
+              hidden: false
+              round: 0
+      - name: last_12_months_avg_new_customers_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            l12_months_avg_new_customers_metric:
+              label: 'L12 Months Average Daily New Customers'
+              type: average
+              description: "The average daily new customers over the last 12 months from current dat from GA"
+              round: 0
+            l12_months_avg_new_customers_sum_metric:
+              label: 'L12 Months Average New Customers per day'
+              type: sum
+              description: "The average daily new customers over the last 12 months from current dat from GA"
+              round: 0
+            l12_months_avg_new_customers_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_customers_metric} - ${l12_months_avg_new_customers_metric},${l12_months_avg_new_customers_metric})'
+              label: 'L12 Months Average New Customers Comparison %'
+              round: 2
+      - name: last_12_months_avg_new_registrations_total
+        meta:  
+          dimension:
+            hidden: true
+          metrics:
+            l12_months_avg_new_registrations_metric:
+              label: 'L12 Months Average Daily New Registrations'
+              type: average
+              description: "The average daily new registrations over the last 12 months from current dat from GA"
+              round: 0
+            l12_months_avg_new_registrations_sum_metric:
+              label: 'L12 Months Average New Registrations per day'
+              type: sum
+              description: "The average daily new registrations over the last 12 months from current dat from GA"
+              round: 0
+            l12_months_avg_new_registrations_comparison_metric:
+              type: number
+              format: 'percent'
+              sql: 'safe_divide(${total_new_registrations_metric} - ${l12_months_avg_new_registrations_metric},${l12_months_avg_new_registrations_metric})'
+              label: 'L12 Months Average New Registrations Comparison %'
+              round: 2
+      

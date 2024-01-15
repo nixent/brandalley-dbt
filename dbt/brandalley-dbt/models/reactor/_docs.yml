@@ -109,44 +109,64 @@ models:
           dimension:
             label: 'Stock Type'
 
-  - name: stock_exited
+  - name: stg__reactor_goods_in_checked_date
     description: ""
     columns:
-      - name: logged_date
+      - name: po_id
+        meta:
+          dimension:
+            label: 'PO ID'
+          metrics:
+            goods_in_pos:
+              label: 'Goods In POs'
+              type: count_distinct
+              description: 'Number of POs Checked in'
+              round: 0
+      - name: sku
+        meta:
+          dimension:
+            label: 'Magento SKU'
+      - name: date_arrived
         meta:
           dimension:
             type: date
             time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
-            label: 'Logged Date'
-      - name: reactor_sku
+            label: 'Arrived Date'
+      - name: qty_arrived
         meta:
           dimension:
-            label: 'Reactor Sku'
-            type: string
-      - name: magento_sku
-        meta:
-          dimension:
-            label: 'Magento Sku'
-      - name: qty_exited
-        meta:
-          dimension:
-            hidden: true
+            label: 'Qty Arrived'
           metrics:
-            qty_exited_metric:
+            goods_in_qty_sum:
+              label: 'Goods In Qty'
               type: sum
-              label: 'Qty Exited'
-      - name: unit_cost
+              description: 'Number of Units Checked in'
+              round: 0
+            x_dock_goods_in_qty_sum:
+              label: 'X Dock Goods In Qty'
+              type: sum
+              description: 'Number of X Dock units checked in'
+              sql: "if(${stock_type} = 'X Dock', ${qty_arrived}, 0)"
+              round: 0
+            pct_of_goods_in_x_dock:
+              label: '% X Dock Goods In'
+              type: number
+              format: 'percent'
+              description: 'Percent of units checked in which are x dock'
+              sql: "safe_divide(${x_dock_goods_in_qty_sum},${goods_in_qty_sum})"
+              round: 2
+      - name: supplier
         meta:
           dimension:
-            label: 'Unit Cost'
-      - name: exit_route
+            label: 'Supplier'
+      - name: company
         meta:
           dimension:
-            label: 'Exit Route'
-      - name: exit_details
+            label: 'Company'
+      - name: stock_type
         meta:
           dimension:
-            label: 'Exit Details'
+            label: 'Stock Type'
 
   - name: delivery_consignment
     description: ""
@@ -178,11 +198,23 @@ models:
               description: 'Number of Items Dispatched'
               sql: "if(${status} = 'Shipped', ${units_qty}, 0)"
               round: 0
+            value_dispatched_sum:
+              label: 'Value Dispatched'
+              type: sum
+              description: 'Value of Items Dispatched'
+              sql: "if(${status} = 'Shipped', ${units_qty}*${unit_cost}, 0)"
+              round: 0
             express_units_dispatched_sum:
               label: 'Express Units Dispatched'
               type: sum
               description: 'Number of Express Items Dispatched'
               sql: "if(${status} = 'Shipped' and ${service_level} = 'Express', ${units_qty}, 0)"
+              round: 0
+            express_value_dispatched_sum:
+              label: 'Express Value Dispatched'
+              type: sum
+              description: 'Value of Express Items Dispatched'
+              sql: "if(${status} = 'Shipped' and ${service_level} = 'Express', ${units_qty}*${unit_cost}, 0)"
               round: 0
       - name: delivery_consignment_id
         meta:
@@ -209,10 +241,16 @@ models:
               sql: "safe_divide(${express_shipments_dispatched_sum},${shipments_dispatched_sum})"
               round: 0
             average_units_per_shipment:
-              label: 'Shipments Dispatched'
+              label: 'Average Units per Shipment'
               type: number
-              description: 'Number of Shipments Dispatched'
+              description: Average Units per Shipment'
               sql: "safe_divide(${units_dispatched_sum},${shipments_dispatched_sum})"
+              round: 2
+            average_value_per_shipment:
+              label: 'Average Value per Shipment'
+              type: number
+              description: Average Value per Shipment'
+              sql: "safe_divide(${value_dispatched_sum},${shipments_dispatched_sum})"
               round: 2
       - name: delivery_type
         meta:
@@ -357,6 +395,12 @@ models:
               description: 'Number of Units Returned'
               sql: "if(${completed} = 'Returned', ${quantity}, 0)"
               round: 0
+            returned_value_sum:
+              label: 'Returns Value Processed'
+              type: sum
+              description: 'Value of Units Returned'
+              sql: "if(${completed} = 'Returned', ${quantity}*${unit_cost}, 0)"
+              round: 0
             outstanding_units_sum:
               label: 'Outstanding Units'
               type: sum
@@ -391,6 +435,12 @@ models:
               description: 'Number of Resaleable Units Returned'
               sql: "if(${completed} = 'Returned', ${resaleable_qty}, 0)"
               round: 0
+            resaleable_value_sum:
+              label: 'Resaleable Value Processed'
+              type: sum
+              description: 'Value of Resaleable Units Returned'
+              sql: "if(${completed} = 'Returned', ${resaleable_qty}*${unit_cost}, 0)"
+              round: 0
       - name: damaged_qty
         meta:
           dimension:
@@ -401,6 +451,12 @@ models:
               type: sum
               description: 'Number of Damaged Units Returned'
               sql: "if(${completed} = 'Returned', ${damaged_qty}, 0)"
+              round: 0
+            damaged_value_sum:
+              label: 'Damaged Value Processed'
+              type: sum
+              description: 'Value of Damaged Units Returned'
+              sql: "if(${completed} = 'Returned', ${damaged_qty}*${unit_cost}, 0)"
               round: 0
       - name: created_at_date
         meta:
@@ -486,10 +542,27 @@ models:
         meta:
           dimension:
             label: 'Qty Received'
+      - name: qty_newly_received
+        meta:
+          dimension:
+            type: number
+            label: 'Qty Newly Received'
       - name: qty_outstanding
         meta:
           dimension:
-            label: 'Qty Outstanding'      
+            label: 'Qty Outstanding'
+      - name: value_ordered
+        meta:
+          dimension:
+            label: 'Value Ordered'
+      - name: value_received
+        meta:
+          dimension:
+            label: 'Value Received'
+      - name: value_outstanding
+        meta:
+          dimension:
+            label: 'Value Outstanding'      
       - name: supplier
         meta:
           dimension:
@@ -643,6 +716,8 @@ models:
       joins:
         - join: box_names
           sql_on: ${box_stock_locations.box_id} = ${box_names.box_id}
+        - join: stocklist_product_info
+          sql_on: ${box_stock_locations.reactor_sku_id} = ${stocklist_product_info.reactor_sku}
     columns:
       - name: logged_date
         meta:
@@ -690,6 +765,24 @@ models:
               label: 'Total Qty Available'
               type: sum
               description: 'Sum of total available qty'
+      - name: unsellable_good
+        meta:
+          dimension:
+            label: 'Qty Unsellable Location'
+          metrics:
+            qty_unsellable_good_sum:
+              label: 'Total Unsellable Location'
+              type: sum
+              description: 'Sum of total qty in an unsellable location'
+      - name: unsellable_bad
+        meta:
+          dimension:
+            label: 'Qty Unsellable Damaged'
+          metrics:
+            qty_unsellable_bad_sum:
+              label: 'Total Qty Unsellable Damaged'
+              type: sum
+              description: 'Sum of total available qty in an unsellable damaged location'
 
   - name: warehouse_kpis_daily
     description: ""
@@ -1408,3 +1501,152 @@ models:
               label: 'L4W Damaged Units Processed Comparison %'
               group_label: 'Returns KPIs'
               round: 2
+
+  - name: stock_adjustments
+    description: ""
+    columns:
+      - name: movement_type
+        meta:
+          dimension:
+            label: 'Movement Type'
+      - name: logged_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Logged Date'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: reactor_sku
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: qty_change
+        meta:
+          dimension:
+            label: 'Qty Difference'
+          metrics:
+            qty_sum:
+              label: 'Total Qty Difference'
+              type: sum
+              description: 'Sum of total qty'
+            stock_exits_qty_sum:
+              label: 'Stock Exit Difference'
+              type: sum
+              description: 'Sum of qty from stock exit logs'
+              sql: 'if(${movement_type} = "Stock Exit" , ${qty_change}, 0)'
+            manual_updates_qty_sum:
+              label: 'Manual Update Difference'
+              type: sum
+              description: 'Sum of qty from manual update logs'
+              sql: 'if(${movement_type} = "Manual Update" , ${qty_change}, 0)'
+            sor_qty_sum:
+              label: 'SOR Stock Adjustments Difference'
+              type: sum
+              description: 'Sum of qty from SOR Stock Adjustments'
+              sql: 'if(${movement_type} = "SOR Stock Adjustment" , ${qty_change}, 0)'
+            sample_order_qty_sum:
+              label: 'Sample Order Difference'
+              type: sum
+              description: 'Sum of qty from Sample Orders'
+              sql: 'if(${movement_type} = "Sample Order" , ${qty_change}, 0)'
+            office_sample_order_qty_sum:
+              label: 'Sample Order Office Difference'
+              type: sum
+              description: 'Sum of qty from Sample Orders to the office'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Office%" , ${qty_change}, 0)'
+            influencer_sample_order_qty_sum:
+              label: 'Sample Order Influencer Difference'
+              type: sum
+              description: 'Sum of qty from Sample Orders to influencers'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Influencer%" , ${qty_change}, 0)'
+            ad_hoc_locate_qty_sum:
+              label: 'Ad-hoc Locate Difference'
+              type: sum
+              description: 'Sum of qty from ad-hoc locate logs'
+              sql: 'if(${movement_type} = "Ad-hoc Locate" , ${qty_change}, 0)'
+            stock_check_qty_sum:
+              label: 'Stock Check Difference'
+              type: sum
+              description: 'Sum of qty from stock check adjustments'
+              sql: 'if(${movement_type} = "Stock Check" , ${qty_change}, 0)'
+            reallocation_qty_sum:
+              label: 'Reallocation to Box Difference'
+              type: sum
+              description: 'Sum of qty from reallocation adjustments'
+              sql: 'if(${movement_type} = "Reallocation to Box" , ${qty_change}, 0)'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+          metrics:
+            value_sum:
+              label: 'Total Value Difference'
+              type: sum
+              description: 'Sum of total value'
+              sql: '${qty_change}*${unit_cost}'
+              round: 0
+            stock_exits_value_sum:
+              label: 'Stock Exit Difference Value'
+              type: sum
+              description: 'Sum of value from stock exit logs'
+              sql: 'if(${movement_type} = "Stock Exit" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            manual_updates_value_sum:
+              label: 'Manual Update Difference Value'
+              type: sum
+              description: 'Sum of value from manual update logs'
+              sql: 'if(${movement_type} = "Manual Update" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            sor_value_sum:
+              label: 'SOR Stock Adjustments Difference Value'
+              type: sum
+              description: 'Sum of value from SOR Stock Adjustments'
+              sql: 'if(${movement_type} = "SOR Stock Adjustment" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            sample_order_value_sum:
+              label: 'Sample Order Difference Value'
+              type: sum
+              description: 'Sum of value from Sample Orders'
+              sql: 'if(${movement_type} = "Sample Order" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            office_sample_order_value_sum:
+              label: 'Sample Order Office Difference Value'
+              type: sum
+              description: 'Sum of value from Sample Orders to the office'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Office%" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            influencer_sample_order_value_sum:
+              label: 'Sample Order Influencer Difference Value'
+              type: sum
+              description: 'Sum of value from Sample Orders to influencers'
+              sql: 'if(${movement_type} = "Sample Order" and ${reason} like "%Influencer%" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            ad_hoc_locate_value_sum:
+              label: 'Ad-hoc Locate Difference Value'
+              type: sum
+              description: 'Sum of value from ad-hoc locate logs'
+              sql: 'if(${movement_type} = "Ad-hoc Locate" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            stock_check_value_sum:
+              label: 'Stock Check Difference Value'
+              type: sum
+              description: 'Sum of value from stock check adjustments'
+              sql: 'if(${movement_type} = "Stock Check" , ${qty_change}*${unit_cost}, 0)'
+              round: 0
+            reallocation_value_sum:
+              label: 'Reallocation to box Difference Value'
+              type: sum
+              description: 'Sum of value from reallocation adjustments'
+              sql: 'if(${movement_type} = "Reallocation to Box" , ${qty_change}*${unit_cost}, 0)'
+              round: 2
+      - name: reason
+        meta:
+          dimension:
+            label: 'Reason'
+      - name: details
+        meta:
+          dimension:
+            label: 'Details'

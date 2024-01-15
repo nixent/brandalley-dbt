@@ -197,13 +197,15 @@ with order_lines as (
 				or cceh.name is null
 			then 'Outlet'
 			else cceh.name
-		end 																																				as category_name,
+		end																																				as category_name,
+		ccfse.path_name,
 		case
 			when vs.brand is not null then pcd.product_department
-			when lower(ccfse.path_name) like '%>clearance>%' then 'Clearance'
+			when lower(ccfse.path_name) like '%>clearance>%' and date(sfo.created_at) not between '2023-12-22' and '2023-12-31' then 'Clearance'
 			when eaov_brand.value = 'DockATot' then 'Decorative Home'
 		    when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
 			when lower(cceh.name) = 'outlet' then 'Outlet'
+			when lower(eaov_brand.value) in ('rossignol', 'rains', 'dare2b', 'strobe skiwear') then 'RTW'
 			when cceh.name is not null then pcd.product_department
 			else 'Outlet'
 		end 																																				as department_type,

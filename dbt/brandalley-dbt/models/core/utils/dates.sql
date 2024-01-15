@@ -24,10 +24,11 @@ select
     date_sub(c1.date_day, interval 1 year)     as last_year, 
     date_sub(c1.date_day, interval 1 month)    as last_month, 
     date_sub(c1.date_day, interval 1 week)     as last_week,
-    c2.date_day                                as last_year_same_day,
+    -- override for New Year
+    if(c1.date_day = last_day(c1.date_day, year) and c2.date_day is null, date_trunc(c1.date_day, year), c2.date_day)                                as last_year_same_day,
     if(c1.date_day > date_sub(current_date, interval 1 year) and c1.date_day < current_date, True, False) as last_12_months_flag,
     if(c1.date_day <= current_date, True, False) as up_to_current_date_flag 
  from cal c1
- inner join cal c2 
-  on c1.year = c2.year+1 and c1.week_num = c2.week_num and c1.weekday_name = c2.weekday_name
+ left join cal c2 
+  on c1.year = c2.year+1 and c1.week_num = c2.week_num and c1.weekday_name = c2.weekday_name and date_diff(c1.date_day, c2.date_day, month) < 15
 order by c1.date_day desc

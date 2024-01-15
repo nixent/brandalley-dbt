@@ -421,7 +421,7 @@ models:
         - join: shipments
           sql_on: ${shipment_items.parent_id} = ${shipments.entity_id} and ${OrderLines.ba_site} = ${shipments.ba_site}
         - join: shipping
-          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku} and ${OrderLines.ba_site} = ${shipping.ba_site}
+          sql_on: ${Orders.increment_id} = ${shipping.order_id} and ${OrderLines.sku} = ${shipping.sku} and ${OrderLines.ba_site} = ${shipping.ba_site} and ${shipments.increment_id} = ${shipping.shipment_id}
         - join: catalog_product_negotiation_item
           sql_on: ${OrderLines.nego} = ${catalog_product_negotiation_item.negotiation_id} and ${OrderLines.sku} = ${catalog_product_negotiation_item.sku} and ${OrderLines.ba_site} = ${catalog_product_negotiation_item.ba_site}
         - join: customers_enriched 
@@ -1183,16 +1183,46 @@ models:
         meta:
           dimension:
             group_label: 'Product Details'
+          metrics:
+            level_1_category_count:
+              type: count_distinct
+              group_label: 'Product Details'
+              label: 'Level 1 Total Categories'
+            level_1_categories_distinct:
+              type: string
+              sql: 'string_agg(distinct product_category_level_1)'
+              group_label: 'Product Details'
+              label: 'Level 1 Product Categories'
       - name: product_category_level_2
         description: "Second highest level of product category"
         meta:
           dimension:
             group_label: 'Product Details'
+          metrics:
+            level_2_category_count:
+              type: count_distinct
+              group_label: 'Product Details'
+              label: 'Level 2 Total Categories'
+            level_2_categories_distinct:
+              type: string
+              sql: 'string_agg(distinct product_category_level_2)'
+              group_label: 'Product Details'
+              label: 'Level 2 Product Categories'
       - name: product_category_level_3
         description: "Lowest level of product category"
         meta:
           dimension:
             group_label: 'Product Details'
+          metrics:
+            level_3_category_count:
+              type: count_distinct
+              group_label: 'Product Details'
+              label: 'Level 3 Total Categories'
+            level_3_categories_distinct:
+              type: string
+              sql: 'string_agg(distinct product_category_level_3)'
+              group_label: 'Product Details'
+              label: 'Level 3 Product Categories'
       # - name: TOTAL_GBP_after_vouchers
       - name: total_local_currency_after_vouchers
         meta:

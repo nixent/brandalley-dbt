@@ -16,6 +16,11 @@ with products as (
         eaov_pt.value                                   as product_type,
         eaov_availability.value                         as availability,
         cped_outletprice.value                          as outlet_price,
+        case
+			when eaov_brand.value = 'DockATot' then 'Decorative Home'
+		    when eaov_brand.value = 'N°· Eleven' then 'Own Brand'
+			else pcd.product_department
+		end                          as department_type,
         eaov_color.value                                as color,
         eaov_size.value                                 as size,
         if(csi_child.qty > 0, csi_child.qty, csi.qty)   as stock,
@@ -236,6 +241,8 @@ with products as (
             and cpei_visibility.attribute_id = 102
             and cpei_visibility.store_id = 0
             and cpe.ba_site = cpei_visibility.ba_site
+    left join {{ ref('product_category_department') }} pcd
+		on lower(cpev_outletcat.value) = lower(pcd.product_category_path)
     where cpe.type_id = 'configurable' and cpe_child.sku is not null
 )
 
