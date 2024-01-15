@@ -342,11 +342,21 @@ models:
         meta:
           dimension:
             group_label: 'Prices'
+      - name: sale_price_tax_amount
+        description: ""
+        meta:
+          dimension:
+            group_label: 'Prices'
       - name: cost
         description: ""
         meta:
           dimension:
             label: 'Product Cost'
+      - name: product_margin
+        description: ""
+        meta:
+          dimension:
+            label: 'Prices'
       - name: tax_class
         description: ""
       - name: updated_at
@@ -708,6 +718,7 @@ models:
             total_stock_special_price:
               type: sum
               sql: '${special_price}*${qty}'
+              label: 'Total Flash Price'
               round: 2
       - name: outlet_price
         description: "Outlet price, nullable"
