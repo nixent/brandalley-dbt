@@ -356,7 +356,7 @@ models:
         description: ""
         meta:
           dimension:
-            label: 'Prices'
+            label: 'Product Margin'
       - name: tax_class
         description: ""
       - name: updated_at
