@@ -542,11 +542,6 @@ models:
         meta:
           dimension:
             label: 'Qty Received'
-      - name: qty_newly_received
-        meta:
-          dimension:
-            type: number
-            label: 'Qty Newly Received'
       - name: qty_outstanding
         meta:
           dimension:
@@ -563,6 +558,77 @@ models:
         meta:
           dimension:
             label: 'Value Outstanding'      
+      - name: supplier
+        meta:
+          dimension:
+            label: 'Supplier'
+      - name: stock_type
+        meta:
+          dimension:
+            label: 'Stock Type'
+      - name: unit_cost
+        meta:
+          dimension:
+            label: 'Unit Cost'
+      - name: whistl_stock_type
+        meta:
+          dimension:
+            label: 'Whistl Stock Type'
+
+  - name: reactor_purchase_orders_logs
+    description: ""
+    columns:
+      - name: po_number
+        meta:
+          dimension:
+            label: 'PO Number'
+      - name: reactor_sku
+        meta:
+          dimension:
+            label: 'Reactor Sku'
+      - name: magento_sku
+        meta:
+          dimension:
+            label: 'Magento Sku'
+      - name: productname
+        meta:
+          dimension:
+            label: 'Product Name'
+      - name: created_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Created Date'
+      - name: arrived_date
+        meta:
+          dimension:
+            type: date
+            time_intervals: ['RAW', 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR', 'DAY_OF_WEEK_NAME', 'MONTH_NAME', 'QUARTER_NAME']
+            label: 'Arrived Date'
+      - name: status
+        meta:
+          dimension:
+            label: 'Status'
+      - name: newly_received_qty
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            newly_received_qty_metric:
+              type: sum
+              label: 'Newly Received Qty'
+              description: 'Sum of newly received qty at arrival date'
+      - name: newly_received_value
+        meta:
+          dimension:
+            hidden: true
+          metric:
+            newly_received_value_metric:
+              type: sum
+              label: 'Newly Received Value'
+              description: 'Sum of newly received value at arrival date'
+              round: 2
       - name: supplier
         meta:
           dimension:
