@@ -201,7 +201,7 @@ models:
               sql: "if(${refund_reason} = 'Out of stock', ${qty}, 0)"
               round: 0
             creditmemo_qty_refunded:
-              label: Total Refunded Units'
+              label: 'Total Refunded Units'
               type: sum
               description: 'Number of Units Refunded'
               round: 0
@@ -216,10 +216,11 @@ models:
         meta: 
           metrics:
             creditmemo_refund_total:
-              label: 'Total Refund Items Amount'
+              label: 'Total Item Refunded Amount'
               type: sum
               description: "Total Item Refunded Amount Incl Tax"
               round: 2
+              sql: '${row_total_incl_tax} - ${discount_amount}'
       - name: product_id
         description: "Product id, nullable"
         meta:
