@@ -583,8 +583,6 @@ models:
       - name: qty_invoiced
         description: "Quantity invoiced, nullable"
         meta:
-          dimension:
-            hidden: true
           metrics:
             qty_invoiced_metric:
               label: 'Total Invoiced Units'
