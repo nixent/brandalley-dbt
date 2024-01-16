@@ -27,7 +27,7 @@ select
     c.legacy_id as magento_sku,
     d.productname as productname,
     date(timestamp_seconds(a.ordertime)) as created_date,
-    date(timestamp_seconds(a.ordertime)) as arrived_date,
+    date(timestamp_seconds(a.arrivedtime)) as arrived_date,
     case
         when a.orderquantity = a.receivedquantity
         then 'fulfilled'
