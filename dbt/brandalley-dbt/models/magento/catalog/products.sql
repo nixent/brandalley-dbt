@@ -26,6 +26,7 @@ with products as (
         if(csi_child.qty > 0, csi_child.qty, csi.qty)   as stock,
         cped_price.value                                as price,
         cped_sprice.value                               as sale_price,
+        if(tc.class_id = 2, round(cped_sprice.value * 0.2,2),0) as sale_price_tax_amount,
         cped_cost.value                                 as cost,
         tc.class_name                                   as tax_class,
         timestamp(cpe.updated_at)                       as updated_at,
@@ -248,6 +249,7 @@ with products as (
 
 select
     *,
+    sale_price - sale_price_tax_amount - cost            as product_margin,
     initcap(split(outlet_category, '>')[safe_offset(0)]) as product_category_level_1, 
 	initcap(split(outlet_category, '>')[safe_offset(1)]) as product_category_level_2,
 	initcap(split(outlet_category, '>')[safe_offset(2)]) as product_category_level_3
