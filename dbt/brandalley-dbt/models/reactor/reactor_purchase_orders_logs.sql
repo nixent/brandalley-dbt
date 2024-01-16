@@ -41,7 +41,7 @@ left join {{ ref("stg__stockist") }} b on a.supplierid = b.stockistid
 left join {{ ref("stg__stocklist") }} c on a.stockid = c.id
 left join {{ ref("stg__product") }} d on c.productid = d.productid
 qualify row_number() over (
-                partition by purchaseid, stockid order by 3,4,5,6,7,8,9,10
+                partition by purchaseid, stockid order by a._streamkap_loaded_at_ts desc
             )
             = 1
 )
