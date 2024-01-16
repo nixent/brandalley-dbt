@@ -614,7 +614,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             newly_received_qty_metric:
               type: sum
               label: 'Newly Received Qty'
@@ -623,7 +623,7 @@ models:
         meta:
           dimension:
             hidden: true
-          metric:
+          metrics:
             newly_received_value_metric:
               type: sum
               label: 'Newly Received Value'
