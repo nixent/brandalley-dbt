@@ -220,7 +220,7 @@ models:
               type: sum
               description: "Total Item Refunded Amount Incl Tax"
               round: 2
-              sql: '${row_total_incl_tax} - ${discount_amount}'
+              sql: '${row_total_incl_tax} - coalesce(${discount_amount}, 0)'
       - name: product_id
         description: "Product id, nullable"
         meta:
