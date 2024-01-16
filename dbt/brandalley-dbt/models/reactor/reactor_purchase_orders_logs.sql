@@ -48,7 +48,7 @@ qualify row_number() over (
 select
     cast(a.purchaseid as string) as po_number,
     cast(a.stockid as string) as reactor_sku,
-    date(timestamp_seconds(a.timestamp)) as arrival_date,
+    date(timestamp_seconds(a.timestamp)) as arrived_date,
     sum(newly_received_quantity) as newly_received_qty,
     sum(newly_received_quantity*unit_cost) as newly_received_value,
     magento_sku,
