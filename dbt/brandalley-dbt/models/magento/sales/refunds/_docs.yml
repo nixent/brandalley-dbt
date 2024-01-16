@@ -177,10 +177,9 @@ models:
         meta: 
           metrics:
             creditmemo_row_total:
-              label: 'Row total'
+              label: 'Total Refund Items Excl Tax'
               type: sum
-              description: "Row total from credit memo"
-              hidden: false  
+              description: "Total Item Refunded Amount Excl Tax"
               round: 2
       - name: base_discount_amount
         description: "Base discount amount, nullable"
@@ -201,6 +200,11 @@ models:
               description: 'Number of Units Cancelled in Warehouse'
               sql: "if(${refund_reason} = 'Out of stock', ${qty}, 0)"
               round: 0
+            creditmemo_qty_refunded:
+              label: Total Refunded Units'
+              type: sum
+              description: 'Number of Units Refunded'
+              round: 0
       - name: base_cost
         description: "Base cost, nullable"
       - name: price
@@ -209,6 +213,13 @@ models:
         description: "Base row total incl tax, nullable"
       - name: row_total_incl_tax
         description: "Row total incl tax, nullable"
+        meta: 
+          metrics:
+            creditmemo_refund_total:
+              label: 'Total Refund Items Amount'
+              type: sum
+              description: "Total Item Refunded Amount Incl Tax"
+              round: 2
       - name: product_id
         description: "Product id, nullable"
         meta:
