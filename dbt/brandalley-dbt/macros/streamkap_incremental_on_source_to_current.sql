@@ -99,6 +99,5 @@ qualify ROW_NUMBER() over (
             GROUP BY {% if id_field is string %}{{ id_field }}{% else %}{{ id_field | join(', ') }}{% endif %})
     AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), {{ order_time_field }}, DAY) > 7;
     {% endset %}
-    {{ log(cleanup_streamkap_records, True) }}
     {% do run_query(cleanup_streamkap_records) %}
 {% endmacro -%}
