@@ -59,28 +59,22 @@ AND {{insert_time_field}} >= ((
     FROM
         {{ this }}
 ) - 1000000)
-{% endif %}
+{%- endif %}
 qualify ROW_NUMBER() over (
-    {% if id_field is string %}
+    {%- if id_field is string %}
     PARTITION BY 
         {{ id_field }}
-    {% else %}
-    PARTITION BY 
-        {% if id_field is string %}
-    PARTITION BY 
-        {{ id_field }}
-    {% else %}
+    {%- else %}
     PARTITION BY 
         {{ id_field | join(', ') }}
-    {% endif %}
-    {% endif %}
-    {% if order_offset_field == '' %}
+    {%- endif %}
+    {%- if order_offset_field == '' %}
     ORDER BY 
         {{ order_time_field }} DESC
-    {% else %}
+    {%- else %}
     ORDER BY 
         {{ order_time_field }} DESC, {{order_offset_field}} DESC
-    {% endif %}
+    {%- endif %}
 ) = 1
 
  {% set cleanup_streamkap_records %}
@@ -99,5 +93,5 @@ qualify ROW_NUMBER() over (
             GROUP BY {% if id_field is string %}{{ id_field }}{% else %}{{ id_field | join(', ') }}{% endif %})
     AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), {{ order_time_field }}, DAY) > 7;
     {% endset %}
-    {% do run_query(cleanup_streamkap_records) %}
-{% endmacro -%}
+    {% do run_query(cleanup_streamkap_records )%}
+{%- endmacro -%}
