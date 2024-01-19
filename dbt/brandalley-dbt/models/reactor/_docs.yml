@@ -498,6 +498,10 @@ models:
         meta:
           dimension:
             label: 'Tracking Number'
+      - name: brand
+        meta:
+          dimension:
+            label: 'Brand'
 
   - name: reactor_purchase_orders
     description: ""
